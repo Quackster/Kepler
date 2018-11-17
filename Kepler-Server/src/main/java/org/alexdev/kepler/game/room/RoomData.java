@@ -77,6 +77,10 @@ public class RoomData {
             return;
         }
 
+        if (this.model.equals("gate_park")) {
+            this.childRooms.add(RoomManager.getInstance().getRoomByModel("gate_park_2"));
+        }
+
         if (this.model.equals("rooftop")) {
             this.childRooms.add(RoomManager.getInstance().getRoomByModel("rooftop_2"));
         }
@@ -338,5 +342,9 @@ public class RoomData {
 
     public void setGameLobby(String gameLobby) {
         this.gameLobby = gameLobby;
+    }
+
+    public List<Room> getChildRooms() {
+        return childRooms;
     }
 }

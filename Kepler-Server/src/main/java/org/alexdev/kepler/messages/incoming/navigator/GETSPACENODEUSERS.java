@@ -16,6 +16,14 @@ public class GETSPACENODEUSERS implements MessageEvent {
             return;
         }
 
-        player.send(new NODESPACEUSERS(room.getEntityManager().getPlayers()));
+        var players = room.getEntityManager().getPlayers();
+
+        if (room.getData().getChildRooms().size() > 0) {
+            for (Room childRoom : room.getData().getChildRooms()) {
+                players.addAll(childRoom.getEntityManager().getPlayers());
+            }
+        }
+
+        player.send(new NODESPACEUSERS(players));
     }
 }
