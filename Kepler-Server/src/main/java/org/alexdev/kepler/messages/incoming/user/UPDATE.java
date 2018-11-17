@@ -12,13 +12,13 @@ public class UPDATE implements MessageEvent {
         if (!player.isLoggedIn()) {
             return;
         }
-        
+
         for (int i = 0; i < 3; i++) {
-            if (reader.contents().length() <= 0) {
+            if (reader.remainingBytes().length <= 0) {
                 continue;
             }
 
-            int updateId = reader.readInt();
+            int updateId = reader.readBase64();
 
             if (updateId == 4) {
                 String figure = StringUtil.filterInput(reader.readString(), true);

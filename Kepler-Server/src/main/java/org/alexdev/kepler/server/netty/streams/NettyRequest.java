@@ -54,7 +54,7 @@ public class NettyRequest {
         return payload;
     }
 
-    private byte[] remainingBytes() {
+    public byte[] remainingBytes() {
         this.buffer.markReaderIndex();
 
         byte[] bytes = new byte[this.buffer.readableBytes()];
