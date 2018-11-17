@@ -245,6 +245,7 @@ public class MessageHandler {
         registerEvent(105, new BTCKS());
         registerEvent(106, new DIVE());
         registerEvent(107, new SPLASH_POSITION());
+        registerEvent(104, new SIGN());
     }
 
     /**

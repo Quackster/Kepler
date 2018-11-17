@@ -24,6 +24,7 @@ public class RoomPlayer extends RoomEntity {
     private int authenticateId;
     private int authenticateTelporterId;
     private int observingGameId;
+    private int lidoVote;
 
     private boolean isTyping;
     private boolean isDiving;
@@ -49,6 +50,7 @@ public class RoomPlayer extends RoomEntity {
         this.isTyping = false;
         this.isDiving = false;
         this.observingGameId = -1;
+        this.lidoVote = 0;
         RoomTradeManager.close(this);
     }
 
@@ -208,5 +210,13 @@ public class RoomPlayer extends RoomEntity {
 
     public void setObservingGameId(int observingGameId) {
         this.observingGameId = observingGameId;
+    }
+
+    public int getLidoVote() {
+        return lidoVote;
+    }
+
+    public void setLidoVote(int lidoVote) {
+        this.lidoVote = lidoVote;
     }
 }

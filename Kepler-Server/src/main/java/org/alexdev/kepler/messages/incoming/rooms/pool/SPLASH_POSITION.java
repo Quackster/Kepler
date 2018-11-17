@@ -10,6 +10,7 @@ import org.alexdev.kepler.messages.outgoing.rooms.items.SHOWPROGRAM;
 import org.alexdev.kepler.messages.outgoing.rooms.user.USER_STATUSES;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
+import org.alexdev.kepler.util.StringUtil;
 
 import java.util.List;
 
@@ -49,5 +50,31 @@ public class SPLASH_POSITION implements MessageEvent {
         player.getRoomUser().walkTo(20, 19);
 
         currentItem.showProgram("open");
+
+        int total = 0;
+        int sum = 0;
+        double finalScore;
+
+        for (Player p : room.getEntityManager().getPlayers()) {
+            if (p.getDetails().getId() == player.getDetails().getId()) {
+                continue;
+            }
+
+            if (p.getRoomUser().getLidoVote() > 0) {
+                sum += p.getRoomUser().getLidoVote();
+                total++;
+            }
+        }
+
+        room.send(new SHOWPROGRAM(new String[]{"cam1", "targetcamera", String.valueOf(player.getRoomUser().getInstanceId())}));
+
+        if (total > 0) {
+            finalScore = StringUtil.format((double) sum / total);
+            room.send(new SHOWPROGRAM(new String[]{"cam1", "showtext", (player.getDetails().getName() + "'s score: " + finalScore)}));
+        }
+
+        for (Player p : room.getEntityManager().getPlayers()) {
+            p.getRoomUser().setLidoVote(0);
+        }
     }
 }
