@@ -108,6 +108,7 @@ public class MessageHandler {
         registerEvent(196, new PONG());
         registerEvent(26, new GET_CLUB());
         registerEvent(190, new SUBSCRIBE_CLUB());
+        registerEvent(44, new UPDATE());
         //registerEvent(315, new TEST_LATENCY());
     }
 
