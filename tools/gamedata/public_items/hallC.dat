@@ -1,0 +1,15 @@
+958 table_chess_king 12 13 1 0 
+959 table_chess 13 6 1 0 
+960 table_chess 2 8 1 0 
+961 table_chess 5 14 1 2 
+962 table_chess 8 3 1 2 
+963 chess_king_chair 12 14 1 0 
+964 chess_king_chair 12 12 1 4 
+965 gamehall_chair_green 13 7 1 0 
+966 gamehall_chair_green 13 5 1 4 
+967 gamehall_chair_green 2 9 1 0 
+968 gamehall_chair_green 2 7 1 4 
+969 gamehall_chair_green 4 14 1 2 
+970 gamehall_chair_green 6 14 1 6 
+971 gamehall_chair_green 7 3 1 2 
+972 gamehall_chair_green 9 3 1 6 
