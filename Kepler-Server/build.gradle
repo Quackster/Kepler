@@ -42,13 +42,13 @@ dependencies {
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
 
     // https://mvnrepository.com/artifact/com.zaxxer/HikariCP
-    implementation group: 'com.zaxxer', name: 'HikariCP', version: '2.7.1'
+    implementation group: 'com.zaxxer', name: 'HikariCP', version: '2.7.4'
 
     // https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client
-    implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.2.5'
+    implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.3.0'
 
     // https://mvnrepository.com/artifact/io.netty/netty-all
-    implementation group: 'io.netty', name: 'netty-all', version: '4.1.27.Final'
+    implementation group: 'io.netty', name: 'netty-all', version: '4.1.32.Final'
 
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
     implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'

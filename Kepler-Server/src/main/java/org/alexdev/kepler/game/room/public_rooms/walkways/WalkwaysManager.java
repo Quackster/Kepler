@@ -37,7 +37,7 @@ public class WalkwaysManager {
 
         put("gate_park_2", "gate_park");
 
-        put("park_b", "park_b");
+        put("park_b", "park_a");
     }};
 
     private List<WalkwaysEntrance> walkways;
