@@ -1,0 +1,15 @@
+-- migrate:up
+ALTER TABLE `users` ADD `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `last_online`;
+ALTER TABLE `users` ADD `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP AFTER `created_at`;
+UPDATE `users` SET last_online = 1533928921 WHERE last_online = 0;
+UPDATE `users` SET created_at = from_unixtime(1522540800);
+UPDATE `users` SET updated_at = from_unixtime(last_online);
+
+ALTER TABLE `rooms` ADD `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `visitors_max`;
+ALTER TABLE `rooms` ADD `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP AFTER `created_at`;
+
+ALTER TABLE `items` ADD `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `custom_data`;
+ALTER TABLE `items` ADD `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP AFTER `created_at`;
+
+-- migrate:down
+

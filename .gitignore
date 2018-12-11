@@ -1,28 +1,31 @@
+.inertia.toml
+.secrets
+.kepler-secrets
 .gradle/
 .idea/
 /out/
 **.iml
 /gradle/
 /build/
-bin/
-tmp/
-session-cookies/
+/bin/
+/cmake-build-debug/
+.idea/workspace.xml
+/*.jar
 
 gradlew
 gradlew.bat
 run.bat
 
-habbohotel.properties
-game.properties
-icarus.properties
-locale.ini
-log4j.properties
-error.log
-site-config.ini
-Icarus-Web-all.jar
+/tools/db/schema.sql
 
-tools/www/c_images
-tools/www/dcr
-tools/www/web-gallery
-tools/www/gamedata
-tools/www/gordon
+config.ini
+locale.ini
+game.ini
+server.ini
+log4j.properties
+
+Kepler-Server-all.jar
+
+server.log
+error.log
+.env

@@ -1,37 +1,28 @@
-README
+# Kepler
 
-Roseau was created for nostalgia purposes, now that this server is almost completed, I've come to realise how basic this shit is.
+A small TCP server written in Java powered by Netty, an asynchronous networking library. It powers the Habbo Hotel version 18 client from 2008 era. The aim is to fully replicate this version.
 
-----------------------------------------
- How to enable the debug window for V1
-----------------------------------------
+## Cloning this repository
 
-Make the HTML client link to loader_debug.dcr instead of loader.dcr
-There's no need to rename any files, loader_debug.dcr should be included with 
-the client files that I supplied.
+```
+$ git clone --recursive https://github.com/Quackster/Kepler
+```
 
-----------------------------------------
- Credits
-----------------------------------------
+**or**
 
-With Ascii from Puomi Hotel (long time Suelake v5 player, btw), these things were possible:
+```
+$ git clone https://github.com/Quackster/Kepler
+$ git submodule update --init --recursive
+```
 
-- wall items loading
-- the correct ITEMS structure
-- figuring out the correct structure for ACTIVE OBJECTA
-- SHOWPROGRAM for the Club Massiva disco lights
-- correct structure for teleporters flashing
-- teaching me how to edit the DCR to enable Club Slinky Helsinki to work
+## Compile Kepler
 
-And of course, lab-hotel from RaGEZONE helped me out with:
+*This is temporarily here*
 
-- Instant console messaging.
-- Enabling the debug window for the version 1 client.
+Now to build the docker container you'd use;
 
-And lastly, office.boy and Nillus who made my life easier with their Blunk v5 server, it helped me
-with some protocol that was simillar to v1, and their item definition database which was very helpful for
-the v1 catalogue.
+./gradlew jibDockerBuild --image quackster/kepler 
 
-Thanks guys, this is the most completed v1 server to date!
+docker tag quackster/kepler:latest quackster/kepler:$(git rev-parse --short HEAD)
 
-- Alex
+And then update docker-compose.yml to make kepler point to the new quackster/kepler:$(git rev-parse --short HEAD) image

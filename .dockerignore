@@ -1,0 +1,16 @@
+# Ignore everything
+**
+
+# Don't ignore Kepler-Server directory
+!/Kepler-Server
+#!/Kepler-Server/src
+#!/Kepler-Server/src/**
+#!/Kepler-Server/libs
+#!/Kepler-Server/libs/**
+#!/Kepler-Server/build.gradle
+
+# Don't ignore tools directory
+!/tools
+
+# Don't ignore settings.gradle
+!/settings.gradle

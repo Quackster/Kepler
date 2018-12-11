@@ -1,0 +1,108 @@
+plugins {
+    id 'com.google.cloud.tools.jib' version '0.9.8'
+    id "org.jetbrains.intellij" version "0.3.5"
+}
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+sourceCompatibility = "1.10"
+targetCompatibility = "1.10"
+
+def grpcVersion = '1.12.0'
+def protobufVersion = '3.5.1'
+def protocVersion = '3.5.1-1'
+
+mainClassName = 'org.alexdev.kepler.Kepler'
+
+jib {
+    from {
+        image = 'openjdk:10-jre-slim'
+    }
+    container {
+        ports = ['12321/tcp', '12309/tcp','12322/tcp']
+    }
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+
+    maven { url  "https://dl.bintray.com/terl/lazysodium-maven" }
+    maven { url 'https://jitpack.io' }
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.github.bhlangonijr:chesslib:1.1.1'
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
+
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
+
+    // https://mvnrepository.com/artifact/com.zaxxer/HikariCP
+    implementation group: 'com.zaxxer', name: 'HikariCP', version: '2.7.4'
+
+    // https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client
+    implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.3.0'
+
+    // https://mvnrepository.com/artifact/io.netty/netty-all
+    implementation group: 'io.netty', name: 'netty-all', version: '4.1.32.Final'
+
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12
+    implementation group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.25'
+
+    // https://mvnrepository.com/artifact/log4j/log4j/1.2.17
+    implementation group: 'log4j', name: 'log4j', version: '1.2.17'
+
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-configuration2
+    implementation group: 'org.apache.commons', name: 'commons-configuration2', version: '2.2'
+
+    // https://mvnrepository.com/artifact/commons-validator/commons-validator
+    implementation group: 'commons-validator', name: 'commons-validator', version: '1.6'
+
+    implementation "com.goterl.lazycode:lazysodium-java:3.3.0"
+
+    implementation "com.google.api.grpc:proto-google-common-protos:1.0.0"
+    implementation "io.grpc:grpc-alts:${grpcVersion}"
+    implementation "io.grpc:grpc-netty:${grpcVersion}"
+    implementation "io.grpc:grpc-protobuf:${grpcVersion}"
+    implementation "io.grpc:grpc-stub:${grpcVersion}"
+    implementation "io.grpc:grpc-services:${grpcVersion}"
+    compileOnly "javax.annotation:javax.annotation-api:1.2"
+
+    implementation "com.google.protobuf:protobuf-java-util:${protobufVersion}"
+
+    testImplementation "io.grpc:grpc-testing:${grpcVersion}"
+
+    implementation name: 'RetroRCON-1.1'
+}
+
+// Create fat jar with libraries inside of it.
+task fatJar(type: Jar) {
+    zip64 true
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
+    baseName = project.name + '-all'
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+// Create jar with no libraries inside of it, used when creating with "gradle distZip" and
+// libraries are then to be stored in the folder next to it called 'dependency-jars'
+// https://vocon-it.com/2016/11/15/how-to-build-a-lean-jar-file-with-gradle/
+jar {
+    manifest {
+        attributes (
+                'Main-Class': mainClassName,
+                "Class-Path": '. dependency-jars/' + configurations.compile.collect {
+                    it.getName()
+                }.join(' dependency-jars/')
+        )
+    }
+}
