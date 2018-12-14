@@ -1,12 +1,12 @@
-package org.alexdev.havana.messages.incoming.rooms.user;
+package org.alexdev.kepler.messages.incoming.rooms.user;
 
-import org.alexdev.havana.game.commands.CommandManager;
-import org.alexdev.havana.game.player.Player;
-import org.alexdev.havana.game.room.Room;
-import org.alexdev.havana.messages.outgoing.rooms.user.TYPING_STATUS;
-import org.alexdev.havana.messages.types.MessageEvent;
-import org.alexdev.havana.server.netty.streams.NettyRequest;
-import org.alexdev.havana.util.StringUtil;
+import org.alexdev.kepler.game.commands.CommandManager;
+import org.alexdev.kepler.game.player.Player;
+import org.alexdev.kepler.game.room.Room;
+import org.alexdev.kepler.messages.outgoing.rooms.user.TYPING_STATUS;
+import org.alexdev.kepler.messages.types.MessageEvent;
+import org.alexdev.kepler.server.netty.streams.NettyRequest;
+import org.alexdev.kepler.util.StringUtil;
 
 public class SHOUT implements MessageEvent {
     @Override
@@ -14,13 +14,6 @@ public class SHOUT implements MessageEvent {
         Room room = player.getRoomUser().getRoom();
 
         if (room == null) {
-            return;
-        }
-
-        if (player.getRoomUser().getGamePlayer() != null &&
-                player.getRoomUser().getGamePlayer().getGame() != null &&
-                player.getRoomUser().getGamePlayer().getGame().isArenaLoaded()) {
-            //room.send(new GAME_CHAT(player.getRoomUser().getGamePlayer().getObjectId(), message));
             return;
         }
 
