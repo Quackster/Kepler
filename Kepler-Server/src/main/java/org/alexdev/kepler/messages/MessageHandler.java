@@ -26,6 +26,7 @@ import org.alexdev.kepler.messages.incoming.songs.*;
 import org.alexdev.kepler.messages.incoming.trade.*;
 import org.alexdev.kepler.messages.incoming.tutorial.*;
 import org.alexdev.kepler.messages.incoming.user.*;
+import org.alexdev.kepler.messages.incoming.user.settings.GET_ACCOUNT_PREFERENCES;
 import org.alexdev.kepler.messages.incoming.welcomingparty.ACCEPT_TUTOR_INVITATION;
 import org.alexdev.kepler.messages.incoming.welcomingparty.REJECT_TUTOR_INVITATION;
 import org.alexdev.kepler.messages.types.MessageEvent;
@@ -109,6 +110,9 @@ public class MessageHandler {
         registerEvent(26, new GET_CLUB());
         registerEvent(190, new SUBSCRIBE_CLUB());
         registerEvent(44, new UPDATE());
+        registerEvent(360, new GET_IGNORE_LIST());
+        registerEvent(319, new IGNORE_USER());
+        registerEvent(322, new UNIGNORE_USER());
         //registerEvent(315, new TEST_LATENCY());
     }
 

@@ -1,13 +1,15 @@
-package org.alexdev.kepler.messages.incoming.rooms.user;
+package org.alexdev.havana.messages.incoming.rooms.user;
 
-import org.alexdev.kepler.game.player.Player;
-import org.alexdev.kepler.game.player.PlayerManager;
-import org.alexdev.kepler.game.room.Room;
-import org.alexdev.kepler.messages.outgoing.rooms.user.CHAT_MESSAGE;
-import org.alexdev.kepler.messages.outgoing.rooms.user.CHAT_MESSAGE.ChatMessageType;
-import org.alexdev.kepler.messages.types.MessageEvent;
-import org.alexdev.kepler.server.netty.streams.NettyRequest;
-import org.alexdev.kepler.util.StringUtil;
+import org.alexdev.havana.game.player.Player;
+import org.alexdev.havana.game.player.PlayerManager;
+import org.alexdev.havana.game.room.Room;
+import org.alexdev.havana.game.wordfilter.WordfilterManager;
+import org.alexdev.havana.messages.outgoing.rooms.user.CHAT_MESSAGE;
+import org.alexdev.havana.messages.outgoing.rooms.user.CHAT_MESSAGE.ChatMessageType;
+import org.alexdev.havana.messages.types.MessageEvent;
+import org.alexdev.havana.server.netty.streams.NettyRequest;
+import org.alexdev.havana.util.StringUtil;
+import org.alexdev.havana.util.config.GameConfiguration;
 
 public class WHISPER implements MessageEvent {
     @Override
@@ -27,7 +29,15 @@ public class WHISPER implements MessageEvent {
             return;
         }
 
-        CHAT_MESSAGE chatMessage = new CHAT_MESSAGE(ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), message);
+        if (GameConfiguration.getInstance().getBoolean("wordfitler.enabled")) {
+            for (String word : WordfilterManager.getInstance().getBannedWords()) {
+                if (message.contains(word)) {
+                    message = message.replace(word, GameConfiguration.getInstance().getString("wordfilter.word.replacement"));
+                }
+            }
+        }
+
+        CHAT_MESSAGE chatMessage = new CHAT_MESSAGE(ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), message, 0);
 
         player.send(chatMessage);
         player.getRoomUser().getTimerManager().resetRoomTimer();
@@ -35,9 +45,11 @@ public class WHISPER implements MessageEvent {
         Player whisperUser = PlayerManager.getInstance().getPlayerByName(username);
 
         if (whisperUser != null) {
-            whisperUser.send(chatMessage);
-        } else {
-            player.send(new CHAT_MESSAGE(ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), "User not found. Whisper not sent."));
-        }
+            if (!whisperUser.getIgnoredList().contains(player.getDetails().getName())) {
+                whisperUser.send(chatMessage);
+            }
+        }/* else {
+            player.send(new CHAT_MESSAGE(ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), "User not found. Whisper not sent.", 0));
+        }*/
     }
 }

@@ -22,6 +22,7 @@ import org.alexdev.kepler.game.room.public_rooms.walkways.WalkwaysEntrance;
 import org.alexdev.kepler.game.room.public_rooms.walkways.WalkwaysManager;
 import org.alexdev.kepler.game.room.tasks.WaveTask;
 import org.alexdev.kepler.game.texts.TextsManager;
+import org.alexdev.kepler.messages.outgoing.rooms.user.CHAT_MESSAGE;
 import org.alexdev.kepler.messages.outgoing.rooms.user.USER_STATUSES;
 import org.alexdev.kepler.util.config.GameConfiguration;
 
@@ -391,13 +392,44 @@ public abstract class RoomEntity {
      * @param message the text to read for any gestures and to find animation length
      * @param isShout whether the chat was a shout or not
      */
-    public void showChat(String message, boolean isShout) {
+    public void chat(String message, boolean isShout) {
         if (message.endsWith("o/")) {
             this.wave();
 
             if (message.equals("o/")) {
                 return; // Don't move mouth if it's just a wave
             }
+        }
+
+        List<Entity> entities;
+
+        // Do head rotation
+        if (isShout) {
+            entities = new ArrayList<>(this.room.getEntities());
+        } else {
+            entities = new ArrayList<>();
+
+            for (Entity entity : this.room.getEntities()) {
+                if (entity.getType() == EntityType.PET) {
+                    continue;
+                }
+
+                if (entity.getRoomUser().getPosition().getDistanceSquared(this.entity.getRoomUser().getPosition()) <= 10) {
+                    entities.add(entity);
+                }
+            }
+        }
+
+        // Remove self from looking
+        entities.remove(this.entity);
+
+        // Make any users look towards player
+        for (Entity entity : entities) {
+            if (entity.getRoomUser().containsStatus(StatusType.SLEEP)) {
+                continue;
+            }
+
+            entity.getRoomUser().look(this.position);
         }
 
         String[] words = message.split(" ");
@@ -408,8 +440,43 @@ public abstract class RoomEntity {
         else
             talkDuration = 5;
 
+        if (talkDuration > 0) {
+            this.setStatus(StatusType.TALK, "", talkDuration, null, -1, -1);
+            this.needsUpdate = true;
+        }
+
+        String gesture = this.getChatGesture(message);
+
+        if (gesture != null) {
+            this.setStatus(StatusType.GESTURE, gesture, 5, null, -1, -1);
+            this.needsUpdate = true;
+        }
+
+        // Send chat message to room
+        var chatMsg = new CHAT_MESSAGE(isShout ? CHAT_MESSAGE.ChatMessageType.SHOUT : CHAT_MESSAGE.ChatMessageType.CHAT, this.instanceId, message);
+
+        if (this.entity.getType() == EntityType.PLAYER) {
+            Player player = (Player) entity;
+
+            for (Player sessions : room.getEntityManager().getPlayers()) {
+                if (sessions.getIgnoredList().contains(player.getDetails().getName())) {
+                    continue;
+                }
+
+                sessions.send(chatMsg);
+            }
+        } else {
+            this.room.send(chatMsg);
+        }
+    }
+
+    /**
+     * Gets the gesture type for the chat message
+     *
+     * @param message the text to read for any gestures and to find animation length
+     */
+    private String getChatGesture(String message) {
         String gesture = null;
-        boolean gestureFound = false;
 
         if (message.contains(":)")
                 || message.contains(":-)")
@@ -419,70 +486,30 @@ public abstract class RoomEntity {
                 || message.contains(";)")
                 || message.contains(";-)")) {
             gesture = "sml";
-            gestureFound = true;
         }
 
-        if (!gestureFound &&
-                message.contains(":s")
-                || message.contains(":(")
-                || message.contains(":-(")
-                || message.contains(":'(")) {
+        if (gesture == null &&
+                (message.contains(":s")
+                        || message.contains(":(")
+                        || message.contains(":-(")
+                        || message.contains(":'("))) {
             gesture = "sad";
-            gestureFound = true;
         }
 
-        if (!gestureFound &&
-                message.contains(":o")
-                || message.contains(":O")) {
+        if (gesture == null &&
+                (message.contains(":o")
+                        || message.contains(":O"))) {
             gesture = "srp";
-            gestureFound = true;
         }
 
 
-        if (!gestureFound &&
-                message.contains(":@")
-                || message.contains(">:(")) {
+        if (gesture == null &&
+                (message.contains(":@")
+                        || message.contains(">:("))) {
             gesture = "agr";
-            gestureFound = true;
         }
 
-        if (gestureFound) {
-            this.setStatus(StatusType.GESTURE, gesture, 5, null, -1, -1);
-        }
-
-        this.setStatus(StatusType.TALK, "", talkDuration, null, -1, -1);
-        this.needsUpdate = true;
-
-        List<Player> players;
-
-        if (isShout) {
-            players = new ArrayList<>(this.room.getEntityManager().getPlayers());
-
-            if (this.entity.getType() == EntityType.PLAYER) {
-                Player player = (Player)this.entity;
-                players.remove(player);
-            }
-        } else {
-            players = new ArrayList<>();
-
-            for (Player player : this.room.getEntityManager().getPlayers()) {
-                if (player.getDetails().getId() == this.entity.getDetails().getId()) {
-                    continue;
-                }
-
-                if (player.getRoomUser().getPosition().getDistanceSquared(this.entity.getRoomUser().getPosition()) <= 10) {
-                    players.add(player);
-                }
-            }
-        }
-
-        for (Player player : players) {
-            if (player.getRoomUser().containsStatus(StatusType.SLEEP)) {
-                continue;
-            }
-
-            player.getRoomUser().look(this.position);
-        }
+        return gesture;
     }
 
     /**

@@ -1,18 +1,12 @@
 package org.alexdev.kepler.messages.incoming.rooms.user;
 
-import io.netty.util.internal.ThreadLocalRandom;
 import org.alexdev.kepler.game.commands.CommandManager;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
-import org.alexdev.kepler.messages.outgoing.rooms.user.CHAT_MESSAGE;
-import org.alexdev.kepler.messages.outgoing.rooms.user.CHAT_MESSAGE.ChatMessageType;
 import org.alexdev.kepler.messages.outgoing.rooms.user.TYPING_STATUS;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 import org.alexdev.kepler.util.StringUtil;
-import org.alexdev.kepler.util.config.GameConfiguration;
-
-import java.util.concurrent.ConcurrentHashMap;
 
 public class CHAT implements MessageEvent {
     @Override
@@ -23,8 +17,7 @@ public class CHAT implements MessageEvent {
             return;
         }
 
-        //String message = StringUtil.filterInput(reader.readString(), true);
-        String message = reader.readString();
+        String message = StringUtil.filterInput(reader.readString(), true);
 
         player.getRoomUser().setTyping(false);
         room.send(new TYPING_STATUS(player.getRoomUser().getInstanceId(), player.getRoomUser().isTyping()));
@@ -38,11 +31,11 @@ public class CHAT implements MessageEvent {
             return;
         }
 
-        player.getRoomUser().showChat(message, false);
+        player.getRoomUser().chat(message, false);
         player.getRoomUser().getTimerManager().resetRoomTimer();
 
         // Make chat hard to read for long distance in public rooms
-        if (room.isPublicRoom() && GameConfiguration.getInstance().getBoolean("chat.garbled.text") && !room.getModel().getName().contains("_arena_")) {
+        /*if (room.isPublicRoom() && GameConfiguration.getInstance().getBoolean("chat.garbled.text") && !room.getModel().getName().contains("_arena_")) {
             int sourceX = player.getRoomUser().getPosition().getX();
             int sourceY = player.getRoomUser().getPosition().getY();
 
@@ -52,7 +45,7 @@ public class CHAT implements MessageEvent {
 
                 if (distX < 9 && distY < 9) {// User can hear
                     if (distX <= 6 && distY <= 6) {// User can hear full message
-                        roomPlayer.send(new CHAT_MESSAGE(ChatMessageType.CHAT, player.getRoomUser().getInstanceId(), message));
+                        roomPlayer.send(new CHAT_MESSAGE(ChatMessageType.CHAT, player.getRoomUser().getInstanceId(), message, gestureId));
                     } else {
                         int garbleIntensity = distX;
 
@@ -75,15 +68,23 @@ public class CHAT implements MessageEvent {
                             }
                         }
 
-                        roomPlayer.send(new CHAT_MESSAGE(ChatMessageType.CHAT, player.getRoomUser().getInstanceId(), new String(garbleMessage)));
+                        roomPlayer.send(new CHAT_MESSAGE(ChatMessageType.CHAT, player.getRoomUser().getInstanceId(), new String(garbleMessage), gestureId));
                     }
                 } else {
                     // Disappearing chat bubble
-                    roomPlayer.send(new CHAT_MESSAGE(ChatMessageType.CHAT, player.getRoomUser().getInstanceId(), ""));
+                    roomPlayer.send(new CHAT_MESSAGE(ChatMessageType.CHAT, player.getRoomUser().getInstanceId(), "",  gestureId));
                 }
             }
         } else {
-            room.send(new CHAT_MESSAGE(ChatMessageType.CHAT, player.getRoomUser().getInstanceId(), message));
-        }
+            var chatMsg = new CHAT_MESSAGE(ChatMessageType.CHAT, player.getRoomUser().getInstanceId(), message, gestureId);
+
+            for (Player sessions : room.getEntityManager().getPlayers()) {
+                if (sessions.getIgnoredList().contains(player.getDetails().getName())) {
+                    continue;
+                }
+
+                sessions.send(chatMsg);
+            }
+        }*/
     }
 }

@@ -13,6 +13,8 @@ import org.alexdev.kepler.game.room.entities.RoomPlayer;
 import org.alexdev.kepler.messages.outgoing.handshake.*;
 import org.alexdev.kepler.messages.outgoing.openinghours.*;
 import org.alexdev.kepler.messages.outgoing.user.*;
+import org.alexdev.kepler.messages.outgoing.user.ALERT;
+import org.alexdev.kepler.messages.outgoing.user.HOTEL_LOGOUT;
 import org.alexdev.kepler.messages.outgoing.user.HOTEL_LOGOUT.*;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.NettyPlayerNetwork;
@@ -21,7 +23,9 @@ import org.alexdev.kepler.util.config.ServerConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Player extends Entity {
     public static final AttributeKey<Player> PLAYER_KEY = AttributeKey.valueOf("Player");
@@ -29,6 +33,8 @@ public class Player extends Entity {
     private final NettyPlayerNetwork network;
     private final PlayerDetails details;
     private final RoomPlayer roomEntity;
+
+    private Set<String> ignoredList;
 
     private Logger log;
     private Messenger messenger;
@@ -42,6 +48,7 @@ public class Player extends Entity {
         this.network = nettyPlayerNetwork;
         this.details = new PlayerDetails();
         this.roomEntity = new RoomPlayer(this);
+        this.ignoredList = new HashSet<>();
         this.log = LoggerFactory.getLogger("Connection " + this.network.getConnectionId());
         this.pingOK = true;
         this.disconnected = false;
@@ -290,5 +297,9 @@ public class Player extends Entity {
 
         this.disconnected = true;
         this.loggedIn = false;
+    }
+
+    public Set<String> getIgnoredList() {
+        return ignoredList;
     }
 }

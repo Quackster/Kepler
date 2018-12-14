@@ -1,4 +1,4 @@
-package org.alexdev.kepler.messages.outgoing.user;
+package org.alexdev.kepler.messages.outgoing.user.settings;
 
 import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.messages.types.MessageComposer;
