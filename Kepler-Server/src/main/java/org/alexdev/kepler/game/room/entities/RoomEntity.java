@@ -435,10 +435,15 @@ public abstract class RoomEntity {
         String[] words = message.split(" ");
         int talkDuration = 1;
 
-        if (words.length <= 5)
+        if (words.length <= 5) {
             talkDuration = words.length / 2;
-        else
+        } else {
             talkDuration = 5;
+        }
+
+        if (words.length == 1) {
+            talkDuration = message.length() / 10;
+        }
 
         if (talkDuration > 0) {
             this.setStatus(StatusType.TALK, "", talkDuration, null, -1, -1);
