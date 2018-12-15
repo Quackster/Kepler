@@ -206,7 +206,7 @@ public class GRPC implements MessageEvent {
         item.setCustomData(customData);
 
         ItemDao.newItem(item);
-        player.getInventory().getItems().add(item);
+        player.getInventory().addItem(item);
 
         // If the item is a camera, give them 2 free film.
         if (def.getSprite().equals("camera")) {
