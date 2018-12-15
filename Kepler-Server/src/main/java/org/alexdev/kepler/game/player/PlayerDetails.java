@@ -131,11 +131,13 @@ public class PlayerDetails {
     }
 
     public boolean hasGoldClubSubscription() {
-        int sinceMonths = (int) (DateUtil.getCurrentTimeSeconds() - this.firstClubSubscription) / 60 / 60 / 24 / 31;
+        if (this.hasClubSubscription()) {
+            int sinceMonths = (int) (DateUtil.getCurrentTimeSeconds() - this.firstClubSubscription) / 60 / 60 / 24 / 31;
 
-        // We are deemed a 'Gold' Club member if the user has been a club subscriber for a year
-        // According to the HabboX wiki the badge is to be received on the first day of the 13th subscribed month
-        return this.hasClubSubscription() && sinceMonths > 12;
+            // We are deemed a 'Gold' Club member if the user has been a club subscriber for a year
+            // According to the HabboX wiki the badge is to be received on the first day of the 13th subscribed month
+            return this.hasClubSubscription() && sinceMonths > 12;
+        }
     }
 
     public int getId() {
