@@ -53,7 +53,7 @@ public class SPLASH_POSITION implements MessageEvent {
 
         int total = 0;
         int sum = 0;
-        double finalScore;
+        double finalScore = 0;
 
         for (Player p : room.getEntityManager().getPlayers()) {
             if (p.getDetails().getId() == player.getDetails().getId()) {
@@ -70,8 +70,9 @@ public class SPLASH_POSITION implements MessageEvent {
 
         if (total > 0) {
             finalScore = StringUtil.format((double) sum / total);
-            room.send(new SHOWPROGRAM(new String[]{"cam1", "showtext", (player.getDetails().getName() + "'s score: " + finalScore)}));
         }
+
+        room.send(new SHOWPROGRAM(new String[]{"cam1", "showtext", (player.getDetails().getName() + "'s\n score: " + finalScore)}));
 
         for (Player p : room.getEntityManager().getPlayers()) {
             p.getRoomUser().setLidoVote(0);
