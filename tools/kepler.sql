@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 17, 2018 at 01:47 AM
--- Server version: 10.2.15-MariaDB
+-- Generation Time: Dec 15, 2018 at 08:39 AM
+-- Server version: 10.3.11-MariaDB
 -- PHP Version: 7.2.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `kepler_release`
+-- Database: `kepler`
 --
 
 -- --------------------------------------------------------
@@ -371,26 +371,26 @@ INSERT INTO `catalogue_items` (`id`, `sale_code`, `page_id`, `order_id`, `is_hid
 (322, 'flag_ch', 25, 21, 0, 3, 251, 503, NULL, NULL, 0),
 (323, 'flag_uk', 25, 22, 0, 3, 251, 500, NULL, NULL, 0),
 (324, 'flag_pirate', 25, 23, 0, 3, 251, 501, NULL, NULL, 0),
-(325, 'hc_sofa', 27, 1, 0, 5, 112, 0, NULL, NULL, 0),
-(326, 'hc_mocca', 27, 2, 0, 5, 123, 0, NULL, NULL, 0),
-(327, 'hc_dice', 27, 3, 0, 5, 127, 0, NULL, NULL, 0),
-(328, 'hc_tub', 27, 4, 0, 5, 129, 0, NULL, NULL, 0),
-(329, 'hc_tele', 27, 5, 0, 5, 132, 0, NULL, NULL, 0),
-(330, 'hc_tsofa', 27, 6, 0, 5, 128, 0, NULL, NULL, 0),
+(325, 'club_sofa', 27, 1, 0, 5, 112, 0, NULL, NULL, 0),
+(326, 'mocchamaster', 27, 2, 0, 5, 123, 0, NULL, NULL, 0),
+(327, 'edicehc', 27, 3, 0, 5, 127, 0, NULL, NULL, 0),
+(328, 'hcamme', 27, 4, 0, 5, 129, 0, NULL, NULL, 0),
+(329, 'doorD', 27, 5, 0, 5, 132, 0, NULL, NULL, 0),
+(330, 'hcsohva', 27, 6, 0, 5, 128, 0, NULL, NULL, 0),
 (331, 'hc_lmp', 27, 7, 0, 5, 150, 0, NULL, NULL, 0),
 (332, 'hc_tbl', 27, 8, 0, 5, 151, 0, NULL, NULL, 0),
-(333, 'hc_chair', 27, 9, 0, 5, 152, 0, NULL, NULL, 0),
+(333, 'hc_chr', 27, 9, 0, 5, 152, 0, NULL, NULL, 0),
 (334, 'hc_dsk', 27, 10, 0, 5, 153, 0, NULL, NULL, 0),
-(335, 'hc_trolly', 27, 11, 0, 5, 228, 0, NULL, NULL, 0),
-(336, 'hc_strtlmp', 27, 12, 0, 5, 224, 0, NULL, NULL, 0),
-(337, 'hc_curtain', 27, 13, 0, 5, 221, 0, NULL, NULL, 0),
+(335, 'hc_trll', 27, 11, 0, 5, 228, 0, NULL, NULL, 0),
+(336, 'hc_lmpst', 27, 12, 0, 5, 224, 0, NULL, NULL, 0),
+(337, 'hc_crtn', 27, 13, 0, 5, 221, 0, NULL, NULL, 0),
 (338, 'hc_tv', 27, 14, 0, 5, 214, 0, NULL, NULL, 0),
-(339, 'hc_butler', 27, 15, 0, 5, 220, 0, NULL, NULL, 0),
+(339, 'hc_btlr', 27, 15, 0, 5, 220, 0, NULL, NULL, 0),
 (340, 'hc_bkshlf', 27, 16, 0, 5, 219, 0, NULL, NULL, 0),
-(341, 'hc_rontgen', 27, 17, 0, 5, 227, 0, NULL, NULL, 0),
-(342, 'hc_fireplace', 27, 18, 0, 5, 223, 0, NULL, NULL, 0),
-(343, 'hc_dj', 27, 19, 0, 5, 222, 0, NULL, NULL, 0),
-(344, 'hc_wallamp', 27, 20, 0, 5, 246, 0, NULL, NULL, 0),
+(341, 'hc_rntgn', 27, 17, 0, 5, 227, 0, NULL, NULL, 0),
+(342, 'hc_frplc', 27, 18, 0, 5, 223, 0, NULL, NULL, 0),
+(343, 'hc_djset', 27, 19, 0, 5, 222, 0, NULL, NULL, 0),
+(344, 'hc_wall_lamp', 27, 20, 0, 5, 246, 0, NULL, NULL, 0),
 (345, 'hc_machine', 27, 21, 0, 5, 225, 0, NULL, NULL, 0),
 (346, 'deal_hcrollers', 27, 22, 0, 5, 0, 0, 'HC rollers set', 'Five of those uber rollers in one pack!', 1),
 (347, 'deal_throne', 27, 23, 0, 5, 0, 0, 'Throne', 'Ten for the price of one!', 1),
@@ -9619,7 +9619,7 @@ CREATE TABLE `rooms` (
   `visitors_max` int(11) DEFAULT 25,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=COMPACT;
 
 --
 -- Dumping data for table `rooms`
@@ -9627,7 +9627,7 @@ CREATE TABLE `rooms` (
 
 INSERT INTO `rooms` (`id`, `owner_id`, `category`, `name`, `description`, `model`, `ccts`, `wallpaper`, `floor`, `showname`, `superusers`, `accesstype`, `password`, `visitors_now`, `visitors_max`, `created_at`, `updated_at`) VALUES
 (1, '0', 3, 'Welcome Lounge', 'welcome_lounge', 'newbie_lobby', 'hh_room_nlobby', 0, 0, 0, 0, 0, '', 0, 40, '2018-08-11 07:54:01', '2018-11-17 01:45:27'),
-(2, '0', 3, 'Theatredome', 'theatredrome', 'theater', 'hh_room_theater', 0, 0, 0, 0, 0, '', 1, 100, '2018-08-11 07:54:01', '2018-11-17 01:45:43'),
+(2, '0', 3, 'Theatredome', 'theatredrome', 'theater', 'hh_room_theater', 0, 0, 0, 0, 0, '', 0, 100, '2018-08-11 07:54:01', '2018-12-15 18:35:40'),
 (3, '0', 3, 'Library', 'library', 'library', 'hh_room_library', 0, 0, 0, 0, 0, '', 0, 30, '2018-08-11 07:54:01', '2018-08-11 07:54:01'),
 (4, '0', 5, 'TV Studio', 'tv_studio', 'tv_studio', 'hh_room_tv_studio_general', 0, 0, 0, 0, 0, '', 0, 20, '2018-08-11 07:54:01', '2018-08-11 07:54:01'),
 (5, '0', 5, 'Cinema', 'habbo_cinema', 'cinema_a', 'hh_room_cinema', 0, 0, 0, 0, 0, '', 0, 50, '2018-08-11 07:54:01', '2018-08-11 07:54:01'),
@@ -9948,7 +9948,7 @@ INSERT INTO `schema_migrations` (`version`) VALUES
 
 CREATE TABLE `settings` (
   `setting` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ''
+  `value` text COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -10016,6 +10016,7 @@ CREATE TABLE `users` (
   `sso_ticket` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `club_subscribed` bigint(11) NOT NULL DEFAULT 0,
   `club_expiration` bigint(11) NOT NULL DEFAULT 0,
+  `club_gift_due` bigint(11) NOT NULL DEFAULT 0,
   `badge` char(3) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `badge_active` tinyint(1) NOT NULL DEFAULT 1,
   `allow_stalking` tinyint(1) NOT NULL DEFAULT 1,
@@ -10036,6 +10037,29 @@ CREATE TABLE `users_badges` (
   `user_id` int(11) NOT NULL,
   `badge` char(3) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users_club_gifts`
+--
+
+CREATE TABLE `users_club_gifts` (
+  `user_id` int(11) NOT NULL,
+  `sprite` varchar(50) NOT NULL,
+  `date_received` bigint(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users_mutes`
+--
+
+CREATE TABLE `users_mutes` (
+  `user_id` int(11) NOT NULL,
+  `muted_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
