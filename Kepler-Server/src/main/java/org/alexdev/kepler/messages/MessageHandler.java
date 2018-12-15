@@ -130,6 +130,7 @@ public class MessageHandler {
         registerEvent(319, new IGNORE_USER());
         registerEvent(322, new UNIGNORE_USER());
         registerEvent(228, new GET_SOUND_SETTING());
+        registerEvent(9, new GETAVAILABLESETS());
         //registerEvent(315, new TEST_LATENCY());
     }
 

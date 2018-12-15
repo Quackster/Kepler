@@ -125,6 +125,10 @@ public class Player extends Entity {
             }
         }
 
+        if (this.details.hasClubSubscription()) {
+            this.send(new AVAILABLE_SETS("[" + GameConfiguration.getInstance().getString("users.figure.parts.club") + "]"));
+        }
+
         ClubSubscription.refreshSubscription(this);
     }
 
