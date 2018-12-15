@@ -16,6 +16,7 @@ import org.alexdev.kepler.server.netty.streams.NettyRequest;
 import org.alexdev.kepler.util.DateUtil;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class PRESENTOPEN implements MessageEvent {
     @Override
@@ -37,7 +38,7 @@ public class PRESENTOPEN implements MessageEvent {
             return;
         }
 
-        String[] presentData = item.getCustomData().split(Item.PRESENT_DELIMETER);
+        String[] presentData = item.getCustomData().split(Pattern.quote(Item.PRESENT_DELIMETER));
 
         String saleCode = presentData[0];
         String receivedFrom = presentData[1];
@@ -51,6 +52,11 @@ public class PRESENTOPEN implements MessageEvent {
         }
 
         CatalogueItem catalogueItem = CatalogueManager.getInstance().getCatalogueItem(saleCode);
+
+        if (catalogueItem == null) {
+            System.out.println("Could not open: " + saleCode);
+            return;
+        }
 
         List<Item> itemList = GRPC.purchase(player, catalogueItem, extraData, receivedFrom, timestamp);
 

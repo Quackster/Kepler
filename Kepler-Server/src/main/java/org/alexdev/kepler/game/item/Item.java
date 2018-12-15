@@ -24,6 +24,7 @@ import org.alexdev.kepler.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class Item {
     public static final String DEFAULT_ROOMDIMMER_CUSTOM_DATA = "1,1,1,#000000,255";
@@ -289,7 +290,7 @@ public class Item {
                 response.writeInt(this.hasBehaviour(ItemBehaviour.ROLLER) ? 2 : 0); // Required 2 for rollers to enable animation when rollers are used!
 
                 if (this.hasBehaviour(ItemBehaviour.PRESENT)) {
-                    String[] presentData = this.customData.split(Character.toString((char)9));
+                    String[] presentData = this.customData.split(Pattern.quote(Item.PRESENT_DELIMETER));
                     if (presentData.length >= 3) {
                         response.writeString("!" + presentData[2]);
                     } else {

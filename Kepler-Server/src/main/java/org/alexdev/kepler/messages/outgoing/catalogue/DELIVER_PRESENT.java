@@ -14,8 +14,10 @@ public class DELIVER_PRESENT extends MessageComposer {
 
     @Override
     public void compose(NettyResponse response) {
-        response.writeDelimeter(this.present.getDefinition().getSprite(), (char)13);
-        response.write(this.present.getDefinition().getSprite());
+        response.writeDelimeter(this.present.getDefinition().getSprite(), (char) 13);
+        response.writeDelimeter(this.present.getCustomData(), (char) 13);
+        response.writeDelimeter(this.present.getDefinition().getColour(), (char) 13);
+        /*response.write(this.present.getDefinition().getSprite());
 
         if (this.present.getDefinition().hasBehaviour(ItemBehaviour.WALL_ITEM)) {
             response.write(" ");
@@ -25,7 +27,7 @@ public class DELIVER_PRESENT extends MessageComposer {
             response.writeDelimeter(this.present.getDefinition().getLength(), (char)30);
             response.writeDelimeter(this.present.getDefinition().getWidth(), (char)30);
             response.write(this.present.getDefinition().getColour());
-        }
+        }*/
     }
 
     @Override
