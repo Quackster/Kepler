@@ -97,6 +97,8 @@ public class ClubSubscription {
             player.getDetails().setFirstClubSubscription(now);
 
             Item item = ItemManager.getInstance().createGift(player.getDetails(), "club_sofa", GameConfiguration.getInstance().getString("club.gift.present.label"));
+
+            player.getDetails().setClubGiftDue(DateUtil.getCurrentTimeSeconds() + getClubGiftSeconds());
             ClubGiftDao.saveNextGiftDate(player.getDetails());
 
             player.getInventory().addItem(item);
