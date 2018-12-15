@@ -5,3 +5,4 @@
 - force same IP for MUS connections to authenticate user (todo for havana as well)
 - add new line for diving score (todo for havana as well)
 - fix navigator not showing rooms
+- fix delete button
