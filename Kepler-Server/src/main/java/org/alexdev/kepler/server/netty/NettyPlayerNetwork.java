@@ -42,4 +42,6 @@ public class NettyPlayerNetwork {
     public static String getIpAddress(Channel channel) {
         return channel.remoteAddress().toString().replace("/", "").split(":")[0];
     }
+
+
 }

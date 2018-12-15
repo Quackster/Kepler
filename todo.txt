@@ -2,8 +2,8 @@
 - add club gifts
 - implement migration sql for user shutup/listen
 - fix navigator not showing rooms
+- fix hc club clothes not displaying
 
 - force same IP for MUS connections to authenticate user (todo for havana as well)
 - add new line for diving score (todo for havana as well)
 - fix delete button
-- fix hc club clothes not displaying

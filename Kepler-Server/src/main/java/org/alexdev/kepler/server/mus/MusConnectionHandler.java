@@ -25,6 +25,7 @@ import org.alexdev.kepler.server.mus.connection.MusClient;
 import org.alexdev.kepler.server.mus.streams.MusMessage;
 import org.alexdev.kepler.server.mus.streams.MusPropList;
 import org.alexdev.kepler.server.mus.streams.MusTypes;
+import org.alexdev.kepler.server.netty.NettyPlayerNetwork;
 import org.alexdev.kepler.util.DateUtil;
 import org.alexdev.kepler.util.StringUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -102,11 +103,15 @@ public class MusConnectionHandler extends SimpleChannelInboundHandler<MusMessage
                 }
 
                 int userId = Integer.valueOf(credentials[0]);
-                String username = PlayerDao.getName(userId);
+                Player player = PlayerManager.getInstance().getPlayerById(userId);
 
-                if (username != null) {
-                    // Er, ma, gerd, we logged in! ;O
+                System.out.println(ctx.channel().localAddress());
+
+                // Er, ma, gerd, we logged in! ;O
+                if (player != null && NettyPlayerNetwork.getIpAddress(player.getNetwork().getChannel()).equals(NettyPlayerNetwork.getIpAddress(ctx.channel()))) {
                     client.setUserId(userId);
+                } else {
+                    ctx.channel().close(); // Lol, bye, imposter scum!
                 }
             }
 
