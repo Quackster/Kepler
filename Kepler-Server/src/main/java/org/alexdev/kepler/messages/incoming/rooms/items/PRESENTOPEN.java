@@ -37,7 +37,7 @@ public class PRESENTOPEN implements MessageEvent {
             return;
         }
 
-        String[] presentData = item.getCustomData().split(Character.toString((char)9));
+        String[] presentData = item.getCustomData().split(Item.PRESENT_DELIMETER);
 
         String saleCode = presentData[0];
         String receivedFrom = presentData[1];

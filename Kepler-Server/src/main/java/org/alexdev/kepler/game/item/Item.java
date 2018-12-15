@@ -27,6 +27,7 @@ import java.util.List;
 
 public class Item {
     public static final String DEFAULT_ROOMDIMMER_CUSTOM_DATA = "1,1,1,#000000,255";
+    public static final String PRESENT_DELIMETER = "|";
 
     private int id;
     private int orderId;

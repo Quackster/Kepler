@@ -92,14 +92,16 @@ public class GRPC implements MessageEvent {
                 presentNote = " ";
             }
 
+            extraData = extraData.replace(Item.PRESENT_DELIMETER, "");
+
             Item present = new Item();
             present.setOwnerId(receivingUserDetails.getId());
             present.setDefinitionId(ItemManager.getInstance().getDefinitionBySprite("present_gen" + ThreadLocalRandom.current().nextInt(1, 7)).getId());
             present.setCustomData(saleCode +
-                    (char) 9 + player.getDetails().getName() +
-                    (char) 9 + StringUtil.filterInput(presentNote, true) +
-                    (char) 9 + extraData +
-                    (char) 9 + DateUtil.getCurrentTimeSeconds());
+                    Item.PRESENT_DELIMETER + player.getDetails().getName() +
+                    Item.PRESENT_DELIMETER + StringUtil.filterInput(presentNote, true) +
+                    Item.PRESENT_DELIMETER + extraData +
+                    Item.PRESENT_DELIMETER + DateUtil.getCurrentTimeSeconds());
 
             ItemDao.newItem(present);
 

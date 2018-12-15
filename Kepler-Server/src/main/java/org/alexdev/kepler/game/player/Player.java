@@ -10,6 +10,7 @@ import org.alexdev.kepler.game.messenger.Messenger;
 import org.alexdev.kepler.game.moderation.Fuseright;
 import org.alexdev.kepler.game.moderation.FuserightsManager;
 import org.alexdev.kepler.game.room.entities.RoomPlayer;
+import org.alexdev.kepler.messages.outgoing.club.CLUB_GIFT;
 import org.alexdev.kepler.messages.outgoing.handshake.*;
 import org.alexdev.kepler.messages.outgoing.openinghours.*;
 import org.alexdev.kepler.messages.outgoing.user.*;
@@ -88,6 +89,10 @@ public class Player extends Entity {
 
         if (PlayerManager.getInstance().isMaintenance()) {
             this.send(new INFO_HOTEL_CLOSING(PlayerManager.getInstance().getMaintenanceAt()));
+        }
+
+        if (ClubSubscription.isGiftDue(this)) {
+            this.send(new CLUB_GIFT(1));
         }
 
         this.messenger.sendStatusUpdate();

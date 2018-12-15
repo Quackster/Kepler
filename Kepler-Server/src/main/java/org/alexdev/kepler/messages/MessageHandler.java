@@ -8,6 +8,7 @@ import org.alexdev.kepler.messages.incoming.catalogue.GCIX;
 import org.alexdev.kepler.messages.incoming.catalogue.GET_ALIAS_LIST;
 import org.alexdev.kepler.messages.incoming.catalogue.GRPC;
 import org.alexdev.kepler.messages.incoming.club.GET_CLUB;
+import org.alexdev.kepler.messages.incoming.club.SCR_GIFT_APPROVAL;
 import org.alexdev.kepler.messages.incoming.club.SUBSCRIBE_CLUB;
 import org.alexdev.kepler.messages.incoming.games.*;
 import org.alexdev.kepler.messages.incoming.handshake.GENERATEKEY;
@@ -66,6 +67,7 @@ public class MessageHandler {
         registerRegisterPackets();
         registerPursePackets();
         registerUserPackets();
+        registerClubPackets();
         registerWelcomingPartyPackets();
         registerTutorialPackets();
         registerNavigatorPackets();
@@ -123,14 +125,18 @@ public class MessageHandler {
         registerEvent(7, new GET_INFO());
         registerEvent(228, new GET_ACCOUNT_PREFERENCES());
         registerEvent(196, new PONG());
-        registerEvent(26, new GET_CLUB());
-        registerEvent(190, new SUBSCRIBE_CLUB());
         registerEvent(44, new UPDATE());
         registerEvent(360, new GET_IGNORE_LIST());
         registerEvent(319, new IGNORE_USER());
         registerEvent(322, new UNIGNORE_USER());
         registerEvent(228, new GET_SOUND_SETTING());
         //registerEvent(315, new TEST_LATENCY());
+    }
+
+    private void registerClubPackets() {
+        registerEvent(26, new GET_CLUB());
+        registerEvent(190, new SUBSCRIBE_CLUB());
+        registerEvent(210, new SCR_GIFT_APPROVAL());
     }
 
     /**

@@ -30,10 +30,10 @@ public class ItemManager {
         item.setDefinitionId(ItemManager.getInstance().getDefinitionBySprite("present_gen" + ThreadLocalRandom.current().nextInt(1, 7)).getId());
         item.setOwnerId(playerDetails.getId());
         item.setCustomData(saleCode +
-                "|" + playerDetails.getName() +
-                "|" + presentLabel + //From Habbo" +
-                "|" +
-                "|" + DateUtil.getCurrentTimeSeconds());
+                Item.PRESENT_DELIMETER + playerDetails.getName() +
+                Item.PRESENT_DELIMETER + presentLabel + //From Habbo" +
+                Item.PRESENT_DELIMETER +
+                Item.PRESENT_DELIMETER + DateUtil.getCurrentTimeSeconds());
 
         try {
             ItemDao.newItem(item);
