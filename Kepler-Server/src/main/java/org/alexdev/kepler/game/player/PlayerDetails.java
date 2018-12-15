@@ -5,7 +5,6 @@ import org.alexdev.kepler.game.games.enums.GameType;
 import org.alexdev.kepler.util.DateUtil;
 import org.alexdev.kepler.util.StringUtil;
 import org.alexdev.kepler.util.config.GameConfiguration;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -29,6 +28,7 @@ public class PlayerDetails {
     // Club
     private long firstClubSubscription;
     private long clubExpiration;
+    private long clubGiftDue;
 
     // Badges
     private String currentBadge;
@@ -75,7 +75,7 @@ public class PlayerDetails {
      * @param battleballPoints the points accumulated when playing battleball
      * @param snowstormPoints the points accumulated when playing snowstorm
      */
-    public void fill(int id, String username, String figure, String poolFigure, int credits, String motto, String consoleMotto, String sex, int tickets, int film, int rank, long lastOnline, long firstClubSubscription, long clubExpiration, String currentBadge, boolean showBadge, boolean allowStalking, boolean allowFriendRequests, boolean soundEnabled, boolean tutorialFinished, int battleballPoints, int snowstormPoints) {
+    public void fill(int id, String username, String figure, String poolFigure, int credits, String motto, String consoleMotto, String sex, int tickets, int film, int rank, long lastOnline, long firstClubSubscription, long clubExpiration, long clubGiftDue, String currentBadge, boolean showBadge, boolean allowStalking, boolean allowFriendRequests, boolean soundEnabled, boolean tutorialFinished, int battleballPoints, int snowstormPoints) {
         this.id = id;
         this.username = StringUtil.filterInput(username, true);
         this.figure = StringUtil.filterInput(figure, true); // Format: hd-180-1.ch-255-70.lg-285-77.sh-295-74.fa-1205-91.hr-125-31.ha-1016-
@@ -90,6 +90,7 @@ public class PlayerDetails {
         this.lastOnline = lastOnline;
         this.firstClubSubscription = firstClubSubscription;
         this.clubExpiration = clubExpiration;
+        this.clubGiftDue = clubGiftDue;
         this.currentBadge = currentBadge;
         this.showBadge = showBadge;
         this.allowStalking = allowStalking;
@@ -329,5 +330,13 @@ public class PlayerDetails {
 
     public boolean isAllowFriendRequests() {
         return allowFriendRequests;
+    }
+
+    public long getClubGiftDue() {
+        return clubGiftDue;
+    }
+
+    public void setClubGiftDue(long clubGiftDue) {
+        this.clubGiftDue = clubGiftDue;
     }
 }

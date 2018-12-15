@@ -2,10 +2,12 @@ package org.alexdev.kepler.game.item;
 
 import org.alexdev.kepler.dao.mysql.ItemDao;
 import org.alexdev.kepler.game.item.base.ItemDefinition;
-import org.alexdev.kepler.game.item.public_items.PublicItemData;
+import org.alexdev.kepler.game.player.PlayerDetails;
+import org.alexdev.kepler.util.DateUtil;
 
-import java.util.List;
+import java.sql.SQLException;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class ItemManager {
     private static ItemManager instance;
@@ -16,6 +18,32 @@ public class ItemManager {
         this.itemDefinitionMap = ItemDao.getItemDefinitions();
     }
 
+    /**
+     * Quick and easy method for creating gifts.
+     *
+     * @param playerDetails the user to give the gift to
+     * @param saleCode the sprite to give
+     * @return the item as gift
+     */
+    public Item createGift(PlayerDetails playerDetails, String saleCode, String presentLabel) {
+        Item item = new Item();
+        item.setDefinitionId(ItemManager.getInstance().getDefinitionBySprite("present_gen" + ThreadLocalRandom.current().nextInt(1, 7)).getId());
+        item.setOwnerId(playerDetails.getId());
+        item.setCustomData(saleCode +
+                "|" + playerDetails.getName() +
+                "|" + presentLabel + //From Habbo" +
+                "|" +
+                "|" + DateUtil.getCurrentTimeSeconds());
+
+        try {
+            ItemDao.newItem(item);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return item;
+    }
 
     /**
      * Get a item definition by the definition id.

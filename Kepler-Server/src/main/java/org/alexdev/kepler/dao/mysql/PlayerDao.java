@@ -1,14 +1,11 @@
 package org.alexdev.kepler.dao.mysql;
 
+import com.goterl.lazycode.lazysodium.LazySodiumJava;
 import com.goterl.lazycode.lazysodium.SodiumJava;
 import com.goterl.lazycode.lazysodium.interfaces.PwHash;
-
 import org.alexdev.kepler.dao.Storage;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerDetails;
-
-import com.goterl.lazycode.lazysodium.LazySodiumJava;
-import org.alexdev.kepler.game.player.PlayerRank;
 import org.alexdev.kepler.util.DateUtil;
 
 import java.nio.charset.StandardCharsets;
@@ -563,7 +560,8 @@ public class PlayerDao {
                 row.getString("pool_figure"), row.getInt("credits"), row.getString("motto"),
                 row.getString("console_motto"), row.getString("sex"), row.getInt("tickets"),
                 row.getInt("film"), row.getInt("rank"), row.getLong("last_online"),
-                row.getLong("club_subscribed"), row.getLong("club_expiration"), row.getString("badge"),
+                row.getLong("club_subscribed"), row.getLong("club_expiration"), row.getLong("club_gift_due"),
+                row.getString("badge"),
                 row.getBoolean("badge_active"), row.getBoolean("allow_stalking"),
                 row.getBoolean("allow_friend_requests"), row.getBoolean("sound_enabled"),
                 row.getBoolean("tutorial_finished"), row.getInt("battleball_points"),

@@ -1,6 +1,5 @@
 package org.alexdev.kepler.util.config;
 
-import org.alexdev.kepler.dao.mysql.CurrencyDao;
 import org.alexdev.kepler.dao.mysql.SettingsDao;
 
 import java.util.LinkedHashMap;
@@ -89,6 +88,10 @@ public class GameConfiguration {
 
         config.put("rare.cycle.reuse.timeunit", "DAYS");
         config.put("rare.cycle.reuse.interval", "3");
+
+        config.put("club.gift.timeunit", "DAYS");
+        config.put("club.gift.interval", "7");
+        config.put("club.gift.present.label", "From Habbo");
 
         // Catalogue pages for rare items, delimetered by pipe, first integer is page ID and second number is the amount of hours required for that rare to be affordable
         config.put("rare.cycle.pages","28,3|29,3|31,3|32,3|33,3|34,3|35,3|36,3|40,3|43,3|30,6|37,6|38,6|39,6|44,6");
