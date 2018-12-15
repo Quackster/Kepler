@@ -138,6 +138,8 @@ public class PlayerDetails {
             // According to the HabboX wiki the badge is to be received on the first day of the 13th subscribed month
             return this.hasClubSubscription() && sinceMonths > 12;
         }
+
+        return false;
     }
 
     public int getId() {
