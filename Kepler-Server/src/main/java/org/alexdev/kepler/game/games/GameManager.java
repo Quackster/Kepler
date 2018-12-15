@@ -51,7 +51,7 @@ public class GameManager {
      * Recurring task used to clear old games after their listing time has expired.
      */
     private void createExpiryCheckLoop() {
-        this.expiryLoop = GameScheduler.getInstance().getSchedulerService().scheduleAtFixedRate(() -> {
+        this.expiryLoop = GameScheduler.getInstance().getService().scheduleAtFixedRate(() -> {
             finishedGames.removeIf(game -> DateUtil.getCurrentTimeSeconds() > game.getExpireTime());
         }, 0, getListingExpiryTime() / 10, TimeUnit.SECONDS);
     }

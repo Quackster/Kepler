@@ -103,7 +103,7 @@ public class NailBoxHandle {
 
         // Despawn all pins at their irregular intervals, as seen: https://www.youtube.com/watch?v=yw0MigOIloI&feature=youtu.be&t=94
         for (GameObject pinObject : pins) {
-            GameScheduler.getInstance().getSchedulerService().schedule(() -> {
+            GameScheduler.getInstance().getService().schedule(() -> {
                 game.getEventsQueue().add(new DespawnObjectEvent(pinObject.getId()));
                 game.getObjects().remove(pinObject);
 

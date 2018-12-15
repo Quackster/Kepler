@@ -28,7 +28,7 @@ public class RoomTaskManager {
     public RoomTaskManager(Room room) {
         this.room = room;
         this.processTasks = new ConcurrentHashMap<>();
-        this.executorService = GameScheduler.getInstance().getSchedulerService();
+        this.executorService = GameScheduler.getInstance().getService();
     }
 
     /**

@@ -31,7 +31,7 @@ public class HarlequinHandle {
             affectedPlayers.add(p);
         }
 
-        GameScheduler.getInstance().getSchedulerService().schedule(()-> {
+        GameScheduler.getInstance().getService().schedule(()-> {
             if (game.isGameFinished()) {
                 return;
             }

@@ -112,7 +112,7 @@ public class GameScheduler implements Runnable {
      *
      * @return the scheduler service
      */
-    public ScheduledExecutorService getSchedulerService() {
+    public ScheduledExecutorService getService() {
         return schedulerService;
     }
 

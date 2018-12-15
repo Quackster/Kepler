@@ -10,7 +10,6 @@ import org.alexdev.kepler.game.room.tasks.DiceTask;
 import org.alexdev.kepler.messages.outgoing.rooms.items.DICE_VALUE;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
-import org.alexdev.kepler.util.StringUtil;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.concurrent.TimeUnit;
@@ -66,6 +65,6 @@ public class THROW_DICE implements MessageEvent {
 
         item.setRequiresUpdate(true);
 
-        GameScheduler.getInstance().getSchedulerService().schedule(new DiceTask(item), 2, TimeUnit.SECONDS);
+        GameScheduler.getInstance().getService().schedule(new DiceTask(item), 2, TimeUnit.SECONDS);
     }
 }

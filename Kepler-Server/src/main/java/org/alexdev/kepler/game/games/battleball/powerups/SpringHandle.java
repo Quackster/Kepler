@@ -14,7 +14,7 @@ public class SpringHandle {
         gamePlayer.setPlayerState(BattleBallPlayerState.HIGH_JUMPS);
         game.addObjectToQueue(new PlayerUpdateObject(gamePlayer));
 
-        GameScheduler.getInstance().getSchedulerService().schedule(()-> {
+        GameScheduler.getInstance().getService().schedule(()-> {
             if (game.isGameFinished()) {
                 return;
             }

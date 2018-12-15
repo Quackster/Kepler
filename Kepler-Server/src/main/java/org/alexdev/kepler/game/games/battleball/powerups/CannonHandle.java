@@ -59,7 +59,7 @@ public class CannonHandle {
         }
 
         // Stun players in direction of cannon and make them move out of the way
-        GameScheduler.getInstance().getSchedulerService().schedule(() -> {
+        GameScheduler.getInstance().getService().schedule(() -> {
             for (var kvp : stunnedPlayers) {
                 try {
                     // TODO: Move player out of the way of user using cannon https://www.youtube.com/watch?v=YX1UZky5pg0&feature=youtu.be&t=98
@@ -137,7 +137,7 @@ public class CannonHandle {
         game.addObjectToQueue(new PlayerUpdateObject(gamePlayer));
         game.addPlayerMove(new PlayerMoveEvent(gamePlayer, lastPosition));
 
-        GameScheduler.getInstance().getSchedulerService().schedule(() -> {
+        GameScheduler.getInstance().getService().schedule(() -> {
             gamePlayer.getPlayer().getRoomUser().setPosition(lastPosition);
             PowerUpUtil.stunPlayer(game, gamePlayer, BattleBallPlayerState.STUNNED);
         }, 800, TimeUnit.MILLISECONDS);

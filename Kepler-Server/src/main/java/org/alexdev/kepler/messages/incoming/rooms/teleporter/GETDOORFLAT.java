@@ -7,7 +7,6 @@ import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.RoomManager;
-import org.alexdev.kepler.game.room.mapping.RoomTile;
 import org.alexdev.kepler.messages.outgoing.rooms.items.BROADCAST_TELEPORTER;
 import org.alexdev.kepler.messages.outgoing.rooms.items.TELEPORTER_INIT;
 import org.alexdev.kepler.messages.types.MessageEvent;
@@ -58,7 +57,7 @@ public class GETDOORFLAT implements MessageEvent {
             room.send(new BROADCAST_TELEPORTER(item, player.getDetails().getName(), true));
 
             // Initial warp to the next teleporter
-            GameScheduler.getInstance().getSchedulerService().schedule(() -> {
+            GameScheduler.getInstance().getService().schedule(() -> {
                 if (player.getRoomUser().getAuthenticateTelporterId() == -1) {
                     return;
                 }
@@ -68,7 +67,7 @@ public class GETDOORFLAT implements MessageEvent {
             }, 1000, TimeUnit.MILLISECONDS);
 
             // Walk out of the teleporter
-            GameScheduler.getInstance().getSchedulerService().schedule(() -> {
+            GameScheduler.getInstance().getService().schedule(() -> {
                 if (player.getRoomUser().getAuthenticateTelporterId() == -1) {
                     return;
                 }
@@ -80,7 +79,7 @@ public class GETDOORFLAT implements MessageEvent {
             }, 2000, TimeUnit.MILLISECONDS);
 
             // Finally let user walk
-            GameScheduler.getInstance().getSchedulerService().schedule(() -> {
+            GameScheduler.getInstance().getService().schedule(() -> {
                 if (player.getRoomUser().getAuthenticateTelporterId() == -1) {
                     return;
                 }

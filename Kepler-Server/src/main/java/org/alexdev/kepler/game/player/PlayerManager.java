@@ -196,7 +196,7 @@ public class PlayerManager {
         }
 
         // Start timeout that will trigger the shutdown hook
-        this.shutdownTimeout = GameScheduler.getInstance().getSchedulerService().schedule(() -> System.exit(0), maintenanceAt.toMillis(), TimeUnit.MILLISECONDS);
+        this.shutdownTimeout = GameScheduler.getInstance().getService().schedule(() -> System.exit(0), maintenanceAt.toMillis(), TimeUnit.MILLISECONDS);
 
         // Let other Kepler components know we are in maintenance mode
         this.isMaintenanceShutdown = true;

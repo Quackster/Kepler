@@ -47,7 +47,7 @@ public class UfosCommand extends Command {
         for (int i = 0; i < ufoAmount; i++)  {
             //final int tempId = i;
 
-           // GameScheduler.getInstance().getSchedulerService().scheduleAtFixedRate(() -> {
+           // GameScheduler.getInstance().getService().scheduleAtFixedRate(() -> {
                 int ufoId = Integer.MAX_VALUE - (i + 1);
 
                 Item pItem = new Item();

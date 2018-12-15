@@ -53,6 +53,6 @@ public class SPIN_WHEEL_OF_FORTUNE implements MessageEvent {
 
         item.setRequiresUpdate(true);
 
-        GameScheduler.getInstance().getSchedulerService().schedule(new FortuneTask(item), 4250, TimeUnit.MILLISECONDS);
+        GameScheduler.getInstance().getService().schedule(new FortuneTask(item), 4250, TimeUnit.MILLISECONDS);
     }
 }

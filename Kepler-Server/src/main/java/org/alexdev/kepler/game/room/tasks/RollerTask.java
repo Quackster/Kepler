@@ -8,7 +8,6 @@ import org.alexdev.kepler.game.item.roller.EntityRollingAnalysis;
 import org.alexdev.kepler.game.item.roller.ItemRollingAnalysis;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.item.roller.RollerEntry;
-import org.alexdev.kepler.game.item.roller.RollingData;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.log.Log;
@@ -106,7 +105,7 @@ public class RollerTask implements Runnable {
 
             if (itemsRolling.size() > 0 || entitiesRolling.size() > 0) {
                 this.room.getMapping().regenerateCollisionMap();
-                GameScheduler.getInstance().getSchedulerService().schedule(
+                GameScheduler.getInstance().getService().schedule(
                         new RollerCompleteTask(
                                 itemsRolling.keySet(),
                                 entitiesRolling.keySet(), room),

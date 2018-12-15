@@ -550,7 +550,7 @@ public abstract class RoomEntity {
             this.room.send(new USER_STATUSES(List.of(this.entity)));
         }
 
-        GameScheduler.getInstance().getSchedulerService().schedule(new WaveTask(this.entity), 2, TimeUnit.SECONDS);
+        GameScheduler.getInstance().getService().schedule(new WaveTask(this.entity), 2, TimeUnit.SECONDS);
     }
 
     /**

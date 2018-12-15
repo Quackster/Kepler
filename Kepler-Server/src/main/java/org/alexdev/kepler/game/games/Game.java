@@ -155,7 +155,7 @@ public abstract class Game {
             }
         };
 
-        var future = GameScheduler.getInstance().getSchedulerService().scheduleAtFixedRate(this.preparingTimerRunnable, 1, 1, TimeUnit.SECONDS);
+        var future = GameScheduler.getInstance().getService().scheduleAtFixedRate(this.preparingTimerRunnable, 1, 1, TimeUnit.SECONDS);
         this.preparingTimerRunnable.setFuture(future);
 
         this.sendObservers(new GAMEINSTANCE(this));
@@ -201,7 +201,7 @@ public abstract class Game {
             }
         };
 
-        var future = GameScheduler.getInstance().getSchedulerService().scheduleAtFixedRate(this.gameTimerRunnable, 0, 1, TimeUnit.SECONDS);
+        var future = GameScheduler.getInstance().getService().scheduleAtFixedRate(this.gameTimerRunnable, 0, 1, TimeUnit.SECONDS);
         this.gameTimerRunnable.setFuture(future);
 
         gameStarted();
@@ -263,7 +263,7 @@ public abstract class Game {
             }
         };
 
-        var future = GameScheduler.getInstance().getSchedulerService().scheduleAtFixedRate(this.restartRunnable, 0, 1, TimeUnit.SECONDS);
+        var future = GameScheduler.getInstance().getService().scheduleAtFixedRate(this.restartRunnable, 0, 1, TimeUnit.SECONDS);
         this.restartRunnable.setFuture(future);
 
         this.sendObservers(new GAMEINSTANCE(finishedGame));
@@ -360,7 +360,7 @@ public abstract class Game {
             }
         };
 
-        var future = GameScheduler.getInstance().getSchedulerService().scheduleAtFixedRate(this.preparingTimerRunnable, 1, 1, TimeUnit.SECONDS);
+        var future = GameScheduler.getInstance().getService().scheduleAtFixedRate(this.preparingTimerRunnable, 1, 1, TimeUnit.SECONDS);
         this.preparingTimerRunnable.setFuture(future);
 
         this.gamePrepare();
