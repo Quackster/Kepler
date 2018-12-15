@@ -71,7 +71,7 @@ public class NavigatorDao {
 
         try {
             sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("SELECT * FROM rooms LEFT JOIN users ON rooms.owner_id = users.id WHERE category = ? AND owner_id > 0 ORDER BY rooms.id DESC,visitors_now DESC LIMIT ? ", sqlConnection);
+            preparedStatement = Storage.getStorage().prepare("SELECT * FROM rooms LEFT JOIN users ON rooms.owner_id = users.id WHERE category = ? AND owner_id > 0 ORDER BY visitors_now DESC, rooms.id DESC LIMIT ? ", sqlConnection);
             preparedStatement.setInt(1, categoryId);
             preparedStatement.setInt(2, limit);
             resultSet = preparedStatement.executeQuery();
