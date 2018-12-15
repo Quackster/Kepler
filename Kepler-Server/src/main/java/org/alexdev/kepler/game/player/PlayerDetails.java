@@ -121,7 +121,7 @@ public class PlayerDetails {
     }
 
     public boolean hasClubSubscription() {
-        if (this.clubExpiration != 0) {
+        if (this.clubExpiration > 0) {
             if (DateUtil.getCurrentTimeSeconds() < this.clubExpiration) {
                 return true;
             }

@@ -95,6 +95,12 @@ public class ClubSubscription {
 
         if (player.getDetails().getFirstClubSubscription() == 0) {
             player.getDetails().setFirstClubSubscription(now);
+
+            Item item = ItemManager.getInstance().createGift(player.getDetails(), "club_sofa", GameConfiguration.getInstance().getString("club.gift.present.label"));
+            ClubGiftDao.saveNextGiftDate(player.getDetails());
+
+            player.getInventory().addItem(item);
+            player.getInventory().getView("new");
         }
 
         if (player.getDetails().getClubExpiration() - now <= 0) {
@@ -143,7 +149,6 @@ public class ClubSubscription {
 
             PlayerDao.saveSubscription(player.getDetails());
         } else {
-
             var giftData = ClubGiftDao.getLastGift(player.getDetails().getId());
             String nextSpriteGift;
 
@@ -167,12 +172,12 @@ public class ClubSubscription {
                 nextSpriteGift = giftOrder[position];
             }
 
-            player.getDetails().setClubGiftDue(DateUtil.getCurrentTimeSeconds() + getClubGiftSeconds());
             ClubGiftDao.addGift(player.getDetails().getId(), nextSpriteGift);
 
             item = ItemManager.getInstance().createGift(player.getDetails(), nextSpriteGift, GameConfiguration.getInstance().getString("club.gift.present.label"));
         }
 
+        player.getDetails().setClubGiftDue(DateUtil.getCurrentTimeSeconds() + getClubGiftSeconds());
         ClubGiftDao.saveNextGiftDate(player.getDetails());
 
         player.getInventory().addItem(item);
