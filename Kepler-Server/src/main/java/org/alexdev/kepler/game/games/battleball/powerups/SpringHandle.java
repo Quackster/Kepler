@@ -4,6 +4,7 @@ import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.games.battleball.BattleBallGame;
 import org.alexdev.kepler.game.games.battleball.enums.BattleBallPlayerState;
 import org.alexdev.kepler.game.games.battleball.objects.PlayerUpdateObject;
+import org.alexdev.kepler.game.games.enums.GameState;
 import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.room.Room;
 
@@ -15,7 +16,7 @@ public class SpringHandle {
         game.addObjectToQueue(new PlayerUpdateObject(gamePlayer));
 
         GameScheduler.getInstance().getService().schedule(()-> {
-            if (game.isGameFinished()) {
+            if (game.getGameState() == GameState.ENDED) {
                 return;
             }
 

@@ -19,13 +19,11 @@ import java.util.stream.Collectors;
 
 public abstract class GamehallGame {
     private String gameId;
-    private int roomId;
-
     private List<int[]> chairCoordinates;
     private List<Player> players;
+    private int roomId;
 
-    public GamehallGame(int roomId, List<int[]> chairCoordinateList) {
-        this.roomId = roomId;
+    public GamehallGame(List<int[]> chairCoordinateList) {
         this.chairCoordinates = chairCoordinateList;
         this.players = new CopyOnWriteArrayList<>();
     }
@@ -260,5 +258,31 @@ public abstract class GamehallGame {
         for (Player player : this.players) {
             trigger.onEntityLeave(player, player.getRoomUser(), item);
         }
+    }
+
+    /**
+     * Get the room id this gamehall game is in
+     * @return the room id
+     */
+    public int getRoomId() {
+        return roomId;
+    }
+
+    /**
+     * Set the room id this gamehall game is in
+     *
+     * @param roomId the room id
+     */
+    public void setRoomId(int roomId) {
+        this.roomId = roomId;
+    }
+
+    /**
+     * Return the list of chair coordinates
+     *
+     * @return the list of chair coordinates
+     */
+    public List<int[]> getChairCoordinates() {
+        return chairCoordinates;
     }
 }

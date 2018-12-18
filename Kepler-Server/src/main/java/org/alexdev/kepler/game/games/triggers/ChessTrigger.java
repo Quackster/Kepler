@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChessTrigger extends GameTrigger {
-    public ChessTrigger(int roomId) {
+    public ChessTrigger() {
         for (var kvp : this.getChairGroups()) {
-            this.getGameInstances().add(new GameChess(roomId, kvp));
+            this.getGameInstances().add(new GameChess(kvp));
         }
     }
 

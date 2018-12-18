@@ -8,12 +8,14 @@ import org.alexdev.kepler.game.games.triggers.GameTrigger;
 import java.util.List;
 
 public class GamePoker extends GamehallGame {
-    public GamePoker(int roomId, List<int[]> kvp) {
-        super(roomId, kvp);
+    public GamePoker(List<int[]> kvp) {
+        super(kvp);
     }
 
     @Override
-    public void gameStart() { }
+    public void gameStart() {
+
+    }
 
     @Override
     public void gameStop() { }

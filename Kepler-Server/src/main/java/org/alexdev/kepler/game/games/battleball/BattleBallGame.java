@@ -1,7 +1,7 @@
 package org.alexdev.kepler.game.games.battleball;
 
 import org.alexdev.kepler.dao.mysql.CurrencyDao;
-import org.alexdev.kepler.dao.mysql.GameSpawn;
+import org.alexdev.kepler.game.games.GameSpawn;
 import org.alexdev.kepler.game.games.*;
 import org.alexdev.kepler.game.games.battleball.enums.BattleBallColourState;
 import org.alexdev.kepler.game.games.battleball.enums.BattleBallPlayerState;
@@ -30,6 +30,8 @@ public class BattleBallGame extends Game {
     private BlockingQueue<BattleBallTile> updateTilesQueue;
     private BlockingQueue<BattleBallTile> fillTilesQueue;
 
+    private List<BattleBallTile> tiles;
+
     private List<Integer> allowedPowerUps;
     private List<BattleBallPowerUp> activePowers;
 
@@ -38,10 +40,11 @@ public class BattleBallGame extends Game {
 
     public static final int MAX_POWERS_ACTIVE = 2;
 
-    public BattleBallGame(int id, int mapId, GameType gameType, String name, int teamAmount, Player gameCreator, List<Integer> allowedPowerUps) {
+    public BattleBallGame(int id, int mapId, GameType gameType, String name, int teamAmount, Player gameCreator, List<Integer> allowedPowerUps, boolean privateGame) {
         super(id, mapId, gameType, name, teamAmount, gameCreator);
 
         this.allowedPowerUps = allowedPowerUps;
+        this.tiles = new ArrayList<>();
 
         if (this.allowedPowerUps.size() >= 2) {
             this.allowedPowerUps.add(BattleBallPowerType.QUESTION_MARK.getPowerUpId());
@@ -174,11 +177,14 @@ public class BattleBallGame extends Game {
     @Override
     public void buildMap() {
         BattleBallMap tileMap = GameManager.getInstance().getBattleballTileMap(this.getMapId());
+
         this.battleballTiles = new BattleBallTile[this.getRoomModel().getMapSizeX()][this.getRoomModel().getMapSizeY()];
+        this.tiles.clear();
 
         for (int y = 0; y < this.getRoomModel().getMapSizeY(); y++) {
             for (int x = 0; x < this.getRoomModel().getMapSizeX(); x++) {
                 RoomTileState tileState = this.getRoomModel().getTileState(x, y);
+
                 BattleBallTile tile = new BattleBallTile(new Position(x, y, this.getRoomModel().getTileHeight(x, y)));
 
                 this.battleballTiles[x][y] = tile;
@@ -195,6 +201,7 @@ public class BattleBallGame extends Game {
                 }
 
                 tile.setColour(BattleBallColourState.DEFAULT);
+                this.tiles.add(tile);
             }
         }
     }
@@ -237,6 +244,7 @@ public class BattleBallGame extends Game {
 
                 p.getPlayer().getRoomUser().setWalking(false);
                 p.getPlayer().getRoomUser().setNextPosition(null);
+                p.getPlayer().getRoomUser().setPosition(p.getSpawnPosition().copy());
 
                 // Don't allow anyone to spawn on this tile
                 BattleBallTile tile = (BattleBallTile) this.getTile(spawnPosition.getX(), spawnPosition.getY());
@@ -405,5 +413,14 @@ public class BattleBallGame extends Game {
      */
     public BlockingQueue<BattleBallTile> getFillTilesQueue() {
         return fillTilesQueue;
+    }
+
+    /**
+     * Return the list of tiles created for the game.
+     *
+     * @return the list of tiles
+     */
+    public List<BattleBallTile> getTiles() {
+        return this.tiles;
     }
 }

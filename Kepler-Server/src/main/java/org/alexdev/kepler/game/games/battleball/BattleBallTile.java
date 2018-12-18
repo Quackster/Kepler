@@ -6,19 +6,12 @@ import org.alexdev.kepler.game.games.GameEvent;
 import org.alexdev.kepler.game.games.GameObject;
 import org.alexdev.kepler.game.games.GameTile;
 import org.alexdev.kepler.game.games.battleball.enums.BattleBallColourState;
-import org.alexdev.kepler.game.games.battleball.enums.BattleBallPlayerState;
-import org.alexdev.kepler.game.games.battleball.enums.BattleBallPowerType;
 import org.alexdev.kepler.game.games.battleball.enums.BattleBallTileState;
-import org.alexdev.kepler.game.games.battleball.events.AcquirePowerUpEvent;
-import org.alexdev.kepler.game.games.battleball.events.DespawnObjectEvent;
-import org.alexdev.kepler.game.games.battleball.objects.PinObject;
-import org.alexdev.kepler.game.games.battleball.objects.PowerUpUpdateObject;
 import org.alexdev.kepler.game.games.battleball.powerups.NailBoxHandle;
 import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.games.player.GameTeam;
 import org.alexdev.kepler.game.games.utils.FloodFill;
-import org.alexdev.kepler.game.games.utils.PowerUpUtil;
-import org.alexdev.kepler.game.games.utils.TileUtil;
+import org.alexdev.kepler.game.games.utils.ScoreReference;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.mapping.RoomTile;
@@ -27,14 +20,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class BattleBallTile extends GameTile  {
     private BattleBallColourState colour;
     private BattleBallTileState state;
 
+    private CopyOnWriteArrayList<ScoreReference> pointsReferece;
+
     public BattleBallTile(Position position) {
         super(position);
+        this.pointsReferece = new CopyOnWriteArrayList<>();
     }
 
     public List<GamePlayer> getPlayers(GamePlayer gamePlayer) {
@@ -100,89 +95,85 @@ public class BattleBallTile extends GameTile  {
         }
 
         if (state != BattleBallTileState.SEALED) {
-            if (colour.getColourId() == team.getId()) {
-                this.setState(BattleBallTileState.getStateById(state.getTileStateId() + 1));
-            } else {
-                if (gamePlayer.getGame().getMapId() == 5) { // Barebones classic takes 4 hits
-                    this.setState(BattleBallTileState.TOUCHED);
-                    this.setColour(BattleBallColourState.getColourById(team.getId()));
-                } else {
-                    this.setState(BattleBallTileState.CLICKED);
-                    this.setColour(BattleBallColourState.getColourById(team.getId()));
-                }
-            }
-
             BattleBallTileState newState = this.getState();
             BattleBallColourState newColour = this.getColour();
 
-            getNewPoints(gamePlayer, state, colour, newState, newColour);
-            checkFill(gamePlayer, this, updateFillTiles);
+            if (colour.getColourId() == team.getId()) {
+                newState = BattleBallTileState.getStateById(state.getTileStateId() + 1);
+            } else {
+                if (gamePlayer.getGame().getMapId() == 5) { // Barebones classic takes 4 hits
+                    newState = BattleBallTileState.TOUCHED;
+                    newColour = BattleBallColourState.getColourById(team.getId());
+                } else {
+                    newState = BattleBallTileState.CLICKED;
+                    newColour = BattleBallColourState.getColourById(team.getId());
+                }
+            }
+
+            this.getNewPoints(gamePlayer, newState, newColour);
+
+            this.setColour(newColour);
+            this.setState(newState);
+
+            this.checkFill(gamePlayer, updateFillTiles);
 
             updateTiles.add(this);
         }
     }
 
-    public static int getNewPoints(GamePlayer gamePlayer, BattleBallTileState state, BattleBallColourState colour, BattleBallTileState newState, BattleBallColourState newColour) {
+    public void getNewPoints(GamePlayer gamePlayer, BattleBallTileState newState, BattleBallColourState newColour) {
         GameTeam team = gamePlayer.getTeam();
 
         int newPoints = -1;
         boolean sealed = false;
 
-        if (state != newState && newState == BattleBallTileState.TOUCHED) {
+        if (this.state != newState && newState == BattleBallTileState.TOUCHED) {
             newPoints = 2;
 
-            if (colour != newColour) {
+            if (this.colour != newColour && this.colour != BattleBallColourState.DEFAULT) {
                 newPoints = 4;
             }
-        }
-
-        if (state != newState && newState == BattleBallTileState.CLICKED) {
+        } else if (this.state != newState && newState == BattleBallTileState.CLICKED) {
             newPoints = 6;
 
-            if (colour != newColour) {
+            if (this.colour != newColour && this.colour != BattleBallColourState.DEFAULT) {
                 newPoints = 8;
             }
-        }
-
-        if (state != newState && newState == BattleBallTileState.PRESSED) {
+        } else if (this.state != newState && newState == BattleBallTileState.PRESSED) {
             newPoints = 10;
 
-            if (colour != newColour) {
+            if (this.colour != newColour && this.colour != BattleBallColourState.DEFAULT) {
                 newPoints = 12;
+            }
+        } else if (this.state != newState && newState == BattleBallTileState.SEALED) {
+            if (this.colour == newColour) {
+                newPoints = 14;
+                sealed = true;
             }
         }
 
-        if (state != newState && newState == BattleBallTileState.SEALED) {
-            newPoints = 14;
-            sealed = true;
+        if (this.colour != newColour) { // Clear teams previous scores
+            this.pointsReferece.clear();
         }
-
 
         if (newPoints != -1) {
             if (!sealed) { // Set to sealed
-                // Increase score for other team if harlequin is enabled
                 if (gamePlayer.getHarlequinPlayer() != null) {
-                    int pointsAcrossTeams = newPoints / team.getActivePlayers().size();
-
-                    for (GamePlayer p : team.getActivePlayers()) {
-                        p.setScore(p.getScore() + pointsAcrossTeams);
-                    }
+                    this.pointsReferece.add(new ScoreReference(newPoints, team, gamePlayer.getHarlequinPlayer().getUserId()));
                 } else {
-                    gamePlayer.setScore(gamePlayer.getScore() + newPoints);
+                    this.pointsReferece.add(new ScoreReference(newPoints, team, gamePlayer.getUserId()));
                 }
             } else {
-                // Tile got sealed, so increase every team members' points
-                team.setSealedTileScore();
+                this.addSealedPoints(team);
             }
         }
-
-        return newPoints;
     }
 
-    public static void checkFill(GamePlayer gamePlayer, BattleBallTile tile, Collection<BattleBallTile> updateFillTiles) {
+
+    public void checkFill(GamePlayer gamePlayer, Collection<BattleBallTile> updateFillTiles) {
          GameTeam team = gamePlayer.getTeam();
 
-        for (BattleBallTile neighbour : FloodFill.neighbours(gamePlayer.getGame(), tile.getPosition())) {
+        for (BattleBallTile neighbour : FloodFill.neighbours(gamePlayer.getGame(), this.getPosition())) {
             if (neighbour == null || neighbour.getState() == BattleBallTileState.SEALED || neighbour.getColour() == BattleBallColourState.DISABLED) {
                 continue;
             }
@@ -195,14 +186,20 @@ public class BattleBallTile extends GameTile  {
                         continue;
                     }
 
-                    team.setSealedTileScore();
+                    this.addSealedPoints(team);
 
-                    filledTile.setColour(tile.getColour());
+                    filledTile.setColour(this.getColour());
                     filledTile.setState(BattleBallTileState.SEALED);
 
                     updateFillTiles.add(filledTile);
                 }
             }
+        }
+    }
+
+    public void addSealedPoints(GameTeam team) {
+        for (GamePlayer gamePlayer : team.getPlayers()) {
+            this.pointsReferece.add(new ScoreReference(14, team, gamePlayer.getUserId()));
         }
     }
 
@@ -240,5 +237,14 @@ public class BattleBallTile extends GameTile  {
      */
     public void setState(BattleBallTileState state) {
         this.state = state;
+    }
+
+    /**
+     * Get the list of points to reference.
+     *
+     * @return the list of points to reference
+     */
+    public CopyOnWriteArrayList<ScoreReference> getPointsReferece() {
+        return pointsReferece;
     }
 }

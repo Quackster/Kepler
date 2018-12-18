@@ -168,6 +168,19 @@ public class RoomTile {
     }
 
     /**
+     * Get a list of entities that excludes the current entity
+     *
+     * @param entity the entity
+     * @return the list without the entity supplied
+     */
+    public List<Entity> getOtherEntities(Entity entity) {
+        List<Entity> temp = new ArrayList<>(this.entities);
+        temp.removeIf(e -> e.getRoomUser().getInstanceId() == entity.getRoomUser().getInstanceId());
+
+        return temp;
+    }
+
+    /**
      * Sets the entity.
      *
      * @param entity the new entity

@@ -82,7 +82,7 @@ public abstract class Game {
         this.events = new CopyOnWriteArrayList<>();
 
         for (int i = 0; i < teamAmount; i++) {
-            this.teams.put(i, new GameTeam(i));
+            this.teams.put(i, new GameTeam(i, this));
         }
 
         this.objectId = new AtomicInteger(-1);
@@ -323,8 +323,6 @@ public abstract class Game {
 
         for (var gamePlayer : players) {
             this.movePlayer(gamePlayer, -1, gamePlayer.getTeamId());
-
-            gamePlayer.setScore(0);
             gamePlayer.getPlayer().getRoomUser().setWalkingAllowed(false); // Don't allow them to walk, for next game
         }
 
@@ -472,7 +470,6 @@ public abstract class Game {
             }
 
             gamePlayer.setInGame(false); // Leaving team so they're not in game
-            gamePlayer.setScore(0);
         }
 
         if (toTeamId != -1) {
@@ -487,7 +484,6 @@ public abstract class Game {
                 this.teams.get(gamePlayer.getTeamId()).getPlayers().remove(gamePlayer);
             } else {
                 gamePlayer.setInGame(false); // Don't remove from team, just show they're no longer in game, for "0" score at the end.
-                gamePlayer.setScore(0);
             }
 
             gamePlayer.getPlayer().getRoomUser().setGamePlayer(null);

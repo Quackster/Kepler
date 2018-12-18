@@ -56,15 +56,14 @@ public class GameTicTacToe extends GamehallGame {
     private char[][] gameMap;
     private Player nextTurn;
 
-    public GameTicTacToe(int roomId, List<int[]> chairs) {
-        super(roomId, chairs);
+    public GameTicTacToe(List<int[]> chairs) {
+        super(chairs);
     }
 
     @Override
     public void gameStart() {
         this.playersInGame = new ArrayList<>();
         this.playerSides = new HashMap<>();
-
         this.restartMap();
     }
 
@@ -223,7 +222,6 @@ public class GameTicTacToe extends GamehallGame {
             for (Player player : this.playersInGame) {
                 player.send(new CHAT_MESSAGE(ChatMessageType.CHAT, player.getRoomUser().getInstanceId(), winner.getDetails().getName() + " has won the game in " + token.getMoves() + " moves"));
             }
-
         }
     }
 

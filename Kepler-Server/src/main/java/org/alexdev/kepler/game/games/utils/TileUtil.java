@@ -5,7 +5,6 @@ import org.alexdev.kepler.game.games.battleball.BattleBallTile;
 import org.alexdev.kepler.game.games.battleball.enums.BattleBallColourState;
 import org.alexdev.kepler.game.games.battleball.enums.BattleBallTileState;
 import org.alexdev.kepler.game.games.player.GamePlayer;
-import org.alexdev.kepler.game.games.player.GameTeam;
 import org.alexdev.kepler.game.room.mapping.RoomTile;
 
 public class TileUtil {
@@ -17,7 +16,12 @@ public class TileUtil {
             return false;
         }
 
-        int pointsToRemove = 0;
+        tile.getPointsReferece().clear();
+
+        tile.setColour(BattleBallColourState.DEFAULT);
+        tile.setState(BattleBallTileState.DEFAULT);
+
+        /*int pointsToRemove = 0;
 
         if (state == BattleBallTileState.TOUCHED) {
             pointsToRemove = 2;
@@ -34,18 +38,19 @@ public class TileUtil {
         if (state == BattleBallTileState.SEALED) {
             pointsToRemove = 14;
         }
+
         GameTeam team = game.getTeams().get(colour.getColourId());
 
         if (pointsToRemove > 0) {
-            int eachTeamRemove = team.getActivePlayers().size() / pointsToRemove;
+            int eachTeamRemove = team.getPlayers().size() / pointsToRemove;
 
-            for (GamePlayer p : team.getActivePlayers()) {
-                p.setScore(p.getScore() - eachTeamRemove);
+            for (GamePlayer p : team.getPlayers()) {
+                //p.setScore(p.getScore() - eachTeamRemove);
             }
 
             tile.setColour(BattleBallColourState.DEFAULT);
             tile.setState(BattleBallTileState.DEFAULT);
-        }
+        }*/
 
         return true;
     }

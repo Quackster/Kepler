@@ -111,18 +111,19 @@ public class CannonHandle {
             }
 
 
-            BattleBallTileState state = tile.getState();
-            BattleBallColourState colour = tile.getColour();
+            /*BattleBallTileState state = tile.getState();
+            BattleBallColourState colour = tile.getColour();*/
 
             BattleBallTileState newState = BattleBallTileState.SEALED;
             BattleBallColourState newColour = BattleBallColourState.getColourById(gamePlayer.getTeam().getId());
 
-            BattleBallTile.getNewPoints(gamePlayer, state, colour, newState, newColour);
+            tile.addSealedPoints(gamePlayer.getTeam());
+            //tile.getNewPoints(gamePlayer, newState, newColour);
 
             tile.setColour(newColour);
             tile.setState(newState);
 
-            BattleBallTile.checkFill(gamePlayer, tile, game.getFillTilesQueue());
+            tile.checkFill(gamePlayer, game.getFillTilesQueue());
             game.getUpdateTilesQueue().add(tile);
         }
 

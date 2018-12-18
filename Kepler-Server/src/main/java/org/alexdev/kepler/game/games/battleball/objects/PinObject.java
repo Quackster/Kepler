@@ -2,7 +2,6 @@ package org.alexdev.kepler.game.games.battleball.objects;
 
 import org.alexdev.kepler.game.games.GameObject;
 import org.alexdev.kepler.game.games.enums.GameObjectType;
-import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 

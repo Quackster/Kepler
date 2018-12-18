@@ -5,6 +5,7 @@ import com.github.bhlangonijr.chesslib.move.Move;
 import com.github.bhlangonijr.chesslib.move.MoveGenerator;
 import com.github.bhlangonijr.chesslib.move.MoveGeneratorException;
 import org.alexdev.kepler.game.item.Item;
+import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.games.triggers.GameTrigger;
@@ -33,17 +34,18 @@ public class GameChess extends GamehallGame {
     private Board board;
     private GameToken[] gameTokens;
     private Player nextTurn;
+    private Position[] positions;
 
     private List<Player> playersInGame;
     private HashMap<Player, GameToken> playerSides;
 
-    public GameChess(int roomId, List<int[]> chairs) {
-        super(roomId, chairs);
+    public GameChess(List<int[]> chairs) {
+        super(chairs);
     }
 
     @Override
     public void gameStart() {
-        this.playersInGame =  new ArrayList<>();
+        this.playersInGame = new ArrayList<>();
         this.playerSides = new HashMap<>();
         this.restartMap();
     }

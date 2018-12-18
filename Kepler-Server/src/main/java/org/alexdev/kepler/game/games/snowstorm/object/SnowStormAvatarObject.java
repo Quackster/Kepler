@@ -2,7 +2,6 @@ package org.alexdev.kepler.game.games.snowstorm.object;
 
 import org.alexdev.kepler.game.games.enums.GameObjectType;
 import org.alexdev.kepler.game.games.player.GamePlayer;
-import org.alexdev.kepler.game.games.snowstorm.SnowStormGame;
 import org.alexdev.kepler.game.games.snowstorm.SnowStormObject;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 

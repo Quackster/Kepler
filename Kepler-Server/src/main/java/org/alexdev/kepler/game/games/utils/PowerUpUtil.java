@@ -4,6 +4,7 @@ import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.games.Game;
 import org.alexdev.kepler.game.games.battleball.enums.BattleBallPlayerState;
 import org.alexdev.kepler.game.games.battleball.objects.PlayerUpdateObject;
+import org.alexdev.kepler.game.games.enums.GameState;
 import org.alexdev.kepler.game.games.player.GamePlayer;
 
 import java.util.concurrent.TimeUnit;
@@ -18,7 +19,7 @@ public class PowerUpUtil {
 
         // Restore player 5 seconds later
         GameScheduler.getInstance().getService().schedule(()-> {
-            if (!game.isGameFinished()) {
+            if (game.getGameState() != GameState.ENDED) {
                 gamePlayer.getPlayer().getRoomUser().setWalkingAllowed(true);
             }
 

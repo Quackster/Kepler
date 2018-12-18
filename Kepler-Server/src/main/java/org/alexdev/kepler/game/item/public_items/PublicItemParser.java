@@ -17,10 +17,10 @@ import java.util.Map;
 
 public class PublicItemParser {
     public static List<Item> getPublicItems(int roomId, String modelId) {
-        TicTacToeTrigger ticTacToeTrigger = new TicTacToeTrigger(roomId);
-        ChessTrigger chessTrigger = new ChessTrigger(roomId);
-        BattleShipsTrigger battleShipsTrigger = new BattleShipsTrigger(roomId);
-        PokerTrigger pokerTrigger = new PokerTrigger(roomId);
+        TicTacToeTrigger ticTacToeTrigger = new TicTacToeTrigger();
+        ChessTrigger chessTrigger = new ChessTrigger();
+        BattleShipsTrigger battleShipsTrigger = new BattleShipsTrigger();
+        PokerTrigger pokerTrigger = new PokerTrigger();
 
         Map<String, GenericTrigger> itemTriggerMap = new HashMap<>() {{
             put("poolExit", new PoolExitTrigger());

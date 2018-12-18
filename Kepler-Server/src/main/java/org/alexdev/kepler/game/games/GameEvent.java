@@ -1,7 +1,6 @@
 package org.alexdev.kepler.game.games;
 
 import org.alexdev.kepler.game.games.enums.GameEventType;
-import org.alexdev.kepler.game.games.enums.GameObjectType;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 
 public abstract class GameEvent {

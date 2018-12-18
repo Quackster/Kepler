@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BattleShipsTrigger extends GameTrigger {
-    public BattleShipsTrigger(int roomId) {
+    public BattleShipsTrigger() {
         for (var kvp : this.getChairGroups()) {
-            this.getGameInstances().add(new GameBattleShip(roomId, kvp));
+            this.getGameInstances().add(new GameBattleShip(kvp));
         }
     }
 

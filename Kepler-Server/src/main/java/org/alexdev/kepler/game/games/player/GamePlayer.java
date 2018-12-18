@@ -3,8 +3,11 @@ package org.alexdev.kepler.game.games.player;
 import org.alexdev.kepler.game.games.Game;
 import org.alexdev.kepler.game.games.GameManager;
 import org.alexdev.kepler.game.games.GameObject;
+import org.alexdev.kepler.game.games.battleball.BattleBallGame;
+import org.alexdev.kepler.game.games.battleball.BattleBallTile;
 import org.alexdev.kepler.game.games.battleball.enums.BattleBallPlayerState;
 import org.alexdev.kepler.game.games.snowstorm.TurnContainer;
+import org.alexdev.kepler.game.games.utils.ScoreReference;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.player.Player;
 
@@ -16,7 +19,6 @@ public class GamePlayer {
     private int gameId;
     private int teamId;
     private Position position;
-    private int score;
     private boolean enteringGame;
     private boolean isSpectator;
     private boolean inGame;
@@ -32,7 +34,6 @@ public class GamePlayer {
         this.gameId = -1;
         this.objectId = -1;
         this.harlequinPlayer = null;
-        this.score = 0;
         this.enteringGame = false;
         this.clickedRestart = false;
         this.position = new Position();
@@ -110,20 +111,27 @@ public class GamePlayer {
      * @return the score
      */
     public int getScore() {
-        return score;
-    }
-
-    /**
-     * Sets the score for the player, does NOT allow negative numbers
-     *
-     * @param score the score to set
-     */
-    public void setScore(int score) {
-        this.score = score;
-
-        if (this.score < 0) {
-            this.score = 0;
+        if (!this.inGame) {
+            return 0;
         }
+
+        int score = 0;
+
+        if (this.getGame() instanceof BattleBallGame) {
+            BattleBallGame battleBallGame = (BattleBallGame) this.getGame();
+
+            for (BattleBallTile battleBallTile : battleBallGame.getTiles()) {
+                for (ScoreReference scoreReference : battleBallTile.getPointsReferece()) {
+                    if (scoreReference.getBy() != this.userId) {
+                        continue;
+                    }
+
+                    score += scoreReference.getScore();
+                }
+            }
+        }
+
+        return score;
     }
 
     /**

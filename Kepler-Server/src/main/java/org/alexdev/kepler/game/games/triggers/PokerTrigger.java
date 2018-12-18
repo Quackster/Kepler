@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PokerTrigger extends GameTrigger {
-    public PokerTrigger(int roomId) {
+    public PokerTrigger() {
         for (var kvp : this.getChairGroups()) {
-            this.getGameInstances().add(new GamePoker(roomId, kvp));
+            this.getGameInstances().add(new GamePoker(kvp));
         }
     }
 

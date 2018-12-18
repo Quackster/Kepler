@@ -3,12 +3,11 @@ package org.alexdev.kepler.game.games.triggers;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
 import org.alexdev.kepler.game.item.Item;
-import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.games.gamehalls.GamehallGame;
+import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.entities.RoomEntity;
-import org.alexdev.kepler.game.room.mapping.RoomTile;
 import org.alexdev.kepler.game.triggers.GenericTrigger;
 import org.alexdev.kepler.messages.outgoing.rooms.games.CLOSEGAMEBOARD;
 import org.alexdev.kepler.messages.outgoing.rooms.games.OPENGAMEBOARD;
@@ -34,8 +33,13 @@ public abstract class GameTrigger extends GenericTrigger {
         // Call default sitting trigger
         ItemBehaviour.CAN_SIT_ON_TOP.getTrigger().onEntityStop(entity, roomEntity, item, customArgs);
 
+
         // Handle game logic from here
         GamehallGame instance = this.getGameInstance(item.getPosition());
+
+        if (instance != null && !(instance.getRoomId() > 0)) {
+            instance.setRoomId(roomEntity.getRoom().getId());
+        }
 
         if (instance == null || (instance.getPlayers().size() >= instance.getMaximumPeopleRequired())) {
             return;
@@ -55,8 +59,8 @@ public abstract class GameTrigger extends GenericTrigger {
         if (instance.getGameId() == null) {
             if (instance.hasPlayersRequired()) { // New game started
                 instance.createGameId();
-                instance.sendToEveryone(new OPENGAMEBOARD(instance.getGameId(), instance.getGameFuseType()));
                 instance.gameStart();
+                instance.sendToEveryone(new OPENGAMEBOARD(instance.getGameId(), instance.getGameFuseType()));;
             }
         }
     }
@@ -105,8 +109,8 @@ public abstract class GameTrigger extends GenericTrigger {
      */
     public GamehallGame getGameInstance(Position position) {
         for (GamehallGame instances : this.gameInstances) {
-            for (RoomTile roomTile : instances.getTiles()) {
-                if (roomTile.getPosition().equals(position)) {
+            for (int[] coordinate : instances.getChairCoordinates()) {
+                if (position.equals(new Position(coordinate[0], coordinate[1]))) {
                     return instances;
                 }
             }

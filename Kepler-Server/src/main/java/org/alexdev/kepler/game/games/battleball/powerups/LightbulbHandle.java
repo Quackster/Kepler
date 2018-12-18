@@ -40,16 +40,16 @@ public class LightbulbHandle {
             
             BattleBallColourState newColour = BattleBallColourState.getColourById(gameTeam.getId());
 
-            BattleBallTile.getNewPoints(gamePlayer, state, colour, newState, newColour);
+            tile.getNewPoints(gamePlayer, newState, newColour);
 
             tile.setColour(newColour);
             tile.setState(newState);
 
             if (newState == BattleBallTileState.SEALED) {
-                BattleBallTile.checkFill(gamePlayer, tile, game.getFillTilesQueue());
+                tile.checkFill(gamePlayer, game.getFillTilesQueue());
             }
 
-            gameTeam.setSealedTileScore();
+            tile.addSealedPoints(gameTeam);
             game.getUpdateTilesQueue().add(tile);
         }
 

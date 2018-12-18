@@ -1,4 +1,4 @@
-package org.alexdev.kepler.dao.mysql;
+package org.alexdev.kepler.game.games;
 
 import org.alexdev.kepler.game.games.enums.GameType;
 

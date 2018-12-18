@@ -1,10 +1,8 @@
 package org.alexdev.kepler.game.games.snowstorm;
 
 import org.alexdev.kepler.game.games.Game;
-import org.alexdev.kepler.game.games.GameEvent;
 import org.alexdev.kepler.game.games.GameObject;
 import org.alexdev.kepler.game.games.GameTile;
-import org.alexdev.kepler.game.games.battleball.objects.PlayerObject;
 import org.alexdev.kepler.game.games.enums.GameType;
 import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.games.player.GameTeam;
@@ -12,7 +10,6 @@ import org.alexdev.kepler.game.games.snowstorm.object.SnowStormAvatarObject;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.models.RoomModel;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ThreadLocalRandom;
@@ -25,7 +22,7 @@ public class SnowStormGame extends Game {
     private List<GameObject> gameObjects;
     private AtomicInteger objectId;
 
-    public SnowStormGame(int id, int mapId, String name, int teamAmount, Player gameCreator, int gameLengthChoice) {
+    public SnowStormGame(int id, int mapId, String name, int teamAmount, Player gameCreator, int gameLengthChoice, boolean privateGame) {
         super(id, mapId, GameType.SNOWSTORM, name, teamAmount, gameCreator);
         this.gameLengthChoice = gameLengthChoice;
         this.turnContainer = new TurnContainer();
@@ -61,6 +58,15 @@ public class SnowStormGame extends Game {
     public void assignSpawnPoints() {
         for (GameTeam team : this.getTeams().values()) {
             for (GamePlayer p : team.getPlayers()) {
+                p.getSpawnPosition().setX(24);
+                p.getSpawnPosition().setY(24);
+
+                /*p.getSpawnPosition().setX(ThreadLocalRandom.current().nextInt(5, 21));
+                 p.getSpawnPosition().setY(ThreadLocalRandom.current().nextInt(5, 21));
+                p.getSpawnPosition().setRotation(ThreadLocalRandom.current().nextInt(0, 7));
+*/
+                p.getPlayer().getRoomUser().setPosition(p.getSpawnPosition().copy());
+
                 p.setGameObject(new SnowStormAvatarObject(p));
 
                 /*if (p.getPlayer().getDetails().getId() == 4) {
@@ -81,15 +87,15 @@ public class SnowStormGame extends Game {
 */
 
                 //if (p.getPlayer().getDetails().getId() == 1) {
-                    p.getSpawnPosition().setX(86400);
-                    p.getSpawnPosition().setY(83200);
+                p.getSpawnPosition().setX(86400);
+                p.getSpawnPosition().setY(83200);
                 //}
 
                 //p.getSpawnPosition().setX(ThreadLocalRandom.current().nextInt(5, 21));
-               // p.getSpawnPosition().setY(ThreadLocalRandom.current().nextInt(5, 21));
+                // p.getSpawnPosition().setY(ThreadLocalRandom.current().nextInt(5, 21));
                 //p.getSpawnPosition().setRotation(ThreadLocalRandom.current().nextInt(0, 7));
 
-                p.getPlayer().getRoomUser().setPosition(p.getSpawnPosition().copy());
+
             }
         }
     }

@@ -76,7 +76,7 @@ public class SnowStormLobbyTrigger extends GameLobbyTrigger {
 
         int lengthChoice = (int) gameParameters.get("gameLengthChoice");
 
-        SnowStormGame game = new SnowStormGame(GameManager.getInstance().createId(), mapId, name, teams, gameCreator, lengthChoice);
+        SnowStormGame game = new SnowStormGame(GameManager.getInstance().createId(), mapId, name, teams, gameCreator, lengthChoice, false);
 
         GamePlayer gamePlayer = new GamePlayer(gameCreator);
         gamePlayer.setGameId(game.getId());

@@ -16,10 +16,9 @@ import java.util.List;
 
 public class BombHandle {
     public static void handle(BattleBallGame game, GamePlayer gamePlayer, Room room) {
-        //PowerUpUtil.stunPlayer(game, gamePlayer, BattleBallPlayerState.STUNNED);
         List<GamePlayer> stunnedPlayers = new ArrayList<>();
 
-        for (Position position : gamePlayer.getPlayer().getRoomUser().getPosition().getCircle(5)) {
+        for (Position position : gamePlayer.getPlayer().getRoomUser().getPosition().getCircle(4)) {
             RoomTile tile = game.getRoom().getMapping().getTile(position.getX(), position.getY());
 
             if (tile == null || !RoomTile.isValidTile(gamePlayer.getGame().getRoom(), null, position)) {

@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TicTacToeTrigger extends GameTrigger {
-    public TicTacToeTrigger(int roomId) {
+    public TicTacToeTrigger() {
         for (var kvp : this.getChairGroups()) {
-            this.getGameInstances().add(new GameTicTacToe(roomId, kvp));
+            this.getGameInstances().add(new GameTicTacToe(kvp));
         }
     }
 

@@ -5,9 +5,6 @@ import org.alexdev.kepler.game.games.Game;
 import org.alexdev.kepler.game.games.GameObject;
 import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.games.player.GameTeam;
-import org.alexdev.kepler.game.games.snowstorm.events.SnowStormObjectEvent;
-import org.alexdev.kepler.game.games.snowstorm.object.SnowStormAvatarObject;
-import org.alexdev.kepler.game.games.snowstorm.object.SnowStormPlayerObject;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.pathfinder.Rotation;
 import org.alexdev.kepler.game.player.Player;
@@ -16,7 +13,6 @@ import org.alexdev.kepler.game.room.entities.RoomEntity;
 import org.alexdev.kepler.game.room.enums.StatusType;
 import org.alexdev.kepler.game.room.mapping.RoomTile;
 import org.alexdev.kepler.log.Log;
-import org.alexdev.kepler.messages.outgoing.games.SNOWSTORM_FULLGAMESTATUS;
 import org.alexdev.kepler.messages.outgoing.games.SNOWSTORM_GAMESTATUS;
 import org.alexdev.kepler.util.StringUtil;
 
@@ -35,17 +31,13 @@ public class SnowstormUpdateTask implements Runnable {
     @Override
     public void run() {
         try {
-            if (this.game.isGameFinished()) {
-                return; // Don't send any packets or do any logic checks during when the game is finished
-            }
-
             List<GameObject> objects = new ArrayList<>();
             List<GameObject> events = new ArrayList<>();
 
             List<GamePlayer> playersToUpdate = new ArrayList<>();
 
             for (GameTeam gameTeam : this.game.getTeams().values()) {
-                for (GamePlayer gamePlayer : gameTeam.getActivePlayers()) {
+                for (GamePlayer gamePlayer : gameTeam.getPlayers()) {
                     Player player = gamePlayer.getPlayer();
 
                     if (player != null

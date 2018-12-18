@@ -8,6 +8,7 @@ import org.alexdev.kepler.game.games.battleball.enums.BattleBallPlayerState;
 import org.alexdev.kepler.game.games.battleball.events.PlayerMoveEvent;
 import org.alexdev.kepler.game.games.battleball.objects.PlayerUpdateObject;
 import org.alexdev.kepler.game.games.battleball.objects.PowerUpUpdateObject;
+import org.alexdev.kepler.game.games.enums.GameState;
 import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.pathfinder.Rotation;
@@ -35,7 +36,7 @@ public class BattleBallTask implements Runnable {
     @Override
     public void run() {
         try {
-            if ( this.game.getPlayers().isEmpty()) {
+            if (this.game.getPlayers().isEmpty() || this.game.getGameState() == GameState.ENDED) {
                 return; // Don't send any packets or do any logic checks during when the game is finished
             }
 
@@ -94,15 +95,30 @@ public class BattleBallTask implements Runnable {
         if (roomEntity.isWalking()) {
             // Apply next tile from the tile we removed from the list the cycle before
             if (roomEntity.getNextPosition() != null) {
+                /*roomEntity.getPosition().setX(roomEntity.getNextPosition().getX());
+                roomEntity.getPosition().setY(roomEntity.getNextPosition().getY());
+                roomEntity.updateNewHeight(roomEntity.getPosition());*/
+                /*RoomTile nextTile = roomEntity.getRoom().getMapping().getTile(roomEntity.getNextPosition());
+
+                boolean isRedirected = false;
+
+                if (nextTile.getEntities().size() > 0 && !nextTile.containsEntity(entity)) {
+                    roomEntity.setNextPosition(roomEntity.getPosition().copy());
+                    isRedirected = true;
+                }*/
+                
                 roomEntity.getPosition().setX(roomEntity.getNextPosition().getX());
                 roomEntity.getPosition().setY(roomEntity.getNextPosition().getY());
                 roomEntity.updateNewHeight(roomEntity.getPosition());
 
-                // Increment tiles...
-                BattleBallTile tile = (BattleBallTile) game.getTile(roomEntity.getNextPosition().getX(), roomEntity.getNextPosition().getY());
+                RoomTile nextTile = roomEntity.getRoom().getMapping().getTile(roomEntity.getNextPosition());
 
-                if (tile != null) {
-                    tile.interact(gamePlayer, objects, events, updateTiles, fillTiles);
+                if (nextTile.getOtherEntities(entity).size() < 1) {
+                    BattleBallTile tile = (BattleBallTile) game.getTile(roomEntity.getNextPosition().getX(), roomEntity.getNextPosition().getY());
+
+                    if (tile != null) {
+                        tile.interact(gamePlayer, objects, events, updateTiles, fillTiles);
+                    }
                 }
             }
 
@@ -111,7 +127,7 @@ public class BattleBallTask implements Runnable {
                 Position next = roomEntity.getPath().pop();
 
                 // Tile was invalid after we started walking, so lets try again!
-                if (!RoomTile.isValidTile(this.room, entity, next)) {
+                if (!RoomTile.isValidTile(this.room, entity, next) && !next.equals(goal)) {
                     entity.getRoomUser().getPath().clear();
                     roomEntity.walkTo(goal.getX(), goal.getY());
                     this.processEntity(gamePlayer, objects, events, updateTiles, fillTiles);
@@ -138,6 +154,18 @@ public class BattleBallTask implements Runnable {
                 events.add(new PlayerMoveEvent(gamePlayer, roomEntity.getNextPosition().copy()));
             } else {
                 roomEntity.stopWalking();
+
+                RoomTile previousTile = roomEntity.getRoom().getMapping().getTile(roomEntity.getPosition());
+                RoomTile nextTile = roomEntity.getRoom().getMapping().getTile(roomEntity.getPosition().getSquareBehind());
+
+                // If an entity exists on the tile, push them back
+                if (!(previousTile.getOtherEntities(entity).size() < 1)) {
+                    previousTile.removeEntity(entity);
+                    nextTile.addEntity(entity);
+
+                    // Set new position
+                    entity.getRoomUser().setPosition(roomEntity.getPosition().getSquareBehind());
+                }
             }
 
             // If we're walking, make sure to tell the server

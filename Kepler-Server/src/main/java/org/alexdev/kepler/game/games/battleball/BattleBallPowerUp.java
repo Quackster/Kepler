@@ -107,12 +107,13 @@ public class BattleBallPowerUp {
                 return true;
             }
 
+            tile.getPointsReferece().clear();
 
             tile.setColour(BattleBallColourState.getColourById(gamePlayer.getTeamId()));
             tile.setState(BattleBallTileState.SEALED);
 
-            team.setSealedTileScore();
-            BattleBallTile.checkFill(gamePlayer, tile, updateFillTiles);
+            tile.addSealedPoints(team);
+            tile.checkFill(gamePlayer, updateFillTiles);
 
             updateTiles.add(tile);
             return true;

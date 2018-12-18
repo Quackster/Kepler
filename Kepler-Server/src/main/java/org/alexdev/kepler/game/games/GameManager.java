@@ -1,7 +1,6 @@
 package org.alexdev.kepler.game.games;
 
 import org.alexdev.kepler.dao.mysql.GameDao;
-import org.alexdev.kepler.dao.mysql.GameSpawn;
 import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.games.battleball.BattleBallMap;
 import org.alexdev.kepler.game.games.enums.GameType;
@@ -227,6 +226,10 @@ public class GameManager {
         }
 
         return null;
+    }
+
+    public List<RoomModel> getMaps() {
+        return this.modelList;
     }
 
     /**
