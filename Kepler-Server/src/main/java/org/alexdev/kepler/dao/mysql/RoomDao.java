@@ -73,8 +73,8 @@ public class RoomDao {
         try {
             sqlConnection = Storage.getStorage().getConnection();
             preparedStatement = Storage.getStorage().prepare("UPDATE rooms SET rating = ? WHERE id = ?", sqlConnection);
-            preparedStatement.setInt(1, roomId);
-            preparedStatement.setInt(2, rating);
+            preparedStatement.setInt(1, rating);
+            preparedStatement.setInt(2, roomId);
             preparedStatement.execute();
         } catch (Exception e) {
             Storage.logError(e);
