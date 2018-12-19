@@ -46,8 +46,6 @@ public class GameScheduler implements Runnable {
      */
     @Override
     public void run() {
-        this.tickRate.incrementAndGet();
-
         try {
             PlayerManager.getInstance().checkPlayerPeak();
 
@@ -109,6 +107,8 @@ public class GameScheduler implements Runnable {
         } catch (Exception ex) {
             Log.getErrorLogger().error("GameScheduler crashed: ", ex);
         }
+
+        this.tickRate.incrementAndGet();
     }
 
 
