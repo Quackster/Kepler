@@ -145,12 +145,11 @@ public class RoomManager {
                 return;
             }
 
-            if (RoomVoteDao.removeExpiredVotes(room.getId())) {
-                int newRating = RoomVoteDao.getRatings(room.getId()).values().stream().mapToInt(Integer::intValue).sum();
+            RoomVoteDao.removeExpiredVotes(room.getId());
+            int newRating = RoomVoteDao.getRatings(room.getId()).values().stream().mapToInt(Integer::intValue).sum();
 
-                if (newRating != room.getData().getRating()) {
-                    RoomDao.saveRating(room.getId(), newRating);
-                }
+            if (newRating != room.getData().getRating()) {
+                RoomDao.saveRating(room.getId(), newRating);
             }
         }
     }
