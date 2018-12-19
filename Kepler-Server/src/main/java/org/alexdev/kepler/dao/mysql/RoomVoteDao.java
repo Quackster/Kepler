@@ -114,13 +114,13 @@ public class RoomVoteDao {
         try {
             sqlConnection = Storage.getStorage().getConnection();
 
-            preparedStatement = Storage.getStorage().prepare("SELECT room_id FROM users_room_votes WHERE expire_time < ?", sqlConnection);
+            /*preparedStatement = Storage.getStorage().prepare("SELECT room_id FROM users_room_votes WHERE expire_time < ?", sqlConnection);
             preparedStatement.setLong(1, DateUtil.getCurrentTimeSeconds());
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
                 affected = true;
-            }
+            }*/
 
             preparedStatement = Storage.getStorage().prepare("DELETE FROM users_room_votes WHERE room_id = ? AND expire_time < ?", sqlConnection);
             preparedStatement.setInt(1, roomId);
