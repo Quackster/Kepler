@@ -1,6 +1,7 @@
 package org.alexdev.kepler.game.room;
 
 import org.alexdev.kepler.dao.mysql.RoomDao;
+import org.alexdev.kepler.dao.mysql.RoomVoteDao;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.moderation.Fuseright;
 import org.alexdev.kepler.game.navigator.NavigatorCategory;
@@ -140,47 +141,10 @@ public class Room {
         this.votes.put(userId, answer);
 
         // Re-calculate sum of all ratings
-        int sum = 0;
-        for (Integer vote : this.votes.values()) {
-            sum += vote;
-        }
+        int sum = this.votes.values().stream().mapToInt(Integer::intValue).sum();
+        this.roomData.setRating(sum);
 
-        // Don't set rating to negative number (as the client shows the vote UI when rating < 0)
-        if (sum < 0) {
-            Iterator it = votes.entrySet().iterator();
-
-            // Delete room votes that have a decreasing value until the rating is 0
-            while (it.hasNext()) {
-                Map.Entry pair = (Map.Entry)it.next();
-                Integer key = (Integer)pair.getKey();
-                Integer value = (Integer)pair.getValue();
-
-                // If the room rating is 0, stop iterator
-                if (this.roomData.getRating() == 0) {
-                    break;
-                }
-
-                // If the vote is decreasing, remove it
-                if (value == -1) {
-                    // Remove from map
-                    it.remove();
-
-                    // Persist remove from database
-                    RoomDao.removeVote(key, this.roomData);
-                }
-
-                // Re-calculate sum
-                int nextSum = 0;
-                for (Integer vote : this.votes.values()) {
-                    nextSum += vote;
-                }
-
-                // Set next rating
-                this.roomData.setRating(nextSum);
-            }
-        } else {
-            this.roomData.setRating(sum);
-        }
+        RoomDao.saveRating(this);
 
         // Send new vote count to all player entities
         for (Player p : this.roomEntityManager.getPlayers()) {
@@ -192,9 +156,7 @@ public class Room {
             }
         }
 
-        // Persist vote
-        // We do this as last step for less observed latency
-        RoomDao.vote(userId, this.roomData, answer);
+        RoomVoteDao.vote(userId, this.roomData.getId(), answer);
     }
 
     /**

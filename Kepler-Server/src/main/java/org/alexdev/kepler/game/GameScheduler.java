@@ -1,6 +1,7 @@
 package org.alexdev.kepler.game;
 
 import org.alexdev.kepler.dao.mysql.CurrencyDao;
+import org.alexdev.kepler.dao.mysql.RoomVoteDao;
 import org.alexdev.kepler.dao.mysql.SettingsDao;
 import org.alexdev.kepler.game.catalogue.RareManager;
 import org.alexdev.kepler.game.player.Player;
@@ -97,6 +98,11 @@ public class GameScheduler implements Runnable {
                         p.send(new CREDIT_BALANCE(p.getDetails()));
                     }
                 }
+            }
+
+            // Purge expired rows
+            if (this.tickRate.get() % TimeUnit.DAYS.toSeconds(1) == 0) {
+                RoomVoteDao.removeExpiredVotes();
             }
 
             RareManager.getInstance().performRareManagerJob(this.tickRate);

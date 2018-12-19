@@ -301,89 +301,26 @@ public class RoomDao {
     }
 
     /**
-     * Vote for a room
+     * Save rating for the room
      *
-     * @param userId   the User who is voting
-     * @param roomData  the Room that the user is voting for
-     * @param answer the value of the vote (1 or -1)
+     * @param room the room to save
      */
-    public static void vote(int userId, RoomData roomData, int answer) {
+    public static void saveRating(Room room) {
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
 
         try {
             sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("INSERT INTO users_room_votes (user_id, room_id, vote) VALUES (?, ?, ?)", sqlConnection);
-            preparedStatement.setInt(1, userId);
-            preparedStatement.setInt(2, roomData.getId());
-            preparedStatement.setInt(3, answer);
-            preparedStatement.execute();
-
-        } catch (Exception e) {
-            Storage.logError(e);
-        } finally {
-            Storage.closeSilently(preparedStatement);
-            Storage.closeSilently(sqlConnection);
-        }
-    }
-
-    /**
-     * Vote for a room
-     *
-     * @param userId the User who is voting
-     * @param room the Room that the user is voting for
-     */
-    public static void removeVote(int userId, RoomData room) {
-        Connection sqlConnection = null;
-        PreparedStatement preparedStatement = null;
-
-        try {
-            sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("DELETE FROM users_room_votes WHERE user_id = ? AND room_id = ?", sqlConnection);
-            preparedStatement.setInt(1, userId);
+            preparedStatement = Storage.getStorage().prepare("UPDATE rooms SET rating = ? WHERE id = ?", sqlConnection);
+            preparedStatement.setInt(1, room.getData().getRating());
             preparedStatement.setInt(2, room.getId());
             preparedStatement.execute();
-
         } catch (Exception e) {
             Storage.logError(e);
         } finally {
             Storage.closeSilently(preparedStatement);
             Storage.closeSilently(sqlConnection);
         }
-    }
-
-    /**
-     * Return a map of the room ratings
-     *
-     * @param room the Room
-     * @return Map containing key userId and value voteAnswer
-     */
-    public static Map<Integer, Integer> getRatings(RoomData room) {
-        Map<Integer, Integer> ratings = new ConcurrentHashMap<>();
-
-        Connection sqlConnection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
-        try {
-            sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("SELECT user_id,vote FROM users_room_votes WHERE room_id = ?", sqlConnection);
-            preparedStatement.setInt(1, room.getId());
-            resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                ratings.put(resultSet.getInt("user_id"), resultSet.getInt("vote"));
-            }
-
-        } catch (Exception e) {
-            Storage.logError(e);
-        } finally {
-            Storage.closeSilently(resultSet);
-            Storage.closeSilently(preparedStatement);
-            Storage.closeSilently(sqlConnection);
-        }
-
-        return ratings;
     }
 
     /**
@@ -404,7 +341,7 @@ public class RoomDao {
                 row.getString("name"), row.getString("description"), row.getString("model"),
                 row.getString("ccts"), row.getInt("wallpaper"), row.getInt("floor"), row.getBoolean("showname"),
                 row.getBoolean("superusers"), row.getInt("accesstype"), row.getString("password"),
-                row.getInt("visitors_now"), row.getInt("visitors_max"), 0);
+                row.getInt("visitors_now"), row.getInt("visitors_max"), row.getInt("rating"));
 
     }
 }

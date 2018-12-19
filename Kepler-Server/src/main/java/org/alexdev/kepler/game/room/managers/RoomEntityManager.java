@@ -3,6 +3,7 @@ package org.alexdev.kepler.game.room.managers;
 import org.alexdev.kepler.dao.mysql.ItemDao;
 import org.alexdev.kepler.dao.mysql.RoomDao;
 import org.alexdev.kepler.dao.mysql.RoomRightsDao;
+import org.alexdev.kepler.dao.mysql.RoomVoteDao;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
 import org.alexdev.kepler.game.games.player.GamePlayer;
@@ -126,7 +127,7 @@ public class RoomEntityManager {
 
         if (entity.getType() == EntityType.PLAYER) {
             if (!this.room.isActive()) {
-                this.initialiseRoom();
+                this.tryInitialiseRoom();
             }
         }
 
@@ -206,9 +207,9 @@ public class RoomEntityManager {
     /**
      * Setup the room initially for room entry.
      */
-    private void initialiseRoom() {
+    public boolean tryInitialiseRoom() {
         if (this.room.isActive()) {
-            return;
+            return false;
         }
 
         this.room.setActive(true);
@@ -217,14 +218,28 @@ public class RoomEntityManager {
             this.room.getItems().addAll(PublicItemParser.getPublicItems(this.room.getId(), this.room.getModel().getId()));
         } else {
             this.room.getRights().addAll(RoomRightsDao.getRoomRights(this.room.getData()));
-            this.room.getVotes().putAll(RoomDao.getRatings(this.room.getData()));
-            this.room.getData().setRating(this.room.getVotes().size());
+            this.room.getVotes().putAll(RoomVoteDao.getRatings(this.room.getData()));
+
+            int countedVotes = this.room.getVotes().values().stream().mapToInt(Integer::intValue).sum();
+
+            if (countedVotes < 0) {
+                countedVotes = 0;
+            }
+
+            if (countedVotes != this.room.getData().getRating()) {
+                RoomDao.saveRating(this.room);
+            }
+
+            this.room.getData().setRating(countedVotes);
         }
 
         this.room.getItems().addAll(ItemDao.getRoomItems(this.room.getData()));
 
         this.room.getMapping().regenerateCollisionMap();
         this.room.getTaskManager().startTasks();
+
+
+        return true;
     }
 
     /**
