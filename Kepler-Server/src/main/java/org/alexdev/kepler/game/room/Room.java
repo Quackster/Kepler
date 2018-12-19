@@ -142,9 +142,13 @@ public class Room {
 
         // Re-calculate sum of all ratings
         int sum = this.votes.values().stream().mapToInt(Integer::intValue).sum();
-        this.roomData.setRating(sum);
 
-        RoomDao.saveRating(this);
+        if (sum < 0) {
+            sum = 0;
+        }
+
+        this.roomData.setRating(sum);
+        RoomDao.saveRating(this.getId(), sum);
 
         // Send new vote count to all player entities
         for (Player p : this.roomEntityManager.getPlayers()) {

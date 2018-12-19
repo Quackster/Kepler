@@ -61,12 +61,36 @@ public class RoomDao {
     }
 
     /**
-     * Get a list of random rooms.
+     * Save rating for the room
+     *
+     * @param roomId the room to save
+     * @param rating the new rating
+     */
+    public static void saveRating(int roomId, int rating) {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("UPDATE rooms SET rating = ? WHERE id = ?", sqlConnection);
+            preparedStatement.setInt(1, roomId);
+            preparedStatement.setInt(2, rating);
+            preparedStatement.execute();
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+
+    /**
+     * Get a list of recommended rooms.
      *
      * @param limit the limit of rooms
      * @return the list of rooms
      */
-    public static List<Room> getRandomRooms(int limit) {
+    public static List<Room> getRecommendedRooms(int limit, boolean allowStarterRooms) {
         List<Room> rooms = new ArrayList<>();
 
         Connection sqlConnection = null;
@@ -77,7 +101,45 @@ public class RoomDao {
 
         try {
             sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("SELECT * FROM rooms LEFT JOIN users ON rooms.owner_id = users.id WHERE owner_id > 0 AND accesstype = 0 ORDER BY RAND() LIMIT ?", sqlConnection);
+            preparedStatement = Storage.getStorage().prepare("SELECT * FROM rooms LEFT JOIN users ON rooms.owner_id = users.id WHERE owner_id > 0 AND accesstype = 0" + (allowStarterRooms ? "" : " AND model <> 'model_s'") + " ORDER BY rating DESC,visitors_now DESC LIMIT ?", sqlConnection);
+            preparedStatement.setInt(1, limit);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Room room = new Room();
+                fill(room.getData(), resultSet);
+                rooms.add(room);
+            }
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+
+        return rooms;
+    }
+
+    /**
+     * Get a list of random rooms.
+     *
+     * @param limit the limit of rooms
+     * @return the list of rooms
+     */
+    public static List<Room> getHighestRatedRooms(int limit, boolean allowStarterRooms) {
+        List<Room> rooms = new ArrayList<>();
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        //SELECT * FROM rooms LEFT JOIN users ON rooms.owner_id = users.id WHERE owner_id = 0
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("SELECT * FROM rooms LEFT JOIN users ON rooms.owner_id = users.id WHERE owner_id > 0 AND accesstype = 0" + (allowStarterRooms ? "" : " AND model <> 'model_s'") + " ORDER BY rating DESC LIMIT ?", sqlConnection);
             preparedStatement.setInt(1, limit);
             resultSet = preparedStatement.executeQuery();
 
@@ -291,29 +353,6 @@ public class RoomDao {
             sqlConnection = Storage.getStorage().getConnection();
             preparedStatement = Storage.getStorage().prepare("DELETE FROM rooms WHERE id = ?", sqlConnection);
             preparedStatement.setInt(1, room.getId());
-            preparedStatement.execute();
-        } catch (Exception e) {
-            Storage.logError(e);
-        } finally {
-            Storage.closeSilently(preparedStatement);
-            Storage.closeSilently(sqlConnection);
-        }
-    }
-
-    /**
-     * Save rating for the room
-     *
-     * @param room the room to save
-     */
-    public static void saveRating(Room room) {
-        Connection sqlConnection = null;
-        PreparedStatement preparedStatement = null;
-
-        try {
-            sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("UPDATE rooms SET rating = ? WHERE id = ?", sqlConnection);
-            preparedStatement.setInt(1, room.getData().getRating());
-            preparedStatement.setInt(2, room.getId());
             preparedStatement.execute();
         } catch (Exception e) {
             Storage.logError(e);

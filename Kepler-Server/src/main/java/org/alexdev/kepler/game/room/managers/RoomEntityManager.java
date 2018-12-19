@@ -218,19 +218,6 @@ public class RoomEntityManager {
             this.room.getItems().addAll(PublicItemParser.getPublicItems(this.room.getId(), this.room.getModel().getId()));
         } else {
             this.room.getRights().addAll(RoomRightsDao.getRoomRights(this.room.getData()));
-            this.room.getVotes().putAll(RoomVoteDao.getRatings(this.room.getData()));
-
-            int countedVotes = this.room.getVotes().values().stream().mapToInt(Integer::intValue).sum();
-
-            if (countedVotes < 0) {
-                countedVotes = 0;
-            }
-
-            if (countedVotes != this.room.getData().getRating()) {
-                RoomDao.saveRating(this.room);
-            }
-
-            this.room.getData().setRating(countedVotes);
         }
 
         this.room.getItems().addAll(ItemDao.getRoomItems(this.room.getData()));

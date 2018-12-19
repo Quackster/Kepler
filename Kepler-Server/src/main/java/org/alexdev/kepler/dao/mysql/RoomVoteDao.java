@@ -7,6 +7,8 @@ import org.alexdev.kepler.util.DateUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
@@ -70,31 +72,79 @@ public class RoomVoteDao {
     /**
      * Vote expired votes for a room
      */
-    public static void removeExpiredVotes() {
+    public static List<Integer> getAffectedExpiredVoteRooms() {
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        List<Integer> rooms = new ArrayList<>();
 
         try {
             sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("DELETE FROM users_room_votes WHERE expire_time < ?", sqlConnection);
+            preparedStatement = Storage.getStorage().prepare("SELECT room_id FROM users_room_votes WHERE expire_time < ?", sqlConnection);
             preparedStatement.setLong(1, DateUtil.getCurrentTimeSeconds());
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                rooms.add(resultSet.getInt("room_id"));
+            }
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+
+        return rooms;
+    }
+
+
+    /**
+     * Vote expired votes for a room
+     */
+    public static boolean removeExpiredVotes(int roomId) {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        boolean affected = false;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+
+            preparedStatement = Storage.getStorage().prepare("SELECT room_id FROM users_room_votes WHERE expire_time < ?", sqlConnection);
+            preparedStatement.setLong(1, DateUtil.getCurrentTimeSeconds());
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                affected = true;
+            }
+
+            preparedStatement = Storage.getStorage().prepare("DELETE FROM users_room_votes WHERE room_id = ? AND expire_time < ?", sqlConnection);
+            preparedStatement.setInt(1, roomId);
+            preparedStatement.setLong(2, DateUtil.getCurrentTimeSeconds());
             preparedStatement.execute();
 
         } catch (Exception e) {
             Storage.logError(e);
         } finally {
+            Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
             Storage.closeSilently(sqlConnection);
         }
+
+        return affected;
     }
 
     /**
      * Return a map of the room ratings
      *
-     * @param room the Room
+     * @param roomId the id of the room id to save
      * @return Map containing key userId and value voteAnswer
      */
-    public static Map<Integer, Integer> getRatings(RoomData room) {
+    public static Map<Integer, Integer> getRatings(int roomId) {
         Map<Integer, Integer> ratings = new ConcurrentHashMap<>();
 
         Connection sqlConnection = null;
@@ -104,7 +154,7 @@ public class RoomVoteDao {
         try {
             sqlConnection = Storage.getStorage().getConnection();
             preparedStatement = Storage.getStorage().prepare("SELECT user_id,vote FROM users_room_votes WHERE room_id = ? AND expire_time > ?", sqlConnection);
-            preparedStatement.setInt(1, room.getId());
+            preparedStatement.setInt(1, roomId);
             preparedStatement.setLong(2, DateUtil.getCurrentTimeSeconds());
             resultSet = preparedStatement.executeQuery();
 

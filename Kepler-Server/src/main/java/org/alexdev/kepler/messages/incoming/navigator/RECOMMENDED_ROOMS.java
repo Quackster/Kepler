@@ -13,8 +13,24 @@ import java.util.List;
 public class RECOMMENDED_ROOMS implements MessageEvent {
     @Override
     public void handle(Player player, NettyRequest reader) {
-        List<Room> roomList = RoomManager.getInstance().replaceQueryRooms(RoomDao.getRandomRooms(3));
+        int roomLimit = 3;
+
+        List<Room> roomList = RoomManager.getInstance().replaceQueryRooms(RoomDao.getRecommendedRooms(roomLimit, false));
+
         RoomManager.getInstance().sortRooms(roomList);
+        RoomManager.getInstance().ratingSantiyCheck(roomList);
+
+        if (roomList.size() < roomLimit) {
+            //int difference = roomLimit - roomList.size();
+
+            for (Room room : RoomManager.getInstance().replaceQueryRooms(RoomDao.getHighestRatedRooms(roomLimit, false))) {
+                if (roomList.size() == roomLimit) {
+                    break;
+                }
+
+                roomList.add(room);
+            }
+        }
 
         player.send(new RECOMMENDED_ROOM_LIST(player, roomList));
     }

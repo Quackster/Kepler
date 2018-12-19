@@ -98,11 +98,6 @@ public class GameScheduler implements Runnable {
                 }
             }
 
-            // Purge expired rows
-            if (this.tickRate.get() % TimeUnit.DAYS.toSeconds(1) == 0) {
-                RoomVoteDao.removeExpiredVotes();
-            }
-
             RareManager.getInstance().performRareManagerJob(this.tickRate);
         } catch (Exception ex) {
             Log.getErrorLogger().error("GameScheduler crashed: ", ex);

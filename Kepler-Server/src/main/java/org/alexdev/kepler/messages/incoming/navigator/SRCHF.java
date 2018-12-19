@@ -21,6 +21,8 @@ public class SRCHF implements MessageEvent {
 
         if (roomList.size() > 0) {
             RoomManager.getInstance().sortRooms(roomList);
+            RoomManager.getInstance().ratingSantiyCheck(roomList);
+
             player.send(new FLAT_NORESULTS(roomList, player));
         } else {
             player.send(new NOFLATS());
