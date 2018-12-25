@@ -148,6 +148,10 @@ public class RoomManager {
             RoomVoteDao.removeExpiredVotes(room.getId());
             int newRating = RoomVoteDao.getRatings(room.getId()).values().stream().mapToInt(Integer::intValue).sum();
 
+            if (newRating < 0) {
+                newRating = 0;
+            }
+
             if (newRating != room.getData().getRating()) {
                 RoomDao.saveRating(room.getId(), newRating);
             }
