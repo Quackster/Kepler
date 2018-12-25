@@ -15,7 +15,7 @@ public class DELIVER_PRESENT extends MessageComposer {
     @Override
     public void compose(NettyResponse response) {
         response.writeDelimeter(this.present.getDefinition().getSprite(), (char) 13);
-        response.write(this.present.getCustomData());
+        response.write(this.present.getDefinition().getSprite() + " " + this.present.getCustomData());
         /*response.write(this.present.getDefinition().getSprite());
 
         if (this.present.getDefinition().hasBehaviour(ItemBehaviour.WALL_ITEM)) {
