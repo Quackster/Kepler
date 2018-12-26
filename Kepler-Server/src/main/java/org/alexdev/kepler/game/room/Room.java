@@ -132,11 +132,6 @@ public class Room {
      * @param userId user that is voting
      */
     public void addVote(int answer, int userId) {
-        // If this room has a rating of 0 or below and the rating is -1 set the rating to 0
-        if (this.roomData.getRating() <= 0 && answer == -1) {
-            answer = 0;
-        }
-
         // Add vote to in-memory structure
         this.votes.put(userId, answer);
 
