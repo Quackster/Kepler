@@ -45,63 +45,6 @@ public class RoomVoteDao {
     }
 
     /**
-     * Vote for a room
-     *
-     * @param userId the User who is voting
-     * @param room the Room that the user is voting for
-     */
-    public static void removeVote(int userId, RoomData room) {
-        Connection sqlConnection = null;
-        PreparedStatement preparedStatement = null;
-
-        try {
-            sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("DELETE FROM users_room_votes WHERE user_id = ? AND room_id = ?", sqlConnection);
-            preparedStatement.setInt(1, userId);
-            preparedStatement.setInt(2, room.getId());
-            preparedStatement.execute();
-
-        } catch (Exception e) {
-            Storage.logError(e);
-        } finally {
-            Storage.closeSilently(preparedStatement);
-            Storage.closeSilently(sqlConnection);
-        }
-    }
-
-    /**
-     * Vote expired votes for a room
-     */
-    public static List<Integer> getAffectedExpiredVoteRooms() {
-        Connection sqlConnection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
-        List<Integer> rooms = new ArrayList<>();
-
-        try {
-            sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("SELECT room_id FROM users_room_votes WHERE expire_time < ?", sqlConnection);
-            preparedStatement.setLong(1, DateUtil.getCurrentTimeSeconds());
-            resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                rooms.add(resultSet.getInt("room_id"));
-            }
-
-        } catch (Exception e) {
-            Storage.logError(e);
-        } finally {
-            Storage.closeSilently(resultSet);
-            Storage.closeSilently(preparedStatement);
-            Storage.closeSilently(sqlConnection);
-        }
-
-        return rooms;
-    }
-
-
-    /**
      * Vote expired votes for a room
      */
     public static boolean removeExpiredVotes(int roomId) {

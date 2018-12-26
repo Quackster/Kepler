@@ -218,6 +218,7 @@ public class RoomEntityManager {
             this.room.getItems().addAll(PublicItemParser.getPublicItems(this.room.getId(), this.room.getModel().getId()));
         } else {
             this.room.getRights().addAll(RoomRightsDao.getRoomRights(this.room.getData()));
+            this.room.getVotes().putAll(RoomVoteDao.getRatings(this.room.getId()));
         }
 
         this.room.getItems().addAll(ItemDao.getRoomItems(this.room.getData()));
