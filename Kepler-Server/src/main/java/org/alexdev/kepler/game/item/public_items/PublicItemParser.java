@@ -9,11 +9,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class PublicItemParser {
     public static List<Item> getPublicItems(int roomId, String modelId) {
+        List<String> randomPublicId = new ArrayList<>();
         Map<String, InteractionType> itemTriggerMap = new HashMap<>();
 
+        itemTriggerMap.put("poolExit", InteractionType.POOL_EXIT);
+        itemTriggerMap.put("poolEnter", InteractionType.POOL_ENTER);
         itemTriggerMap.put("poolLift", InteractionType.POOL_LIFT);
         itemTriggerMap.put("poolBooth", InteractionType.POOL_BOOTH);
         itemTriggerMap.put("queue_tile2", InteractionType.POOL_QUEUE);
@@ -44,10 +48,23 @@ public class PublicItemParser {
         List<PublicItemData> publicItemData = ItemDao.getPublicItemData(modelId);
 
         for (PublicItemData itemData : publicItemData) {
+            String customId = null;
+
+            String alphabet = "abcdefghijlmnopqrstuvwyz";
+
+            while (customId == null) {
+                String temp = alphabet.charAt(ThreadLocalRandom.current().nextInt(0, alphabet.length())) + "" + ThreadLocalRandom.current().nextInt(0, 999);
+
+                if (!randomPublicId.contains(temp)) {
+                    randomPublicId.add(temp);
+                    customId = temp;
+                }
+            }
+
             Item item = new Item();
             item.setId(itemId++);
             item.setRoomId(roomId);
-            item.setCustomData(itemData.getId());
+            item.setCustomData(customId);
             item.getDefinition().setSprite(itemData.getSprite());
             item.getDefinition().setTopHeight(itemData.getTopHeight());
             item.getDefinition().setLength(itemData.getLength());

@@ -30,6 +30,8 @@ public class ItemDefinition {
         this.length = 1;
         this.width = 1;
         this.behaviourList = new ArrayList<>();
+        this.interactionType = null;
+        this.drinkIds = new int[0];
     }
 
     public ItemDefinition(int id, String sprite, String name, String description, String behaviourData, String interactor, double topHeight, int length, int width, String colour, String drinkIdData) {
