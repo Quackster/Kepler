@@ -45,7 +45,7 @@ public class ClubSubscription {
      * Refresh the club scription for player.
      * @param player the player to refresh the subscription for
      */
-    public static void refreshSubscription(Player player) {
+    public static void sendHcDays(Player player) {
         long now = DateUtil.getCurrentTimeSeconds();
 
         int sinceMonths = 0;

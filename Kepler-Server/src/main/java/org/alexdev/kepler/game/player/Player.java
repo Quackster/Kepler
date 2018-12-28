@@ -13,14 +13,12 @@ import org.alexdev.kepler.game.room.entities.RoomPlayer;
 import org.alexdev.kepler.messages.outgoing.club.CLUB_GIFT;
 import org.alexdev.kepler.messages.outgoing.handshake.*;
 import org.alexdev.kepler.messages.outgoing.openinghours.*;
-import org.alexdev.kepler.messages.outgoing.user.*;
 import org.alexdev.kepler.messages.outgoing.user.ALERT;
 import org.alexdev.kepler.messages.outgoing.user.HOTEL_LOGOUT;
 import org.alexdev.kepler.messages.outgoing.user.HOTEL_LOGOUT.*;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.NettyPlayerNetwork;
 import org.alexdev.kepler.util.config.GameConfiguration;
-import org.alexdev.kepler.util.config.ServerConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -129,7 +127,7 @@ public class Player extends Entity {
             this.send(new AVAILABLE_SETS("[" + GameConfiguration.getInstance().getString("users.figure.parts.club") + "]"));
         }
 
-        ClubSubscription.refreshSubscription(this);
+        ClubSubscription.sendHcDays(this);
     }
 
     /**
