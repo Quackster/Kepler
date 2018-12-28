@@ -1,6 +1,6 @@
 package org.alexdev.kepler.game.item.base;
 
-import org.alexdev.kepler.game.texts.TextsManager;
+import org.alexdev.kepler.game.item.interactors.InteractionType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +20,7 @@ public class ItemDefinition {
     private String name;
     private String description;
     private int[] drinkIds;
+    private InteractionType interactionType;
 
     public ItemDefinition() {
         this.sprite = "";
@@ -38,6 +39,7 @@ public class ItemDefinition {
         this.description = description;
         this.behaviourData = behaviourData;
         this.interactor = interactor;
+        this.interactionType = InteractionType.valueOf(this.interactor.toUpperCase());
         this.topHeight = topHeight;
         this.length = length;
         this.width = width;
@@ -225,4 +227,13 @@ public class ItemDefinition {
     public int[] getDrinkIds() {
         return drinkIds;
     }
+
+    public InteractionType getInteractionType() {
+        return interactionType;
+    }
+
+    public void setInteractionType(InteractionType interactionType) {
+        this.interactionType = interactionType;
+    }
 }
+

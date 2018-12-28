@@ -5,8 +5,8 @@ import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.item.base.ItemDefinition;
+import org.alexdev.kepler.game.item.interactors.types.BedInteractor;
 import org.alexdev.kepler.game.item.roller.RollingData;
-import org.alexdev.kepler.game.item.triggers.BedTrigger;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.triggers.GenericTrigger;
 import org.alexdev.kepler.game.pathfinder.AffectedTile;
@@ -47,9 +47,7 @@ public class Item {
     private String currentProgramValue;
 
     private boolean requiresUpdate;
-
     private RollingData rollingData;
-    private GenericTrigger itemTrigger;
 
     public Item() {
         this.id = 0;
@@ -186,7 +184,7 @@ public class Item {
             Position newPosition = null;
 
             //if (!BedTrigger.isValidPillowTile(this, destination)) {
-            for (Position tile : BedTrigger.getValidPillowTiles(this)) {
+            for (Position tile : BedInteractor.getValidPillowTiles(this)) {
                 newPosition = selectedPosition.copy();
 
                 if (this.position.getRotation() == 0) {
@@ -506,14 +504,6 @@ public class Item {
     public void setDefinitionId(int definitionId) {
         this.definition = null;
         this.definitionId = definitionId;
-
-        if (this.getDefinition() != null) {
-            for (ItemBehaviour behaviour : this.getDefinition().getBehaviourList()) {
-                if (behaviour.getTrigger() != null) {
-                    this.itemTrigger = behaviour.getTrigger();
-                }
-            }
-        }
     }
 
     public int getId() {
@@ -610,14 +600,6 @@ public class Item {
 
     public void setRollingData(RollingData rollingData) {
         this.rollingData = rollingData;
-    }
-
-    public GenericTrigger getItemTrigger() {
-        return itemTrigger;
-    }
-
-    public void setItemTrigger(GenericTrigger itemTrigger) {
-        this.itemTrigger = itemTrigger;
     }
 
     public int getOrderId() {

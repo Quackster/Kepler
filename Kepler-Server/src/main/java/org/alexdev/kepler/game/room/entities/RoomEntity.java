@@ -129,8 +129,8 @@ public abstract class RoomEntity {
             this.updateNewHeight(this.position);
 
             if (this.getCurrentItem() != null) {
-                if (this.getCurrentItem().getItemTrigger() != null) {
-                    this.getCurrentItem().getItemTrigger().onEntityStep(entity, this, this.getCurrentItem(), oldPosition, false);
+                if (this.getCurrentItem().getDefinition().getInteractionType().getTrigger() != null) {
+                    this.getCurrentItem().getDefinition().getInteractionType().getTrigger().onEntityStep(entity, this, this.getCurrentItem(), oldPosition, false);
                 }
             }
 
@@ -277,10 +277,10 @@ public abstract class RoomEntity {
         }
 
         if (item != null) {
-            var trigger = item.getItemTrigger();
+            var trigger = item.getDefinition().getInteractionType().getTrigger();
 
             if (trigger != null) {
-                item.getItemTrigger().onEntityStop(this.entity, this, item, isRolling);
+                item.getDefinition().getInteractionType().getTrigger().onEntityStop(this.entity, this, item, isRolling);
             }
         }
 

@@ -1,18 +1,18 @@
-package org.alexdev.kepler.game.item.triggers;
+package org.alexdev.kepler.game.item.interactors.types;
 
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.item.Item;
-import org.alexdev.kepler.game.room.entities.RoomEntity;
-import org.alexdev.kepler.game.triggers.GenericTrigger;
 import org.alexdev.kepler.game.pathfinder.Position;
+import org.alexdev.kepler.game.room.entities.RoomEntity;
 import org.alexdev.kepler.game.room.enums.StatusType;
 import org.alexdev.kepler.game.room.mapping.RoomTile;
+import org.alexdev.kepler.game.triggers.GenericTrigger;
 import org.alexdev.kepler.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BedTrigger extends GenericTrigger {
+public class BedInteractor extends GenericTrigger {
 
     @Override
     public void onEntityStop(Entity entity, RoomEntity roomEntity, Item item, Object... customArgs) {
@@ -41,9 +41,7 @@ public class BedTrigger extends GenericTrigger {
 
             entity.getRoomUser().warp(destination, false);
 
-            roomEntity.removeStatus(StatusType.CARRY_ITEM);
-            roomEntity.removeStatus(StatusType.CARRY_FOOD);
-            roomEntity.removeStatus(StatusType.CARRY_DRINK);
+            roomEntity.removeDrinks();
             roomEntity.removeStatus(StatusType.DANCE);
 
             roomEntity.getPosition().setRotation(item.getPosition().getRotation());

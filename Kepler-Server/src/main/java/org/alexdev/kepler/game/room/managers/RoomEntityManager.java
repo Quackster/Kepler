@@ -244,8 +244,8 @@ public class RoomEntityManager {
 
         // Set up trigger for leaving a current item
         if (entity.getRoomUser().getCurrentItem() != null) {
-            if (entity.getRoomUser().getCurrentItem().getItemTrigger() != null) {
-                entity.getRoomUser().getCurrentItem().getItemTrigger().onEntityLeave(entity, entity.getRoomUser(), entity.getRoomUser().getCurrentItem());
+            if (entity.getRoomUser().getCurrentItem().getDefinition().getInteractionType().getTrigger() != null) {
+                entity.getRoomUser().getCurrentItem().getDefinition().getInteractionType().getTrigger().onEntityLeave(entity, entity.getRoomUser(), entity.getRoomUser().getCurrentItem());
             }
         }
 

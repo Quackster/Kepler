@@ -3,12 +3,7 @@ package org.alexdev.kepler.game.item.public_items;
 import org.alexdev.kepler.dao.mysql.ItemDao;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
-import org.alexdev.kepler.game.item.triggers.*;
-import org.alexdev.kepler.game.triggers.GenericTrigger;
-import org.alexdev.kepler.game.games.triggers.BattleShipsTrigger;
-import org.alexdev.kepler.game.games.triggers.ChessTrigger;
-import org.alexdev.kepler.game.games.triggers.PokerTrigger;
-import org.alexdev.kepler.game.games.triggers.TicTacToeTrigger;
+import org.alexdev.kepler.game.item.interactors.InteractionType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,34 +12,33 @@ import java.util.Map;
 
 public class PublicItemParser {
     public static List<Item> getPublicItems(int roomId, String modelId) {
-        TicTacToeTrigger ticTacToeTrigger = new TicTacToeTrigger();
-        ChessTrigger chessTrigger = new ChessTrigger();
-        BattleShipsTrigger battleShipsTrigger = new BattleShipsTrigger();
-        PokerTrigger pokerTrigger = new PokerTrigger();
+        Map<String, InteractionType> itemTriggerMap = new HashMap<>();
 
-        Map<String, GenericTrigger> itemTriggerMap = new HashMap<>() {{
-            put("poolExit", new PoolExitTrigger());
-            put("poolEnter", new PoolEnterTrigger());
-            put("poolLift", new PoolLiftTrigger());
-            put("poolBooth", new PoolBoothTrigger());
-            put("queue_tile2", new PoolQueueTrigger());
-            put("gamehall_chair_wood", ticTacToeTrigger);
+        itemTriggerMap.put("poolLift", InteractionType.POOL_LIFT);
+        itemTriggerMap.put("poolBooth", InteractionType.POOL_BOOTH);
+        itemTriggerMap.put("queue_tile2", InteractionType.POOL_QUEUE);
+        itemTriggerMap.put("s_queue_tile2", InteractionType.POOL_QUEUE);
+        itemTriggerMap.put("gamehall_chair_wood", InteractionType.GAME_TIC_TAC_TOE);
 
-            if (modelId.equals("hallC")) {
-                put("gamehall_chair_green", chessTrigger);
-                put("chess_king_chair", chessTrigger);
-            }
+        if (modelId.equals("hallC")) {
+            itemTriggerMap.put("gamehall_chair_green", InteractionType.GAME_CHESS);
+            itemTriggerMap.put("chess_king_chair", InteractionType.GAME_CHESS);
+        }
 
-            if (modelId.equals("hallB")) {
-                put("gamehall_chair_green", battleShipsTrigger);
-            }
+        if (modelId.equals("hallB")) {
+            itemTriggerMap.put("gamehall_chair_green", InteractionType.GAME_BATTLESHIPS);
+        }
 
-            if (modelId.equals("hallD")) {
-                put("gamehall_chair_green", pokerTrigger);
-            }
-        }};
+        if (modelId.equals("hallD")) {
+            itemTriggerMap.put("gamehall_chair_green", InteractionType.GAME_POKER);
+        }
+
+        itemTriggerMap.put("wsJoinQueue", InteractionType.WS_JOIN_QUEUE);
+        itemTriggerMap.put("wsQueueTile", InteractionType.WS_QUEUE_TILE);
+        itemTriggerMap.put("wsTileStart", InteractionType.WS_TILE_START);
 
         int itemId = 0;
+
 
         List<Item> items = new ArrayList<>();
         List<PublicItemData> publicItemData = ItemDao.getPublicItemData(modelId);
@@ -61,7 +55,7 @@ public class PublicItemParser {
             item.setCurrentProgram(itemData.getCurrentProgram());
 
             if (itemTriggerMap.containsKey(itemData.getSprite())) {
-                item.setItemTrigger(itemTriggerMap.get(itemData.getSprite()));
+                item.getDefinition().setInteractionType(itemTriggerMap.get(itemData.getSprite()));
             }
 
             item.getPosition().setX(itemData.getX());
@@ -75,9 +69,11 @@ public class PublicItemParser {
                 }
             }
 
-            if (item.getDefinition().hasBehaviour(ItemBehaviour.CAN_SIT_ON_TOP)) {
-                if (item.getItemTrigger() == null) {
-                    item.setItemTrigger(ItemBehaviour.CAN_SIT_ON_TOP.getTrigger());
+            if (item.getDefinition().getInteractionType() == null) {
+                if (item.getDefinition().hasBehaviour(ItemBehaviour.CAN_SIT_ON_TOP)) {
+                    item.getDefinition().setInteractionType(InteractionType.CHAIR);
+                } else {
+                    item.getDefinition().setInteractionType(InteractionType.DEFAULT);
                 }
             }
 

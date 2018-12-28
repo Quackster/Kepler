@@ -30,11 +30,11 @@ public class IIM implements MessageEvent {
         }
 
         // If the trigger isn't a game trigger then ignore it
-        if (currentItem.getItemTrigger() == null || !(currentItem.getItemTrigger() instanceof GameTrigger)) {
+        if (currentItem.getDefinition().getInteractionType() == null || !(currentItem.getDefinition().getInteractionType().getTrigger() instanceof GameTrigger)) {
             return;
         }
 
-        GameTrigger trigger = (GameTrigger) currentItem.getItemTrigger();
+        GameTrigger trigger = (GameTrigger) currentItem.getDefinition().getInteractionType().getTrigger();
         GamehallGame game = trigger.getGameInstance(roomEntity.getPosition());
 
         if (game == null) {

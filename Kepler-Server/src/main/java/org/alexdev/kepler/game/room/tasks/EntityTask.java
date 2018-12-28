@@ -74,8 +74,8 @@ public class EntityTask implements Runnable {
                 roomEntity.updateNewHeight(roomEntity.getPosition());
 
                 if (roomEntity.getCurrentItem() != null) {
-                    if (roomEntity.getCurrentItem().getItemTrigger() != null) {
-                        roomEntity.getCurrentItem().getItemTrigger().onEntityStep(entity, roomEntity, roomEntity.getCurrentItem(), oldPosition);
+                    if (roomEntity.getCurrentItem().getDefinition().getInteractionType().getTrigger() != null) {
+                        roomEntity.getCurrentItem().getDefinition().getInteractionType().getTrigger().onEntityStep(entity, roomEntity, roomEntity.getCurrentItem(), oldPosition);
                     }
                 }
             }
@@ -94,8 +94,8 @@ public class EntityTask implements Runnable {
 
                 // Set up trigger for leaving a current item
                 if (roomEntity.getCurrentItem() != null) {
-                    if (roomEntity.getCurrentItem().getItemTrigger() != null) {
-                        roomEntity.getCurrentItem().getItemTrigger().onEntityLeave(entity, roomEntity, roomEntity.getCurrentItem());
+                    if (roomEntity.getCurrentItem().getDefinition().getInteractionType().getTrigger() != null) {
+                        roomEntity.getCurrentItem().getDefinition().getInteractionType().getTrigger().onEntityLeave(entity, roomEntity, roomEntity.getCurrentItem());
                     }
                 }
 

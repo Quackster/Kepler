@@ -1,15 +1,11 @@
 package org.alexdev.kepler.game.item.base;
 
-import org.alexdev.kepler.game.triggers.GenericTrigger;
-import org.alexdev.kepler.game.item.triggers.BedTrigger;
-import org.alexdev.kepler.game.item.triggers.ChairTrigger;
-
 public enum ItemBehaviour {
     SOLID,
     CAN_STACK_ON_TOP,
-    CAN_SIT_ON_TOP(new ChairTrigger()),
+    CAN_SIT_ON_TOP,
     CAN_STAND_ON_TOP,
-    CAN_LAY_ON_TOP(new BedTrigger()),
+    CAN_LAY_ON_TOP,
     CUSTOM_DATA_NUMERIC_ON_OFF,
     REQUIRES_TOUCHING_FOR_INTERACTION,
     CUSTOM_DATA_TRUE_FALSE,
@@ -40,17 +36,4 @@ public enum ItemBehaviour {
 
     REDIRECT_ROTATION_0,
     REDIRECT_ROTATION_2;
-
-    private GenericTrigger trigger;
-
-    ItemBehaviour() {
-        trigger = null;
-    }
-    ItemBehaviour(GenericTrigger trigger) {
-        this.trigger = trigger;
-    }
-
-    public GenericTrigger getTrigger() {
-        return trigger;
-    }
 }

@@ -77,14 +77,13 @@ public class RoomTaskManager {
 
     /**
      * Schedule a custom task with a delay.
-     *
-     * @param taskName the task name identifier
+     *  @param taskName the task name identifier
      * @param runnableTask the runnable task instance
-     * @param interval the interval of the task
      * @param delay the time to wait before the task starts
+     * @param interval the interval of the task
      * @param timeUnit the time unit of the interval
      */
-    public void scheduleTask(String taskName, Runnable runnableTask, int delay, int interval, TimeUnit timeUnit) {
+    public void scheduleTask(String taskName, Runnable runnableTask, long delay, int interval, TimeUnit timeUnit) {
         this.cancelTask(taskName);
 
         var future = this.executorService.scheduleAtFixedRate(runnableTask, delay, interval, timeUnit);

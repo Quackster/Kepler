@@ -1,0 +1,64 @@
+package org.alexdev.kepler.game.item.interactors.types.wobblesquabble;
+
+import org.alexdev.kepler.game.entity.Entity;
+import org.alexdev.kepler.game.entity.EntityType;
+import org.alexdev.kepler.game.games.wobblesquabble.WobbleSquabbleGame;
+import org.alexdev.kepler.game.games.wobblesquabble.WobbleSquabbleManager;
+import org.alexdev.kepler.game.item.Item;
+import org.alexdev.kepler.game.pathfinder.Position;
+import org.alexdev.kepler.game.player.Player;
+import org.alexdev.kepler.game.room.entities.RoomEntity;
+import org.alexdev.kepler.game.room.mapping.RoomTile;
+import org.alexdev.kepler.game.triggers.GenericTrigger;
+import org.alexdev.kepler.messages.outgoing.wobblesquabble.PT_PREPARE;
+
+import java.util.concurrent.TimeUnit;
+
+public class WobbleSquabbleTileStart extends GenericTrigger {
+    public void onEntityStep(Entity entity, RoomEntity roomEntity, Item item, Position oldPosition, Object... customArgs) {
+
+    }
+
+    @Override
+    public void onEntityStop(Entity entity, RoomEntity roomEntity, Item item, Object... customArgs) {
+        if (entity.getType() != EntityType.PLAYER) {
+            return;
+        }
+
+        if (roomEntity.getRoom().getTaskManager().hasTask(WobbleSquabbleManager.getInstance().getName())) {
+            return;
+        }
+
+        String[] otherTilePlayer = item.getCurrentProgram().split(",");
+
+        Position teleportPosition = new Position(
+                Integer.valueOf(otherTilePlayer[0]),
+                Integer.valueOf(otherTilePlayer[1])
+        );
+
+        RoomTile roomTile = roomEntity.getRoom().getMapping().getTile(teleportPosition);
+
+        if (roomTile == null || !(roomTile.getEntities().size() > 0)) {
+            return;
+        }
+
+        // Two players! :3
+        WobbleSquabbleGame wsGame = new WobbleSquabbleGame((Player)entity, (Player) roomTile.getEntities().get(0));
+
+        // Disable walking requests
+        wsGame.getPlayer(0).getPlayer().getRoomUser().setWalkingAllowed(false);
+        wsGame.getPlayer(1).getPlayer().getRoomUser().setWalkingAllowed(false);
+
+        // Schedule worker task
+        roomEntity.getRoom().getTaskManager().scheduleTask(
+                WobbleSquabbleManager.getInstance().getName(),
+                wsGame, TimeUnit.SECONDS.toMillis(3),
+                200,
+                TimeUnit.MILLISECONDS);
+
+
+
+        // Announce game starting
+        wsGame.send(new PT_PREPARE(wsGame.getPlayer(0), wsGame.getPlayer(1)));
+    }
+}

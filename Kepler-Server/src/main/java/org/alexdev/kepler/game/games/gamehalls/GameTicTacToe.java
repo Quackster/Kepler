@@ -76,7 +76,7 @@ public class GameTicTacToe extends GamehallGame {
 
     @Override
     public void handleCommand(Player player, Room room, Item item, String command, String[] args) {
-        GameTrigger trigger = (GameTrigger) item.getItemTrigger();
+        GameTrigger trigger = (GameTrigger) item.getDefinition().getInteractionType().getTrigger();
 
         if (command.equals("CLOSE")) {
             trigger.onEntityLeave(player, player.getRoomUser(), item);

@@ -1,18 +1,16 @@
-package org.alexdev.kepler.game.item.triggers;
+package org.alexdev.kepler.game.item.interactors.types;
 
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.pathfinder.Position;
-import org.alexdev.kepler.game.pathfinder.Rotation;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.entities.RoomEntity;
-import org.alexdev.kepler.game.room.mapping.RoomTile;
 import org.alexdev.kepler.game.room.tasks.StatusTask;
 import org.alexdev.kepler.game.triggers.GenericTrigger;
 import org.alexdev.kepler.messages.outgoing.user.currencies.NO_TICKETS;
 
-public class PoolQueueTrigger extends GenericTrigger {
+public class PoolQueueInteractor extends GenericTrigger {
 
     @Override
     public void onEntityStep(Entity entity, RoomEntity roomEntity, Item item, Position oldPosition, Object... customArgs) {
