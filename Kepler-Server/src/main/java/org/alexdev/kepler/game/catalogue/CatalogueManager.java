@@ -87,7 +87,7 @@ public class CatalogueManager {
                 continue;
             }
 
-            if (catalogueItem.getPageId() == pageId) {
+            if (catalogueItem.hasPage(pageId)) {
                 items.add(catalogueItem);
             }
         }
@@ -109,11 +109,15 @@ public class CatalogueManager {
      *
      * @return the list of catalogue pages
      */
-    public List<CataloguePage> getPagesForRank(PlayerRank minimumRank) {
+    public List<CataloguePage> getPagesForRank(PlayerRank minimumRank, boolean hasClub) {
         List<CataloguePage> cataloguePagesForRank = new ArrayList<>();
 
         for (CataloguePage page : this.cataloguePageList) {
             if (!page.isIndexVisible()) {
+                continue;
+            }
+
+            if (page.isClubOnly() && !hasClub) {
                 continue;
             }
 

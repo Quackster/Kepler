@@ -33,8 +33,8 @@ public class CatalogueDao {
 
             while (row.next()) {
                 CataloguePage page = new CataloguePage(row.getInt("id"), PlayerRank.getRankForId(row.getInt("min_role")), row.getBoolean("index_visible"),
-                        row.getString("name_index"), row.getString("link_list"), row.getString("name"), row.getString("layout"),
-                        row.getString("image_headline"), row.getString("image_teasers"), row.getString("body"),
+                        row.getBoolean("is_club_only"), row.getString("name_index"), row.getString("link_list"), row.getString("name"),
+                        row.getString("layout"), row.getString("image_headline"), row.getString("image_teasers"), row.getString("body"),
                         row.getString("label_pick"), row.getString("label_extra_s"), row.getString("label_extra_t"));
 
                 pages.add(page);
@@ -69,10 +69,11 @@ public class CatalogueDao {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                CatalogueItem item = new CatalogueItem(resultSet.getString("sale_code"), resultSet.getInt("page_id"),
-                        resultSet.getInt("order_id"), resultSet.getBoolean("is_hidden"), resultSet.getInt("price"), resultSet.getInt("definition_id"),
-                        resultSet.getInt("item_specialspriteid"), resultSet.getString("package_name"),
-                        resultSet.getString("package_description"), resultSet.getBoolean("is_package"));
+                CatalogueItem item = new CatalogueItem(resultSet.getString("sale_code"), resultSet.getString("page_id"),
+                        resultSet.getInt("order_id"),  resultSet.getInt("price"), resultSet.getBoolean("is_hidden"),
+                        resultSet.getInt("definition_id"),
+                        resultSet.getInt("item_specialspriteid"), resultSet.getBoolean("is_package"), resultSet.getString("package_name"),
+                        resultSet.getString("package_description"));
 
                 pages.add(item);
             }

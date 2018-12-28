@@ -7,8 +7,10 @@ import org.alexdev.kepler.game.entity.EntityType;
 import org.alexdev.kepler.game.item.ItemManager;
 import org.alexdev.kepler.game.moderation.Fuseright;
 import org.alexdev.kepler.game.player.Player;
+import org.alexdev.kepler.game.player.PlayerManager;
 import org.alexdev.kepler.game.room.models.RoomModelManager;
 import org.alexdev.kepler.game.texts.TextsManager;
+import org.alexdev.kepler.messages.outgoing.catalogue.CATALOGUE_PAGES;
 import org.alexdev.kepler.messages.outgoing.rooms.user.CHAT_MESSAGE;
 import org.alexdev.kepler.messages.outgoing.user.ALERT;
 import org.alexdev.kepler.util.config.GameConfiguration;
@@ -47,6 +49,13 @@ public class ReloadCommand extends Command {
 
             // Regenerate collision map with proper height differences (if they changed).
             player.getRoomUser().getRoom().getMapping().regenerateCollisionMap();
+
+            // Resend the catalogue index every 15 minutes to clear page cache
+            for (Player p : PlayerManager.getInstance().getPlayers()) {
+                p.send(new CATALOGUE_PAGES(
+                        CatalogueManager.getInstance().getPagesForRank(p.getDetails().getRank(), p.getDetails().hasClubSubscription())
+                ));
+            }
 
             componentName = "Catalogue and item definitions";
         }

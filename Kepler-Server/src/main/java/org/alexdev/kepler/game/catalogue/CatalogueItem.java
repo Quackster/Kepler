@@ -8,37 +8,58 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ServiceLoader;
 
 public class CatalogueItem {
     private String saleCode;
-    private int pageId;
     private int orderId;
     private boolean isHidden;
     private int price;
     private ItemDefinition definition;
     private int itemSpecialId;
+    private List<CataloguePackage> packages;
+    private int[] pages;
+
     private String packageName;
     private String packageDescription;
     private boolean isPackage;
-    private List<CataloguePackage> packages;
 
-    public CatalogueItem(String saleCode, int pageId, int orderId, boolean isHidden, int price, int definitionId, int itemSpecialId, String packageName, String packageDescription, boolean isPackage) {
+    public CatalogueItem(String saleCode, String pageId, int orderId, int price, boolean hidden, int definitionId, int itemSpecialId, boolean isPackage, String packageName, String packageDescription) {
+        int[] pages = new int[pageId.split(",").length];
+
+        int i = 0;
+        if (pageId.length() > 0) {
+            for (String data : pageId.split(",")) {
+                pages[i++] = Integer.parseInt(data);
+            }
+        }
+
+        this.setPageData(saleCode, pages, orderId, price, hidden, definitionId, itemSpecialId, isPackage, packageName, packageDescription);
+    }
+
+
+    public CatalogueItem(String saleCode, int[] pages, int orderId, int price, boolean hidden, int definitionId, int itemSpecialId, boolean isPackage, String packageName, String packageDescription) {
+        this.setPageData(saleCode, pages, orderId, price, hidden, definitionId, itemSpecialId, isPackage, packageName, packageDescription);
+    }
+
+    private void setPageData(String saleCode, int[] pages, int orderId, int price, boolean hidden, int definitionId, int itemSpecialId, boolean isPackage, String packageName, String packageDescription) {
         this.saleCode = saleCode;
-        this.pageId = pageId;
         this.orderId = orderId;
-        this.isHidden = isHidden;
         this.price = price;
+        this.isHidden = hidden;
         this.definition = ItemManager.getInstance().getDefinition(definitionId);
         this.itemSpecialId = itemSpecialId;
-        this.packageName = packageName;
-        this.packageDescription = packageDescription;
         this.isPackage = isPackage;
         this.packages = new ArrayList<>();
+        this.pages = pages;
+        this.packageName = packageName;
+        this.packageDescription = packageDescription;
 
         if (this.definition == null && !this.isPackage) {
             System.out.println("Item (" + this.saleCode + ") has an invalid definition id: " + definitionId);
         }
     }
+
 
     public String getName() {
         if (this.isPackage) {
@@ -112,12 +133,8 @@ public class CatalogueItem {
         return saleCode;
     }
 
-    public int getPageId() {
-        return pageId;
-    }
-
-    public int getOrderId() {
-        return orderId;
+    public int[] getPageS() {
+        return pages;
     }
 
     public ItemDefinition getDefinition() {
@@ -136,14 +153,6 @@ public class CatalogueItem {
         return itemSpecialId;
     }
 
-    public String getPackageName() {
-        return packageName;
-    }
-
-    public String getPackageDescription() {
-        return packageDescription;
-    }
-
     public boolean isPackage() {
         return isPackage;
     }
@@ -159,10 +168,20 @@ public class CatalogueItem {
      * @return the new catalogue item instance
      */
     public CatalogueItem copy() {
-        return new CatalogueItem(this.saleCode, this.pageId, this.orderId, this.isHidden, this.price, this.definition.getId(), this.itemSpecialId, this.packageName, this.packageDescription, this.isPackage);
+        return new CatalogueItem(this.saleCode, this.pages, this.orderId, this.price, this.isHidden, this.definition.getId(), this.itemSpecialId, this.isPackage, this.packageName, this.packageDescription);
     }
 
     public boolean isHidden() {
         return isHidden;
+    }
+
+    public boolean hasPage(int pageId) {
+        for (int page : this.pages) {
+            if (page == pageId) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

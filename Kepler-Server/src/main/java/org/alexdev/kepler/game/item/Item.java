@@ -1,6 +1,5 @@
 package org.alexdev.kepler.game.item;
 
-import org.alexdev.kepler.dao.mysql.ItemDao;
 import org.alexdev.kepler.dao.mysql.TeleporterDao;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
@@ -16,7 +15,6 @@ import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.RoomManager;
 import org.alexdev.kepler.game.room.mapping.RoomTile;
 import org.alexdev.kepler.game.room.mapping.RoomTileState;
-import org.alexdev.kepler.messages.incoming.rooms.items.SETSTUFFDATA;
 import org.alexdev.kepler.messages.outgoing.rooms.items.SHOWPROGRAM;
 import org.alexdev.kepler.messages.outgoing.rooms.items.STUFFDATAUPDATE;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
@@ -213,7 +211,7 @@ public class Item {
             return this.customData.equals("TRUE");
         }
 
-        if (this.hasBehaviour(ItemBehaviour.DOOR)) {
+        if (this.hasBehaviour(ItemBehaviour.GATE)) {
             return this.isGateOpen();
         }
         
@@ -221,7 +219,7 @@ public class Item {
     }
 
     public boolean isGateOpen() {
-        if (this.hasBehaviour(ItemBehaviour.DOOR)) {
+        if (this.hasBehaviour(ItemBehaviour.GATE)) {
             return this.customData.equals("O");
         }
 
@@ -454,7 +452,7 @@ public class Item {
         }
 
         // Can't place gates on solid rollers
-        if (tileItem.hasBehaviour(ItemBehaviour.ROLLER) && item.hasBehaviour(ItemBehaviour.DOOR)) {
+        if (tileItem.hasBehaviour(ItemBehaviour.ROLLER) && item.hasBehaviour(ItemBehaviour.GATE)) {
             return false;
         }
 

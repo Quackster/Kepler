@@ -20,7 +20,7 @@ public enum ItemBehaviour {
     CUSTOM_DATA_NUMERIC_STATE,
     TELEPORTER,
     REQUIRES_RIGHTS_FOR_INTERACTION,
-    DOOR,
+    GATE,
     PRIZE_TROPHY,
     ROLLER,
     REDEEMABLE,
@@ -35,7 +35,11 @@ public enum ItemBehaviour {
     PRESENT,
     PHOTO,
     PLACE_ROLLER_ON_TOP,
-    INVISIBLE;
+    INVISIBLE,
+    EFFECT,
+
+    REDIRECT_ROTATION_0,
+    REDIRECT_ROTATION_2;
 
     private GenericTrigger trigger;
 

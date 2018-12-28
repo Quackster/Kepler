@@ -10,6 +10,7 @@ public class CataloguePage {
     private int id;
     private PlayerRank minRole;
     private boolean indexVisible;
+    private boolean isClubOnly;
     private String nameIndex;
     private String linkList;
     private String name;
@@ -21,10 +22,11 @@ public class CataloguePage {
     private String labelExtra_s;
     private Map<String, String> labelExtra;
 
-    public CataloguePage(int id, PlayerRank minRole, boolean indexVisible, String nameIndex, String linkedList, String name, String layout, String imageHeadline, String imageTeasers, String body, String labelPick, String labelExtra_s, String labelExtra_t) {
+    public CataloguePage(int id, PlayerRank minRole, boolean indexVisible, boolean isClubOnly, String nameIndex, String linkedList, String name, String layout, String imageHeadline, String imageTeasers, String body, String labelPick, String labelExtra_s, String labelExtra_t) {
         this.id = id;
         this.minRole = minRole;
         this.indexVisible = indexVisible;
+        this.isClubOnly = isClubOnly;
         this.nameIndex = nameIndex;
         this.linkList = linkedList;
         this.name = name;
@@ -140,5 +142,9 @@ public class CataloguePage {
 
     public Map<String, String> getLabelExtra() {
         return labelExtra;
+    }
+
+    public boolean isClubOnly() {
+        return isClubOnly;
     }
 }
