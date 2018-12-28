@@ -61,14 +61,17 @@ public class Pathfinder {
 
         if (oldHeight - 3 >= newHeight) {
             return fromItem != null && (fromItem.hasBehaviour(ItemBehaviour.TELEPORTER)
-                    || (fromItem.getDefinition().getSprite().equals("poolEnter"))//&& !entity.getRoomUser().containsStatus(StatusType.SWIM)) // Allow height difference only if they're heading to exit and swimming
-                    || (fromItem.getDefinition().getSprite().equals("poolExit")));// && entity.getRoomUser().containsStatus(StatusType.SWIM))); // Allow height difference only if they're heading to entry and  not swimming
+                    || (fromItem.getDefinition().getSprite().equals("wsJoinQueue"))
+                    || (fromItem.getDefinition().getSprite().equals("wsQueueTile"))
+                    || (fromItem.getDefinition().getSprite().equals("poolEnter"))
+                    || (fromItem.getDefinition().getSprite().equals("poolExit")));
         }
 
         if (oldHeight + 1.5 <= newHeight) {
             return toItem != null && (toItem.hasBehaviour(ItemBehaviour.TELEPORTER)
-                    || (toItem.getDefinition().getSprite().equals("poolEnter"))//&& !entity.getRoomUser().containsStatus(StatusType.SWIM)) // Allow height difference only if they're heading to exit and swimming
-                    || (toItem.getDefinition().getSprite().equals("poolExit")));// && entity.getRoomUser().containsStatus(StatusType.SWIM))); // Allow height difference only if they're heading to entry and  not swimming
+                    || (toItem.getDefinition().getSprite().equals("wsJoinQueue"))
+                    || (toItem.getDefinition().getSprite().equals("poolEnter"))
+                    || (toItem.getDefinition().getSprite().equals("poolExit")));
         }
 
         // Only check these below if the user is in a pool room.
@@ -117,14 +120,16 @@ public class Pathfinder {
         }
 
         // Can't walk diagonal between two non-walkable tiles.
-        if (current.getX() != tmp.getX() &&
-            current.getY() != tmp.getY()) {
+        if (!entity.getRoomUser().getRoom().getModel().getName().startsWith("sun_terrace")) { // Don't enable diagonal checking for the Sun Terrace
+            if (current.getX() != tmp.getX() &&
+                    current.getY() != tmp.getY()) {
 
-            boolean firstValidTile = RoomTile.isValidDiagonalTile(room, entity, new Position(tmp.getX(), current.getY()));
-            boolean secondValidTile = RoomTile.isValidDiagonalTile(room, entity, new Position(current.getX(), tmp.getY()));
+                boolean firstValidTile = RoomTile.isValidDiagonalTile(room, entity, new Position(tmp.getX(), current.getY()));
+                boolean secondValidTile = RoomTile.isValidDiagonalTile(room, entity, new Position(current.getX(), tmp.getY()));
 
-            if (!firstValidTile && !secondValidTile) {
-                return false;
+                if (!firstValidTile && !secondValidTile) {
+                    return false;
+                }
             }
         }
 
