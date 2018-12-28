@@ -5,7 +5,6 @@ ALTER TABLE `rooms` ADD `rating` INT(11) NOT NULL DEFAULT '0' AFTER `visitors_ma
 
 DROP TABLE `catalogue_items`, `items_definitions`,`catalogue_pages`,`catalogue_packages`;
 
-
 --
 -- Table structure for table `catalogue_items`
 --
@@ -1366,12 +1365,12 @@ INSERT INTO `catalogue_items` (`id`, `sale_code`, `page_id`, `order_id`, `price`
 (1337, 'totem_planet', '83', 5, 100, 0, 1, 1402, 0, 'Totem Planet', '3/3 of Totem', 0, NULL, NULL),
 (1338, 'fortune', '19', 5, 10, 0, 1, 1403, 0, 'Crystal Ball', 'Gaze into the future', 0, NULL, NULL),
 (1339, 'sound_machine', '84,85,86,87,88,89', 1, 8, 0, 1, 232, 0, 'Sound Machine', 'Creating fancy sounds', 0, NULL, NULL),
-(1340, 'sound_set_65', '88', 9, 3, 0, 1, 1404, 0, 'Sound set 65', '', 0, NULL, NULL),
-(1341, 'sound_set_66', '88', 9, 3, 0, 1, 1405, 0, 'Sound set 66', '', 0, NULL, NULL),
-(1342, 'sound_set_67', '88', 9, 3, 0, 1, 1406, 0, 'Sound set 67', '', 0, NULL, NULL),
-(1343, 'sound_set_68', '88', 9, 3, 0, 1, 1407, 0, 'Sound set 68', '', 0, NULL, NULL),
-(1344, 'sound_set_69', '88', 9, 3, 0, 1, 1408, 0, 'Sound set 69', '', 0, NULL, NULL),
-(1345, 'sound_set_70', '88', 9, 3, 0, 1, 1409, 0, 'Sound set 70', '', 0, NULL, NULL),
+(1340, 'sound_set_65', '88', 9, 3, 0, 1, 1404, 0, 'Tiki anthems', 'Tiki drums go boom!', 0, NULL, NULL),
+(1341, 'sound_set_66', '88', 9, 3, 0, 1, 1405, 0, 'Tiki Trax', 'Spin some island tunes', 0, NULL, NULL),
+(1342, 'sound_set_67', '88', 9, 3, 0, 1, 1406, 0, 'The trax of Tiki', 'Appease the greatest Habboa with party songs', 0, NULL, NULL),
+(1343, 'sound_set_68', '88', 9, 3, 0, 1, 1407, 0, 'Pitchside Pro', 'Football Sounds 1', 0, NULL, NULL),
+(1344, 'sound_set_69', '88', 9, 3, 0, 1, 1408, 0, 'Referee Rhythm', 'Football Sounds 2', 0, NULL, NULL),
+(1345, 'sound_set_70', '88', 9, 3, 0, 1, 1409, 0, 'Squad Synth', 'Football Sounds 3', 0, NULL, NULL),
 (1346, 'bolly_tree', '82', 13, 4, 0, 1, 1411, 0, 'Palm Tree', 'Bollywood meets Hollywood', 0, NULL, NULL),
 (1347, 'party_lights', '71', 26, 2, 0, 1, 1410, 0, 'Party lights', 'Dance dance dance!', 0, NULL, NULL);
 
@@ -1488,7 +1487,6 @@ INSERT INTO `catalogue_pages` (`id`, `order_id`, `min_role`, `index_visible`, `i
 (44, 44, 5, 1, 0, 'Rares Mixed', '', 'Rares Mixed', 'ctlg_layout2', 'catalog_rares_headline1', '', 'Yet another rares page.', 'Click on the item you want for more information', NULL, NULL),
 (45, 27, 1, 1, 0, 'Executive', '', 'Executive', 'ctlg_layout2', 'catalog_exe_headline1', 'catalog_exe_teaser', 'The Executive Furni is ideal for creating a sophisticated working environment, whether it be an office, a mafia headquarters or study!', 'Click on the item you want for more information', '', ''),
 (46, 28, 1, 1, 0, 'Alhambra', '', 'Alhambra', 'ctlg_layout2', 'catalog_alh_headline2', 'catalog_alh_teaser2,', 'The Palace of Alhambra has appeared and with it this exotic and beautifully crafted range of Arabian Furni. Luxury seating and gourmet food combine to make your room sparkle with riches.', 'Click on the item you want for more information', 's:2:Get your Alhambrian goodies now!', ''),
-(66, 29, 1, 1, 0, 'Urban', '', 'Urban', 'ctlg_layout2', 'catalog_trx_header5', 'catalog_trx_teaser5', 'Welcome to the Urban Trax Store! With hip hop beats and RnB vocals, this is the section for every city bopper  to indulge in.', '', NULL, ''),
 (68, 29, 1, 1, 0, 'Romantique', '', 'Romantique', 'ctlg_layout2', 'catalog_romantique_headline1', 'catalog_romantique_teaser1', 'The Romantique range features Grand Pianos, old antique lamps and tables. It is the ideal range for setting a warm and loving mood in your room. Spruce up your room and invite that special someone over. Now featuring the extra special COLOUR edition.', 'Click on the item you want for more information', NULL, ''),
 (81, 29, 1, 1, 0, 'Grunge', '', 'Grunge', 'ctlg_layout2', 'catalog_grunge_headline1_en', 'catalog_grunge_teaser_en', 'The Grunge range will get your bedroom looking just the way you like it - organised, neat and tidy!', 'Click on the item you want for more information', NULL, ''),
 (84, 29, 1, 1, 0, 'How to make music?', '', 'How to make music?', 'ctlg_soundmachine', 'catalog_djshop_headline1', 'catalog_djshop_teaser1', 'You must own a trax machine and at least one trax pax. Place the trax machine in your room and the trax pax in your hand. Double click the trax machine, click \"Trax editor\" and start editing music. When ready, save, select the tune, turn on the trax machine and enjoy.\",\"Cool, my own music!', 'Cool, my own music!', NULL, ''),
@@ -2712,12 +2710,12 @@ INSERT INTO `items_definitions` (`id`, `sprite`, `sprite_id`, `name`, `descripti
 (1401, 'totem_head', 11171, 'Totem Spirit Head', 'Which animal are you? 2/3 of Totem', '0,0,0', 1, 1, 1.8, '3', 'solid,can_stack_on_top', 'totem_head', 1, 1, ''),
 (1402, 'totem_planet', 11214, 'Totem Planet', '3/3 of Totem', '0,0,0', 1, 1, 0, '3', 'solid', 'totem_planet', 1, 1, ''),
 (1403, 'fortune', 1234, 'Crystal Ball', 'Gaze into the future', '0,0,0', 1, 1, 0, '11', 'solid', 'fortune', 1, 1, ''),
-(1404, 'sound_set_65', 1348, 'Sound set 65', '', '0,0,0', 1, 1, 0.2, '2', 'solid,can_stack_on_top,sound_machine_sample_set,requires_rights_for_interaction', 'default', 1, 1, ''),
-(1405, 'sound_set_66', 1354, 'Sound set 66', '', '0,0,0', 1, 1, 0.2, '2', 'solid,can_stack_on_top,sound_machine_sample_set,requires_rights_for_interaction', 'default', 1, 1, ''),
-(1406, 'sound_set_67', 1349, 'Sound set 67', '', '0,0,0', 1, 1, 0.2, '2', 'solid,can_stack_on_top,sound_machine_sample_set,requires_rights_for_interaction', 'default', 1, 1, ''),
-(1407, 'sound_set_68', 1351, 'Sound set 68', '', '0,0,0', 1, 1, 0.2, '2', 'solid,can_stack_on_top,sound_machine_sample_set,requires_rights_for_interaction', 'default', 1, 1, ''),
-(1408, 'sound_set_69', 1352, 'Sound set 69', '', '0,0,0', 1, 1, 0.2, '2', 'solid,can_stack_on_top,sound_machine_sample_set,requires_rights_for_interaction', 'default', 1, 1, ''),
-(1409, 'sound_set_70', 1353, 'Sound set 70', '', '0,0,0', 1, 1, 0.2, '2', 'solid,can_stack_on_top,sound_machine_sample_set,requires_rights_for_interaction', 'default', 1, 1, ''),
+(1404, 'sound_set_65', 1348, 'Tiki anthems', 'Tiki drums go boom!', '0,0,0', 1, 1, 0.2, '2', 'solid,can_stack_on_top,sound_machine_sample_set,requires_rights_for_interaction', 'default', 1, 1, ''),
+(1405, 'sound_set_66', 1354, 'Tiki Trax', 'Spin some island tunes', '0,0,0', 1, 1, 0.2, '2', 'solid,can_stack_on_top,sound_machine_sample_set,requires_rights_for_interaction', 'default', 1, 1, ''),
+(1406, 'sound_set_67', 1349, 'The trax of Tiki', 'Appease the greatest Habboa with party songs', '0,0,0', 1, 1, 0.2, '2', 'solid,can_stack_on_top,sound_machine_sample_set,requires_rights_for_interaction', 'default', 1, 1, ''),
+(1407, 'sound_set_68', 1351, 'Pitchside Pro', 'Football Sounds 1', '0,0,0', 1, 1, 0.2, '2', 'solid,can_stack_on_top,sound_machine_sample_set,requires_rights_for_interaction', 'default', 1, 1, ''),
+(1408, 'sound_set_69', 1352, 'Referee Rhythm', 'Football Sounds 2', '0,0,0', 1, 1, 0.2, '2', 'solid,can_stack_on_top,sound_machine_sample_set,requires_rights_for_interaction', 'default', 1, 1, ''),
+(1409, 'sound_set_70', 1353, 'Squad Synth', 'Football Sounds 3', '0,0,0', 1, 1, 0.2, '2', 'solid,can_stack_on_top,sound_machine_sample_set,requires_rights_for_interaction', 'default', 1, 1, ''),
 (1410, 'party_lights', 1467, 'Party lights', 'Dance dance dance!', '0,0,0', 1, 1, 0, '2', 'wall_item,requires_rights_for_interaction', 'default', 1, 1, ''),
 (1411, 'bolly_tree', 1552, 'Palm Tree', 'Bollywood meets Hollywood', '0,0,0', 1, 1, 0, '2', 'solid,requires_rights_for_interaction', 'default', 1, 1, '');
 
@@ -2759,4 +2757,3 @@ ALTER TABLE `catalogue_items`
 --
 ALTER TABLE `catalogue_packages`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
-
