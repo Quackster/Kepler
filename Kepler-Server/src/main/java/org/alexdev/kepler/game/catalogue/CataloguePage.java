@@ -64,20 +64,12 @@ public class CataloguePage {
         return minRole;
     }
 
-    public void setMinRole(PlayerRank minRole) {
-        this.minRole = minRole;
-    }
-
     public boolean isIndexVisible() {
         return indexVisible;
     }
 
     public String getNameIndex() {
         return nameIndex;
-    }
-
-    public void setNameIndex(String nameIndex) {
-        this.nameIndex = nameIndex;
     }
 
     public String getLinkList() {
@@ -96,24 +88,12 @@ public class CataloguePage {
         return layout;
     }
 
-    public void setLayout(String layout) {
-        this.layout = layout;
-    }
-
     public String getImageHeadline() {
         return imageHeadline;
     }
 
-    public void setImageHeadline(String imageHeadline) {
-        this.imageHeadline = imageHeadline;
-    }
-
     public String getImageTeasers() {
         return imageTeasers;
-    }
-
-    public void setImageTeasers(String imageTeasers) {
-        this.imageTeasers = imageTeasers;
     }
 
     public String getBody() {
@@ -128,16 +108,8 @@ public class CataloguePage {
         return labelPick;
     }
 
-    public void setLabelPick(String labelPick) {
-        this.labelPick = labelPick;
-    }
-
     public String getLabelExtra_s() {
         return labelExtra_s;
-    }
-
-    public void setLabelExtra_s(String labelExtra_s) {
-        this.labelExtra_s = labelExtra_s;
     }
 
     public Map<String, String> getLabelExtra() {
