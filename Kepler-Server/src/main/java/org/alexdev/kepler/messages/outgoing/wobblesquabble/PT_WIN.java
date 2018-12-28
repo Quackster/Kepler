@@ -13,11 +13,11 @@ public class PT_WIN extends MessageComposer {
     @Override
     public void compose(NettyResponse response) {
         if (this.winner == -1) {
-            response.writeInt(0);
+            response.write(0);
         } else if (this.winner == 1) {
-            response.writeInt(-1);
+            response.write(-1);
         } else if (this.winner == 0) {
-            response.writeInt(1);
+            response.write(1);
         }
     }
 

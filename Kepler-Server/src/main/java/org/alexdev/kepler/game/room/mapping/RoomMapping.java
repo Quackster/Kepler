@@ -83,7 +83,7 @@ public class RoomMapping {
 
                 tile.getItems().add(item);
 
-                if (tile.getTileHeight() < item.getTotalHeight()) {
+                if (tile.getTileHeight() < item.getTotalHeight() || item.hasBehaviour(ItemBehaviour.PUBLIC_SPACE_OBJECT)) {
                     item.setItemBelow(tile.getHighestItem());
                     tile.setTileHeight(item.getTotalHeight());
                     tile.setHighestItem(item);

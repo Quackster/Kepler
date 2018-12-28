@@ -15,8 +15,8 @@ public class PT_PREPARE extends MessageComposer {
 
     @Override
     public void compose(NettyResponse response) {
-        response.writeInt(this.player1.getPlayer().getRoomUser().getInstanceId());
-        response.writeInt(this.player2.getPlayer().getRoomUser().getInstanceId());
+        response.writeDelimeter("0:" + this.player1.getPlayer().getRoomUser().getInstanceId(), (char)13);
+        response.write("1:" + this.player2.getPlayer().getRoomUser().getInstanceId());
     }
 
     @Override
