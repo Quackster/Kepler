@@ -21,7 +21,7 @@ public class PT_STATUS extends MessageComposer {
 
             response.writeDelimeter(wsStatus.getPosition(), (char)9);
             response.writeDelimeter(wsStatus.getBalance(), (char)9);
-            response.writeDelimeter(wsStatus.getMove().getId(), (char)9);
+            response.writeDelimeter(wsStatus.getMove().getLetter(), (char)9);
             response.writeDelimeter(wsStatus.isHit() ? "h" : "", (char)9);
             response.write((char)13);
         }

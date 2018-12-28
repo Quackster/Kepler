@@ -35,6 +35,22 @@ public enum WobbleSquabbleMove {
     }
 
     /**
+     * Get the wobble squabble move enum.
+     *
+     * @param id the id of the move
+     * @return the enum
+     */
+    public static WobbleSquabbleMove getMove(String id) {
+        for (WobbleSquabbleMove move : values()) {
+            if (move.getLetter().equals(id)) {
+                return move;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Get the id of the move.
      *
      * @return the id

@@ -46,6 +46,7 @@ import org.alexdev.kepler.messages.incoming.user.settings.GET_ACCOUNT_PREFERENCE
 import org.alexdev.kepler.messages.incoming.user.settings.GET_SOUND_SETTING;
 import org.alexdev.kepler.messages.incoming.welcomingparty.ACCEPT_TUTOR_INVITATION;
 import org.alexdev.kepler.messages.incoming.welcomingparty.REJECT_TUTOR_INVITATION;
+import org.alexdev.kepler.messages.incoming.wobblesquabble.PTM;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 import org.alexdev.kepler.util.config.ServerConfiguration;
@@ -187,6 +188,7 @@ public class MessageHandler {
         registerEvent(63, new G_ITEMS());
         registerEvent(98, new LETUSERIN());
         registerEvent(261, new RATEFLAT());
+        registerEvent(114, new PTM());
     }
 
     /**
