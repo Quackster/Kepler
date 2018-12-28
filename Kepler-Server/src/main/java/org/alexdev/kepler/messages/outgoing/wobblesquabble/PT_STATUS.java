@@ -19,10 +19,11 @@ public class PT_STATUS extends MessageComposer {
         for (int i = 0; i < 2; i++) {
             WobbleSquabbleStatus wsStatus = this.statuses[i];
 
-            response.writeInt(wsStatus.getPosition());
-            response.writeInt(wsStatus.getBalance());
-            response.writeInt(wsStatus.getMove().getId());
-            response.writeBool(wsStatus.isHit());
+            response.writeDelimeter(wsStatus.getPosition(), (char)9);
+            response.writeDelimeter(wsStatus.getBalance(), (char)9);
+            response.writeDelimeter(wsStatus.getMove().getId(), (char)9);
+            response.writeDelimeter(wsStatus.isHit() ? "h" : "", (char)9);
+            response.write((char)13);
         }
     }
 

@@ -15,8 +15,8 @@ public class PT_START extends MessageComposer {
 
     @Override
     public void compose(NettyResponse response) {
-        response.writeInt(this.player1.getPlayer().getRoomUser().getInstanceId());
-        response.writeInt(this.player2.getPlayer().getRoomUser().getInstanceId());
+        response.writeDelimeter(this.player1.getPlayer().getRoomUser().getInstanceId(), (char)13);
+        response.writeDelimeter(this.player2.getPlayer().getRoomUser().getInstanceId(), (char)13);
     }
 
     @Override
