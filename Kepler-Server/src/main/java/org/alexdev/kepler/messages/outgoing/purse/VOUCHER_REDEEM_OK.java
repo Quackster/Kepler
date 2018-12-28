@@ -37,8 +37,8 @@ public class VOUCHER_REDEEM_OK extends MessageComposer {
 
         if (this.redeemableItems != null) {
             for (Item item : this.redeemableItems) {
-                response.writeString(item.getDefinition().getName(0));
-                response.writeString(item.getDefinition().getDescription(0));
+                response.writeString(item.getDefinition().getName());
+                response.writeString(item.getDefinition().getDescription());
             }
         }
     }

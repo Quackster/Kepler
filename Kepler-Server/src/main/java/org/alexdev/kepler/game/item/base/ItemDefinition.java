@@ -16,6 +16,8 @@ public class ItemDefinition {
     private int width;
     private String colour;
     private List<ItemBehaviour> behaviourList;
+    private String name;
+    private String description;
 
     public ItemDefinition() {
         this.sprite = "";
@@ -27,9 +29,11 @@ public class ItemDefinition {
         this.behaviourList = new ArrayList<>();
     }
 
-    public ItemDefinition(int id, String sprite, String behaviourData, double topHeight, int length, int width, String colour) {
+    public ItemDefinition(int id, String sprite, String name, String description, String behaviourData, double topHeight, int length, int width, String colour) {
         this.id = id;
         this.sprite = sprite;
+        this.name = name;
+        this.description = description;
         this.behaviourData = behaviourData;
         this.topHeight = topHeight;
         this.length = length;
@@ -99,52 +103,6 @@ public class ItemDefinition {
      */
     public void removeBehaviour(ItemBehaviour behaviour) {
         this.behaviourList.remove(behaviour);
-    }
-
-    /**
-     * Get the item name by creating an external text key and reading external text entries.
-     *
-     * @param specialSpriteId the special sprite id
-     * @return the name
-     */
-    public String getName(int specialSpriteId) {
-        if (this.hasBehaviour(ItemBehaviour.DECORATION)) {
-            return this.sprite;
-        }
-
-        String etxernalTextKey = this.getExternalTextKey(specialSpriteId);
-        String name = etxernalTextKey + "_name";
-
-        String value = TextsManager.getInstance().getValue(etxernalTextKey);
-
-        if (value == null) {
-            return "null";
-        }
-
-        return name;
-    }
-
-    /**
-     * Get the item description by creating an external text key and reading external text entries.
-     *
-     * @param specialSpriteId the special sprite id
-     * @return the description
-     */
-    public String getDescription(int specialSpriteId) {
-        if (this.hasBehaviour(ItemBehaviour.CAN_STACK_ON_TOP)) {
-            return this.sprite;
-        }
-
-        String etxernalTextKey = this.getExternalTextKey(specialSpriteId);
-        String name = etxernalTextKey + "_desc";
-
-        String value = TextsManager.getInstance().getValue(etxernalTextKey);
-
-        if (value == null) {
-            return "null";
-        }
-
-        return name;
     }
 
     /**
@@ -239,5 +197,13 @@ public class ItemDefinition {
 
     public List<ItemBehaviour> getBehaviourList() {
         return behaviourList;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }
