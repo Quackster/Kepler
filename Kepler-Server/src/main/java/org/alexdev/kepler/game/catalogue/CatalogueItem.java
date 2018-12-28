@@ -26,8 +26,9 @@ public class CatalogueItem {
     private String packageName;
     private String packageDescription;
     private boolean isPackage;
+    private int id;
 
-    public CatalogueItem(String saleCode, String pageId, int orderId, int price, boolean hidden, int definitionId, int itemSpecialId, String name, String description, boolean isPackage, String packageName, String packageDescription) {
+    public CatalogueItem(int id, String saleCode, String pageId, int orderId, int price, boolean hidden, int definitionId, int itemSpecialId, String name, String description, boolean isPackage, String packageName, String packageDescription) {
         int[] pages = new int[pageId.split(",").length];
 
         int i = 0;
@@ -37,15 +38,16 @@ public class CatalogueItem {
             }
         }
 
-        this.setPageData(saleCode, pages, orderId, price, hidden, definitionId, itemSpecialId, name, description, isPackage, packageName, packageDescription);
+        this.setPageData(id, saleCode, pages, orderId, price, hidden, definitionId, itemSpecialId, name, description, isPackage, packageName, packageDescription);
     }
 
 
-    public CatalogueItem(String saleCode, int[] pages, int orderId, int price, boolean hidden, int definitionId, int itemSpecialId, String name, String description, boolean isPackage, String packageName, String packageDescription) {
-        this.setPageData(saleCode, pages, orderId, price, hidden, definitionId, itemSpecialId, name, description, isPackage, packageName, packageDescription);
+    public CatalogueItem(int id, String saleCode, int[] pages, int orderId, int price, boolean hidden, int definitionId, int itemSpecialId, String name, String description, boolean isPackage, String packageName, String packageDescription) {
+        this.setPageData(id, saleCode, pages, orderId, price, hidden, definitionId, itemSpecialId, name, description, isPackage, packageName, packageDescription);
     }
 
-    private void setPageData(String saleCode, int[] pages, int orderId, int price, boolean hidden, int definitionId, int itemSpecialId, String name, String description, boolean isPackage, String packageName, String packageDescription) {
+    private void setPageData(int id, String saleCode, int[] pages, int orderId, int price, boolean hidden, int definitionId, int itemSpecialId, String name, String description, boolean isPackage, String packageName, String packageDescription) {
+        this.id = id;
         this.saleCode = saleCode;
         this.orderId = orderId;
         this.price = price;
@@ -157,7 +159,7 @@ public class CatalogueItem {
      * @return the new catalogue item instance
      */
     public CatalogueItem copy() {
-        return new CatalogueItem(this.saleCode, this.pages, this.orderId, this.price, this.isHidden, this.definition.getId(), this.itemSpecialId, this.name, this.description, this.isPackage, this.packageName, this.packageDescription);
+        return new CatalogueItem(this.id, this.saleCode, this.pages, this.orderId, this.price, this.isHidden, this.definition.getId(), this.itemSpecialId, this.name, this.description, this.isPackage, this.packageName, this.packageDescription);
     }
 
     public boolean isHidden() {
@@ -172,5 +174,9 @@ public class CatalogueItem {
         }
 
         return false;
+    }
+
+    public int getId() {
+        return id;
     }
 }

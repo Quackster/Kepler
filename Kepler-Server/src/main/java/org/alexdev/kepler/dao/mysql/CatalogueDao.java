@@ -69,7 +69,7 @@ public class CatalogueDao {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                CatalogueItem item = new CatalogueItem(resultSet.getString("sale_code"), resultSet.getString("page_id"),
+                CatalogueItem item = new CatalogueItem(resultSet.getInt("id"), resultSet.getString("sale_code"), resultSet.getString("page_id"),
                         resultSet.getInt("order_id"),  resultSet.getInt("price"), resultSet.getBoolean("is_hidden"),
                         resultSet.getInt("definition_id"),  resultSet.getInt("item_specialspriteid"),
                         resultSet.getString("name"), resultSet.getString("description"),
