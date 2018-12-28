@@ -47,6 +47,7 @@ public abstract class RoomEntity {
     private LinkedList<Position> path;
 
     private int instanceId;
+    private Item lastInteractedItem;
 
     private boolean isWalking;
     private boolean isWalkingAllowed;
@@ -67,6 +68,7 @@ public abstract class RoomEntity {
         this.goal = null;
         this.room = null;
         this.rollingData = null;
+        this.lastInteractedItem = null;
         this.isWalking = false;
         this.isWalkingAllowed = true;
         this.beingKicked = false;
@@ -801,5 +803,13 @@ public abstract class RoomEntity {
 
     public void setWalkingAllowed(boolean walkingAllowed) {
         isWalkingAllowed = walkingAllowed;
+    }
+
+    public Item getLastInteractedItem() {
+        return lastInteractedItem;
+    }
+
+    public void setLastInteractedItem(Item lastInteractedItem) {
+        this.lastInteractedItem = lastInteractedItem;
     }
 }

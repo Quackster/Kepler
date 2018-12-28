@@ -33,6 +33,9 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class Kepler {
 
@@ -103,6 +106,27 @@ public class Kepler {
             setupRcon();
             setupMus();
             setupServer();
+
+            /*Connection sqlConnection = null;
+            PreparedStatement preparedStatement = null;
+            ResultSet resultSet = null;
+
+            try {
+                sqlConnection = Storage.getStorage().getConnection();
+                preparedStatement = Storage.getStorage().prepare("SELECT * FROM items_definitions WHERE sprite LIKE '%hcc%'", sqlConnection);
+                resultSet = preparedStatement.executeQuery();
+
+                while (resultSet.next()) {
+                    System.out.println("furni_" + resultSet.getString("sprite") + "_name=" + resultSet.getString("name"));
+                    System.out.println("furni_" + resultSet.getString("sprite") + "_desc=" + resultSet.getString("description"));
+                }
+            } catch (Exception e) {
+                Storage.logError(e);
+            } finally {
+                Storage.closeSilently(resultSet);
+                Storage.closeSilently(preparedStatement);
+                Storage.closeSilently(sqlConnection);
+            }*/
 
             Runtime.getRuntime().addShutdownHook(new Thread(Kepler::dispose));
         } catch (Exception e) {

@@ -16,8 +16,10 @@ public class ItemDefinition {
     private int width;
     private String colour;
     private List<ItemBehaviour> behaviourList;
+    private String interactor;
     private String name;
     private String description;
+    private int[] drinkIds;
 
     public ItemDefinition() {
         this.sprite = "";
@@ -29,17 +31,26 @@ public class ItemDefinition {
         this.behaviourList = new ArrayList<>();
     }
 
-    public ItemDefinition(int id, String sprite, String name, String description, String behaviourData, double topHeight, int length, int width, String colour) {
+    public ItemDefinition(int id, String sprite, String name, String description, String behaviourData, String interactor, double topHeight, int length, int width, String colour, String drinkIdData) {
         this.id = id;
         this.sprite = sprite;
         this.name = name;
         this.description = description;
         this.behaviourData = behaviourData;
+        this.interactor = interactor;
         this.topHeight = topHeight;
         this.length = length;
         this.width = width;
         this.colour = colour;
         this.behaviourList = parseBehaviour(this.behaviourData);
+        this.drinkIds = new int[drinkIdData.split(",").length];
+
+        if (drinkIdData.length() > 0) {
+            int i = 0;
+            for (String data : drinkIdData.split(",")) {
+                this.drinkIds[i++] = Integer.parseInt(data);
+            }
+        }
 
         // If the item is a gate (checked below) then the top height is set to 0 so the item can be walked in
         if (!this.behaviourList.contains(ItemBehaviour.CAN_SIT_ON_TOP)
@@ -205,5 +216,13 @@ public class ItemDefinition {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getInteractor() {
+        return interactor;
+    }
+
+    public int[] getDrinkIds() {
+        return drinkIds;
     }
 }

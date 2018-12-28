@@ -34,8 +34,8 @@ public class ItemDao {
             while (resultSet.next()) {
                 ItemDefinition definition = new ItemDefinition(resultSet.getInt("id"), resultSet.getString("sprite"),
                         resultSet.getString("name"), resultSet.getString("description"),
-                        resultSet.getString("behaviour"), resultSet.getDouble("top_height"), resultSet.getInt("length"),
-                        resultSet.getInt("width"), resultSet.getString("colour"));
+                        resultSet.getString("behaviour"), resultSet.getString("interactor"), resultSet.getDouble("top_height"),
+                        resultSet.getInt("length"), resultSet.getInt("width"), resultSet.getString("colour"), resultSet.getString("drink_ids"));
 
                 definitions.put(definition.getId(), definition);
             }

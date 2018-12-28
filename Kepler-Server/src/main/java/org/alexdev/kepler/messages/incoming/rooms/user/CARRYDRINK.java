@@ -1,5 +1,6 @@
 package org.alexdev.kepler.messages.incoming.rooms.user;
 
+import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.enums.StatusType;
 import org.alexdev.kepler.game.room.mapping.RoomTile;
@@ -8,6 +9,8 @@ import org.alexdev.kepler.server.netty.streams.NettyRequest;
 import org.alexdev.kepler.util.StringUtil;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public class CARRYDRINK implements MessageEvent {
     @Override
     public void handle(Player player, NettyRequest reader) {
@@ -15,18 +18,38 @@ public class CARRYDRINK implements MessageEvent {
             return;
         }
 
-        String contents = reader.contents();
+        if (player.getRoomUser().getRoom().isPublicRoom()) {
+            String contents = reader.contents();
 
-        if (StringUtils.isNumeric(contents)) {
-            RoomTile roomTile = player.getRoomUser().getRoom().getMapping().getTile(player.getRoomUser().getPosition().getSquareInFront());
+            if (StringUtils.isNumeric(contents)) {
+                RoomTile roomTile = player.getRoomUser().getRoom().getMapping().getTile(player.getRoomUser().getPosition().getSquareInFront());
 
-            if (roomTile.getItems().stream().anyMatch(item -> item.getDefinition().getSprite().equals("arabian_teamk"))) {
-                contents = String.valueOf(1);
+                if (roomTile.getItems().stream().anyMatch(item -> item.getDefinition().getSprite().equals("arabian_teamk"))) {
+                    contents = String.valueOf(1);
+                }
+
+                player.getRoomUser().carryItem(Integer.parseInt(contents), null);
+            } else {
+                player.getRoomUser().carryItem(-1, contents);
+            }
+        } else {
+            if (player.getRoomUser().getLastInteractedItem() == null) {
+                return;
             }
 
-            player.getRoomUser().carryItem(Integer.parseInt(contents), null);
-        } else {
-            player.getRoomUser().carryItem(-1, contents);
+            Item item = player.getRoomUser().getLastInteractedItem();
+
+            if (!item.getDefinition().getInteractor().equals("vending_machine")) {
+                return;
+            }
+
+            if (!item.getTile().touches(player.getRoomUser().getTile())) {
+                return;
+            }
+
+            int randomDrinkId = item.getDefinition().getDrinkIds()[ThreadLocalRandom.current().nextInt(0, item.getDefinition().getDrinkIds().length)];
+            player.getRoomUser().carryItem(randomDrinkId, null);
+
         }
 
         player.getRoomUser().getTimerManager().resetRoomTimer();

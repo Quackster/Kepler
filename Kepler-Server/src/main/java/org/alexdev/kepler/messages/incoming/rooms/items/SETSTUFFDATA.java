@@ -133,6 +133,8 @@ public class SETSTUFFDATA implements MessageEvent {
         item.setCustomData(newData);
         item.updateStatus();
 
+        player.getRoomUser().setLastInteractedItem(item);
+
         if (!item.getDefinition().hasBehaviour(ItemBehaviour.CUSTOM_DATA_TRUE_FALSE)) {
             ItemDao.updateItem(item);
         }
