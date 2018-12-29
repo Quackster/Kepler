@@ -1,10 +1,12 @@
 package org.alexdev.kepler.game.games.wobblesquabble;
 
+import org.alexdev.kepler.dao.mysql.CurrencyDao;
 import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.enums.StatusType;
+import org.alexdev.kepler.messages.outgoing.user.currencies.TICKET_BALANCE;
 import org.alexdev.kepler.messages.outgoing.wobblesquabble.*;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.util.DateUtil;
@@ -165,6 +167,9 @@ public class WobbleSquabbleGame implements Runnable {
 
         Player player = wsPlayer.getPlayer();
         player.getRoomUser().setWalkingAllowed(true);
+
+        CurrencyDao.decreaseTickets(player.getDetails(), 1);
+        player.send(new TICKET_BALANCE(player.getDetails().getTickets()));
 
         if (isThrown) {
             player.getRoomUser().setStatus(StatusType.SWIM, "");

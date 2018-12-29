@@ -6,6 +6,7 @@ import org.alexdev.kepler.game.games.wobblesquabble.WobbleSquabbleManager;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.interactors.InteractionType;
 import org.alexdev.kepler.game.pathfinder.Position;
+import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.entities.RoomEntity;
 import org.alexdev.kepler.game.room.enums.StatusType;
 import org.alexdev.kepler.game.room.mapping.RoomTile;
@@ -24,6 +25,12 @@ public class WobbleSquabbleJoinQueue extends GenericTrigger {
 
         if (roomEntity.getRoom().getTaskManager().hasTask(WobbleSquabbleManager.getInstance().getName())) {
             return;
+        }
+
+        Player player = (Player) entity;
+
+        if (player.getDetails().getTickets() < WobbleSquabbleManager.WS_GAME_TICKET_COST) {
+            return; // Too poor!
         }
 
         String[] teleportPositionData = item.getCurrentProgram().split(",");
