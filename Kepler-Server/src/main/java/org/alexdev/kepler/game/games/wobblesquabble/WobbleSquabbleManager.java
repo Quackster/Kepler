@@ -24,6 +24,10 @@ public class WobbleSquabbleManager {
     public boolean isPlaying(Player player) {
         Room room = player.getRoomUser().getRoom();
 
+        if (room == null) {
+            return false;
+        }
+
         if (!room.getTaskManager().hasTask(this.getName())) {
             return false;
         }
@@ -42,6 +46,10 @@ public class WobbleSquabbleManager {
      */
     public WobbleSquabblePlayer getPlayer(Player player) {
         Room room = player.getRoomUser().getRoom();
+
+        if (room == null) {
+            return null;
+        }
 
         if (!room.getTaskManager().hasTask(this.getName())) {
             return null;
