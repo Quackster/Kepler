@@ -16,6 +16,9 @@ import java.util.List;
 
 public class BombHandle {
     public static void handle(BattleBallGame game, GamePlayer gamePlayer, Room room) {
+        gamePlayer.getPlayer().getRoomUser().stopWalking();
+        gamePlayer.getPlayer().getRoomUser().setWalkingAllowed(false);
+
         List<GamePlayer> stunnedPlayers = new ArrayList<>();
 
         for (Position position : gamePlayer.getPlayer().getRoomUser().getPosition().getCircle(4)) {
@@ -34,7 +37,14 @@ public class BombHandle {
             stunnedPlayers.addAll(battleballTile.getPlayers(gamePlayer));
         }
 
+        if (!stunnedPlayers.contains(gamePlayer)) {
+            stunnedPlayers.add(gamePlayer);
+        }
+
         for (GamePlayer stunnedPlayer : stunnedPlayers) {
+            stunnedPlayer.getPlayer().getRoomUser().stopWalking();
+            stunnedPlayer.getPlayer().getRoomUser().setWalkingAllowed(false);
+
             // Move player away from blast radius: https://www.youtube.com/watch?v=cP3bvGOx53o&feature=youtu.be&t=242
             if (gamePlayer != stunnedPlayer) {
                 Position from = stunnedPlayer.getPlayer().getRoomUser().getPosition();
@@ -49,12 +59,7 @@ public class BombHandle {
                 BattleBallTile battleballTile = (BattleBallTile) game.getTile(pushBack.getX(), pushBack.getY());
 
                 if (TileUtil.isValidGameTile(stunnedPlayer, battleballTile, true)) {
-                    stunnedPlayer.getPlayer().getRoomUser().getRoom().getMapping().getTile(from).removeEntity(stunnedPlayer.getPlayer());
-                    stunnedPlayer.getPlayer().getRoomUser().getRoom().getMapping().getTile(pushBack).addEntity(stunnedPlayer.getPlayer());
-
-                    stunnedPlayer.getPlayer().getRoomUser().getPosition().setX(pushBack.getX());
-                    stunnedPlayer.getPlayer().getRoomUser().getPosition().setY(pushBack.getY());
-                    stunnedPlayer.getPlayer().getRoomUser().getPosition().setZ(battleballTile.getPosition().getZ());
+                    stunnedPlayer.getPlayer().getRoomUser().warp(pushBack, false);
                 }
             }
 

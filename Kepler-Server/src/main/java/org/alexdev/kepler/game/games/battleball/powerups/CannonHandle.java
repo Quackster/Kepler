@@ -31,7 +31,6 @@ public class CannonHandle {
         int rotation = nextPosition.getRotation();
 
         LinkedList<BattleBallTile> tilesToUpdate = new LinkedList<>();
-        List<Pair<GamePlayer, Position>> stunnedPlayers = new ArrayList<>();
 
         while (TileUtil.isValidGameTile(gamePlayer, (BattleBallTile) game.getTile(nextPosition.getX(), nextPosition.getY()), false)) {
             nextPosition = nextPosition.getSquareInFront();
@@ -41,16 +40,7 @@ public class CannonHandle {
             }
 
             BattleBallTile battleballTile = (BattleBallTile) game.getTile(nextPosition.getX(), nextPosition.getY());
-
             tilesToUpdate.add(battleballTile);
-
-            for (GamePlayer p : battleballTile.getPlayers(gamePlayer)) {
-                if (p == gamePlayer) {
-                    continue;
-                }
-
-                stunnedPlayers.add(Pair.of(p, nextPosition));
-            }
         }
 
         if (tilesToUpdate.isEmpty()) {
@@ -60,10 +50,27 @@ public class CannonHandle {
 
         // Stun players in direction of cannon and make them move out of the way
         GameScheduler.getInstance().getService().schedule(() -> {
+            List<Pair<GamePlayer, Position>> stunnedPlayers = new ArrayList<>();
+
+            for (BattleBallTile tile : tilesToUpdate) {
+                for (GamePlayer p : tile.getPlayers(gamePlayer)) {
+                    if (p == gamePlayer) {
+                        continue;
+                    }
+
+                    stunnedPlayers.add(Pair.of(p, tile.getPosition()));
+                }
+            }
+
             for (var kvp : stunnedPlayers) {
                 try {
                     // TODO: Move player out of the way of user using cannon https://www.youtube.com/watch?v=YX1UZky5pg0&feature=youtu.be&t=98
                     GamePlayer stunnedPlayer = kvp.getKey();
+
+                    if (stunnedPlayer.getPlayer().getRoomUser().isWalking()) {
+                        stunnedPlayer.getPlayer().getRoomUser().stopWalking();
+                    }
+
                     Position pushedFrom = kvp.getValue().copy();
                     pushedFrom.setRotation(rotation);
 
@@ -91,7 +98,7 @@ public class CannonHandle {
                     // Set player at teir new spot
                     if (setPosition != null) {
                         setPosition.setRotation(stunnedPlayer.getPlayer().getRoomUser().getPosition().getRotation());
-                        stunnedPlayer.getPlayer().getRoomUser().setPosition(setPosition);
+                        //stunnedPlayer.getPlayer().getRoomUser().setPosition(setPosition);
                         stunnedPlayer.getPlayer().getRoomUser().warp(setPosition, false);
                     }
                 } catch (Exception ex) {
@@ -132,18 +139,15 @@ public class CannonHandle {
         Position lastPosition = lastTile.getPosition().copy();
         lastPosition.setRotation(rotation);
 
-        gamePlayer.getPlayer().getRoomUser().setPosition(firstPosition);
         gamePlayer.setPlayerState(BattleBallPlayerState.FLYING_THROUGH_AIR);
 
         game.addObjectToQueue(new PlayerUpdateObject(gamePlayer));
         game.addPlayerMove(new PlayerMoveEvent(gamePlayer, lastPosition));
 
         GameScheduler.getInstance().getService().schedule(() -> {
-            gamePlayer.getPlayer().getRoomUser().setPosition(lastPosition);
             PowerUpUtil.stunPlayer(game, gamePlayer, BattleBallPlayerState.STUNNED);
         }, 800, TimeUnit.MILLISECONDS);
 
-        gamePlayer.getPlayer().getRoomUser().warp(lastTile.getPosition(), false);
-
+        gamePlayer.getPlayer().getRoomUser().warp(lastPosition, false);
     }
 }

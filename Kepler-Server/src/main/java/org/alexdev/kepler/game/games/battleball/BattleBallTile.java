@@ -53,6 +53,10 @@ public class BattleBallTile extends GameTile  {
                 continue;
             }
 
+            if (!player.getRoomUser().getPosition().equals(this.getPosition())) {
+                continue;
+            }
+
             gamePlayers.add(gameUser);
         }
 
