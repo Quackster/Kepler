@@ -10,7 +10,6 @@ import org.alexdev.kepler.game.texts.TextsManager;
 import org.alexdev.kepler.messages.outgoing.user.ALERT;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
-import org.alexdev.kepler.util.StringUtil;
 import org.apache.commons.lang3.StringUtils;
 
 import java.sql.SQLException;
@@ -86,14 +85,24 @@ public class PLACESTUFF implements MessageEvent {
         } else {
             int x = Integer.parseInt(data[1]);
             int y = Integer.parseInt(data[2]);
+            int rotation = Integer.parseInt(data[3]);
 
-            if (!item.isValidMove(item, room, x, y, 0)) {
+            if (!item.isValidMove(item, room, x, y, rotation)) {
                 return;
             }
 
             if (room.getMapping().getTile(x, y) != null) {
+                if (item.hasBehaviour(ItemBehaviour.REDIRECT_ROTATION_0)) {
+                    rotation = 0;
+                }
+
+                if (item.hasBehaviour(ItemBehaviour.REDIRECT_ROTATION_2)) {
+                    rotation = 2;
+                }
+
                 item.getPosition().setX(x);
                 item.getPosition().setY(y);
+                item.getPosition().setRotation(rotation);
 
                 if (item.hasBehaviour(ItemBehaviour.DICE)) {
                     // For some reason the client expects the HC dice to have a default of 1 while the normal dice a default of 0 (off)
