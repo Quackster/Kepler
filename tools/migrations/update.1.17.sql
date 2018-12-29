@@ -482,7 +482,7 @@ INSERT INTO `catalogue_items` (`id`, `sale_code`, `page_id`, `order_id`, `price`
 (450, 'rare_fan*8', '40', 0, 5, 0, 1, 349, 0, 'Habbo Wind Turbine', 'Stylish, Eco-Energy!', 0, NULL, NULL),
 (451, 'rare_fan*9', '40', 0, 5, 0, 1, 343, 0, 'Fucsia Powered Fan', 'It\'ll blow you away!', 0, NULL, NULL),
 (452, 'habbowheel', '19', 0, 8, 0, 1, 351, 0, 'The Wheel of Destiny!', 'So you gotta ask yourself, \'Do I feel lucky?\'', 0, NULL, NULL),
-(453, 'roomdimmer', '19', 0, 12, 0, 1, 352, 0, 'Mood Light', 'Superior lighting for your room', 0, NULL, NULL),
+(453, 'roomdimmer', '19', 0, 12, 1, 1, 352, 0, 'Mood Light', 'Superior lighting for your room', 0, NULL, NULL),
 (454, 'jukebox*1', '11,84,85,86,87,88,89', 2, 3, 0, 1, 353, 0, 'Jukebox', 'For your Happy Days!', 0, NULL, NULL),
 (455, 'jukebox_ptv*1', '11', 0, 8, 1, 1, 354, 0, 'Jukebox Pacha TV', 'Jukebox Pacha TV', 0, NULL, NULL),
 (456, 'carpet_soft_tut', '23', 0, 1, 0, 1, 355, 0, 'Welcome Mat', 'Welcome, enjoy your stay!', 0, NULL, NULL),
@@ -668,8 +668,8 @@ INSERT INTO `catalogue_items` (`id`, `sale_code`, `page_id`, `order_id`, `price`
 (638, 'arabian_tray3', '46', 0, 3, 0, 1, 756, 0, 'Sweets Tray', 'Indulge yourself!', 0, NULL, NULL),
 (639, 'arabian_tray4', '46', 0, 3, 0, 1, 757, 0, 'Fruit Tray', 'Sweet, juicy and ripe', 0, NULL, NULL),
 (640, 'arabian_wndw', '46', 0, 4, 0, 1, 758, 0, 'Arabian Window Frame', 'Arabian days and nights', 0, NULL, NULL),
-(641, 'arabian_wall', '46', 0, 3, 0, 1, 759, 0, 'Arabian Wall', 'A wall built with class.', 0, NULL, NULL),
-(642, 'arabian_tile', '46', 0, 3, 0, 1, 760, 0, 'Arabian Tile', 'Step in style...', 0, NULL, NULL),
+(641, 'arabian_wall', '46', 0, 3, 1, 1, 759, 0, 'Arabian Wall', 'A wall built with class.', 0, NULL, NULL),
+(642, 'arabian_tile', '46', 0, 3, 1, 1, 760, 0, 'Arabian Tile', 'Step in style...', 0, NULL, NULL),
 (658, 'noob_window_double', '53', 0, 3, 1, 1, 761, 0, 'Window', 'Room with a view', 0, NULL, NULL),
 (659, 'window_70s_narrow', '53', 0, 3, 0, 1, 762, 0, 'Small 70s Window', 'Takes you back', 0, NULL, NULL),
 (660, 'window_70s_wide', '53', 0, 3, 0, 1, 763, 0, 'Large 70s Window', 'A view of the past', 0, NULL, NULL),
@@ -717,7 +717,7 @@ INSERT INTO `catalogue_items` (`id`, `sale_code`, `page_id`, `order_id`, `price`
 (703, 'noob_chair*4', '57', 1, 0, 0, 1, 807, 0, 'My first Habbo chair', 'Lightweight, practical, with light blue stripes', 0, NULL, NULL),
 (704, 'noob_chair*5', '57', 1, 0, 0, 1, 808, 0, 'My first Habbo chair', 'Lightweight, practical, with pink stripes', 0, NULL, NULL),
 (705, 'noob_chair*6', '57', 1, 0, 0, 1, 809, 0, 'My first Habbo chair	', 'Lightweight, practical with dark yellow stripes', 0, NULL, NULL),
-(706, 'exe_gate', '45', 0, 3, 0, 1, 738, 0, 'Executive Gate', 'Keeps the tax man away', 0, NULL, NULL),
+(706, 'exe_gate', '45', 0, 3, 1, 1, 738, 0, 'Executive Gate', 'Keeps the tax man away', 0, NULL, NULL),
 (707, 'country_rain', '59', 1, 3, 0, 1, 810, 0, 'Rain Shower', 'Made in Britain', 0, NULL, NULL),
 (708, 'country_scarecrow', '59', 1, 3, 0, 1, 811, 0, 'Country Scarecrow', 'Looks strangely similar', 0, NULL, NULL),
 (709, 'country_soil', '59', 1, 3, 0, 1, 812, 0, 'Crop Field', 'Grow your own!', 0, NULL, NULL),
@@ -2673,57 +2673,7 @@ INSERT INTO `items_definitions` (`id`, `sprite`, `sprite_id`, `name`, `descripti
 (1410, 'party_lights', 1467, 'Party lights', 'Dance dance dance!', '0,0,0', 1, 1, 0, '2', 'wall_item,requires_rights_for_interaction', 'default', 1, 1, ''),
 (1411, 'bolly_tree', 1552, 'Palm Tree', 'Bollywood meets Hollywood', '0,0,0', 1, 1, 0, '2', 'solid,requires_rights_for_interaction', 'default', 1, 1, '');
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `catalogue_items`
---
-ALTER TABLE `catalogue_items`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id` (`id`);
-
---
--- Indexes for table `catalogue_packages`
---
-ALTER TABLE `catalogue_packages`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `catalogue_pages`
---
-ALTER TABLE `catalogue_pages`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `items_definitions`
---
-ALTER TABLE `items_definitions`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `catalogue_items`
---
-ALTER TABLE `catalogue_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1348;
-
---
--- AUTO_INCREMENT for table `catalogue_packages`
---
-ALTER TABLE `catalogue_packages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
-
---
--- AUTO_INCREMENT for table `items_definitions`
---
-ALTER TABLE `items_definitions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1412;
-
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `public_items`
@@ -6219,6 +6169,31 @@ INSERT INTO `public_items` (`id`, `room_model`, `sprite`, `x`, `y`, `z`, `rotati
 --
 
 --
+-- Indexes for table `catalogue_items`
+--
+ALTER TABLE `catalogue_items`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id` (`id`);
+
+--
+-- Indexes for table `catalogue_packages`
+--
+ALTER TABLE `catalogue_packages`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `catalogue_pages`
+--
+ALTER TABLE `catalogue_pages`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `items_definitions`
+--
+ALTER TABLE `items_definitions`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `public_items`
 --
 ALTER TABLE `public_items`
@@ -6227,6 +6202,24 @@ ALTER TABLE `public_items`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `catalogue_items`
+--
+ALTER TABLE `catalogue_items`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1348;
+
+--
+-- AUTO_INCREMENT for table `catalogue_packages`
+--
+ALTER TABLE `catalogue_packages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT for table `items_definitions`
+--
+ALTER TABLE `items_definitions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1412;
 
 --
 -- AUTO_INCREMENT for table `public_items`
