@@ -25,8 +25,8 @@ public class AboutCommand extends Command {
         player.send(new ALERT("Project Kepler - Habbo Hotel v21 emulation" +
                 "<br>" +
                 "<br>Contributors:" +
-                "<br> - Hoshiko, ThuGie, Alito, Ascii, Lightbulb, Raptosaur " + // Call for help
-                "<br>   Romuald, Glaceon, Nillus, Holo Team, Meth0d, office.boy" + // Parts of Blunk
+                "<br> - ThuGie, Alito, Ascii, Lightbulb, Raptosaur, Hoshiko " + // Call for help
+                "<br>   Glaceon, Nillus, Holo Team, Meth0d, office.boy" + // Parts of Blunk
                 "<br>" +
                 "<br>" +
                 "Made by Quackster from RaGEZONE"));
