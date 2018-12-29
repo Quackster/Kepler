@@ -3,6 +3,9 @@ TRUNCATE `users_room_votes`;
 ALTER TABLE `users_room_votes` ADD `expire_time` BIGINT(11) NOT NULL DEFAULT '0' AFTER `vote`;
 ALTER TABLE `rooms` ADD `rating` INT(11) NOT NULL DEFAULT '0' AFTER `visitors_max`;
 
+ALTER TABLE `external_texts` ADD UNIQUE( `entry`);
+DELETE FROM external_texts WHERE entry NOT IN ("room_sound_furni_limit","roomdimmer_furni_limit","maintenance_cancelled","successfully_purchase_gift_for","modtool_rankerror","roomatic_givename","player_commands_no_args") AND entry NOT LIKE 'handitem%';
+
 DROP TABLE `catalogue_items`, `items_definitions`,`catalogue_pages`,`catalogue_packages`,`public_items`;
 
 --
