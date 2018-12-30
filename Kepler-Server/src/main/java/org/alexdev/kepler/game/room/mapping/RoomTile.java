@@ -3,6 +3,7 @@ package org.alexdev.kepler.game.room.mapping;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
+import org.alexdev.kepler.game.item.interactors.InteractionType;
 import org.alexdev.kepler.game.pathfinder.Pathfinder;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.room.Room;
@@ -10,9 +11,7 @@ import org.alexdev.kepler.game.room.public_rooms.walkways.WalkwaysEntrance;
 import org.alexdev.kepler.game.room.public_rooms.walkways.WalkwaysManager;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class RoomTile {
@@ -208,6 +207,10 @@ public class RoomTile {
                         return;
                     }
                 }
+            }
+
+            if (this.highestItem != null && this.highestItem.getDefinition().getInteractionType() == InteractionType.WS_JOIN_QUEUE) {
+                return;
             }
         }
 

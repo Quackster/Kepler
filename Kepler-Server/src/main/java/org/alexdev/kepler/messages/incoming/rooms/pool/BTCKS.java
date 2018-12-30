@@ -2,13 +2,15 @@ package org.alexdev.kepler.messages.incoming.rooms.pool;
 
 import org.alexdev.kepler.dao.mysql.CurrencyDao;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
+import org.alexdev.kepler.game.item.Item;
+import org.alexdev.kepler.game.item.interactors.InteractionType;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.player.PlayerManager;
 import org.alexdev.kepler.messages.outgoing.catalogue.NO_CREDITS;
 import org.alexdev.kepler.messages.outgoing.user.ALERT;
-import org.alexdev.kepler.messages.outgoing.user.currencies.CREDIT_BALANCE;
 import org.alexdev.kepler.messages.outgoing.user.NO_USER_FOUND;
+import org.alexdev.kepler.messages.outgoing.user.currencies.CREDIT_BALANCE;
 import org.alexdev.kepler.messages.outgoing.user.currencies.TICKET_BALANCE;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
@@ -63,5 +65,14 @@ public class BTCKS implements MessageEvent {
 
         CurrencyDao.decreaseCredits(player.getDetails(), costCredits);
         player.send(new CREDIT_BALANCE(player.getDetails()));
+
+        // Join queue after buying ticket
+        if (player.getRoomUser().getRoom().getModel().getName().equals("md_a")) {
+            Item item = player.getRoomUser().getCurrentItem();
+
+            if (item != null && item.getDefinition().getInteractionType() == InteractionType.WS_JOIN_QUEUE) {
+                item.getDefinition().getInteractionType().getTrigger().onEntityStop(player, player.getRoomUser(), item);
+            }
+        }
     }
 }
