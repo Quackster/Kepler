@@ -67,7 +67,7 @@ public class WobbleSquabbleManager {
      * @param wsPlayer the player to update
      */
     public void updatePlayer(WobbleSquabblePlayer wsPlayer) {
-        int opponentDistance = 2;
+        int opponentDistance = 1;
         WobbleSquabblePlayer wsOpponent = wsPlayer.getGame().getPlayer(wsPlayer.getOrder() == 1 ? 0 : 1);
 
         switch (wsPlayer.getMove()) {
@@ -88,7 +88,7 @@ public class WobbleSquabbleManager {
             case HIT_LEFT:
             {
                 // Are we standing next to our opponent?
-                if ((wsPlayer.getPosition() + opponentDistance) <= wsOpponent.getPosition() || (wsPlayer.getPosition() - opponentDistance) <= wsOpponent.getPosition()) {
+                if ((wsPlayer.getPosition() + opponentDistance) == wsOpponent.getPosition() || (wsPlayer.getPosition() - opponentDistance) == wsOpponent.getPosition()) {
                     wsOpponent.setHit(true);
 
                     int balanceCalculated = WobbleSquabbleManager.WS_HIT_POINTS + ThreadLocalRandom.current().nextInt(10);
@@ -104,7 +104,7 @@ public class WobbleSquabbleManager {
             case HIT_RIGHT:
             {
                 // Are we standing next to our opponent?
-                if ((wsPlayer.getPosition() + opponentDistance) <= wsOpponent.getPosition() || (wsPlayer.getPosition() - opponentDistance) <= wsOpponent.getPosition()) {
+                if ((wsPlayer.getPosition() + opponentDistance) == wsOpponent.getPosition() || (wsPlayer.getPosition() - opponentDistance) == wsOpponent.getPosition()) {
                     wsOpponent.setHit(true);
 
                     int balanceCalculated = WobbleSquabbleManager.WS_HIT_POINTS + ThreadLocalRandom.current().nextInt(10);
