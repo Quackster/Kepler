@@ -254,12 +254,29 @@ public class RoomEntityManager {
             this.room.getModel().getModelTrigger().onRoomLeave(entity, this.room);
         }
 
+        // Entity tile removal
         RoomTile tile = entity.getRoomUser().getTile();
 
         if (tile != null) {
             tile.removeEntity(entity);
         }
 
+        if (entity.getRoomUser().getNextPosition() != null) {
+            RoomTile nextTile = this.room.getMapping().getTile(entity.getRoomUser().getNextPosition());
+
+            if (nextTile != null) {
+                nextTile.removeEntity(entity);
+            }
+        }
+
+        // Handle the room logic behind the entity removal
+        this.room.getData().setVisitorsNow(this.room.getEntityManager().getPlayers().size());
+        this.room.send(new LOGOUT(entity.getRoomUser().getInstanceId()));
+        this.room.tryDispose();
+
+        entity.getRoomUser().reset();
+
+        // From this point onwards we send packets for the user to leave
         this.room.getData().setVisitorsNow(this.room.getEntityManager().getPlayers().size());
         this.room.send(new LOGOUT(entity.getRoomUser().getInstanceId()));
         this.room.tryDispose();
