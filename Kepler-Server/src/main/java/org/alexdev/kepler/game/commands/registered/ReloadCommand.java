@@ -11,7 +11,6 @@ import org.alexdev.kepler.game.player.PlayerManager;
 import org.alexdev.kepler.game.room.models.RoomModelManager;
 import org.alexdev.kepler.game.texts.TextsManager;
 import org.alexdev.kepler.messages.outgoing.catalogue.CATALOGUE_PAGES;
-import org.alexdev.kepler.messages.outgoing.rooms.user.CHAT_MESSAGE;
 import org.alexdev.kepler.messages.outgoing.user.ALERT;
 import org.alexdev.kepler.util.config.GameConfiguration;
 
@@ -70,7 +69,8 @@ public class ReloadCommand extends Command {
             componentName = "Room models";
         }
 
-        if (component.equalsIgnoreCase("settings")) {
+        if (component.equalsIgnoreCase("settings") ||
+                component.equalsIgnoreCase("config")) {
             GameConfiguration.reset();
             componentName = "Game settings";
         }
