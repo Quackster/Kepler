@@ -53,7 +53,7 @@ public class CannonHandle {
             List<Pair<GamePlayer, Position>> stunnedPlayers = new ArrayList<>();
 
             for (BattleBallTile tile : tilesToUpdate) {
-                for (GamePlayer p : tile.getPlayers(gamePlayer)) {
+                for (GamePlayer p : tile.getPlayers(gamePlayer.getGame(), tile.getPosition())) {
                     if (p == gamePlayer) {
                         continue;
                     }

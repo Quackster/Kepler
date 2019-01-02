@@ -2,6 +2,7 @@ package org.alexdev.kepler.game.games.battleball;
 
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
+import org.alexdev.kepler.game.games.Game;
 import org.alexdev.kepler.game.games.GameEvent;
 import org.alexdev.kepler.game.games.GameObject;
 import org.alexdev.kepler.game.games.GameTile;
@@ -32,9 +33,8 @@ public class BattleBallTile extends GameTile  {
         this.pointsReferece = new CopyOnWriteArrayList<>();
     }
 
-    public List<GamePlayer> getPlayers(GamePlayer gamePlayer) {
-        RoomTile tile = gamePlayer.getGame().getRoom().getMapping().getTile(this.getPosition().getX(), this.getPosition().getY());
-
+    public List<GamePlayer> getPlayers(Game game, Position position) {
+        RoomTile tile = game.getRoom().getMapping().getTile(position.getX(), position.getY());
         List<GamePlayer> gamePlayers = new ArrayList<>();
 
         for (Entity entity : tile.getEntities()) {

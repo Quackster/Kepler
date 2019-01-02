@@ -34,7 +34,7 @@ public class BombHandle {
                 game.getUpdateTilesQueue().add(battleballTile);
             }
 
-            stunnedPlayers.addAll(battleballTile.getPlayers(gamePlayer));
+            stunnedPlayers.addAll(battleballTile.getPlayers(gamePlayer.getGame(), position));
         }
 
         if (!stunnedPlayers.contains(gamePlayer)) {
