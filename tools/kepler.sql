@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 02, 2019 at 04:09 PM
+-- Generation Time: Jan 02, 2019 at 04:50 PM
 -- Server version: 10.3.11-MariaDB
 -- PHP Version: 7.2.8
 
@@ -1546,6 +1546,7 @@ INSERT INTO `items_definitions` (`id`, `sprite`, `sprite_id`, `name`, `descripti
 (223, 'hc_frplc', 998, 'Heavy Duty Fireplace', 'Pixel-powered for maximum heating', '#FFFFFF,#FFFFFF,#FFFFFF,#FFFFFF,#FFFFFF,#FFFFFF', 1, 3, 3, '2', 'solid,custom_data_numeric_on_off,requires_rights_for_interaction', 'default', 1, 1, ''),
 (224, 'hc_lmpst', 991, 'Victorian Street Light', 'Somber and atmospheric', '#FFFFFF,#FFFFFF,#FFFFFF', 1, 1, 3, '2', 'solid,custom_data_numeric_on_off,requires_rights_for_interaction', 'default', 1, 1, ''),
 (225, 'hc_machine', 997, 'Weird Science Machine', 'By and for mad inventors', '#FFFFFF,#FFFFFF,#FFFFFF,#FFFFFF,#FFFFFF,#FFFFFF,#FFFFFF', 1, 3, 3, '2', 'solid,custom_data_numeric_on_off,requires_rights_for_interaction', 'default', 1, 1, ''),
+(226, 'hc_rllr', 1000, '', '', '0,0,0', 1, 1, 0.45, '2', 'can_stand_on_top,can_stack_on_top,roller', 'default', 1, 1, ''),
 (227, 'hc_rntgn', 996, 'X-Ray Divider', 'Believe it or not!', '0,0,0', 2, 1, 2, '2', 'solid,requires_rights_for_interaction', 'default', 1, 1, ''),
 (228, 'hc_trll', 989, 'Drinks Trolley', 'For swanky dinners only', '0,0,0', 1, 2, 1.5, '2', 'solid,requires_rights_for_interaction', 'default', 1, 1, ''),
 (229, 'gothic_chair*3', 252, 'Red Gothic Chair', 'The head of the table', '#FFFFFF,#DD0000,#FFFFFF,#DD0000', 1, 1, 1.2, '1', 'can_sit_on_top', 'chair', 1, 1, ''),
