@@ -3,14 +3,12 @@ package org.alexdev.kepler.game.room;
 import org.alexdev.kepler.dao.mysql.RoomDao;
 import org.alexdev.kepler.dao.mysql.RoomVoteDao;
 import org.alexdev.kepler.game.entity.Entity;
+import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.moderation.Fuseright;
 import org.alexdev.kepler.game.navigator.NavigatorCategory;
 import org.alexdev.kepler.game.navigator.NavigatorManager;
-import org.alexdev.kepler.game.room.entities.RoomPlayer;
-import org.alexdev.kepler.game.room.enums.StatusType;
-import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.player.Player;
-import org.alexdev.kepler.game.player.PlayerManager;
+import org.alexdev.kepler.game.room.enums.StatusType;
 import org.alexdev.kepler.game.room.managers.RoomEntityManager;
 import org.alexdev.kepler.game.room.managers.RoomItemManager;
 import org.alexdev.kepler.game.room.managers.RoomTaskManager;
@@ -18,18 +16,15 @@ import org.alexdev.kepler.game.room.mapping.RoomMapping;
 import org.alexdev.kepler.game.room.models.RoomModel;
 import org.alexdev.kepler.game.room.models.RoomModelManager;
 import org.alexdev.kepler.messages.outgoing.rooms.UPDATE_VOTES;
-import org.alexdev.kepler.messages.outgoing.rooms.moderation.YOUAROWNER;
 import org.alexdev.kepler.messages.outgoing.rooms.moderation.YOUARECONTROLLER;
+import org.alexdev.kepler.messages.outgoing.rooms.moderation.YOUAROWNER;
 import org.alexdev.kepler.messages.outgoing.rooms.moderation.YOUNOTCONTROLLER;
 import org.alexdev.kepler.messages.types.MessageComposer;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.stream.IntStream;
 
 public class Room {
     private RoomModel roomModel;
@@ -149,7 +144,7 @@ public class Room {
         for (Player p : this.roomEntityManager.getPlayers()) {
             boolean voted = this.hasVoted(p.getDetails().getId());
 
-            // Only send new vote count to users who didn't vote
+            // Only send new vote count to users who did vote
             if (voted) {
                 p.send(new UPDATE_VOTES(this.roomData.getRating()));
             }
