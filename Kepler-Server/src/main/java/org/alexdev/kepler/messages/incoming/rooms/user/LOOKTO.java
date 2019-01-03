@@ -1,9 +1,11 @@
 package org.alexdev.kepler.messages.incoming.rooms.user;
 
-import org.alexdev.kepler.game.room.enums.StatusType;
+import org.alexdev.kepler.game.item.Item;
+import org.alexdev.kepler.game.item.interactors.InteractionType;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.pathfinder.Rotation;
 import org.alexdev.kepler.game.player.Player;
+import org.alexdev.kepler.game.room.enums.StatusType;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 
@@ -12,6 +14,17 @@ public class LOOKTO implements MessageEvent {
     public void handle(Player player, NettyRequest reader) {
         if (player.getRoomUser().getRoom() == null) {
             return;
+        }
+
+        Item item = player.getRoomUser().getCurrentItem();
+
+        // Don't allow LOOKTO to be handled on wobble squabble tiles.
+        if (item != null) {
+            if (item.getDefinition().getInteractionType() == InteractionType.WS_JOIN_QUEUE ||
+                    item.getDefinition().getInteractionType() == InteractionType.WS_QUEUE_TILE ||
+                    item.getDefinition().getInteractionType() == InteractionType.WS_TILE_START) {
+                return; // Don't process :sit command on furniture that the user is already on.
+            }
         }
 
         //Room room = player.getRoomUser().getRoom();

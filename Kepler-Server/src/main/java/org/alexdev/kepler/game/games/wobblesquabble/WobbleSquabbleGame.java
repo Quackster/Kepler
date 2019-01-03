@@ -2,6 +2,8 @@ package org.alexdev.kepler.game.games.wobblesquabble;
 
 import org.alexdev.kepler.dao.mysql.CurrencyDao;
 import org.alexdev.kepler.game.GameScheduler;
+import org.alexdev.kepler.game.item.Item;
+import org.alexdev.kepler.game.item.interactors.InteractionType;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
@@ -140,6 +142,9 @@ public class WobbleSquabbleGame implements Runnable {
             // Cancel wobble squabble task
             this.room.getTaskManager().cancelTask(WobbleSquabbleManager.getInstance().getName());
 
+            // Make users walk forward
+            this.moveQueuedUsers();
+
         }, 1500, TimeUnit.MILLISECONDS);
         /*this.send(new PT_END());
 
@@ -151,6 +156,24 @@ public class WobbleSquabbleGame implements Runnable {
             this.removePlayer(loser);
         }*/
 
+    }
+
+    /**
+     * Move users on the queue forward.
+     */
+    private void moveQueuedUsers() {
+        for (Player player : this.room.getEntityManager().getPlayers()) {
+            Item item = player.getRoomUser().getCurrentItem();
+
+            if (item != null) {
+                if (item.getDefinition().getInteractionType() != InteractionType.WS_QUEUE_TILE) {
+                    continue;
+                }
+
+                Position front = player.getRoomUser().getPosition().getSquareInFront();
+                player.getRoomUser().walkTo(front.getX(), front.getY());
+            }
+        }
     }
 
     /**
