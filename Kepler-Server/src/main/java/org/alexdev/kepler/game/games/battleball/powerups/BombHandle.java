@@ -21,7 +21,7 @@ public class BombHandle {
 
         List<GamePlayer> stunnedPlayers = new ArrayList<>();
 
-        for (Position position : gamePlayer.getPlayer().getRoomUser().getPosition().getCircle(4)) {
+        for (Position position : gamePlayer.getPlayer().getRoomUser().getPosition().getCircle(7)) {
             RoomTile tile = game.getRoom().getMapping().getTile(position.getX(), position.getY());
 
             if (tile == null || !RoomTile.isValidTile(gamePlayer.getGame().getRoom(), null, position)) {

@@ -19,7 +19,13 @@ public class DiceTask implements Runnable {
             return;
         }
 
-        int randomNumber = ThreadLocalRandom.current().nextInt(1, 7); // between 1 and 6
+        int maxNumber = 6;
+
+        if (this.dice.getDefinition().getSprite().equals("bottle")) {
+            maxNumber = 8;
+        }
+
+        int randomNumber = ThreadLocalRandom.current().nextInt(1, maxNumber + 1); // between 1 and 6
 
         this.dice.getRoom().send(new DICE_VALUE(this.dice.getId(), false, randomNumber));
 
