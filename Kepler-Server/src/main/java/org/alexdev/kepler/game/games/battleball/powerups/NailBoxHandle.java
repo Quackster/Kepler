@@ -33,7 +33,7 @@ public class NailBoxHandle {
                 .getSquareInFront()
                 .getSquareInFront()
                 .getSquareInFront()
-                .getSquareInFront()
+                //.getSquareInFront()
                 .getSquareInFront()
                 .getSquareInFront();
 
