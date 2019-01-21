@@ -384,7 +384,7 @@ public class ItemDao {
 
         try {
             sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("UPDATE items SET user_id = ?, room_id = ?, definition_id = ?, x = ?, y = ?, z = ?, rotation = ?, wall_position = ?, custom_data = ?, order_id = ? WHERE id = ?", sqlConnection);
+            preparedStatement = Storage.getStorage().prepare("UPDATE items SET user_id = ?, room_id = ?, definition_id = ?, x = ?, y = ?, z = ?, rotation = ?, wall_position = ?, custom_data = ?, order_id = ?, is_hidden = ? WHERE id = ?", sqlConnection);
             sqlConnection.setAutoCommit(false);
 
             for (Item item : items) {
