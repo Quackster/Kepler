@@ -25,6 +25,10 @@ public class SETFLATCAT implements MessageEvent {
             return;
         }
 
+        if (category.isNode() || category.isPublicSpaces()) {
+            category = NavigatorManager.getInstance().getCategoryById(2); // No category
+        }
+
         Room room = RoomManager.getInstance().getRoomById(roomId);
 
         if (room == null) {
