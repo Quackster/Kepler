@@ -1,14 +1,13 @@
 package org.alexdev.kepler.messages.incoming.songs;
 
-import org.alexdev.kepler.dao.mysql.ItemDao;
 import org.alexdev.kepler.dao.mysql.SongMachineDao;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.moderation.Fuseright;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
-import org.alexdev.kepler.messages.outgoing.songs.USER_SOUND_PACKAGES;
 import org.alexdev.kepler.messages.outgoing.songs.SOUND_PACKAGES;
+import org.alexdev.kepler.messages.outgoing.songs.USER_SOUND_PACKAGES;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 
@@ -52,7 +51,7 @@ public class INSERT_SOUND_PACKAGE implements MessageEvent {
         Item trackItem = null;
 
         for (Item item : player.getInventory().getItems()) {
-            if (item.hasBehaviour(ItemBehaviour.SOUND_MACHINE_SAMPLE_SET)) {
+            if (item.hasBehaviour(ItemBehaviour.SOUND_MACHINE_SAMPLE_SET) && !item.isHidden()) {
                 int songId = Integer.parseInt(item.getDefinition().getSprite().split("_")[2]);
 
                 if (songId == soundSetId) {
@@ -67,10 +66,10 @@ public class INSERT_SOUND_PACKAGE implements MessageEvent {
             return;
         }
 
-        player.getInventory().getItems().remove(trackItem);
-        player.getInventory().getView("new");
+        trackItem.setHidden(true);
+        trackItem.save();
 
-        ItemDao.deleteItem(trackItem.getId());
+        player.getInventory().getView("new");
         SongMachineDao.addTrack(room.getItemManager().getSoundMachine().getId(), soundSetId, slotId);
 
         player.send(new SOUND_PACKAGES(SongMachineDao.getTracks(room.getItemManager().getSoundMachine().getId())));
