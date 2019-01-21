@@ -1,9 +1,9 @@
 package org.alexdev.kepler.game;
 
 import org.alexdev.kepler.dao.mysql.CurrencyDao;
-import org.alexdev.kepler.dao.mysql.RoomVoteDao;
-import org.alexdev.kepler.dao.mysql.SettingsDao;
 import org.alexdev.kepler.game.catalogue.RareManager;
+import org.alexdev.kepler.game.item.Item;
+import org.alexdev.kepler.game.item.ItemManager;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.player.PlayerManager;
@@ -13,17 +13,11 @@ import org.alexdev.kepler.messages.outgoing.user.currencies.CREDIT_BALANCE;
 import org.alexdev.kepler.util.DateUtil;
 import org.alexdev.kepler.util.config.GameConfiguration;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class GameScheduler implements Runnable {
@@ -31,7 +25,9 @@ public class GameScheduler implements Runnable {
 
     private ScheduledExecutorService schedulerService;
     private ScheduledFuture<?> gameScheduler;
+
     private BlockingQueue<Player> creditsHandoutQueue;
+    private BlockingQueue<Item> itemSavingQueue;
 
     private static GameScheduler instance;
 
@@ -98,6 +94,13 @@ public class GameScheduler implements Runnable {
                 }
             }
 
+            // Item saving queue ticker every 10 seconds
+            if (this.tickRate.get() % 30 == 0) {
+                if (this.itemSavingQueue != null) {
+                    ItemManager.getInstance().performItemSaving(this.itemSavingQueue);
+                }
+            }
+
             RareManager.getInstance().performRareManagerJob(this.tickRate);
         } catch (Exception ex) {
             Log.getErrorLogger().error("GameScheduler crashed: ", ex);
@@ -106,7 +109,15 @@ public class GameScheduler implements Runnable {
         this.tickRate.incrementAndGet();
     }
 
-
+    /**
+     * Queue item to be saved.
+     *
+     * @param item the item to save
+     */
+    public void queueSave(Item item) {
+        this.itemSavingQueue.removeIf(i -> i.getId() == item.getId());
+        this.itemSavingQueue.add(item);
+    }
 
     /**
      * Gets the scheduler service.

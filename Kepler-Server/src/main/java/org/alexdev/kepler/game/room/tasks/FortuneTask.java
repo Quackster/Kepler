@@ -1,6 +1,5 @@
 package org.alexdev.kepler.game.room.tasks;
 
-import org.alexdev.kepler.dao.mysql.ItemDao;
 import org.alexdev.kepler.game.item.Item;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -23,7 +22,6 @@ public class FortuneTask implements Runnable {
         this.fortune.setCustomData(Integer.toString(randomNumber));
         this.fortune.updateStatus();
         this.fortune.setRequiresUpdate(false);
-
-        ItemDao.updateItem(this.fortune);
+        this.fortune.save();
     }
 }

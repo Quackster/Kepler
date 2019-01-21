@@ -1,6 +1,5 @@
 package org.alexdev.kepler.messages.incoming.rooms.dimmer;
 
-import org.alexdev.kepler.dao.mysql.ItemDao;
 import org.alexdev.kepler.dao.mysql.MoodlightDao;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.moderation.Fuseright;
@@ -13,7 +12,6 @@ import org.alexdev.kepler.server.netty.streams.NettyRequest;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MSG_ROOMDIMMER_CHANGE_STATE implements MessageEvent {
     @Override
@@ -52,7 +50,6 @@ public class MSG_ROOMDIMMER_CHANGE_STATE implements MessageEvent {
         boolean isEnabled = !(item.getCustomData().charAt(0) == '2');
         item.setCustomData((isEnabled ? "2" : "1") + "," + currentPreset + "," + presets.get(currentPreset - 1));
         item.updateStatus();
-
-        ItemDao.updateItem(item);
+        item.save();
     }
 }

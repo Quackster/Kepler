@@ -1,6 +1,5 @@
 package org.alexdev.kepler.messages.incoming.rooms.items;
 
-import org.alexdev.kepler.dao.mysql.ItemDao;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.moderation.Fuseright;
 import org.alexdev.kepler.game.player.Player;
@@ -63,7 +62,6 @@ public class SETITEMDATA implements MessageEvent {
 
         item.setCustomData(colour + newMessage);
         item.updateStatus();
-
-        ItemDao.updateItem(item);
+        item.save();
     }
 }

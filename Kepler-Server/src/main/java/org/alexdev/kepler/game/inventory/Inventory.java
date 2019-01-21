@@ -46,8 +46,18 @@ public class Inventory {
 
         }
 
+        List<Item> tempList = new ArrayList<>();
+
+        for (Item item : this.items) {
+            if (item.isHidden()) {
+                continue;
+            }
+
+            tempList.add(item);
+        }
+
         this.items.sort(Comparator.comparingInt(Item::getOrderId));
-        this.paginatedItems = StringUtil.paginate(this.items, MAX_ITEMS_PER_PAGE);
+        this.paginatedItems = StringUtil.paginate(tempList, MAX_ITEMS_PER_PAGE);
 
         ItemDao.updateItems(itemsToUpdate);
     }

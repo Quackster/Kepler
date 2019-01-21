@@ -1,6 +1,5 @@
 package org.alexdev.kepler.messages.incoming.rooms.items;
 
-import org.alexdev.kepler.dao.mysql.ItemDao;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.moderation.Fuseright;
@@ -136,7 +135,7 @@ public class SETSTUFFDATA implements MessageEvent {
         player.getRoomUser().setLastInteractedItem(item);
 
         if (!item.getDefinition().hasBehaviour(ItemBehaviour.CUSTOM_DATA_TRUE_FALSE)) {
-            ItemDao.updateItem(item);
+            item.save();
         }
     }
 }

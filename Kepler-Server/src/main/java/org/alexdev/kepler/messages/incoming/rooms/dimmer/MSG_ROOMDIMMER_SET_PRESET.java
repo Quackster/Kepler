@@ -1,6 +1,5 @@
 package org.alexdev.kepler.messages.incoming.rooms.dimmer;
 
-import org.alexdev.kepler.dao.mysql.ItemDao;
 import org.alexdev.kepler.dao.mysql.MoodlightDao;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.moderation.Fuseright;
@@ -15,7 +14,6 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MSG_ROOMDIMMER_SET_PRESET implements MessageEvent {
@@ -78,10 +76,11 @@ public class MSG_ROOMDIMMER_SET_PRESET implements MessageEvent {
         List<String> presets = presetData.getRight();
 
         presets.set(presetId - 1, backgroundState + "," + presetColour + "," + presetStrength);
+
         item.setCustomData("2," + presetId + "," + backgroundState + "," + presetColour + "," + presetStrength);
         item.updateStatus();
+        item.save();
 
-        ItemDao.updateItem(item);
         MoodlightDao.updatePresets(item.getId(), presetId, presets);
     }
 }

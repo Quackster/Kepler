@@ -6,7 +6,10 @@ import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.util.DateUtil;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ItemManager {
@@ -43,6 +46,22 @@ public class ItemManager {
 
 
         return item;
+    }
+
+    /**
+     * Handle bulk item saving.
+     *
+     * @param itemSavingQueue the queue that's used for saving items
+     */
+    public void performItemSaving(BlockingQueue<Item> itemSavingQueue) {
+        if (itemSavingQueue.isEmpty()) {
+            return;
+        }
+
+        List<Item> itemList = new ArrayList<>();
+        itemSavingQueue.drainTo(itemList);
+
+        ItemDao.updateItems(itemList);
     }
 
     /**

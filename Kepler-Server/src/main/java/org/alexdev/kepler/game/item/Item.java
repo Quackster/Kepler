@@ -1,16 +1,16 @@
 package org.alexdev.kepler.game.item;
 
 import org.alexdev.kepler.dao.mysql.TeleporterDao;
+import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.item.base.ItemDefinition;
 import org.alexdev.kepler.game.item.interactors.types.BedInteractor;
 import org.alexdev.kepler.game.item.roller.RollingData;
-import org.alexdev.kepler.game.player.Player;
-import org.alexdev.kepler.game.triggers.GenericTrigger;
 import org.alexdev.kepler.game.pathfinder.AffectedTile;
 import org.alexdev.kepler.game.pathfinder.Position;
+import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.RoomManager;
 import org.alexdev.kepler.game.room.mapping.RoomTile;
@@ -48,6 +48,7 @@ public class Item {
 
     private boolean requiresUpdate;
     private RollingData rollingData;
+    private boolean isHidden;
 
     public Item() {
         this.id = 0;
@@ -61,7 +62,7 @@ public class Item {
         this.rollingData = null;
     }
 
-    public void fill(int id, int orderId, int ownerId, int roomId, int definitionId, int X, int Y, double Z, int rotation, String wallPosition, String customData) {
+    public void fill(int id, int orderId, int ownerId, int roomId, int definitionId, int X, int Y, double Z, int rotation, String wallPosition, String customData, boolean isHidden) {
         this.id = id;
         this.orderId = orderId;
         this.ownerId = ownerId;
@@ -72,7 +73,7 @@ public class Item {
         this.wallPosition = wallPosition;
         this.customData = customData;
         this.rollingData = null;
-
+        this.isHidden = isHidden;
         this.setDefinitionId(this.definitionId);
 
         if (this.hasBehaviour(ItemBehaviour.TELEPORTER)) {
@@ -233,6 +234,14 @@ public class Item {
         if (room != null) {
             room.send(new STUFFDATAUPDATE(this));
         }
+    }
+
+
+    /**
+     * Queue item saving.
+     */
+    public void save() {
+        GameScheduler.getInstance().queueSave(this);
     }
 
     /**
@@ -608,6 +617,14 @@ public class Item {
 
     public void setOrderId(int orderId) {
         this.orderId = orderId;
+    }
+
+    public boolean isHidden() {
+        return isHidden;
+    }
+
+    public void setHidden(boolean hidden) {
+        isHidden = hidden;
     }
 }
 

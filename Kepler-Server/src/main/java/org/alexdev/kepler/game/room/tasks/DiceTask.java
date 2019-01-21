@@ -1,6 +1,5 @@
 package org.alexdev.kepler.game.room.tasks;
 
-import org.alexdev.kepler.dao.mysql.ItemDao;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.messages.outgoing.rooms.items.DICE_VALUE;
 
@@ -32,7 +31,6 @@ public class DiceTask implements Runnable {
         this.dice.setCustomData(Integer.toString(randomNumber));
         this.dice.updateStatus();
         this.dice.setRequiresUpdate(false);
-
-        ItemDao.updateItem(this.dice);
+        this.dice.save();
     }
 }

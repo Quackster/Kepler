@@ -204,7 +204,7 @@ public class ItemDao {
     /**
      * Get the room list of items.
      *
-     * @param roomId the id of the user to get the inventory for
+     * @param roomData the room data instance
      * @return the list of items
      */
     public static List<Item> getRoomItems(RoomData roomData) {
@@ -398,7 +398,8 @@ public class ItemDao {
                 preparedStatement.setString(8, item.getWallPosition());
                 preparedStatement.setString(9, item.getCustomData());
                 preparedStatement.setInt(10, item.getOrderId());
-                preparedStatement.setLong(11, item.getId());
+                preparedStatement.setInt(11, item.isHidden() ? 1 : 0);
+                preparedStatement.setLong(12, item.getId());
                 preparedStatement.addBatch();
             }
 
@@ -424,6 +425,6 @@ public class ItemDao {
         item.fill(resultSet.getInt("id"), resultSet.getInt("order_id"), resultSet.getInt("user_id"), resultSet.getInt("room_id"),
                 resultSet.getInt("definition_id"), resultSet.getInt("x"), resultSet.getInt("y"),
                 resultSet.getDouble("z"), resultSet.getInt("rotation"), resultSet.getString("wall_position"),
-                resultSet.getString("custom_data"));
+                resultSet.getString("custom_data"), resultSet.getBoolean("is_hidden"));
     }
 }

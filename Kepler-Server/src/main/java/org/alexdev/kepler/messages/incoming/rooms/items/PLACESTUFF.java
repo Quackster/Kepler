@@ -75,7 +75,7 @@ public class PLACESTUFF implements MessageEvent {
                         ItemDao.deleteItem(item.getId());
                     } else {
                         item.setCustomData(String.valueOf(totalStickies));
-                        ItemDao.updateItem(item);
+                        item.save();
                     }
                 }
                 return;
