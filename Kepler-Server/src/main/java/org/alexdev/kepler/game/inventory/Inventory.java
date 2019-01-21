@@ -180,6 +180,10 @@ public class Inventory {
         List<Integer> handSoundsets = new ArrayList<>();
 
         for (Item item : player.getInventory().getItems()) {
+            if (item.isHidden()) {
+                continue;
+            }
+            
             if (item.hasBehaviour(ItemBehaviour.SOUND_MACHINE_SAMPLE_SET)) {
                 handSoundsets.add(Integer.parseInt(item.getDefinition().getSprite().split("_")[2]));
             }
