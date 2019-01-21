@@ -13,12 +13,17 @@ import org.alexdev.kepler.game.song.Song;
 import org.alexdev.kepler.messages.outgoing.user.currencies.CREDIT_BALANCE;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
+import org.alexdev.kepler.util.config.ServerConfiguration;
 
 import java.util.Calendar;
 
 public class BURN_SONG implements MessageEvent {
     @Override
     public void handle(Player player, NettyRequest reader) throws Exception {
+        if (ServerConfiguration.getInteger("version") <= 14) {
+            return;
+        }
+
         if (player.getRoomUser().getRoom() == null) {
             return;
         }

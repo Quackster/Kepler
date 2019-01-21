@@ -22,7 +22,7 @@ public class SONG_PLAYLIST extends MessageComposer {
         int slotId = 1;
         for (SongPlaylist playlist : this.songPlaylist) {
             response.writeInt(playlist.getSong().getId());
-            response.writeInt(slotId);
+            response.writeInt(playlist.getSong().getLength());
             response.writeString(playlist.getSong().getTitle());
             response.writeString(PlayerDao.getName(playlist.getSong().getUserId()));
             slotId++;
