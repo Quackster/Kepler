@@ -369,6 +369,7 @@ public class MessageHandler {
         registerEvent(241, new EDIT_SONG());
         registerEvent(242, new SAVE_SONG_EDIT());
         registerEvent(218, new SAVE_SONG());
+        registerEvent(254, new BURN_SONG());
     }
 
     /**
