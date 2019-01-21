@@ -52,8 +52,8 @@ public class JukeboxDao {
         }
     }
 
-    public static List<Long> getItemsBySong(int songId) {
-        List<Long> items = new ArrayList<>();
+    public static List<Integer> getItemsBySong(int songId) {
+        List<Integer> items = new ArrayList<>();
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -65,7 +65,7 @@ public class JukeboxDao {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                items.add(resultSet.getLong("item_id"));
+                items.add(resultSet.getInt("item_id"));
             }
 
         } catch (Exception e) {

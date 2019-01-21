@@ -37,9 +37,10 @@ public class REMOVE_JUKEBOX_DISC implements MessageEvent {
             return;
         }
 
+
         int songId = tracks.get(slotId);
 
-        List<Long> itemList = JukeboxDao.getItemsBySong(songId);
+        List<Integer> itemList = JukeboxDao.getItemsBySong(songId);
         Item songDisk = null;
 
         for (Item item : player.getInventory().getItems()) {
