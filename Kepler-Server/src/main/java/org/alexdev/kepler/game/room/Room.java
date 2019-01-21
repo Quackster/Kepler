@@ -145,7 +145,7 @@ public class Room {
             boolean voted = this.hasVoted(p.getDetails().getId());
 
             // Only send new vote count to users who did vote
-            if (voted) {
+            if (voted || this.isOwner(p.getDetails().getId())) {
                 p.send(new UPDATE_VOTES(this.roomData.getRating()));
             }
         }
