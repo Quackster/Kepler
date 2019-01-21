@@ -16,6 +16,7 @@ import org.alexdev.kepler.messages.incoming.handshake.INIT_CRYPTO;
 import org.alexdev.kepler.messages.incoming.handshake.SSO;
 import org.alexdev.kepler.messages.incoming.handshake.TRY_LOGIN;
 import org.alexdev.kepler.messages.incoming.inventory.GETSTRIP;
+import org.alexdev.kepler.messages.incoming.jukebox.*;
 import org.alexdev.kepler.messages.incoming.messenger.*;
 import org.alexdev.kepler.messages.incoming.moderation.MODERATORACTION;
 import org.alexdev.kepler.messages.incoming.navigator.*;
@@ -87,6 +88,7 @@ public class MessageHandler {
         registerTradePackets();
         registerSongPackets();
         registerGamePackets();
+        registerJukeboxPackets();
     }
 
     /**
@@ -397,6 +399,18 @@ public class MessageHandler {
 
             player.send(new SNOWSTORM_GAMESTATUS((SnowStormGame) game, List.of(), gamePlayer));//.compose(response);
         });*/
+    }
+
+    /**
+     * Register jukebox packets.
+     */
+    private void registerJukeboxPackets() {
+        registerEvent(258, new GET_JUKEBOX_DISCS());
+        registerEvent(259, new GET_USER_SONG_DISCS());
+        registerEvent(255, new ADD_JUKEBOX_DISC());
+        registerEvent(256, new REMOVE_JUKEBOX_DISC());
+        registerEvent(257, new JUKEBOX_PLAYLIST_ADD());
+        registerEvent(260, new RESET_JUKEBOX());
     }
 
     /**

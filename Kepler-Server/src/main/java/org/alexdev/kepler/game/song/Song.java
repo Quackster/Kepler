@@ -3,15 +3,16 @@ package org.alexdev.kepler.game.song;
 public class Song {
     private int id;
     private String title;
-    private int itemId;
+    private long itemId;
     private int userId;
     private int length;
     private String data;
+    private int slotId;
     private boolean isBurnt;
 
     public Song() { }
 
-    public Song(int id, String title, int itemId, int userId, int length, String data, boolean isBurnt) {
+    public Song(int id, String title, long itemId, int userId, int length, String data, boolean isBurnt) {
         this.id = id;
         this.title = title;
         this.itemId = itemId;
@@ -37,7 +38,7 @@ public class Song {
         this.title = title;
     }
 
-    public int getItemId() {
+    public long getItemId() {
         return itemId;
     }
 
@@ -75,5 +76,13 @@ public class Song {
 
     public void setBurnt(boolean burnt) {
         isBurnt = burnt;
+    }
+
+    public int getSlotId() {
+        return slotId;
+    }
+
+    public void setSlotId(int slotId) {
+        this.slotId = slotId;
     }
 }

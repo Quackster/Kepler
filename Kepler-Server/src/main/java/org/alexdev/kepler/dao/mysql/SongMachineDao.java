@@ -1,8 +1,6 @@
 package org.alexdev.kepler.dao.mysql;
 
 import org.alexdev.kepler.dao.Storage;
-import org.alexdev.kepler.game.item.ItemManager;
-import org.alexdev.kepler.game.item.base.ItemDefinition;
 import org.alexdev.kepler.game.song.Song;
 import org.alexdev.kepler.game.song.SongPlaylist;
 
@@ -122,6 +120,24 @@ public class SongMachineDao {
             preparedStatement.setInt(1, itemId);
             preparedStatement.setInt(2, songId);
             preparedStatement.setInt(3, slotId);
+            preparedStatement.execute();
+        } catch (Exception e) {
+            Storage.logError(e);
+            throw e;
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+
+    public static void removePlaylistSong(int songId) throws SQLException {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("DELETE FROM soundmachine_playlists WHERE song_id = ?", sqlConnection);
+            preparedStatement.setInt(1, songId);
             preparedStatement.execute();
         } catch (Exception e) {
             Storage.logError(e);

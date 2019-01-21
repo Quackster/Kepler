@@ -35,5 +35,7 @@ public enum ItemBehaviour {
     EFFECT,
 
     REDIRECT_ROTATION_0,
-    REDIRECT_ROTATION_2;
+    REDIRECT_ROTATION_2,
+
+    SONG_DISK;
 }
