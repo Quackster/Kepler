@@ -30,12 +30,13 @@ public class JUKEBOX_PLAYLIST_ADD implements MessageEvent {
         int songId = reader.readInt();
         int newSlotId = 1;
 
+        SongMachineDao.removePlaylistSong(songId);
         var playList = SongMachineDao.getSongPlaylist(room.getItemManager().getSoundMachine().getId());
 
         for (SongPlaylist playlist : playList) {
-            if (playlist.getSong().getId() == songId) {
+            /*if (playlist.getSong().getId() == songId) {
                 return;
-            }
+            }*/
 
             newSlotId++;
         }
