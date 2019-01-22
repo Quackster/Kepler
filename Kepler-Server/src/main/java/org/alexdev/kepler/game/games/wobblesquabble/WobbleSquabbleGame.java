@@ -76,8 +76,8 @@ public class WobbleSquabbleGame implements Runnable {
 
         // If either requires a status update, send the update
         if (wsPlayer1.isRequiresUpdate() || wsPlayer2.isRequiresUpdate()) {
-            this.updatePlayer(wsPlayer1);
-            this.updatePlayer(wsPlayer2);
+            this.updatePlayer(0);
+            this.updatePlayer(1);
 
             this.send(new PT_STATUS(wsPlayer1, wsPlayer2));
 
@@ -116,31 +116,30 @@ public class WobbleSquabbleGame implements Runnable {
     /**
      * Update wobble squabble player.
      *
-     * @param wsPlayer the player to update
+     * @param wsPlayerOrder the player to update
      */
-    public void updatePlayer(WobbleSquabblePlayer wsPlayer) {
-        int opponentDistance = 1;
+    private void updatePlayer(int wsPlayerOrder) {
+        WobbleSquabblePlayer wsPlayer = this.getPlayer(wsPlayerOrder);
         WobbleSquabblePlayer wsOpponent = wsPlayer.getGame().getPlayer(wsPlayer.getOrder() == 1 ? 0 : 1);
 
+        int opponentDistance = Math.abs(wsPlayer.getPosition() - wsOpponent.getPosition());
+
         switch (wsPlayer.getMove()) {
-            case BALANCE_LEFT:
-            {
+            case BALANCE_LEFT: {
                 int balanceCalculated = WobbleSquabbleManager.WS_BALANCE_POINTS + ThreadLocalRandom.current().nextInt(10);
                 wsPlayer.setBalance(wsPlayer.getBalance() - balanceCalculated);
                 break;
             }
 
-            case BALANCE_RIGHT:
-            {
+            case BALANCE_RIGHT: {
                 int balanceCalculated = WobbleSquabbleManager.WS_BALANCE_POINTS + ThreadLocalRandom.current().nextInt(10);
                 wsPlayer.setBalance(wsPlayer.getBalance() + balanceCalculated);
                 break;
             }
 
-            case HIT_LEFT:
-            {
+            case HIT_LEFT: {
                 // Are we standing next to our opponent?
-                if ((wsPlayer.getPosition() + opponentDistance) == wsOpponent.getPosition() || (wsPlayer.getPosition() - opponentDistance) == wsOpponent.getPosition()) {
+                if (opponentDistance <= 2/*(wsPlayer.getPosition() + 1) == wsOpponent.getPosition() || (wsPlayer.getPosition() - 1) == wsOpponent.getPosition()*/) {
                     wsOpponent.setHit(true);
 
                     int balanceCalculated = WobbleSquabbleManager.WS_HIT_POINTS + ThreadLocalRandom.current().nextInt(10);
@@ -153,10 +152,9 @@ public class WobbleSquabbleGame implements Runnable {
                 break;
             }
 
-            case HIT_RIGHT:
-            {
+            case HIT_RIGHT: {
                 // Are we standing next to our opponent?
-                if ((wsPlayer.getPosition() + opponentDistance) == wsOpponent.getPosition() || (wsPlayer.getPosition() - opponentDistance) == wsOpponent.getPosition()) {
+                if (opponentDistance <= 2/*(wsPlayer.getPosition() + 1) == wsOpponent.getPosition() || (wsPlayer.getPosition() - 1) == wsOpponent.getPosition()*/) {
                     wsOpponent.setHit(true);
 
                     int balanceCalculated = WobbleSquabbleManager.WS_HIT_POINTS + ThreadLocalRandom.current().nextInt(10);
@@ -169,8 +167,7 @@ public class WobbleSquabbleGame implements Runnable {
                 break;
             }
 
-            case WALK_FORWARD:
-            {
+            case WALK_FORWARD: {
                 // Calculate new position
                 int newPosition = wsPlayer.getPosition() - 1;
 
@@ -183,8 +180,7 @@ public class WobbleSquabbleGame implements Runnable {
                 break;
             }
 
-            case WALK_BACKWARD:
-            {
+            case WALK_BACKWARD: {
                 // Calculate new position
                 int newPosition = wsPlayer.getPosition() + 1;
 
@@ -197,8 +193,7 @@ public class WobbleSquabbleGame implements Runnable {
                 break;
             }
 
-            case REBALANCE:
-            {
+            case REBALANCE: {
                 if (!wsPlayer.isRebalanced()) {
                     wsPlayer.setRebalanced(true);
                     wsPlayer.setBalance(0);
