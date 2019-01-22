@@ -46,7 +46,7 @@ public class CARRYDRINK implements MessageEvent {
 
             Item item = player.getRoomUser().getLastInteractedItem();
 
-            if (!item.getDefinition().getInteractor().equals("vending_machine")) {
+            if (item.getDefinition().getInteractionType() != InteractionType.VENDING_MACHINE) {
                 return;
             }
 

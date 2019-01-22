@@ -73,8 +73,6 @@ public class SETSTUFFDATA implements MessageEvent {
             }
         }
 
-        System.out.println("handle 1");
-
         String newData = null;
 
         if (item.hasBehaviour(ItemBehaviour.GATE)) {
@@ -127,13 +125,9 @@ public class SETSTUFFDATA implements MessageEvent {
             }
         }
 
-        System.out.println("handle 2");
-
         if (newData == null) {
             return;
         }
-
-        System.out.println("handle 3");
 
         item.setCustomData(newData);
         item.updateStatus();

@@ -16,7 +16,6 @@ public class ItemDefinition {
     private int width;
     private String colour;
     private List<ItemBehaviour> behaviourList;
-    private String interactor;
     private String name;
     private String description;
     private int[] drinkIds;
@@ -40,8 +39,7 @@ public class ItemDefinition {
         this.name = name;
         this.description = description;
         this.behaviourData = behaviourData;
-        this.interactor = interactor;
-        this.interactionType = InteractionType.valueOf(this.interactor.toUpperCase());
+        this.interactionType = InteractionType.valueOf(interactor.toUpperCase());
         this.topHeight = topHeight;
         this.length = length;
         this.width = width;
@@ -221,11 +219,6 @@ public class ItemDefinition {
     public String getDescription() {
         return description;
     }
-
-    public String getInteractor() {
-        return interactor;
-    }
-
     public int[] getDrinkIds() {
         return drinkIds;
     }
