@@ -82,11 +82,7 @@ public class GameConfiguration {
         config.put("reset.sso.after.login", "true");
         config.put("navigator.show.hidden.rooms", "false");
 
-        config.put("rare.cycle.credit.multiplier", "0");
-        config.put("credits.scheduler.timeunit", "MINUTES");
-        config.put("credits.scheduler.interval", "15");
-
-
+        config.put("rare.cycle.page.text", "Okay this thing is fucking epic!<br><br>The time until the next rare is {rareCountdown}!");
         config.put("rare.cycle.tick.time", "0");
         config.put("rare.cycle.page.id", "2");
         config.put("rare.cycle.refresh.timeunit", "DAYS");

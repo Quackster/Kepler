@@ -1,9 +1,7 @@
 package org.alexdev.kepler.util;
 
 import org.alexdev.kepler.log.Log;
-import org.alexdev.kepler.messages.outgoing.rooms.items.SHOWPROGRAM;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -116,25 +114,22 @@ public class DateUtil {
      * @return the seconds represented as words
      */
     public static String getReadableSeconds(long input) {
-        try {
-            //long different = System.currentTimeMillis() - (timestamp * 1000);
-            long numberOfDays;
-            long numberOfHours;
-            long numberOfMinutes;
-            long numberOfSeconds;
+        long numberOfDays = 0;
+        long numberOfHours = 0;
+        long numberOfMinutes = 0;
+        long numberOfSeconds = 0;
 
+        try {
             numberOfDays = input / 86400;
             numberOfHours = (input % 86400 ) / 3600 ;
             numberOfMinutes = ((input % 86400 ) % 3600 ) / 60;
             numberOfSeconds = ((input % 86400 ) % 3600 ) % 60  ;
-
-            return numberOfDays + " days, " + numberOfHours + " hours, " + numberOfMinutes + " minutes, " + numberOfSeconds + " seconds";
-
         } catch (Exception e){
             Log.getErrorLogger().error("Error occurred: ", e);
         }
 
-        return null;
+
+        return numberOfDays + " days, " + numberOfHours + " hours, " + numberOfMinutes + " minutes, " + numberOfSeconds + " seconds";
     }
 
 

@@ -6,7 +6,6 @@ import org.alexdev.kepler.game.catalogue.CataloguePage;
 import org.alexdev.kepler.game.catalogue.RareManager;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.messages.outgoing.catalogue.CATALOGUE_PAGE;
-import org.alexdev.kepler.messages.outgoing.catalogue.CATALOGUE_PAGES;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 import org.alexdev.kepler.util.DateUtil;
@@ -44,7 +43,7 @@ public class GCAP implements MessageEvent {
                 long currentTick = RareManager.getInstance().getTick().get();
                 long timeUntil = interval - currentTick;
 
-                cataloguePage.setBody("Okay this thing is fucking epic!<br><br>The time until the next rare is " + DateUtil.getReadableSeconds(timeUntil) + "!");
+                cataloguePage.setBody(GameConfiguration.getInstance().getString("rare.cycle.page.text").replace("rareSeconds", DateUtil.getReadableSeconds(timeUntil)));
             }
 
             player.send(new CATALOGUE_PAGE(
