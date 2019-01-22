@@ -107,12 +107,25 @@ public class Kepler {
 
             try {
                 sqlConnection = Storage.getStorage().getConnection();
-                preparedStatement = Storage.getStorage().prepare("SELECT * FROM items_definitions WHERE sprite LIKE '%hcc%'", sqlConnection);
+                preparedStatement = Storage.getStorage().prepare("SELECT * FROM items_definitions WHERE sprite LIKE '%arabian%'", sqlConnection);
                 resultSet = preparedStatement.executeQuery();
 
                 while (resultSet.next()) {
-                    System.out.println("furni_" + resultSet.getString("sprite") + "_name=" + resultSet.getString("name"));
-                    System.out.println("furni_" + resultSet.getString("sprite") + "_desc=" + resultSet.getString("description"));
+                    if (resultSet.getString("behaviour").contains("wall_item")) {
+                        System.out.print("wallitem_");
+                    } else {
+                        System.out.println("furni");
+                    }
+
+                    System.out.println("_" + resultSet.getString("sprite") + "_name=" + resultSet.getString("name"));
+
+                    if (resultSet.getString("behaviour").contains("wall_item")) {
+                        System.out.print("wallitem");
+                    } else {
+                        System.out.println("furni");
+                    }
+
+                    System.out.println("_" + resultSet.getString("sprite") + "_desc=" + resultSet.getString("description"));
                 }
             } catch (Exception e) {
                 Storage.logError(e);
