@@ -24,7 +24,7 @@ public class JUKEBOX_PLAYLIST_ADD implements MessageEvent {
         }
 
         if (!room.hasRights(player.getDetails().getId()) && !player.hasFuse(Fuseright.ANY_ROOM_CONTROLLER)) {
-            return;
+            //return;
         }
 
         int songId = reader.readInt();
