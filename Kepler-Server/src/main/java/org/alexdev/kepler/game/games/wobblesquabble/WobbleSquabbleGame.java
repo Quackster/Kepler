@@ -14,6 +14,7 @@ import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.util.DateUtil;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 public class WobbleSquabbleGame implements Runnable {
@@ -75,8 +76,8 @@ public class WobbleSquabbleGame implements Runnable {
 
         // If either requires a status update, send the update
         if (wsPlayer1.isRequiresUpdate() || wsPlayer2.isRequiresUpdate()) {
-            WobbleSquabbleManager.getInstance().updatePlayer(wsPlayer1);
-            WobbleSquabbleManager.getInstance().updatePlayer(wsPlayer2);
+            this.updatePlayer(wsPlayer1);
+            this.updatePlayer(wsPlayer2);
 
             this.send(new PT_STATUS(wsPlayer1, wsPlayer2));
 
@@ -109,6 +110,101 @@ public class WobbleSquabbleGame implements Runnable {
         if (loser != -1 && winner != -1) {
             this.endGame(winner);
             return;
+        }
+    }
+
+    /**
+     * Update wobble squabble player.
+     *
+     * @param wsPlayer the player to update
+     */
+    public void updatePlayer(WobbleSquabblePlayer wsPlayer) {
+        int opponentDistance = 1;
+        WobbleSquabblePlayer wsOpponent = wsPlayer.getGame().getPlayer(wsPlayer.getOrder() == 1 ? 0 : 1);
+
+        switch (wsPlayer.getMove()) {
+            case BALANCE_LEFT:
+            {
+                int balanceCalculated = WobbleSquabbleManager.WS_BALANCE_POINTS + ThreadLocalRandom.current().nextInt(10);
+                wsPlayer.setBalance(wsPlayer.getBalance() - balanceCalculated);
+                break;
+            }
+
+            case BALANCE_RIGHT:
+            {
+                int balanceCalculated = WobbleSquabbleManager.WS_BALANCE_POINTS + ThreadLocalRandom.current().nextInt(10);
+                wsPlayer.setBalance(wsPlayer.getBalance() + balanceCalculated);
+                break;
+            }
+
+            case HIT_LEFT:
+            {
+                // Are we standing next to our opponent?
+                if ((wsPlayer.getPosition() + opponentDistance) == wsOpponent.getPosition() || (wsPlayer.getPosition() - opponentDistance) == wsOpponent.getPosition()) {
+                    wsOpponent.setHit(true);
+
+                    int balanceCalculated = WobbleSquabbleManager.WS_HIT_POINTS + ThreadLocalRandom.current().nextInt(10);
+                    wsOpponent.setBalance(wsOpponent.getBalance() + balanceCalculated);
+                } else {
+                    int balanceCalculated = WobbleSquabbleManager.WS_HIT_BALANCE_POINTS + ThreadLocalRandom.current().nextInt(10);
+                    wsPlayer.setBalance(wsPlayer.getBalance() + balanceCalculated);
+                }
+
+                break;
+            }
+
+            case HIT_RIGHT:
+            {
+                // Are we standing next to our opponent?
+                if ((wsPlayer.getPosition() + opponentDistance) == wsOpponent.getPosition() || (wsPlayer.getPosition() - opponentDistance) == wsOpponent.getPosition()) {
+                    wsOpponent.setHit(true);
+
+                    int balanceCalculated = WobbleSquabbleManager.WS_HIT_POINTS + ThreadLocalRandom.current().nextInt(10);
+                    wsOpponent.setBalance(wsOpponent.getBalance() - balanceCalculated);
+                } else {
+                    int balanceCalculated = WobbleSquabbleManager.WS_HIT_BALANCE_POINTS + ThreadLocalRandom.current().nextInt(10);
+                    wsPlayer.setBalance(wsPlayer.getBalance() - balanceCalculated);
+                }
+
+                break;
+            }
+
+            case WALK_FORWARD:
+            {
+                // Calculate new position
+                int newPosition = wsPlayer.getPosition() - 1;
+
+                if (newPosition >= -3 && newPosition <= 4) {
+                    if (newPosition != wsOpponent.getPosition()) {
+                        wsPlayer.setPosition(newPosition);
+                    }
+                }
+
+                break;
+            }
+
+            case WALK_BACKWARD:
+            {
+                // Calculate new position
+                int newPosition = wsPlayer.getPosition() + 1;
+
+                if (newPosition >= -3 && newPosition <= 4) {
+                    if (newPosition != wsOpponent.getPosition()) {
+                        wsPlayer.setPosition(newPosition);
+                    }
+                }
+
+                break;
+            }
+
+            case REBALANCE:
+            {
+                if (!wsPlayer.isRebalanced()) {
+                    wsPlayer.setRebalanced(true);
+                    wsPlayer.setBalance(0);
+                }
+                break;
+            }
         }
     }
 

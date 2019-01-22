@@ -4,8 +4,6 @@ package org.alexdev.kepler.game.games.wobblesquabble;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 
-import java.util.concurrent.ThreadLocalRandom;
-
 public class WobbleSquabbleManager {
     private static WobbleSquabbleManager instance;
 
@@ -59,101 +57,6 @@ public class WobbleSquabbleManager {
         WobbleSquabblePlayer wsPlayer = wsGame.getPlayerById(player.getDetails().getId());
 
         return wsPlayer;
-    }
-
-    /**
-     * Update wobble squabble player.
-     *
-     * @param wsPlayer the player to update
-     */
-    public void updatePlayer(WobbleSquabblePlayer wsPlayer) {
-        int opponentDistance = 1;
-        WobbleSquabblePlayer wsOpponent = wsPlayer.getGame().getPlayer(wsPlayer.getOrder() == 1 ? 0 : 1);
-
-        switch (wsPlayer.getMove()) {
-            case BALANCE_LEFT:
-            {
-                int balanceCalculated = WobbleSquabbleManager.WS_BALANCE_POINTS + ThreadLocalRandom.current().nextInt(10);
-                wsPlayer.setBalance(wsPlayer.getBalance() - balanceCalculated);
-                break;
-            }
-
-            case BALANCE_RIGHT:
-            {
-                int balanceCalculated = WobbleSquabbleManager.WS_BALANCE_POINTS + ThreadLocalRandom.current().nextInt(10);
-                wsPlayer.setBalance(wsPlayer.getBalance() + balanceCalculated);
-                break;
-            }
-
-            case HIT_LEFT:
-            {
-                // Are we standing next to our opponent?
-                if ((wsPlayer.getPosition() + opponentDistance) == wsOpponent.getPosition() || (wsPlayer.getPosition() - opponentDistance) == wsOpponent.getPosition()) {
-                    wsOpponent.setHit(true);
-
-                    int balanceCalculated = WobbleSquabbleManager.WS_HIT_POINTS + ThreadLocalRandom.current().nextInt(10);
-                    wsOpponent.setBalance(wsOpponent.getBalance() + balanceCalculated);
-                } else {
-                    int balanceCalculated = WobbleSquabbleManager.WS_HIT_BALANCE_POINTS + ThreadLocalRandom.current().nextInt(10);
-                    wsPlayer.setBalance(wsPlayer.getBalance() + balanceCalculated);
-                }
-
-                break;
-            }
-
-            case HIT_RIGHT:
-            {
-                // Are we standing next to our opponent?
-                if ((wsPlayer.getPosition() + opponentDistance) == wsOpponent.getPosition() || (wsPlayer.getPosition() - opponentDistance) == wsOpponent.getPosition()) {
-                    wsOpponent.setHit(true);
-
-                    int balanceCalculated = WobbleSquabbleManager.WS_HIT_POINTS + ThreadLocalRandom.current().nextInt(10);
-                    wsOpponent.setBalance(wsOpponent.getBalance() - balanceCalculated);
-                } else {
-                    int balanceCalculated = WobbleSquabbleManager.WS_HIT_BALANCE_POINTS + ThreadLocalRandom.current().nextInt(10);
-                    wsPlayer.setBalance(wsPlayer.getBalance() - balanceCalculated);
-                }
-
-                break;
-            }
-
-            case WALK_FORWARD:
-            {
-                // Calculate new position
-                int newPosition = wsPlayer.getPosition() - 1;
-
-                if (newPosition >= -3 && newPosition <= 4) {
-                    if (newPosition != wsOpponent.getPosition()) {
-                        wsPlayer.setPosition(newPosition);
-                    }
-                }
-
-                break;
-            }
-
-            case WALK_BACKWARD:
-            {
-                // Calculate new position
-                int newPosition = wsPlayer.getPosition() + 1;
-
-                if (newPosition >= -3 && newPosition <= 4) {
-                    if (newPosition != wsOpponent.getPosition()) {
-                        wsPlayer.setPosition(newPosition);
-                    }
-                }
-
-                break;
-            }
-
-            case REBALANCE:
-            {
-                if (!wsPlayer.isRebalanced()) {
-                    wsPlayer.setRebalanced(true);
-                    wsPlayer.setBalance(0);
-                }
-                break;
-            }
-        }
     }
 
     /**
