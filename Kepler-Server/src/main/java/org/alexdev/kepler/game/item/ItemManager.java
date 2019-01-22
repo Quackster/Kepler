@@ -1,8 +1,10 @@
 package org.alexdev.kepler.game.item;
 
 import org.alexdev.kepler.dao.mysql.ItemDao;
+import org.alexdev.kepler.dao.mysql.SongMachineDao;
 import org.alexdev.kepler.game.item.base.ItemDefinition;
 import org.alexdev.kepler.game.player.PlayerDetails;
+import org.alexdev.kepler.game.song.Song;
 import org.alexdev.kepler.util.DateUtil;
 
 import java.sql.SQLException;
@@ -46,6 +48,28 @@ public class ItemManager {
 
 
         return item;
+    }
+
+    /**
+     * Get the saved jukebox tracks.
+     *
+     * @param itemId the jukebox item id
+     * @return the list of saved tracks
+     */
+    public List<Song> getJukeboxTracks(int itemId) {
+        List<Song> savedTracks = new ArrayList<>();
+
+        for (var kvp : SongMachineDao.getTracks(itemId).entrySet()) {
+            int slotId = kvp.getKey();
+            int songId = kvp.getValue();
+
+            Song song = SongMachineDao.getSong(songId);
+            song.setSlotId(slotId);
+
+            savedTracks.add(song);
+        }
+
+        return savedTracks;
     }
 
     /**
