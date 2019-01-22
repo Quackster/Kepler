@@ -51,7 +51,6 @@ public class ADD_JUKEBOX_DISC implements MessageEvent {
         player.getInventory().getView("new"); // Refresh hand
 
         int songId = JukeboxDao.getSongIdByItem(songDisk.getId());
-
         Song song = SongMachineDao.getSong(songId);
 
         if (song == null) {
