@@ -28,18 +28,17 @@ public class JUKEBOX_PLAYLIST_ADD implements MessageEvent {
         }
 
         int songId = reader.readInt();
-        int newSlotId = 1;
 
         SongMachineDao.removePlaylistSong(songId);
         var playList = SongMachineDao.getSongPlaylist(room.getItemManager().getSoundMachine().getId());
+        var loadedDiscs = SongMachineDao.getTracks(room.getItemManager().getSoundMachine().getId());
 
-        for (SongPlaylist playlist : playList) {
-            /*if (playlist.getSong().getId() == songId) {
-                return;
-            }*/
-
-            newSlotId++;
+        // Don't load a song if it's not in the jukebox
+        if (loadedDiscs.values().stream().noneMatch(disc -> disc == songId)) {
+            return;
         }
+
+        int newSlotId = playList.size() + 1;
 
         SongMachineDao.addPlaylist(room.getItemManager().getSoundMachine().getId(), songId, newSlotId);
         playList.add(new SongPlaylist(room.getItemManager().getSoundMachine().getId(), SongMachineDao.getSong(songId), newSlotId));
