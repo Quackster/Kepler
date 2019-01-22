@@ -19,6 +19,7 @@ import org.alexdev.kepler.messages.outgoing.rooms.items.SHOWPROGRAM;
 import org.alexdev.kepler.messages.outgoing.rooms.items.STUFFDATAUPDATE;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 import org.alexdev.kepler.util.StringUtil;
+import org.alexdev.kepler.util.config.GameConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -334,54 +335,10 @@ public class Item {
                 return false; // Don't allow rotating items when they're rolling
             }
 
-            if (item.getDefinition().getLength() <= 1 && item.getDefinition().getWidth() <= 1) {
+            if (item.getDefinition().getWidth() <= 1 && item.getDefinition().getWidth() <= 1) {
                 return true;
             }
-        }/* else {
-            if (this.getDefinition().getLength() > 1 || this.getDefinition().getWidth() > 1) {
-                List<Item> rollers = new ArrayList<>();
-
-                int checkDirection = 0;
-                double checkHeight = 0.0;
-
-                for (Position position : AffectedTile.getAffectedTiles(this, x, y, rotation)) {
-                    tile = room.getMapping().getTile(position);
-
-                    if (tile == null) {
-                        continue;
-                    }
-
-                    if (room.getModel().getTileState(position.getX(), position.getY()) == RoomTileState.CLOSED) {
-                        continue;
-                    }
-
-                    Item highestItem = tile.getHighestItem();
-
-                    if (highestItem != null && highestItem.hasBehaviour(ItemBehaviour.ROLLER)) {
-                        rollers.add(highestItem);
-                    }
-                }
-
-                // If the amount of rollers is equal to the area of the furniture
-                if (rollers.size() == (this.getDefinition().getLength() * this.getDefinition().getWidth())) {
-                    checkDirection = rollers.get(0).getPosition().getRotation();
-                    checkHeight =  rollers.get(0).getPosition().getZ();
-
-                    boolean cantPlace = false;
-
-                    for (Item roller : rollers) {
-                        if (roller.getPosition().getZ() != checkHeight || roller.getPosition().getRotation() != checkDirection) {
-                            cantPlace = true;
-                            break;
-                        }
-                    }
-
-                    if (!cantPlace) {
-                        return true;
-                    }
-                }
-            }
-        }*/
+        }
 
         for (Position position : AffectedTile.getAffectedTiles(this, x, y, rotation)) {
             tile = room.getMapping().getTile(position);
@@ -394,6 +351,9 @@ public class Item {
                 return false;
             }
 
+            if ((tile.getWalkingHeight() + item.getDefinition().getTopHeight()) > GameConfiguration.getInstance().getInteger("stack.height.limit")) {
+                return false;
+            }
 
             if (tile.getEntities().size() > 0) {
                 if (!item.isWalkable(new Position(x, y))) {
@@ -423,8 +383,8 @@ public class Item {
                         return false; // Can't place rollers on top of rollers
                     }
 
-                    if (this.getDefinition().getLength() > 1 || this.getDefinition().getWidth() > 1) {
-                        return false; // Item is too big to place on rollers.
+                    if ((this.getDefinition().getLength() > 1 || this.getDefinition().getWidth() > 1) && (this.hasBehaviour(ItemBehaviour.CAN_SIT_ON_TOP) || this.hasBehaviour(ItemBehaviour.CAN_LAY_ON_TOP))) {
+                        return false; // Chair or bed is too big to place on rollers.
                     }
                 }
             }

@@ -85,45 +85,30 @@ public class PLACESTUFF implements MessageEvent {
         } else {
             int x = Integer.parseInt(data[1]);
             int y = Integer.parseInt(data[2]);
-            int rotation = Integer.parseInt(data[3]);
+
+            // skip 3 and 4 as they're dimensions, we don't need 'em since it's server-side variables, never trust the client!
+            int rotation = Integer.parseInt(data[5]);
+
+            if (item.hasBehaviour(ItemBehaviour.REDIRECT_ROTATION_0)) {
+                rotation = 0;
+            }
+
+            if (item.hasBehaviour(ItemBehaviour.REDIRECT_ROTATION_2)) {
+                rotation = 2;
+            }
+
+            if (item.hasBehaviour(ItemBehaviour.REDIRECT_ROTATION_4)) {
+                rotation = 4;
+            }
 
             if (!item.isValidMove(item, room, x, y, rotation)) {
                 return;
             }
 
             if (room.getMapping().getTile(x, y) != null) {
-                if (item.hasBehaviour(ItemBehaviour.REDIRECT_ROTATION_0)) {
-                    rotation = 0;
-                }
-
-                if (item.hasBehaviour(ItemBehaviour.REDIRECT_ROTATION_2)) {
-                    rotation = 2;
-                }
-
                 item.getPosition().setX(x);
                 item.getPosition().setY(y);
                 item.getPosition().setRotation(rotation);
-
-                if (item.hasBehaviour(ItemBehaviour.DICE)) {
-                    // For some reason the client expects the HC dice to have a default of 1 while the normal dice a default of 0 (off)
-
-                    // Client expects default of 1 for HC dices
-                    if (item.getDefinition().getSprite().equals("hcdice")) {
-                        item.setCustomData("1");
-                    } else if (item.getDefinition().getSprite().equals("edice")) {
-                        // Client expects default of 0 (off) for 'normal'/'oldskool' dices
-                        item.setCustomData("0");
-                    } else {
-                        // Handle custom furniture dices (TODO: define behaviour differences between HC dice and 'oldskool' dices)
-                        item.setCustomData("1");
-                    }
-                }
-
-                if (item.hasBehaviour(ItemBehaviour.TELEPORTER)) {
-                    item.getPosition().setRotation(2); // Teleporter is only limited to rotation 2 or 4.
-                } else {
-                    item.getPosition().setRotation(0);
-                }
             }
         }
 
