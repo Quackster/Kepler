@@ -1,6 +1,7 @@
 package org.alexdev.kepler.messages.incoming.jukebox;
 
 import org.alexdev.kepler.dao.mysql.SongMachineDao;
+import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.moderation.Fuseright;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
@@ -18,7 +19,7 @@ public class JUKEBOX_PLAYLIST_ADD implements MessageEvent {
 
         Room room = player.getRoomUser().getRoom();
 
-        if (room.getItemManager().getSoundMachine() == null) {
+        if (room.getItemManager().getSoundMachine() == null || !room.getItemManager().getSoundMachine().hasBehaviour(ItemBehaviour.JUKEBOX)) {
             return;
         }
 
@@ -29,10 +30,13 @@ public class JUKEBOX_PLAYLIST_ADD implements MessageEvent {
         int songId = reader.readInt();
         int newSlotId = 1;
 
-        SongMachineDao.removePlaylistSong(songId);
         var playList = SongMachineDao.getSongPlaylist(room.getItemManager().getSoundMachine().getId());
 
         for (SongPlaylist playlist : playList) {
+            if (playlist.getSong().getId() == songId) {
+                continue;
+            }
+
             newSlotId++;
         }
 

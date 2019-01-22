@@ -1,9 +1,7 @@
 package org.alexdev.kepler;
 
 import io.netty.util.ResourceLeakDetector;
-
 import org.alexdev.kepler.dao.Storage;
-import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.catalogue.CatalogueManager;
 import org.alexdev.kepler.game.catalogue.RareManager;
@@ -18,24 +16,19 @@ import org.alexdev.kepler.game.room.models.RoomModelManager;
 import org.alexdev.kepler.game.room.public_rooms.walkways.WalkwaysManager;
 import org.alexdev.kepler.game.texts.TextsManager;
 import org.alexdev.kepler.messages.MessageHandler;
+import org.alexdev.kepler.messages.incoming.register.REGISTER;
 import org.alexdev.kepler.server.mus.MusServer;
 import org.alexdev.kepler.server.netty.NettyServer;
 import org.alexdev.kepler.server.rcon.RconServer;
-import org.alexdev.kepler.util.config.GameConfiguration;
-import org.alexdev.kepler.util.config.ServerConfiguration;
 import org.alexdev.kepler.util.DateUtil;
+import org.alexdev.kepler.util.config.GameConfiguration;
 import org.alexdev.kepler.util.config.LoggingConfiguration;
-
+import org.alexdev.kepler.util.config.ServerConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.nio.charset.StandardCharsets;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
 public class Kepler {
 
@@ -85,6 +78,7 @@ public class Kepler {
                 return;
             }
 
+            log.info(REGISTER.createPassword("lol").trim());
             log.info("Setting up game");
 
             GameConfiguration.getInstance();

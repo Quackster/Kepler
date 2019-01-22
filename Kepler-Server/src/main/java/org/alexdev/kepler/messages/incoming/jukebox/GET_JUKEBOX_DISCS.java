@@ -26,7 +26,7 @@ public class GET_JUKEBOX_DISCS implements MessageEvent {
         }
 
         if (!room.hasRights(player.getDetails().getId()) && !player.hasFuse(Fuseright.ANY_ROOM_CONTROLLER)) {
-            return;
+            //return;
         }
 
         List<Song> savedTracks = new ArrayList<>();
