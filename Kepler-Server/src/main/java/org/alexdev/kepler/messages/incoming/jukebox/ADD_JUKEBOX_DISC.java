@@ -78,7 +78,7 @@ public class ADD_JUKEBOX_DISC implements MessageEvent {
             savedTracks.add(song);
         }
 
-        player.send(new JUKEBOX_DISCS(savedTracks));
+        room.send(new JUKEBOX_DISCS(savedTracks));
         new GET_USER_SONG_DISCS().handle(player, null);
     }
 }
