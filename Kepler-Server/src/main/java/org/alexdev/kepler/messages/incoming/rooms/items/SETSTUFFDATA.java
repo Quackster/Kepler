@@ -73,6 +73,8 @@ public class SETSTUFFDATA implements MessageEvent {
             }
         }
 
+        System.out.println("handle 1");
+
         String newData = null;
 
         if (item.hasBehaviour(ItemBehaviour.GATE)) {
@@ -84,8 +86,8 @@ public class SETSTUFFDATA implements MessageEvent {
 
                     // Make all entities walk out of gate when it's closed
                     if (tile.getEntities().size() > 0) {
-                            // Can't close gate if there's a user on the tile
-                            return;
+                        // Can't close gate if there's a user on the tile
+                        return;
                     }
                 }
             }
@@ -125,9 +127,13 @@ public class SETSTUFFDATA implements MessageEvent {
             }
         }
 
+        System.out.println("handle 2");
+
         if (newData == null) {
             return;
         }
+
+        System.out.println("handle 3");
 
         item.setCustomData(newData);
         item.updateStatus();

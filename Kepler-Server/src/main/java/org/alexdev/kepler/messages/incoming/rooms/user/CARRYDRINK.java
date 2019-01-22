@@ -1,12 +1,11 @@
 package org.alexdev.kepler.messages.incoming.rooms.user;
 
 import org.alexdev.kepler.game.item.Item;
+import org.alexdev.kepler.game.item.interactors.InteractionType;
 import org.alexdev.kepler.game.player.Player;
-import org.alexdev.kepler.game.room.enums.StatusType;
 import org.alexdev.kepler.game.room.mapping.RoomTile;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
-import org.alexdev.kepler.util.StringUtil;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -34,7 +33,15 @@ public class CARRYDRINK implements MessageEvent {
             }
         } else {
             if (player.getRoomUser().getLastInteractedItem() == null) {
-                return;
+                RoomTile roomTile = player.getRoomUser().getRoom().getMapping().getTile(player.getRoomUser().getPosition().getSquareInFront());
+
+                if (roomTile.getItems().stream().anyMatch(item -> item.getDefinition().getInteractionType() == InteractionType.VENDING_MACHINE)) {
+                    player.getRoomUser().setLastInteractedItem(roomTile.getItems().stream().filter(item -> item.getDefinition().getInteractionType() == InteractionType.VENDING_MACHINE).findFirst().orElse(null));
+                }
+
+                if (player.getRoomUser().getLastInteractedItem() == null) {
+                    return;
+                }
             }
 
             Item item = player.getRoomUser().getLastInteractedItem();
@@ -48,8 +55,9 @@ public class CARRYDRINK implements MessageEvent {
             }
 
             int randomDrinkId = item.getDefinition().getDrinkIds()[ThreadLocalRandom.current().nextInt(0, item.getDefinition().getDrinkIds().length)];
-            player.getRoomUser().carryItem(randomDrinkId, null);
 
+            player.getRoomUser().carryItem(randomDrinkId, null);
+            player.getRoomUser().setLastInteractedItem(null);
         }
 
         player.getRoomUser().getTimerManager().resetRoomTimer();
