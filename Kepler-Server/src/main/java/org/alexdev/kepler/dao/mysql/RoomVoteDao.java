@@ -1,14 +1,11 @@
 package org.alexdev.kepler.dao.mysql;
 
 import org.alexdev.kepler.dao.Storage;
-import org.alexdev.kepler.game.room.RoomData;
 import org.alexdev.kepler.util.DateUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
@@ -47,12 +44,9 @@ public class RoomVoteDao {
     /**
      * Vote expired votes for a room
      */
-    public static boolean removeExpiredVotes(int roomId) {
+    public static void removeExpiredVotes(int roomId) {
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
-        boolean affected = false;
 
         try {
             sqlConnection = Storage.getStorage().getConnection();
@@ -73,12 +67,9 @@ public class RoomVoteDao {
         } catch (Exception e) {
             Storage.logError(e);
         } finally {
-            Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
             Storage.closeSilently(sqlConnection);
         }
-
-        return affected;
     }
 
     /**
