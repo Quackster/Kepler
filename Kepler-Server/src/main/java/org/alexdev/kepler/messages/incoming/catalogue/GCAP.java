@@ -43,7 +43,7 @@ public class GCAP implements MessageEvent {
                 long currentTick = RareManager.getInstance().getTick().get();
                 long timeUntil = interval - currentTick;
 
-                cataloguePage.setBody(GameConfiguration.getInstance().getString("rare.cycle.page.text").replace("rareSeconds", DateUtil.getReadableSeconds(timeUntil)));
+                cataloguePage.setBody(GameConfiguration.getInstance().getString("rare.cycle.page.text").replace("{rareCountdown}", DateUtil.getReadableSeconds(timeUntil)));
             }
 
             player.send(new CATALOGUE_PAGE(
