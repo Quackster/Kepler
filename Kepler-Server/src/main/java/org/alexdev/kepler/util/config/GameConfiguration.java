@@ -44,6 +44,7 @@ public class GameConfiguration {
         config.put("stack.height.limit", "8");
         config.put("roomdimmer.scripting.allowed", "false");
 
+        config.put("credits.scheduler.enabled", "true");
         config.put("credits.scheduler.timeunit", "MINUTES");
         config.put("credits.scheduler.interval", "15");
         config.put("credits.scheduler.amount", "20");
@@ -80,6 +81,11 @@ public class GameConfiguration {
 
         config.put("reset.sso.after.login", "true");
         config.put("navigator.show.hidden.rooms", "false");
+
+        config.put("rare.cycle.credit.multiplier", "0");
+        config.put("credits.scheduler.timeunit", "MINUTES");
+        config.put("credits.scheduler.interval", "15");
+
 
         config.put("rare.cycle.tick.time", "0");
         config.put("rare.cycle.page.id", "2");

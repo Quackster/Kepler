@@ -64,17 +64,21 @@ public class GameScheduler implements Runnable {
                     }
 
                     // If they're not sleeping (aka, active) and their next handout expired, give them their credits!
-                    if (DateUtil.getCurrentTimeSeconds() > player.getDetails().getNextHandout()) {
-                        if (!player.getRoomUser().containsStatus(StatusType.SLEEP)) {
-                            this.creditsHandoutQueue.put(player);
-                        }
+                    if (GameConfiguration.getInstance().getBoolean("credits.scheduler.enabled")) {
+                        if (DateUtil.getCurrentTimeSeconds() > player.getDetails().getNextHandout()) {
+                            if (!player.getRoomUser().containsStatus(StatusType.SLEEP)) {
+                                this.creditsHandoutQueue.put(player);
+                            }
 
-                        player.getDetails().resetNextHandout();
+                            player.getDetails().resetNextHandout();
+                        }
                     }
                 }
             }
 
-            if (this.tickRate.get() % 30 == 0) { // Save every 30 seconds
+            if (GameConfiguration.getInstance().getBoolean("credits.scheduler.enabled") &&
+                    this.tickRate.get() % 30 == 0) { // Save every 30 seconds
+
                 List<Player> playersToHandout = new ArrayList<>();
                 this.creditsHandoutQueue.drainTo(playersToHandout);
 
