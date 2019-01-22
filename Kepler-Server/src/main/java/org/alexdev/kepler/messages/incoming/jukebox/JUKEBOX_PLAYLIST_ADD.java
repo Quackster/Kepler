@@ -34,7 +34,7 @@ public class JUKEBOX_PLAYLIST_ADD implements MessageEvent {
 
         for (SongPlaylist playlist : playList) {
             if (playlist.getSong().getId() == songId) {
-                continue;
+                return;
             }
 
             newSlotId++;
