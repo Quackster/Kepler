@@ -43,5 +43,9 @@ public class UPDATE implements MessageEvent {
         PlayerDao.saveMotto(player.getDetails());
 
         new GET_INFO().handle(player, null);
+
+        if (player.getRoomUser().getRoom() != null) {
+            player.getRoomUser().refreshAppearance();
+        }
     }
 }
