@@ -29,8 +29,10 @@ public class GameConfiguration {
     private void setConfigurationDefaults() {
         config.put("fuck.aaron", "true");
         config.put("max.connections.per.ip", "2");
-
         config.put("normalise.input.strings", "false");
+
+        config.put("room.dispose.timer.enabled", "true");
+        config.put("room.dispose.timer.seconds", "60");
 
         config.put("welcome.message.enabled", "false");
         config.put("welcome.message.content", "Hello, %username%! And welcome to the Kepler server!");

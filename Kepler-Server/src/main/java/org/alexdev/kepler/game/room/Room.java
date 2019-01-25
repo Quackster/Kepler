@@ -2,6 +2,7 @@ package org.alexdev.kepler.game.room;
 
 import org.alexdev.kepler.dao.mysql.RoomDao;
 import org.alexdev.kepler.dao.mysql.RoomVoteDao;
+import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.moderation.Fuseright;
@@ -20,11 +21,14 @@ import org.alexdev.kepler.messages.outgoing.rooms.moderation.YOUARECONTROLLER;
 import org.alexdev.kepler.messages.outgoing.rooms.moderation.YOUAROWNER;
 import org.alexdev.kepler.messages.outgoing.rooms.moderation.YOUNOTCONTROLLER;
 import org.alexdev.kepler.messages.types.MessageComposer;
+import org.alexdev.kepler.util.config.GameConfiguration;
+import org.alexdev.kepler.util.schedule.FutureRunnable;
 
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class Room {
     private RoomModel roomModel;
@@ -33,6 +37,7 @@ public class Room {
     private RoomEntityManager roomEntityManager;
     private RoomItemManager roomItemManager;
     private RoomTaskManager roomTaskManager;
+    private FutureRunnable disposeRunnable;
 
     private boolean isActive;
     private int followRedirect;
@@ -188,19 +193,46 @@ public class Room {
      * @return if the room was successfully disposed
      */
     public boolean tryDispose() {
+        Room room = this;
+
         if (this.roomEntityManager.getPlayers().size() > 0) {
             return false;
         }
 
-        this.isActive = false;
-        this.roomTaskManager.stopTasks();
+        // If there's an existing dispose runnable, delete it.
+        if (this.disposeRunnable != null) {
+            this.disposeRunnable.cancelFuture();
+            this.disposeRunnable = null;
+        }
 
-        this.items.clear();
-        this.rights.clear();
-        this.votes.clear();
-        this.entities.clear();
+        // Add 60 second delay when disposing rooms so that there's less stress if the room wants to be reloaded instantly after leaving.
+        this.disposeRunnable = new FutureRunnable() {
+            @Override
+            public void run() {
+                if (roomEntityManager.getPlayers().size() > 0) {
+                    return;
+                }
 
-        RoomManager.getInstance().removeRoom(this.roomData.getId());
+                isActive = false;
+                roomTaskManager.stopTasks();
+
+                items.clear();
+                rights.clear();
+                votes.clear();
+                entities.clear();
+
+                RoomManager.getInstance().removeRoom(roomData.getId());
+            }
+        };
+
+        int defaultSeconds = GameConfiguration.getInstance().getInteger("room.dispose.timer.seconds");
+
+        if (!GameConfiguration.getInstance().getBoolean("room.dispose.timer.enabled")) {
+            defaultSeconds = 0;
+        }
+
+        // Schedule new dispose runnable
+        this.disposeRunnable.setFuture(GameScheduler.getInstance().getService().schedule(this.disposeRunnable, defaultSeconds, TimeUnit.SECONDS));
         return true;
     }
 

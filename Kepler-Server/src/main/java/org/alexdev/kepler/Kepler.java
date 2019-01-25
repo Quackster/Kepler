@@ -212,6 +212,7 @@ public class Kepler {
             isShutdown = true;
 
             // TODO: all the managers
+            GameScheduler.getInstance().performItemSaving();
             PlayerManager.getInstance().dispose();
 
             server.dispose();

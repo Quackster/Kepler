@@ -100,9 +100,9 @@ public class GameScheduler implements Runnable {
             }
 
             // Item saving queue ticker every 10 seconds
-            if (this.tickRate.get() % 30 == 0) {
+            if (this.tickRate.get() % 10 == 0) {
                 if (this.itemSavingQueue != null) {
-                    ItemManager.getInstance().performItemSaving(this.itemSavingQueue);
+                    this.performItemSaving();
                 }
             }
 
@@ -123,6 +123,14 @@ public class GameScheduler implements Runnable {
         this.itemSavingQueue.removeIf(i -> i.getId() == item.getId());
         this.itemSavingQueue.add(item);
     }
+
+    /**
+     * Method to perform item saving.
+     */
+    public void performItemSaving() {
+        ItemManager.getInstance().performItemSaving(this.itemSavingQueue);
+    }
+
 
     /**
      * Gets the scheduler service.
