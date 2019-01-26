@@ -28,8 +28,6 @@ CREATE TABLE `soundmachine_disks` (
   `burned_at` bigint(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-ALTER TABLE `items` ADD `is_hidden` TINYINT(1) NOT NULL DEFAULT '0' AFTER `custom_data`;
-
 UPDATE `items_definitions` SET `behaviour` = 'solid,custom_data_true_false' WHERE `items_definitions`.`id` = 718;
 UPDATE `items_definitions` SET `drink_ids` = '1' WHERE `items_definitions`.`id` = 752;
 UPDATE `items_definitions` SET `interactor` = 'vending_machine' WHERE `items_definitions`.`id` = 220;
