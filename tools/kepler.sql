@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 02, 2019 at 04:50 PM
+-- Generation Time: Jan 26, 2019 at 03:23 AM
 -- Server version: 10.3.11-MariaDB
 -- PHP Version: 7.2.8
 
@@ -344,7 +344,7 @@ INSERT INTO `catalogue_items` (`id`, `sale_code`, `page_id`, `order_id`, `price`
 (293, 'poster 16', '24', 12, 3, 0, 1, 251, 16, 'Bars', 'Added security', 0, NULL, NULL),
 (294, 'poster 5', '24', 13, 3, 0, 1, 251, 5, 'Duck Poster', 'Quacking good design!', 0, NULL, NULL),
 (295, 'poster 6', '24', 14, 3, 0, 1, 251, 6, 'Abstract Poster', 'But is it the right way up?', 0, NULL, NULL),
-(296, 'poster 32', '24', 15, 3, 0, 1, 251, 32, 'Stocking', 'Hung yours up yet?', 0, NULL, NULL),
+(296, 'poster 32', '24', 15, 3, 0, 1, 251, 32, 'Siva Poster', 'The Auspicious One', 0, NULL, NULL),
 (297, 'poster 1', '24', 16, 3, 0, 1, 251, 1, 'Lady Lisa', 'Is she smiling?', 0, NULL, NULL),
 (298, 'poster 14', '24', 17, 3, 0, 1, 251, 14, 'Fox Poster', 'A cunning painting', 0, NULL, NULL),
 (299, 'poster 55', '24', 18, 3, 0, 1, 251, 55, 'Tree of Time', 'Save our trees!', 0, NULL, NULL),
@@ -667,8 +667,8 @@ INSERT INTO `catalogue_items` (`id`, `sale_code`, `page_id`, `order_id`, `price`
 (620, 'exe_artlamp', '45', 0, 5, 0, 1, 740, 0, 'Sphere Lamp', 'Suitable for budding entrepreneurs', 0, NULL, NULL),
 (621, 'exe_map', '45', 0, 5, 0, 1, 741, 0, 'World Map', 'World domination imminent', 0, NULL, NULL),
 (622, 'exe_wfall', '45', 0, 5, 0, 1, 742, 0, 'Wall Fall', 'Improve your cash flow', 0, NULL, NULL),
-(623, 'exe_globe', '45', 0, 5, 0, 1, 743, 0, 'Power Globe', 'The power is yours!', 0, NULL, NULL),
-(624, 'exe_elevator', '45', 0, 7, 0, 1, 744, 0, 'Elevator Teleport', 'Going up or down in style!', 0, NULL, NULL),
+(623, 'exe_globe', '45', 0, 5, 1, 1, 743, 0, 'Power Globe', 'The power is yours!', 0, NULL, NULL),
+(624, 'exe_elevator', '45', 0, 7, 1, 1, 744, 0, 'Elevator Teleport', 'Going up or down in style!', 0, NULL, NULL),
 (627, 'arabian_bigtb', '46', 0, 5, 0, 1, 745, 0, 'Amanjena Table', 'It must be Jinn-er time!', 0, NULL, NULL),
 (628, 'arabian_chair', '46', 0, 2, 0, 1, 746, 0, 'Green Blossom Chair', 'Exotic, soft seating', 0, NULL, NULL),
 (629, 'arabian_divdr', '46', 0, 5, 0, 1, 747, 0, 'Soft wooden screen', 'Carved Cedar Divider', 0, NULL, NULL),
@@ -1289,6 +1289,7 @@ CREATE TABLE `items` (
   `wall_position` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `rotation` int(11) DEFAULT 0,
   `custom_data` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `is_hidden` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1540,7 +1541,7 @@ INSERT INTO `items_definitions` (`id`, `sprite`, `sprite_id`, `name`, `descripti
 (217, 'gothrailing', 258, 'Gothic Railing', 'The dark side of Habbo', '0,0,0', 2, 1, 1, '2', 'solid,can_stack_on_top,requires_rights_for_interaction', 'default', 1, 1, ''),
 (218, 'goth_table', 257, 'Gothic table', 'The dark side of Habbo', '0,0,0', 1, 5, 1, '2', 'solid,can_stack_on_top,requires_rights_for_interaction', 'default', 1, 1, ''),
 (219, 'hc_bkshlf', 995, 'Medieval Bookcase', 'For the scholarly ones', '0,0,0', 1, 4, 3, '2', 'solid,requires_rights_for_interaction', 'default', 1, 1, ''),
-(220, 'hc_btlr', 994, 'Electric Butler', 'Your personal caretaker', '#FFFFFF,#FFFFFF', 1, 1, 1, '2', 'solid,requires_touching_for_interaction,custom_data_true_false,requires_rights_for_interaction', 'default', 1, 1, ''),
+(220, 'hc_btlr', 994, 'Electric Butler', 'Your personal caretaker', '#FFFFFF,#FFFFFF', 1, 1, 1, '2', 'solid,requires_touching_for_interaction,custom_data_true_false,requires_rights_for_interaction', 'vending_machine', 1, 1, '24'),
 (221, 'hc_crtn', 992, 'Antique Drapery', 'Topnotch privacy protection', '#FFFFFF,#FFFFFF,#FFFFFF,#FFFFFF', 2, 1, 1, '2', 'solid,requires_rights_for_interaction,gate', 'default', 1, 1, ''),
 (222, 'hc_djset', 999, 'The Grammophon', 'Very old skool scratch\'n\'spin', '0,0,0', 3, 1, 1.5, '2', 'solid,requires_rights_for_interaction', 'default', 1, 1, ''),
 (223, 'hc_frplc', 998, 'Heavy Duty Fireplace', 'Pixel-powered for maximum heating', '#FFFFFF,#FFFFFF,#FFFFFF,#FFFFFF,#FFFFFF,#FFFFFF', 1, 3, 3, '2', 'solid,custom_data_numeric_on_off,requires_rights_for_interaction', 'default', 1, 1, ''),
@@ -1597,9 +1598,9 @@ INSERT INTO `items_definitions` (`id`, `sprite`, `sprite_id`, `name`, `descripti
 (274, 'scifiport*0', 1041, 'Red Laser Door', 'Energy beams. No trespassers!', '#FFFFFF,#DD2D22,#FFFFFF,#FFFFFF,#FFFFFF,#DD2D22', 1, 1, 1, '2', 'solid,requires_rights_for_interaction,gate', 'default', 1, 1, ''),
 (275, 'scifiport*9', 1050, 'Violet Sci-Fi Port', 'Energy beams. No trespassers!', '#FFFFFF,#7733FF,#FFFFFF,#FFFFFF,#FFFFFF,#7733FF', 1, 1, 1, '2', 'solid,requires_rights_for_interaction,gate', 'default', 1, 1, ''),
 (276, 'scifiport*8', 1049, 'Purple Sci-Fi Port', 'Energy beams. No trespassers!', '#FFFFFF,#BB55CC,#FFFFFF,#FFFFFF,#FFFFFF,#BB55CC', 1, 1, 1, '2', 'solid,requires_rights_for_interaction,gate', 'default', 1, 1, ''),
-(277, 'scifiport*7', 1048, 'Turquoise Sci-Fi Port', 'Energy beams. No trespassers!', '#FFFFFF,#00CCCC,#FFFFFF,#FFFFFF,#FFFFFF,#00CCCC', 1, 1, 1, '2', 'solid,requires_rights_for_interaction,gate', 'default', 1, 1, ''),
-(278, 'scifiport*6', 1047, 'White Sci-Fi Port', 'Energy beams. No trespassers!', '#FFFFFF,#FFFFFF,#FFFFFF,#FFFFFF,#FFFFFF,#FFFFFF', 1, 1, 1, '2', 'solid,requires_rights_for_interaction,gate', 'default', 1, 1, '');
+(277, 'scifiport*7', 1048, 'Turquoise Sci-Fi Port', 'Energy beams. No trespassers!', '#FFFFFF,#00CCCC,#FFFFFF,#FFFFFF,#FFFFFF,#00CCCC', 1, 1, 1, '2', 'solid,requires_rights_for_interaction,gate', 'default', 1, 1, '');
 INSERT INTO `items_definitions` (`id`, `sprite`, `sprite_id`, `name`, `description`, `colour`, `length`, `width`, `top_height`, `max_status`, `behaviour`, `interactor`, `is_tradable`, `is_recyclable`, `drink_ids`) VALUES
+(278, 'scifiport*6', 1047, 'White Sci-Fi Port', 'Energy beams. No trespassers!', '#FFFFFF,#FFFFFF,#FFFFFF,#FFFFFF,#FFFFFF,#FFFFFF', 1, 1, 1, '2', 'solid,requires_rights_for_interaction,gate', 'default', 1, 1, ''),
 (279, 'scifiport*5', 1046, 'Security Fence', 'Recovered from Roswell', '#FFFFFF,#555555,#FFFFFF,#FFFFFF,#FFFFFF,#555555', 1, 1, 1, '2', 'solid,requires_rights_for_interaction,gate', 'default', 1, 1, ''),
 (280, 'scifiport*4', 1045, 'Pink Sci-Fi Port', 'Energy beams. No trespassers!', '#FFFFFF,#FF5577,#FFFFFF,#FFFFFF,#FFFFFF,#FF5577', 1, 1, 1, '2', 'solid,requires_rights_for_interaction,gate', 'default', 1, 1, ''),
 (281, 'scifiport*3', 1044, 'Jade Sci-Fi Port', 'Energy beams. No trespassers!', '#FFFFFF,#02BB70,#FFFFFF,#FFFFFF,#FFFFFF,#02BB70', 1, 1, 1, '2', 'solid,requires_rights_for_interaction,gate', 'default', 1, 1, ''),
@@ -1733,7 +1734,14 @@ INSERT INTO `items_definitions` (`id`, `sprite`, `sprite_id`, `name`, `descripti
 (412, 'sound_set_62', 74, 'Alhambra Trax 1', 'Music of the Arabian night!', '0,0,0', 1, 1, 0.2, '2', 'solid,can_stack_on_top,sound_machine_sample_set,requires_rights_for_interaction', 'default', 1, 1, ''),
 (413, 'sound_set_63', 75, 'Alhambra Trax 2', 'Desert hits by the oasis!', '0,0,0', 1, 1, 0.2, '2', 'solid,can_stack_on_top,sound_machine_sample_set,requires_rights_for_interaction', 'default', 1, 1, ''),
 (414, 'sound_set_64', 76, 'Alhambra Trax 3', 'Make a little Jinn-gle!', '0,0,0', 1, 1, 0.2, '2', 'solid,can_stack_on_top,sound_machine_sample_set,requires_rights_for_interaction', 'default', 1, 1, ''),
+(415, 'present_gen1', 1372, 'Gift', 'What\'s inside?', '0,0,0', 1, 1, 1, '0', 'solid,present,can_stack_on_top', 'default', 1, 1, ''),
+(416, 'present_gen2', 1373, 'Gift', 'What\'s inside?', '0,0,0', 1, 1, 1, '0', 'solid,present,can_stack_on_top', 'default', 1, 1, ''),
+(417, 'present_gen3', 1374, 'Gift', 'What\'s inside?', '0,0,0', 1, 1, 1, '0', 'solid,present,can_stack_on_top', 'default', 1, 1, ''),
+(418, 'present_gen4', 1375, 'Gift', 'What\'s inside?', '0,0,0', 1, 1, 1, '0', 'solid,present,can_stack_on_top', 'default', 1, 1, ''),
+(419, 'present_gen5', 1376, 'Gift', 'What\'s inside?', '0,0,0', 1, 1, 1, '0', 'solid,present,can_stack_on_top', 'default', 1, 1, ''),
+(420, 'present_gen6', 1377, 'Gift', 'What\'s inside?', '0,0,0', 1, 1, 1, '0', 'solid,present,can_stack_on_top', 'default', 1, 1, ''),
 (421, 'camera', 145, 'Camera', 'Smile!', '0,0,0', 1, 1, 0, '2', 'solid,requires_rights_for_interaction', 'default', 1, 1, ''),
+(422, 'photo', 11221, 'Photo', 'Photo from Habbo', '', 0, 0, 0, '0', 'photo,wall_item', 'default', 1, 1, ''),
 (423, 'film', 0, '', '', '', 0, 0, 0, '0', '', 'default', 1, 1, ''),
 (424, 'table_plasto_4leg*6', 415, 'Occasional table Table', 'Hip plastic furniture', '#FFFFFF,#3444FF', 2, 2, 1, '2', 'solid,can_stack_on_top,requires_rights_for_interaction', 'default', 1, 1, ''),
 (425, 'table_plasto_round', 400, 'Round Dining Table', 'Hip plastic furniture', '0,0,0', 2, 2, 1, '2', 'solid,can_stack_on_top,requires_rights_for_interaction', 'default', 1, 1, ''),
@@ -1817,7 +1825,7 @@ INSERT INTO `items_definitions` (`id`, `sprite`, `sprite_id`, `name`, `descripti
 (715, 'rubberchair*8', 1040, 'Black Inflatable Chair', 'Soft and tearproof for HC!', '#444444,#FFFFFF,#FFFFFF,#FFFFFF,#FFFFFF', 1, 1, 1, '1', 'can_sit_on_top', 'chair', 1, 1, ''),
 (716, 'spyro', 11119, 'Dragon Egg', 'The stuff of legend', '0,0,0', 1, 1, 0, '2', 'solid,requires_rights_for_interaction', 'default', 1, 1, ''),
 (717, 'rare_daffodil_rug', 1126, 'Petal Patch', 'A little bit of outdoors indoors..', '0,0,0', 2, 2, 0.4, '2', 'can_stand_on_top,can_stack_on_top,place_roller_on_top,requires_rights_for_interaction', 'default', 1, 1, ''),
-(718, 'md_limukaappi', 1143, 'Habbo Cola Machine', 'A sparkling and refreshing pixel drink!', '0,0,0', 1, 1, 0, '2', 'solid', 'vending_machine', 1, 1, '19'),
+(718, 'md_limukaappi', 1143, 'Habbo Cola Machine', 'A sparkling and refreshing pixel drink!', '0,0,0', 1, 1, 0, '2', 'solid,custom_data_true_false', 'vending_machine', 1, 1, '19'),
 (719, 'samovar', 1142, 'Russian Samovar', 'Click for a refreshing cuppa', '#FFFFFF', 1, 1, 0, '2', 'solid,requires_rights_for_interaction', 'default', 1, 1, ''),
 (720, 'redhologram', 1116, 'Holo-girl', 'You\'re her only hope...', '#FFFFFF,#FFFFFF,#FFFFFF,#FFFFFF', 1, 1, 0, '2', 'solid,custom_data_on_off,requires_rights_for_interaction', 'default', 1, 1, ''),
 (721, 'typingmachine', 1117, 'Typewriter', 'Write that bestseller', '0,0,0', 1, 1, 0, '2', 'solid,requires_rights_for_interaction', 'default', 1, 1, ''),
@@ -1851,7 +1859,7 @@ INSERT INTO `items_definitions` (`id`, `sprite`, `sprite_id`, `name`, `descripti
 (749, 'arabian_rug', 63, 'Berber Kilim Rug', 'Green blossom design', '0,0,0', 3, 5, 0.1, '2', 'can_stand_on_top,requires_rights_for_interaction', 'default', 1, 1, ''),
 (750, 'arabian_snake', 64, 'Ornamental Urn', 'Beware the snake!', '0,0,0', 1, 1, 0, '2', 'solid,custom_data_numeric_state,requires_rights_for_interaction', 'default', 1, 1, ''),
 (751, 'arabian_swords', 65, 'Ancestral Scimitars', 'Not for yielding', '0,0,0', 1, 1, 0, '2', 'wall_item,requires_rights_for_interaction', 'default', 1, 1, ''),
-(752, 'arabian_teamk', 66, 'Tea Maker', 'Quench that desert thirst', '0,0,0', 1, 1, 0, '2', 'solid,custom_data_true_false', 'vending_machine', 1, 1, '27'),
+(752, 'arabian_teamk', 66, 'Tea Maker', 'Quench that desert thirst', '0,0,0', 1, 1, 0, '2', 'solid,custom_data_true_false', 'vending_machine', 1, 1, '1'),
 (753, 'arabian_tetbl', 67, 'Hexagonal Tea Table', 'Serve up a treat', '0,0,0', 1, 1, 1, '2', 'solid,can_stack_on_top,requires_rights_for_interaction', 'default', 1, 1, ''),
 (754, 'arabian_tray1', 68, 'Mint Tea Tray', 'Tea for every occasion', '0,0,0', 1, 1, 0, '2', 'solid,requires_rights_for_interaction', 'default', 1, 1, ''),
 (755, 'arabian_tray2', 73, 'Candle Tray', 'For those Arabian nights', '0,0,0', 1, 1, 0, '2', 'solid,requires_rights_for_interaction', 'default', 1, 1, ''),
@@ -1861,15 +1869,15 @@ INSERT INTO `items_definitions` (`id`, `sprite`, `sprite_id`, `name`, `descripti
 (759, 'arabian_wall', 4287, 'Arabian Wall', 'A wall built with class.', '0,0,0', 1, 1, 0, '0', 'wall_item,requires_rights_for_interaction', 'default', 1, 1, ''),
 (760, 'arabian_tile', 3312, 'Arabian Tile', 'Step in style...', '0,0,0', 2, 2, 0, '0', 'can_stand_on_top,can_stack_on_top,requires_rights_for_interaction', 'default', 1, 1, ''),
 (776, 'pets1', 34, '', '', '0,0,0', 1, 1, 0.1, '2', 'can_stand_on_top,requires_rights_for_interaction', 'default', 1, 1, ''),
-(777, 'pets2', 35, '', '', '0,0,0', 1, 1, 0.1, '2', 'can_stand_on_top,requires_rights_for_interaction', 'default', 1, 1, ''),
+(777, 'pets2', 35, '', '', '0,0,0', 1, 1, 0.1, '2', 'can_stand_on_top,requires_rights_for_interaction', 'default', 1, 1, '');
+INSERT INTO `items_definitions` (`id`, `sprite`, `sprite_id`, `name`, `description`, `colour`, `length`, `width`, `top_height`, `max_status`, `behaviour`, `interactor`, `is_tradable`, `is_recyclable`, `drink_ids`) VALUES
 (778, 'teleport_door', 538, 'Teleport Door', 'Magic doorway to anywhere!', '0,0,0', 1, 1, 2, '0', 'solid,requires_touching_for_interaction,custom_data_true_false,teleporter,redirect_rotation_0', 'teleport', 1, 1, ''),
 (845, 'chair_norja*2', 756, 'Black Iced Chair', 'Sleek and chic for each cheek', '#FFFFFF,#FFFFFF,#525252,#525252', 1, 1, 1, '1', 'can_sit_on_top', 'chair', 1, 1, ''),
 (846, 'chair_norja*3', 767, 'White Iced Chair', 'Sleek and chic for each cheek', '#FFFFFF,#FFFFFF,#FFFFFF,#FFFFFF', 1, 1, 1, '1', 'can_sit_on_top', 'chair', 1, 1, ''),
 (847, 'chair_norja*4', 778, 'Urban Iced Chair', 'Sleek and chic for each cheek', '#FFFFFF,#FFFFFF,#ABD0D2,#ABD0D2', 1, 1, 1, '1', 'can_sit_on_top', 'chair', 1, 1, ''),
 (848, 'chair_norja*5', 789, 'Pink Chair', 'Sleek and chic for each cheek', '#FFFFFF,#FFFFFF,#EE7EA4,#EE7EA4', 1, 1, 1, '1', 'can_sit_on_top', 'chair', 1, 1, ''),
 (849, 'chair_norja*6', 800, 'Blue Chair', 'Sleek and chic for each cheek', '#FFFFFF,#FFFFFF,#5EAAF8,#5EAAF8', 1, 1, 1, '1', 'can_sit_on_top', 'chair', 1, 1, ''),
-(850, 'chair_norja*7', 811, 'Rural Chair', 'Sleek and chic for each cheek', '#FFFFFF,#FFFFFF,#7CB135,#7CB135', 1, 1, 1, '1', 'can_sit_on_top', 'chair', 1, 1, '');
-INSERT INTO `items_definitions` (`id`, `sprite`, `sprite_id`, `name`, `description`, `colour`, `length`, `width`, `top_height`, `max_status`, `behaviour`, `interactor`, `is_tradable`, `is_recyclable`, `drink_ids`) VALUES
+(850, 'chair_norja*7', 811, 'Rural Chair', 'Sleek and chic for each cheek', '#FFFFFF,#FFFFFF,#7CB135,#7CB135', 1, 1, 1, '1', 'can_sit_on_top', 'chair', 1, 1, ''),
 (851, 'chair_norja*8', 822, 'Yellow Chair', 'Sleek and chic for each cheek', '#FFFFFF,#FFFFFF,#FFD837,#FFD837', 1, 1, 1, '1', 'can_sit_on_top', 'chair', 1, 1, ''),
 (852, 'chair_norja*9', 833, 'Red Chair', 'Sleek and chic for each cheek', '#FFFFFF,#FFFFFF,#E14218,#E14218', 1, 1, 1, '1', 'can_sit_on_top', 'chair', 1, 1, ''),
 (853, 'couch_norja*2', 757, 'Black Iced Bench', 'Two can perch comfortably', '#FFFFFF,#FFFFFF,#FFFFFF,#FFFFFF,#525252,#525252,#525252,#525252', 2, 1, 1, '1', 'can_sit_on_top', 'chair', 1, 1, ''),
@@ -2122,12 +2130,12 @@ INSERT INTO `items_definitions` (`id`, `sprite`, `sprite_id`, `name`, `descripti
 (1145, 'grand_piano*4', 965, 'Amber Grand Piano', 'Why is that key green?', '#FFFFFF,#FFC924', 2, 2, 0, '2', 'solid,requires_rights_for_interaction', 'default', 1, 1, ''),
 (1146, 'grand_piano*5', 971, 'Onyx Grand Piano', 'Why is that key green?', '#FFFFFF,#323C46', 2, 2, 0, '2', 'solid,requires_rights_for_interaction', 'default', 1, 1, ''),
 (1363, 'grunge_barrel', 264, 'Flaming Barrel', 'Beacon of light!', '0,0,0', 1, 1, 0, '2', 'solid,requires_rights_for_interaction', 'default', 1, 1, ''),
-(1364, 'grunge_bench', 265, 'Bench', 'Laid back seating', '0,0,0', 2, 1, 1.2, '2', 'can_sit_on_top', 'chair', 1, 1, ''),
+(1364, 'grunge_bench', 265, 'Bench', 'Laid back seating', '0,0,0', 3, 1, 1.2, '2', 'can_sit_on_top', 'chair', 1, 1, ''),
 (1365, 'grunge_candle', 266, 'Candle Box', 'Late night debate', '0,0,0', 1, 1, 0, '2', 'solid,requires_rights_for_interaction', 'default', 1, 1, ''),
 (1366, 'grunge_chair', 267, 'Grunge Chair', 'Alternative chair for alternative people', '0,0,0', 1, 1, 0.99, '2', 'can_sit_on_top', 'chair', 1, 1, ''),
 (1367, 'grunge_mattress', 268, 'Grunge Mattress', 'Beats sleeping on the floor!', '0,0,0', 3, 1, 1, '2', 'can_sit_on_top', 'chair', 1, 1, ''),
 (1368, 'grunge_radiator', 269, 'Radiator', 'Started cool but now it\'s hot!', '0,0,0', 1, 1, 1, '2', 'solid,requires_rights_for_interaction', 'default', 1, 1, ''),
-(1369, 'grunge_shelf', 270, 'Grunge Bookshelf', 'Scrap books and photo albums', '0,0,0', 1, 3, 1, '2', 'solid,requires_rights_for_interaction', 'default', 1, 1, ''),
+(1369, 'grunge_shelf', 270, 'Grunge Bookshelf', 'Scrap books and photo albums', '0,0,0', 3, 1, 1, '2', 'solid,requires_rights_for_interaction', 'default', 1, 1, ''),
 (1370, 'grunge_sign', 271, 'Road Sign', 'Bought legitimately from an M1 cafe.', '0,0,0', 1, 1, 1, '2', 'solid,requires_rights_for_interaction', 'default', 1, 1, ''),
 (1371, 'grunge_table', 272, 'Grunge Table', 'Students of the round table!', '0,0,0', 2, 2, 0.8, '2', 'solid,requires_rights_for_interaction', 'default', 1, 1, ''),
 (1372, 'hc_crpt', 990, 'Persian Carpet', 'Ultimate craftsmanship', '0,0,0', 3, 5, 0, '2', 'can_stand_on_top,requires_rights_for_interaction', 'default', 1, 1, ''),
@@ -2137,7 +2145,8 @@ INSERT INTO `items_definitions` (`id`, `sprite`, `sprite_id`, `name`, `descripti
 (1406, 'sound_set_67', 1349, 'The trax of Tiki', 'Appease the greatest Habboa with party songs', '0,0,0', 1, 1, 0.2, '2', 'solid,can_stack_on_top,sound_machine_sample_set,requires_rights_for_interaction', 'default', 1, 1, ''),
 (1407, 'sound_set_68', 1351, 'Pitchside Pro', 'Football Sounds 1', '0,0,0', 1, 1, 0.2, '2', 'solid,can_stack_on_top,sound_machine_sample_set,requires_rights_for_interaction', 'default', 1, 1, ''),
 (1408, 'sound_set_69', 1352, 'Referee Rhythm', 'Football Sounds 2', '0,0,0', 1, 1, 0.2, '2', 'solid,can_stack_on_top,sound_machine_sample_set,requires_rights_for_interaction', 'default', 1, 1, ''),
-(1409, 'sound_set_70', 1353, 'Squad Synth', 'Football Sounds 3', '0,0,0', 1, 1, 0.2, '2', 'solid,can_stack_on_top,sound_machine_sample_set,requires_rights_for_interaction', 'default', 1, 1, '');
+(1409, 'sound_set_70', 1353, 'Squad Synth', 'Football Sounds 3', '0,0,0', 1, 1, 0.2, '2', 'solid,can_stack_on_top,sound_machine_sample_set,requires_rights_for_interaction', 'default', 1, 1, ''),
+(1412, 'song_disk', 1355, 'Traxdisc', 'Burn, baby burn', '0,0,0', 1, 1, 0.1, '0', 'solid,song_disk', 'default', 1, 1, '');
 
 -- --------------------------------------------------------
 
@@ -6130,6 +6139,20 @@ CREATE TABLE `settings` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `soundmachine_disks`
+--
+
+CREATE TABLE `soundmachine_disks` (
+  `item_id` bigint(11) NOT NULL,
+  `soundmachine_id` int(11) NOT NULL DEFAULT 0,
+  `slot_id` int(11) NOT NULL,
+  `song_id` int(11) NOT NULL,
+  `burned_at` bigint(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `soundmachine_playlists`
 --
 
@@ -6440,7 +6463,7 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `items_definitions`
 --
 ALTER TABLE `items_definitions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1412;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1413;
 
 --
 -- AUTO_INCREMENT for table `messenger_messages`
