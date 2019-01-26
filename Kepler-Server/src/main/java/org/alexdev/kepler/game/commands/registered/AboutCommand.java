@@ -21,12 +21,14 @@ public class AboutCommand extends Command {
         }
 
         Player player = (Player)entity;
-        
-        player.send(new ALERT("Project Kepler - Habbo Hotel v21 emulation" +
+
+        player.send(new ALERT("Project Kepler - Habbo Hotel v14+ emulation" +
+                "<br>" +
+                "<br>Max version supported: r21_20080417_0343_5110_5527e6590eba8f3fb66348bdf271b5a2" +
                 "<br>" +
                 "<br>Contributors:" +
-                "<br> - ThuGie, Alito, Ascii, Lightbulb, Raptosaur, Hoshiko " + // Call for help
-                "<br>   Glaceon, Nillus, Holo Team, Meth0d, office.boy" + // Parts of Blunk
+                "<br> - ThuGie, Alito, Ascii, Sefhriloff, Copyright, Raptosaur, Hoshiko " + // Call for help
+                "<br>   Romuald, Glaceon, Nillus, Holo Team, Meth0d, office.boy" +
                 "<br>" +
                 "<br>" +
                 "Made by Quackster from RaGEZONE"));
