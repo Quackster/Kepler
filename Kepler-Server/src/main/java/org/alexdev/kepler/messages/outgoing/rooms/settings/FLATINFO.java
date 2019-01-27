@@ -32,6 +32,7 @@ public class FLATINFO extends MessageComposer {
         response.writeString(this.room.getData().getDescription());
         response.writeBool(this.room.getData().showOwnerName());
         response.writeBool(this.room.getCategory().hasAllowTrading()); // Allow trading
+        response.writeBool(this.room.getCategory() == null);
         response.writeInt(this.room.getData().getVisitorsNow());
         response.writeInt(this.room.getData().getVisitorsMax());
     }
