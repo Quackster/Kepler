@@ -2,13 +2,12 @@ package org.alexdev.kepler.game.room.managers;
 
 import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.games.Game;
-import org.alexdev.kepler.game.games.GameManager;
 import org.alexdev.kepler.game.games.battleball.BattleBallGame;
+import org.alexdev.kepler.game.games.battleball.BattleBallTask;
 import org.alexdev.kepler.game.games.snowstorm.SnowStormGame;
 import org.alexdev.kepler.game.games.snowstorm.SnowstormUpdateTask;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.tasks.EntityTask;
-import org.alexdev.kepler.game.games.battleball.BattleBallTask;
 import org.alexdev.kepler.game.room.tasks.RollerTask;
 import org.alexdev.kepler.game.room.tasks.StatusTask;
 import org.alexdev.kepler.util.config.GameConfiguration;
@@ -51,7 +50,11 @@ public class RoomTaskManager {
     }
 
     private void loadGameTasks() {
-        Game game = GameManager.getInstance().getGameById(this.room.getId());
+        Game game = this.room.getData().getGame();
+
+        if (game == null) {
+            return;
+        }
 
         if (game instanceof BattleBallGame) {
             BattleBallGame battleballGame = (BattleBallGame) game;

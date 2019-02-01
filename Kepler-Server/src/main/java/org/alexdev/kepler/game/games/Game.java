@@ -107,8 +107,9 @@ public abstract class Game {
 
         if (this.room == null) {
             this.room = new Room();
-            this.room.getData().fill(this.id, "Battleball Arena", "");
+            this.room.getData().fill(0, "Battleball Arena", "");
             this.room.setRoomModel(this.getRoomModel());
+            this.room.getData().setGame(this);
 
             this.room.getData().setGameArena(true);
             this.room.getData().setGameLobby(this.gameType.getLobbyModel());

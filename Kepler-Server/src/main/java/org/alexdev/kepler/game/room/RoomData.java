@@ -1,13 +1,10 @@
 package org.alexdev.kepler.game.room;
 
-import org.alexdev.kepler.dao.mysql.PlayerDao;
+import org.alexdev.kepler.game.games.Game;
 import org.alexdev.kepler.game.room.public_rooms.walkways.WalkwaysManager;
 import org.alexdev.kepler.util.StringUtil;
 import org.alexdev.kepler.util.config.GameConfiguration;
-import org.alexdev.kepler.util.config.ServerConfiguration;
-import org.apache.commons.lang3.StringUtils;
 
-import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +32,7 @@ public class RoomData {
     private boolean navigatorHide;
     private List<Room> childRooms;
     private int rating;
+    private Game game;
 
     RoomData(Room room) {
         this.room = room;
@@ -346,5 +344,23 @@ public class RoomData {
 
     public List<Room> getChildRooms() {
         return childRooms;
+    }
+
+    /**
+     * Get the game instance for this room.
+     *
+     * @return the game
+     */
+    public Game getGame() {
+        return game;
+    }
+
+    /**
+     * Sets the game instance for this room.
+     *
+     * @param game the game
+     */
+    public void setGame(Game game) {
+        this.game = game;
     }
 }
