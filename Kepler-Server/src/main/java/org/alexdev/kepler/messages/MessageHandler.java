@@ -96,6 +96,7 @@ public class MessageHandler {
      */
     private void registerHandshakePackets() {
         registerEvent(206, new INIT_CRYPTO());
+        registerEvent(2002, new GENERATEKEY());
         registerEvent(202, new GENERATEKEY());
         registerEvent(204, new SSO());
         registerEvent(4, new TRY_LOGIN());
