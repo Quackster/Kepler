@@ -21,6 +21,7 @@ import org.alexdev.kepler.messages.outgoing.rooms.ROOM_READY;
 import org.alexdev.kepler.messages.outgoing.rooms.UPDATE_VOTES;
 import org.alexdev.kepler.messages.outgoing.rooms.user.LOGOUT;
 import org.alexdev.kepler.messages.outgoing.rooms.user.HOTEL_VIEW;
+import org.alexdev.kepler.messages.outgoing.rooms.user.USER_OBJECTS;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -123,11 +124,9 @@ public class RoomEntityManager {
                 entity.getRoomUser().setInstanceId(gamePlayer.getObjectId()); // Instance ID will always be player id
                 entity.getRoomUser().setWalkingAllowed(false); // Block walking initially when joining game
             }
-        }
-
-        if (entity.getType() == EntityType.PLAYER) {
-            if (!this.room.isActive()) {
-                this.tryInitialiseRoom();
+        } else {
+            if (this.getPlayers().size() > 0) {
+                this.room.send(new USER_OBJECTS(entity));
             }
         }
 
@@ -149,6 +148,8 @@ public class RoomEntityManager {
 
         Player player = (Player) entity;
         player.getRoomUser().setAuthenticateId(-1);
+
+        this.tryInitialiseRoom(player);
 
         if (player.getRoomUser().getAuthenticateTelporterId() != -1) {
             Item teleporter = ItemDao.getItem(player.getRoomUser().getAuthenticateTelporterId());
@@ -207,7 +208,9 @@ public class RoomEntityManager {
     /**
      * Setup the room initially for room entry.
      */
-    public boolean tryInitialiseRoom() {
+    public boolean tryInitialiseRoom(Player player) {
+        boolean isRoomActive = this.room.isActive();
+
         if (this.room.isActive()) {
             return false;
         }
@@ -226,6 +229,9 @@ public class RoomEntityManager {
         this.room.getMapping().regenerateCollisionMap();
         this.room.getTaskManager().startTasks();
 
+        if (this.room.getModel().getModelTrigger() != null) {
+            this.room.getModel().getModelTrigger().onRoomEntry(player, this.room, !isRoomActive);
+        }
 
         return true;
     }

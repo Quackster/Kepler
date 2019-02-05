@@ -25,9 +25,5 @@ public class G_OBJS implements MessageEvent {
         player.flush();
 
         player.getMessenger().sendStatusUpdate();
-
-        if (room.getModel().getModelTrigger() != null) {
-            room.getModel().getModelTrigger().onRoomEntry(player, room);
-        }
     }
 }
