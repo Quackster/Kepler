@@ -20,7 +20,7 @@ import java.util.Map;
 
 public class BattleballLobbyTrigger extends GameLobbyTrigger {
     @Override
-    public void onRoomEntry(Entity entity, Room room, Object... customArgs) {
+    public void onRoomEntry(Entity entity, Room room, boolean firstEntry, Object... customArgs) {
         if (entity.getType() != EntityType.PLAYER) {
             return;
         }
