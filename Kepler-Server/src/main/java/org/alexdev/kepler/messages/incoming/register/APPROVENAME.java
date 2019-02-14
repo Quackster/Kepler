@@ -43,10 +43,12 @@ public class APPROVENAME implements MessageEvent {
 
         for (int i = 0; i < str.length(); i++) {
             if (allowedChars.contains(Character.valueOf(str.toCharArray()[i]).toString())) {
-                return true;
+                continue;
             }
+
+            return false;
         }
 
-        return false;
+        return true;
     }
 }
