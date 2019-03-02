@@ -236,6 +236,18 @@ public class RoomMapping {
             this.room.send(new REMOVE_FLOORITEM(item));
         }
 
+        if (item.hasBehaviour(ItemBehaviour.ROOMDIMMER)) {
+            if (item.getCustomData().isEmpty()) {
+                item.setCustomData(Item.DEFAULT_ROOMDIMMER_CUSTOM_DATA);
+            }
+
+            if (item.getCustomData().charAt(0) == '2') { // Roomdimmer is enabled, turn it off.
+                item.setCustomData("1" + item.getCustomData().substring(1));
+            }
+
+            this.room.getItemManager().setMoodlight(null);
+        }
+
         resetExtraData(item);
         item.updateEntities(null);
 
@@ -250,18 +262,6 @@ public class RoomMapping {
     }
 
     private void resetExtraData(Item item) {
-        if (item.hasBehaviour(ItemBehaviour.ROOMDIMMER)) {
-            if (item.getCustomData().isEmpty()) {
-                item.setCustomData(Item.DEFAULT_ROOMDIMMER_CUSTOM_DATA);
-            }
-
-            if (item.getCustomData().charAt(0) == '2') { // Roomdimmer is enabled, turn it off.
-                item.setCustomData("1" + item.getCustomData().substring(1));
-            }
-
-            this.room.getItemManager().setMoodlight(null);
-        }
-
         if (item.hasBehaviour(ItemBehaviour.DICE) || item.hasBehaviour(ItemBehaviour.WHEEL_OF_FORTUNE)) {
             item.setRequiresUpdate(false);
             item.setCustomData("");
