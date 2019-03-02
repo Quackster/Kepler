@@ -7,6 +7,7 @@ import org.alexdev.kepler.game.item.interactors.InteractionType;
 import org.alexdev.kepler.game.pathfinder.Pathfinder;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.room.Room;
+import org.alexdev.kepler.game.room.enums.StatusType;
 import org.alexdev.kepler.game.room.public_rooms.walkways.WalkwaysEntrance;
 import org.alexdev.kepler.game.room.public_rooms.walkways.WalkwaysManager;
 
@@ -73,9 +74,31 @@ public class RoomTile {
             return false;
         }
 
+        if (tile.getHighestItem() != null && entity != null) {
+            Item item = tile.getHighestItem();
+
+            if (item.getRollingData() != null) {
+                if (item.getRollingData().getNextPosition().equals(position) && !item.isWalkable(position)) {
+                    return false;
+                }
+            }
+
+            if (item.getDefinition().getSprite().equals("poolExit") && item.getPosition().equals(new Position(19, 19))) {
+                return entity.getRoomUser().containsStatus(StatusType.SWIM);
+            }
+        }
+
         if (tile.getEntities().size() > 0) { // Allow walk if you exist already in the tile
             if (tile.getHighestItem() != null && tile.getHighestItem().hasBehaviour(ItemBehaviour.TELEPORTER)) {
                 return true;
+            }
+
+            for (Entity e : tile.getEntities()) {
+                if (e.getRoomUser().getRollingData() != null) {
+                    if (e.getRoomUser().getRollingData().getNextPosition().equals(position)) {
+                        return false;
+                    }
+                }
             }
 
             return entity == null || tile.containsEntity(entity);

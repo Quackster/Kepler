@@ -32,10 +32,6 @@ public class ItemRollingAnalysis implements RollingAnalysis<Item> {
             return null;
         }
 
-        if (!frontTile.hasWalkableFurni()) {
-            return null;
-        }
-
         // Check all entities in the room
         for (Entity e : room.getEntities()) {
             if (e.getRoomUser().getRoom() == null) {
@@ -123,19 +119,20 @@ public class ItemRollingAnalysis implements RollingAnalysis<Item> {
 
                             }
                         }
-                    } else {
-                        return null;/* else {
-                        if (frontItem.hasBehaviour(ItemBehaviour.CAN_STACK_ON_TOP)) {
-                            if (item.hasBehaviour(ItemBehaviour.CAN_STACK_ON_TOP)) {
-                                return null;
-                            }
+                    }
+                }
 
-                            frontItem.setStopRoll(true);
-                            nextHeight += frontItem.getDefinition().getTopHeight();
-                        } else {
-                            return null;
+                Item highestNextItem = frontTile.getHighestItem();
+
+                if (!highestNextItem.hasBehaviour(ItemBehaviour.ROLLER)) {
+                    if (highestNextItem.hasBehaviour(ItemBehaviour.CAN_STACK_ON_TOP) && item.getTile().getEntities().isEmpty()) {
+                        for (Item frontItem : frontRoller.getTile().getItems()) {
+                            frontItem.setCurrentRollBlocked(true);
                         }
-                    }*/
+
+                        nextHeight = (highestNextItem.getPosition().getZ() + highestNextItem.getDefinition().getTopHeight()) + item.getPosition().getZ() - frontRoller.getDefinition().getTopHeight();
+                    } else {
+                        return null;
                     }
                 }
             } else {

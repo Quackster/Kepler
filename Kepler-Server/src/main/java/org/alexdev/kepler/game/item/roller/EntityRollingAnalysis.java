@@ -144,10 +144,21 @@ public class EntityRollingAnalysis implements RollingAnalysis<Entity> {
             nextHeight -= roller.getDefinition().getTopHeight();
         }
 
+
+        if (entity.getRoomUser().getCurrentItem() != null && !entity.getRoomUser().getCurrentItem().hasBehaviour(ItemBehaviour.ROLLER)) {
+            Item currentItem = entity.getRoomUser().getCurrentItem();
+
+            // If we can roll but our item can't, don't roll!
+            if (new ItemRollingAnalysis().canRoll(currentItem, roller, room) == null) {
+                return null;
+            }
+        }
+
         Position nextPosition = new Position(front.getX(), front.getY(), nextHeight);
         entity.getRoomUser().setRollingData(new RollingData(entity, roller, entity.getRoomUser().getPosition().copy(), nextPosition));
         return nextPosition;
     }
+
     @Override
     public void doRoll(Entity entity, Item roller, Room room, Position fromPosition, Position nextPosition) {
         RoomTile previousTile = room.getMapping().getTile(fromPosition);

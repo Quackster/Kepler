@@ -48,6 +48,7 @@ public class Item {
     private String currentProgramValue;
 
     private boolean requiresUpdate;
+    private boolean isCurrentRollBlocked;
     private RollingData rollingData;
     private boolean isHidden;
 
@@ -585,6 +586,14 @@ public class Item {
 
     public void setHidden(boolean hidden) {
         isHidden = hidden;
+    }
+
+    public boolean isCurrentRollBlocked() {
+        return isCurrentRollBlocked;
+    }
+
+    public void setCurrentRollBlocked(boolean currentRollBlocked) {
+        isCurrentRollBlocked = currentRollBlocked;
     }
 }
 
