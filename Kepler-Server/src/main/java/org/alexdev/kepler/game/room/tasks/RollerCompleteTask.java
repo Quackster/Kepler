@@ -30,11 +30,12 @@ public class RollerCompleteTask implements Runnable {
                 continue;
             }
 
-            if (item.getRollingData().getHeightUpdate() > 0) {
+            /*if (item.getRollingData().getHeightUpdate() > 0) {
                 item.getPosition().setZ(item.getPosition().getZ() + item.getRollingData().getHeightUpdate());
                 this.room.send(new MOVE_FLOORITEM(item));
-            }
+            }*/
 
+            item.setCurrentRollBlocked(false);
             item.setRollingData(null);
         }
 

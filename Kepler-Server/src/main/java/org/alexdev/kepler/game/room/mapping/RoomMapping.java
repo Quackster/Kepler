@@ -204,6 +204,7 @@ public class RoomMapping {
     public void moveItem(Item item, boolean isRotation, Position oldPosition) {
         item.setRoomId(this.room.getId());
         item.setRollingData(null);
+        resetExtraData(item);
 
         if (!item.hasBehaviour(ItemBehaviour.WALL_ITEM)) {
             this.handleItemAdjustment(item, isRotation);
@@ -235,6 +236,20 @@ public class RoomMapping {
             this.room.send(new REMOVE_FLOORITEM(item));
         }
 
+        resetExtraData(item);
+        item.updateEntities(null);
+
+        item.getPosition().setX(0);
+        item.getPosition().setY(0);
+        item.getPosition().setZ(0);
+        item.getPosition().setRotation(0);
+        item.setRoomId(0);
+        item.setRollingData(null);
+
+        item.save();
+    }
+
+    private void resetExtraData(Item item) {
         if (item.hasBehaviour(ItemBehaviour.ROOMDIMMER)) {
             if (item.getCustomData().isEmpty()) {
                 item.setCustomData(Item.DEFAULT_ROOMDIMMER_CUSTOM_DATA);
@@ -256,16 +271,9 @@ public class RoomMapping {
             item.setCustomData("FALSE");
         }
 
-        item.updateEntities(null);
-
-        item.getPosition().setX(0);
-        item.getPosition().setY(0);
-        item.getPosition().setZ(0);
-        item.getPosition().setRotation(0);
-        item.setRoomId(0);
-        item.setRollingData(null);
-
-        item.save();
+        if (item.isCurrentRollBlocked()) {
+            item.setCurrentRollBlocked(false);
+        }
     }
 
     /**
@@ -295,15 +303,7 @@ public class RoomMapping {
                     }
                 }
 
-                if (!highestItem.hasBehaviour(ItemBehaviour.CAN_STACK_ON_TOP)) {
-                    item.getPosition().setZ(roller.getPosition().getZ() + roller.getDefinition().getTopHeight());
-
-                    for (Item tileItem : tile.getItems()) {
-                        if (tileItem.getPosition().getZ() >= item.getPosition().getZ()) {
-                            tileItem.getRollingData().setHeightUpdate(item.getDefinition().getTopHeight());
-                        }
-                    }
-                }
+                item.getPosition().setZ(roller.getPosition().getZ() + roller.getDefinition().getTopHeight());
             }
         }
 
