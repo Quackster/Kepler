@@ -8,6 +8,7 @@ import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.entities.RoomEntity;
+import org.alexdev.kepler.game.room.enums.StatusType;
 import org.alexdev.kepler.game.room.mapping.RoomTile;
 import org.alexdev.kepler.game.triggers.GenericTrigger;
 import org.alexdev.kepler.messages.outgoing.user.ALERT;
@@ -59,6 +60,7 @@ public class WobbleSquabbleTileStart extends GenericTrigger {
                 Position position = new Position(newX, newY);
                 position.setRotation(player.getRoomUser().getPosition().getRotation());
 
+                player.getRoomUser().setStatus(StatusType.SWIM, "");
                 player.getRoomUser().warp(position, true);
 
                 return; // Too poor!
