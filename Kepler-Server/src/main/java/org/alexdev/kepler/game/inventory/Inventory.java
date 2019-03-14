@@ -31,15 +31,12 @@ public class Inventory {
      * Refreshes the pagination by making the most recently bought items appear first.
      */
     private void refreshPagination() {
-        //this.items.sort(Comparator.comparingInt(Item::getOrderId));
-        List<Item> itemsToUpdate = new ArrayList<>();
-
         int orderId = 0;
 
         for (Item item : this.items) {
             if (orderId != item.getOrderId()) {
                 item.setOrderId(orderId);
-                itemsToUpdate.add(item);
+                item.save();
             }
 
             orderId++;
@@ -60,13 +57,12 @@ public class Inventory {
                     continue;
                 }
             }
+
             tempList.add(item);
         }
 
         this.items.sort(Comparator.comparingInt(Item::getOrderId));
         this.paginatedItems = StringUtil.paginate(tempList, MAX_ITEMS_PER_PAGE);
-
-        ItemDao.updateItems(itemsToUpdate);
     }
 
     /**
