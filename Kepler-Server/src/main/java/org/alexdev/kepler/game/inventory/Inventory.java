@@ -49,10 +49,17 @@ public class Inventory {
         List<Item> tempList = new ArrayList<>();
 
         for (Item item : this.items) {
+            // Don't show items if they are hidden
             if (item.isHidden()) {
                 continue;
             }
 
+            // Don't show items if they are currently in trade window
+            if (this.player.getRoomUser().getTradePartner() != null) {
+                if (this.player.getRoomUser().getTradeItems().contains(item)) {
+                    continue;
+                }
+            }
             tempList.add(item);
         }
 
