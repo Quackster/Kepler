@@ -77,8 +77,7 @@ public class Kepler {
             if (!Storage.connect()) {
                 return;
             }
-
-            log.info(REGISTER.createPassword("lol").trim());
+            
             log.info("Setting up game");
 
             GameConfiguration.getInstance();
