@@ -130,6 +130,11 @@ public class EntityTask implements Runnable {
                             if (roomEntity.containsStatus(StatusType.DANCE)) {
                                 roomEntity.removeStatus(StatusType.DANCE);
                             }
+
+                            if (previousTile.getHighestItem() != null &&
+                                    (previousTile.getHighestItem().getDefinition().getSprite().equals("poolExit") || previousTile.getHighestItem().getDefinition().getSprite().equals("poolExit"))) {
+                                previousTile.getHighestItem().showProgram(null);
+                            }
                         }
                     }
 
@@ -139,6 +144,11 @@ public class EntityTask implements Runnable {
 
                             if (roomEntity.containsStatus(StatusType.DANCE)) {
                                 roomEntity.removeStatus(StatusType.DANCE);
+                            }
+
+                            if (nextTile.getHighestItem() != null &&
+                                    (nextTile.getHighestItem().getDefinition().getSprite().equals("poolExit") || nextTile.getHighestItem().getDefinition().getSprite().equals("poolExit"))) {
+                                nextTile.getHighestItem().showProgram(null);
                             }
                         }
                     }
