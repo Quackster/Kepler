@@ -77,7 +77,7 @@ public class Kepler {
             if (!Storage.connect()) {
                 return;
             }
-            
+
             log.info("Setting up game");
 
             GameConfiguration.getInstance();

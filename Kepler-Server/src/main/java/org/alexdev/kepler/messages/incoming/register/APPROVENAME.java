@@ -29,7 +29,7 @@ public class APPROVENAME implements MessageEvent {
             nameCheckCode = 1;
         } else if (name.length() < 1) {
             nameCheckCode = 2;
-        } else if (name.contains(" ") || !hasAllowedCharacters(name, "1234567890qwertyuiopasdfghjklzxcvbnm-+=?!@:.,$") || name.contains("MOD-")) {
+        } else if (name.contains(" ") || !hasAllowedCharacters(name.toLowerCase(), "1234567890qwertyuiopasdfghjklzxcvbnm-+=?!@:.,$") || name.toUpperCase().contains("MOD-")) {
             nameCheckCode = 3;
         }
 
