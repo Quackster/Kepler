@@ -86,7 +86,7 @@ public class REGISTER implements MessageEvent {
             throw new Exception("Password creation was a failure!");
         }
 
-        return new String(outputHash);
+        return new String(outputHash).replace((char)0 + "", "");
     }
 
 
