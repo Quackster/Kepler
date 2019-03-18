@@ -13,16 +13,16 @@ public class PoolEnterInteractor extends GenericTrigger {
 
     @Override
     public void onEntityStep(Entity entity, RoomEntity roomEntity, Item item, Position oldPosition, Object... customArgs) {
+
+    }
+
+    @Override
+    public void onEntityStop(Entity entity, RoomEntity roomEntity, Item item, Object... customArgs) {
         if (entity.getType() != EntityType.PLAYER) {
             return;
         }
 
         if (entity.getRoomUser().containsStatus(StatusType.SWIM)) {
-            return;
-        }
-
-        // Don't handle step event from RoomUser when changing paths
-        if (customArgs.length > 0) {
             return;
         }
 
@@ -51,13 +51,9 @@ public class PoolEnterInteractor extends GenericTrigger {
         }
 
         if (warp != null) {
-            PoolHandler.warpSwim(item, entity, warp, goal, false);
+            entity.getRoomUser().walkTo(goal.getX(), goal.getY());
+            //PoolHandler.warpSwim(item, entity, warp, goal, false);
         }
-    }
-
-    @Override
-    public void onEntityStop(Entity entity, RoomEntity roomEntity, Item item, Object... customArgs) {
-
     }
 
     @Override

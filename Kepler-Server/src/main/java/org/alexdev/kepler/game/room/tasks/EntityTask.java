@@ -111,6 +111,40 @@ public class EntityTask implements Runnable {
                 int rotation = Rotation.calculateWalkDirection(position.getX(), position.getY(), next.getX(), next.getY());
                 double height = this.room.getMapping().getTile(next).getWalkingHeight();
 
+                double newPosition =  this.room.getMapping().getTile(next).getWalkingHeight();
+                double oldPosition = position.getZ();
+
+                if (entity.getRoomUser().getRoom().getModel().getName().startsWith("pool_") ||
+                        entity.getRoomUser().getRoom().getModel().getName().equals("md_a")) {
+
+                    int minDifference = 3;
+
+                    if (entity.getRoomUser().getRoom().getModel().getName().equals("md_a")) {
+                        minDifference = 2;
+                    }
+
+                    if ((newPosition > oldPosition) && Math.abs(newPosition - oldPosition) >= minDifference) {//(next.getZ() - roomEntity.getPosition().getZ()) > 3) {
+                        if (roomEntity.containsStatus(StatusType.SWIM)) {
+                            roomEntity.removeStatus(StatusType.SWIM);
+
+                            if (roomEntity.containsStatus(StatusType.DANCE)) {
+                                roomEntity.removeStatus(StatusType.DANCE);
+                            }
+                        }
+                    }
+
+                    if ((newPosition < oldPosition) && Math.abs(oldPosition - newPosition) >= minDifference) {
+                        if (!roomEntity.containsStatus(StatusType.SWIM)) {
+                            roomEntity.setStatus(StatusType.SWIM, "");
+
+                            if (roomEntity.containsStatus(StatusType.DANCE)) {
+                                roomEntity.removeStatus(StatusType.DANCE);
+                            }
+                        }
+                    }
+                }
+
+
                 roomEntity.getPosition().setRotation(rotation);
                 roomEntity.setStatus(StatusType.MOVE, next.getX() + "," + next.getY() + "," + StringUtil.format(height));
                 roomEntity.setNextPosition(next);
