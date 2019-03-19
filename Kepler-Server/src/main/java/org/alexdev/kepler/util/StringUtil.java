@@ -3,6 +3,8 @@ package org.alexdev.kepler.util;
 import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.util.config.GameConfiguration;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.text.Normalizer;
 import java.util.*;
 
@@ -88,5 +90,14 @@ public class StringUtil {
      */
     public static List<String> split(String str, String delim) {
         return new ArrayList<>(Arrays.asList(str.split(delim)));
+    }
+
+    /**
+     * Get encoding for strings
+     *
+     * @return the encoding
+     */
+    public static Charset getCharset() {
+        return StandardCharsets.ISO_8859_1;
     }
 }

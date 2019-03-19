@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import io.netty.buffer.ByteBuf;
+import org.alexdev.kepler.util.StringUtil;
 import org.alexdev.kepler.util.encoding.Base64Encoding;
 import org.alexdev.kepler.util.encoding.VL64Encoding;
 
@@ -15,7 +16,7 @@ public class NettyRequest {
 
     public NettyRequest(ByteBuf buffer) {
         this.buffer = buffer;
-        this.header = new String(new byte[] { buffer.readByte(), buffer.readByte() });
+        this.header = new String(new byte[] { buffer.readByte(), buffer.readByte() }, StringUtil.getCharset());
         this.headerId = Base64Encoding.decode(header.getBytes());
     }
 
@@ -44,7 +45,7 @@ public class NettyRequest {
         int length = this.readBase64();
         byte[] data = this.readBytes(length);
 
-        return new String(data);
+        return new String(data, StringUtil.getCharset());
     }
 
     public byte[] readBytes(int len) {
@@ -68,14 +69,14 @@ public class NettyRequest {
         byte[] remiainingBytes = this.remainingBytes();
 
         if (remiainingBytes != null) {
-            return new String(remiainingBytes);
+            return new String(remiainingBytes, StringUtil.getCharset());
         }
 
         return null;
     }
 
      public String getMessageBody() {
-        String consoleText = this.buffer.toString(Charset.defaultCharset());
+        String consoleText = this.buffer.toString(StringUtil.getCharset());
 
         for (int i = 0; i < 14; i++) {
             consoleText = consoleText.replace(Character.toString((char)i), "{" + i + "}");

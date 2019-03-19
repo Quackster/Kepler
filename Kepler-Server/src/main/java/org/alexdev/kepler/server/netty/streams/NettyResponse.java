@@ -1,6 +1,7 @@
 package org.alexdev.kepler.server.netty.streams;
 
 import io.netty.buffer.ByteBuf;
+import org.alexdev.kepler.util.StringUtil;
 import org.alexdev.kepler.util.encoding.Base64Encoding;
 import org.alexdev.kepler.util.encoding.VL64Encoding;
 
@@ -23,7 +24,7 @@ public class NettyResponse  {
      * @param obj the object to write
      */
     public void write(Object obj) {
-        this.buffer.writeBytes(obj.toString().getBytes());
+        this.buffer.writeBytes(obj.toString().getBytes(StringUtil.getCharset()));
     }
 
     /**
@@ -32,7 +33,7 @@ public class NettyResponse  {
      * @param obj the string to write
      */
     public void writeString(Object obj) {
-        this.buffer.writeBytes(obj.toString().getBytes());
+        this.buffer.writeBytes(obj.toString().getBytes(StringUtil.getCharset()));
         this.buffer.writeByte(2);
     }
 
@@ -52,9 +53,9 @@ public class NettyResponse  {
      * @param value the value
      */
     public void writeKeyValue(Object key, Object value) {
-        this.buffer.writeBytes(key.toString().getBytes());
+        this.buffer.writeBytes(key.toString().getBytes(StringUtil.getCharset()));
         this.buffer.writeBytes(":".getBytes());
-        this.buffer.writeBytes(value.toString().getBytes());
+        this.buffer.writeBytes(value.toString().getBytes(StringUtil.getCharset()));
         this.buffer.writeByte(13);
     }
 
@@ -65,8 +66,8 @@ public class NettyResponse  {
      * @param value the delimeter to write
      */
     public void writeDelimeter(Object key, Object value) {
-        this.buffer.writeBytes(key.toString().getBytes());
-        this.buffer.writeBytes(value.toString().getBytes());
+        this.buffer.writeBytes(key.toString().getBytes(StringUtil.getCharset()));
+        this.buffer.writeBytes(value.toString().getBytes(StringUtil.getCharset()));
     }
 
     /**
@@ -84,7 +85,7 @@ public class NettyResponse  {
      * @return the readable packet
      */
     public String getBodyString() {
-        String str = this.buffer.toString(Charset.defaultCharset());
+        String str = this.buffer.toString(StringUtil.getCharset());
         
         for (int i = 0; i < 14; i++) { 
             str = str.replace(Character.toString((char)i), "{" + i + "}");
