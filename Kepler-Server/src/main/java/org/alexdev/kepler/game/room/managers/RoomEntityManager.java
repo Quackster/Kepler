@@ -208,32 +208,40 @@ public class RoomEntityManager {
     /**
      * Setup the room initially for room entry.
      */
-    public boolean tryInitialiseRoom(Player player) {
+    private boolean tryInitialiseRoom(Player player) {
+        if (!this.room.isActive()) {
+            this.room.getItems().clear();
+            this.room.getRights().clear();
+            this.room.getVotes().clear();
+
+            if (this.room.isPublicRoom()) {
+                this.room.getItems().addAll(PublicItemParser.getPublicItems(this.room.getId(), this.room.getModel().getId()));
+            } else {
+                this.room.getRights().addAll(RoomRightsDao.getRoomRights(this.room.getData()));
+                this.room.getVotes().putAll(RoomVoteDao.getRatings(this.room.getId()));
+            }
+
+            this.room.getItems().addAll(ItemDao.getRoomItems(this.room.getData()));
+            this.room.getMapping().regenerateCollisionMap();
+            this.room.getTaskManager().startTasks();
+        };
+
+        return true;
+    }
+
+    /**
+     * Setup the room initially for room entry.
+     */
+    public void tryRoomEntry(Player player) {
         boolean isRoomActive = this.room.isActive();
 
-        if (this.room.isActive()) {
-            return false;
-        }
-
-        this.room.setActive(true);
-
-        if (this.room.isPublicRoom()) {
-            this.room.getItems().addAll(PublicItemParser.getPublicItems(this.room.getId(), this.room.getModel().getId()));
-        } else {
-            this.room.getRights().addAll(RoomRightsDao.getRoomRights(this.room.getData()));
-            this.room.getVotes().putAll(RoomVoteDao.getRatings(this.room.getId()));
-        }
-
-        this.room.getItems().addAll(ItemDao.getRoomItems(this.room.getData()));
-
-        this.room.getMapping().regenerateCollisionMap();
-        this.room.getTaskManager().startTasks();
+        if (!this.room.isActive()) {
+            this.room.setActive(true);
+        };
 
         if (this.room.getModel().getModelTrigger() != null) {
             this.room.getModel().getModelTrigger().onRoomEntry(player, this.room, !isRoomActive);
         }
-
-        return true;
     }
 
     /**
