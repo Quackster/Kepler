@@ -58,7 +58,7 @@ public class EntityTask implements Runnable {
      *
      * @param entity the entity
      */
-    private void processEntity(Entity entity) {
+    public void processEntity(Entity entity) {
         RoomEntity roomEntity = entity.getRoomUser();
 
         Position position = roomEntity.getPosition();
