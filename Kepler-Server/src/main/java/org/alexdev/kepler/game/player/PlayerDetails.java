@@ -1,5 +1,6 @@
 package org.alexdev.kepler.game.player;
 
+import org.alexdev.kepler.dao.mysql.BadgeDao;
 import org.alexdev.kepler.dao.mysql.BanDao;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.game.ban.BanType;
@@ -128,7 +129,7 @@ public class PlayerDetails {
     }
 
     public void loadBadges() {
-        this.badges = PlayerDao.getBadges(this.id);
+        this.badges = BadgeDao.getBadges(this.id);
     }
 
     public boolean hasClubSubscription() {

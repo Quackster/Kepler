@@ -4,6 +4,7 @@ import com.goterl.lazycode.lazysodium.interfaces.PwHash;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.messages.types.MessageEvent;
+import org.alexdev.kepler.server.netty.NettyPlayerNetwork;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 
 public class REGISTER implements MessageEvent {
@@ -66,7 +67,7 @@ public class REGISTER implements MessageEvent {
             return;
         }
 
-        PlayerDao.register(username, createPassword(password), figure, gender);
+        PlayerDao.register(username, createPassword(password), figure, gender, NettyPlayerNetwork.getIpAddress(player.getNetwork().getChannel()));
         //System.out.println(name + " / " + figure + " / " + gender + " / " + email + " / " + birthday + " / " + password);
     }
 

@@ -1,5 +1,6 @@
 package org.alexdev.kepler.messages.incoming.rooms.badges;
 
+import org.alexdev.kepler.dao.mysql.BadgeDao;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.messages.outgoing.rooms.badges.USER_BADGE;
@@ -26,6 +27,6 @@ public class SETBADGE implements MessageEvent {
             player.getRoomUser().getRoom().send(new USER_BADGE(player.getRoomUser().getInstanceId(), player.getDetails()));
         }
 
-        PlayerDao.saveCurrentBadge(player.getDetails());
+        BadgeDao.saveCurrentBadge(player.getDetails());
     }
 }

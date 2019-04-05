@@ -80,6 +80,7 @@ public class Player extends Entity {
 
         // Update user IP address
         String ipAddress = NettyPlayerNetwork.getIpAddress(this.getNetwork().getChannel());
+        this.getDetails().setIpAddress(ipAddress);
         PlayerDao.setIpAddress(this.getDetails().getId(), ipAddress);
 
         if (GameConfiguration.getInstance().getBoolean("welcome.message.enabled")) {

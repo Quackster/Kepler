@@ -35,3 +35,5 @@ CREATE TABLE `rooms_events` (
 ALTER TABLE `rooms_events`
   ADD PRIMARY KEY (`room_id`),
   ADD UNIQUE KEY `room_id` (`room_id`);
+  
+ALTER TABLE `users` ADD `ip_address` VARCHAR(256) NULL AFTER `sso_ticket`;
