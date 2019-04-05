@@ -185,8 +185,6 @@ public class RoomEntityManager {
         // Don't let the room owner vote on it's own room
         boolean voted = this.room.isOwner(player.getDetails().getId()) || this.room.hasVoted(player.getDetails().getId());
 
-        // Send -1 to users who haven't voted yet, and vote count to others
-        // We do this to make the vote UI pop up
         if (voted) {
             player.send(new UPDATE_VOTES(this.room.getData().getRating()));
         } else {
@@ -195,14 +193,11 @@ public class RoomEntityManager {
 
         // Send room event information
         player.send(new ROOMEEVENT_INFO(EventsManager.getInstance().getEventByRoomId(this.room.getId())));
-
-        // Let friends know I entered this room by updating their console :)
         player.getMessenger().sendStatusUpdate();
 
         // Save increased visitor count of this room
         RoomDao.saveVisitors(this.room);
 
-        // If we were entering a game, we're not anymore
         GamePlayer gamePlayer = player.getRoomUser().getGamePlayer();
 
         if (gamePlayer != null && gamePlayer.isEnteringGame()) {
