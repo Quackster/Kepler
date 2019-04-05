@@ -97,13 +97,13 @@ public class WobbleSquabbleGame implements Runnable {
 
         // If one of us gets a bit tipsy and off-balance, end the game!
         if (!wsPlayer1.isBalancing()) {
-            loser = wsPlayer1.getOrder();
             winner = wsPlayer2.getOrder();
+            loser = wsPlayer1.getOrder();
         }
 
         if (!wsPlayer2.isBalancing()) {
-            loser = wsPlayer2.getOrder();
             winner = wsPlayer1.getOrder();
+            loser = wsPlayer2.getOrder();
         }
 
         // If we have a loser and a winner, end the game!
@@ -214,8 +214,11 @@ public class WobbleSquabbleGame implements Runnable {
         this.hasGameEnded = true;
         int loser = winner == 1 ? 0 : 1;
 
+        WobbleSquabblePlayer winnerPlayer = this.getPlayer(winner);
+        WobbleSquabblePlayer loserPlayer = this.getPlayer(loser);
+
         // Send end game
-        this.send(new PT_WIN(winner));
+        this.send(new PT_WIN(winnerPlayer.getPlayer().getDetails().getId()));
 
         // Do updates after the players have fallen
         GameScheduler.getInstance().getService().schedule(()-> {
