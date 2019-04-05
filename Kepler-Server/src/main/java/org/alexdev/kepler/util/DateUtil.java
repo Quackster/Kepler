@@ -14,14 +14,8 @@ public class DateUtil {
      * @return the date as string
      */
     public static String getShortDate() {
-        try {
-            Date date = new Date();
-            return new SimpleDateFormat(SHORT_DATE).format(date);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        Date date = new Date();
+        return new SimpleDateFormat(SHORT_DATE).format(date);
     }
 
     /**

@@ -66,7 +66,7 @@ public class SESSION_PARAMETERS extends MessageComposer {
         parameters.put(SessionParamType.REGISTER_REQUIRE_PARENT_EMAIL, "0"); // conf_parent_email_request. I think this is to switch parent email on/off
         parameters.put(SessionParamType.REGISTER_SEND_PARENT_EMAIL, "0"); // conf_parent_email_request_reregistration. ???
         parameters.put(SessionParamType.ALLOW_DIRECT_MAIL, "0"); // conf_allow_direct_mail. ???
-        parameters.put(SessionParamType.DATE_FORMAT, ""); // Configures date formatting. Value is date string.
+        parameters.put(SessionParamType.DATE_FORMAT, "dd-MM-yyyy"); // Configures date formatting. Value is date string.
         parameters.put(SessionParamType.PARTNER_INTEGRATION_ENABLED, "0");  // conf_partner_integration. Value is either 1 or 0 (enabled or disabled)
         parameters.put(SessionParamType.ALLOW_PROFILE_EDITING, GameConfiguration.getInstance().getBoolean("profile.editing") ? "1" : "0"); // allow_profile_editing. Enables the client (in-game) profile editor
         parameters.put(SessionParamType.TRACKING_HEADER, ""); // tracking_header. Value is unknown

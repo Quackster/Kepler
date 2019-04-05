@@ -107,6 +107,7 @@ public class MessageHandler {
      */
     private void registerRegisterPackets() {
         registerEvent(49, new GDATE());
+        registerEvent(46, new AGE_CHECK());
         registerEvent(42, new APPROVENAME());
         registerEvent(203, new APPROVE_PASSWORD());
         registerEvent(197, new APPROVEEMAIL());
