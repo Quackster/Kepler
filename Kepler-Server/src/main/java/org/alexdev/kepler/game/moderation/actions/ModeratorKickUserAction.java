@@ -16,6 +16,10 @@ import org.alexdev.kepler.server.netty.streams.NettyRequest;
 public class ModeratorKickUserAction implements ModerationAction {
     @Override
     public void performAction(Player player, Room room, String alertMessage, String notes, NettyRequest reader) {
+        if (!player.hasFuse(Fuseright.KICK)) {
+            return;
+        }
+
         String alertUser = reader.readString();
         Player target = PlayerManager.getInstance().getPlayerByName(alertUser);
 

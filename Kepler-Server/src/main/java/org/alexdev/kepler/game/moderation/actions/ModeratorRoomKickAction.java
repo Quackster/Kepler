@@ -15,6 +15,10 @@ import java.util.List;
 public class ModeratorRoomKickAction implements ModerationAction {
     @Override
     public void performAction(Player player, Room room, String alertMessage, String notes, NettyRequest reader) {
+        if (!player.hasFuse(Fuseright.ROOM_KICK)) {
+            return;
+        }
+
         List<Player> players = player.getRoomUser().getRoom().getEntityManager().getPlayers();
 
         for (Player target : players) {
