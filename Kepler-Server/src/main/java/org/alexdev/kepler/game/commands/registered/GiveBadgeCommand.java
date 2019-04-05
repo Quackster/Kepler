@@ -1,5 +1,6 @@
 package org.alexdev.kepler.game.commands.registered;
 
+import org.alexdev.kepler.dao.mysql.BadgeDao;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.game.commands.Command;
 import org.alexdev.kepler.game.entity.Entity;
@@ -87,7 +88,7 @@ public class GiveBadgeCommand extends Command {
             return;
         }
 
-        List<String> rankBadges = PlayerDao.getAllRankBadges();
+        List<String> rankBadges = BadgeDao.getAllRankBadges();
 
         // Check if badge code is a rank badge
         if (rankBadges.contains(badge)) {
@@ -117,8 +118,8 @@ public class GiveBadgeCommand extends Command {
         }
 
         // Persist changes
-        PlayerDao.saveCurrentBadge(targetDetails);
-        PlayerDao.addBadge(targetDetails.getId(), badge);
+        BadgeDao.saveCurrentBadge(targetDetails);
+        BadgeDao.addBadge(targetDetails.getId(), badge);
 
         player.send(new CHAT_MESSAGE(ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), "Badge " + badge + " added to user " + targetDetails.getName()));
     }
