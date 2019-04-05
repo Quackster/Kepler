@@ -87,7 +87,7 @@ public class WobbleSquabbleGame implements Runnable {
 
         // If the game has timed out, too bad!
         if (DateUtil.getCurrentTimeSeconds() > this.gameStarted + WobbleSquabbleManager.WS_GAME_TIMEOUT_SECS) {
-            this.send(new PT_TIMEOUT());
+            this.send(new PT_BOTHLOSE());
             this.endGame(-1); // Tied!
             return;
         }
@@ -218,7 +218,9 @@ public class WobbleSquabbleGame implements Runnable {
         WobbleSquabblePlayer loserPlayer = this.getPlayer(loser);
 
         // Send end game
-        this.send(new PT_WIN(winnerPlayer.getPlayer().getDetails().getId()));
+        if (winner != -1) {
+            this.send(new PT_WIN(winner));
+        }
 
         // Do updates after the players have fallen
         GameScheduler.getInstance().getService().schedule(()-> {
@@ -289,6 +291,7 @@ public class WobbleSquabbleGame implements Runnable {
         player.send(new TICKET_BALANCE(player.getDetails().getTickets()));
 
         if (isThrown) {
+            System.out.println("player thrown: " + player.getDetails().getName());
             player.getRoomUser().setStatus(StatusType.SWIM, "");
 
             int newX = player.getRoomUser().getPosition().getX() + ((wsPlayer.getBalance() < 0 ? -1 : 1));
