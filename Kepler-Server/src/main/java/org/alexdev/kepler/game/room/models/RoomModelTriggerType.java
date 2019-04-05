@@ -11,6 +11,8 @@ public enum RoomModelTriggerType {
     HABBO_LIDO_TRIGGER(new HabboLidoTrigger()),
     ROOFTOP_RUMBLE_TRIGGER(new RooftopRumbleTrigger()),
     DIVING_DECK_TRIGGER(new DivingDeckTrigger()),
+    INFOBUS_PARK(new InfobusParkTrigger()),
+    INFOBUS_POLL(new InfobusPollTrigger()),
     NONE(null);
 
     private GenericTrigger roomTrigger;
