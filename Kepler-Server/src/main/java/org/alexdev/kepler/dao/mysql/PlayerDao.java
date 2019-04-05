@@ -20,6 +20,30 @@ public class PlayerDao {
     public static final LazySodiumJava LIB_SODIUM = new LazySodiumJava(new SodiumJava());
 
     /**
+     * Sets the IP address for a given user
+     * @param userId the user id to edit
+     * @param ipAddress the ip address
+     */
+    public static void setIpAddress(int userId, String ipAddress) {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("UPDATE users SET ip_address = ? WHERE id = ? LIMIT 1", sqlConnection);
+            preparedStatement.setString(1, ipAddress);
+            preparedStatement.setInt(2, userId);
+            preparedStatement.execute();
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+
+    /**
      * Gets the details by user id
      *
      * @param userId the user id
@@ -565,6 +589,6 @@ public class PlayerDao {
                 row.getBoolean("badge_active"), row.getBoolean("allow_stalking"),
                 row.getBoolean("allow_friend_requests"), row.getBoolean("sound_enabled"),
                 row.getBoolean("tutorial_finished"), row.getInt("battleball_points"),
-                row.getInt("snowstorm_points"));
+                row.getInt("snowstorm_points"), row.getString("ip_address"));
     }
 }

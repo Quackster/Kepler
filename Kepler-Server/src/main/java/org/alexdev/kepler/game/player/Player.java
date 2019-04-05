@@ -78,6 +78,10 @@ public class Player extends Entity {
         this.send(new LOGIN());
         this.refreshFuserights();
 
+        // Update user IP address
+        String ipAddress = NettyPlayerNetwork.getIpAddress(this.getNetwork().getChannel());
+        PlayerDao.setIpAddress(this.getDetails().getId(), ipAddress);
+
         if (GameConfiguration.getInstance().getBoolean("welcome.message.enabled")) {
             String alertMessage = GameConfiguration.getInstance().getString("welcome.message.content");
             alertMessage = alertMessage.replace("%username%", this.details.getName());
