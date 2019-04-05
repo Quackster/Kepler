@@ -10,7 +10,7 @@ import org.alexdev.kepler.server.netty.streams.NettyRequest;
 
 import java.util.List;
 
-public class ModeratiorRoomAlertAction implements ModerationAction {
+public class ModeratorRoomAlertAction implements ModerationAction {
     @Override
     public void performAction(Player player, Room room, String alertMessage, String notes, NettyRequest reader) {
         List<Player> players = player.getRoomUser().getRoom().getEntityManager().getPlayers();

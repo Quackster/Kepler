@@ -1,16 +1,13 @@
 package org.alexdev.kepler.game.moderation;
 
-import org.alexdev.kepler.game.moderation.actions.ModeratiorAlertUserAction;
-import org.alexdev.kepler.game.moderation.actions.ModeratiorKickUserAction;
-import org.alexdev.kepler.game.moderation.actions.ModeratiorRoomAlertAction;
-import org.alexdev.kepler.game.moderation.actions.ModeratiorRoomKickAction;
+import org.alexdev.kepler.game.moderation.actions.*;
 
 public enum ModerationActionType {
-    ALERT_USER(0, 0, new ModeratiorAlertUserAction()),
-    KICK_USER(0, 1,  new ModeratiorKickUserAction()),
-    BAN_USER(0, 2, null),
-    ROOM_ALERT(1, 0,  new ModeratiorRoomAlertAction()),
-    ROOM_KICK(1, 1, new ModeratiorRoomKickAction());
+    ALERT_USER(0, 0, new ModeratorAlertUserAction()),
+    KICK_USER(0, 1,  new ModeratorKickUserAction()),
+    BAN_USER(0, 2, new ModeratorBanUserAction()),
+    ROOM_ALERT(1, 0,  new ModeratorRoomAlertAction()),
+    ROOM_KICK(1, 1, new ModeratorRoomKickAction());
 
     int targetType;
     int actionType;

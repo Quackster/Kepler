@@ -13,7 +13,7 @@ import org.alexdev.kepler.messages.outgoing.user.ALERT;
 import org.alexdev.kepler.messages.outgoing.user.MODERATOR_ALERT;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 
-public class ModeratiorKickUserAction implements ModerationAction {
+public class ModeratorKickUserAction implements ModerationAction {
     @Override
     public void performAction(Player player, Room room, String alertMessage, String notes, NettyRequest reader) {
         String alertUser = reader.readString();
