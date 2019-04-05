@@ -16,6 +16,8 @@ import org.alexdev.kepler.messages.incoming.handshake.GENERATEKEY;
 import org.alexdev.kepler.messages.incoming.handshake.INIT_CRYPTO;
 import org.alexdev.kepler.messages.incoming.handshake.SSO;
 import org.alexdev.kepler.messages.incoming.handshake.TRY_LOGIN;
+import org.alexdev.kepler.messages.incoming.infobus.CHANGEWORLD;
+import org.alexdev.kepler.messages.incoming.infobus.TRYBUS;
 import org.alexdev.kepler.messages.incoming.inventory.GETSTRIP;
 import org.alexdev.kepler.messages.incoming.jukebox.*;
 import org.alexdev.kepler.messages.incoming.messenger.*;
@@ -82,6 +84,7 @@ public class MessageHandler {
         registerRoomItemPackets();
         registerRoomTeleporterPackets();
         registerRoomModerationPackets();
+        registerInfobusPackets();
         registerRoomEventPackets();
         registerGameModerationPackets();
         registerMessengerPackets();
@@ -294,6 +297,14 @@ public class MessageHandler {
         registerEvent(96, new ASSIGNRIGHTS());
         registerEvent(97, new REMOVERIGHTS());
         registerEvent(155, new REMOVEALLRIGHTS());
+    }
+
+    /**
+     * Register infobus packets
+     */
+    private void registerInfobusPackets() {
+        registerEvent(111, new CHANGEWORLD());
+        registerEvent(113, new TRYBUS());
     }
 
     /**
