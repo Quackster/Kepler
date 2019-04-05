@@ -6,6 +6,7 @@ import org.alexdev.kepler.dao.mysql.RoomRightsDao;
 import org.alexdev.kepler.dao.mysql.RoomVoteDao;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
+import org.alexdev.kepler.game.events.EventsManager;
 import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.public_items.PublicItemParser;
@@ -15,6 +16,7 @@ import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.RoomManager;
 import org.alexdev.kepler.game.room.mapping.RoomTile;
 import org.alexdev.kepler.game.room.tasks.TeleporterTask;
+import org.alexdev.kepler.messages.outgoing.events.ROOMEEVENT_INFO;
 import org.alexdev.kepler.messages.outgoing.rooms.FLATPROPERTY;
 import org.alexdev.kepler.messages.outgoing.rooms.ROOM_URL;
 import org.alexdev.kepler.messages.outgoing.rooms.ROOM_READY;
@@ -190,6 +192,9 @@ public class RoomEntityManager {
         } else {
             player.send(new UPDATE_VOTES(-1));
         }
+
+        // Send room event information
+        player.send(new ROOMEEVENT_INFO(EventsManager.getInstance().getEventByRoomId(this.room.getId())));
 
         // Let friends know I entered this room by updating their console :)
         player.getMessenger().sendStatusUpdate();
