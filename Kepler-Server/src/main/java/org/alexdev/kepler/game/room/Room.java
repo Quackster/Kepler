@@ -5,7 +5,7 @@ import org.alexdev.kepler.dao.mysql.RoomVoteDao;
 import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.item.Item;
-import org.alexdev.kepler.game.moderation.Fuseright;
+import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.navigator.NavigatorCategory;
 import org.alexdev.kepler.game.navigator.NavigatorManager;
 import org.alexdev.kepler.game.player.Player;

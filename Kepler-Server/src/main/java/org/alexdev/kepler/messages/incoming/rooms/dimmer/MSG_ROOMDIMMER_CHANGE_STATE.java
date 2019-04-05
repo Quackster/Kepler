@@ -2,7 +2,7 @@ package org.alexdev.kepler.messages.incoming.rooms.dimmer;
 
 import org.alexdev.kepler.dao.mysql.MoodlightDao;
 import org.alexdev.kepler.game.item.Item;
-import org.alexdev.kepler.game.moderation.Fuseright;
+import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.messages.outgoing.rooms.user.CHAT_MESSAGE;

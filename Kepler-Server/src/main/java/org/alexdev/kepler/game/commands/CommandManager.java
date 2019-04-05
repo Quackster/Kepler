@@ -6,7 +6,7 @@ import org.alexdev.kepler.game.commands.clientside.FurniCommand;
 import org.alexdev.kepler.game.commands.registered.UfosCommand;
 import org.alexdev.kepler.game.commands.registered.*;
 import org.alexdev.kepler.game.entity.Entity;
-import org.alexdev.kepler.game.moderation.Fuseright;
+import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.texts.TextsManager;
 import org.alexdev.kepler.messages.outgoing.user.ALERT;

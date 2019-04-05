@@ -6,7 +6,7 @@ import org.alexdev.kepler.dao.mysql.JukeboxDao;
 import org.alexdev.kepler.dao.mysql.SongMachineDao;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.ItemManager;
-import org.alexdev.kepler.game.moderation.Fuseright;
+import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.song.Song;

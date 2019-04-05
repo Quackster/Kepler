@@ -1,6 +1,6 @@
 package org.alexdev.kepler.messages.outgoing.navigator;
 
-import org.alexdev.kepler.game.moderation.Fuseright;
+import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.RoomManager;

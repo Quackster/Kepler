@@ -1,4 +1,4 @@
-package org.alexdev.kepler.game.moderation;
+package org.alexdev.kepler.game.fuserights;
 
 import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.player.PlayerRank;

@@ -1,6 +1,6 @@
 package org.alexdev.kepler.messages.outgoing.moderation;
 
-import org.alexdev.kepler.game.moderation.CallForHelp;
+import org.alexdev.kepler.game.moderation.cfh.CallForHelp;
 import org.alexdev.kepler.game.room.RoomManager;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
@@ -14,17 +14,27 @@ public class CALL_FOR_HELP extends MessageComposer {
 
     @Override
     public void compose(NettyResponse response) {
-        response.writeString(this.cfh.getCallId());
+        response.writeString(this.cfh.getCryId());
         response.writeInt(this.cfh.getCategory());
         response.writeString(this.cfh.getFormattedRequestTime());
         response.writeString(this.cfh.getCaller());
         response.writeString(this.cfh.getMessage());
         response.writeString(this.cfh.getCaller());
-        response.writeString(this.cfh.getRoomName());
-        response.writeInt(1); // TODO: find out what this is
-        response.writeString("Marker"); // TODO: find out what this is
-        response.writeInt(this.cfh.getRoomId());
-        response.writeString(this.cfh.getRoomOwner());
+        response.writeString(this.cfh.getRoom().getData().getName());
+
+        if (this.cfh.getRoom() != null) {
+            if (this.cfh.getRoom().isPublicRoom()) {
+                response.writeInt(0);
+                response.writeString(this.cfh.getRoom().getData().getCcts());
+                response.writeInt(this.cfh.getRoom().getId() + RoomManager.PUBLIC_ROOM_OFFSET);
+                response.writeInt(this.cfh.getRoom().getId());
+            } else {
+                response.writeInt(1);
+                response.writeString(this.cfh.getRoom().getData().getName());
+                response.writeInt(this.cfh.getRoom().getId() );
+                response.writeString(this.cfh.getRoom().getData().getOwnerName());
+            }
+        }
     }
 
     @Override

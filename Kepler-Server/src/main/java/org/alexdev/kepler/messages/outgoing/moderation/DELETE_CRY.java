@@ -1,19 +1,18 @@
 package org.alexdev.kepler.messages.outgoing.moderation;
 
-import org.alexdev.kepler.game.moderation.CallForHelp;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 
 public class DELETE_CRY extends MessageComposer {
-    private CallForHelp cfh;
+    private int cryId;
 
-    public DELETE_CRY(CallForHelp cfh){
-        this.cfh = cfh;
+    public DELETE_CRY(int cryId){
+        this.cryId = cryId;
     }
 
     @Override
     public void compose(NettyResponse response) {
-        response.writeString(this.cfh.getCallId());
+        response.writeString(cryId);
     }
 
     @Override

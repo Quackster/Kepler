@@ -1,17 +1,14 @@
 package org.alexdev.kepler.game.commands.registered;
 
-import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.commands.Command;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
-import org.alexdev.kepler.game.moderation.Fuseright;
+import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerManager;
 import org.alexdev.kepler.messages.outgoing.user.ALERT;
 import org.alexdev.kepler.util.StringUtil;
-import org.apache.commons.lang3.StringUtils;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 

@@ -1,12 +1,8 @@
-package org.alexdev.kepler.messages.outgoing.user;
+package org.alexdev.kepler.messages.outgoing.moderation;
 
-import org.alexdev.kepler.game.moderation.CallForHelp;
-import org.alexdev.kepler.game.moderation.CallForHelpManager;
-import org.alexdev.kepler.game.player.Player;
+import org.alexdev.kepler.game.moderation.cfh.CallForHelp;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
-import org.alexdev.kepler.util.encoding.Base64Encoding;
-import org.alexdev.kepler.util.encoding.VL64Encoding;
 
 public class CFH_ACK extends MessageComposer {
     private final CallForHelp call;
@@ -21,7 +17,7 @@ public class CFH_ACK extends MessageComposer {
         response.writeBool(call != null);
 
         if (call != null) {
-            response.writeString(call.getCallId());
+            response.writeString(call.getCryId());
             response.writeString(call.getFormattedRequestTime());
             response.writeString(call.getMessage());
         }

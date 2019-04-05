@@ -1,18 +1,15 @@
 package org.alexdev.kepler.messages.incoming.songs;
 
 import org.alexdev.kepler.dao.mysql.SongMachineDao;
-import org.alexdev.kepler.game.moderation.Fuseright;
+import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
-import org.alexdev.kepler.game.song.Song;
 import org.alexdev.kepler.messages.outgoing.songs.SONG_LIST;
 import org.alexdev.kepler.messages.outgoing.songs.SONG_PLAYLIST;
 import org.alexdev.kepler.messages.outgoing.songs.SONG_UPDATE;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 import org.alexdev.kepler.util.StringUtil;
-
-import java.util.List;
 
 import static org.alexdev.kepler.messages.incoming.songs.SAVE_SONG_NEW.calculateSongLength;
 

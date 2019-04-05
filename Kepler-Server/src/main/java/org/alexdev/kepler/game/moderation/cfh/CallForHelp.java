@@ -1,6 +1,7 @@
-package org.alexdev.kepler.game.moderation;
+package org.alexdev.kepler.game.moderation.cfh;
 
 import org.alexdev.kepler.game.player.Player;
+import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.RoomManager;
 
 import java.text.SimpleDateFormat;
@@ -8,23 +9,21 @@ import java.util.Date;
 import java.util.HashMap;
 
 public class CallForHelp {
-
-    private final int id;
+    private final int cryId;
     private final int callerId;
     private final String message;
     private int pickedUpBy;
-    private final int roomId;
+    private final Room room;
     private final long requestTime;
-
-    // TODO: enumize category
     private int category = 2;
+    private long expireTime;
 
-    CallForHelp(int id, int callerId, int roomId, String message) {
-        this.id = id;
+    CallForHelp(int cryId, int callerId, Room room, String message) {
+        this.cryId = cryId;
         this.callerId = callerId;
         this.message = message;
         this.pickedUpBy = 0;
-        this.roomId = roomId;
+        this.room = room;
         this.requestTime = System.currentTimeMillis();
     }
 
@@ -36,8 +35,8 @@ public class CallForHelp {
         return this.pickedUpBy;
     }
 
-    public int getRoomId() {
-        return this.roomId;
+    public Room getRoom() {
+        return this.room;
     }
 
     public int getCategory() {
@@ -48,20 +47,12 @@ public class CallForHelp {
         return this.callerId;
     }
 
-    public int getCallId() {
-        return this.id;
+    public int getCryId() {
+        return this.cryId;
     }
 
     public boolean isOpen() {
         return this.pickedUpBy == 0;
-    }
-
-    public String getRoomName() {
-        return RoomManager.getInstance().getRoomById(this.roomId).getData().getPublicName();
-    }
-
-    public String getRoomOwner() {
-        return RoomManager.getInstance().getRoomById(this.roomId).getData().getOwnerName();
     }
 
     public String getFormattedRequestTime() {
@@ -76,5 +67,13 @@ public class CallForHelp {
 
     public void setPickedUpBy(Player moderator) {
         this.pickedUpBy = moderator.getDetails().getId();
+    }
+
+    public long getExpireTime() {
+        return expireTime;
+    }
+
+    public void setExpireTime(long expireTime) {
+        this.expireTime = expireTime;
     }
 }

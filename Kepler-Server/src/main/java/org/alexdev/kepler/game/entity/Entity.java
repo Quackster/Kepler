@@ -1,6 +1,6 @@
 package org.alexdev.kepler.game.entity;
 
-import org.alexdev.kepler.game.moderation.Fuseright;
+import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.room.entities.RoomEntity;
 

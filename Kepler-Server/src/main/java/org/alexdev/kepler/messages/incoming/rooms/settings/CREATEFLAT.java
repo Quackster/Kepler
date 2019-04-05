@@ -1,9 +1,8 @@
 package org.alexdev.kepler.messages.incoming.rooms.settings;
 
 import org.alexdev.kepler.dao.mysql.NavigatorDao;
-import org.alexdev.kepler.game.moderation.Fuseright;
+import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.player.Player;
-import org.alexdev.kepler.game.room.RoomManager;
 import org.alexdev.kepler.game.room.models.RoomModelManager;
 import org.alexdev.kepler.game.texts.TextsManager;
 import org.alexdev.kepler.messages.outgoing.rooms.settings.GOTO_FLAT;
@@ -12,7 +11,6 @@ import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 import org.alexdev.kepler.util.StringUtil;
 
-import java.lang.management.PlatformLoggingMXBean;
 import java.sql.SQLException;
 
 public class CREATEFLAT implements MessageEvent {

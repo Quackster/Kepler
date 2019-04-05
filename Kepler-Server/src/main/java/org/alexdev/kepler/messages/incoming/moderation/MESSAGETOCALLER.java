@@ -1,13 +1,11 @@
-package org.alexdev.kepler.messages.incoming.rooms.moderation;
+package org.alexdev.kepler.messages.incoming.moderation;
 
-import org.alexdev.kepler.game.moderation.CallForHelp;
-import org.alexdev.kepler.game.moderation.CallForHelpManager;
-import org.alexdev.kepler.game.moderation.Fuseright;
+import org.alexdev.kepler.game.moderation.cfh.CallForHelp;
+import org.alexdev.kepler.game.moderation.cfh.CallForHelpManager;
+import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerManager;
 import org.alexdev.kepler.messages.outgoing.moderation.CRY_REPLY;
-import org.alexdev.kepler.messages.outgoing.user.ALERT;
-import org.alexdev.kepler.messages.outgoing.user.MODERATOR_ALERT;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 

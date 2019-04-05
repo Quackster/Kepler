@@ -18,7 +18,7 @@ import org.alexdev.kepler.messages.incoming.handshake.TRY_LOGIN;
 import org.alexdev.kepler.messages.incoming.inventory.GETSTRIP;
 import org.alexdev.kepler.messages.incoming.jukebox.*;
 import org.alexdev.kepler.messages.incoming.messenger.*;
-import org.alexdev.kepler.messages.incoming.moderation.MODERATORACTION;
+import org.alexdev.kepler.messages.incoming.moderation.*;
 import org.alexdev.kepler.messages.incoming.navigator.*;
 import org.alexdev.kepler.messages.incoming.purse.GETUSERCREDITLOG;
 import org.alexdev.kepler.messages.incoming.purse.REDEEM_VOUCHER;

@@ -2,7 +2,7 @@ package org.alexdev.kepler.game.commands.clientside;
 
 import org.alexdev.kepler.game.commands.Command;
 import org.alexdev.kepler.game.entity.Entity;
-import org.alexdev.kepler.game.moderation.Fuseright;
+import org.alexdev.kepler.game.fuserights.Fuseright;
 
 public class ChooserCommand extends Command {
     @Override

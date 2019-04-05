@@ -1,19 +1,22 @@
-package org.alexdev.kepler.game.moderation;
+package org.alexdev.kepler.game.moderation.cfh;
 
+import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerManager;
+import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.messages.outgoing.moderation.CALL_FOR_HELP;
 import org.alexdev.kepler.messages.outgoing.moderation.DELETE_CRY;
 import org.alexdev.kepler.messages.outgoing.moderation.PICKED_CRY;
 import org.alexdev.kepler.messages.outgoing.user.CRY_RECEIVED;
 import org.alexdev.kepler.messages.types.MessageComposer;
+import org.alexdev.kepler.util.DateUtil;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class CallForHelpManager {
-
     private static CallForHelpManager instance;
     private Map<Integer, CallForHelp> callsForHelp;
     private AtomicInteger latestCallId;
@@ -32,10 +35,9 @@ public class CallForHelpManager {
     public void submitCall(Player caller, String message) {
         int callId = this.latestCallId.getAndIncrement();
         int callerId = caller.getDetails().getId();
-        int roomId = caller.getRoomUser().getRoom().getId();
+        Room room = caller.getRoomUser().getRoom();
 
-        CallForHelp cfh = new CallForHelp(callId, callerId, roomId, message);
-
+        CallForHelp cfh = new CallForHelp(callId, callerId, room, message);
         this.callsForHelp.put(callId, cfh);
 
         sendToModerators(new CALL_FOR_HELP(cfh));
@@ -83,7 +85,7 @@ public class CallForHelpManager {
      *
      * @param message the MessageComposer to send
      */
-    void sendToModerators(MessageComposer message) {
+    private void sendToModerators(MessageComposer message) {
         for (Player p : PlayerManager.getInstance().getPlayers()) {
             if (p.hasFuse(Fuseright.RECEIVE_CALLS_FOR_HELP)) {
                 p.send(message);
@@ -111,17 +113,29 @@ public class CallForHelpManager {
      * @param newCategory the new category
      */
     public void changeCategory(CallForHelp cfh, int newCategory) {
-        cfh.updateCategory(newCategory);
+        if (!this.callsForHelp.containsKey(cfh.getCryId())) {
+            return;
+        }
 
-        // Send the updated CallForHelp to Moderators
-        // TODO: make sure this is the right way to notify the client about category change
+        cfh.updateCategory(newCategory);
         sendToModerators(new CALL_FOR_HELP(cfh));
     }
 
+    /**
+     * Deletes the cfh to all moderators and marks it for deletion in 30 minutes.
+     *
+     * @param cfh the cfh to delete
+     */
     public void deleteCall(CallForHelp cfh) {
-        this.callsForHelp.remove(cfh.getCallId());
+        cfh.setExpireTime(DateUtil.getCurrentTimeSeconds() + TimeUnit.MINUTES.toSeconds(30));
+        sendToModerators(new DELETE_CRY(cfh.getCryId()));
+    }
 
-        sendToModerators(new DELETE_CRY(cfh));
+    /**
+     * Purges expired cfhs, server remembers them for atleast 30 minutes
+     */
+    public void purgeExpiredCfh() {
+        this.callsForHelp.values().removeIf(cfh -> !cfh.isOpen() && DateUtil.getCurrentTimeSeconds() > cfh.getExpireTime());
     }
 
     /**
@@ -133,7 +147,9 @@ public class CallForHelpManager {
         if (instance == null) {
             instance = new CallForHelpManager();
         }
+
         return instance;
     }
+
 
 }

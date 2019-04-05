@@ -3,14 +3,11 @@ package org.alexdev.kepler.game.commands.registered;
 import org.alexdev.kepler.game.commands.Command;
 import org.alexdev.kepler.game.commands.CommandManager;
 import org.alexdev.kepler.game.entity.Entity;
-import org.alexdev.kepler.game.moderation.Fuseright;
+import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.messages.outgoing.user.ALERT;
 import org.alexdev.kepler.util.StringUtil;
 import org.apache.commons.lang3.StringUtils;
-
-import java.util.List;
-import java.util.Map;
 
 public class HelpCommand extends Command {
     @Override

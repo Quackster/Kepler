@@ -1,11 +1,10 @@
 package org.alexdev.kepler.messages.outgoing.moderation;
 
-import org.alexdev.kepler.game.moderation.CallForHelp;
+import org.alexdev.kepler.game.moderation.cfh.CallForHelp;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 
 public class PICKED_CRY extends MessageComposer {
-
     private CallForHelp cfh;
 
     public PICKED_CRY(CallForHelp cfh){
@@ -14,7 +13,7 @@ public class PICKED_CRY extends MessageComposer {
 
     @Override
     public void compose(NettyResponse response) {
-        response.writeString(cfh.getCallId());
+        response.writeString(cfh.getCryId());
         response.writeString(cfh.getPickedUpBy());
     }
 
