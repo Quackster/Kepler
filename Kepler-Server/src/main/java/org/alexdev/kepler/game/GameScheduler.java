@@ -2,6 +2,7 @@ package org.alexdev.kepler.game;
 
 import org.alexdev.kepler.dao.mysql.CurrencyDao;
 import org.alexdev.kepler.game.catalogue.RareManager;
+import org.alexdev.kepler.game.events.EventsManager;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.ItemManager;
 import org.alexdev.kepler.game.moderation.cfh.CallForHelpManager;
@@ -98,6 +99,11 @@ public class GameScheduler implements Runnable {
                         p.send(new CREDIT_BALANCE(p.getDetails()));
                     }
                 }
+            }
+
+            // Purge expired rows
+            if (this.tickRate.get() % TimeUnit.DAYS.toSeconds(1) == 0) {
+                EventsManager.getInstance().removeExpiredEvents();
             }
 
             // Item saving queue ticker every 10 seconds

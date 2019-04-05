@@ -10,6 +10,7 @@ import org.alexdev.kepler.messages.incoming.catalogue.GRPC;
 import org.alexdev.kepler.messages.incoming.club.GET_CLUB;
 import org.alexdev.kepler.messages.incoming.club.SCR_GIFT_APPROVAL;
 import org.alexdev.kepler.messages.incoming.club.SUBSCRIBE_CLUB;
+import org.alexdev.kepler.messages.incoming.events.*;
 import org.alexdev.kepler.messages.incoming.games.*;
 import org.alexdev.kepler.messages.incoming.handshake.GENERATEKEY;
 import org.alexdev.kepler.messages.incoming.handshake.INIT_CRYPTO;
@@ -81,6 +82,7 @@ public class MessageHandler {
         registerRoomItemPackets();
         registerRoomTeleporterPackets();
         registerRoomModerationPackets();
+        registerRoomEventPackets();
         registerGameModerationPackets();
         registerMessengerPackets();
         registerCataloguePackets();
@@ -292,6 +294,18 @@ public class MessageHandler {
         registerEvent(96, new ASSIGNRIGHTS());
         registerEvent(97, new REMOVERIGHTS());
         registerEvent(155, new REMOVEALLRIGHTS());
+    }
+
+    /**
+     * Register room event packets
+     */
+    private void registerRoomEventPackets() {
+        registerEvent(345, new CAN_CREATE_ROOMEVENT());
+        registerEvent(346, new CREATE_ROOMEVENT());
+        registerEvent(348, new EDIT_ROOMEVENT());
+        registerEvent(347, new QUIT_ROOMEVENT());
+        registerEvent(349, new GET_ROOMEVENT_TYPE_COUNT());
+        registerEvent(350, new GET_ROOMEVENTS_BY_TYPE());
     }
 
     /**
