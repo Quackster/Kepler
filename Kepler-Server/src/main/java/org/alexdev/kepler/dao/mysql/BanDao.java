@@ -31,7 +31,7 @@ public class BanDao {
             if (resultSet.next()) {
                 if (DateUtil.getCurrentTimeSeconds() < resultSet.getLong("banned_until")) {
                     banned = Pair.of(
-                            resultSet.getString("banned_message"),
+                            resultSet.getString("message"),
                             resultSet.getLong("banned_until")
                     );
                 }

@@ -2,6 +2,7 @@ package org.alexdev.kepler.game.player;
 
 import io.netty.util.AttributeKey;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
+import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.club.ClubSubscription;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
@@ -12,6 +13,7 @@ import org.alexdev.kepler.game.fuserights.FuserightsManager;
 import org.alexdev.kepler.game.room.entities.RoomPlayer;
 import org.alexdev.kepler.messages.outgoing.club.CLUB_GIFT;
 import org.alexdev.kepler.messages.outgoing.handshake.*;
+import org.alexdev.kepler.messages.outgoing.moderation.USER_BANNED;
 import org.alexdev.kepler.messages.outgoing.openinghours.*;
 import org.alexdev.kepler.messages.outgoing.user.ALERT;
 import org.alexdev.kepler.messages.outgoing.user.HOTEL_LOGOUT;
@@ -25,6 +27,7 @@ import org.slf4j.LoggerFactory;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 public class Player extends Entity {
     public static final AttributeKey<Player> PLAYER_KEY = AttributeKey.valueOf("Player");
@@ -69,21 +72,26 @@ public class Player extends Entity {
             PlayerDao.clearSSOTicket(this.details.getId()); // Protect against replay attacks
         }
 
+        this.messenger = new Messenger(this.details);
+        this.inventory = new Inventory(this);
+
         // Update user IP address
         String ipAddress = NettyPlayerNetwork.getIpAddress(this.getNetwork().getChannel());
         PlayerDao.setIpAddress(this.getDetails().getId(), ipAddress);
 
         // Bye bye!
-        if (this.getDetails().isBanned() != null) {
-            this.kickFromServer();
+        var banned = this.getDetails().isBanned();
+
+        if (banned != null) {
+            this.send(new USER_BANNED(banned.getKey()));
+            GameScheduler.getInstance().getService().schedule(this::kickFromServer, 1, TimeUnit.SECONDS);
             return;
         }
 
         this.details.loadBadges();
         this.details.resetNextHandout();
 
-        this.messenger = new Messenger(this.details);
-        this.inventory = new Inventory(this);
+
 
         this.send(new LOGIN());
         this.refreshFuserights();

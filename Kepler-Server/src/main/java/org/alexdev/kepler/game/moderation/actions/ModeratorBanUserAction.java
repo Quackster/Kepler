@@ -1,6 +1,7 @@
 package org.alexdev.kepler.game.moderation.actions;
 
 import org.alexdev.kepler.dao.mysql.BanDao;
+import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.ban.BanType;
 import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.moderation.ModerationAction;
@@ -8,6 +9,7 @@ import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.player.PlayerManager;
 import org.alexdev.kepler.game.room.Room;
+import org.alexdev.kepler.messages.outgoing.moderation.USER_BANNED;
 import org.alexdev.kepler.messages.outgoing.user.ALERT;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 import org.alexdev.kepler.util.DateUtil;
@@ -57,7 +59,8 @@ public class ModeratorBanUserAction implements ModerationAction {
         Player target = PlayerManager.getInstance().getPlayerById(playerDetails.getId());
 
         if (target != null) {
-            target.getNetwork().disconnect();
+            target.send(new USER_BANNED(alertMessage));
+            GameScheduler.getInstance().getService().schedule(target::kickFromServer, 1, TimeUnit.SECONDS);
         }
 
         player.send(new ALERT("The user " + playerDetails.getName() + " has been banned."));

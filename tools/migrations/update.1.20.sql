@@ -13,15 +13,15 @@ ALTER TABLE `room_chatlogs`
 ALTER TABLE `room_chatlogs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
   
- CREATE TABLE `users_bans` (
+CREATE TABLE `users_bans` (
   `ban_type` enum('MACHINE_ID','IP_ADDRESS','USER_ID') NOT NULL,
   `banned_value` varchar(250) NOT NULL,
-  `banned_message` text NOT NULL DEFAULT '',
+  `message` text NOT NULL,
   `banned_until` bigint(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 ALTER TABLE `users_bans`
-  ADD PRIMARY KEY (`banned_value`); 
+  ADD PRIMARY KEY (`banned_value`);
   
 CREATE TABLE `rooms_events` (
   `room_id` int(11) NOT NULL,
