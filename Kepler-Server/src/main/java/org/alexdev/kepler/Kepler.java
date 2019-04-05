@@ -6,6 +6,7 @@ import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.catalogue.CatalogueManager;
 import org.alexdev.kepler.game.catalogue.RareManager;
 import org.alexdev.kepler.game.commands.CommandManager;
+import org.alexdev.kepler.game.events.EventsManager;
 import org.alexdev.kepler.game.games.GameManager;
 import org.alexdev.kepler.game.item.ItemManager;
 import org.alexdev.kepler.game.fuserights.FuserightsManager;
@@ -95,6 +96,7 @@ public class Kepler {
             CommandManager.getInstance();
             MessageHandler.getInstance();
             TextsManager.getInstance();
+            EventsManager.getInstance();
 
             setupRcon();
             setupMus();
