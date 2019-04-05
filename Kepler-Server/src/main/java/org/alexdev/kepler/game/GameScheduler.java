@@ -4,6 +4,7 @@ import org.alexdev.kepler.dao.mysql.CurrencyDao;
 import org.alexdev.kepler.game.catalogue.RareManager;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.ItemManager;
+import org.alexdev.kepler.game.moderation.cfh.CallForHelpManager;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.player.PlayerManager;
@@ -104,6 +105,11 @@ public class GameScheduler implements Runnable {
                 if (this.itemSavingQueue != null) {
                     this.performItemSaving();
                 }
+            }
+
+            // Delete expired CFH's every 60 seconds
+            if (this.tickRate.get() % 60 == 0) {
+                CallForHelpManager.getInstance().purgeExpiredCfh();
             }
 
             RareManager.getInstance().performRareManagerJob(this.tickRate);

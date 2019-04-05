@@ -4,6 +4,8 @@ import org.alexdev.kepler.dao.Storage;
 import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.RoomData;
+import org.alexdev.kepler.messages.outgoing.rooms.user.CHAT_MESSAGE;
+import org.alexdev.kepler.util.DateUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -58,6 +60,42 @@ public class RoomDao {
         }
 
         return rooms;
+    }
+
+    public static void saveChatlog(int userId, int roomId, CHAT_MESSAGE.ChatMessageType chatMessageType, String message) {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("INSERT INTO room_chatlogs (user_id, room_id, timestamp, chat_type, message) VALUES (?, ?, ?, ?, ?)", sqlConnection);
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setInt(2, roomId);
+            preparedStatement.setLong(3, DateUtil.getCurrentTimeSeconds());
+
+            switch (chatMessageType) {
+                case CHAT:
+                    preparedStatement.setInt(4, 0);
+                    break;
+                case SHOUT:
+                    preparedStatement.setInt(4, 1);
+                    break;
+                default:
+                    preparedStatement.setInt(4, 2);
+                    break;
+            }
+
+            preparedStatement.setString(5, message);
+            preparedStatement.execute();
+
+        } catch (SQLException e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
     }
 
     /**
