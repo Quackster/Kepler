@@ -69,6 +69,16 @@ public class Player extends Entity {
             PlayerDao.clearSSOTicket(this.details.getId()); // Protect against replay attacks
         }
 
+        // Update user IP address
+        String ipAddress = NettyPlayerNetwork.getIpAddress(this.getNetwork().getChannel());
+        PlayerDao.setIpAddress(this.getDetails().getId(), ipAddress);
+
+        // Bye bye!
+        if (this.getDetails().isBanned() != null) {
+            this.kickFromServer();
+            return;
+        }
+
         this.details.loadBadges();
         this.details.resetNextHandout();
 
@@ -77,11 +87,7 @@ public class Player extends Entity {
 
         this.send(new LOGIN());
         this.refreshFuserights();
-
-        // Update user IP address
-        String ipAddress = NettyPlayerNetwork.getIpAddress(this.getNetwork().getChannel());
         this.getDetails().setIpAddress(ipAddress);
-        PlayerDao.setIpAddress(this.getDetails().getId(), ipAddress);
 
         if (GameConfiguration.getInstance().getBoolean("welcome.message.enabled")) {
             String alertMessage = GameConfiguration.getInstance().getString("welcome.message.content");
