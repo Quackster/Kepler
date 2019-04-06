@@ -9,10 +9,7 @@ import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.util.DateUtil;
 
 import java.nio.charset.StandardCharsets;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class PlayerDao {
     public static final LazySodiumJava LIB_SODIUM = new LazySodiumJava(new SodiumJava());
@@ -239,8 +236,9 @@ public class PlayerDao {
 
         try {
             sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("UPDATE users SET sso_ticket = '' WHERE id = ? LIMIT 1", sqlConnection);
-            preparedStatement.setInt(1, userId);
+            preparedStatement = Storage.getStorage().prepare("UPDATE users SET sso_ticket = ? WHERE id = ? LIMIT 1", sqlConnection);
+            preparedStatement.setNull(1, Types.VARCHAR);
+            preparedStatement.setInt(2, userId);
             preparedStatement.execute();
 
         } catch (Exception e) {
