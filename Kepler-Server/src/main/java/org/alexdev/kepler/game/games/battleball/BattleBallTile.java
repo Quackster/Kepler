@@ -133,27 +133,20 @@ public class BattleBallTile extends GameTile  {
 
         if (this.state != newState && newState == BattleBallTileState.TOUCHED) {
             newPoints = 2;
-
-            if (this.colour != newColour && this.colour != BattleBallColourState.DEFAULT) {
-                newPoints = 4;
-            }
         } else if (this.state != newState && newState == BattleBallTileState.CLICKED) {
             newPoints = 6;
-
-            if (this.colour != newColour && this.colour != BattleBallColourState.DEFAULT) {
-                newPoints = 8;
-            }
         } else if (this.state != newState && newState == BattleBallTileState.PRESSED) {
             newPoints = 10;
-
-            if (this.colour != newColour && this.colour != BattleBallColourState.DEFAULT) {
-                newPoints = 12;
-            }
         } else if (this.state != newState && newState == BattleBallTileState.SEALED) {
             if (this.colour == newColour) {
                 newPoints = 14;
                 sealed = true;
             }
+        }
+
+        // If the user stole the tile, add the points!
+        if (this.colour != newColour && this.colour != BattleBallColourState.DEFAULT) {
+            newPoints += 2;
         }
 
         if (this.colour != newColour) { // Clear teams previous scores
@@ -175,7 +168,7 @@ public class BattleBallTile extends GameTile  {
 
 
     public void checkFill(GamePlayer gamePlayer, Collection<BattleBallTile> updateFillTiles) {
-         GameTeam team = gamePlayer.getTeam();
+        GameTeam team = gamePlayer.getTeam();
 
         for (BattleBallTile neighbour : FloodFill.neighbours(gamePlayer.getGame(), this.getPosition())) {
             if (neighbour == null || neighbour.getState() == BattleBallTileState.SEALED || neighbour.getColour() == BattleBallColourState.DISABLED) {
@@ -190,6 +183,10 @@ public class BattleBallTile extends GameTile  {
                         continue;
                     }
 
+                    /*if (!filledTile.isCanFill()) {
+                        continue;
+                    }*/
+
                     this.addSealedPoints(team);
 
                     filledTile.setColour(this.getColour());
@@ -202,6 +199,9 @@ public class BattleBallTile extends GameTile  {
     }
 
     public void addSealedPoints(GameTeam team) {
+        // Clear any history
+        this.pointsReferece.clear();
+
         for (GamePlayer gamePlayer : team.getPlayers()) {
             this.pointsReferece.add(new ScoreReference(14, team, gamePlayer.getUserId()));
         }
