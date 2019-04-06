@@ -75,6 +75,13 @@ public class Player extends Entity {
         this.messenger = new Messenger(this.details);
         this.inventory = new Inventory(this);
 
+        // Update user IP address
+        String ipAddress = NettyPlayerNetwork.getIpAddress(this.getNetwork().getChannel());
+
+        if (!PlayerDao.getLatestIp(this.details.getId()).equals(ipAddress)) {
+            PlayerDao.logIpAddress(this.getDetails().getId(), ipAddress);
+        }
+
         // Bye bye!
         var banned = this.getDetails().isBanned();
 
@@ -82,13 +89,6 @@ public class Player extends Entity {
             this.send(new USER_BANNED(banned.getKey()));
             GameScheduler.getInstance().getService().schedule(this::kickFromServer, 1, TimeUnit.SECONDS);
             return;
-        }
-
-        // Update user IP address
-        String ipAddress = NettyPlayerNetwork.getIpAddress(this.getNetwork().getChannel());
-
-        if (!PlayerDao.getLatestIp(this.details.getId()).equals(ipAddress)) {
-            PlayerDao.logIpAddress(this.getDetails().getId(), ipAddress);
         }
 
         this.details.loadBadges();
