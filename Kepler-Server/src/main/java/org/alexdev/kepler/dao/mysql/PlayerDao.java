@@ -13,26 +13,25 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class PlayerDao {
     public static final LazySodiumJava LIB_SODIUM = new LazySodiumJava(new SodiumJava());
 
     /**
-     * Sets the IP address for a given user
+     * Logs the IP address for a given user
+     *
      * @param userId the user id to edit
      * @param ipAddress the ip address
      */
-    public static void setIpAddress(int userId, String ipAddress) {
+    public static void logIpAddress(int userId, String ipAddress) {
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
 
         try {
             sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("UPDATE users SET ip_address = ? WHERE id = ? LIMIT 1", sqlConnection);
-            preparedStatement.setString(1, ipAddress);
-            preparedStatement.setInt(2, userId);
+            preparedStatement = Storage.getStorage().prepare("INSERT INTO users_ip_logs (user_id, ip_address) VALUES (?, ?)", sqlConnection);
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setString(2, ipAddress);
             preparedStatement.execute();
 
         } catch (Exception e) {
@@ -42,6 +41,41 @@ public class PlayerDao {
             Storage.closeSilently(sqlConnection);
         }
     }
+
+
+    /**
+     * Gets the IP address for a given user
+     *
+     * @param userId the user id to edit
+     */
+    public static String getLatestIp(int userId) {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        String ip = "-";
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("SELECT ip_address FROM users_ip_logs WHERE user_id = ? ORDER BY created_at DESC", sqlConnection);
+            preparedStatement.setInt(1, userId);
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                ip = resultSet.getString("ip_address");
+            }
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+
+        return ip;
+    }
+
 
     /**
      * Gets the details by user id
@@ -459,6 +493,6 @@ public class PlayerDao {
                 row.getBoolean("badge_active"), row.getBoolean("allow_stalking"),
                 row.getBoolean("allow_friend_requests"), row.getBoolean("sound_enabled"),
                 row.getBoolean("tutorial_finished"), row.getInt("battleball_points"),
-                row.getInt("snowstorm_points"), row.getString("ip_address"));
+                row.getInt("snowstorm_points"));
     }
 }

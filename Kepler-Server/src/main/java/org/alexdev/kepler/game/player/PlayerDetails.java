@@ -48,7 +48,6 @@ public class PlayerDetails {
     // Timestamps
     private long nextHandout;
     private long lastOnline;
-    private String ipAddress;
 
     // Game points
     private int snowstormPoints;
@@ -81,7 +80,7 @@ public class PlayerDetails {
      * @param snowstormPoints the points accumulated when playing snowstorm
      */
     public void fill(int id, String username, String figure, String poolFigure, int credits, String motto, String consoleMotto, String sex, int tickets, int film, int rank, long lastOnline, long firstClubSubscription, long clubExpiration, long clubGiftDue, String currentBadge, boolean showBadge, boolean allowStalking, boolean allowFriendRequests, boolean soundEnabled,
-                     boolean tutorialFinished, int battleballPoints, int snowstormPoints, String ipAddress) {
+                     boolean tutorialFinished, int battleballPoints, int snowstormPoints) {
         this.id = id;
         this.username = StringUtil.filterInput(username, true);
         this.figure = StringUtil.filterInput(figure, true); // Format: hd-180-1.ch-255-70.lg-285-77.sh-295-74.fa-1205-91.hr-125-31.ha-1016-
@@ -105,12 +104,6 @@ public class PlayerDetails {
         this.tutorialFinished = tutorialFinished;
         this.battleballPoints = battleballPoints;
         this.snowstormPoints = snowstormPoints;
-
-        if (ipAddress == null) {
-            ipAddress = "";
-        }
-
-        this.ipAddress = ipAddress;
 
         if (this.credits < 0) {
             // TODO: log warning
@@ -162,7 +155,7 @@ public class PlayerDetails {
         }
 
 
-        var ipBanCheck = BanDao.hasBan(BanType.IP_ADDRESS, this.ipAddress);
+        var ipBanCheck = BanDao.hasBan(BanType.IP_ADDRESS, PlayerDao.getLatestIp(this.id));
 
         if (ipBanCheck != null) {
             return ipBanCheck;
@@ -371,13 +364,5 @@ public class PlayerDetails {
 
     public void setClubGiftDue(long clubGiftDue) {
         this.clubGiftDue = clubGiftDue;
-    }
-
-    public String getIpAddress() {
-        return ipAddress;
-    }
-
-    public void setIpAddress(String ipAddress) {
-        this.ipAddress = ipAddress;
     }
 }

@@ -75,10 +75,6 @@ public class Player extends Entity {
         this.messenger = new Messenger(this.details);
         this.inventory = new Inventory(this);
 
-        // Update user IP address
-        String ipAddress = NettyPlayerNetwork.getIpAddress(this.getNetwork().getChannel());
-        PlayerDao.setIpAddress(this.getDetails().getId(), ipAddress);
-
         // Bye bye!
         var banned = this.getDetails().isBanned();
 
@@ -88,14 +84,18 @@ public class Player extends Entity {
             return;
         }
 
+        // Update user IP address
+        String ipAddress = NettyPlayerNetwork.getIpAddress(this.getNetwork().getChannel());
+
+        if (!PlayerDao.getLatestIp(this.details.getId()).equals(ipAddress)) {
+            PlayerDao.logIpAddress(this.getDetails().getId(), ipAddress);
+        }
+
         this.details.loadBadges();
         this.details.resetNextHandout();
 
-
-
         this.send(new LOGIN());
         this.refreshFuserights();
-        this.getDetails().setIpAddress(ipAddress);
 
         if (GameConfiguration.getInstance().getBoolean("welcome.message.enabled")) {
             String alertMessage = GameConfiguration.getInstance().getString("welcome.message.content");

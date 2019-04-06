@@ -1,6 +1,7 @@
 package org.alexdev.kepler.game.moderation.actions;
 
 import org.alexdev.kepler.dao.mysql.BanDao;
+import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.ban.BanType;
 import org.alexdev.kepler.game.fuserights.Fuseright;
@@ -53,7 +54,7 @@ public class ModeratorBanUserAction implements ModerationAction {
 
 
         if (banIp) {
-            BanDao.addBan(BanType.IP_ADDRESS, playerDetails.getIpAddress(), banTime, alertMessage);
+            BanDao.addBan(BanType.IP_ADDRESS, PlayerDao.getLatestIp(playerDetails.getId()), banTime, alertMessage);
         }
 
         Player target = PlayerManager.getInstance().getPlayerById(playerDetails.getId());

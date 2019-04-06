@@ -36,7 +36,11 @@ ALTER TABLE `rooms_events`
   ADD PRIMARY KEY (`room_id`),
   ADD UNIQUE KEY `room_id` (`room_id`);
   
-ALTER TABLE `users` ADD `ip_address` VARCHAR(256) NULL AFTER `sso_ticket`;
+CREATE TABLE `users_ip_logs` (
+  `user_id` int(11) NOT NULL,
+  `ip_address` varchar(256) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 ALTER TABLE `rooms_models` CHANGE `trigger_class` `trigger_class` ENUM('flat_trigger','battleball_lobby_trigger','snowstorm_lobby_trigger','space_cafe_trigger','habbo_lido_trigger','rooftop_rumble_trigger','diving_deck_trigger','infobus_park','infobus_poll','none') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'flat_trigger';
 
