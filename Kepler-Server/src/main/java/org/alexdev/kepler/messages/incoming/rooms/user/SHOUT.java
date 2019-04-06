@@ -35,8 +35,9 @@ public class SHOUT implements MessageEvent {
             return;
         }
 
-        player.getRoomUser().chat(message, true);
+        player.getRoomUser().talk(message, CHAT_MESSAGE.ChatMessageType.SHOUT);
         player.getRoomUser().getTimerManager().resetRoomTimer();
+
         RoomDao.saveChatlog(player.getDetails().getId(), room.getId(), CHAT_MESSAGE.ChatMessageType.SHOUT, message);
     }
 }

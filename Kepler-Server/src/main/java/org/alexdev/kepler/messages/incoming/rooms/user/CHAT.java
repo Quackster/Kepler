@@ -35,8 +35,9 @@ public class CHAT implements MessageEvent {
             return;
         }
 
-        player.getRoomUser().chat(message, false);
+        player.getRoomUser().talk(message, CHAT_MESSAGE.ChatMessageType.CHAT);
         player.getRoomUser().getTimerManager().resetRoomTimer();
+
         RoomDao.saveChatlog(player.getDetails().getId(), room.getId(), CHAT_MESSAGE.ChatMessageType.CHAT, message);
 
         // Make chat hard to read for long distance in public rooms

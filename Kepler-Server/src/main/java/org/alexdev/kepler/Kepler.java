@@ -3,6 +3,7 @@ package org.alexdev.kepler;
 import io.netty.util.ResourceLeakDetector;
 import org.alexdev.kepler.dao.Storage;
 import org.alexdev.kepler.game.GameScheduler;
+import org.alexdev.kepler.game.bot.BotManager;
 import org.alexdev.kepler.game.catalogue.CatalogueManager;
 import org.alexdev.kepler.game.catalogue.RareManager;
 import org.alexdev.kepler.game.commands.CommandManager;
@@ -89,6 +90,7 @@ public class Kepler {
             RoomModelManager.getInstance();
             RoomManager.getInstance();
             PlayerManager.getInstance();
+            BotManager.getInstance();
             FuserightsManager.getInstance();
             NavigatorManager.getInstance();
             GameScheduler.getInstance();

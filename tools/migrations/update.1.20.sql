@@ -46,3 +46,25 @@ ALTER TABLE `rooms_models` CHANGE `trigger_class` `trigger_class` ENUM('flat_tri
 
 UPDATE `rooms_models` SET trigger_class = 'infobus_park' WHERE `model_id` = 'park_a';
 UPDATE `rooms_models` SET trigger_class = 'infobus_poll' WHERE `model_id` = 'park_b';
+
+CREATE TABLE `rooms_bots` (
+  `id` int(11) NOT NULL,
+  `name` varchar(25) NOT NULL,
+  `mission` varchar(255) NOT NULL,
+  `x` int(11) NOT NULL,
+  `y` int(11) NOT NULL,
+  `start_look` varchar(25) NOT NULL,
+  `figure` varchar(255) NOT NULL,
+  `walkspace` text NOT NULL,
+  `room_id` int(11) NOT NULL DEFAULT 0,
+  `speech` mediumtext NOT NULL,
+  `response` mediumtext NOT NULL,
+  `unrecognised_response` mediumtext NOT NULL,
+  `hand_items` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+ALTER TABLE `rooms_bots`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `rooms_bots`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;

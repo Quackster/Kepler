@@ -121,6 +121,14 @@ public class PlayerDetails {
         }
     }
 
+    public void fill(int id, String username, String figure, String motto, String sex) {
+        this.id = id;
+        this.username = username;
+        this.figure = figure;
+        this.motto = motto;
+        this.sex = sex.toLowerCase().equals("f") ? 'F' : 'M';
+    }
+
     public void loadBadges() {
         this.badges = BadgeDao.getBadges(this.id);
     }

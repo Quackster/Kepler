@@ -4,6 +4,7 @@ import org.alexdev.kepler.dao.mysql.ItemDao;
 import org.alexdev.kepler.dao.mysql.RoomDao;
 import org.alexdev.kepler.dao.mysql.RoomRightsDao;
 import org.alexdev.kepler.dao.mysql.RoomVoteDao;
+import org.alexdev.kepler.game.bot.BotManager;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
 import org.alexdev.kepler.game.events.EventsManager;
@@ -118,6 +119,14 @@ public class RoomEntityManager {
         entity.getRoomUser().setRoom(this.room);
         entity.getRoomUser().setInstanceId(this.generateUniqueId());
 
+        Position entryPosition = this.room.getModel().getDoorLocation();
+
+        if (destination != null) {
+            entryPosition = destination.copy();
+        }
+
+        entity.getRoomUser().setPosition(entryPosition);
+
         if (entity.getType() == EntityType.PLAYER) {
             Player player = (Player) entity;
             GamePlayer gamePlayer = player.getRoomUser().getGamePlayer();
@@ -135,13 +144,7 @@ public class RoomEntityManager {
         this.room.getEntities().add(entity);
         this.room.getData().setVisitorsNow(this.room.getEntityManager().getPlayers().size());
 
-        Position entryPosition = this.room.getModel().getDoorLocation();
 
-        if (destination != null) {
-            entryPosition = destination.copy();
-        }
-
-        entity.getRoomUser().setPosition(entryPosition);
 
         // From this point onwards we send packets for the user to enter
         if (entity.getType() != EntityType.PLAYER) {
@@ -241,6 +244,11 @@ public class RoomEntityManager {
 
         if (this.room.getModel().getModelTrigger() != null) {
             this.room.getModel().getModelTrigger().onRoomEntry(player, this.room, !isRoomActive);
+        }
+
+        // Load bot data if first entry
+        if (!isRoomActive) {
+            BotManager.getInstance().addBots(this.room);
         }
     }
 

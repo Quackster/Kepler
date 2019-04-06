@@ -1,6 +1,7 @@
 package org.alexdev.kepler.game.room.entities;
 
 import org.alexdev.kepler.game.GameScheduler;
+import org.alexdev.kepler.game.bot.BotManager;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
 import org.alexdev.kepler.game.item.Item;
@@ -389,12 +390,39 @@ public abstract class RoomEntity {
     }
 
     /**
-     * Animates the users mouth when speaking and detects any gestures.
+     * Handle chatting
      *
      * @param message the text to read for any gestures and to find animation length
-     * @param isShout whether the chat was a shout or not
+     * @param chatMessageType the talk message type
      */
-    public void chat(String message, boolean isShout) {
+    public void talk(String message, CHAT_MESSAGE.ChatMessageType chatMessageType) {
+        List<Player> recieveMessages = new ArrayList<>();
+
+        if (this.entity.getType() == EntityType.PLAYER) {
+            Player player = (Player) entity;
+
+            for (Player sessions : room.getEntityManager().getPlayers()) {
+                if (sessions.getIgnoredList().contains(player.getDetails().getName())) {
+                    continue;
+                }
+
+                recieveMessages.add(sessions);
+            }
+        } else {
+            recieveMessages.addAll(this.room.getEntityManager().getPlayers());
+        }
+
+        this.talk(message, chatMessageType, recieveMessages);
+    }
+
+    /**
+     * Handle chatting.
+     *
+     * @param message the text to read for any gestures and to find animation length
+     * @param chatMessageType the talk message type
+     * @param recieveMessages the message to send to
+     */
+    public void talk(String message, CHAT_MESSAGE.ChatMessageType chatMessageType, List<Player> recieveMessages) {
         if (message.endsWith("o/")) {
             this.wave();
 
@@ -403,40 +431,34 @@ public abstract class RoomEntity {
             }
         }
 
-        List<Entity> entities;
+        //message = WordfilterManager.filterSentence(message);
 
-        // Do head rotation
-        if (isShout) {
-            entities = new ArrayList<>(this.room.getEntities());
-        } else {
-            entities = new ArrayList<>();
+        if (chatMessageType != CHAT_MESSAGE.ChatMessageType.WHISPER) {
+            List<Entity> entities = new ArrayList<>(recieveMessages);
 
-            for (Entity entity : this.room.getEntities()) {
-                if (entity.getType() == EntityType.PET) {
+            // Remove self from looking
+            entities.remove(this.entity);
+
+            // Make any users look towards player
+            for (Entity entity : entities) {
+                if (entity.getRoomUser().containsStatus(StatusType.SLEEP)) {
                     continue;
                 }
 
-                if (entity.getRoomUser().getPosition().getDistanceSquared(this.entity.getRoomUser().getPosition()) <= 10) {
-                    entities.add(entity);
+                if (chatMessageType == CHAT_MESSAGE.ChatMessageType.CHAT) {
+                    if (this.entity.getRoomUser().getPosition().getDistanceSquared(entity.getRoomUser().getPosition()) > 14) {
+                        continue;
+                    }
                 }
+
+                entity.getRoomUser().look(this.position);
             }
-        }
-
-        // Remove self from looking
-        entities.remove(this.entity);
-
-        // Make any users look towards player
-        for (Entity entity : entities) {
-            if (entity.getRoomUser().containsStatus(StatusType.SLEEP)) {
-                continue;
-            }
-
-            entity.getRoomUser().look(this.position);
         }
 
         String[] words = message.split(" ");
         int talkDuration = 1;
 
+        // Send mouth movements to room
         if (words.length <= 5) {
             talkDuration = words.length / 2;
         } else {
@@ -452,6 +474,7 @@ public abstract class RoomEntity {
             this.needsUpdate = true;
         }
 
+        // Send gesture to room
         String gesture = this.getChatGesture(message);
 
         if (gesture != null) {
@@ -459,21 +482,15 @@ public abstract class RoomEntity {
             this.needsUpdate = true;
         }
 
-        // Send chat message to room
-        var chatMsg = new CHAT_MESSAGE(isShout ? CHAT_MESSAGE.ChatMessageType.SHOUT : CHAT_MESSAGE.ChatMessageType.CHAT, this.instanceId, message);
+        // Send talk message to room
+        var chatMsg = new CHAT_MESSAGE(chatMessageType, this.instanceId, message);
+
+        for (var player : recieveMessages) {
+            player.send(chatMsg);
+        }
 
         if (this.entity.getType() == EntityType.PLAYER) {
-            Player player = (Player) entity;
-
-            for (Player sessions : room.getEntityManager().getPlayers()) {
-                if (sessions.getIgnoredList().contains(player.getDetails().getName())) {
-                    continue;
-                }
-
-                sessions.send(chatMsg);
-            }
-        } else {
-            this.room.send(chatMsg);
+            BotManager.getInstance().handleSpeech((Player) this.entity, room, message);
         }
     }
 

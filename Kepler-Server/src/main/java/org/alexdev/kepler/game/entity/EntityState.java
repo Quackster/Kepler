@@ -12,14 +12,16 @@ public class EntityState {
     private int entityId;
     private int instanceId;
     private PlayerDetails details;
+    private EntityType entityType;
     private Room room;
     private Position position;
     private Map<String, RoomUserStatus> statuses;
 
-    public EntityState(int entityId, int instanceId, PlayerDetails details, Room room, Position position, Map<String, RoomUserStatus> statuses) {
+    public EntityState(int entityId, int instanceId, PlayerDetails details, EntityType entityType, Room room, Position position, Map<String, RoomUserStatus> statuses) {
         this.entityId = entityId;
         this.instanceId = instanceId;
         this.details = details;
+        this.entityType = entityType;
         this.room = room;
         this.position = position;
         this.statuses = new ConcurrentHashMap<>(statuses);
@@ -43,6 +45,10 @@ public class EntityState {
 
     public PlayerDetails getDetails() {
         return details;
+    }
+
+    public EntityType getEntityType() {
+        return entityType;
     }
 
     public Room getRoom() {

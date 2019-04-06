@@ -65,7 +65,6 @@ public class RoomDao {
     public static void saveChatlog(int userId, int roomId, CHAT_MESSAGE.ChatMessageType chatMessageType, String message) {
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
 
         try {
             sqlConnection = Storage.getStorage().getConnection();
@@ -92,7 +91,6 @@ public class RoomDao {
         } catch (SQLException e) {
             Storage.logError(e);
         } finally {
-            Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
             Storage.closeSilently(sqlConnection);
         }

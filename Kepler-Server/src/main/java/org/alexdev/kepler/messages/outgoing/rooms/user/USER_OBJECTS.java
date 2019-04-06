@@ -2,6 +2,7 @@ package org.alexdev.kepler.messages.outgoing.rooms.user;
 
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityState;
+import org.alexdev.kepler.game.entity.EntityType;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 import org.alexdev.kepler.util.StringUtil;
@@ -33,6 +34,7 @@ public class USER_OBJECTS extends MessageComposer {
                     user.getDetails().getId(),
                     user.getRoomUser().getInstanceId(),
                     user.getDetails(),
+                    user.getType(),
                     user.getRoomUser().getRoom(),
                     user.getRoomUser().getPosition().copy(),
                     user.getRoomUser().getStatuses()));
@@ -63,6 +65,10 @@ public class USER_OBJECTS extends MessageComposer {
                 if (states.getDetails().getPoolFigure().length() > 0) {
                     response.writeKeyValue("p", states.getDetails().getPoolFigure());
                 }
+            }
+
+            if (states.getEntityType() == EntityType.BOT) {
+                response.writeDelimeter("[bot]", (char)13);
             }
         }
     }
