@@ -1,6 +1,9 @@
 package org.alexdev.kepler.game.room.tasks;
 
 import org.alexdev.kepler.game.entity.Entity;
+import org.alexdev.kepler.game.entity.EntityType;
+import org.alexdev.kepler.game.pets.Pet;
+import org.alexdev.kepler.game.pets.PetManager;
 import org.alexdev.kepler.game.room.entities.RoomEntity;
 import org.alexdev.kepler.game.room.enums.StatusType;
 import org.alexdev.kepler.game.pathfinder.Position;
@@ -8,11 +11,13 @@ import org.alexdev.kepler.game.pathfinder.Rotation;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.mapping.RoomTile;
 import org.alexdev.kepler.log.Log;
+import org.alexdev.kepler.messages.outgoing.rooms.user.CHAT_MESSAGE;
 import org.alexdev.kepler.messages.outgoing.rooms.user.USER_STATUSES;
 import org.alexdev.kepler.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class EntityTask implements Runnable {
     private final Room room;
@@ -34,6 +39,10 @@ public class EntityTask implements Runnable {
                 if (entity != null
                         && entity.getRoomUser().getRoom() != null
                         && entity.getRoomUser().getRoom() == this.room) {
+
+                    if (entity.getType() == EntityType.PET) {
+                        this.processPet((Pet) entity);
+                    }
 
                     this.processEntity(entity);
                     RoomEntity roomEntity = entity.getRoomUser();
@@ -164,6 +173,31 @@ public class EntityTask implements Runnable {
 
             // If we're walking, make sure to tell the server
             roomEntity.setNeedsUpdate(true);
+        }
+    }
+
+    /**
+     * Process pet actions.
+     *
+     * @param pet the pet to process
+     */
+    private void processPet(Pet pet) {
+        switch (ThreadLocalRandom.current().nextInt(0, 30)) {
+            case 1: {
+                Position availableTile = this.room.getMapping().getRandomWalkableBound(pet);
+
+                if (availableTile != null) {
+                    pet.getRoomUser().walkTo(availableTile.getX(), availableTile.getY());
+                }
+
+                break;
+            }
+            case 2: {
+                if (ThreadLocalRandom.current().nextInt(0, 3) == 0) {
+                    pet.getRoomUser().talk(PetManager.getInstance().getRandomSpeech(pet.getDetails().getType()), CHAT_MESSAGE.ChatMessageType.CHAT);
+                }
+                break;
+            }
         }
     }
 }

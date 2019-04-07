@@ -5,6 +5,7 @@ import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.pathfinder.AffectedTile;
 import org.alexdev.kepler.game.pathfinder.Position;
+import org.alexdev.kepler.game.pets.Pet;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.models.RoomModel;
 import org.alexdev.kepler.game.room.public_rooms.PoolHandler;
@@ -347,5 +348,27 @@ public class RoomMapping {
         }
 
         return this.roomMap[x][y];
+    }
+
+    public Position getRandomWalkableBound(Entity entity) {
+        Position position = null;
+
+        boolean isWalkable = false;
+        int attempts = 0;
+        int maxAttempts = 10;
+
+        while (attempts < maxAttempts) {
+            attempts++;
+
+            int randomX = this.room.getModel().getRandomBound(0);
+            int randomY = this.room.getModel().getRandomBound(1);
+            position = new Position(randomX, randomY);
+
+            if (RoomTile.isValidTile(this.room, entity, position)) {
+                return position;
+            }
+        }
+
+        return null;
     }
 }

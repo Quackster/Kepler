@@ -19,6 +19,7 @@ public enum InteractionType {
     LERT(new DefaultInteractor()),
     SCOREBOARD(new DefaultInteractor()),
     FORTUNE(new DefaultInteractor()),
+    PET_NEST(new PetNestInteractor()),
 
     TOTEM_LEG(new DefaultInteractor()),
     TOTEM_HEAD(new DefaultInteractor()),

@@ -10,10 +10,6 @@ import org.alexdev.kepler.util.StringUtil;
 public class APPROVENAME implements MessageEvent {
     @Override
     public void handle(Player player, NettyRequest reader) throws Exception {
-        if (player.isLoggedIn()) {
-            return;
-        }
-
         String name = StringUtil.filterInput(reader.readString(), true);
         int nameCheckCode = getNameCheckCode(name);
 

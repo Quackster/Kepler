@@ -100,4 +100,19 @@ public class StringUtil {
     public static Charset getCharset() {
         return StandardCharsets.ISO_8859_1;
     }
+
+    /**
+     * Get words in a string
+     * @param s the string to get the list for
+     * @return the list of words
+     */
+    public static String[] getWords(String s) {
+        String[] words = s.split("\\s+");
+
+        for (int i = 0; i < words.length; i++) {
+            words[i] = words[i].replaceAll("[^\\w]", "");
+        }
+
+        return words;
+    }
 }

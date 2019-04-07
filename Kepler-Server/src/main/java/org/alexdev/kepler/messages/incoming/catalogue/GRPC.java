@@ -1,15 +1,14 @@
 package org.alexdev.kepler.messages.incoming.catalogue;
 
-import org.alexdev.kepler.dao.mysql.CurrencyDao;
-import org.alexdev.kepler.dao.mysql.ItemDao;
-import org.alexdev.kepler.dao.mysql.PlayerDao;
-import org.alexdev.kepler.dao.mysql.TeleporterDao;
+import org.alexdev.kepler.dao.mysql.*;
 import org.alexdev.kepler.game.catalogue.*;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.ItemManager;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.item.base.ItemDefinition;
 import org.alexdev.kepler.game.fuserights.Fuseright;
+import org.alexdev.kepler.game.item.interactors.InteractionType;
+import org.alexdev.kepler.game.pets.PetManager;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.player.PlayerManager;
@@ -228,6 +227,21 @@ public class GRPC implements MessageEvent {
 
             TeleporterDao.addPair(linkedTeleporterItem.getId(), item.getId());
             TeleporterDao.addPair(item.getId(), linkedTeleporterItem.getId());
+        }
+
+        if (def.getInteractionType() == InteractionType.PET_NEST) {
+            if (extraData != null) {
+                item.setDefinitionId(ItemManager.getInstance().getDefinitionBySprite("nest").getId());
+                String[] petData = extraData.split(Character.toString((char) 2));
+                String name = StringUtil.filterInput(petData[0], true);
+                String type = def.getSprite().replace("pets", "");
+                int race = Integer.valueOf(petData[1]);
+                String color = StringUtil.filterInput(petData[2], true);
+
+                if (PetManager.getInstance().isValidName(player.getDetails().getName(), name)) {
+                    PetDao.createPet(item.getId(), name, type, race, color);
+                }
+            }
         }
 
         return item;

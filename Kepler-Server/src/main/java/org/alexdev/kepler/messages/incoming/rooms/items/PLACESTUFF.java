@@ -124,5 +124,10 @@ public class PLACESTUFF implements MessageEvent {
 
         room.getMapping().addItem(item);
         player.getInventory().getItems().remove(item);
+
+        if (!item.getDefinition().hasBehaviour(ItemBehaviour.WALL_ITEM)) {
+            System.out.println("item: " + item.getDefinition().getInteractionType().name());
+            item.getDefinition().getInteractionType().getTrigger().onItemPlaced(player, room, item);
+        }
     }
 }

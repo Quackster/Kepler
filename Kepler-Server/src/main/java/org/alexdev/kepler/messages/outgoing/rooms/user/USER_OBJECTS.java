@@ -1,5 +1,6 @@
 package org.alexdev.kepler.messages.outgoing.rooms.user;
 
+import gherkin.lexer.En;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityState;
 import org.alexdev.kepler.game.entity.EntityType;
@@ -44,31 +45,41 @@ public class USER_OBJECTS extends MessageComposer {
     @Override
     public void compose(NettyResponse response) {
         for (EntityState states : states) {
-            response.writeKeyValue("i", states.getInstanceId());
-            response.writeKeyValue("a", states.getEntityId());
-            response.writeKeyValue("n", states.getDetails().getName());
-            response.writeKeyValue("f", states.getDetails().getFigure());
-            response.writeKeyValue("s", states.getDetails().getSex());
-            response.writeKeyValue("l", states.getPosition().getX() + " " + states.getPosition().getY() + " " + Double.toString(StringUtil.format(states.getPosition().getZ())));
+            response.write("\r");
 
-            if (states.getDetails().getMotto().length() > 0) {
-                response.writeKeyValue("c", states.getDetails().getMotto());
-            }
+            if (states.getEntityType() == EntityType.PET) {
+                response.writeKeyValue("i", states.getInstanceId());
+                response.writeKeyValue("n", states.getInstanceId() + Character.toString((char)4) + states.getDetails().getName());
+                response.writeKeyValue("f", states.getDetails().getFigure());
+                response.writeKeyValue("l", states.getPosition().getX() + " " + states.getPosition().getY() + " " + (int)states.getPosition().getZ());
+                response.writeKeyValue("c", "");
+            } else {
+                response.writeKeyValue("i", states.getInstanceId());
+                response.writeKeyValue("a", states.getEntityId());
+                response.writeKeyValue("n", states.getDetails().getName());
+                response.writeKeyValue("f", states.getDetails().getFigure());
+                response.writeKeyValue("s", states.getDetails().getSex());
+                response.writeKeyValue("l", states.getPosition().getX() + " " + states.getPosition().getY() + " " + Double.toString(StringUtil.format(states.getPosition().getZ())));
 
-            if (states.getDetails().getShowBadge()) {
-                response.writeKeyValue("b", states.getDetails().getCurrentBadge());
-            }
-
-            if (states.getRoom().getModel().getName().startsWith("pool_") ||
-                    states.getRoom().getModel().getName().equals("md_a")) {
-
-                if (states.getDetails().getPoolFigure().length() > 0) {
-                    response.writeKeyValue("p", states.getDetails().getPoolFigure());
+                if (states.getDetails().getMotto().length() > 0) {
+                    response.writeKeyValue("c", states.getDetails().getMotto());
                 }
-            }
 
-            if (states.getEntityType() == EntityType.BOT) {
-                response.writeDelimeter("[bot]", (char)13);
+                if (states.getDetails().getShowBadge()) {
+                    response.writeKeyValue("b", states.getDetails().getCurrentBadge());
+                }
+
+                if (states.getRoom().getModel().getName().startsWith("pool_") ||
+                        states.getRoom().getModel().getName().equals("md_a")) {
+
+                    if (states.getDetails().getPoolFigure().length() > 0) {
+                        response.writeKeyValue("p", states.getDetails().getPoolFigure());
+                    }
+                }
+
+                if (states.getEntityType() == EntityType.BOT) {
+                    response.writeDelimeter("[bot]", (char) 13);
+                }
             }
         }
     }

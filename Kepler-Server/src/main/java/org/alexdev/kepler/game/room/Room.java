@@ -1,5 +1,6 @@
 package org.alexdev.kepler.game.room;
 
+import org.alexdev.kepler.dao.mysql.PetDao;
 import org.alexdev.kepler.dao.mysql.RoomDao;
 import org.alexdev.kepler.dao.mysql.RoomVoteDao;
 import org.alexdev.kepler.game.GameScheduler;
@@ -8,6 +9,7 @@ import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.navigator.NavigatorCategory;
 import org.alexdev.kepler.game.navigator.NavigatorManager;
+import org.alexdev.kepler.game.pets.Pet;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.enums.StatusType;
 import org.alexdev.kepler.game.room.managers.RoomEntityManager;
@@ -211,6 +213,13 @@ public class Room {
             public void run() {
                 if (roomEntityManager.getPlayers().size() > 0) {
                     return;
+                }
+
+                for (Pet pet : room.getEntityManager().getEntitiesByClass(Pet.class)) {
+                    PetDao.saveCoordinates(pet.getDetails().getId(),
+                            pet.getRoomUser().getPosition().getX(),
+                            pet.getRoomUser().getPosition().getY(),
+                            pet.getRoomUser().getPosition().getRotation());
                 }
 
                 isActive = false;

@@ -6,6 +6,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.alexdev.kepler.game.triggers.GenericTrigger;
 import org.alexdev.kepler.util.StringUtil;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public class RoomModel {
     private String modelId;
     private String modelName;
@@ -152,5 +154,17 @@ public class RoomModel {
 
     public GenericTrigger getModelTrigger() {
         return modelTrigger;
+    }
+
+    public int getRandomBound(int boundId) {
+        if (boundId == 0) {
+            return ThreadLocalRandom.current().nextInt(0, this.mapSizeX);
+        }
+
+        if (boundId == 1) {
+            return ThreadLocalRandom.current().nextInt(0, this.mapSizeY);
+        }
+
+        return -1;
     }
 }

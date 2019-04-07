@@ -30,6 +30,8 @@ public class REMOVEITEM implements MessageEvent {
             return;
         }
 
+        item.getDefinition().getInteractionType().getTrigger().onItemPickup(player, room, item);
+
         ItemDao.deleteItem(item.getId());
         room.getMapping().removeItem(item);
     }

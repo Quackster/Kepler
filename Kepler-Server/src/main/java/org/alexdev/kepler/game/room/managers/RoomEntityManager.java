@@ -99,6 +99,22 @@ public class RoomEntityManager {
     }
 
     /**
+     * Get an entity by id.
+     *
+     * @param id the instance id to get by
+     * @return the entity
+     */
+    public Entity getById(int id, EntityType entityType) {
+        for (Entity entity : this.room.getEntities()) {
+            if (entity.getDetails().getId() == id && entity.getType() == entityType) {
+                return entity;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Adds a generic entity to the room.
      * Will send packets if the entity is a player.
      *
@@ -124,6 +140,8 @@ public class RoomEntityManager {
         if (destination != null) {
             entryPosition = destination.copy();
         }
+
+        System.out.println(entity.getDetails().getName());
 
         entity.getRoomUser().setPosition(entryPosition);
 

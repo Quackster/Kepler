@@ -68,5 +68,6 @@ public class MOVESTUFF implements MessageEvent {
         item.getPosition().setRotation(rotation);
 
         room.getMapping().moveItem(item, isRotation, oldPosition);
+        item.getDefinition().getInteractionType().getTrigger().onItemMoved(player, room, item, isRotation, oldPosition);
     }
 }

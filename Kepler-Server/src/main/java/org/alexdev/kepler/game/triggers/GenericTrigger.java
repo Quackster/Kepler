@@ -13,4 +13,7 @@ public abstract class GenericTrigger {
     public void onEntityStep(Entity entity, RoomEntity roomEntity, Item item, Position oldPosition, Object... customArgs) { }
     public void onEntityStop(Entity entity, RoomEntity roomEntity, Item item, Object... customArgs) { }
     public void onEntityLeave(Entity entity, RoomEntity roomEntity, Item item, Object... customArgs) { }
+    public void onItemPlaced(Player player, Room room, Item item) { }
+    public void onItemMoved(Player player, Room room, Item item, boolean isRotation, Position oldPosition) { }
+    public void onItemPickup(Player player, Room room, Item item) { }
 }
