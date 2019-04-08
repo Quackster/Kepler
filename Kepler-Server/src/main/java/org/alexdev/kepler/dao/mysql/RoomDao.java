@@ -107,7 +107,7 @@ public class RoomDao {
     /**
      * Save rating for the room
      *
-     * @param roomId the room to performChatSaving
+     * @param roomId the room to save
      * @param rating the new rating
      */
     public static void saveRating(int roomId, int rating) {
@@ -308,7 +308,7 @@ public class RoomDao {
     /**
      * Save all room information.
      *
-     * @param room the room to performChatSaving
+     * @param room the room to save
      */
     public static void saveDecorations(Room room) {
         Connection sqlConnection = null;
@@ -332,7 +332,7 @@ public class RoomDao {
     /**
      * Save all room information.
      *
-     * @param room the room to performChatSaving
+     * @param room the room to save
      */
     public static void save(Room room) {
         Connection sqlConnection = null;
@@ -363,7 +363,7 @@ public class RoomDao {
     /**
      * Save visitor count of rooms
      *
-     * @param room the room to performChatSaving
+     * @param room the room to save
      */
     public static void saveVisitors(Room room) {
         Connection sqlConnection = null;
