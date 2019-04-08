@@ -119,7 +119,7 @@ public class GameScheduler implements Runnable {
                 CallForHelpManager.getInstance().purgeExpiredCfh();
             }
 
-            // Delete chat messages every 60 seconds
+            // Save chat messages every 60 seconds
             if (this.tickRate.get() % 60 == 0) {
                 ChatManager.getInstance().performChatSaving();
             }
