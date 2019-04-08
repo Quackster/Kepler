@@ -11,6 +11,7 @@ import org.alexdev.kepler.game.events.EventsManager;
 import org.alexdev.kepler.game.games.GameManager;
 import org.alexdev.kepler.game.item.ItemManager;
 import org.alexdev.kepler.game.fuserights.FuserightsManager;
+import org.alexdev.kepler.game.moderation.ChatManager;
 import org.alexdev.kepler.game.navigator.NavigatorManager;
 import org.alexdev.kepler.game.player.PlayerManager;
 import org.alexdev.kepler.game.room.RoomManager;
@@ -91,14 +92,15 @@ public class Kepler {
             RoomManager.getInstance();
             PlayerManager.getInstance();
             BotManager.getInstance();
+            EventsManager.getInstance();
             FuserightsManager.getInstance();
             NavigatorManager.getInstance();
+            ChatManager.getInstance();
             GameScheduler.getInstance();
             GameManager.getInstance();
             CommandManager.getInstance();
             MessageHandler.getInstance();
             TextsManager.getInstance();
-            EventsManager.getInstance();
 
             setupRcon();
             setupMus();
@@ -215,6 +217,7 @@ public class Kepler {
             isShutdown = true;
 
             // TODO: all the managers
+            ChatManager.getInstance().performChatSaving();
             GameScheduler.getInstance().performItemSaving();
             PlayerManager.getInstance().dispose();
 

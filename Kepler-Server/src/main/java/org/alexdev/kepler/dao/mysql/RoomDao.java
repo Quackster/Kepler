@@ -1,6 +1,7 @@
 package org.alexdev.kepler.dao.mysql;
 
 import org.alexdev.kepler.dao.Storage;
+import org.alexdev.kepler.game.moderation.ChatMessage;
 import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.RoomData;
@@ -62,33 +63,40 @@ public class RoomDao {
         return rooms;
     }
 
-    public static void saveChatlog(int userId, int roomId, CHAT_MESSAGE.ChatMessageType chatMessageType, String message) {
+    public static void saveChatLog(List<ChatMessage> chatMessageList) {
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
 
         try {
             sqlConnection = Storage.getStorage().getConnection();
             preparedStatement = Storage.getStorage().prepare("INSERT INTO room_chatlogs (user_id, room_id, timestamp, chat_type, message) VALUES (?, ?, ?, ?, ?)", sqlConnection);
-            preparedStatement.setInt(1, userId);
-            preparedStatement.setInt(2, roomId);
-            preparedStatement.setLong(3, DateUtil.getCurrentTimeSeconds());
+            sqlConnection.setAutoCommit(false);
 
-            switch (chatMessageType) {
-                case CHAT:
-                    preparedStatement.setInt(4, 0);
-                    break;
-                case SHOUT:
-                    preparedStatement.setInt(4, 1);
-                    break;
-                default:
-                    preparedStatement.setInt(4, 2);
-                    break;
+            for (ChatMessage chatMessage : chatMessageList) {
+                preparedStatement.setInt(1, chatMessage.getPlayerId());
+                preparedStatement.setInt(2, chatMessage.getRoomId());
+                preparedStatement.setLong(3, DateUtil.getCurrentTimeSeconds());
+
+                switch (chatMessage.getChatMessageType()) {
+                    case CHAT:
+                        preparedStatement.setInt(4, 0);
+                        break;
+                    case SHOUT:
+                        preparedStatement.setInt(4, 1);
+                        break;
+                    default:
+                        preparedStatement.setInt(4, 2);
+                        break;
+                }
+
+                preparedStatement.setString(5, chatMessage.getMessage());
+                preparedStatement.addBatch();
             }
 
-            preparedStatement.setString(5, message);
-            preparedStatement.execute();
+            preparedStatement.executeBatch();
+            sqlConnection.setAutoCommit(true);
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             Storage.logError(e);
         } finally {
             Storage.closeSilently(preparedStatement);
@@ -99,7 +107,7 @@ public class RoomDao {
     /**
      * Save rating for the room
      *
-     * @param roomId the room to save
+     * @param roomId the room to performChatSaving
      * @param rating the new rating
      */
     public static void saveRating(int roomId, int rating) {
@@ -300,7 +308,7 @@ public class RoomDao {
     /**
      * Save all room information.
      *
-     * @param room the room to save
+     * @param room the room to performChatSaving
      */
     public static void saveDecorations(Room room) {
         Connection sqlConnection = null;
@@ -324,7 +332,7 @@ public class RoomDao {
     /**
      * Save all room information.
      *
-     * @param room the room to save
+     * @param room the room to performChatSaving
      */
     public static void save(Room room) {
         Connection sqlConnection = null;
@@ -355,7 +363,7 @@ public class RoomDao {
     /**
      * Save visitor count of rooms
      *
-     * @param room the room to save
+     * @param room the room to performChatSaving
      */
     public static void saveVisitors(Room room) {
         Connection sqlConnection = null;

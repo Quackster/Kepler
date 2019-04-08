@@ -1,6 +1,7 @@
 package org.alexdev.kepler.messages.incoming.rooms.user;
 
 import org.alexdev.kepler.dao.mysql.RoomDao;
+import org.alexdev.kepler.game.moderation.ChatManager;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerManager;
 import org.alexdev.kepler.game.room.Room;
@@ -42,6 +43,6 @@ public class WHISPER implements MessageEvent {
             player.send(new CHAT_MESSAGE(ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), "User not found. Whisper not sent.", 0));
         }*/
 
-        RoomDao.saveChatlog(player.getDetails().getId(), room.getId(), CHAT_MESSAGE.ChatMessageType.WHISPER, contents);
+        ChatManager.getInstance().queue(player, room, contents, CHAT_MESSAGE.ChatMessageType.WHISPER);
     }
 }

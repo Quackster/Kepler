@@ -5,6 +5,7 @@ import org.alexdev.kepler.game.catalogue.RareManager;
 import org.alexdev.kepler.game.events.EventsManager;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.ItemManager;
+import org.alexdev.kepler.game.moderation.ChatManager;
 import org.alexdev.kepler.game.moderation.cfh.CallForHelpManager;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerDetails;
@@ -116,6 +117,11 @@ public class GameScheduler implements Runnable {
             // Delete expired CFH's every 60 seconds
             if (this.tickRate.get() % 60 == 0) {
                 CallForHelpManager.getInstance().purgeExpiredCfh();
+            }
+
+            // Delete chat messages every 60 seconds
+            if (this.tickRate.get() % 60 == 0) {
+                ChatManager.getInstance().performChatSaving();
             }
 
             RareManager.getInstance().performRareManagerJob(this.tickRate);
