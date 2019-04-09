@@ -55,12 +55,12 @@ public class REMOVE_JUKEBOX_DISC implements MessageEvent {
         songDisk.setHidden(false);
         songDisk.save();
 
-        player.getInventory().getView("new"); // Refresh hand
         SongMachineDao.removeTrack(room.getItemManager().getSoundMachine().getId(), slotId);
-
-        new GET_USER_SONG_DISCS().handle(player, null);
-
         SongMachineDao.removePlaylistSong(burnedDisk.getSongId());
+        JukeboxDao.editDisk(songDisk.getId(), 0, 0);
+
+        player.getInventory().getView("new"); // Refresh hand
+        new GET_USER_SONG_DISCS().handle(player, null);
 
         room.send(new SONG_PLAYLIST(SongMachineDao.getSongPlaylist(room.getItemManager().getSoundMachine().getId())));
         room.send(new JUKEBOX_DISCS(ItemManager.getInstance().getJukeboxTracks(room.getItemManager().getSoundMachine().getId())));

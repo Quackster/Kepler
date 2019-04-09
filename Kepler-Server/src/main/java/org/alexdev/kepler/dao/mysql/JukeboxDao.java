@@ -33,7 +33,7 @@ public class JukeboxDao {
         }
     }
 
-    public static void editDisk(long itemId, int songMachineId, int slotId) throws SQLException {
+    public static void editDisk(int itemId, int songMachineId, int slotId) throws SQLException {
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
 
@@ -42,7 +42,7 @@ public class JukeboxDao {
             preparedStatement = Storage.getStorage().prepare("UPDATE soundmachine_disks SET soundmachine_id = ?, slot_id = ? WHERE item_id = ?", sqlConnection);
             preparedStatement.setInt(1, songMachineId);
             preparedStatement.setInt(2, slotId);
-            preparedStatement.setLong(3, itemId);
+            preparedStatement.setInt(3, itemId);
             preparedStatement.execute();
         } catch (Exception e) {
             Storage.logError(e);

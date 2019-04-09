@@ -92,4 +92,5 @@ ALTER TABLE `items_pets`
   
 INSERT INTO `items_definitions` (`id`, `sprite`, `sprite_id`, `name`, `description`, `colour`, `length`, `width`, `top_height`, `max_status`, `behaviour`, `interactor`, `is_tradable`, `is_recyclable`, `drink_ids`) VALUES (NULL, 'nest', '34', '', '', '0,0,0', '1', '1', '0', '2', 'can_stand_on_top,requires_rights_for_interaction', 'pet_nest', '1', '1', '');
 
-ALTER TABLE `soundmachine_disks` CHANGE `soundmachine_id` `soundmachine_id` BIGINT(11) NOT NULL DEFAULT '0';
+-- Needed for fixing jukebox disks
+UPDATE items SET is_hidden = 0 WHERE definition_id = 1412;
