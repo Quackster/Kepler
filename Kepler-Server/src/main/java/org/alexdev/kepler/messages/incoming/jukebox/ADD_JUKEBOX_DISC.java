@@ -62,7 +62,6 @@ public class ADD_JUKEBOX_DISC implements MessageEvent {
             return;
         }
 
-        SongMachineDao.addTrack(room.getItemManager().getSoundMachine().getId(), songId, slotId);
         JukeboxDao.editDisk(songDisk.getId(), room.getItemManager().getSoundMachine().getId(), slotId);
 
         room.send(new JUKEBOX_DISCS(JukeboxManager.getInstance().getDisks(room.getItemManager().getSoundMachine().getId())));
