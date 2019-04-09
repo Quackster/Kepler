@@ -136,7 +136,7 @@ public class SongMachineDao {
 
         try {
             sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("DELETE FROM soundmachine_playlists WHERE song_id = ?", sqlConnection);
+            preparedStatement = Storage.getStorage().prepare("DELETE FROM soundmachine_playlists WHERE song_id = ? LIMIT 1", sqlConnection);
             preparedStatement.setInt(1, songId);
             preparedStatement.execute();
         } catch (Exception e) {

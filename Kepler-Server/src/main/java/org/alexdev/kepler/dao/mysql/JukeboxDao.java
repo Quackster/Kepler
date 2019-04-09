@@ -1,7 +1,7 @@
 package org.alexdev.kepler.dao.mysql;
 
 import org.alexdev.kepler.dao.Storage;
-import org.alexdev.kepler.game.song.BurnedDisk;
+import org.alexdev.kepler.game.song.jukebox.BurnedDisk;
 import org.alexdev.kepler.util.DateUtil;
 
 import java.sql.Connection;
@@ -51,6 +51,36 @@ public class JukeboxDao {
             Storage.closeSilently(preparedStatement);
             Storage.closeSilently(sqlConnection);
         }
+    }
+
+    public static List<BurnedDisk> getDisks(long soundmachineId) {
+        List<BurnedDisk> disks = new ArrayList<BurnedDisk>();
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("SELECT * FROM soundmachine_disks WHERE soundmachine_id = ?", sqlConnection);
+            preparedStatement.setLong(1, soundmachineId);
+
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                disks.add(new BurnedDisk(resultSet.getLong("item_id"), resultSet.getInt("soundmachine_id"), resultSet.getInt("slot_id"),
+                        resultSet.getInt("song_id"), resultSet.getLong("burned_at")));
+            }
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+
+        return disks;
     }
 
     public static BurnedDisk getDisk(long soundmachineId, int songId) {

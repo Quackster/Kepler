@@ -8,6 +8,7 @@ import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.song.Song;
+import org.alexdev.kepler.game.song.jukebox.JukeboxManager;
 import org.alexdev.kepler.messages.outgoing.jukebox.JUKEBOX_DISCS;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
@@ -64,7 +65,7 @@ public class ADD_JUKEBOX_DISC implements MessageEvent {
         SongMachineDao.addTrack(room.getItemManager().getSoundMachine().getId(), songId, slotId);
         JukeboxDao.editDisk(songDisk.getId(), room.getItemManager().getSoundMachine().getId(), slotId);
 
-        room.send(new JUKEBOX_DISCS(ItemManager.getInstance().getJukeboxTracks(room.getItemManager().getSoundMachine().getId())));
+        room.send(new JUKEBOX_DISCS(JukeboxManager.getInstance().getDisks(room.getItemManager().getSoundMachine().getId())));
         new GET_USER_SONG_DISCS().handle(player, null);
     }
 }

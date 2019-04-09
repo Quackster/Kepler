@@ -1,4 +1,4 @@
-package org.alexdev.kepler.game.song;
+package org.alexdev.kepler.game.song.jukebox;
 
 public class BurnedDisk {
     private long itemId;
