@@ -7,6 +7,7 @@ import org.alexdev.kepler.game.item.ItemManager;
 import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
+import org.alexdev.kepler.game.song.BurnedDisk;
 import org.alexdev.kepler.messages.outgoing.jukebox.JUKEBOX_DISCS;
 import org.alexdev.kepler.messages.outgoing.songs.SONG_PLAYLIST;
 import org.alexdev.kepler.messages.types.MessageEvent;
@@ -32,21 +33,16 @@ public class REMOVE_JUKEBOX_DISC implements MessageEvent {
         }
 
         int slotId = reader.readInt();
+        BurnedDisk burnedDisk = JukeboxDao.getDisk(room.getItemManager().getSoundMachine().getId(), slotId);
 
-        var tracks = SongMachineDao.getTracks(room.getItemManager().getSoundMachine().getId());
-
-        if (!tracks.containsKey(slotId)) {
+        if (burnedDisk == null) {
             return;
         }
 
-
-        int songId = tracks.get(slotId);
-
-        List<Integer> itemList = JukeboxDao.getItemsBySong(songId);
         Item songDisk = null;
 
         for (Item item : player.getInventory().getItems()) {
-            if (itemList.contains(item.getId()) && item.isHidden()) {
+            if ((burnedDisk.getItemId() == item.getId()) && item.isHidden()) {
                 songDisk = item;
                 break;
             }
@@ -64,7 +60,7 @@ public class REMOVE_JUKEBOX_DISC implements MessageEvent {
 
         new GET_USER_SONG_DISCS().handle(player, null);
 
-        SongMachineDao.removePlaylistSong(songId);
+        SongMachineDao.removePlaylistSong(burnedDisk.getSongId());
 
         room.send(new SONG_PLAYLIST(SongMachineDao.getSongPlaylist(room.getItemManager().getSoundMachine().getId())));
         room.send(new JUKEBOX_DISCS(ItemManager.getInstance().getJukeboxTracks(room.getItemManager().getSoundMachine().getId())));

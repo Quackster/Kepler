@@ -1,6 +1,7 @@
 package org.alexdev.kepler.dao.mysql;
 
 import org.alexdev.kepler.dao.Storage;
+import org.alexdev.kepler.game.song.BurnedDisk;
 import org.alexdev.kepler.util.DateUtil;
 
 import java.sql.Connection;
@@ -52,8 +53,8 @@ public class JukeboxDao {
         }
     }
 
-    public static List<Integer> getItemsBySong(int songId) {
-        List<Integer> items = new ArrayList<>();
+    public static BurnedDisk getDisk(long soundmachineId, int songId) {
+        BurnedDisk disk = null;
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -61,11 +62,15 @@ public class JukeboxDao {
 
         try {
             sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("SELECT * FROM soundmachine_disks", sqlConnection);
+            preparedStatement = Storage.getStorage().prepare("SELECT * FROM soundmachine_disks WHERE slot_id = ? AND soundmachine_id = ?", sqlConnection);
+            preparedStatement.setInt(1, songId);
+            preparedStatement.setLong(2, soundmachineId);
+
             resultSet = preparedStatement.executeQuery();
 
-            while (resultSet.next()) {
-                items.add(resultSet.getInt("item_id"));
+            if (resultSet.next()) {
+                disk = new BurnedDisk(resultSet.getLong("item_id"), resultSet.getInt("soundmachine_id"), resultSet.getInt("slot_id"),
+                        resultSet.getInt("song_id"), resultSet.getLong("burned_at"));
             }
 
         } catch (Exception e) {
@@ -76,7 +81,7 @@ public class JukeboxDao {
             Storage.closeSilently(sqlConnection);
         }
 
-        return items;
+        return disk;
     }
 
     public static int getSongIdByItem(long itemId) {
