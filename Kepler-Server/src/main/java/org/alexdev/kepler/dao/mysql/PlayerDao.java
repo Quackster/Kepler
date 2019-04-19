@@ -320,18 +320,17 @@ public class PlayerDao {
     /**
      * Register user
      */
-    public static void register(String username, String password, String figure, String sex, String ipAddress){
+    public static void register(String username, String password, String figure, String sex){
         Connection conn = null;
         PreparedStatement stmt = null;
 
         try {
             conn = Storage.getStorage().getConnection();
-            stmt = Storage.getStorage().prepare("INSERT INTO users (username, password, figure, sex, pool_figure, sso_ticket, ip_address) VALUES (?, ?, ?, ?, '', '', ?)", conn);
+            stmt = Storage.getStorage().prepare("INSERT INTO users (username, password, figure, sex, pool_figure, sso_ticket) VALUES (?, ?, ?, ?, '', '')", conn);
             stmt.setString(1, username);
             stmt.setString(2, password);
             stmt.setString(3, figure);
             stmt.setString(4, sex);
-            stmt.setString(5, ipAddress);
             stmt.execute();
         } catch (SQLException e) {
             Storage.logError(e);

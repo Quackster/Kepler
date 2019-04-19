@@ -67,7 +67,7 @@ public class REGISTER implements MessageEvent {
             return;
         }
 
-        PlayerDao.register(username, createPassword(password), figure, gender, NettyPlayerNetwork.getIpAddress(player.getNetwork().getChannel()));
+        PlayerDao.register(username, createPassword(password), figure, gender);
         //System.out.println(name + " / " + figure + " / " + gender + " / " + email + " / " + birthday + " / " + password);
     }
 
