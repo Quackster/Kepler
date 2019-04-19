@@ -94,3 +94,5 @@ INSERT INTO `items_definitions` (`id`, `sprite`, `sprite_id`, `name`, `descripti
 
 -- Needed for fixing jukebox disks
 UPDATE items SET is_hidden = 0 WHERE definition_id = 1412;
+
+ALTER TABLE `users` CHANGE `sso_ticket` `sso_ticket` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;
