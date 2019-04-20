@@ -7,6 +7,7 @@ import org.alexdev.kepler.game.games.enums.GameType;
 import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.games.player.GameTeam;
 import org.alexdev.kepler.game.games.snowstorm.object.SnowStormAvatarObject;
+import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.models.RoomModel;
 
@@ -32,9 +33,7 @@ public class SnowStormGame extends Game {
 
     @Override
     public void initialise() {
-        this.setRoomModel(new RoomModel("snowwar_arena_0", "snowwar_arena_0", 0, 0, 0, 0,
-                "xxxxxxxxxxxxxxxxxxx00000xxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxx0000000xxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx000000000xxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxx00000000000xxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxx0000000000000xxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxx000000000000000xxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxx00000000000000000xxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxx0000000000000000000xxxxxxxxxxxxxxxxxxx|xxxxxxxxxxx000000000000000000000xxxxxxxxxxxxxxxxxx|xxxxxxxxxx00000000000000000000000xxxxxxxxxxxxxxxxx|xxxxxxxxx0000000000000000000000000xxxxxxxxxxxxxxxx|xxxxxxxx000000000000000000000000000xxxxxxxxxxxxxxx|xxxxxxx00000000000000000000000000000xxxxxxxxxxxxxx|xxxxxx0000000000000000000000000000000xxxxxxxxxxxxx|xxxxx000000000000000000000000000000000xxxxxxxxxxxx|xxxx00000000000000000000000000000000000xxxxxxxxxxx|xxx0000000000000000000000000000000000000xxxxxxxxxx|xx000000000000000000000000000000000000000xxxxxxxxx|x00000000000000000000000000000000000000000xxxxxxxx|0000000000000000000000000000000000000000000xxxxxxx|0000000000000000000xxxxxxxxxx0xxxxxx00000000xxxxxx|0000000000000000000xxxxxxxxxx0xxxxxxx00000000xxxxx|0000000000000000000xxxxxxxxxx0xxxxxxx000000000xxxx|x000000000000000000xxx000000000000xxx0000000000xxx|xx00000000000000000xxx000000000000xxx00000000000xx|xxx0000000000000000xxx000000000000xxx000000000000x|xxxx000000000000000xxx000000000000xxx0000000000000|xxxxx00000000000000000000000000000xxx0000000000000|xxxxxx0000000000000xxx000000000000xxxx000000000000|xxxxxxx000000000000xxx000000000000xxxxxxxxxx0xxxxx|xxxxxxxx00000000000xxx000000000000xxxxxxxxxx0xxxxx|xxxxxxxxx0000000000xxx0000000000000xxxxxxxxx0xxxxx|xxxxxxxxxx000000000xxxxxxxx0000000000000000000000x|xxxxxxxxxxx00000000xxxxxxxxx00000000000000000000xx|xxxxxxxxxxxx00000000xxxxxxxx0000000000000000000xxx|xxxxxxxxxxxxx000000000000xxx000000000000000000xxxx|xxxxxxxxxxxxxx00000000000xxx00000000000000000xxxxx|xxxxxxxxxxxxxxx0000000000xxx0000000000000000xxxxxx|xxxxxxxxxxxxxxxx000000000xxx000000000000000xxxxxxx|xxxxxxxxxxxxxxxxx00000000xxx00000000000000xxxxxxxx|xxxxxxxxxxxxxxxxxx0000000xxx0000000000000xxxxxxxxx|xxxxxxxxxxxxxxxxxxx000000xxx000000000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxx00000xxx00000000000xxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx0000xxx0000000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx000xxx000000000xxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxx00xxx00000000xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxx0xxx0000000xxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxx000000xxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxx00000xxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxx0000xxxxxxxxxxxxxxxxxx|", ""));
-
+        var model = new RoomModel("snowwar_arena_0", "snowwar_arena_0", 0, 0, 0, 0, "00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|00000000000000000000000000000000000000000000000000|", null);
         int seconds = 0;
 
         if (this.gameLengthChoice == 1) {
@@ -50,49 +49,21 @@ public class SnowStormGame extends Game {
         }
 
 
-        super.initialise();
-        this.getTotalSecondsLeft().set(seconds); // Override with game length choice
+        super.initialise(999999, "SnowStorm Arena", model);
+        //this.getTotalSecondsLeft().set(seconds); // Override with game length choice
     }
 
     @Override
     public void assignSpawnPoints() {
+        this.getRoom().getMapping().regenerateCollisionMap();
+
         for (GameTeam team : this.getTeams().values()) {
             for (GamePlayer p : team.getPlayers()) {
-                p.getSpawnPosition().setX(24);
-                p.getSpawnPosition().setY(24);
-
-                p.getSpawnPosition().setX(86400);
-                p.getSpawnPosition().setY(83200);
+                p.getSpawnPosition().setX(9);
+                p.getSpawnPosition().setY(22);
 
                 p.getPlayer().getRoomUser().setPosition(p.getSpawnPosition().copy());
                 p.setGameObject(new SnowStormAvatarObject(p));
-
-                /*if (p.getPlayer().getDetails().getId() == 4) {
-                    p.getSpawnPosition().setX(73600);
-                    p.getSpawnPosition().setY(80000);
-                }
-
-                if (p.getPlayer().getDetails().getId() == 2) {
-                    p.getSpawnPosition().setX(86400);
-                    p.getSpawnPosition().setY(60800);
-                }
-
-
-                if (p.getPlayer().getDetails().getId() == 3) {
-                    p.getSpawnPosition().setX(83200);
-                    p.getSpawnPosition().setY(57600);
-                }
-*/
-
-                //if (p.getPlayer().getDetails().getId() == 1) {
-                p.getSpawnPosition().setX(86400);
-                p.getSpawnPosition().setY(83200);
-                //}
-
-                //p.getSpawnPosition().setX(ThreadLocalRandom.current().nextInt(5, 21));
-                // p.getSpawnPosition().setY(ThreadLocalRandom.current().nextInt(5, 21));
-                //p.getSpawnPosition().setRotation(ThreadLocalRandom.current().nextInt(0, 7));
-
 
             }
         }
@@ -130,16 +101,18 @@ public class SnowStormGame extends Game {
         return gameObjects;
     }
 
-    public static int convertToGameCoordinate(int num, Game game) {
+    public static int convertToGameCoordinate(int num) {
         int pAccuracyFactor = 100;
-        int tMultiplier = game.getRoomModel().getMapSizeX() * pAccuracyFactor;
+        int pTileSize = 32;
+        int tMultiplier = pTileSize * pAccuracyFactor;
 
         return num / tMultiplier;
     }
 
-    public static int convertToWorldCoordinate(int num, Game game) {
+    public static int convertToWorldCoordinate(int num) {
         int pAccuracyFactor = 100;
-        int tMultiplier = game.getRoomModel().getMapSizeX() * pAccuracyFactor;
+        int pTileSize = 32;
+        int tMultiplier = pTileSize * pAccuracyFactor;
 
         return num * tMultiplier;
     }

@@ -93,24 +93,26 @@ public abstract class Game {
      * Method to initialise the game
      */
     public void initialise() {
+        this.initialise(GameManager.getInstance().getLifetimeSeconds(this.gameType), "Battleball Arena", GameManager.getInstance().getModel(this.gameType, this.mapId));
+    }
+
+    public void initialise(int lifetimeSeconds, String roomName, RoomModel model) {
         this.gameState = GameState.STARTED;
 
-        this.gameStarted = false;
-        this.gameFinished = false;
-
         this.preparingGameSecondsLeft = new AtomicInteger(GameManager.getInstance().getPreparingSeconds(this.gameType));
-        this.totalSecondsLeft = new AtomicInteger(GameManager.getInstance().getLifetimeSeconds(this.gameType));
+        this.totalSecondsLeft = new AtomicInteger(lifetimeSeconds);
 
-        if (this.roomModel == null) {
-            this.roomModel = GameManager.getInstance().getModel(this.gameType, this.mapId);
+        if (model != null) {
+            this.roomModel = model;
         }
 
         if (this.room == null) {
             this.room = new Room();
-            this.room.getData().fill(0, "Battleball Arena", "");
+            this.room.getData().fill(0, roomName, "");
             this.room.setRoomModel(this.getRoomModel());
             this.room.getData().setGame(this);
 
+            //this.room.getData().setCategoryId(NavigatorManager.getInstance().getCategories().values().stream().findFirst().get().getId());
             this.room.getData().setGameArena(true);
             this.room.getData().setGameLobby(this.gameType.getLobbyModel());
         }

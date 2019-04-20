@@ -39,8 +39,15 @@ public class GAMEEVENT implements MessageEvent {
             System.out.println("X: " + X);
             System.out.println("Y: " + Y);
 
-            player.getRoomUser().getPosition().setX(SnowStormGame.convertToGameCoordinate(X, game));
-            player.getRoomUser().getPosition().setY(SnowStormGame.convertToGameCoordinate(Y, game));
+            System.out.println("X: " + SnowStormGame.convertToGameCoordinate(X));
+            System.out.println("Y: " + SnowStormGame.convertToGameCoordinate(Y));
+
+            System.out.println("X: " + SnowStormGame.convertToWorldCoordinate(SnowStormGame.convertToGameCoordinate(X)));
+            System.out.println("Y: " + SnowStormGame.convertToWorldCoordinate(SnowStormGame.convertToGameCoordinate(Y)));
+
+
+            player.getRoomUser().getPosition().setX(SnowStormGame.convertToGameCoordinate(X));
+            player.getRoomUser().getPosition().setY(SnowStormGame.convertToGameCoordinate(Y));
             //player.getRoomUser().walkTo(X, Y);
         }
 

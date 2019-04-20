@@ -15,6 +15,7 @@ import org.alexdev.kepler.game.moderation.ChatManager;
 import org.alexdev.kepler.game.navigator.NavigatorManager;
 import org.alexdev.kepler.game.player.PlayerManager;
 import org.alexdev.kepler.game.room.RoomManager;
+import org.alexdev.kepler.game.room.models.RoomModel;
 import org.alexdev.kepler.game.room.models.RoomModelManager;
 import org.alexdev.kepler.game.room.public_rooms.walkways.WalkwaysManager;
 import org.alexdev.kepler.game.texts.TextsManager;
