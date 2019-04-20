@@ -28,7 +28,7 @@ public class SnowStormAvatarObject extends SnowStormObject {
         this.getGameObjectsSyncValues().add(0); // score
         this.getGameObjectsSyncValues().add(gamePlayer.getPlayer().getDetails().getId()); // player id
         this.getGameObjectsSyncValues().add(gamePlayer.getTeamId()); // team id
-        this.getGameObjectsSyncValues().add(gamePlayer.getPlayer().getRoomUser().getInstanceId()); // room index
+        this.getGameObjectsSyncValues().add(gamePlayer.getPlayer().getDetails().getId()); // room index
 
         /*
 
