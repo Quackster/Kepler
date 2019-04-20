@@ -32,7 +32,7 @@ public class SnowstormUpdateTask implements Runnable {
     @Override
     public void run() {
         try {
-            if (!this.game.isGameStarted() || this.game.getGameState() == GameState.ENDED) {
+            if (!this.game.isGameStarted() || this.game.getGameState() == GameState.ENDED || this.game.getPlayers().isEmpty()) {
                 return; // Don't send any packets or do any logic checks during when the game is finished
             }
 
