@@ -29,7 +29,7 @@ public class SNOWSTORM_FULLGAMESTATUS extends MessageComposer {
         response.writeInt(this.game.getGameState().getStateId());
         response.writeInt(this.game.getPreparingGameSecondsLeft().get());
         response.writeInt(GameManager.getInstance().getPreparingSeconds(game.getGameType()));
-        response.writeInt(this.objects.size());
+        response.writeInt(this.game.getObjects().size()); // TODO: Objects here
 
         for (var obj : objects) {
             obj.serialiseObject(response);
@@ -37,15 +37,8 @@ public class SNOWSTORM_FULLGAMESTATUS extends MessageComposer {
 
         response.writeBool(false);
         response.writeInt(this.game.getTeamAmount());
-        response.writeInt(this.gamePlayer.getTurnContainer().getCurrentTurn());
-        response.writeInt(this.gamePlayer.getTurnContainer().getCheckSum());
-        response.writeInt(1);
 
-        response.writeInt(this.events.size());
-
-        for (GameObject gameObject : this.events) {
-            gameObject.serialiseObject(response);
-        }
+        new SNOWSTORM_GAMESTATUS(gamePlayer, events).compose(response);
     }
 
     @Override

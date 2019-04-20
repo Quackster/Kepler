@@ -93,9 +93,6 @@ public class G_HMAP implements MessageEvent {
                         return 30;
                     }
                 });*/
-
-                //gamePlayer.getTurnContainer().iterateTurn();
-                //gamePlayer.getTurnContainer().calculateChecksum(events);
             }
         }
     }
