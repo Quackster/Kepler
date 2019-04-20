@@ -42,6 +42,8 @@ public class TurnContainer {
             tCheckSum = tCheckSum + addChecksum(gameObject.getGameObjectsSyncValues());
         }
 
+        System.out.println("calculateChecksum: " + tCheckSum);
+
         return tCheckSum;
     }
 
@@ -54,12 +56,13 @@ public class TurnContainer {
     private int addChecksum(List<Integer> pGameObjectSyncValues) {
         int tCheckSum = 0;
         int tCounter = 1;
-        int i = 0;
 
-        for (int value : pGameObjectSyncValues) {
-            tCheckSum = tCheckSum + (value * tCounter);
+        for (int syncValue : pGameObjectSyncValues) {
+            tCheckSum = tCheckSum + (syncValue * tCounter);
             tCounter = tCounter + 1;
         }
+
+        System.out.println("addChecksum: " + tCheckSum);
 
         return tCheckSum;
     }

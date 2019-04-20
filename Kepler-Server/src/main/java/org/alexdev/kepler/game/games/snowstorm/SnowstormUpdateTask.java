@@ -3,6 +3,7 @@ package org.alexdev.kepler.game.games.snowstorm;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.games.Game;
 import org.alexdev.kepler.game.games.GameObject;
+import org.alexdev.kepler.game.games.enums.GameState;
 import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.games.player.GameTeam;
 import org.alexdev.kepler.game.pathfinder.Position;
@@ -31,6 +32,10 @@ public class SnowstormUpdateTask implements Runnable {
     @Override
     public void run() {
         try {
+            if (!this.game.isGameStarted() || this.game.getGameState() == GameState.ENDED) {
+                return; // Don't send any packets or do any logic checks during when the game is finished
+            }
+
             List<GameObject> objects = new ArrayList<>();
             List<GameObject> events = new ArrayList<>();
 
@@ -55,14 +60,14 @@ public class SnowstormUpdateTask implements Runnable {
                         //objects.add(new SnowStormPlayerObject(gamePlayer));
                         //.add(new SnowStormObjectEvent(new SnowStormAvatarObject(gamePlayer)));
 
-                    // playersToUpdate.add(gamePlayer);
+                      playersToUpdate.add(gamePlayer);
                     }
                 }
             }
 
             for (GamePlayer gamePlayer : playersToUpdate) {
                 gamePlayer.getTurnContainer().iterateTurn();
-                gamePlayer.getTurnContainer().calculateChecksum(objects);
+                gamePlayer.getTurnContainer().calculateChecksum(game.getObjects());
                 gamePlayer.getPlayer().send(new SNOWSTORM_GAMESTATUS(gamePlayer, events));
             }
 

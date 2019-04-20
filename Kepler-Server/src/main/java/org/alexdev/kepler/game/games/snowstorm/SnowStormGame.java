@@ -65,6 +65,8 @@ public class SnowStormGame extends Game {
                 p.getPlayer().getRoomUser().setPosition(p.getSpawnPosition().copy());
                 p.setGameObject(new SnowStormAvatarObject(p));
 
+                this.getObjects().add(p.getGameObject());
+
             }
         }
     }

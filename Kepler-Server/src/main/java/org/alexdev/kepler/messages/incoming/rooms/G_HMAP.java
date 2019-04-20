@@ -9,6 +9,7 @@ import org.alexdev.kepler.game.games.snowstorm.object.SnowStormAvatarObject;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.messages.outgoing.games.FULLGAMESTATUS;
 import org.alexdev.kepler.messages.outgoing.games.SNOWSTORM_FULLGAMESTATUS;
+import org.alexdev.kepler.messages.outgoing.games.SNOWSTORM_GAMESTATUS;
 import org.alexdev.kepler.messages.outgoing.rooms.HEIGHTMAP;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.messages.types.MessageEvent;
@@ -36,15 +37,15 @@ public class G_HMAP implements MessageEvent {
             } else {
                 SnowStormGame game = (SnowStormGame) gamePlayer.getGame();
 
-                List<GameObject> objects = new ArrayList<>();
+                List<GameObject> objects = game.getObjects();
                 //List<GameObject> events = new ArrayList<>();
 
-                for (GameTeam gameTeam : game.getTeams().values()) {
+                /*for (GameTeam gameTeam : game.getTeams().values()) {
                     for (GamePlayer p : gameTeam.getActivePlayers()) {
                         objects.add(new SnowStormAvatarObject(p));
                         //events.add(new SnowStormObjectEvent(new SnowStormAvatarObject(p)));
                     }
-                }
+                }*/
 
                 gamePlayer.getTurnContainer().iterateTurn();
                 gamePlayer.getTurnContainer().calculateChecksum(objects);
@@ -95,8 +96,6 @@ public class G_HMAP implements MessageEvent {
 
                 //gamePlayer.getTurnContainer().iterateTurn();
                 //gamePlayer.getTurnContainer().calculateChecksum(events);
-
-                //player.send(new SNOWSTORM_GAMESTATUS(gamePlayer, events)); // *** TURN 0  - CHECKSUM MISMATCH! server says: 2852459, we say: 2856939 . Previous turn: ["Turn": 0, "Events": [[]]]"
             }
         }
     }

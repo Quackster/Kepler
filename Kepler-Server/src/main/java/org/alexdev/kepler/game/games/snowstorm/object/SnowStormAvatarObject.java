@@ -19,11 +19,11 @@ public class SnowStormAvatarObject extends SnowStormObject {
         this.getGameObjectsSyncValues().add(gamePlayer.getPlayer().getRoomUser().getPosition().getRotation()); // body direction
         this.getGameObjectsSyncValues().add(0); // hit points
         this.getGameObjectsSyncValues().add(5); // snowball count
-        this.getGameObjectsSyncValues().add(0); // is bot 
+        this.getGameObjectsSyncValues().add(0); // is bot
         this.getGameObjectsSyncValues().add(0); // activity timer
         this.getGameObjectsSyncValues().add(0); // activity state
-        this.getGameObjectsSyncValues().add(SnowStormGame.convertToWorldCoordinate(gamePlayer.getPlayer().getRoomUser().getPosition().getX())); // next tile x
-        this.getGameObjectsSyncValues().add(SnowStormGame.convertToWorldCoordinate(gamePlayer.getPlayer().getRoomUser().getPosition().getY())); // next tile y
+        this.getGameObjectsSyncValues().add(gamePlayer.getPlayer().getRoomUser().getPosition().getX()); // next tile x
+        this.getGameObjectsSyncValues().add(gamePlayer.getPlayer().getRoomUser().getPosition().getY()); // next tile y
         this.getGameObjectsSyncValues().add(SnowStormGame.convertToWorldCoordinate(gamePlayer.getPlayer().getRoomUser().getPosition().getX())); // move target x
         this.getGameObjectsSyncValues().add(SnowStormGame.convertToWorldCoordinate(gamePlayer.getPlayer().getRoomUser().getPosition().getY())); // move target y
         this.getGameObjectsSyncValues().add(0); // score
