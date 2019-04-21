@@ -65,7 +65,6 @@ public class SnowStormGame extends Game {
                 } else {*/
                     p.getSpawnPosition().setX(9);
                     p.getSpawnPosition().setY(22);
-                    p.getSpawnPosition().setRotation(ThreadLocalRandom.current().nextInt(0, 7));
                 //}
 
                 if (p.getObjectId() == -1) {
@@ -73,7 +72,19 @@ public class SnowStormGame extends Game {
                 }
 
                 p.getPlayer().getRoomUser().setPosition(p.getSpawnPosition().copy());
-                p.setGameObject(new SnowStormAvatarObject(p));
+
+                var avatarObject = new SnowStormAvatarObject(p);
+                avatarObject.setX(p.getSpawnPosition().getX());
+                avatarObject.setY(p.getSpawnPosition().getY());
+                avatarObject.setBodyDirection(p.getSpawnPosition().getRotation());
+
+                avatarObject.setMoveTargetX(p.getSpawnPosition().getX());
+                avatarObject.setMoveTargetY(p.getSpawnPosition().getY());
+
+                avatarObject.setMoveNextX(p.getSpawnPosition().getX());
+                avatarObject.setMoveNextY(p.getSpawnPosition().getY());
+
+                p.setGameObject(avatarObject);
 
                 this.getObjects().add(p.getGameObject());
 

@@ -4,55 +4,55 @@ import org.alexdev.kepler.game.games.enums.GameObjectType;
 import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.games.snowstorm.SnowStormGame;
 import org.alexdev.kepler.game.games.snowstorm.SnowStormObject;
-import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class SnowStormAvatarObject extends SnowStormObject {
     private final GamePlayer gamePlayer;
 
+    private int X;
+    private int Y;
+
+    private int moveNextX;
+    private int moveNextY;
+
+    private int moveTargetX;
+    private int moveTargetY;
+
+    private int bodyDirection;
+
     public SnowStormAvatarObject(GamePlayer gamePlayer) {
         super(GameObjectType.SNOWWAR_AVATAR_OBJECT);
         this.gamePlayer = gamePlayer;
-        this.refreshSyncValues();
     }
 
     @Override
-    public void refreshSyncValues() {
-        this.getGameObjectsSyncValues().clear();
-        this.getGameObjectsSyncValues().add(GameObjectType.SNOWWAR_AVATAR_OBJECT.getObjectId()); // type id
-        this.getGameObjectsSyncValues().add(gamePlayer.getObjectId()); // int id
+    public List<Integer> getGameObjectsSyncValues() {
+        List<Integer> pGameObjectsSyncValues = new ArrayList<>();
+        pGameObjectsSyncValues.clear();
+        pGameObjectsSyncValues.add(GameObjectType.SNOWWAR_AVATAR_OBJECT.getObjectId()); // type id
+        pGameObjectsSyncValues.add(gamePlayer.getObjectId()); // int id
+        pGameObjectsSyncValues.add(SnowStormGame.convertToWorldCoordinate(this.X)); // x
+        pGameObjectsSyncValues.add(SnowStormGame.convertToWorldCoordinate(this.Y)); // x
+        pGameObjectsSyncValues.add(this.bodyDirection); // body direction
+        pGameObjectsSyncValues.add(0); // hit points
+        pGameObjectsSyncValues.add(5); // snowball count
+        pGameObjectsSyncValues.add(0); // is bot
+        pGameObjectsSyncValues.add(0); // activity timer
+        pGameObjectsSyncValues.add(0); // activity state
+        pGameObjectsSyncValues.add(this.moveNextX); // move target x
+        pGameObjectsSyncValues.add(this.moveNextY); // move target y
+        pGameObjectsSyncValues.add(SnowStormGame.convertToWorldCoordinate(this.moveTargetX)); // move target x
+        pGameObjectsSyncValues.add(SnowStormGame.convertToWorldCoordinate(this.moveTargetY)); // move target y
+        pGameObjectsSyncValues.add(0); // score
+        pGameObjectsSyncValues.add(gamePlayer.getPlayer().getDetails().getId()); // player id
+        pGameObjectsSyncValues.add(gamePlayer.getTeamId()); // team id
+        pGameObjectsSyncValues.add(gamePlayer.getObjectId()); // room index
 
-        Position nextPosition = gamePlayer.getPlayer().getRoomUser().getPosition();
-
-        if (gamePlayer.getPlayer().getRoomUser().getNextPosition() != null) {
-            nextPosition = gamePlayer.getPlayer().getRoomUser().getNextPosition().copy();
-        }
-
-
-        this.getGameObjectsSyncValues().add(SnowStormGame.convertToWorldCoordinate(nextPosition.getX())); // x
-        this.getGameObjectsSyncValues().add(SnowStormGame.convertToWorldCoordinate(nextPosition.getY())); // x
-        this.getGameObjectsSyncValues().add(gamePlayer.getPlayer().getRoomUser().getPosition().getRotation()); // body direction
-        this.getGameObjectsSyncValues().add(0); // hit points
-        this.getGameObjectsSyncValues().add(5); // snowball count
-        this.getGameObjectsSyncValues().add(0); // is bot
-        this.getGameObjectsSyncValues().add(0); // activity timer
-        this.getGameObjectsSyncValues().add(0); // activity state
-        //this.getGameObjectsSyncValues().add(nextPosition != null ? nextPosition.getX() : 0); // next tile x
-        //this.getGameObjectsSyncValues().add(nextPosition != null ? nextPosition.getY() : 0); // next tile y
-        this.getGameObjectsSyncValues().add(gamePlayer.getPlayer().getRoomUser().getPosition().getX()); // move target x
-        this.getGameObjectsSyncValues().add(gamePlayer.getPlayer().getRoomUser().getPosition().getY()); // move target y
-
-        this.getGameObjectsSyncValues().add(SnowStormGame.convertToWorldCoordinate(nextPosition.getX())); // move target x
-        this.getGameObjectsSyncValues().add(SnowStormGame.convertToWorldCoordinate(nextPosition.getY())); // move target y
-
-        this.getGameObjectsSyncValues().add(0); // score
-        this.getGameObjectsSyncValues().add(gamePlayer.getPlayer().getDetails().getId()); // player id
-        this.getGameObjectsSyncValues().add(gamePlayer.getTeamId()); // team id
-        this.getGameObjectsSyncValues().add(gamePlayer.getObjectId()); // room index
-
-        String strValues = this.getGameObjectsSyncValues().stream().map(Object::toString).collect(Collectors.joining(", "));
+        String strValues = pGameObjectsSyncValues.stream().map(Object::toString).collect(Collectors.joining(", "));
         System.out.println("TURN " + gamePlayer.getTurnContainer().getCurrentTurn() + " / " + gamePlayer.getTurnContainer().getCheckSum() + " : " + strValues);
 
         /*
@@ -78,6 +78,7 @@ public class SnowStormAvatarObject extends SnowStormObject {
         "room_index: 1"]
 
          */
+        return pGameObjectsSyncValues;
     }
 
     @Override
@@ -90,5 +91,61 @@ public class SnowStormAvatarObject extends SnowStormObject {
         response.writeString(gamePlayer.getPlayer().getDetails().getMotto());
         response.writeString(gamePlayer.getPlayer().getDetails().getFigure());
         response.writeString(gamePlayer.getPlayer().getDetails().getSex());// Actually room user id/instance id
+    }
+
+    public int getX() {
+        return X;
+    }
+
+    public void setX(int x) {
+        X = x;
+    }
+
+    public int getY() {
+        return Y;
+    }
+
+    public void setY(int y) {
+        Y = y;
+    }
+
+    public int getMoveNextX() {
+        return moveNextX;
+    }
+
+    public void setMoveNextX(int moveNextX) {
+        this.moveNextX = moveNextX;
+    }
+
+    public int getMoveNextY() {
+        return moveNextY;
+    }
+
+    public void setMoveNextY(int moveNextY) {
+        this.moveNextY = moveNextY;
+    }
+
+    public int getMoveTargetX() {
+        return moveTargetX;
+    }
+
+    public void setMoveTargetX(int moveTargetX) {
+        this.moveTargetX = moveTargetX;
+    }
+
+    public int getMoveTargetY() {
+        return moveTargetY;
+    }
+
+    public void setMoveTargetY(int moveTargetY) {
+        this.moveTargetY = moveTargetY;
+    }
+
+    public int getBodyDirection() {
+        return bodyDirection;
+    }
+
+    public void setBodyDirection(int bodyDirection) {
+        this.bodyDirection = bodyDirection;
     }
 }

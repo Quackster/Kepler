@@ -1,14 +1,12 @@
 package org.alexdev.kepler.game.games.snowstorm;
 
 import org.alexdev.kepler.game.entity.Entity;
-import org.alexdev.kepler.game.games.Game;
-import org.alexdev.kepler.game.games.GameObject;
 import org.alexdev.kepler.game.games.enums.GameState;
 import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.games.player.GameTeam;
-import org.alexdev.kepler.game.games.snowstorm.events.SnowStormAvatarEvent;
 import org.alexdev.kepler.game.games.snowstorm.events.SnowStormAvatarMoveEvent;
 import org.alexdev.kepler.game.games.snowstorm.events.SnowStormObjectEvent;
+import org.alexdev.kepler.game.games.snowstorm.object.SnowStormAvatarObject;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.pathfinder.Rotation;
 import org.alexdev.kepler.game.player.Player;
@@ -18,7 +16,6 @@ import org.alexdev.kepler.game.room.enums.StatusType;
 import org.alexdev.kepler.game.room.mapping.RoomTile;
 import org.alexdev.kepler.log.Log;
 import org.alexdev.kepler.messages.outgoing.games.SNOWSTORM_GAMESTATUS;
-import org.alexdev.kepler.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +64,7 @@ public class SnowstormUpdateTask implements Runnable {
             }
 
             if (game.getExecutingEvents().isEmpty()) {
-                return;
+                //return;
             }
 
             this.game.getExecutingEvents().removeIf(event -> event.getGameObjectType() == null);
@@ -76,13 +73,6 @@ public class SnowstormUpdateTask implements Runnable {
                 gamePlayer.getTurnContainer().iterateTurn();
                 gamePlayer.getTurnContainer().calculateChecksum(game.getObjects());
                 gamePlayer.getPlayer().send(new SNOWSTORM_GAMESTATUS(gamePlayer, this.game.getExecutingEvents()));
-            }
-
-            for (GameObject gameObject : this.game.getObjects()) {
-                if (gameObject instanceof SnowStormObject) {
-                    SnowStormObject snowStormObject = (SnowStormObject) gameObject;
-                    snowStormObject.refreshSyncValues();
-                }
             }
 
         } catch (Exception ex) {
@@ -97,6 +87,8 @@ public class SnowstormUpdateTask implements Runnable {
         Entity entity = (Entity) gamePlayer.getPlayer();
         RoomEntity roomEntity = entity.getRoomUser();
 
+        SnowStormAvatarObject snowStormObject = (SnowStormAvatarObject)gamePlayer.getGameObject();
+
         Position position = roomEntity.getPosition();
         Position goal = roomEntity.getGoal();
 
@@ -107,11 +99,6 @@ public class SnowstormUpdateTask implements Runnable {
                 roomEntity.getPosition().setY(roomEntity.getNextPosition().getY());
                 roomEntity.updateNewHeight(roomEntity.getPosition());
 
-                var snowObj = (SnowStormObject) gamePlayer.getGameObject();
-                snowObj.refreshSyncValues();
-                game.getExecutingEvents().add(new SnowStormObjectEvent(snowObj));
-
-                //    ((SnowStormObject)gamePlayer.getGameObject()).refreshSyncValues();
             }
 
             // We still have more tiles left, so lets continue moving
@@ -139,11 +126,14 @@ public class SnowstormUpdateTask implements Runnable {
                 roomEntity.removeStatus(StatusType.SIT);
                 roomEntity.setNextPosition(next);
 
+                snowStormObject.setBodyDirection(rotation);
 
                 // Add next position if moving
                 game.getExecutingEvents().add(new SnowStormAvatarMoveEvent(gamePlayer.getObjectId(), roomEntity.getNextPosition().getX(), roomEntity.getNextPosition().getY()));
-            } else {
+            }
+            else {
                 roomEntity.stopWalking();
+                //game.getExecutingEvents().add(new SnowStormObjectEvent((SnowStormObject) gamePlayer.getGameObject()));
             }
 
             // If we're walking, make sure to tell the server

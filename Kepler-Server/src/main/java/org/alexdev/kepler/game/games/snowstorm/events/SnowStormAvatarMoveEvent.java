@@ -6,6 +6,8 @@ import org.alexdev.kepler.game.games.snowstorm.SnowStormObject;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 
+import java.util.List;
+
 public class SnowStormAvatarMoveEvent extends SnowStormObject {
     private final int objectId;
     private int X;
@@ -19,13 +21,15 @@ public class SnowStormAvatarMoveEvent extends SnowStormObject {
     }
 
     @Override
-    public void refreshSyncValues() { }
-
-    @Override
     public void serialiseObject(NettyResponse response) {
         response.writeInt(GameObjectType.SNOWWAR_AVATAR_MOVE_EVENT.getObjectId());
         response.writeInt(this.objectId);
         response.writeInt(SnowStormGame.convertToWorldCoordinate(this.X)); // move target x
         response.writeInt(SnowStormGame.convertToWorldCoordinate(this.Y)); // move target y
+    }
+
+    @Override
+    public List<Integer> getGameObjectsSyncValues() {
+        return null;
     }
 }
