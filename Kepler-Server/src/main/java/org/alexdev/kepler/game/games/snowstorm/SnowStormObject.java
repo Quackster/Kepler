@@ -10,7 +10,7 @@ public abstract class SnowStormObject extends GameObject {
     private final List<Integer> pGameObjectsSyncValues;
 
     public SnowStormObject(GameObjectType gameObjectType) {
-        super(gameObjectType.getObjectId(), gameObjectType);
+        super(gameObjectType != null ? gameObjectType.getObjectId() : -1, gameObjectType);
         this.pGameObjectsSyncValues = new ArrayList<>();
     }
 

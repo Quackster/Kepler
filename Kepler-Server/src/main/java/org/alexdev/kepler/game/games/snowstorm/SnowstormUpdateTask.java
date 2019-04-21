@@ -6,7 +6,9 @@ import org.alexdev.kepler.game.games.GameObject;
 import org.alexdev.kepler.game.games.enums.GameState;
 import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.games.player.GameTeam;
+import org.alexdev.kepler.game.games.snowstorm.events.SnowStormAvatarEvent;
 import org.alexdev.kepler.game.games.snowstorm.events.SnowStormAvatarMoveEvent;
+import org.alexdev.kepler.game.games.snowstorm.events.SnowStormObjectEvent;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.pathfinder.Rotation;
 import org.alexdev.kepler.game.player.Player;
@@ -64,6 +66,11 @@ public class SnowstormUpdateTask implements Runnable {
                 }
             }
 
+            if (game.getExecutingEvents().isEmpty()) {
+                return;
+            }
+
+            this.game.getExecutingEvents().removeIf(event -> event.getGameObjectType() == null);
 
             for (GamePlayer gamePlayer : playersToUpdate) {
                 gamePlayer.getTurnContainer().iterateTurn();
@@ -99,6 +106,11 @@ public class SnowstormUpdateTask implements Runnable {
                 roomEntity.getPosition().setX(roomEntity.getNextPosition().getX());
                 roomEntity.getPosition().setY(roomEntity.getNextPosition().getY());
                 roomEntity.updateNewHeight(roomEntity.getPosition());
+
+                var snowObj = (SnowStormObject) gamePlayer.getGameObject();
+                snowObj.refreshSyncValues();
+                game.getExecutingEvents().add(new SnowStormObjectEvent(snowObj));
+
                 //    ((SnowStormObject)gamePlayer.getGameObject()).refreshSyncValues();
             }
 
@@ -120,18 +132,15 @@ public class SnowstormUpdateTask implements Runnable {
                 RoomTile nextTile = roomEntity.getRoom().getMapping().getTile(next);
                 nextTile.addEntity(entity);
 
+                int rotation = Rotation.calculateWalkDirection(position.getX(), position.getY(), next.getX(), next.getY());
+                roomEntity.getPosition().setRotation(rotation);
+
                 roomEntity.removeStatus(StatusType.LAY);
                 roomEntity.removeStatus(StatusType.SIT);
-
-                int rotation = Rotation.calculateWalkDirection(position.getX(), position.getY(), next.getX(), next.getY());
-                double height = this.room.getMapping().getTile(next).getWalkingHeight();
-
-                roomEntity.getPosition().setRotation(rotation);
-                roomEntity.setStatus(StatusType.MOVE, next.getX() + "," + next.getY() + "," + StringUtil.format(height));
                 roomEntity.setNextPosition(next);
 
+
                 // Add next position if moving
-                System.out.println("next tile: " + roomEntity.getNextPosition());
                 game.getExecutingEvents().add(new SnowStormAvatarMoveEvent(gamePlayer.getObjectId(), roomEntity.getNextPosition().getX(), roomEntity.getNextPosition().getY()));
             } else {
                 roomEntity.stopWalking();

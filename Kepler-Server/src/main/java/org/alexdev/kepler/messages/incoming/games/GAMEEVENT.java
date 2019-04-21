@@ -1,12 +1,16 @@
 package org.alexdev.kepler.messages.incoming.games;
 
 import org.alexdev.kepler.game.games.Game;
+import org.alexdev.kepler.game.games.GameObject;
 import org.alexdev.kepler.game.games.battleball.BattleBallGame;
 import org.alexdev.kepler.game.games.battleball.BattleBallPowerUp;
 import org.alexdev.kepler.game.games.battleball.events.ActivatePowerUpEvent;
 import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.games.snowstorm.SnowStormGame;
+import org.alexdev.kepler.game.games.snowstorm.SnowStormObject;
+import org.alexdev.kepler.game.games.snowstorm.events.SnowStormAvatarMoveEvent;
 import org.alexdev.kepler.game.player.Player;
+import org.alexdev.kepler.messages.outgoing.games.SNOWSTORM_GAMESTATUS;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 

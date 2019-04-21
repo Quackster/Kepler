@@ -416,7 +416,7 @@ public class MessageHandler {
         registerEvent(170, new STARTGAME());
         registerEvent(171, new GAMEEVENT());
         registerEvent(172, new GAMERESTART());
-        registerEvent(173, new REQUESTFULLGAMESTATUS());
+        //registerEvent(173, new REQUESTFULLGAMESTATUS());
         /*registerEvent(173, (player, reader) -> {
             List<GameObject> objects = new ArrayList<>();
             objects.add(new SnowStormSpawnPlayerEvent(player.getRoomUser().getGamePlayer()));
