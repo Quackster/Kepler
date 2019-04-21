@@ -76,6 +76,13 @@ public class SnowstormUpdateTask implements Runnable {
                 gamePlayer.getPlayer().send(new SNOWSTORM_GAMESTATUS(gamePlayer, events));
             }
 
+            for (GameObject gameObject : this.game.getObjects()) {
+                if (gameObject instanceof SnowStormObject) {
+                    SnowStormObject snowStormObject = (SnowStormObject) gameObject;
+                    snowStormObject.refreshSyncValues();
+                }
+            }
+
         } catch (Exception ex) {
             Log.getErrorLogger().error("SnowstormUpdateTask crashed: ", ex);
         }
@@ -99,6 +106,7 @@ public class SnowstormUpdateTask implements Runnable {
                 roomEntity.getPosition().setX(roomEntity.getNextPosition().getX());
                 roomEntity.getPosition().setY(roomEntity.getNextPosition().getY());
                 roomEntity.updateNewHeight(roomEntity.getPosition());
+                //    ((SnowStormObject)gamePlayer.getGameObject()).refreshSyncValues();
             }
 
             // We still have more tiles left, so lets continue moving
@@ -130,6 +138,7 @@ public class SnowstormUpdateTask implements Runnable {
                 roomEntity.setNextPosition(next);
 
                 // Add next position if moving
+                System.out.println("next tile: " + roomEntity.getNextPosition());
                 events.add(new SnowStormAvatarMoveEvent(gamePlayer.getObjectId(), roomEntity.getNextPosition().getX(), roomEntity.getNextPosition().getY()));
             } else {
                 roomEntity.stopWalking();

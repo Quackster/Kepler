@@ -36,6 +36,8 @@ public class GAMEEVENT implements MessageEvent {
             int X = SnowStormGame.convertToGameCoordinate(reader.readInt());
             int Y = SnowStormGame.convertToGameCoordinate(reader.readInt());
 
+            System.out.println("SnowStorm walk request: " + X + ", " + Y);
+
            player.getRoomUser().walkTo(X, Y);
         }
 

@@ -19,6 +19,9 @@ public class SnowStormAvatarMoveEvent extends SnowStormObject {
     }
 
     @Override
+    public void refreshSyncValues() { }
+
+    @Override
     public void serialiseObject(NettyResponse response) {
         response.writeInt(GameObjectType.SNOWWAR_AVATAR_MOVE_EVENT.getObjectId());
         response.writeInt(this.objectId);

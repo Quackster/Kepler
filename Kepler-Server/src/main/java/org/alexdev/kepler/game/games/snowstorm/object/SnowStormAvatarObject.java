@@ -8,12 +8,20 @@ import org.alexdev.kepler.game.games.snowstorm.SnowStormObject;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 
+import java.util.stream.Collectors;
+
 public class SnowStormAvatarObject extends SnowStormObject {
     private final GamePlayer gamePlayer;
 
     public SnowStormAvatarObject(GamePlayer gamePlayer) {
         super(GameObjectType.SNOWWAR_AVATAR_OBJECT);
         this.gamePlayer = gamePlayer;
+        this.refreshSyncValues();
+    }
+
+    @Override
+    public void refreshSyncValues() {
+        this.getGameObjectsSyncValues().clear();
         this.getGameObjectsSyncValues().add(GameObjectType.SNOWWAR_AVATAR_OBJECT.getObjectId()); // type id
         this.getGameObjectsSyncValues().add(gamePlayer.getObjectId()); // int id
         this.getGameObjectsSyncValues().add(SnowStormGame.convertToWorldCoordinate(gamePlayer.getPlayer().getRoomUser().getPosition().getX())); // x
@@ -41,6 +49,9 @@ public class SnowStormAvatarObject extends SnowStormObject {
         this.getGameObjectsSyncValues().add(gamePlayer.getPlayer().getDetails().getId()); // player id
         this.getGameObjectsSyncValues().add(gamePlayer.getTeamId()); // team id
         this.getGameObjectsSyncValues().add(gamePlayer.getObjectId()); // room index
+
+        String strValues = this.getGameObjectsSyncValues().stream().map(Object::toString).collect(Collectors.joining(", "));
+        System.out.println("TURN " + gamePlayer.getTurnContainer().getCurrentTurn() + " / " + gamePlayer.getTurnContainer().getCheckSum() + " : " + strValues);
 
         /*
 

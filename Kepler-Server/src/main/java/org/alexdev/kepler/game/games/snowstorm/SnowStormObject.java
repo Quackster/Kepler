@@ -14,6 +14,8 @@ public abstract class SnowStormObject extends GameObject {
         this.pGameObjectsSyncValues = new ArrayList<>();
     }
 
+    public abstract void refreshSyncValues();
+
     public List<Integer> getGameObjectsSyncValues() {
         return pGameObjectsSyncValues;
     }
