@@ -6,6 +6,7 @@ import org.alexdev.kepler.game.games.GameObject;
 import org.alexdev.kepler.game.games.enums.GameState;
 import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.games.player.GameTeam;
+import org.alexdev.kepler.game.games.snowstorm.events.SnowStormAvatarMoveEvent;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.pathfinder.Rotation;
 import org.alexdev.kepler.game.player.Player;
@@ -56,13 +57,17 @@ public class SnowstormUpdateTask implements Runnable {
                             roomEntity.setNeedsUpdate(false);
                         }
 
-                       // objects.add(new SnowStormAvatarObject(gamePlayer));
+                        // objects.add(new SnowStormAvatarObject(gamePlayer));
                         //objects.add(new SnowStormPlayerObject(gamePlayer));
                         //.add(new SnowStormObjectEvent(new SnowStormAvatarObject(gamePlayer)));
 
-                      playersToUpdate.add(gamePlayer);
+                        playersToUpdate.add(gamePlayer);
                     }
                 }
+            }
+
+            if (events.isEmpty()) {
+                return;
             }
 
             for (GamePlayer gamePlayer : playersToUpdate) {
@@ -124,8 +129,10 @@ public class SnowstormUpdateTask implements Runnable {
                 roomEntity.setStatus(StatusType.MOVE, next.getX() + "," + next.getY() + "," + StringUtil.format(height));
                 roomEntity.setNextPosition(next);
 
+                System.out.println("test");
+
                 // Add next position if moving
-                //events.add(new SnowStormMoveEvent(gamePlayer, roomEntity.getNextPosition().copy()));
+                events.add(new SnowStormAvatarMoveEvent(gamePlayer.getPlayer(), roomEntity.getNextPosition().getX(), roomEntity.getNextPosition().getY()));
             } else {
                 roomEntity.stopWalking();
             }

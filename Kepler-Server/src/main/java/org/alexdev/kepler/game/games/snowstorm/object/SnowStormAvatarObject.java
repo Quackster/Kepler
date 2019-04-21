@@ -13,7 +13,7 @@ public class SnowStormAvatarObject extends SnowStormObject {
         super(GameObjectType.SNOWWAR_AVATAR_OBJECT);
         this.gamePlayer = gamePlayer;
         this.getGameObjectsSyncValues().add(GameObjectType.SNOWWAR_AVATAR_OBJECT.getObjectId()); // type id
-        this.getGameObjectsSyncValues().add(gamePlayer.getPlayer().getDetails().getId()); // int id
+        this.getGameObjectsSyncValues().add(gamePlayer.getObjectId()); // int id
         this.getGameObjectsSyncValues().add(SnowStormGame.convertToWorldCoordinate(gamePlayer.getPlayer().getRoomUser().getPosition().getX())); // x
         this.getGameObjectsSyncValues().add(SnowStormGame.convertToWorldCoordinate(gamePlayer.getPlayer().getRoomUser().getPosition().getY())); // x
         this.getGameObjectsSyncValues().add(gamePlayer.getPlayer().getRoomUser().getPosition().getRotation()); // body direction
@@ -29,7 +29,7 @@ public class SnowStormAvatarObject extends SnowStormObject {
         this.getGameObjectsSyncValues().add(0); // score
         this.getGameObjectsSyncValues().add(gamePlayer.getPlayer().getDetails().getId()); // player id
         this.getGameObjectsSyncValues().add(gamePlayer.getTeamId()); // team id
-        this.getGameObjectsSyncValues().add(gamePlayer.getPlayer().getDetails().getId()); // room index
+        this.getGameObjectsSyncValues().add(gamePlayer.getObjectId()); // room index
 
         /*
 

@@ -22,13 +22,13 @@ public class SNOWSTORM_GAMESTATUS extends MessageComposer {
         response.writeInt(this.gamePlayer.getTurnContainer().getCurrentTurn());
         response.writeInt(this.gamePlayer.getTurnContainer().getCheckSum());
         response.writeInt(1);
-        response.writeInt(0);
+        response.writeInt(events.size());
 
        /* response.writeInt(this.events.size());
 
-        for (GameObject gameObject : this.events) {
+        */for (GameObject gameObject : this.events) {
             gameObject.serialiseObject(response);
-        }*/
+        }
     }
 
     @Override

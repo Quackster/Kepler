@@ -7,8 +7,7 @@ public enum GameObjectType {
 
     SNOWWAR_AVATAR_OBJECT(5),
     SNOWWAR_PLAYER_OBJECT(0),
-
-    SNOWWAR_OBJECT_EVENT(0);
+    SNOWWAR_AVATAR_MOVE_EVENT(2);
 
     private final int objectId;
 

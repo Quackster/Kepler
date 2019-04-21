@@ -19,15 +19,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class SnowStormGame extends Game {
     private int gameLengthChoice;
-    private TurnContainer turnContainer;
-    private List<GameObject> gameObjects;
     private AtomicInteger objectId;
 
     public SnowStormGame(int id, int mapId, String name, int teamAmount, Player gameCreator, int gameLengthChoice, boolean privateGame) {
         super(id, mapId, GameType.SNOWSTORM, name, teamAmount, gameCreator);
         this.gameLengthChoice = gameLengthChoice;
-        this.turnContainer = new TurnContainer();
-        this.gameObjects = new CopyOnWriteArrayList<>();
         this.objectId = new AtomicInteger(0);
     }
 
@@ -62,6 +58,10 @@ public class SnowStormGame extends Game {
                 p.getSpawnPosition().setX(9);
                 p.getSpawnPosition().setY(22);
 
+                if (p.getObjectId() == -1) {
+                    p.setObjectId(this.createObjectId());
+                }
+
                 p.getPlayer().getRoomUser().setPosition(p.getSpawnPosition().copy());
                 p.setGameObject(new SnowStormAvatarObject(p));
 
@@ -93,14 +93,6 @@ public class SnowStormGame extends Game {
 
     public int getGameLengthChoice() {
         return gameLengthChoice;
-    }
-
-    public TurnContainer getTurnContainer() {
-        return turnContainer;
-    }
-
-    public List<GameObject> getGameObjects() {
-        return gameObjects;
     }
 
     public static int convertToGameCoordinate(int num) {

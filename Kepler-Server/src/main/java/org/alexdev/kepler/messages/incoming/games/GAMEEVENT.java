@@ -46,9 +46,7 @@ public class GAMEEVENT implements MessageEvent {
             System.out.println("Y: " + SnowStormGame.convertToWorldCoordinate(SnowStormGame.convertToGameCoordinate(Y)));
 
 
-            player.getRoomUser().getPosition().setX(SnowStormGame.convertToGameCoordinate(X));
-            player.getRoomUser().getPosition().setY(SnowStormGame.convertToGameCoordinate(Y));
-            //player.getRoomUser().walkTo(X, Y);
+           player.getRoomUser().walkTo(X, Y);
         }
 
         // Jump request
