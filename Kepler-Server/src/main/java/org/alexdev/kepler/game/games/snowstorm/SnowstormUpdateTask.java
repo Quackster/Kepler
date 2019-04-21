@@ -37,9 +37,7 @@ public class SnowstormUpdateTask implements Runnable {
                 return; // Don't send any packets or do any logic checks during when the game is finished
             }
 
-            List<GameObject> objects = new ArrayList<>();
-            List<GameObject> events = new ArrayList<>();
-
+            this.game.getExecutingEvents().clear();
             List<GamePlayer> playersToUpdate = new ArrayList<>();
 
             for (GameTeam gameTeam : this.game.getTeams().values()) {
@@ -50,7 +48,7 @@ public class SnowstormUpdateTask implements Runnable {
                             && player.getRoomUser().getRoom() != null
                             && player.getRoomUser().getRoom() == this.room) {
 
-                        this.processEntity(gamePlayer, objects, events);
+                        this.processEntity(gamePlayer, this.game);
                         RoomEntity roomEntity = player.getRoomUser();
 
                         if (roomEntity.isNeedsUpdate()) {
@@ -66,14 +64,11 @@ public class SnowstormUpdateTask implements Runnable {
                 }
             }
 
-            if (events.isEmpty()) {
-                return;
-            }
 
             for (GamePlayer gamePlayer : playersToUpdate) {
                 gamePlayer.getTurnContainer().iterateTurn();
                 gamePlayer.getTurnContainer().calculateChecksum(game.getObjects());
-                gamePlayer.getPlayer().send(new SNOWSTORM_GAMESTATUS(gamePlayer, events));
+                gamePlayer.getPlayer().send(new SNOWSTORM_GAMESTATUS(gamePlayer, this.game.getExecutingEvents()));
             }
 
             for (GameObject gameObject : this.game.getObjects()) {
@@ -91,10 +86,8 @@ public class SnowstormUpdateTask implements Runnable {
     /**
      * Process entity.
      */
-    private void processEntity(GamePlayer gamePlayer, List<GameObject> objects, List<GameObject> events) {
+    private void processEntity(GamePlayer gamePlayer, SnowStormGame game) {
         Entity entity = (Entity) gamePlayer.getPlayer();
-        Game game = gamePlayer.getGame();
-
         RoomEntity roomEntity = entity.getRoomUser();
 
         Position position = roomEntity.getPosition();
@@ -117,7 +110,7 @@ public class SnowstormUpdateTask implements Runnable {
                 if (!RoomTile.isValidTile(this.room, entity, next)) {
                     entity.getRoomUser().getPath().clear();
                     roomEntity.walkTo(goal.getX(), goal.getY());
-                    this.processEntity(gamePlayer, objects, events);
+                    this.processEntity(gamePlayer, game);
                     return;
                 }
 
@@ -139,7 +132,7 @@ public class SnowstormUpdateTask implements Runnable {
 
                 // Add next position if moving
                 System.out.println("next tile: " + roomEntity.getNextPosition());
-                events.add(new SnowStormAvatarMoveEvent(gamePlayer.getObjectId(), roomEntity.getNextPosition().getX(), roomEntity.getNextPosition().getY()));
+                game.getExecutingEvents().add(new SnowStormAvatarMoveEvent(gamePlayer.getObjectId(), roomEntity.getNextPosition().getX(), roomEntity.getNextPosition().getY()));
             } else {
                 roomEntity.stopWalking();
             }

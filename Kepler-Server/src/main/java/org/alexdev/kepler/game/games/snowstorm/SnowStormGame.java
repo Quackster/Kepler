@@ -20,11 +20,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class SnowStormGame extends Game {
     private int gameLengthChoice;
     private AtomicInteger objectId;
+    private List<GameObject> executingEvents;
 
     public SnowStormGame(int id, int mapId, String name, int teamAmount, Player gameCreator, int gameLengthChoice, boolean privateGame) {
         super(id, mapId, GameType.SNOWSTORM, name, teamAmount, gameCreator);
         this.gameLengthChoice = gameLengthChoice;
         this.objectId = new AtomicInteger(0);
+        this.executingEvents = new CopyOnWriteArrayList<>();
     }
 
     @Override
@@ -117,5 +119,13 @@ public class SnowStormGame extends Game {
         int tMultiplier = pTileSize * pAccuracyFactor;
 
         return num * tMultiplier;
+    }
+
+    public List<GameObject> getExecutingEvents() {
+        return executingEvents;
+    }
+
+    public void setExecutingEvents(List<GameObject> executingEvents) {
+        this.executingEvents = executingEvents;
     }
 }
