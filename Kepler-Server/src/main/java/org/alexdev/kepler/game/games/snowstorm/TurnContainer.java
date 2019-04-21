@@ -31,7 +31,7 @@ public class TurnContainer {
     /**
      * Calculate object checksum based on the seed given
      * @param tSeed the checksum created by above
-     * @param objectList
+     * @param objectList the object list with their sync values
      * @return the integer to add on to the seed
      */
     private int calculateChecksum(int tSeed, List<GameObject> objectList) {
@@ -41,8 +41,6 @@ public class TurnContainer {
             SnowStormObject gameObject = (SnowStormObject) object;
             tCheckSum = tCheckSum + addChecksum(gameObject.getGameObjectsSyncValues());
         }
-
-        System.out.println("calculateChecksum: " + tCheckSum);
 
         return tCheckSum;
     }
@@ -61,8 +59,6 @@ public class TurnContainer {
             tCheckSum = tCheckSum + (syncValue * tCounter);
             tCounter = tCounter + 1;
         }
-
-        System.out.println("addChecksum: " + tCheckSum);
 
         return tCheckSum;
     }
