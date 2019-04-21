@@ -129,10 +129,8 @@ public class SnowstormUpdateTask implements Runnable {
                 roomEntity.setStatus(StatusType.MOVE, next.getX() + "," + next.getY() + "," + StringUtil.format(height));
                 roomEntity.setNextPosition(next);
 
-                System.out.println("test");
-
                 // Add next position if moving
-                events.add(new SnowStormAvatarMoveEvent(gamePlayer.getPlayer(), roomEntity.getNextPosition().getX(), roomEntity.getNextPosition().getY()));
+                events.add(new SnowStormAvatarMoveEvent(gamePlayer.getObjectId(), roomEntity.getNextPosition().getX(), roomEntity.getNextPosition().getY()));
             } else {
                 roomEntity.stopWalking();
             }

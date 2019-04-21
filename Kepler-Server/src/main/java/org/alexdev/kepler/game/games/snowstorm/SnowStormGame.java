@@ -55,8 +55,16 @@ public class SnowStormGame extends Game {
 
         for (GameTeam team : this.getTeams().values()) {
             for (GamePlayer p : team.getPlayers()) {
-                p.getSpawnPosition().setX(9);
-                p.getSpawnPosition().setY(22);
+                /*Position newPosition = this.getRoom().getMapping().getRandomWalkableBound(p.getPlayer());
+
+                if (newPosition != null) {
+                    p.getSpawnPosition().setX(newPosition.getX());
+                    p.getSpawnPosition().setY(newPosition.getY());
+                } else {*/
+                    p.getSpawnPosition().setX(9);
+                    p.getSpawnPosition().setY(22);
+                    p.getSpawnPosition().setRotation(ThreadLocalRandom.current().nextInt(0, 7));
+                //}
 
                 if (p.getObjectId() == -1) {
                     p.setObjectId(this.createObjectId());

@@ -33,18 +33,8 @@ public class GAMEEVENT implements MessageEvent {
                 return;
             }
 
-            int X = reader.readInt();
-            int Y = reader.readInt();
-
-            System.out.println("X: " + X);
-            System.out.println("Y: " + Y);
-
-            System.out.println("X: " + SnowStormGame.convertToGameCoordinate(X));
-            System.out.println("Y: " + SnowStormGame.convertToGameCoordinate(Y));
-
-            System.out.println("X: " + SnowStormGame.convertToWorldCoordinate(SnowStormGame.convertToGameCoordinate(X)));
-            System.out.println("Y: " + SnowStormGame.convertToWorldCoordinate(SnowStormGame.convertToGameCoordinate(Y)));
-
+            int X = SnowStormGame.convertToGameCoordinate(reader.readInt());
+            int Y = SnowStormGame.convertToGameCoordinate(reader.readInt());
 
            player.getRoomUser().walkTo(X, Y);
         }

@@ -1,9 +1,11 @@
 package org.alexdev.kepler.game.games.snowstorm.object;
 
+import javafx.geometry.Pos;
 import org.alexdev.kepler.game.games.enums.GameObjectType;
 import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.games.snowstorm.SnowStormGame;
 import org.alexdev.kepler.game.games.snowstorm.SnowStormObject;
+import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 
 public class SnowStormAvatarObject extends SnowStormObject {
@@ -22,10 +24,19 @@ public class SnowStormAvatarObject extends SnowStormObject {
         this.getGameObjectsSyncValues().add(0); // is bot
         this.getGameObjectsSyncValues().add(0); // activity timer
         this.getGameObjectsSyncValues().add(0); // activity state
-        this.getGameObjectsSyncValues().add(gamePlayer.getPlayer().getRoomUser().getPosition().getX()); // next tile x
-        this.getGameObjectsSyncValues().add(gamePlayer.getPlayer().getRoomUser().getPosition().getY()); // next tile y
-        this.getGameObjectsSyncValues().add(SnowStormGame.convertToWorldCoordinate(gamePlayer.getPlayer().getRoomUser().getPosition().getX())); // move target x
-        this.getGameObjectsSyncValues().add(SnowStormGame.convertToWorldCoordinate(gamePlayer.getPlayer().getRoomUser().getPosition().getY())); // move target y
+
+        Position nextPosition = gamePlayer.getPlayer().getRoomUser().getPosition();
+
+        if (gamePlayer.getPlayer().getRoomUser().getNextPosition() != null) {
+            nextPosition = gamePlayer.getPlayer().getRoomUser().getNextPosition().copy();
+        }
+
+        this.getGameObjectsSyncValues().add(gamePlayer.getPlayer().getRoomUser().getPosition().getX()); // move target x
+        this.getGameObjectsSyncValues().add(gamePlayer.getPlayer().getRoomUser().getPosition().getY()); // move target y
+
+        this.getGameObjectsSyncValues().add(SnowStormGame.convertToWorldCoordinate(nextPosition.getX())); // next tile x
+        this.getGameObjectsSyncValues().add(SnowStormGame.convertToWorldCoordinate(nextPosition.getY())); // next tile y
+
         this.getGameObjectsSyncValues().add(0); // score
         this.getGameObjectsSyncValues().add(gamePlayer.getPlayer().getDetails().getId()); // player id
         this.getGameObjectsSyncValues().add(gamePlayer.getTeamId()); // team id
