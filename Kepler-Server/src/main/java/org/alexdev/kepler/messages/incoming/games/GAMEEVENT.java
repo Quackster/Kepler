@@ -33,12 +33,17 @@ public class GAMEEVENT implements MessageEvent {
                 return;
             }
 
-            int X = SnowStormGame.convertToGameCoordinate(reader.readInt());
-            int Y = SnowStormGame.convertToGameCoordinate(reader.readInt());
+            int X = reader.readInt();
+            int Y = reader.readInt();
 
-            System.out.println("SnowStorm walk request: " + X + ", " + Y);
 
-           player.getRoomUser().walkTo(X, Y);
+            int newX = SnowStormGame.convertToGameCoordinate(X);
+            int newY = SnowStormGame.convertToGameCoordinate(Y);
+
+            System.out.println("SnowStorm walk request: " + X + ",      " + Y);
+            System.out.println("SnowStorm walk request: " + newX + ",   " + newY);
+
+           player.getRoomUser().walkTo(newX, newY);
         }
 
         // Jump request
