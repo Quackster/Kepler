@@ -40,7 +40,7 @@ public class BotData {
         this.speeches = this.parseSpeech(speech);
         this.responses = this.parseSpeech(responses);
         this.unrecognisedSpeech = this.parseSpeech(unrecognisedResponses);
-        this.drinks = Arrays.asList(drinks.split(","));
+        this.drinks = this.drinks = drinks.length() > 0 ? Arrays.asList(drinks.split(",")) : new ArrayList<>();
     }
 
     private List<BotSpeech> parseSpeech(String responses) {
