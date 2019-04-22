@@ -20,11 +20,11 @@ import org.alexdev.kepler.messages.outgoing.games.SNOWSTORM_GAMESTATUS;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SnowstormUpdateTask implements Runnable {
+public class SnowstormTask implements Runnable {
     private final Room room;
     private final SnowStormGame game;
 
-    public SnowstormUpdateTask(Room room, SnowStormGame game) {
+    public SnowstormTask(Room room, SnowStormGame game) {
         this.room = room;
         this.game = game;
     }
@@ -76,7 +76,7 @@ public class SnowstormUpdateTask implements Runnable {
             }
 
         } catch (Exception ex) {
-            Log.getErrorLogger().error("SnowstormUpdateTask crashed: ", ex);
+            Log.getErrorLogger().error("SnowstormTask crashed: ", ex);
         }
     }
 
