@@ -119,7 +119,9 @@ public class BattleBallTile extends GameTile  {
             this.setColour(newColour);
             this.setState(newState);
 
-            this.checkFill(gamePlayer, updateFillTiles);
+            if (newState == BattleBallTileState.SEALED) {
+                this.checkFill(gamePlayer, updateFillTiles);
+            }
 
             updateTiles.add(this);
         }
@@ -131,13 +133,13 @@ public class BattleBallTile extends GameTile  {
         int newPoints = -1;
         boolean sealed = false;
 
-        if (this.state != newState && newState == BattleBallTileState.TOUCHED) {
+        if (newState == BattleBallTileState.TOUCHED) {
             newPoints = 2;
-        } else if (this.state != newState && newState == BattleBallTileState.CLICKED) {
+        } else if (newState == BattleBallTileState.CLICKED) {
             newPoints = 6;
-        } else if (this.state != newState && newState == BattleBallTileState.PRESSED) {
+        } else if (newState == BattleBallTileState.PRESSED) {
             newPoints = 10;
-        } else if (this.state != newState && newState == BattleBallTileState.SEALED) {
+        } else if (newState == BattleBallTileState.SEALED) {
             if (this.colour == newColour) {
                 newPoints = 14;
                 sealed = true;
@@ -150,7 +152,7 @@ public class BattleBallTile extends GameTile  {
         }
 
         if (this.colour != newColour) { // Clear teams previous scores
-            this.pointsReferece.clear();
+            this.pointsReferece.removeIf(tile -> tile.getGameTeam() != team);
         }
 
         if (newPoints != -1) {
@@ -200,7 +202,9 @@ public class BattleBallTile extends GameTile  {
 
     public void addSealedPoints(GameTeam team) {
         // Clear any history
-        this.pointsReferece.clear();
+        //if (clearHistory) {
+        this.pointsReferece.removeIf(tile -> tile.getGameTeam() != team);
+        //}
 
         for (GamePlayer gamePlayer : team.getPlayers()) {
             this.pointsReferece.add(new ScoreReference(14, team, gamePlayer.getUserId()));
