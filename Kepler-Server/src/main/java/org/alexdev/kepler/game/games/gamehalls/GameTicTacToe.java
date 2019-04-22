@@ -1,5 +1,6 @@
 package org.alexdev.kepler.game.games.gamehalls;
 
+import org.alexdev.kepler.game.games.gamehalls.utils.GameToken;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
@@ -15,35 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 public class GameTicTacToe extends GamehallGame {
-    private static class GameToken {
-        private char token;
-        private char winningToken;
-        private int moves;
-
-        private GameToken(char token, char winningToken) {
-            this.token = token;
-            this.winningToken = winningToken;
-            this.moves = 0;
-        }
-
-        private char getToken() {
-            return token;
-        }
-
-        private char getWinningToken() {
-            return winningToken;
-        }
-
-        private int getMoves() {
-            return moves;
-        }
-
-        private void incrementMoves() {
-            this.moves = this.moves + 1;
-        }
-    }
-
-    private static final int NUM_IN_ROW = 7;
+    private static final int NUM_IN_ROW = 5;
     private static final int MAX_WIDTH = 23;
     private static final int MAX_LENGTH = 24;
 

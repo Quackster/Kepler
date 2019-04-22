@@ -159,15 +159,15 @@ public class GameChess extends GamehallGame {
 
                 if (this.board.isDraw()) {
                     this.gameFinished = true;
-                    this.showChat(null, "The chess game has ended in a draw");
+                    this.showChat("The chess game has ended in a draw");
                     return;
                 } else if (this.board.isStaleMate()) {
                     this.gameFinished = true;
-                    this.showChat(null, "The chess game has encountered a stalemate");
+                    this.showChat("The chess game has encountered a stalemate");
                     return;
                 } else if (this.board.isMated()) {
                     this.gameFinished = true;
-                    this.showChat(null, player.getDetails().getName() + " has won the chess game");
+                    this.showChat(player.getDetails().getName() + " has won the chess game");
                     return;
                 }
 
@@ -266,12 +266,8 @@ public class GameChess extends GamehallGame {
         return playerNames;
     }
 
-    private void showChat(Player player, String chat) {
+    private void showChat(String chat) {
         for (Player p : this.playersInGame) {
-            if (player != null && p == player) {
-                continue;
-            }
-
             p.send(new CHAT_MESSAGE(CHAT_MESSAGE.ChatMessageType.CHAT, p.getRoomUser().getInstanceId(), chat));
         }
     }

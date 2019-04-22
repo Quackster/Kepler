@@ -62,11 +62,11 @@ public abstract class GamehallGame {
      * Generate the unique game ID instance for this pair.
      */
     public void createGameId() {
-        String alphabet = "abcdefghijlmnopqrstuvwyz1234567890";
+        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijlmnopqrstuvwyz1234567890";
         StringBuilder gameId = new StringBuilder();
 
         for (int i = 0; i < 6; i++) {
-            gameId.append(alphabet.charAt(ThreadLocalRandom.current().nextInt(0, alphabet.length())));
+            gameId.append(alphabet.charAt(ThreadLocalRandom.current().nextInt(alphabet.length())));
         }
 
         this.gameId = gameId.toString();
