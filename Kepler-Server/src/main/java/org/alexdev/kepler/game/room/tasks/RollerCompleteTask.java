@@ -46,8 +46,8 @@ public class RollerCompleteTask implements Runnable {
                 continue;
             }
 
+            entity.getRoomUser().invokeItem(null);
             entity.getRoomUser().setRollingData(null);
-            entity.getRoomUser().invokeItem();
         }
     }
 }
