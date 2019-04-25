@@ -141,8 +141,6 @@ public class RoomEntityManager {
             entryPosition = destination.copy();
         }
 
-        System.out.println(entity.getDetails().getName());
-
         entity.getRoomUser().setPosition(entryPosition);
 
         if (entity.getType() == EntityType.PLAYER) {
