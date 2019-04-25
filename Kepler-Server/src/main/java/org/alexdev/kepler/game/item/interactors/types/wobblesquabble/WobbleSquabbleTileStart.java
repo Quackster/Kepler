@@ -18,12 +18,12 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 public class WobbleSquabbleTileStart extends GenericTrigger {
-    public void onEntityStep(Entity entity, RoomEntity roomEntity, Item item, Position oldPosition, Object... customArgs) {
+    public void onEntityStep(Entity entity, RoomEntity roomEntity, Item item, Position oldPosition) {
 
     }
 
     @Override
-    public void onEntityStop(Entity entity, RoomEntity roomEntity, Item item, Object... customArgs) {
+    public void onEntityStop(Entity entity, RoomEntity roomEntity, Item item) {
         if (entity.getType() != EntityType.PLAYER) {
             return;
         }

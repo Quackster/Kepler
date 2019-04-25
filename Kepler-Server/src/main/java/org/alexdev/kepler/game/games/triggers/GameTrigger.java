@@ -24,7 +24,7 @@ public abstract class GameTrigger extends GenericTrigger {
     }
 
     @Override
-    public void onEntityStop(Entity entity, RoomEntity roomEntity, Item item, Object... customArgs) {
+    public void onEntityStop(Entity entity, RoomEntity roomEntity, Item item) {
         if (entity.getType() != EntityType.PLAYER) {
             return;
         }
@@ -32,7 +32,7 @@ public abstract class GameTrigger extends GenericTrigger {
         Player player = (Player) entity;
 
         // Call default sitting trigger
-        InteractionType.CHAIR.getTrigger().onEntityStop(entity, roomEntity, item, customArgs);
+        InteractionType.CHAIR.getTrigger().onEntityStop(entity, roomEntity, item);
 
         // Handle game logic from here
         GamehallGame instance = this.getGameInstance(item.getPosition());
@@ -66,7 +66,7 @@ public abstract class GameTrigger extends GenericTrigger {
     }
 
     @Override
-    public void onEntityLeave(Entity entity, RoomEntity roomEntity, Item item, Object... customArgs) {
+    public void onEntityLeave(Entity entity, RoomEntity roomEntity, Item item) {
         if (entity.getType() != EntityType.PLAYER) {
             return;
         }

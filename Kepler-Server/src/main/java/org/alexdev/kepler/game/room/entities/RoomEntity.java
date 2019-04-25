@@ -131,7 +131,7 @@ public abstract class RoomEntity {
 
             if (this.getCurrentItem() != null) {
                 if (this.getCurrentItem().getDefinition().getInteractionType().getTrigger() != null) {
-                    this.getCurrentItem().getDefinition().getInteractionType().getTrigger().onEntityStep(entity, this, this.getCurrentItem(), oldPosition, false);
+                    this.getCurrentItem().getDefinition().getInteractionType().getTrigger().onEntityStep(entity, this, this.getCurrentItem(), oldPosition);
                 }
             }
 
@@ -256,12 +256,12 @@ public abstract class RoomEntity {
             return;
         }
 
-        this.invokeItem(false);
+        this.invokeItem();
     }
     /**
      * Triggers the current item that the player has walked on top of.
      */
-    public void invokeItem(boolean isRolling) {
+    public void invokeItem() {
         double height = this.getTile().getWalkingHeight();
 
         if (height != this.position.getZ()) {
@@ -281,7 +281,7 @@ public abstract class RoomEntity {
             var trigger = item.getDefinition().getInteractionType().getTrigger();
 
             if (trigger != null) {
-                item.getDefinition().getInteractionType().getTrigger().onEntityStop(this.entity, this, item, isRolling);
+                item.getDefinition().getInteractionType().getTrigger().onEntityStop(this.entity, this, item);
             }
         }
 
@@ -828,5 +828,9 @@ public abstract class RoomEntity {
 
     public void setLastInteractedItem(Item lastInteractedItem) {
         this.lastInteractedItem = lastInteractedItem;
+    }
+
+    public boolean isRolling() {
+        return this.rollingData != null;
     }
 }

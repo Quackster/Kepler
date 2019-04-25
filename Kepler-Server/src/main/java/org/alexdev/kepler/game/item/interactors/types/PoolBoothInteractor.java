@@ -11,7 +11,7 @@ import org.alexdev.kepler.messages.outgoing.rooms.pool.OPEN_UIMAKOPPI;
 public class PoolBoothInteractor extends GenericTrigger {
 
     @Override
-    public void onEntityStop(Entity entity, RoomEntity roomEntity, Item item, Object... customArgs) {
+    public void onEntityStop(Entity entity, RoomEntity roomEntity, Item item) {
         if (entity.getType() != EntityType.PLAYER) {
             return;
         }
@@ -26,7 +26,7 @@ public class PoolBoothInteractor extends GenericTrigger {
     }
 
     @Override
-    public void onEntityLeave(Entity entity, RoomEntity roomEntity, Item item, Object... customArgs) {
+    public void onEntityLeave(Entity entity, RoomEntity roomEntity, Item item) {
         if (roomEntity.isWalking()) {
             return;
         }

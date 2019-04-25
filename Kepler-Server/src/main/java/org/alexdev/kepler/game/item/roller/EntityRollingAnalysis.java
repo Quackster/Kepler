@@ -176,9 +176,6 @@ public class EntityRollingAnalysis implements RollingAnalysis<Entity> {
         // The next height but what the client sees.
         double displayNextHeight = nextPosition.getZ();
 
-        boolean sittingOnGround = entity.getRoomUser().isSittingOnGround();
-        boolean sittingOnChair = entity.getRoomUser().isSittingOnChair();
-
         if (entity.getRoomUser().isSittingOnGround()) {
             displayNextHeight -= 0.5; // Take away sit offset when sitting on ground, because yeah, weird stuff.
         }
@@ -193,22 +190,10 @@ public class EntityRollingAnalysis implements RollingAnalysis<Entity> {
         }
 
         entity.getRoomUser().getRollingData().setDisplayHeight(displayNextHeight);//setZ(displayNextHeight);
-        //room.send(new SLIDE_OBJECT(entity, nextPosition, roller.getId(), displayNextHeight));
-
-        if (!sittingOnGround) {
-            entity.getRoomUser().invokeItem(true); // Invoke the current tile item if they're not sitting on rollers.
-        }
 
         entity.getRoomUser().getPosition().setX(nextPosition.getX());
         entity.getRoomUser().getPosition().setY(nextPosition.getY());
         entity.getRoomUser().getPosition().setZ(nextPosition.getZ());
-
-        //if (nextTile.hasWalkableFurni() && nextTile.getHighestItem().getDefinition().isChairOrBed()) {
-        if (!sittingOnGround && !sittingOnChair) {
-            entity.getRoomUser().invokeItem(false);
-        }
-
-        entity.getRoomUser().setNeedsUpdate(true);
 
         previousTile.removeEntity(entity);
         nextTile.addEntity(entity);

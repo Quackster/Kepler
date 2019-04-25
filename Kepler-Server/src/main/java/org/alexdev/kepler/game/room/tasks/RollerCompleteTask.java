@@ -2,8 +2,10 @@ package org.alexdev.kepler.game.room.tasks;
 
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.item.Item;
+import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.room.Room;
+import org.alexdev.kepler.game.room.enums.StatusType;
 import org.alexdev.kepler.messages.outgoing.rooms.items.MOVE_FLOORITEM;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -45,6 +47,7 @@ public class RollerCompleteTask implements Runnable {
             }
 
             entity.getRoomUser().setRollingData(null);
+            entity.getRoomUser().invokeItem();
         }
     }
 }

@@ -12,12 +12,8 @@ import org.alexdev.kepler.util.StringUtil;
 public class ChairInteractor extends GenericTrigger {
 
     @Override
-    public void onEntityStop(Entity entity, RoomEntity roomEntity, Item item, Object... customArgs) {
-        boolean isRolling = false;
-
-        if (customArgs.length > 0) {
-            isRolling = (boolean)customArgs[0];
-        }
+    public void onEntityStop(Entity entity, RoomEntity roomEntity, Item item) {
+        boolean isRolling = entity.getRoomUser().isRolling();
 
         int headRotation = roomEntity.getPosition().getHeadRotation();
 
@@ -34,7 +30,7 @@ public class ChairInteractor extends GenericTrigger {
     }
 
     @Override
-    public void onEntityLeave(Entity entity, RoomEntity roomEntity, Item item, Object... customArgs) {
+    public void onEntityLeave(Entity entity, RoomEntity roomEntity, Item item) {
 
     }
 }

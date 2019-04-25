@@ -45,7 +45,7 @@ public class RoomTaskManager {
         // Only allow roller tasks to be created for private rooms
         if (!this.room.isPublicRoom()) {
             int rollerMillisTask = GameConfiguration.getInstance().getInteger("roller.tick.default");
-            this.scheduleTask("RollerTask", new RollerTask(this.room), 1, rollerMillisTask, TimeUnit.MILLISECONDS);
+            this.scheduleTask("RollerTask", new RollerTask(this.room), 250, rollerMillisTask, TimeUnit.MILLISECONDS);
         }
     }
 

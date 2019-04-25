@@ -17,18 +17,18 @@ public class ChessTrigger extends GameTrigger {
     }
 
     @Override
-    public void onEntityStep(Entity entity, RoomEntity roomEntity, Item item, Position oldPosition, Object... customArgs) {
-        super.onEntityStep(entity, roomEntity, item, oldPosition, customArgs);
+    public void onEntityStep(Entity entity, RoomEntity roomEntity, Item item, Position oldPosition) {
+        super.onEntityStep(entity, roomEntity, item, oldPosition);
     }
 
     @Override
-    public void onEntityStop(Entity entity, RoomEntity roomEntity, Item item, Object... customArgs) {
-        super.onEntityStop(entity, roomEntity, item, customArgs);
+    public void onEntityStop(Entity entity, RoomEntity roomEntity, Item item) {
+        super.onEntityStop(entity, roomEntity, item);
     }
 
     @Override
-    public void onEntityLeave(Entity entity, RoomEntity roomEntity, Item item, Object... customArgs) {
-        super.onEntityLeave(entity, roomEntity, item, customArgs);
+    public void onEntityLeave(Entity entity, RoomEntity roomEntity, Item item) {
+        super.onEntityLeave(entity, roomEntity, item);
     }
 
     /**

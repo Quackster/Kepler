@@ -10,9 +10,9 @@ import org.alexdev.kepler.game.room.entities.RoomEntity;
 public abstract class GenericTrigger {
     public void onRoomEntry(Entity entity, Room room, boolean firstEntry, Object... customArgs) { }
     public void onRoomLeave(Entity entity, Room room, Object... customArgs) { }
-    public void onEntityStep(Entity entity, RoomEntity roomEntity, Item item, Position oldPosition, Object... customArgs) { }
-    public void onEntityStop(Entity entity, RoomEntity roomEntity, Item item, Object... customArgs) { }
-    public void onEntityLeave(Entity entity, RoomEntity roomEntity, Item item, Object... customArgs) { }
+    public void onEntityStep(Entity entity, RoomEntity roomEntity, Item item, Position oldPosition) { }
+    public void onEntityStop(Entity entity, RoomEntity roomEntity, Item item) { }
+    public void onEntityLeave(Entity entity, RoomEntity roomEntity, Item item) { }
     public void onItemPlaced(Player player, Room room, Item item) { }
     public void onItemMoved(Player player, Room room, Item item, boolean isRotation, Position oldPosition) { }
     public void onItemPickup(Player player, Room room, Item item) { }

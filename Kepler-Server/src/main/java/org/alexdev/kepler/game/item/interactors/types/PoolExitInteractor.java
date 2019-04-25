@@ -12,12 +12,12 @@ import org.alexdev.kepler.game.triggers.GenericTrigger;
 
 public class PoolExitInteractor extends GenericTrigger {
     @Override
-    public void onEntityStep(Entity entity, RoomEntity roomEntity, Item item, Position oldPosition, Object... customArgs) {
+    public void onEntityStep(Entity entity, RoomEntity roomEntity, Item item, Position oldPosition) {
 
     }
 
     @Override
-    public void onEntityStop(Entity entity, RoomEntity roomEntity, Item item, Object... customArgs) {
+    public void onEntityStop(Entity entity, RoomEntity roomEntity, Item item) {
         if (entity.getType() != EntityType.PLAYER) {
             return;
         }
@@ -64,7 +64,7 @@ public class PoolExitInteractor extends GenericTrigger {
     }
 
     @Override
-    public void onEntityLeave(Entity entity, RoomEntity roomEntity, Item item, Object... customArgs) {
+    public void onEntityLeave(Entity entity, RoomEntity roomEntity, Item item) {
 
     }
 }

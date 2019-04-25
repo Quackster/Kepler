@@ -15,7 +15,7 @@ import java.util.List;
 public class BedInteractor extends GenericTrigger {
 
     @Override
-    public void onEntityStop(Entity entity, RoomEntity roomEntity, Item item, Object... customArgs) {
+    public void onEntityStop(Entity entity, RoomEntity roomEntity, Item item) {
         Position destination = entity.getRoomUser().getPosition().copy();
 
         if (!isValidPillowTile(item, roomEntity.getPosition())) {
@@ -52,7 +52,7 @@ public class BedInteractor extends GenericTrigger {
     }
 
     @Override
-    public void onEntityLeave(Entity entity, RoomEntity roomEntity, Item item, Object... customArgs) {
+    public void onEntityLeave(Entity entity, RoomEntity roomEntity, Item item) {
 
     }
 
