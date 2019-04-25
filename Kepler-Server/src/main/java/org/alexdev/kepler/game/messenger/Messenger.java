@@ -13,11 +13,18 @@ import org.alexdev.kepler.util.config.GameConfiguration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class Messenger {
     private Map<Integer, MessengerUser> friends;
     private Map<Integer, MessengerUser> requests;
     private Map<Integer, MessengerMessage> offlineMessages;
+
+    private BlockingQueue<MessengerUser> friendsUpdate;
+    private BlockingQueue<MessengerUser> friendsAdded;
+    private BlockingQueue<MessengerUser> friendsRemoved;
+
     private String persistentMessage;
     private int friendsLimit;
     private boolean allowsFriendRequests;
@@ -31,6 +38,10 @@ public class Messenger {
         this.offlineMessages = MessengerDao.getUnreadMessages(details.getId());
         this.allowsFriendRequests = details.isAllowFriendRequests();
 
+        this.friendsUpdate = new LinkedBlockingQueue<>();
+        this.friendsAdded = new LinkedBlockingQueue<>();
+        this.friendsRemoved = new LinkedBlockingQueue<>();
+
         if (details.hasClubSubscription()) {
             this.friendsLimit = GameConfiguration.getInstance().getInteger("messenger.max.friends.club");
         } else {
@@ -42,16 +53,22 @@ public class Messenger {
      * Sends the status update when a friend enters or leaves a room, logs in or disconnects.
      */
     public void sendStatusUpdate() {
+        if (this.user == null) {
+            return;
+        }
+
         for (var user : this.friends.values()) {
             int userId = user.getUserId();
 
             Player friend = PlayerManager.getInstance().getPlayerById(userId);
 
-            if (friend != null) {
-                new FRIENDLIST_UPDATE().handle(friend, null);
+            if (friend != null && friend.getMessenger() != null) {
+                friend.getMessenger().queueFriendUpdate(this.user);
+                //new FRIENDLIST_UPDATE().handle(friend, null);
             }
         }
     }
+
     /**
      * Get if the user already has a request from this user id.
      *
@@ -200,4 +217,32 @@ public class Messenger {
     public boolean isAllowsFriendRequests() {
         return allowsFriendRequests;
     }
+
+    /**
+     * Gets the queue for the next friends came online update.
+     *
+     * @return the queue
+     */
+    public BlockingQueue<MessengerUser> getFriendsUpdate() {
+        return friendsUpdate;
+    }
+
+    /**
+     * Adds a user friend left to the events update console queue, removes any previous mentions of this friend.
+     *
+     * @param friend the friend to update
+     */
+    public void queueFriendUpdate(MessengerUser friend) {
+        if (this.friendsAdded.stream().anyMatch(f -> friend.getUserId() == friend.getUserId())) {
+            return;
+        }
+
+        if (this.friendsRemoved.stream().anyMatch(f -> friend.getUserId() == friend.getUserId())) {
+            return;
+        }
+
+        this.friendsUpdate.removeIf(f -> f.getUserId() == friend.getUserId());
+        this.friendsUpdate.add(friend);
+    }
+
 }

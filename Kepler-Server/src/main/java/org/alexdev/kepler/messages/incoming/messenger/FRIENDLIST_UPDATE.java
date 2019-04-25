@@ -12,6 +12,6 @@ import org.alexdev.kepler.util.config.GameConfiguration;
 public class FRIENDLIST_UPDATE implements MessageEvent {
     @Override
     public void handle(Player player, NettyRequest reader) {
-        player.send(new FRIENDS_UPDATE(player.getMessenger().getFriends()));
+        player.send(new FRIENDS_UPDATE(player, player.getMessenger()));
     }
 }
