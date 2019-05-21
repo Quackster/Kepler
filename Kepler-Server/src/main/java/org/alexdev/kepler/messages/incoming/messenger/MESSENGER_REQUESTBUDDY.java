@@ -1,27 +1,19 @@
 package org.alexdev.kepler.messages.incoming.messenger;
 
-import org.alexdev.kepler.dao.mysql.MessengerDao;
-import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.game.messenger.Messenger;
 import org.alexdev.kepler.game.messenger.MessengerError;
 import org.alexdev.kepler.game.messenger.MessengerErrorType;
-import org.alexdev.kepler.game.messenger.MessengerUser;
+import org.alexdev.kepler.game.messenger.MessengerManager;
 import org.alexdev.kepler.game.player.Player;
-import org.alexdev.kepler.game.player.PlayerDetails;
-import org.alexdev.kepler.game.player.PlayerManager;
-import org.alexdev.kepler.messages.outgoing.messenger.BUDDY_REQUEST_RESULT;
-import org.alexdev.kepler.messages.outgoing.messenger.FRIEND_REQUEST;
 import org.alexdev.kepler.messages.outgoing.messenger.MESSENGER_ERROR;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
-
-import java.sql.SQLException;
 
 public class MESSENGER_REQUESTBUDDY implements MessageEvent {
     @Override
     public void handle(Player player, NettyRequest reader) {
         String username = reader.readString();
-        Messenger target = PlayerManager.getInstance().getMessengerData(username);
+        Messenger target = MessengerManager.getInstance().getMessengerData(username);
 
         if (target == null) {
             // Error type in external texts has it defined as "There was an error finding the user for the friend request"
@@ -30,6 +22,10 @@ public class MESSENGER_REQUESTBUDDY implements MessageEvent {
         }
 
         Messenger callee = player.getMessenger();
+
+        if (username.toLowerCase().equals(player.getDetails().getName())) {
+            return;
+        }
 
         if (callee.isFriendsLimitReached()) {
             player.send(new MESSENGER_ERROR(new MessengerError(MessengerErrorType.FRIENDLIST_FULL)));
@@ -49,10 +45,11 @@ public class MESSENGER_REQUESTBUDDY implements MessageEvent {
             return;
         }
 
-        if (!target.isAllowsFriendRequests()) {
+        if (!target.allowsFriendRequests()) {
             player.send(new MESSENGER_ERROR(new MessengerError(MessengerErrorType.TARGET_DOES_NOT_ACCEPT)));
             return;
         }
+
 
         target.addRequest(callee.getMessengerUser());
     }

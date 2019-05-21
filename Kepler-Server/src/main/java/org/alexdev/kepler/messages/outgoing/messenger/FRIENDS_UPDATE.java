@@ -3,12 +3,8 @@ package org.alexdev.kepler.messages.outgoing.messenger;
 import org.alexdev.kepler.game.messenger.Messenger;
 import org.alexdev.kepler.game.messenger.MessengerUser;
 import org.alexdev.kepler.game.player.Player;
-import org.alexdev.kepler.game.player.PlayerDetails;
-import org.alexdev.kepler.game.player.PlayerManager;
-import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
-import org.alexdev.kepler.util.DateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +28,8 @@ public class FRIENDS_UPDATE extends MessageComposer {
         this.friendsRemoved = new ArrayList<>();
         this.friendsUpdated = new ArrayList<>();
 
+        this.messenger.getFriendsAdd().drainTo(this.friendsAdded);
+        this.messenger.getFriendsRemove().drainTo(this.friendsRemoved);
         this.messenger.getFriendsUpdate().drainTo(this.friendsUpdated);
 
         this.friends.addAll(this.friendsAdded);
@@ -41,31 +39,23 @@ public class FRIENDS_UPDATE extends MessageComposer {
 
     @Override
     public void compose(NettyResponse response) {
+        response.writeInt(0); // TODO: Category count
         response.writeInt(this.friends.size());
 
         for (MessengerUser friend : this.friends) {
-            response.writeInt(friend.getUserId());
-            response.writeString(friend.getConsoleMotto());
-
-            Player player = PlayerManager.getInstance().getPlayerById(friend.getUserId());
-
-            boolean isOnline = (player != null);
-            response.writeBool(isOnline);
-
-            if (isOnline) {
-                if (player.getRoomUser().getRoom() != null) {
-                    Room room = player.getRoomUser().getRoom();
-
-                    if (room.getData().getOwnerId() > 0) {
-                        response.writeString("Floor1a");
-                    } else {
-                        response.writeString(room.getData().getPublicName());
-                    }
-                } else {
-                    response.writeString("On hotel view");
-                }
+            if (this.friendsRemoved.contains(friend)) {
+                response.writeInt(-1);
+                response.writeInt(friend.getUserId());
             } else {
-                response.writeString(DateUtil.getDateAsString(friend.getLastOnline()));
+                if (this.friendsAdded.contains(friend)) {
+                    response.writeInt(1);
+                }
+
+                if (this.friendsUpdated.contains(friend)) {
+                    response.writeInt(0);
+                }
+
+                friend.serialise(this.player, response);
             }
         }
     }

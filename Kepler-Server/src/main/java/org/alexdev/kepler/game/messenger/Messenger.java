@@ -1,12 +1,9 @@
 package org.alexdev.kepler.game.messenger;
 
 import org.alexdev.kepler.dao.mysql.MessengerDao;
-import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.player.PlayerManager;
-import org.alexdev.kepler.messages.incoming.messenger.FRIENDLIST_UPDATE;
-import org.alexdev.kepler.messages.outgoing.messenger.CONSOLE_MOTTO;
 import org.alexdev.kepler.messages.outgoing.messenger.FRIEND_REQUEST;
 import org.alexdev.kepler.util.config.GameConfiguration;
 
@@ -21,22 +18,24 @@ public class Messenger {
     private Map<Integer, MessengerUser> requests;
     private Map<Integer, MessengerMessage> offlineMessages;
 
+    private List<MessengerCategory> messengerCategories;
+
     private BlockingQueue<MessengerUser> friendsUpdate;
     private BlockingQueue<MessengerUser> friendsAdded;
     private BlockingQueue<MessengerUser> friendsRemoved;
 
-    private String persistentMessage;
     private int friendsLimit;
     private boolean allowsFriendRequests;
     private MessengerUser user;
 
     public Messenger(PlayerDetails details) {
         this.user = new MessengerUser(details);
-        this.persistentMessage = details.getConsoleMotto();
         this.friends = MessengerDao.getFriends(details.getId());
         this.requests = MessengerDao.getRequests(details.getId());
         this.offlineMessages = MessengerDao.getUnreadMessages(details.getId());
         this.allowsFriendRequests = details.isAllowFriendRequests();
+
+        this.messengerCategories = new ArrayList<>();
 
         this.friendsUpdate = new LinkedBlockingQueue<>();
         this.friendsAdded = new LinkedBlockingQueue<>();
@@ -56,7 +55,7 @@ public class Messenger {
         if (this.user == null) {
             return;
         }
-
+        
         for (var user : this.friends.values()) {
             int userId = user.getUserId();
 
@@ -90,15 +89,14 @@ public class Messenger {
     }
 
     public void addFriend(MessengerUser friend) {
-        MessengerDao.removeRequest(friend, this.user);
-        MessengerDao.newFriend(friend, this.user);
+        MessengerDao.removeRequest(friend.getUserId(), this.user.getUserId());
 
         this.requests.remove(friend.getUserId());
         this.friends.put(friend.getUserId(), friend);
     }
 
     public void addRequest(MessengerUser requester) {
-        MessengerDao.newRequest(requester, this.user);
+        MessengerDao.newRequest(requester.getUserId(), this.user.getUserId());
         this.requests.put(requester.getUserId(), requester);
 
         Player requested = PlayerManager.getInstance().getPlayerById(this.user.getUserId());
@@ -109,17 +107,16 @@ public class Messenger {
     }
 
     public void declineRequest(MessengerUser requester) {
-        MessengerDao.removeRequest(requester, this.user);
-        this.requests.remove(requester);
+        MessengerDao.removeRequest(requester.getUserId(), this.user.getUserId());
+        this.requests.remove(requester.getUserId());
     }
 
     public void declineAllRequests() {
-        MessengerDao.removeAllRequests(this.user);
+        MessengerDao.removeAllRequests(this.user.getUserId());
         this.requests.clear();
     }
 
     /**
-     * getPersistentMessage
      * Get if the friend limit is reached. Limit is dependent upon club subscription
      *
      * @return true, if limit reached
@@ -128,25 +125,12 @@ public class Messenger {
         return this.friends.size() >= this.getFriendsLimit();
     }
 
+    /**
+     * Get the friends list amount
+     * @return
+     */
     public int getFriendsLimit() {
         return this.friendsLimit;
-    }
-
-    public void setPersistentMessage(String persistentMessage) {
-        this.persistentMessage = persistentMessage;
-
-        Player player = PlayerManager.getInstance().getPlayerById(this.user.getUserId());
-
-        if (player != null) {
-            player.getDetails().setConsoleMotto(persistentMessage);
-            player.send(new CONSOLE_MOTTO(persistentMessage));
-        }
-
-        PlayerDao.saveMotto(player.getDetails());
-    }
-
-    public String getPersistentMessage() {
-        return this.persistentMessage;
     }
 
     /**
@@ -179,6 +163,7 @@ public class Messenger {
         this.friends.remove(userId);
 
         MessengerDao.removeFriend(userId, this.user.getUserId());
+        MessengerDao.removeFriend(this.user.getUserId(), userId);
 
         return true;
     }
@@ -201,6 +186,10 @@ public class Messenger {
         return new ArrayList<>(this.friends.values());
     }
 
+    /**
+     * Get the messenger user instance of this person
+     * @return the instance
+     */
     public MessengerUser getMessengerUser() {
         return this.user;
     }
@@ -214,7 +203,11 @@ public class Messenger {
         return new ArrayList<>(this.requests.values());
     }
 
-    public boolean isAllowsFriendRequests() {
+    /**
+     * Get on whether the user allows friend requests
+     * @return true, if scuessful
+     */
+    public boolean allowsFriendRequests() {
         return allowsFriendRequests;
     }
 
@@ -245,4 +238,45 @@ public class Messenger {
         this.friendsUpdate.add(friend);
     }
 
+    /**
+     * Gets the queue for the adding friends to the conosle
+     *
+     * @return the queue
+     */
+    public BlockingQueue<MessengerUser> getFriendsAdd() {
+        return friendsAdded;
+    }
+
+    /**
+     * Adds a user friend joined to the events update console queue, removes any previous mentions of this friend.
+     *
+     * @param friend the friend to update
+     */
+    public void queueNewFriend(MessengerUser friend) {
+        this.friendsUpdate.removeIf(f -> f.getUserId() == friend.getUserId());
+        this.friendsUpdate.add(friend);
+    }
+
+    /**
+     * Gets the queue for the next friends came offline update.
+     *
+     * @return the queue
+     */
+    public BlockingQueue<MessengerUser> getFriendsRemove() {
+        return friendsRemoved;
+    }
+
+    /**
+     * Adds a user friend joined to the events update console queue, removes any previous mentions of this friend.
+     *
+     * @param friend the friend to update
+     */
+    public void queueRemoveFriend(MessengerUser friend) {
+        this.friendsRemoved.removeIf(f -> f.getUserId() == friend.getUserId());
+        this.friendsRemoved.add(friend);
+    }
+
+    public List<MessengerCategory> getCategories() {
+        return messengerCategories;
+    }
 }

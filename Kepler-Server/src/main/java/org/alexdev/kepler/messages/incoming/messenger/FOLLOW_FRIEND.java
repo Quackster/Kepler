@@ -54,27 +54,6 @@ public class FOLLOW_FRIEND implements MessageEvent {
         }
 
         Room friendRoom = friend.getRoomUser().getRoom();
-
-        boolean isPublic = friendRoom.isPublicRoom();
-        int roomId = friendRoom.getId();
-
-        // If you tried to follow someone in arena, send them to lobby.
-        if (friendRoom.getData().isGameArena()) {
-            String modelType = friendRoom.getData().getGameLobby();
-            roomId = RoomManager.getInstance().getRoomByModel(modelType).getId();
-            isPublic = true;
-        }
-
-        if (isPublic) { // Some weird offset shit required...
-            Room room = RoomManager.getInstance().getRoomById(roomId);
-
-            if (room.getData().isNavigatorHide()) {
-                roomId = room.getFollowRedirect();
-            }
-
-           // roomId = roomId + RoomManager.PUBLIC_ROOM_OFFSET;
-        }
-
-        player.send(new ROOMFORWARD(isPublic, roomId));
+        friendRoom.forward(player, false);
     }
 }

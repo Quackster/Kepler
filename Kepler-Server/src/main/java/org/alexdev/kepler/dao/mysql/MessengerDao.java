@@ -3,8 +3,9 @@ package org.alexdev.kepler.dao.mysql;
 import org.alexdev.kepler.dao.Storage;
 import org.alexdev.kepler.game.messenger.MessengerMessage;
 import org.alexdev.kepler.game.messenger.MessengerUser;
-import org.alexdev.kepler.log.Log;
 import org.alexdev.kepler.util.DateUtil;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,21 +30,15 @@ public class MessengerDao {
 
         try {
             sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("SELECT id,username,figure,console_motto,last_online,sex FROM messenger_friends " +
-                    "INNER JOIN users " +
-                    "ON messenger_friends.from_id = users.id OR messenger_friends.to_id = users.id " +
-                    "WHERE (messenger_friends.to_id = ? OR messenger_friends.from_id = ?) " +
-                    "AND users.id <> ?", sqlConnection);
-
+            preparedStatement = Storage.getStorage().prepare("SELECT id,username,figure,motto,last_online,sex,allow_stalking FROM messenger_friends INNER JOIN users ON messenger_friends.from_id = users.id WHERE to_id = ?", sqlConnection);
             preparedStatement.setInt(1, userId);
-            preparedStatement.setInt(2, userId);
-            preparedStatement.setInt(3, userId);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 int resultUserId = resultSet.getInt("id");
                 friends.put(resultUserId, new MessengerUser(resultUserId, resultSet.getString("username"), resultSet.getString("figure"),
-                        resultSet.getString("sex"), resultSet.getString("console_motto"), resultSet.getLong("last_online")));
+                        resultSet.getString("sex"), resultSet.getString("motto"), resultSet.getLong("last_online"),
+                        resultSet.getBoolean("allow_stalking")));
             }
 
         } catch (Exception e) {
@@ -73,13 +68,14 @@ public class MessengerDao {
 
         try {
             sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("SELECT from_id,username,figure,sex,console_motto,last_online FROM messenger_requests INNER JOIN users ON messenger_requests.from_id = users.id WHERE to_id = " + userId, sqlConnection);
+            preparedStatement = Storage.getStorage().prepare("SELECT from_id,username,figure,sex,motto,last_online,allow_stalking,is_online,online_status_visible FROM messenger_requests INNER JOIN users ON messenger_requests.from_id = users.id WHERE to_id = " + userId, sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 int fromId = resultSet.getInt("from_id");
                 users.put(fromId, new MessengerUser(fromId, resultSet.getString("username"), resultSet.getString("figure"),
-                        resultSet.getString("sex"), resultSet.getString("console_motto"), resultSet.getLong("last_online")));
+                        resultSet.getString("sex"), resultSet.getString("motto"), resultSet.getLong("last_online"),
+                        resultSet.getBoolean("allow_stalking")));
             }
 
         } catch (Exception e) {
@@ -99,7 +95,8 @@ public class MessengerDao {
      * @param query the query
      * @return the list
      */
-    public static Integer search(String query) {
+    public static List<Integer> search(String query) {
+        List<Integer> userList = new ArrayList<>();
         int userId = -1;
 
         Connection sqlConnection = null;
@@ -109,13 +106,17 @@ public class MessengerDao {
         try {
             sqlConnection = Storage.getStorage().getConnection();
 
-            preparedStatement = Storage.getStorage().prepare("SELECT id FROM users WHERE LOWER(username) = LOWER(?) LIMIT 30", sqlConnection);
-            preparedStatement.setString(1, query);
+            preparedStatement = Storage.getStorage().prepare("SELECT id FROM users WHERE LOWER(username) LIKE ? LIMIT 30", sqlConnection);
+            preparedStatement.setString(1, query + "%");
+
+            /* preparedStatement = Storage.getStorage().prepare("SELECT id FROM users WHERE LOWER(username) LIKE ? ORDER BY (username = ?) DESC, length(username) LIMIT 30", sqlConnection);
+            preparedStatement.setString(1, query + "%");
+            preparedStatement.setString(2, query);*/
 
             resultSet = preparedStatement.executeQuery();
 
-            if (resultSet.next()) {
-                userId = resultSet.getInt("id");
+            while (resultSet.next()) {
+                userList.add(resultSet.getInt("id"));
             }
 
         } catch (Exception e) {
@@ -126,25 +127,32 @@ public class MessengerDao {
             Storage.closeSilently(sqlConnection);
         }
 
-        return userId;
+        return userList;
     }
 
     /**
      * New request.
      *
      * @param fromId the from id
-     * @param toId   the to id
-     * @return true, if successful
+     * @param toId the to id
      */
-    public static void newRequest(MessengerUser from, MessengerUser to) {
+    public static void newRequest(int fromId, int toId) {
+        if (toId == fromId) {
+            return;
+        }
+
+        if (requestExists(fromId, toId)) {
+            return;
+        }
+
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
 
         try {
             sqlConnection = Storage.getStorage().getConnection();
             preparedStatement = Storage.getStorage().prepare("INSERT INTO messenger_requests (to_id, from_id) VALUES (?, ?)", sqlConnection);
-            preparedStatement.setInt(1, to.getUserId());
-            preparedStatement.setInt(2, from.getUserId());
+            preparedStatement.setInt(1, toId);
+            preparedStatement.setInt(2, fromId);
             preparedStatement.execute();
         } catch (SQLException ex) {
             Storage.logError(ex);
@@ -155,13 +163,14 @@ public class MessengerDao {
     }
 
     /**
-     * Request exists.
+     * Get if the request exists.
      *
      * @param fromId the from id
-     * @param toId   the to id
+     * @param toId the to id
+     *
      * @return true, if successful
      */
-    public static boolean requestExists(int fromId, int toId) throws SQLException {
+    public static boolean requestExists(int fromId, int toId) {
         boolean exists = false;
 
         Connection sqlConnection = null;
@@ -170,7 +179,9 @@ public class MessengerDao {
 
         try {
             sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("SELECT * FROM messenger_requests WHERE (to_id = '" + toId + "') AND (from_id = '" + fromId + "') OR (from_id = '" + toId + "') AND (to_id = '" + fromId + "')", sqlConnection);
+            preparedStatement = Storage.getStorage().prepare("SELECT * FROM messenger_requests WHERE from_id = ? AND to_id = ?", sqlConnection);
+            preparedStatement.setInt(1, fromId);
+            preparedStatement.setInt(2, toId);
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
@@ -179,7 +190,43 @@ public class MessengerDao {
 
         } catch (Exception ex) {
             Storage.logError(ex);
-            throw ex;
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+
+        return exists;
+    }
+
+    /**
+     * Get if friend exists.
+     *
+     * @param fromId the from id
+     * @param toId the to id
+     *
+     * @return true, if successful
+     */
+    public static boolean friendExists(int fromId, int toId) {
+        boolean exists = false;
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("SELECT * FROM messenger_friends WHERE from_id = ? AND to_id = ?", sqlConnection);
+            preparedStatement.setInt(1, fromId);
+            preparedStatement.setInt(2, toId);
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                exists = true;
+            }
+
+        } catch (Exception ex) {
+            Storage.logError(ex);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -193,18 +240,18 @@ public class MessengerDao {
      * Removes the request.
      *
      * @param fromId the from id
-     * @param toId   the to id
+     * @param toId the to id
      */
-    public static void removeRequest(MessengerUser from, MessengerUser to) {
+    public static void removeRequest(int fromId, int toId) {
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
 
         try {
             sqlConnection = Storage.getStorage().getConnection();
             preparedStatement = Storage.getStorage().prepare("DELETE FROM messenger_requests WHERE from_id = ? AND to_id = ?", sqlConnection);
-            preparedStatement.setInt(1, from.getUserId());
-            preparedStatement.setInt(2, to.getUserId());
-            preparedStatement.executeUpdate();
+            preparedStatement.setInt(1, fromId);
+            preparedStatement.setInt(2, toId);
+            preparedStatement.execute();
 
         } catch (SQLException ex) {
             Storage.logError(ex);
@@ -214,15 +261,15 @@ public class MessengerDao {
         }
     }
 
-    public static void removeAllRequests(MessengerUser to) {
+    public static void removeAllRequests(int toId) {
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
 
         try {
             sqlConnection = Storage.getStorage().getConnection();
             preparedStatement = Storage.getStorage().prepare("DELETE FROM messenger_requests WHERE to_id = ?", sqlConnection);
-            preparedStatement.setInt(1, to.getUserId());
-            preparedStatement.executeUpdate();
+            preparedStatement.setInt(1, toId);
+            preparedStatement.execute();
 
         } catch (SQLException ex) {
             Storage.logError(ex);
@@ -235,7 +282,7 @@ public class MessengerDao {
     /**
      * Removes the friend.
      *
-     * @param toId   the friend id
+     * @param toId the friend id
      * @param fromId the user id
      */
     public static void removeFriend(int toId, int fromId) {
@@ -247,7 +294,7 @@ public class MessengerDao {
             preparedStatement = Storage.getStorage().prepare("DELETE FROM messenger_friends WHERE from_id = ? AND to_id = ?", sqlConnection);
             preparedStatement.setInt(1, fromId);
             preparedStatement.setInt(2, toId);
-            preparedStatement.executeUpdate();
+            preparedStatement.execute();
 
         } catch (SQLException ex) {
             Storage.logError(ex);
@@ -261,18 +308,18 @@ public class MessengerDao {
      * New friend.
      *
      * @param fromId the sender
-     * @param toId   the receiver
+     * @param toId the receiver
      */
-    public static void newFriend(MessengerUser from, MessengerUser to) {
+    public static void newFriend(int toId, int fromId) {
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
 
         try {
             sqlConnection = Storage.getStorage().getConnection();
             preparedStatement = Storage.getStorage().prepare("INSERT INTO messenger_friends (from_id, to_id) VALUES (?, ?)", sqlConnection);
-            preparedStatement.setInt(1, from.getUserId());
-            preparedStatement.setInt(2, to.getUserId());
-            preparedStatement.executeUpdate();
+            preparedStatement.setInt(1, fromId);
+            preparedStatement.setInt(2, toId);
+            preparedStatement.execute();
 
         } catch (SQLException ex) {
             Storage.logError(ex);
@@ -283,10 +330,37 @@ public class MessengerDao {
     }
 
     /**
+     * Removes the friend.
+     *
+     * @param userId the friend id
+     * @param friendId the user id
+     */
+    public static void updateFriendCategory(int userId, int friendId, int categoryId) {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("UPDATE messenger_friends SET category_id = ? WHERE from_id = ? AND to_id = ?", sqlConnection);
+            preparedStatement.setInt(1, categoryId);
+            preparedStatement.setInt(2, friendId);
+            preparedStatement.setInt(3, userId);
+            preparedStatement.execute();
+
+        } catch (SQLException ex) {
+            Storage.logError(ex);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+
+
+    /**
      * Create a message for other people to read them later, if they're offline.
      *
-     * @param fromId  the id the user sending the message
-     * @param toId    the id of the user to receive it
+     * @param fromId the id the user sending the message
+     * @param toId the id of the user to receive it
      * @param message the body of the message
      * @return the id of the message
      */

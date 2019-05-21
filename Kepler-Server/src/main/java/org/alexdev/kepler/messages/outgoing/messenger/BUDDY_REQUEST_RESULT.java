@@ -4,7 +4,6 @@ import org.alexdev.kepler.game.messenger.MessengerError;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BUDDY_REQUEST_RESULT extends MessageComposer {

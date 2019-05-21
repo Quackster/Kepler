@@ -1,7 +1,6 @@
 package org.alexdev.kepler.messages.outgoing.messenger;
 
 import org.alexdev.kepler.game.messenger.MessengerError;
-import org.alexdev.kepler.game.messenger.MessengerErrorReason;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 

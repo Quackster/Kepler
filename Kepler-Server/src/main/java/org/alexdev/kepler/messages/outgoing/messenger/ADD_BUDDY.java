@@ -1,33 +1,30 @@
 package org.alexdev.kepler.messages.outgoing.messenger;
 
-import gherkin.lexer.Pl;
 import org.alexdev.kepler.game.messenger.MessengerUser;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 
-import java.util.List;
-
-public class FRIENDLIST extends MessageComposer {
+public class ADD_BUDDY extends MessageComposer {
+    private final MessengerUser friend;
     private final Player player;
-    private final List<MessengerUser> friends;
 
-    public FRIENDLIST(Player player, List<MessengerUser> friends) {
+    public ADD_BUDDY(Player player, MessengerUser friend) {
+        this.friend = friend;
         this.player = player;
-        this.friends = friends;
     }
 
     @Override
     public void compose(NettyResponse response) {
-        response.writeInt(this.friends.size());
+        response.writeInt(0);
+        response.writeInt(1);
 
-        for (MessengerUser friend : this.friends) {
-            friend.serialise(player, response);
-        }
+        response.writeInt(1);
+        this.friend.serialise(this.player, response);
     }
 
     @Override
     public short getHeader() {
-        return 263; // "DG"
+        return 13;
     }
 }
