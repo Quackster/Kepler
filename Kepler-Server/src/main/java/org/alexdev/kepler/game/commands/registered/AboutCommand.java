@@ -22,9 +22,9 @@ public class AboutCommand extends Command {
 
         Player player = (Player)entity;
 
-        player.send(new ALERT("Project Kepler - Habbo Hotel v14+ emulation" +
+        player.send(new ALERT("Project Kepler - Habbo Hotel v26 emulation" +
                 "<br>" +
-                "<br>Max version supported: r21_20080417_0343_5110_5527e6590eba8f3fb66348bdf271b5a2" +
+                "<br>Max version supported: r26_20080915_0408_7984_61ccb5f8b8797a3aba62c1fa2ca80169" +
                 "<br>" +
                 "<br>Contributors:" +
                 "<br> - ThuGie, Alito, Ascii, Sefhriloff, Copyright, Raptosaur, Hoshiko " + // Call for help
