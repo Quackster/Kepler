@@ -10,7 +10,7 @@ public class PurseDao {
 
     /**
      * Redeems a voucher.
-	 * Gets the voucher and then deletes it from the voucher table.
+     * Gets the voucher and then deletes it from the voucher table.
      *
      * @param voucherCode the string voucher code to redeem
      * @return the amount of credits redeemed or -1 if no voucher was found.
@@ -19,20 +19,20 @@ public class PurseDao {
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		
+        ResultSet resultSet = null;
+
         try {
-			//Get the voucher
+            //Get the voucher
             sqlConnection = Storage.getStorage().getConnection();
             preparedStatement = Storage.getStorage().prepare("SELECT Credits FROM vouchers WHERE VoucherCode = ?", sqlConnection);
             preparedStatement.setString(1, voucherCode);
             resultSet = preparedStatement.executeQuery();
             
             if (resultSet.next()) {
-				//Delete the voucher
-				preparedStatement = Storage.getStorage().prepare("DELETE FROM vouchers WHERE VoucherCode = ?", sqlConnection);
-				preparedStatement.setString(1, voucherCode);
-				preparedStatement.executeQuery();
+                //Delete the voucher
+                preparedStatement = Storage.getStorage().prepare("DELETE FROM vouchers WHERE VoucherCode = ?", sqlConnection);
+                preparedStatement.setString(1, voucherCode);
+                preparedStatement.executeQuery();
 
                 return resultSet.getInt("Credits");
             }
@@ -45,7 +45,7 @@ public class PurseDao {
             Storage.closeSilently(sqlConnection);
         }
 
-		//No voucher found.
+        //No voucher found.
         return -1;    
     }
 }
