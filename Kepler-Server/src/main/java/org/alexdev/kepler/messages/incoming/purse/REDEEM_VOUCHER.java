@@ -23,7 +23,7 @@ public class REDEEM_VOUCHER implements MessageEvent {
         if(voucherCredits == -1)
         {
             //No voucher was found
-            player.send(new VOUCHER_REDEEM_ERROR(RedeemError.PRODUCT_DELIVERY_FAILED));
+            player.send(new VOUCHER_REDEEM_ERROR(RedeemError.INVALID));
         }
         else
         {
