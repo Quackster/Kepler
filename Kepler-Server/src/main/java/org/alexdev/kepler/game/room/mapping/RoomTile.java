@@ -77,14 +77,17 @@ public class RoomTile {
         if (tile.getHighestItem() != null && entity != null) {
             Item item = tile.getHighestItem();
 
-            if (item.getRollingData() != null) {
-                if (item.getRollingData().getNextPosition().equals(position) && !item.isWalkable(position)) {
-                    return false;
-                }
-            }
-
             if (item.getDefinition().getSprite().equals("poolExit") && item.getPosition().equals(new Position(19, 19))) {
                 return entity.getRoomUser().containsStatus(StatusType.SWIM);
+            }
+
+            // Allow pets to walk to their own pet bed.
+            if (entity.getType() == EntityType.PET) {
+                Pet pet = (Pet) entity;
+
+                if (pet.getDetails().getItemId() == item.getDatabaseId()) {
+                    return true;
+                }
             }
         }
 
@@ -93,19 +96,16 @@ public class RoomTile {
                 return true;
             }
 
-            for (Entity e : tile.getEntities()) {
-                if (e.getRoomUser().getRollingData() != null) {
-                    if (e.getRoomUser().getRollingData().getNextPosition().equals(position)) {
-                        return false;
-                    }
-                }
-            }
-
+            /*if (room.isGameArena()) {
+                return true;
+            } else {
+                return entity == null || tile.containsEntity(entity);
+            }*/
             return entity == null || tile.containsEntity(entity);
         }
 
 
-        if (!tile.hasWalkableFurni()) {
+        if (!tile.hasWalkableFurni(entity)) {
             if (entity != null) {
                 return tile.getHighestItem().getPosition().equals(entity.getRoomUser().getPosition());
             }
