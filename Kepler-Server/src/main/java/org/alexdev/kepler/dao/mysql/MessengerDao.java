@@ -68,7 +68,7 @@ public class MessengerDao {
 
         try {
             sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("SELECT from_id,username,figure,sex,motto,last_online,allow_stalking,is_online,online_status_visible FROM messenger_requests INNER JOIN users ON messenger_requests.from_id = users.id WHERE to_id = " + userId, sqlConnection);
+            preparedStatement = Storage.getStorage().prepare("SELECT from_id,username,figure,sex,motto,last_online,allow_stalking FROM messenger_requests INNER JOIN users ON messenger_requests.from_id = users.id WHERE to_id = " + userId, sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
