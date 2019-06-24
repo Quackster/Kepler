@@ -53,7 +53,7 @@ public class REMOVE_JUKEBOX_DISC implements MessageEvent {
         songDisk.setHidden(false);
         songDisk.save();
 
-        SongMachineDao.removePlaylistSong(burnedDisk.getSongId());
+        SongMachineDao.removePlaylistSong(burnedDisk.getSongId(), room.getItemManager().getSoundMachine().getId());
         JukeboxDao.editDisk(songDisk.getId(), 0, 0);
 
         player.getInventory().getView("new"); // Refresh hand

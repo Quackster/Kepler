@@ -29,7 +29,8 @@ public class JUKEBOX_PLAYLIST_ADD implements MessageEvent {
 
         int songId = reader.readInt();
 
-        SongMachineDao.removePlaylistSong(songId);
+        SongMachineDao.removePlaylistSong(songId, room.getItemManager().getSoundMachine().getId());
+
         var playList = SongMachineDao.getSongPlaylist(room.getItemManager().getSoundMachine().getId());
         var loadedDiscs = SongMachineDao.getTracks(room.getItemManager().getSoundMachine().getId());
 
