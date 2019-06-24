@@ -1,11 +1,13 @@
 package org.alexdev.kepler.game.room.mapping;
 
 import org.alexdev.kepler.game.entity.Entity;
+import org.alexdev.kepler.game.entity.EntityType;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.item.interactors.InteractionType;
 import org.alexdev.kepler.game.pathfinder.Pathfinder;
 import org.alexdev.kepler.game.pathfinder.Position;
+import org.alexdev.kepler.game.pets.Pet;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.enums.StatusType;
 import org.alexdev.kepler.game.room.public_rooms.walkways.WalkwaysEntrance;
@@ -85,7 +87,7 @@ public class RoomTile {
             if (entity.getType() == EntityType.PET) {
                 Pet pet = (Pet) entity;
 
-                if (pet.getDetails().getItemId() == item.getDatabaseId()) {
+                if (pet.getDetails().getItemId() == item.getId()) {
                     return true;
                 }
             }
@@ -105,7 +107,7 @@ public class RoomTile {
         }
 
 
-        if (!tile.hasWalkableFurni(entity)) {
+        if (!tile.hasWalkableFurni()) {
             if (entity != null) {
                 return tile.getHighestItem().getPosition().equals(entity.getRoomUser().getPosition());
             }
