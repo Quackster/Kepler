@@ -6,8 +6,8 @@ plugins {
 apply plugin: 'java'
 apply plugin: 'application'
 
-sourceCompatibility = "1.10"
-targetCompatibility = "1.10"
+sourceCompatibility = "1.12"
+targetCompatibility = "1.12"
 
 def grpcVersion = '1.12.0'
 def protobufVersion = '3.5.1'
@@ -17,7 +17,7 @@ mainClassName = 'org.alexdev.kepler.Kepler'
 
 jib {
     from {
-        image = 'openjdk:10-jre-slim'
+        image = 'openjdk:12-jre-slim'
     }
     container {
         ports = ['12321/tcp', '12309/tcp','12322/tcp']
