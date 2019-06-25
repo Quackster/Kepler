@@ -170,7 +170,7 @@ public class SongMachineDao {
         }
     }
 
-    public static void clearSong(int songId, long itemId) throws SQLException {
+    public static void clearSong(int songId, int itemId) throws SQLException {
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
 
@@ -178,8 +178,9 @@ public class SongMachineDao {
             sqlConnection = Storage.getStorage().getConnection();
 
             // Don't actually delete, just make it invisible, this is because some burned disks might use it.
-            preparedStatement = Storage.getStorage().prepare("UPDATE soundmachine_songs SET item_id = -1 AND id = ?", sqlConnection);
+            preparedStatement = Storage.getStorage().prepare("UPDATE soundmachine_songs SET item_id = -1 AND id = ? WHERE item_id = ?", sqlConnection);
             preparedStatement.setInt(1, songId);
+            preparedStatement.setInt(2, itemId);
             preparedStatement.execute();
 
         } catch (Exception e) {
