@@ -1,5 +1,6 @@
 package org.alexdev.kepler.messages.incoming.rooms;
 
+import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
@@ -40,6 +41,11 @@ public class ROOM_DIRECTORY implements MessageEvent {
 
             if (room.isClubOnly() && !player.getDetails().hasClubSubscription()) {
                 player.send(new CANTCONNECT(QueueError.CLUB_ONLY));
+                return;
+            }
+
+            if (room.getData().getVisitorsNow() >= room.getData().getVisitorsMax() && !player.hasFuse(Fuseright.ENTER_FULL_ROOMS)) {
+                player.send(new CANTCONNECT(QueueError.FULL));
                 return;
             }
 
