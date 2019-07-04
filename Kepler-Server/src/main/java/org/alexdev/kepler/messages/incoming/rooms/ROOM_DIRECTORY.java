@@ -44,7 +44,7 @@ public class ROOM_DIRECTORY implements MessageEvent {
                 return;
             }
 
-            if (room.getData().getVisitorsNow() >= room.getData().getVisitorsMax() && !player.hasFuse(Fuseright.ENTER_FULL_ROOMS)) {
+            if (room.getData().getTotalVisitorsNow() >= room.getData().getTotalVisitorsMax() && !player.hasFuse(Fuseright.ENTER_FULL_ROOMS)) {
                 player.send(new CANTCONNECT(QueueError.FULL));
                 return;
             }
