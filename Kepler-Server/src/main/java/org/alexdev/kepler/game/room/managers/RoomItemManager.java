@@ -1,8 +1,10 @@
 package org.alexdev.kepler.game.room.managers;
 
+import org.alexdev.kepler.dao.mysql.ItemDao;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.room.Room;
+import org.alexdev.kepler.game.room.mapping.RoomMapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +16,26 @@ public class RoomItemManager {
 
     public RoomItemManager(Room room) {
         this.room = room;
+    }
+
+    /**
+     * Silently reset item extra data states in a room.
+     * Will not function if the room is a battleball/snowstorm arena.
+     */
+    public void resetItemStates() {
+        if (this.room.isGameArena()) {
+            return;
+        }
+
+        List<Item> itemsToSave = new ArrayList<>();
+
+        for (Item item : this.room.getItems()) {
+            if (RoomMapping.resetExtraData(item, true)) {
+                itemsToSave.add(item);
+            }
+        }
+
+        ItemDao.updateItems(itemsToSave);
     }
 
     /**

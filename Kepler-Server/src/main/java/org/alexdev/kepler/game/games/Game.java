@@ -111,6 +111,7 @@ public abstract class Game {
             this.room.getData().fill(0, roomName, "");
             this.room.setRoomModel(this.getRoomModel());
             this.room.getData().setGame(this);
+            this.room.setGameArena(true);
 
             //this.room.getData().setCategoryId(NavigatorManager.getInstance().getCategories().values().stream().findFirst().get().getId());
             this.room.getData().setGameArena(true);

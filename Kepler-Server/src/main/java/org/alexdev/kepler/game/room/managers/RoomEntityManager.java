@@ -127,7 +127,7 @@ public class RoomEntityManager {
         }
 
         // If the room is not loaded, add room, as we intend to join it.
-        if (!RoomManager.getInstance().hasRoom(this.room.getId())) {
+        if (!RoomManager.getInstance().hasRoom(this.room.getId()) && !this.room.isGameArena()) {
             RoomManager.getInstance().addRoom(this.room);
         }
 
@@ -227,8 +227,12 @@ public class RoomEntityManager {
     /**
      * Setup the room initially for room entry.
      */
-    private boolean tryInitialiseRoom(Player player) {
-        if (!this.room.isActive()) {
+    private void tryInitialiseRoom(Player player) {
+        if (this.room.isGameArena()) {
+            return;
+        }
+
+         if (!this.room.isActive()) {
             this.room.getItems().clear();
             this.room.getRights().clear();
             this.room.getVotes().clear();
@@ -243,9 +247,9 @@ public class RoomEntityManager {
             this.room.getItems().addAll(ItemDao.getRoomItems(this.room.getData()));
             this.room.getMapping().regenerateCollisionMap();
             this.room.getTaskManager().startTasks();
+            this.room.getItemManager().resetItemStates();
         };
 
-        return true;
     }
 
     /**

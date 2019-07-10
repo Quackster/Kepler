@@ -3,9 +3,9 @@ package org.alexdev.kepler.game.room.mapping;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
+import org.alexdev.kepler.game.item.interactors.InteractionType;
 import org.alexdev.kepler.game.pathfinder.AffectedTile;
 import org.alexdev.kepler.game.pathfinder.Position;
-import org.alexdev.kepler.game.pets.Pet;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.models.RoomModel;
 import org.alexdev.kepler.game.room.public_rooms.PoolHandler;
@@ -18,6 +18,12 @@ import java.util.Comparator;
 import java.util.List;
 
 public class RoomMapping {
+    public static final String TELEPORTER_CLOSE = "0";
+    public static final String TELEPORTER_OPEN = "1";
+
+    public static int FORTUNE_OFF = 8;
+    public static int FORTUNE_NO_STATE = -1;
+
     private Room room;
     private RoomModel roomModel;
     private RoomTile roomMap[][];
@@ -205,7 +211,7 @@ public class RoomMapping {
     public void moveItem(Item item, boolean isRotation, Position oldPosition) {
         item.setRoomId(this.room.getId());
         item.setRollingData(null);
-        resetExtraData(item);
+        resetExtraData(item, false);
 
         if (!item.hasBehaviour(ItemBehaviour.WALL_ITEM)) {
             this.handleItemAdjustment(item, isRotation);
@@ -249,7 +255,7 @@ public class RoomMapping {
             this.room.getItemManager().setMoodlight(null);
         }
 
-        resetExtraData(item);
+        resetExtraData(item, false);
         item.updateEntities(null);
 
         item.getPosition().setX(0);
@@ -262,19 +268,73 @@ public class RoomMapping {
         item.save();
     }
 
-    private void resetExtraData(Item item) {
-        if (item.hasBehaviour(ItemBehaviour.DICE) || item.hasBehaviour(ItemBehaviour.WHEEL_OF_FORTUNE)) {
+    public static boolean resetExtraData(Item item, boolean roomLoad) {
+        if (item.hasBehaviour(ItemBehaviour.DICE)) {
             item.setRequiresUpdate(false);
-            item.setCustomData("");
+
+            // For some reason the client expects the HC dice to have a default of 1 while the normal dice a default of 0 (off)
+            // Client expects default of 1 for HC dices
+            switch (item.getDefinition().getSprite()) {
+                case "edicehc":
+                    if (roomLoad) {
+                        if (!item.getCustomData().equals("0")) {
+                            item.setCustomData("0");
+                            return true;
+                        }
+                    } else {
+                        if (!item.getCustomData().equals("1")) {
+                            item.setCustomData("1");
+                            return true;
+                        }
+                    }
+                    break;
+                case "edice":
+                    // Client expects default of 0 (off) for 'normal'/'oldskool' dices
+                    if (!item.getCustomData().equals("0")) {
+                        item.setCustomData("0");
+                        return true;
+                    }
+                    break;
+                default:
+                    // Handle custom furniture dices (TODO: define behaviour differences between HC dice and 'oldskool' dices)
+                    if (!item.getCustomData().equals("1")) {
+                        item.setCustomData("1");
+                        return true;
+                    }
+                    break;
+            }
+        }
+
+
+        if (item.getDefinition().getInteractionType() == InteractionType.LERT) {
+            if (!item.getCustomData().equals("0")) {
+                item.setCustomData("0");
+                return true;
+            }
+        }
+
+        if (item.getDefinition().getInteractionType() == InteractionType.FORTUNE) {
+            if (!item.getCustomData().equals(String.valueOf(FORTUNE_OFF))) {
+                item.setCustomData(String.valueOf(FORTUNE_OFF));
+                return true;
+            }
+
+            item.setRequiresUpdate(false);
         }
 
         if (item.hasBehaviour(ItemBehaviour.TELEPORTER)) {
-            item.setCustomData("FALSE");
+            if (!item.getCustomData().equals(TELEPORTER_CLOSE)) {
+                item.setCustomData(TELEPORTER_CLOSE);
+                return true;
+            }
+
         }
 
         if (item.isCurrentRollBlocked()) {
             item.setCurrentRollBlocked(false);
         }
+
+        return false;
     }
 
     /**
