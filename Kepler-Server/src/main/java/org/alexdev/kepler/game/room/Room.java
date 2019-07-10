@@ -43,6 +43,7 @@ public class Room {
     private FutureRunnable disposeRunnable;
 
     private boolean isActive;
+    private boolean isGameArena;
     private int followRedirect;
 
     private List<Entity> entities;
@@ -248,6 +249,8 @@ public class Room {
                 if (roomEntityManager.getPlayers().size() > 0) {
                     return;
                 }
+
+                roomItemManager.resetItemStates();
 
                 for (Pet pet : room.getEntityManager().getEntitiesByClass(Pet.class)) {
                     PetDao.saveCoordinates(pet.getDetails().getId(),
@@ -458,5 +461,23 @@ public class Room {
      */
     public void setFollowRedirect(int followRedirect) {
         this.followRedirect = followRedirect;
+    }
+
+    /**
+     * Get whether this room is a game arena (a battleball or snowstorm room)
+     *
+     * @return true, if successful
+     */
+    public boolean isGameArena() {
+        return isGameArena;
+    }
+
+    /**
+     * Set whether this room is a game arena (a battleball or snowstorm room)
+     *
+     * @param gameArena the flag on whether this is a game arena or not
+     */
+    public void setGameArena(boolean gameArena) {
+        isGameArena = gameArena;
     }
 }
