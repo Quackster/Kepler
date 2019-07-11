@@ -228,28 +228,26 @@ public class RoomEntityManager {
      * Setup the room initially for room entry.
      */
     private void tryInitialiseRoom(Player player) {
-        if (this.room.isGameArena()) {
-            return;
-        }
-
          if (!this.room.isActive()) {
-            this.room.getItems().clear();
-            this.room.getRights().clear();
-            this.room.getVotes().clear();
+             if (!this.room.isGameArena()) {
+                 this.room.getItems().clear();
+                 this.room.getRights().clear();
+                 this.room.getVotes().clear();
 
-            if (this.room.isPublicRoom()) {
-                this.room.getItems().addAll(PublicItemParser.getPublicItems(this.room.getId(), this.room.getModel().getId()));
-            } else {
-                this.room.getRights().addAll(RoomRightsDao.getRoomRights(this.room.getData()));
-                this.room.getVotes().putAll(RoomVoteDao.getRatings(this.room.getId()));
-            }
+                 if (this.room.isPublicRoom()) {
+                     this.room.getItems().addAll(PublicItemParser.getPublicItems(this.room.getId(), this.room.getModel().getId()));
+                 } else {
+                     this.room.getRights().addAll(RoomRightsDao.getRoomRights(this.room.getData()));
+                     this.room.getVotes().putAll(RoomVoteDao.getRatings(this.room.getId()));
+                 }
 
-            this.room.getItems().addAll(ItemDao.getRoomItems(this.room.getData()));
-            this.room.getMapping().regenerateCollisionMap();
-            this.room.getTaskManager().startTasks();
-            this.room.getItemManager().resetItemStates();
-        };
+                 this.room.getItems().addAll(ItemDao.getRoomItems(this.room.getData()));
+                 this.room.getItemManager().resetItemStates();
+             }
 
+             this.room.getMapping().regenerateCollisionMap();
+             this.room.getTaskManager().startTasks();
+        }
     }
 
     /**
