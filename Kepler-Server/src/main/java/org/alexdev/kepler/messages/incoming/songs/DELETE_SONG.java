@@ -31,7 +31,7 @@ public class DELETE_SONG implements MessageEvent {
 
         int songId = reader.readInt();
 
-        SongMachineDao.clearSong(songId, room.getItemManager().getSoundMachine().getId());
+        SongMachineDao.clearSong(songId);
         SongMachineDao.removePlaylistSong(songId, room.getItemManager().getSoundMachine().getId());
 
         if (room.getItemManager().getSoundMachine().hasBehaviour(ItemBehaviour.SOUND_MACHINE)) {
