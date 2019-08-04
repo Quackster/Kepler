@@ -69,6 +69,10 @@ public class REDEEM_VOUCHER implements MessageEvent {
         //A voucher was found, so redeem items and redeem credits
         player.send(new VOUCHER_REDEEM_OK(redeemedItems));
 
+        if (redeemedItems.size() > 0) {
+            player.getInventory().getView("new");
+        }
+
         //This voucher gives credits, so increase credits balance
         if (voucher.getCredits() > 0) {
             CurrencyDao.increaseCredits(player.getDetails(), voucher.getCredits());
