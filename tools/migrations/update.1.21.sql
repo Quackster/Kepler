@@ -1,3 +1,5 @@
+ALTER TABLE `users` CHANGE `sso_ticket` `sso_ticket` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;
+
 DROP TABLE `games_player_spawns`;
 
 CREATE TABLE `games_player_spawns` (
