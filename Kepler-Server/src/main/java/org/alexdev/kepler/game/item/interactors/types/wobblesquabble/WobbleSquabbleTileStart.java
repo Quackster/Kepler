@@ -18,12 +18,8 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 public class WobbleSquabbleTileStart extends GenericTrigger {
-    public void onEntityStep(Entity entity, RoomEntity roomEntity, Item item, Position oldPosition) {
-
-    }
-
     @Override
-    public void onEntityStop(Entity entity, RoomEntity roomEntity, Item item) {
+    public void onEntityStop(Entity entity, RoomEntity roomEntity, Item item, boolean isRotation) {
         if (entity.getType() != EntityType.PLAYER) {
             return;
         }
@@ -46,7 +42,7 @@ public class WobbleSquabbleTileStart extends GenericTrigger {
         }
 
         // Two players! :3
-        WobbleSquabbleGame wsGame = new WobbleSquabbleGame((Player)entity, (Player) roomTile.getEntities().get(0));
+        WobbleSquabbleGame wsGame = new WobbleSquabbleGame((Player) entity, (Player) roomTile.getEntities().get(0));
 
         for (int i = 0; i < 2; i++) {
             Player player = wsGame.getPlayer(i).getPlayer();
@@ -67,18 +63,14 @@ public class WobbleSquabbleTileStart extends GenericTrigger {
             }
         }
 
+
         // Disable walking requests
         wsGame.getPlayer(0).getPlayer().getRoomUser().setWalkingAllowed(false);
         wsGame.getPlayer(1).getPlayer().getRoomUser().setWalkingAllowed(false);
 
         // Schedule worker task
-        roomEntity.getRoom().getTaskManager().scheduleTask(
-                WobbleSquabbleManager.getInstance().getName(),
-                wsGame, TimeUnit.SECONDS.toMillis(3),
-                200,
-                TimeUnit.MILLISECONDS);
-
-
+        String wsTaskName = WobbleSquabbleManager.getInstance().getName();
+        roomEntity.getRoom().getTaskManager().scheduleTask(wsTaskName, wsGame, TimeUnit.SECONDS.toMillis(3), 200, TimeUnit.MILLISECONDS);
 
         // Announce game starting
         wsGame.send(new PT_PREPARE(wsGame.getPlayer(0), wsGame.getPlayer(1)));

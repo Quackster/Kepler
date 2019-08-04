@@ -19,7 +19,7 @@ public class WobbleSquabbleJoinQueue extends GenericTrigger {
     }
 
     @Override
-    public void onEntityStop(Entity entity, RoomEntity roomEntity, Item item) {
+    public void onEntityStop(Entity entity, RoomEntity roomEntity, Item item, boolean isRotation) {
         if (entity.getType() != EntityType.PLAYER) {
             return;
         }
@@ -52,6 +52,6 @@ public class WobbleSquabbleJoinQueue extends GenericTrigger {
         roomEntity.removeStatus(StatusType.SWIM);
         roomEntity.warp(teleportPosition, true);
 
-        InteractionType.WS_QUEUE_TILE.getTrigger().onEntityStop(entity, roomEntity, item);
+        InteractionType.WS_QUEUE_TILE.getTrigger().onEntityStop(entity, roomEntity, item, isRotation);
     }
 }

@@ -56,8 +56,6 @@ public class PetNestInteractor extends GenericTrigger {
         Pet pet = new Pet(petDetails);
         position.setZ(room.getMapping().getTile(position.getX(), position.getY()).getWalkingHeight());
 
-        System.out.println("1: " + pet.getDetails().getName());
-
         room.getEntityManager().enterRoom(pet, position);
         room.getMapping().getTile(position).addEntity(pet);
 

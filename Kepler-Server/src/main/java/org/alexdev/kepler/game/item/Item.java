@@ -152,7 +152,7 @@ public class Item {
         }
 
         for (Entity entity : entitiesToUpdate) {
-            entity.getRoomUser().invokeItem();
+            entity.getRoomUser().invokeItem(oldPosition);
         }
     }
 
@@ -550,6 +550,23 @@ public class Item {
 
     public Item getItemBelow() {
         return itemBelow;
+    }
+
+    public Item getItemAbove() {
+        int position = this.getTile().getItems().indexOf(this);
+
+        if (position > -1) {
+            int nextPosition = position + 1;
+
+            if (nextPosition >= this.getTile().getItems().size()) {
+                return null;
+            }
+
+            return this.getTile().getItems().get(nextPosition);
+
+        }
+
+        return null;
     }
 
     public void setItemBelow(Item itemBelow) {

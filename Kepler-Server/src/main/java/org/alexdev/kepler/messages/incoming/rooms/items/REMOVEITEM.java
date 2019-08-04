@@ -3,6 +3,7 @@ package org.alexdev.kepler.messages.incoming.rooms.items;
 import org.alexdev.kepler.dao.mysql.ItemDao;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.fuserights.Fuseright;
+import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.messages.types.MessageEvent;
@@ -30,9 +31,21 @@ public class REMOVEITEM implements MessageEvent {
             return;
         }
 
-        item.getDefinition().getInteractionType().getTrigger().onItemPickup(player, room, item);
+        if (!room.isOwner(player.getDetails().getId()) &&
+                !(item.hasBehaviour(ItemBehaviour.PHOTO) && !player.hasFuse(Fuseright.REMOVE_PHOTOS)) &&
+                !(item.hasBehaviour(ItemBehaviour.POST_IT) && !player.hasFuse(Fuseright.REMOVE_STICKIES))) {
+            return;
+        }
 
+
+        // Set up trigger for leaving a current item
+        if (player.getRoomUser().getCurrentItem() != null) {
+            if (player.getRoomUser().getCurrentItem().getDefinition().getInteractionType().getTrigger() != null) {
+                player.getRoomUser().getCurrentItem().getDefinition().getInteractionType().getTrigger().onEntityLeave(player, player.getRoomUser(), player.getRoomUser().getCurrentItem());
+            }
+        }
+
+        room.getMapping().removeItem(player, item);
         ItemDao.deleteItem(item.getId());
-        room.getMapping().removeItem(item);
     }
 }

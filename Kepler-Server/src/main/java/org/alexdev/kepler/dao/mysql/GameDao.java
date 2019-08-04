@@ -116,7 +116,7 @@ public class GameDao {
 
             while (resultSet.next()) {
                 spawns.add(new GameSpawn(resultSet.getInt("team_id"),  resultSet.getInt("map_id"), resultSet.getString("type"),
-                        resultSet.getInt("x"), resultSet.getInt("y"), resultSet.getInt("z")));
+                        resultSet.getInt("x"), resultSet.getInt("y"), resultSet.getInt("rotation")));
             }
 
         } catch (Exception e) {

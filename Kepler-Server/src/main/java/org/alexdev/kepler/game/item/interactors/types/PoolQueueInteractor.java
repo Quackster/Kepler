@@ -32,7 +32,7 @@ public class PoolQueueInteractor extends GenericTrigger {
     }
 
     @Override
-    public void onEntityStop(Entity entity, RoomEntity roomEntity, Item item) {
+    public void onEntityStop(Entity entity, RoomEntity roomEntity, Item item, boolean isRotation) {
         if (entity.getType() != EntityType.PLAYER) {
             return;
         }
@@ -48,7 +48,8 @@ public class PoolQueueInteractor extends GenericTrigger {
     }
 
     @Override
-    public void onEntityLeave(Entity entity, RoomEntity roomEntity, Item item) {
+    public void onEntityLeave(Entity entity, RoomEntity roomEntity, Item item, Object... customArgs) {
 
     }
 }
+
