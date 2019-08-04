@@ -70,10 +70,15 @@ public class REDEEM_VOUCHER implements MessageEvent {
                 }
             }
 
-            //A voucher was found with more than 0 credits
+            //A voucher was found, so redeem items and redeem credits
             player.send(new VOUCHER_REDEEM_OK(redeemedItems));
-            CurrencyDao.increaseCredits(player.getDetails(), voucher.getCredits());
-            player.send(new CREDIT_BALANCE(player.getDetails()));
+            
+            //This voucher gives credits, so increase credits balance
+            if(voucher.getCredits() != 0)
+            {
+                CurrencyDao.increaseCredits(player.getDetails(), voucher.getCredits());
+                player.send(new CREDIT_BALANCE(player.getDetails()));
+            }
         }
     }
 }

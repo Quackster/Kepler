@@ -133,3 +133,17 @@ INSERT INTO `games_player_spawns` (`type`, `map_id`, `team_id`, `x`, `y`, `rotat
 ('battleball', 4, 3, 21, 8, 6),
 ('battleball', 4, 3, 21, 9, 6),
 ('battleball', 4, 3, 21, 10, 6);
+
+CREATE TABLE `vouchers` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `voucher_code` varchar(32) NOT NULL,
+  `credits` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `VoucherCode` (`voucher_code`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `vouchers_items` (
+  `voucher_id` int(11) NOT NULL,
+  `item_definition_id` int(11) NOT NULL,
+  KEY `voucher_id` (`voucher_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
