@@ -121,8 +121,9 @@ public class GRPC implements MessageEvent {
                 extraData = data[4];
             }
 
-            purchase(player, item, extraData, null, DateUtil.getCurrentTimeSeconds());
-            player.getInventory().getView("new");
+            if (CatalogueManager.getInstance().purchase(player, item, extraData, null, DateUtil.getCurrentTimeSeconds()).size() > 0) {
+                player.getInventory().getView("new");
+            }
 
             boolean showItemDelivered = true;
 
@@ -138,112 +139,5 @@ public class GRPC implements MessageEvent {
 
         CurrencyDao.decreaseCredits(player.getDetails(), price);
         player.send(new CREDIT_BALANCE(player.getDetails()));
-    }
-
-    public static List<Item> purchase(Player player, CatalogueItem item, String extraData, String overrideName, long timestamp) throws SQLException {
-       List<Item> itemsBought = new ArrayList<>();
-
-        if (!item.isPackage()) {
-            Item newItem = purchase(player, item.getDefinition(), extraData, item.getItemSpecialId(), overrideName, timestamp);
-
-            if (newItem != null) {
-                itemsBought.add(newItem);
-            }
-        } else {
-            for (CataloguePackage cataloguePackage : item.getPackages()) {
-                for (int i = 0; i < cataloguePackage.getAmount(); i++) {
-                    Item newItem = purchase(player, cataloguePackage.getDefinition(), null, cataloguePackage.getSpecialSpriteId(), overrideName, timestamp);
-                    itemsBought.add(newItem);
-                }
-            }
-        }
-
-        return itemsBought;
-    }
-
-    private static Item purchase(Player player, ItemDefinition def, String extraData, int specialSpriteId, String overrideName,  long timestamp) throws SQLException {
-        // If the item is film, just give the user film
-        if (def.getSprite().equals("film")) {
-            CurrencyDao.increaseFilm(player.getDetails(), 5);
-            player.send(new FILM(player.getDetails()));
-            return null;
-        }
-
-        String customData = "";
-
-        if (extraData != null) {
-            if (def.hasBehaviour(ItemBehaviour.DECORATION)) {
-                customData = extraData;
-            } else {
-                if (specialSpriteId > 0) {
-                    customData = String.valueOf(specialSpriteId);
-                }
-            }
-
-            if (def.hasBehaviour(ItemBehaviour.POST_IT)) {
-                customData = "20";
-            }
-
-            if (def.hasBehaviour(ItemBehaviour.PRIZE_TROPHY)) {
-                customData += (overrideName != null ? overrideName : player.getDetails().getName());
-                customData += (char)9;
-
-                customData += DateUtil.getShortDate(timestamp);
-                customData += (char)9;
-
-                customData += StringUtil.filterInput(extraData, true);
-            }
-
-            if (def.hasBehaviour(ItemBehaviour.ROOMDIMMER)) {
-                customData = Item.DEFAULT_ROOMDIMMER_CUSTOM_DATA;
-            }
-        }
-
-        Item item = new Item();
-        item.setOwnerId(player.getDetails().getId());
-        item.setDefinitionId(def.getId());
-        item.setCustomData(customData);
-
-        ItemDao.newItem(item);
-        player.getInventory().addItem(item);
-
-        // If the item is a camera, give them 2 free film.
-        if (def.getSprite().equals("camera")) {
-            CurrencyDao.increaseFilm(player.getDetails(), 2);
-            player.send(new FILM(player.getDetails()));
-        }
-
-        if (def.hasBehaviour(ItemBehaviour.TELEPORTER)) {
-            Item linkedTeleporterItem = new Item();
-            linkedTeleporterItem.setOwnerId(player.getDetails().getId());
-            linkedTeleporterItem.setDefinitionId(def.getId());
-            linkedTeleporterItem.setCustomData(customData);
-
-            ItemDao.newItem(linkedTeleporterItem);
-            player.getInventory().addItem(linkedTeleporterItem);
-            
-            linkedTeleporterItem.setTeleporterId(item.getId());
-            item.setTeleporterId(linkedTeleporterItem.getId());
-
-            TeleporterDao.addPair(linkedTeleporterItem.getId(), item.getId());
-            TeleporterDao.addPair(item.getId(), linkedTeleporterItem.getId());
-        }
-
-        if (def.getInteractionType() == InteractionType.PET_NEST) {
-            if (extraData != null) {
-                item.setDefinitionId(ItemManager.getInstance().getDefinitionBySprite("nest").getId());
-                String[] petData = extraData.split(Character.toString((char) 2));
-                String name = StringUtil.filterInput(petData[0], true);
-                String type = def.getSprite().replace("pets", "");
-                int race = Integer.valueOf(petData[1]);
-                String color = StringUtil.filterInput(petData[2], true);
-
-                if (PetManager.getInstance().isValidName(player.getDetails().getName(), name)) {
-                    PetDao.createPet(item.getId(), name, type, race, color);
-                }
-            }
-        }
-
-        return item;
     }
 }
