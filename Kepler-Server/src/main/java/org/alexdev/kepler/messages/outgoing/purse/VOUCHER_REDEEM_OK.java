@@ -1,5 +1,6 @@
 package org.alexdev.kepler.messages.outgoing.purse;
 
+import org.alexdev.kepler.game.catalogue.CatalogueItem;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
@@ -10,13 +11,9 @@ import java.util.Map;
 import static org.apache.batik.svggen.font.table.GlyfDescript.repeat;
 
 public class VOUCHER_REDEEM_OK extends MessageComposer {
-    private final List<Item> redeemableItems;
+    private final List<CatalogueItem> redeemableItems;
 
-    public VOUCHER_REDEEM_OK() {
-        this.redeemableItems = null;
-    }
-
-    public VOUCHER_REDEEM_OK(List<Item> redeemableItems) {
+    public VOUCHER_REDEEM_OK(List<CatalogueItem> redeemableItems) {
         this.redeemableItems = redeemableItems;
     }
 
@@ -44,9 +41,9 @@ public class VOUCHER_REDEEM_OK extends MessageComposer {
 //      else
 
         if (this.redeemableItems != null) {
-            for (Item item : this.redeemableItems) {
-                response.writeString(item.getDefinition().getName());
-                response.writeString(item.getDefinition().getDescription());
+            for (CatalogueItem item : this.redeemableItems) {
+                response.writeString(item.getName());
+                response.writeString(item.getDescription());
             }
         }
     }

@@ -1,6 +1,8 @@
 package org.alexdev.kepler.messages.incoming.purse;
 
+import org.alexdev.kepler.game.catalogue.CatalogueItem;
 import org.alexdev.kepler.game.catalogue.CatalogueManager;
+import org.alexdev.kepler.messages.outgoing.rooms.items.PLACE_FLOORITEM;
 import org.alexdev.kepler.util.StringUtil;
 import org.alexdev.kepler.util.DateUtil;
 import org.alexdev.kepler.game.item.base.ItemDefinition;
@@ -26,10 +28,14 @@ public class REDEEM_VOUCHER implements MessageEvent {
 
     @Override
     public void handle(Player player, NettyRequest reader) throws SQLException {
+        if (!player.isLoggedIn()) {
+            return;
+        }
+
         String voucherName = reader.readString();
 
         //Check and get voucher
-        Voucher voucher = PurseDao.redeemVoucher(voucherName);
+        Voucher voucher = PurseDao.redeemVoucher(voucherName, player.getDetails().getId());
 
         //No voucher was found
         if (voucher == null) {
@@ -38,7 +44,8 @@ public class REDEEM_VOUCHER implements MessageEvent {
         }
 
         //Redeem items
-        List<Item> redeemedItems = new ArrayList<>();
+        List<Item> items = new ArrayList<>();
+        List<CatalogueItem> redeemedItems = new ArrayList<>();
 
         for (String saleCode : voucher.getItems()) {
             var catalogueItem = CatalogueManager.getInstance().getCatalogueItem(saleCode);
@@ -46,15 +53,18 @@ public class REDEEM_VOUCHER implements MessageEvent {
             if (catalogueItem == null)
                 continue;
 
-            redeemedItems.addAll(CatalogueManager.getInstance().purchase(player, catalogueItem, "", null, DateUtil.getCurrentTimeSeconds()));
+            redeemedItems.add(catalogueItem);
+            items.addAll(CatalogueManager.getInstance().purchase(player, catalogueItem, "", null, DateUtil.getCurrentTimeSeconds()));
         }
 
         //A voucher was found, so redeem items and redeem credits
         player.send(new VOUCHER_REDEEM_OK(redeemedItems));
 
-        if (redeemedItems.size() > 0) {
+        if (items.size() > 0) {
             player.getInventory().getView("new");
         }
+
+        PurseDao.logVoucher(voucherName, player.getDetails().getId(), voucher.getCredits(), redeemedItems);
 
         //This voucher gives credits, so increase credits balance
         if (voucher.getCredits() > 0) {
