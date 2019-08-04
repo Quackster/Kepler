@@ -26,59 +26,53 @@ public class REDEEM_VOUCHER implements MessageEvent {
     @Override
     public void handle(Player player, NettyRequest reader) throws SQLException {
         String voucherName = reader.readString();
-		
+
         //Check and get voucher
         Voucher voucher = PurseDao.redeemVoucher(voucherName);
 
-        if(voucher == null)
-        {
-            //No voucher was found
+        //No voucher was found
+        if (voucher == null) {
             player.send(new VOUCHER_REDEEM_ERROR(RedeemError.INVALID));
+            return;
         }
-        else
-        {
-            //Redeem items
-            List<Item> redeemedItems = new ArrayList<>();
-            List<ItemDefinition> itemDefinitions = voucher.getItemDefinitions();
-            
-            if (itemDefinitions != null) {
-                for (ItemDefinition itemDef : itemDefinitions) {
-                    
-                    //Setup item custom data
-                    String customData = "";
-                    
-                    if (itemDef.hasBehaviour(ItemBehaviour.POST_IT)) {
-                        customData = "20";
-                    }
 
-                    if (itemDef.hasBehaviour(ItemBehaviour.ROOMDIMMER)) {
-                        customData = Item.DEFAULT_ROOMDIMMER_CUSTOM_DATA;
-                    }
+        //Redeem items
+        List<Item> redeemedItems = new ArrayList<>();
 
-                    //Create new item and setup info
-                    Item item = new Item();
-                    item.setOwnerId(player.getDetails().getId());
-                    item.setDefinitionId(itemDef.getId());
-                    item.setCustomData(customData);
+        for (ItemDefinition itemDef : voucher.getItemDefinitions()) {
 
-                    ItemDao.newItem(item);
-                    
-                    //Add to inventory
-                    player.getInventory().addItem(item);
-                    
-                    redeemedItems.add(item);
-                }
+            //Setup item custom data
+            String customData = "";
+
+            if (itemDef.hasBehaviour(ItemBehaviour.POST_IT)) {
+                customData = "20";
             }
 
-            //A voucher was found, so redeem items and redeem credits
-            player.send(new VOUCHER_REDEEM_OK(redeemedItems));
-            
-            //This voucher gives credits, so increase credits balance
-            if(voucher.getCredits() != 0)
-            {
-                CurrencyDao.increaseCredits(player.getDetails(), voucher.getCredits());
-                player.send(new CREDIT_BALANCE(player.getDetails()));
+            if (itemDef.hasBehaviour(ItemBehaviour.ROOMDIMMER)) {
+                customData = Item.DEFAULT_ROOMDIMMER_CUSTOM_DATA;
             }
+
+            //Create new item and setup info
+            Item item = new Item();
+            item.setOwnerId(player.getDetails().getId());
+            item.setDefinitionId(itemDef.getId());
+            item.setCustomData(customData);
+
+            ItemDao.newItem(item);
+
+            //Add to inventory
+            player.getInventory().addItem(item);
+
+            redeemedItems.add(item);
+        }
+
+        //A voucher was found, so redeem items and redeem credits
+        player.send(new VOUCHER_REDEEM_OK(redeemedItems));
+
+        //This voucher gives credits, so increase credits balance
+        if (voucher.getCredits() > 0) {
+            CurrencyDao.increaseCredits(player.getDetails(), voucher.getCredits());
+            player.send(new CREDIT_BALANCE(player.getDetails()));
         }
     }
 }

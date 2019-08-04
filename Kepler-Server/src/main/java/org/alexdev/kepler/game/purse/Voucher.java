@@ -2,15 +2,16 @@ package org.alexdev.kepler.game.purse;
 
 import org.alexdev.kepler.game.item.base.ItemDefinition;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Voucher {
     public final int credits;
     public final List<ItemDefinition> items;
     
-    public Voucher(List<ItemDefinition> voucherItems, int voucherCredits) {
+    public Voucher(int voucherCredits) {
         credits = voucherCredits;
-        items = voucherItems;
+        items = new ArrayList<>();
     }
     
     public int getCredits() {

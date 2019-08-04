@@ -34,56 +34,41 @@ public class PurseDao {
             sqlConnection = Storage.getStorage().getConnection();
             
             //Get the voucher
-            preparedStatement = Storage.getStorage().prepare("SELECT id,credits FROM vouchers WHERE voucher_code = ?", sqlConnection);
+            preparedStatement = Storage.getStorage().prepare("SELECT credits FROM vouchers WHERE voucher_code = ?", sqlConnection);
             preparedStatement.setString(1, voucherCode);
             resultSet = preparedStatement.executeQuery();
-                 
-            List<ItemDefinition> items = new ArrayList<>();
-            
-            int voucherID;
-            int voucherCredits;
-            
-            //No results, quit
-            if (!resultSet.next()) {
-                return null;
-            }
-            
-            voucherCredits = resultSet.getInt("credits");
-            voucherID = resultSet.getInt("id");
 
-            //Get related voucher items
-            preparedStatement = Storage.getStorage().prepare("SELECT item_definition_id FROM vouchers_items WHERE voucher_id = ?", sqlConnection);
-            preparedStatement.setInt(1, voucherID);
-            resultSet2 = preparedStatement.executeQuery();
-            
-            //Find all items
-            while(resultSet2.next())
-            {
-                int itemDefID = resultSet2.getInt("item_definition_id");
-                ItemDefinition itemDef = ItemManager.getInstance().getDefinition(itemDefID);
-                items.add(itemDef);
+            if (resultSet.next()) {
+                voucher = new Voucher(resultSet.getInt("credits"));
+
+                //Get related voucher items
+                preparedStatement = Storage.getStorage().prepare("SELECT item_definition_id FROM vouchers_items WHERE voucher_code = ?", sqlConnection);
+                preparedStatement.setString(1, voucherCode);
+                resultSet2 = preparedStatement.executeQuery();
+
+                //Find all items
+                while (resultSet2.next()) {
+                    ItemDefinition itemDef = ItemManager.getInstance().getDefinition(resultSet2.getInt("item_definition_id"));
+                    voucher.getItemDefinitions().add(itemDef);
+                }
+
+                //Delete the voucher and related items
+                preparedStatement = Storage.getStorage().prepare("DELETE FROM vouchers WHERE voucher_code = ?", sqlConnection);
+                preparedStatement.setString(1, voucherCode);
+                preparedStatement.executeQuery();
+
+                preparedStatement = Storage.getStorage().prepare("DELETE FROM vouchers_items WHERE voucher_code = ?", sqlConnection);
+                preparedStatement.setString(1, voucherCode);
+                preparedStatement.executeQuery();
             }
-            
-            //Delete the voucher and related items
-            preparedStatement = Storage.getStorage().prepare("DELETE FROM vouchers WHERE id = ?", sqlConnection);
-            preparedStatement.setInt(1, voucherID);
-            preparedStatement.executeQuery();
-            
-            preparedStatement = Storage.getStorage().prepare("DELETE FROM vouchers_items WHERE voucher_id = ?", sqlConnection);
-            preparedStatement.setInt(1, voucherID);
-            preparedStatement.executeQuery();  
-            
-            voucher = new Voucher(items, voucherCredits);
-        } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
         } catch (Exception e) {
             Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
-            
-            if(resultSet2 != null)
+
+            if (resultSet2 != null)
                 Storage.closeSilently(resultSet2);
-            
+
             Storage.closeSilently(preparedStatement);
             Storage.closeSilently(sqlConnection);
         }
