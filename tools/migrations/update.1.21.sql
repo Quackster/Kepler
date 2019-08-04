@@ -136,16 +136,117 @@ INSERT INTO `games_player_spawns` (`type`, `map_id`, `team_id`, `x`, `y`, `rotat
 
 CREATE TABLE `vouchers` (
   `voucher_code` varchar(32) NOT NULL,
-  `credits` int(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `credits` int(11) NOT NULL DEFAULT 0,
+  `expiry_date` datetime DEFAULT NULL,
+  `is_single_use` tinyint(11) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
+
+CREATE TABLE `vouchers_history` (
+  `voucher_code` varchar(255) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `used_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `credits_redeemed` int(11) DEFAULT NULL,
+  `items_redeemed` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
 
 CREATE TABLE `vouchers_items` (
   `voucher_code` varchar(32) NOT NULL,
   `item_definition_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
 
 ALTER TABLE `vouchers`
   ADD UNIQUE KEY `voucher_code` (`voucher_code`);
 
 ALTER TABLE `vouchers_items`
   ADD KEY `voucher_code` (`voucher_code`);
+  
+ALTER TABLE `catalogue_items`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `catalogue_items` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `catalogue_packages`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `catalogue_packages` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `catalogue_pages`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `catalogue_pages` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `external_texts`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `external_texts` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `games_maps`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `games_maps` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `games_player_spawns`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `games_player_spawns` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `games_ranks`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `games_ranks` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `housekeeping_audit_log`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `housekeeping_audit_log` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `items`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `items` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `items_definitions`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `items_definitions` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `items_moodlight_presets`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `items_moodlight_presets` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `items_pets`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `items_pets` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `items_photos`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `items_photos` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `items_teleporter_links`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `items_teleporter_links` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `messenger_friends`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `messenger_friends` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `messenger_messages`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `messenger_messages` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `messenger_requests`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `messenger_requests` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `public_items`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `public_items` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `rank_badges`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `rank_badges` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `rank_fuserights`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `rank_fuserights` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `rare_cycle`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `rare_cycle` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `rooms`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `rooms` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `rooms_bots`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `rooms_bots` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `rooms_categories`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `rooms_categories` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `rooms_events`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `rooms_events` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `rooms_models`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `rooms_models` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `rooms_rights`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `rooms_rights` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `room_chatlogs`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `room_chatlogs` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `schema_migrations`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `schema_migrations` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `settings`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `settings` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `soundmachine_disks`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `soundmachine_disks` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `soundmachine_playlists`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `soundmachine_playlists` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `soundmachine_songs`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `soundmachine_songs` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `soundmachine_tracks`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `soundmachine_tracks` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `users`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `users` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `users_badges`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `users_badges` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `users_bans`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `users_bans` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `users_club_gifts`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `users_club_gifts` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `users_ip_logs`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `users_ip_logs` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `users_mutes`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `users_mutes` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `users_room_favourites`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `users_room_favourites` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `users_room_votes`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `users_room_votes` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `vouchers`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `vouchers` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `vouchers_history`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `vouchers_history` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `vouchers_items`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `vouchers_items` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;

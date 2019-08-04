@@ -68,14 +68,12 @@ public class PRESENTOPEN implements MessageEvent {
             player.getInventory().addItem(item);
             player.getInventory().getView("new");
         } else {
-            List<Item> itemList = GRPC.purchase(player, catalogueItem, extraData, receivedFrom, timestamp);
+            List<Item> itemList = CatalogueManager.getInstance().purchase(player, catalogueItem, extraData, receivedFrom, timestamp);
 
-            if (itemList.isEmpty()) {
-                return;
+            if (!itemList.isEmpty()) {
+                player.send(new DELIVER_PRESENT(itemList.get(0)));
+                player.getInventory().getView("new");
             }
-
-            player.send(new DELIVER_PRESENT(itemList.get(0)));
-            player.getInventory().getView("new");
 
             room.getMapping().removeItem(player, item);
             ItemDao.deleteItem(item.getId());
