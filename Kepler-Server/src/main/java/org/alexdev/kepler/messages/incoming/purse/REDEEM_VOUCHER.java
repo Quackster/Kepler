@@ -46,7 +46,7 @@ public class REDEEM_VOUCHER implements MessageEvent {
             if (catalogueItem == null)
                 continue;
 
-            redeemedItems.addAll(GRPC.purchase(player, catalogueItem, "", null, DateUtil.getCurrentTimeSeconds()));
+            redeemedItems.addAll(CatalogueManager.getInstance().purchase(player, catalogueItem, "", null, DateUtil.getCurrentTimeSeconds()));
         }
 
         //A voucher was found, so redeem items and redeem credits
