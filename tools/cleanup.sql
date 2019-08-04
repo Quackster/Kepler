@@ -15,6 +15,7 @@ TRUNCATE `users_club_gifts`;
 TRUNCATE `users_ip_logs`;
 TRUNCATE `users_room_votes`;
 TRUNCATE `vouchers`;
+TRUNCATE `vouchers_history`;
 TRUNCATE `vouchers_items`;
 DELETE FROM `users_badges`;
 DELETE FROM `users`;
