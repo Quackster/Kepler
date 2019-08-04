@@ -54,6 +54,7 @@ public abstract class RoomEntity {
     private boolean isWalkingAllowed;
     private boolean beingKicked;
     private boolean needsUpdate;
+    private Item lastItemInteraction;
 
     public RoomEntity(Entity entity) {
         this.entity = entity;
@@ -256,17 +257,13 @@ public abstract class RoomEntity {
             return;
         }
 
-        this.invokeItem();
+        this.invokeItem(null);
     }
     /**
      * Triggers the current item that the player has walked on top of.
      */
-    public void invokeItem() {
-        double height = this.getTile().getWalkingHeight();
-
-        if (height != this.position.getZ()) {
-            this.position.setZ(height);
-        }
+    public void invokeItem(Position oldPosition) {
+        this.position.setZ(this.getTile().getWalkingHeight());
 
         Item item = /*isRolling ? this.room.getMapping().getTile(this.rollingData.getNextPosition()).getHighestItem() : */this.getCurrentItem();
 
@@ -275,13 +272,37 @@ public abstract class RoomEntity {
                 this.removeStatus(StatusType.SIT);
                 this.removeStatus(StatusType.LAY);
             }
+
+            if (item == null) {
+                if (this.lastItemInteraction != null) {
+                    var trigger = this.lastItemInteraction.getDefinition().getInteractionType().getTrigger();
+
+                    if (trigger != null) {
+                        trigger.onEntityLeave(this.entity, this, this.lastItemInteraction);
+                    }
+
+                    this.lastItemInteraction = null;
+                }
+            }
         }
 
         if (item != null) {
             var trigger = item.getDefinition().getInteractionType().getTrigger();
 
             if (trigger != null) {
-                item.getDefinition().getInteractionType().getTrigger().onEntityStop(this.entity, this, item);
+                trigger.onEntityStop(this.entity, this, item, (oldPosition != null && oldPosition.equals(this.position)));
+                this.lastItemInteraction = item;
+
+
+/*                final AtomicReference<Double> x = new AtomicReference<Double>(0.5);
+                this.room.getTaskManager().scheduleTask("taskName", ()->{
+                    try {
+                        this.setStatus(StatusType.LAY, StringUtil.format(x.getAndSet(x.get() + 0.1)));
+                        this.setNeedsUpdate(true);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                }, 5, 1, TimeUnit.SECONDS);*/
             }
         }
 

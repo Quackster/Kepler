@@ -1,5 +1,6 @@
 package org.alexdev.kepler.game.room.mapping;
 
+import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
@@ -158,7 +159,7 @@ public class RoomMapping {
      *
      * @param item the item to add
      */
-    public void addItem(Item item) {
+    public void addItem(Player player, Item item) {
         item.setRoomId(this.room.getId());
         item.setOwnerId(this.room.getData().getOwnerId());
         item.setRollingData(null);
@@ -199,16 +200,27 @@ public class RoomMapping {
 
         item.updateEntities(null);
         item.save();
+
+        if (!item.getDefinition().hasBehaviour(ItemBehaviour.WALL_ITEM)) {
+            item.getDefinition().getInteractionType().getTrigger().onItemPlaced(player, this.room, item);
+        }
     }
 
     /**
      * Move an item, will regenerate the map if the item is a floor item.
      *
      * @param item the item that is moving
-     * @param isRotation whether it's just rotation or not
-     *        (don't regenerate map or adjust position if it's just a rotation)
      */
-    public void moveItem(Item item, boolean isRotation, Position oldPosition) {
+    public void moveItem(Player player, Item item, Position newPosition, Position oldPosition) {
+        boolean isRotation = false;
+
+        if (item.getPosition().equals(new Position(newPosition.getX(), newPosition.getY())) && item.getPosition().getRotation() != newPosition.getRotation()) {
+            isRotation = true;
+        }
+
+        Item itemBelow = item.getItemBelow();
+        Item itemAbove = item.getItemAbove();
+
         item.setRoomId(this.room.getId());
         item.setRollingData(null);
         resetExtraData(item, false);
@@ -226,6 +238,8 @@ public class RoomMapping {
 
         item.updateEntities(oldPosition);
         item.save();
+
+        item.getDefinition().getInteractionType().getTrigger().onItemMoved(player, room, item, isRotation, oldPosition, itemBelow, itemAbove);
     }
 
     /**
@@ -233,7 +247,8 @@ public class RoomMapping {
      *
      * @param item the item that is being removed
      */
-    public void removeItem(Item item) {
+    public void removeItem(Player player, Item item) {
+        item.getDefinition().getInteractionType().getTrigger().onItemPickup(player, this.room, item);
         this.room.getItems().remove(item);
 
         if (item.hasBehaviour(ItemBehaviour.WALL_ITEM)) {
