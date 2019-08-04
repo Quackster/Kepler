@@ -212,20 +212,28 @@ public class BattleBallGame extends Game {
     @Override
     public void assignSpawnPoints() {
         for (GameTeam team : this.getTeams().values()) {
-            GameSpawn gameSpawn = GameManager.getInstance().getGameSpawn(this.getGameType(), this.getMapId(), team.getId());
+            List<GameSpawn> gameSpawns = GameManager.getInstance().getGameSpawns(this.getGameType(), this.getMapId(), team.getId());
 
-            if (gameSpawn == null) {
-                continue;
-            }
+            //if (gameSpawn == null) {
+            //    continue;
+            //}
 
-            AtomicInteger spawnX = new AtomicInteger(gameSpawn.getX());
-            AtomicInteger spawnY = new AtomicInteger(gameSpawn.getY());
-            AtomicInteger spawnRotation = new AtomicInteger(gameSpawn.getZ());
-
-            boolean flip = false;
 
             for (GamePlayer p : team.getPlayers()) {
-                findSpawn(flip, spawnX, spawnY, spawnRotation);
+                Position spawnPosition = null;
+
+                for (GameSpawn gameSpawn : gameSpawns) {
+                    if (!this.battleballTiles[gameSpawn.getX()][gameSpawn.getY()].isSpawnOccupied()) {
+                        spawnPosition = gameSpawn.copy();
+                        spawnPosition.setZ(this.getRoomModel().getTileHeight(gameSpawn.getX(), gameSpawn.getY()));
+                        break;
+                    }
+                }
+
+                if (spawnPosition == null) {
+                    continue;
+                }
+
                 p.setPlayerState(BattleBallPlayerState.NORMAL);
                 p.setHarlequinPlayer(null);
                 p.setGameObject(new PlayerObject(p));
@@ -236,7 +244,6 @@ public class BattleBallGame extends Game {
 
                 this.getObjects().add(p.getGameObject());
 
-                Position spawnPosition = new Position(spawnX.get(), spawnY.get(), this.getRoomModel().getTileHeight(spawnX.get(), spawnY.get()), spawnRotation.get(), spawnRotation.get());
                 p.getSpawnPosition().setX(spawnPosition.getX());
                 p.getSpawnPosition().setY(spawnPosition.getY());
                 p.getSpawnPosition().setRotation(spawnPosition.getRotation());
