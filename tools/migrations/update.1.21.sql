@@ -134,7 +134,6 @@ INSERT INTO `games_player_spawns` (`type`, `map_id`, `team_id`, `x`, `y`, `rotat
 ('battleball', 4, 3, 21, 9, 6),
 ('battleball', 4, 3, 21, 10, 6);
 
-
 CREATE TABLE `vouchers` (
   `voucher_code` varchar(32) NOT NULL,
   `credits` int(11) NOT NULL DEFAULT 0,
@@ -161,7 +160,7 @@ ALTER TABLE `vouchers`
 ALTER TABLE `vouchers_items`
   ADD KEY `voucher_code` (`voucher_code`);
   
-  ALTER TABLE `catalogue_items`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `catalogue_items`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
 ALTER TABLE `catalogue_items` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 ALTER TABLE `catalogue_packages`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
 ALTER TABLE `catalogue_packages` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
