@@ -7,6 +7,8 @@ import org.alexdev.kepler.server.netty.streams.NettyResponse;
 import java.util.List;
 import java.util.Map;
 
+import static org.apache.batik.svggen.font.table.GlyfDescript.repeat;
+
 public class VOUCHER_REDEEM_OK extends MessageComposer {
     private final List<Item> redeemableItems;
 
@@ -20,6 +22,13 @@ public class VOUCHER_REDEEM_OK extends MessageComposer {
 
     @Override
     public void compose(NettyResponse response) {
+//        if tMsg.subject = 212 then
+//        me.getInterface().hideVoucherWindow()
+//        me.getInterface().setVoucherInput(1)
+//        tConn = tMsg.connection
+//        if tConn = void() then
+//        return(1)
+//        end if
 //        tProductName = tConn.GetStrFrom()
 //        if tProductName <> "" then
 //                tResultStr = getText("purse_vouchers_furni_success") & "\r" & "\r"
@@ -28,12 +37,11 @@ public class VOUCHER_REDEEM_OK extends MessageComposer {
 //        tResultStr = tResultStr & tProductName & "\r"
 //        tProductName = tConn.GetStrFrom()
 //        end repeat
-//        -- UNK_65 1
 //        return(executeMessage(#alert, [#Msg:tResultStr]))
 //        else
-//        -- UNK_65 1
 //        return(executeMessage(#alert, [#Msg:"purse_vouchers_success"]))
 //        end if
+//      else
 
         if (this.redeemableItems != null) {
             for (Item item : this.redeemableItems) {
