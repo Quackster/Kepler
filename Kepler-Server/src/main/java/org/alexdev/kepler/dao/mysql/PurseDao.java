@@ -48,8 +48,7 @@ public class PurseDao {
 
                 //Find all items
                 while (resultSet2.next()) {
-                    ItemDefinition itemDef = ItemManager.getInstance().getDefinition(resultSet2.getInt("item_definition_id"));
-                    voucher.getItemDefinitions().add(itemDef);
+                    voucher.getItems().add(resultSet.getString("catalogue_sale_code"));
                 }
 
                 //Delete the voucher and related items

@@ -141,7 +141,7 @@ CREATE TABLE `vouchers` (
 
 CREATE TABLE `vouchers_items` (
   `voucher_code` int(11) NOT NULL,
-  `item_definition_id` int(11) NOT NULL
+  `catalogue_sale_code` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 ALTER TABLE `vouchers`
