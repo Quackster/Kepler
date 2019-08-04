@@ -23,6 +23,7 @@ public class PurseDao {
      * @return the amount of credits redeemed or -1 if no voucher was found.
      */
     public static Voucher redeemVoucher(String voucherCode) {
+        Voucher voucher = null;
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -72,8 +73,7 @@ public class PurseDao {
             preparedStatement.setInt(1, voucherID);
             preparedStatement.executeQuery();  
             
-            return new Voucher(items, voucherCredits);
-            
+            voucher = new Voucher(items, voucherCredits);
         } catch (SQLException e) {
             System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
         } catch (Exception e) {
@@ -89,6 +89,6 @@ public class PurseDao {
         }
 
         //No voucher found. Or error
-        return null;    
+        return voucher;
     }
 }
