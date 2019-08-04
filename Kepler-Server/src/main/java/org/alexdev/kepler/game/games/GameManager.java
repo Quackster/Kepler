@@ -56,20 +56,21 @@ public class GameManager {
     }
 
     /**
-     * Get the game spawn by gamr type, map id and team id
+     * Get the game spawn list by game type, map id and team id
+     *
      * @param gameType the game type (battleball or snowstorm)
      * @param mapId the map id
      * @param teamId the team id
      * @return the game spawn
      */
-    public GameSpawn getGameSpawn(GameType gameType, int mapId, int teamId) {
-        for (GameSpawn gameSpawn : this.spawnList) {
+    public List<GameSpawn> getGameSpawns(GameType gameType, int mapId, int teamId) {
+        /*for (GameSpawn gameSpawn : this.spawnList) {
             if ((gameSpawn.getGameType() == gameType) && (gameSpawn.getMapId() == mapId) && (gameSpawn.getTeamId() == teamId)) {
                 return gameSpawn;
             }
-        }
+        }*/
 
-        return null;
+        return this.spawnList.stream().filter(gameSpawn -> (gameSpawn.getGameType() == gameType) && (gameSpawn.getMapId() == mapId) && (gameSpawn.getTeamId() == teamId)).collect(Collectors.toList());
     }
 
     /**

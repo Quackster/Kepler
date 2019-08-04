@@ -130,14 +130,15 @@ public class SongMachineDao {
         }
     }
 
-    public static void removePlaylistSong(int songId) throws SQLException {
+    public static void removePlaylistSong(int songId, long itemId) throws SQLException {
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
 
         try {
             sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("DELETE FROM soundmachine_playlists WHERE song_id = ? LIMIT 1", sqlConnection);
+            preparedStatement = Storage.getStorage().prepare("DELETE FROM soundmachine_playlists WHERE song_id = ? AND item_id = ? LIMIT 1", sqlConnection);
             preparedStatement.setInt(1, songId);
+            preparedStatement.setLong(2, itemId);
             preparedStatement.execute();
         } catch (Exception e) {
             Storage.logError(e);
@@ -147,6 +148,48 @@ public class SongMachineDao {
             Storage.closeSilently(sqlConnection);
         }
     }
+
+    public static void deleteSong(int songId) throws SQLException {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+
+            // Don't actually delete, just make it invisible, this is because some burned disks might use it.
+            preparedStatement = Storage.getStorage().prepare("DELETE FROM soundmachine_songs WHERE id = ?", sqlConnection);
+            preparedStatement.setInt(1, songId);
+            preparedStatement.execute();
+
+        } catch (Exception e) {
+            Storage.logError(e);
+            throw e;
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+
+    public static void clearSong(int songId) throws SQLException {
+            Connection sqlConnection = null;
+            PreparedStatement preparedStatement = null;
+
+            try {
+                sqlConnection = Storage.getStorage().getConnection();
+
+                // Don't actually delete, just make it invisible, this is because some burned disks might use it.
+                preparedStatement = Storage.getStorage().prepare("UPDATE soundmachine_songs SET item_id = -1 WHERE id = ?", sqlConnection);
+                preparedStatement.setInt(1, songId);
+                preparedStatement.execute();
+
+            } catch (Exception e) {
+                Storage.logError(e);
+                throw e;
+            } finally {
+                Storage.closeSilently(preparedStatement);
+                Storage.closeSilently(sqlConnection);
+            }
+        }
 
     public static void clearPlaylist(int itemId) throws SQLException {
         Connection sqlConnection = null;
@@ -233,49 +276,6 @@ public class SongMachineDao {
             Storage.closeSilently(sqlConnection);
         }
     }
-
-    public static void deleteSong(int songId) throws SQLException {
-        Connection sqlConnection = null;
-        PreparedStatement deletePlaylist = null;
-        PreparedStatement deleteSong = null;
-
-        try {
-            sqlConnection = Storage.getStorage().getConnection();
-
-            // We disable autocommit to make sure the following queries share the same atomic transaction
-            sqlConnection.setAutoCommit(false);
-
-            deletePlaylist = Storage.getStorage().prepare("DELETE FROM soundmachine_songs WHERE id = ?", sqlConnection);
-            deletePlaylist.setInt(1, songId);
-            deletePlaylist.execute();
-
-
-            deleteSong = Storage.getStorage().prepare("DELETE FROM soundmachine_playlists WHERE song_id = ?", sqlConnection);
-            deleteSong.setInt(1, songId);
-            deleteSong.execute();
-
-        } catch (Exception e) {
-            try {
-                // Rollback these queries
-                sqlConnection.rollback();
-            } catch(SQLException re) {
-                Storage.logError(re);
-            }
-
-            Storage.logError(e);
-        } finally {
-            try {
-                sqlConnection.setAutoCommit(true);
-            } catch (SQLException ce) {
-                Storage.logError(ce);
-            }
-
-            Storage.closeSilently(deletePlaylist);
-            Storage.closeSilently(deleteSong);
-            Storage.closeSilently(sqlConnection);
-        }
-    }
-
 
     public static Map<Integer, Integer> getTracks(int soundMachineId) {
         Map<Integer, Integer> tracks = new HashMap<>();

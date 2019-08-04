@@ -60,7 +60,7 @@ public class PLACESTUFF implements MessageEvent {
                 sticky.setRoomId(room.getId());
 
                 ItemDao.newItem(sticky);
-                room.getMapping().addItem(sticky);
+                room.getMapping().addItem(player, sticky);
 
                 // Set custom data as 1 for 1 post-it, if for some reason they have no number for the post-it.
                 if (!StringUtils.isNumeric(item.getCustomData())) {
@@ -122,12 +122,7 @@ public class PLACESTUFF implements MessageEvent {
             return;
         }
 
-        room.getMapping().addItem(item);
+        room.getMapping().addItem(player, item);
         player.getInventory().getItems().remove(item);
-
-        if (!item.getDefinition().hasBehaviour(ItemBehaviour.WALL_ITEM)) {
-            System.out.println("item: " + item.getDefinition().getInteractionType().name());
-            item.getDefinition().getInteractionType().getTrigger().onItemPlaced(player, room, item);
-        }
     }
 }

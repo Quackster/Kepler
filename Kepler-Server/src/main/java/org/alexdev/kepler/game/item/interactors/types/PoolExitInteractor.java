@@ -13,11 +13,6 @@ import org.alexdev.kepler.game.triggers.GenericTrigger;
 public class PoolExitInteractor extends GenericTrigger {
     @Override
     public void onEntityStep(Entity entity, RoomEntity roomEntity, Item item, Position oldPosition) {
-
-    }
-
-    @Override
-    public void onEntityStop(Entity entity, RoomEntity roomEntity, Item item) {
         if (entity.getType() != EntityType.PLAYER) {
             return;
         }
@@ -25,6 +20,11 @@ public class PoolExitInteractor extends GenericTrigger {
         if (!entity.getRoomUser().containsStatus(StatusType.SWIM)) {
             return;
         }
+
+        // Don't handle step event from RoomUser when changing paths
+        //if (customArgs.length > 0) {
+        //    return;
+        //}
 
         Position warp = null;
         Position goal = null;
@@ -57,14 +57,17 @@ public class PoolExitInteractor extends GenericTrigger {
 
 
         if (warp != null) {
-            entity.getRoomUser().walkTo(goal.getX(), goal.getY());
-            ((EntityTask)roomEntity.getRoom().getTaskManager().getTask("EntityTask")).processEntity(entity);
-            //PoolHandler.warpSwim(item, entity, warp, goal, true);
+            PoolHandler.warpSwim(item, entity, warp, goal, true);
         }
     }
 
     @Override
-    public void onEntityLeave(Entity entity, RoomEntity roomEntity, Item item) {
+    public void onEntityStop(Entity entity, RoomEntity roomEntity, Item item, boolean isRotation) {
+
+    }
+
+    @Override
+    public void onEntityLeave(Entity entity, RoomEntity roomEntity, Item item, Object... customArgs) {
 
     }
 }

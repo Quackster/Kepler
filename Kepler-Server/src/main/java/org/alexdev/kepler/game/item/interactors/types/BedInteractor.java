@@ -1,8 +1,12 @@
 package org.alexdev.kepler.game.item.interactors.types;
 
+import org.alexdev.kepler.game.entity.EntityType;
+import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.item.Item;
+import org.alexdev.kepler.game.item.interactors.InteractionType;
 import org.alexdev.kepler.game.pathfinder.Position;
+import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.entities.RoomEntity;
 import org.alexdev.kepler.game.room.enums.StatusType;
 import org.alexdev.kepler.game.room.mapping.RoomTile;
@@ -13,9 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BedInteractor extends GenericTrigger {
-
     @Override
-    public void onEntityStop(Entity entity, RoomEntity roomEntity, Item item) {
+    public void onEntityStop(Entity entity, RoomEntity roomEntity, Item item, boolean isRotation) {
         Position destination = entity.getRoomUser().getPosition().copy();
 
         if (!isValidPillowTile(item, roomEntity.getPosition())) {
@@ -45,14 +48,22 @@ public class BedInteractor extends GenericTrigger {
             roomEntity.removeStatus(StatusType.DANCE);
 
             roomEntity.getPosition().setRotation(item.getPosition().getRotation());
-            roomEntity.setStatus(StatusType.LAY, StringUtil.format(item.getDefinition().getTopHeight()));
+
+            double topHeight = item.getDefinition().getTopHeight();
+
+            if (entity.getType() == EntityType.PET) {
+                topHeight = 0.5 + item.getTile().getWalkingHeight();
+            }
+
+            roomEntity.getPosition().setRotation(item.getPosition().getRotation());
+            roomEntity.setStatus(StatusType.LAY, StringUtil.format(topHeight));
         }
 
         roomEntity.setNeedsUpdate(true);
     }
 
     @Override
-    public void onEntityLeave(Entity entity, RoomEntity roomEntity, Item item) {
+    public void onEntityLeave(Entity entity, RoomEntity roomEntity, Item item, Object... customArgs) {
 
     }
 

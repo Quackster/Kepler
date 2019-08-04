@@ -22,13 +22,13 @@ public class PokerTrigger extends GameTrigger {
     }
 
     @Override
-    public void onEntityStop(Entity entity, RoomEntity roomEntity, Item item) {
-        super.onEntityStop(entity, roomEntity, item);
+    public void onEntityStop(Entity entity, RoomEntity roomEntity, Item item, boolean isRotation) {
+        super.onEntityStop(entity, roomEntity, item, isRotation);
     }
 
     @Override
-    public void onEntityLeave(Entity entity, RoomEntity roomEntity, Item item) {
-        super.onEntityLeave(entity, roomEntity, item);
+    public void onEntityLeave(Entity entity, RoomEntity roomEntity, Item item, Object... customArgs) {
+        super.onEntityLeave(entity, roomEntity, item, customArgs);
     }
 
     /**

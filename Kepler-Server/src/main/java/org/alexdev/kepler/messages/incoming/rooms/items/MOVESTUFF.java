@@ -45,7 +45,7 @@ public class MOVESTUFF implements MessageEvent {
 
         boolean isRotation = false;
 
-        if (item.getPosition().getRotation() != rotation) {
+        if (item.getPosition().equals(new Position(x, y)) && item.getPosition().getRotation() != rotation) {
             isRotation = true;
         }
 
@@ -63,11 +63,7 @@ public class MOVESTUFF implements MessageEvent {
             return;
         }
 
-        item.getPosition().setX(x);
-        item.getPosition().setY(y);
-        item.getPosition().setRotation(rotation);
 
-        room.getMapping().moveItem(item, isRotation, oldPosition);
-        item.getDefinition().getInteractionType().getTrigger().onItemMoved(player, room, item, isRotation, oldPosition);
+        room.getMapping().moveItem(player, item, new Position(x, y, item.getPosition().getZ(), rotation, rotation), oldPosition);
     }
 }

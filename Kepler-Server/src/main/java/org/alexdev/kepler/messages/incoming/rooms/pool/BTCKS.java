@@ -71,7 +71,7 @@ public class BTCKS implements MessageEvent {
             Item item = player.getRoomUser().getCurrentItem();
 
             if (item != null && item.getDefinition().getInteractionType() == InteractionType.WS_JOIN_QUEUE) {
-                item.getDefinition().getInteractionType().getTrigger().onEntityStop(player, player.getRoomUser(), item);
+                item.getDefinition().getInteractionType().getTrigger().onEntityStop(player, player.getRoomUser(), item, false);
             }
         }
     }

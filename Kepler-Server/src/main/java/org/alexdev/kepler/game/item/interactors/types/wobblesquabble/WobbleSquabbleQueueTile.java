@@ -9,12 +9,8 @@ import org.alexdev.kepler.game.room.entities.RoomEntity;
 import org.alexdev.kepler.game.triggers.GenericTrigger;
 
 public class WobbleSquabbleQueueTile extends GenericTrigger {
-    public void onEntityStep(Entity entity, RoomEntity roomEntity, Item item, Position oldPosition) {
-
-    }
-
     @Override
-    public void onEntityStop(Entity entity, RoomEntity roomEntity, Item item) {
+    public void onEntityStop(Entity entity, RoomEntity roomEntity, Item item, boolean isRotation) {
         if (entity.getType() != EntityType.PLAYER) {
             return;
         }

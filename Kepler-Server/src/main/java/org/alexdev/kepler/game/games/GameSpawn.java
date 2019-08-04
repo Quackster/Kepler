@@ -1,22 +1,18 @@
 package org.alexdev.kepler.game.games;
 
 import org.alexdev.kepler.game.games.enums.GameType;
+import org.alexdev.kepler.game.pathfinder.Position;
 
-public class GameSpawn {
+public class GameSpawn extends Position {
     private int teamId;
     private int mapId;
     private GameType gameType;
-    private int x;
-    private int y;
-    private int z;
 
     public GameSpawn(int teamId, int mapId, String gameType, int x, int y, int z) {
+        super(x, y, 0, z, z);
         this.teamId = teamId;
         this.mapId = mapId;
         this.gameType = GameType.valueOf(gameType.toUpperCase());
-        this.x = x;
-        this.y = y;
-        this.z = z;
     }
 
     public int getTeamId() {
@@ -29,17 +25,5 @@ public class GameSpawn {
 
     public GameType getGameType() {
         return gameType;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public int getZ() {
-        return z;
     }
 }

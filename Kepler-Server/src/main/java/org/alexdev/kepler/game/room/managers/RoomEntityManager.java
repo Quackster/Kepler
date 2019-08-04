@@ -127,7 +127,7 @@ public class RoomEntityManager {
         }
 
         // If the room is not loaded, add room, as we intend to join it.
-        if (!RoomManager.getInstance().hasRoom(this.room.getId())) {
+        if (!RoomManager.getInstance().hasRoom(this.room.getId()) && !this.room.isGameArena()) {
             RoomManager.getInstance().addRoom(this.room);
         }
 
@@ -227,25 +227,27 @@ public class RoomEntityManager {
     /**
      * Setup the room initially for room entry.
      */
-    private boolean tryInitialiseRoom(Player player) {
-        if (!this.room.isActive()) {
-            this.room.getItems().clear();
-            this.room.getRights().clear();
-            this.room.getVotes().clear();
+    private void tryInitialiseRoom(Player player) {
+         if (!this.room.isActive()) {
+             if (!this.room.isGameArena()) {
+                 this.room.getItems().clear();
+                 this.room.getRights().clear();
+                 this.room.getVotes().clear();
 
-            if (this.room.isPublicRoom()) {
-                this.room.getItems().addAll(PublicItemParser.getPublicItems(this.room.getId(), this.room.getModel().getId()));
-            } else {
-                this.room.getRights().addAll(RoomRightsDao.getRoomRights(this.room.getData()));
-                this.room.getVotes().putAll(RoomVoteDao.getRatings(this.room.getId()));
-            }
+                 if (this.room.isPublicRoom()) {
+                     this.room.getItems().addAll(PublicItemParser.getPublicItems(this.room.getId(), this.room.getModel().getId()));
+                 } else {
+                     this.room.getRights().addAll(RoomRightsDao.getRoomRights(this.room.getData()));
+                     this.room.getVotes().putAll(RoomVoteDao.getRatings(this.room.getId()));
+                 }
 
-            this.room.getItems().addAll(ItemDao.getRoomItems(this.room.getData()));
-            this.room.getMapping().regenerateCollisionMap();
-            this.room.getTaskManager().startTasks();
-        };
+                 this.room.getItems().addAll(ItemDao.getRoomItems(this.room.getData()));
+                 this.room.getItemManager().resetItemStates();
+             }
 
-        return true;
+             this.room.getMapping().regenerateCollisionMap();
+             this.room.getTaskManager().startTasks();
+        }
     }
 
     /**
