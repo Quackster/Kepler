@@ -42,9 +42,11 @@ public class VOUCHER_REDEEM_OK extends MessageComposer {
 //      else
 
         if (this.redeemableItems != null && this.redeemableItems.size() > 0) {
-            if (this.redeemableItems.size() == 1) {
-                response.writeString(this.redeemableItems.get(0).getDefinition().getName());
-                response.writeString(this.redeemableItems.get(0).getDefinition().getDescription());
+            if (this.redeemableItems.size() <= 2) {
+                for (CatalogueItem catalogueItem : this.redeemableItems) {
+                    response.writeString(catalogueItem.getDefinition().getName());
+                    response.writeString(catalogueItem.getDefinition().getDescription());
+                }
             } else {
                 response.writeString(this.redeemableItems.stream().map(item -> item.getDefinition().getName()).collect(Collectors.joining(", " )));
                 response.writeString("");
