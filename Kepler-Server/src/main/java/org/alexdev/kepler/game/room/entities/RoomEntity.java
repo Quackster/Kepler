@@ -153,6 +153,14 @@ public abstract class RoomEntity {
             return false;
         }
 
+        if (tile.getHighestItem() != null && tile.getHighestItem().hasBehaviour(ItemBehaviour.CAN_LAY_ON_TOP)) {
+            if (!BedInteractor.isValidPillowTile(tile.getHighestItem(), this.goal)) {
+                Position destination = BedInteractor.convertToPillow(this.goal, tile.getHighestItem());
+                this.walkTo(destination.getX(), destination.getY());
+                return true;
+            }
+        }
+
         //AStar aStar = new AStar(this.room.getModel());
         //var pathList = aStar.calculateAStarNoTerrain(this.entity, this.position, this.goal);
 
@@ -198,14 +206,6 @@ public abstract class RoomEntity {
 
         if (!RoomTile.isValidTile(this.room, this.entity, this.goal)) {
             return false;
-        }
-
-        if (tile.getHighestItem() != null && tile.getHighestItem().hasBehaviour(ItemBehaviour.CAN_LAY_ON_TOP)) {
-            if (!BedInteractor.isValidPillowTile(tile.getHighestItem(), this.goal)) {
-                Position destination = BedInteractor.convertToPillow(this.goal, tile.getHighestItem());
-                this.walkTo(destination.getX(), destination.getY());
-                return true;
-            }
         }
 
         AStar aStar = new AStar(this.room.getModel());
