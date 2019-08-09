@@ -184,9 +184,8 @@ public class Item {
         }
 
         if (this.hasBehaviour(ItemBehaviour.CAN_LAY_ON_TOP)) {
-            Position newPosition = null;
+            /*Position newPosition = null;
 
-            //if (!BedTrigger.isValidPillowTile(this, destination)) {
             for (Position tile : BedInteractor.getValidPillowTiles(this)) {
                 newPosition = selectedPosition.copy();
 
@@ -199,9 +198,9 @@ public class Item {
                 break;
 
             }
-           // }
 
-            return newPosition != null && getRoom().getMapping().getTile(newPosition).getEntities().isEmpty();
+            return newPosition != null && getRoom().getMapping().getTile(newPosition).getEntities().isEmpty();*/
+            return true;
         }
 
         if (this.hasBehaviour(ItemBehaviour.CAN_STAND_ON_TOP)) {

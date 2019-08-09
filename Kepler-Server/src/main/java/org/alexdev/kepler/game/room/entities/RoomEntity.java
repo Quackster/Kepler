@@ -6,6 +6,7 @@ import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
+import org.alexdev.kepler.game.item.interactors.types.BedInteractor;
 import org.alexdev.kepler.game.item.roller.RollingData;
 import org.alexdev.kepler.game.pathfinder.Pathfinder;
 import org.alexdev.kepler.game.pathfinder.Position;
@@ -197,6 +198,14 @@ public abstract class RoomEntity {
 
         if (!RoomTile.isValidTile(this.room, this.entity, this.goal)) {
             return false;
+        }
+
+        if (tile.getHighestItem() != null && tile.getHighestItem().hasBehaviour(ItemBehaviour.CAN_LAY_ON_TOP)) {
+            if (!BedInteractor.isValidPillowTile(tile.getHighestItem(), this.goal)) {
+                Position destination = BedInteractor.convertToPillow(this.goal, tile.getHighestItem());
+                this.walkTo(destination.getX(), destination.getY());
+                return true;
+            }
         }
 
         AStar aStar = new AStar(this.room.getModel());

@@ -21,20 +21,8 @@ public class BedInteractor extends GenericTrigger {
     public void onEntityStop(Entity entity, RoomEntity roomEntity, Item item, boolean isRotation) {
         Position destination = entity.getRoomUser().getPosition().copy();
 
-        if (!isValidPillowTile(item, roomEntity.getPosition())) {
-            for (Position tile : getValidPillowTiles(item)) {
-                if (!RoomTile.isValidTile(roomEntity.getRoom(), entity, tile)) {
-                    continue;
-                }
-
-                if (item.getPosition().getRotation() == 0) {
-                    destination.setY(tile.getY());
-                } else {
-                    destination.setX(tile.getX());
-                }
-
-                break;
-            }
+        if (!isValidPillowTile(item, destination)) {
+            destination = convertToPillow(destination, item);
         }
 
         if (isValidPillowTile(item, destination)) {
@@ -65,6 +53,31 @@ public class BedInteractor extends GenericTrigger {
     @Override
     public void onEntityLeave(Entity entity, RoomEntity roomEntity, Item item, Object... customArgs) {
 
+    }
+
+    /**
+     * Converts any coordinate within the bed dimensions to the closest pillow.
+     *
+     * @param position to check
+     * @param item the item checking against
+     * @return the pillow position
+     */
+    public static Position convertToPillow(Position position, Item item) {
+        Position destination = position.copy();
+
+        if (!isValidPillowTile(item, position)) {
+            for (Position tile : getValidPillowTiles(item)) {
+                if (item.getPosition().getRotation() == 0) {
+                    destination.setY(tile.getY());
+                } else {
+                    destination.setX(tile.getX());
+                }
+
+                break;
+            }
+        }
+
+        return destination;
     }
 
     /**
