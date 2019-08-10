@@ -65,7 +65,7 @@ public class MESSENGER_ACCEPTBUDDY implements MessageEvent {
         }
 
         player.getMessenger().addFriend(newBuddy);
-        player.send(new ADD_FRIEND(newBuddy));
+        player.send(new ADD_FRIEND(newBuddy, player));
 
         Player friend = PlayerManager.getInstance().getPlayerById(userId);
 
@@ -73,7 +73,7 @@ public class MESSENGER_ACCEPTBUDDY implements MessageEvent {
             MessengerUser meAsBuddy = player.getMessenger().getMessengerUser();
 
             friend.getMessenger().addFriend(meAsBuddy);
-            friend.send(new ADD_FRIEND(meAsBuddy));
+            friend.send(new ADD_FRIEND(meAsBuddy, player));
         }
 
         player.send(new BUDDY_REQUEST_RESULT(errors));

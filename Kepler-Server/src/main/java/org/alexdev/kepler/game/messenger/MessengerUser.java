@@ -27,12 +27,12 @@ public class MessengerUser {
     /**
      * Geneic method for applying details, used from both constructors.
      *
-     * @param userId the id of the user
-     * @param username the name of the user
-     * @param figure the figure of the user
+     * @param userId       the id of the user
+     * @param username     the name of the user
+     * @param figure       the figure of the user
      * @param consoleMotto the console motto of the user
-     * @param sex the sex of the user
-     * @param lastOnline the last time the user was online in Unix time
+     * @param sex          the sex of the user
+     * @param lastOnline   the last time the user was online in Unix time
      */
     private void applyUserDetails(int userId, String username, String figure, String consoleMotto, String sex, long lastOnline) {
         this.userId = userId;
@@ -48,43 +48,84 @@ public class MessengerUser {
      *
      * @param response the response to serialise for
      */
-    public void serialise(NettyResponse response) {
-        Player player = PlayerManager.getInstance().getPlayerById(this.userId);
+    public void serialise(Player player, NettyResponse response) {
+        Player user = PlayerManager.getInstance().getPlayerById(this.userId);
 
-        if (player != null) {
-            this.figure = player.getDetails().getFigure();
-            this.lastOnline = player.getDetails().getLastOnline();
-            this.sex = player.getDetails().getSex();
-            this.consoleMotto = player.getDetails().getConsoleMotto();
-        }
+        if (player.getVersion() < 23) {
+            if (user != null) {
+                this.figure = user.getDetails().getFigure();
+                this.lastOnline = user.getDetails().getLastOnline();
+                this.sex = user.getDetails().getSex();
+                this.consoleMotto = user.getDetails().getConsoleMotto();
+            }
 
-        response.writeInt(this.userId);
-        response.writeString(this.username);
-        response.writeBool(Character.toLowerCase(this.sex) == 'm');
-        response.writeString(this.consoleMotto);
+            response.writeInt(this.userId);
+            response.writeString(this.username);
+            response.writeBool(Character.toLowerCase(this.sex) == 'm');
+            response.writeString(this.consoleMotto);
 
-        boolean isOnline = (player != null);
+            boolean isOnline = (user != null);
 
-        response.writeBool(isOnline);
+            response.writeBool(isOnline);
 
-        if (isOnline) {
-            if (player.getRoomUser().getRoom() != null) {
-                Room room = player.getRoomUser().getRoom();
+            if (isOnline) {
+                if (user.getRoomUser().getRoom() != null) {
+                    Room room = user.getRoomUser().getRoom();
 
-                if (room.getData().getOwnerId() > 0) {
-                    response.writeString("Floor1a");
+                    if (room.getData().getOwnerId() > 0) {
+                        response.writeString("Floor1a");
+                    } else {
+                        response.writeString(room.getData().getPublicName());
+                    }
                 } else {
-                    response.writeString(room.getData().getPublicName());
+                    response.writeString("On hotel view");
                 }
             } else {
-                response.writeString("On hotel view");
+                response.writeString(DateUtil.getDateAsString(this.lastOnline));
             }
+
+            response.writeString(DateUtil.getDateAsString(this.lastOnline));
+            response.writeString(this.figure);
+
+
         } else {
+            if (user != null) {
+                this.figure = user.getDetails().getFigure();
+                this.lastOnline = user.getDetails().getLastOnline();
+                this.sex = user.getDetails().getSex();
+            }
+
+            boolean isOnline = user != null;
+
+            response.writeInt(this.userId);
+            response.writeString(this.username);
+            response.writeBool(this.sex == 'M');
+
+            response.writeBool(isOnline);
+            response.writeBool(this.canFollowFriend(player));
+
+            response.writeString(isOnline ? this.figure : "");
+            response.writeInt(0);//this.categoryId);
+            response.writeString(this.consoleMotto);
             response.writeString(DateUtil.getDateAsString(this.lastOnline));
         }
 
-        response.writeString(DateUtil.getDateAsString(this.lastOnline));
-        response.writeString(this.figure);
+    }
+
+    public boolean canFollowFriend(Player friend) {
+        Player player = PlayerManager.getInstance().getPlayerById(this.userId);
+
+        if (player == null) {
+            return false;
+        }
+
+        if (player.getRoomUser().getRoom() == null) {
+            return false;
+        }
+
+        Room room = player.getRoomUser().getRoom();
+
+        return (!room.getModel().getName().startsWith("bb_") && !room.getModel().getName().equals("snowwar"));
     }
 
     public int getUserId() {

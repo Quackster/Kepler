@@ -99,7 +99,7 @@ public class MessengerDao {
      * @param query the query
      * @return the list
      */
-    public static Integer search(String query) {
+    public static Integer searchUser(String query) {
         int userId = -1;
 
         Connection sqlConnection = null;
@@ -367,5 +367,40 @@ public class MessengerDao {
      */
     public static void markMessageRead(int messageId) throws SQLException {
         Storage.getStorage().execute("UPDATE messenger_messages SET unread = 0 WHERE id = " + messageId);
+    }
+
+    public static List<Integer> search(String query) {
+        List<Integer> userList = new ArrayList<>();
+        int userId = -1;
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+
+            preparedStatement = Storage.getStorage().prepare("SELECT id FROM users WHERE LOWER(username) LIKE ? LIMIT 30", sqlConnection);
+            preparedStatement.setString(1, query + "%");
+
+            /* preparedStatement = Storage.getStorage().prepare("SELECT id FROM users WHERE LOWER(username) LIKE ? ORDER BY (username = ?) DESC, length(username) LIMIT 30", sqlConnection);
+            preparedStatement.setString(1, query + "%");
+            preparedStatement.setString(2, query);*/
+
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                userList.add(resultSet.getInt("id"));
+            }
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+
+        return userList;
     }
 }
