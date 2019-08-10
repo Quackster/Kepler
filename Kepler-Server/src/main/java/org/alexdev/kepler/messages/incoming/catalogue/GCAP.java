@@ -46,6 +46,7 @@ public class GCAP implements MessageEvent {
                 cataloguePage.setBody(GameConfiguration.getInstance().getString("rare.cycle.page.text").replace("{rareCountdown}", DateUtil.getReadableSeconds(timeUntil)));
             }
 
+            //Ai:Recycler{13}n:Recycler{13}l:ctlg_recycler{13}g:catalog_recycler_headline1{13}{1}
             player.send(new CATALOGUE_PAGE(
                     cataloguePage,
                     catalogueItemList));

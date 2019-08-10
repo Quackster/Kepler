@@ -93,11 +93,11 @@ public class CataloguePage {
     }
 
     public String getImageTeasers() {
-        return imageTeasers;
+        return imageTeasers == null ? "" : imageTeasers;
     }
 
     public String getBody() {
-        return body;
+        return body == null ? "" : body;
     }
 
     public void setBody(String body) {

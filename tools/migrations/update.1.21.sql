@@ -250,3 +250,5 @@ ALTER TABLE `vouchers_history`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_c
 ALTER TABLE `vouchers_history` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 ALTER TABLE `vouchers_items`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
 ALTER TABLE `vouchers_items` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+
+INSERT INTO `catalogue_pages` (`id`, `order_id`, `min_role`, `name_index`, `name`, `layout`, `image_headline`) VALUES ('91', '13', '1', 'Ecotron', 'Ecotron', 'ctlg_recycler', 'catalog_recycler_headline1');
