@@ -33,7 +33,6 @@ public class ServerConfiguration {
 
     private static void setConfigurationDefaults() {
         // DEFAULT settings
-        config.put("version", "14");
         config.put("bind", "127.0.0.1");
         config.put("server.port", "12321");
         config.put("server.limit.bandwidth", "false");//String.valueOf(40*1024));
@@ -51,6 +50,12 @@ public class ServerConfiguration {
         config.put("mysql.username", "kepler");
         config.put("mysql.password", "verysecret");
         config.put("mysql.database", "kepler");
+
+        config.put("v9.version.port", "0");
+        config.put("v14.version.port", "12321");
+        config.put("v15.version.port", "0");
+        config.put("v21.version.port", "0");
+        config.put("v26.version.port", "0");
 
         config.put("debug", "false");
     }
@@ -150,7 +155,11 @@ public class ServerConfiguration {
     private static void setConfigurationData(PrintWriter writer) {
         writer.println("[Global]");
         writer.println("bind=" + config.get("bind"));
-        writer.println("version=" + config.get("version"));
+        writer.println("v9.version.port=" + config.get("v9.version.port"));
+        writer.println("v14.version.port=" + config.get("v14.version.port"));
+        writer.println("v15.version.port=" + config.get("v15.version.port"));
+        writer.println("v21.version.port=" + config.get("v21.version.port"));
+        writer.println("v26.version.port=" + config.get("v26.version.port"));
         writer.println("");
         writer.println("[Server]");
         writer.println("server.port=" + config.get("server.port"));
@@ -221,5 +230,16 @@ public class ServerConfiguration {
      */
     public static int getInteger(String key) {
         return Integer.parseInt(config.getOrDefault(key, "0"));
+    }
+
+
+    /**
+     * Get if key exists.
+     *
+     * @param key to check
+     * @return true if exists
+     */
+    public static boolean exists(String key) {
+        return config.containsKey(key);
     }
 }

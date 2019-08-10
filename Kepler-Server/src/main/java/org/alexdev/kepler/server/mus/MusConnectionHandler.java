@@ -13,6 +13,7 @@ import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.ItemManager;
 import org.alexdev.kepler.game.item.Photo;
 import org.alexdev.kepler.game.player.Player;
+import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.player.PlayerManager;
 import org.alexdev.kepler.game.room.enums.StatusType;
 import org.alexdev.kepler.game.room.tasks.CameraTask;
@@ -21,6 +22,7 @@ import org.alexdev.kepler.log.Log;
 import org.alexdev.kepler.messages.outgoing.rooms.user.USER_STATUSES;
 import org.alexdev.kepler.messages.outgoing.user.USER_OBJECT;
 import org.alexdev.kepler.messages.outgoing.user.currencies.FILM;
+import org.alexdev.kepler.messages.types.PlayerMessageComposer;
 import org.alexdev.kepler.server.mus.connection.MusClient;
 import org.alexdev.kepler.server.mus.streams.MusMessage;
 import org.alexdev.kepler.server.mus.streams.MusPropList;
@@ -98,19 +100,32 @@ public class MusConnectionHandler extends SimpleChannelInboundHandler<MusMessage
             if (message.getSubject().equals("LOGIN")) {
                 String[] credentials = message.getContentString().split(" ", 2);
 
+                Player player = null;
+                int userId = -1;
+
                 if (!StringUtils.isNumeric(credentials[0])) {
-                    return;
+                    String username = credentials[0];
+                    String password = credentials[1];
+
+                    PlayerDetails playerDetails = new PlayerDetails();
+
+                    if (PlayerDao.login(playerDetails, username, password)) {
+                        player =  PlayerManager.getInstance().getPlayerById(playerDetails.getId());
+                        userId = playerDetails.getId();
+                    } else {
+                        player = null;
+                    }
+                } else {
+                    userId = Integer.valueOf(credentials[0]);
+                    player = PlayerManager.getInstance().getPlayerById(userId);
                 }
-
-                int userId = Integer.valueOf(credentials[0]);
-                Player player = PlayerManager.getInstance().getPlayerById(userId);
-
-                System.out.println(ctx.channel().localAddress());
 
                 // Er, ma, gerd, we logged in! ;O
                 if (player != null && NettyPlayerNetwork.getIpAddress(player.getNetwork().getChannel()).equals(NettyPlayerNetwork.getIpAddress(ctx.channel()))) {
+                    System.out.println("RCON user " + player.getDetails().getName() + " logged in");
                     client.setUserId(userId);
                 } else {
+                    log.info("[MUS] RCON user kicked due to inappropriate formed message {}", ctx.channel().remoteAddress().toString().replace("/", ""));
                     ctx.channel().close(); // Lol, bye, imposter scum!
                 }
             }

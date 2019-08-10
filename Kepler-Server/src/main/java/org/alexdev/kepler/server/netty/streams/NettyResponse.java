@@ -60,6 +60,19 @@ public class NettyResponse  {
     }
 
     /**
+     * Write a key value packet.
+     *
+     * @param key the key
+     * @param value the value
+     */
+    public void writeValue(Object key, Object value) {
+        this.buffer.writeBytes(key.toString().getBytes(StringUtil.getCharset()));
+        this.buffer.writeBytes("=".getBytes());
+        this.buffer.writeBytes(value.toString().getBytes(StringUtil.getCharset()));
+        this.buffer.writeByte(13);
+    }
+
+    /**
      * Write an object with a custom delimeter.
      *
      * @param key the key to write

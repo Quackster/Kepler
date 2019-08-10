@@ -188,7 +188,7 @@ public class PlayerDao {
      * @param password password
      * @return true, if successful
      */
-    public static boolean login(Player player, String username, String password) {
+    public static boolean login(PlayerDetails player, String username, String password) {
         boolean success = false;
 
         Connection sqlConnection = null;
@@ -209,7 +209,7 @@ public class PlayerDao {
                 success = pwHash.cryptoPwHashStrVerify(hashedPassword, pass, pass.length);
 
                 if (success) {
-                    fill(player.getDetails(), resultSet);
+                    fill(player, resultSet);
                 }
             }
 

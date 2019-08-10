@@ -198,4 +198,14 @@ public class GameConfiguration {
 
         return instance;
     }
+
+    /**
+     * Get if key exists.
+     *
+     * @param key to check
+     * @return true if exists
+     */
+    public boolean exists(String key) {
+        return config.containsKey(key);
+    }
 }

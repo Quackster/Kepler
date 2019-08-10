@@ -13,13 +13,20 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.util.concurrent.GlobalEventExecutor;
 import org.alexdev.kepler.log.Log;
+import org.alexdev.kepler.server.netty.connections.ConnectionVersionRule;
+import org.alexdev.kepler.util.config.GameConfiguration;
+import org.alexdev.kepler.util.config.ServerConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.InetSocketAddress;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class NettyServer  {
+    final private Map<Integer, ConnectionVersionRule> connectionVersionRuleMap;
+
     final private static int BACK_LOG = 20;
     final private static int BUFFER_SIZE = 2048;
 	final private static Logger log = LoggerFactory.getLogger(NettyServer.class);
@@ -40,6 +47,19 @@ public class NettyServer  {
         this.channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
         this.bootstrap = new ServerBootstrap();
         this.connectionIds = new AtomicInteger(0);
+        this.connectionVersionRuleMap = new HashMap<>();
+
+        for (int i = 0; i < 30; i++) {
+            String key = "v" + i + ".version.port";
+
+            if (ServerConfiguration.exists(key)) {
+                int portNumber = ServerConfiguration.getInteger(key);
+
+                if (portNumber > 0) {
+                    this.connectionVersionRuleMap.put(portNumber, new ConnectionVersionRule(portNumber, i));
+                }
+            }
+        }
     }
 
     /**
@@ -65,14 +85,17 @@ public class NettyServer  {
      * Bind the server to its address that's been specified
      */
     public void bind() {
-        this.bootstrap.bind(new InetSocketAddress(this.getIp(), this.getPort())).addListener(objectFuture -> {
-            if (!objectFuture.isSuccess()) {
-                Log.getErrorLogger().error("Failed to start server on address: {}:{}", this.getIp(), this.getPort());
-                Log.getErrorLogger().error("Please double check there's no programs using the same port, and you have set the correct IP address to listen on.", this.getIp(), this.getPort());
-            } else {
-                log.info("Game server is listening on {}:{}", this.getIp(), this.getPort());
-            }
-        });
+
+        for (var connectionRule : this.connectionVersionRuleMap.values()) {
+            this.bootstrap.bind(new InetSocketAddress(this.getIp(), connectionRule.getPort())).addListener(objectFuture -> {
+                if (!objectFuture.isSuccess()) {
+                    Log.getErrorLogger().error("Failed to start server on address: {}:{}", this.getIp(), this.getPort());
+                    Log.getErrorLogger().error("Please double check there's no programs using the same port, and you have set the correct IP address to listen on.", this.getIp(), this.getPort());
+                } else {
+                    log.info("Game server for v{} is listening on {}:{}", connectionRule.getVersion(), this.getIp(), connectionRule.getPort());
+                }
+            });
+        }
     }
 
     /**
@@ -119,5 +142,14 @@ public class NettyServer  {
      */
     public AtomicInteger getConnectionIds() {
         return connectionIds;
+    }
+
+    /**
+     * Gets the connection rule.
+     * @param port the port to check
+     * @return the connection rule
+     */
+    public ConnectionVersionRule getConnectionRule(int port) {
+        return connectionVersionRuleMap.get(port);
     }
 }

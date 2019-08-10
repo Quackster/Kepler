@@ -25,7 +25,7 @@ public class GET_SONG_INFO implements MessageEvent {
 
         int songId = -1;
 
-        if (ServerConfiguration.getInteger("version") <= 14) {
+        if (player.getVersion() <= 14) {
             songId = room.getItemManager().getSoundMachine().getId();
 
             player.send(new USER_SOUND_PACKAGES(player.getInventory().getSoundsets()));

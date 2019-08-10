@@ -20,7 +20,7 @@ import java.util.Calendar;
 public class BURN_SONG implements MessageEvent {
     @Override
     public void handle(Player player, NettyRequest reader) throws Exception {
-        if (ServerConfiguration.getInteger("version") <= 14) {
+        if (player.getVersion()  <= 14) {
             return;
         }
 

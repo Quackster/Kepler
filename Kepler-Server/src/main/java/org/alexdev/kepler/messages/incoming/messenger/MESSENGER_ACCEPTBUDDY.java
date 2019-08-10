@@ -18,7 +18,7 @@ import java.util.List;
 public class MESSENGER_ACCEPTBUDDY implements MessageEvent {
     @Override
     public void handle(Player player, NettyRequest reader) {
-        if (ServerConfiguration.getInteger("version") <= 14) {
+        if (player.getVersion() <= 14) {
             int userId = reader.readInt();
             acceptBuddy(player, userId);
         }
@@ -39,7 +39,6 @@ public class MESSENGER_ACCEPTBUDDY implements MessageEvent {
         if (newBuddy == null) {
             MessengerError error = new MessengerError(MessengerErrorType.FRIEND_REQUEST_NOT_FOUND);
             error.setCauser(newBuddy);
-
             errors.add(error);
         }
 

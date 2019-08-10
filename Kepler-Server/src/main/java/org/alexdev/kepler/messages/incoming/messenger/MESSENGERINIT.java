@@ -16,7 +16,7 @@ public class MESSENGERINIT implements MessageEvent {
         player.send(new MESSENGER_INIT(messenger));
 
         // Get requests manually
-        if (ServerConfiguration.getInteger("version") <= 14) {
+        if (player.getVersion() <= 14) {
             new MESSENGER_GETREQUESTS().handle(player, null);
         }
     }

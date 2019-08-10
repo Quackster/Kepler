@@ -1,6 +1,7 @@
 package org.alexdev.kepler.game.player;
 
 import io.netty.util.AttributeKey;
+import org.alexdev.kepler.Kepler;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.club.ClubSubscription;
@@ -327,5 +328,9 @@ public class Player extends Entity {
 
     public Set<String> getIgnoredList() {
         return ignoredList;
+    }
+
+    public int getVersion() {
+        return Kepler.getServer().getConnectionRule(this.network.getPort()).getVersion();
     }
 }

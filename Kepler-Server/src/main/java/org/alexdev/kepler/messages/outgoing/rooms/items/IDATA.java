@@ -3,9 +3,10 @@ package org.alexdev.kepler.messages.outgoing.rooms.items;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.messages.types.MessageComposer;
+import org.alexdev.kepler.messages.types.PlayerMessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 
-public class IDATA extends MessageComposer {
+public class IDATA extends PlayerMessageComposer {
     private String colour;
     private String text;
     private Item item;
@@ -22,13 +23,26 @@ public class IDATA extends MessageComposer {
 
     @Override
     public void compose(NettyResponse response) {
-        if (this.item.hasBehaviour(ItemBehaviour.POST_IT)) {
-            response.writeDelimeter(this.item.getId(), (char) 9);
-            response.writeDelimeter(this.colour, ' ');
-            response.write(this.text);
+        if (this.getPlayer().getVersion() > 9) {
+            if (this.item.hasBehaviour(ItemBehaviour.POST_IT)) {
+                response.writeDelimeter(this.item.getId(), (char) 9);
+                response.writeDelimeter(this.colour, ' ');
+                response.write(this.text);
+            } else {
+                response.writeDelimeter(this.item.getId(), (char) 9);
+                response.write(item.getCustomData());
+            }
         } else {
-            response.writeDelimeter(this.item.getId(), (char) 9);
-            response.write(Integer.toString(item.getId()) + " x " + item.getCustomData());
+            if (this.item.hasBehaviour(ItemBehaviour.POST_IT)) {
+                response.writeDelimeter(this.item.getId(), (char) 9);
+                response.writeDelimeter(this.colour, (char) 13);
+                response.write(this.text);
+            } else {
+                response.writeDelimeter(this.item.getId(), (char) 9);
+                response.writeDelimeter(this.item.getId(), ' ');
+                response.writeDelimeter(this.item.getOwnerId(), ' ');
+                response.write(this.item.getCustomData());
+            }
         }
     }
 

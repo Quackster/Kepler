@@ -7,16 +7,22 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class NettyPlayerNetwork {
+    private int port;
     private Channel channel;
     private int connectionId;
 
     public NettyPlayerNetwork(Channel channel, int connectionId) {
         this.channel = channel;
         this.connectionId = connectionId;
+        this.port = Integer.parseInt(channel.localAddress().toString().split(":")[1]);
     }
 
     public Channel getChannel() {
         return this.channel;
+    }
+
+    public int getPort() {
+        return port;
     }
 
     public void send(Object response) {
