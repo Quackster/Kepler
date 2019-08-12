@@ -1,5 +1,6 @@
 SET FOREIGN_KEY_CHECKS = 0; 
 TRUNCATE `items`;
+TRUNCATE `items_photos`;
 TRUNCATE `items_pets`;
 TRUNCATE `items_teleporter_links`;
 TRUNCATE `items_moodlight_presets`;
@@ -17,6 +18,8 @@ TRUNCATE `users_room_votes`;
 TRUNCATE `vouchers`;
 TRUNCATE `vouchers_history`;
 TRUNCATE `vouchers_items`;
+TRUNCATE `messenger_messagers`;
+TRUNCATE `messenger_requests`;
 DELETE FROM `users_badges`;
 DELETE FROM `users`;
 TRUNCATE `settings`;
