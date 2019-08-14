@@ -29,3 +29,4 @@ Kepler-Server-all.jar
 server.log
 error.log
 .env
+Kepler-Server/src/main/java/META-INF/MANIFEST.MF
