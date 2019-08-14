@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.2
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 26, 2019 at 03:23 AM
--- Server version: 10.3.11-MariaDB
--- PHP Version: 7.2.8
+-- Generation Time: Aug 14, 2019 at 11:44 PM
+-- Server version: 10.3.10-MariaDB
+-- PHP Version: 7.2.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -30,20 +30,20 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `catalogue_items` (
   `id` int(11) NOT NULL,
-  `sale_code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `page_id` tinytext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sale_code` varchar(255) DEFAULT NULL,
+  `page_id` tinytext DEFAULT NULL,
   `order_id` int(11) NOT NULL DEFAULT 0,
   `price` int(11) NOT NULL DEFAULT 3,
   `is_hidden` tinyint(1) NOT NULL DEFAULT 0,
   `amount` int(11) NOT NULL DEFAULT 1,
   `definition_id` int(11) DEFAULT NULL,
   `item_specialspriteid` int(11) NOT NULL DEFAULT 0,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
   `is_package` tinyint(1) NOT NULL DEFAULT 0,
-  `package_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `package_description` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `package_name` varchar(255) DEFAULT NULL,
+  `package_description` varchar(256) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `catalogue_items`
@@ -997,11 +997,11 @@ INSERT INTO `catalogue_items` (`id`, `sale_code`, `page_id`, `order_id`, `price`
 
 CREATE TABLE `catalogue_packages` (
   `id` int(11) NOT NULL,
-  `salecode` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `salecode` varchar(255) DEFAULT NULL,
   `definition_id` int(11) DEFAULT NULL,
   `special_sprite_id` int(11) DEFAULT NULL,
   `amount` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `catalogue_packages`
@@ -1039,17 +1039,17 @@ CREATE TABLE `catalogue_pages` (
   `min_role` int(11) DEFAULT NULL,
   `index_visible` tinyint(1) NOT NULL DEFAULT 1,
   `is_club_only` tinyint(1) NOT NULL DEFAULT 0,
-  `name_index` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `link_list` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `layout` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `image_headline` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `image_teasers` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `body` text COLLATE utf8mb4_unicode_ci DEFAULT '',
-  `label_pick` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `label_extra_s` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `label_extra_t` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `name_index` varchar(255) DEFAULT NULL,
+  `link_list` varchar(255) NOT NULL DEFAULT '',
+  `name` varchar(255) DEFAULT NULL,
+  `layout` varchar(255) DEFAULT NULL,
+  `image_headline` varchar(255) DEFAULT NULL,
+  `image_teasers` varchar(255) DEFAULT NULL,
+  `body` text DEFAULT '',
+  `label_pick` varchar(255) DEFAULT NULL,
+  `label_extra_s` varchar(255) DEFAULT NULL,
+  `label_extra_t` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `catalogue_pages`
@@ -1113,7 +1113,8 @@ INSERT INTO `catalogue_pages` (`id`, `order_id`, `min_role`, `index_visible`, `i
 (87, 30, 1, 1, 0, 'Rock Trax', '', 'Rock Trax', 'ctlg_soundmachine', 'catalog_trx_header3', 'catalog_trx_teaser3', 'Welcome to the Rock Trax Store! With heavy beats and rockin\' riffs, this is the section for every rock fan to experiment with.', '', NULL, ''),
 (88, 31, 1, 1, 0, 'SFX Trax', '', 'SFX Trax', 'ctlg_soundmachine', 'catalog_trx_header4', 'catalog_trx_teaser4', 'Welcome to the SFX Trax Store! With crazy sounds and weird noises, this is the section for every creative room builder  to indulge in.', '', NULL, ''),
 (89, 32, 1, 1, 0, 'Urban Trax', '', 'Urban Trax', 'ctlg_soundmachine', 'catalog_trx_header5', 'catalog_trx_teaser5', 'Welcome to the Urban Trax Store! With hip hop beats and RnB vocals, this is the section for every city bopper  to indulge in.', '', NULL, ''),
-(90, 34, 1, 1, 0, 'Presents', '', 'Presents', 'ctlg_presents', 'catalog_gifts_headline1', 'catalog_presents_teaser1,catalog_presents_teaser2', 'Show your Habbo friends just how much you care and send them a gift from the Habbo Catalogue.  ANY Catalogue item can be sent as a gift to ANY Habbo, all you need is their Habbo name!', '', NULL, '1:Buying an item as a gift couldn\'t be simpler...  <br><br>Buy an item from the Catalogue in the normal way, but tick \'buy as a gift\'. Tell us which Habbo you want to give the gift to and we\'\'ll gift wrap it and deliver it straight to their hand.');
+(90, 34, 1, 1, 0, 'Presents', '', 'Presents', 'ctlg_presents', 'catalog_gifts_headline1', 'catalog_presents_teaser1,catalog_presents_teaser2', 'Show your Habbo friends just how much you care and send them a gift from the Habbo Catalogue.  ANY Catalogue item can be sent as a gift to ANY Habbo, all you need is their Habbo name!', '', NULL, '1:Buying an item as a gift couldn\'t be simpler...  <br><br>Buy an item from the Catalogue in the normal way, but tick \'buy as a gift\'. Tell us which Habbo you want to give the gift to and we\'\'ll gift wrap it and deliver it straight to their hand.'),
+(91, 13, 1, 1, 0, 'Ecotron', '', 'Ecotron', 'ctlg_recycler', 'catalog_recycler_headline1', NULL, '', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1122,9 +1123,9 @@ INSERT INTO `catalogue_pages` (`id`, `order_id`, `min_role`, `index_visible`, `i
 --
 
 CREATE TABLE `external_texts` (
-  `entry` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
-  `text` text CHARACTER SET utf8mb4 NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `entry` varchar(255) NOT NULL,
+  `text` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `external_texts`
@@ -1170,11 +1171,11 @@ INSERT INTO `external_texts` (`entry`, `text`) VALUES
 --
 
 CREATE TABLE `games_maps` (
-  `type` enum('battleball','snowstorm') CHARACTER SET utf8mb4 NOT NULL DEFAULT 'battleball',
-  `id` enum('6','5','4','3','2','1') CHARACTER SET utf8mb4 NOT NULL DEFAULT '1',
-  `heightmap` mediumtext CHARACTER SET utf8mb4 NOT NULL,
-  `tile_map` mediumtext CHARACTER SET utf8mb4 NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `type` enum('battleball','snowstorm') NOT NULL DEFAULT 'battleball',
+  `id` enum('6','5','4','3','2','1') NOT NULL DEFAULT '1',
+  `heightmap` mediumtext NOT NULL,
+  `tile_map` mediumtext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `games_maps`
@@ -1194,39 +1195,139 @@ INSERT INTO `games_maps` (`type`, `id`, `heightmap`, `tile_map`) VALUES
 --
 
 CREATE TABLE `games_player_spawns` (
-  `type` enum('battleball','snowstorm') CHARACTER SET utf8mb4 NOT NULL DEFAULT 'battleball',
-  `map_id` enum('6','5','4','3','2','1') CHARACTER SET utf8mb4 NOT NULL,
-  `team_id` enum('3','2','1','0') CHARACTER SET utf8mb4 NOT NULL,
+  `type` enum('battleball','snowstorm') NOT NULL DEFAULT 'battleball',
+  `map_id` int(11) NOT NULL,
+  `team_id` int(11) NOT NULL,
   `x` int(11) NOT NULL,
   `y` int(11) NOT NULL,
-  `z` enum('9','8','7','6','5','4','3','2','1','0') CHARACTER SET utf8mb4 NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `rotation` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `games_player_spawns`
 --
 
-INSERT INTO `games_player_spawns` (`type`, `map_id`, `team_id`, `x`, `y`, `z`) VALUES
-('battleball', '5', '0', 22, 11, '6'),
-('battleball', '5', '1', 0, 11, '2'),
-('battleball', '5', '2', 11, 22, '0'),
-('battleball', '5', '3', 11, 0, '4'),
-('battleball', '1', '0', 0, 15, '2'),
-('battleball', '1', '1', 27, 12, '6'),
-('battleball', '1', '2', 12, 27, '0'),
-('battleball', '1', '3', 15, 0, '4'),
-('battleball', '2', '0', 0, 9, '2'),
-('battleball', '2', '1', 32, 10, '6'),
-('battleball', '2', '2', 14, 9, '6'),
-('battleball', '2', '3', 18, 9, '2'),
-('battleball', '4', '3', 21, 8, '6'),
-('battleball', '4', '2', 7, 8, '2'),
-('battleball', '4', '1', 14, 0, '4'),
-('battleball', '4', '0', 14, 16, '0'),
-('battleball', '3', '0', 21, 14, '6'),
-('battleball', '3', '1', 7, 14, '2'),
-('battleball', '3', '2', 14, 21, '0'),
-('battleball', '3', '3', 14, 7, '4');
+INSERT INTO `games_player_spawns` (`type`, `map_id`, `team_id`, `x`, `y`, `rotation`) VALUES
+('battleball', 5, 0, 22, 14, 6),
+('battleball', 5, 0, 22, 13, 6),
+('battleball', 5, 0, 22, 12, 6),
+('battleball', 5, 0, 22, 11, 6),
+('battleball', 5, 0, 22, 10, 6),
+('battleball', 5, 0, 22, 9, 6),
+('battleball', 5, 3, 9, 0, 4),
+('battleball', 5, 3, 10, 0, 4),
+('battleball', 5, 3, 11, 0, 4),
+('battleball', 5, 3, 12, 0, 4),
+('battleball', 5, 3, 13, 0, 4),
+('battleball', 5, 3, 14, 0, 4),
+('battleball', 5, 2, 9, 22, 0),
+('battleball', 5, 2, 10, 22, 0),
+('battleball', 5, 2, 11, 22, 0),
+('battleball', 5, 2, 12, 22, 0),
+('battleball', 5, 2, 13, 22, 0),
+('battleball', 5, 2, 14, 22, 0),
+('battleball', 5, 1, 0, 14, 2),
+('battleball', 5, 1, 0, 13, 2),
+('battleball', 5, 1, 0, 12, 2),
+('battleball', 5, 1, 0, 11, 2),
+('battleball', 5, 1, 0, 10, 2),
+('battleball', 5, 1, 0, 9, 2),
+('battleball', 3, 0, 21, 11, 6),
+('battleball', 3, 0, 21, 12, 6),
+('battleball', 3, 0, 21, 13, 6),
+('battleball', 3, 0, 21, 14, 6),
+('battleball', 3, 0, 21, 15, 6),
+('battleball', 3, 0, 21, 16, 6),
+('battleball', 3, 1, 7, 16, 2),
+('battleball', 3, 1, 7, 15, 2),
+('battleball', 3, 1, 7, 14, 2),
+('battleball', 3, 1, 7, 13, 2),
+('battleball', 3, 1, 7, 12, 2),
+('battleball', 3, 1, 7, 11, 2),
+('battleball', 3, 2, 11, 7, 4),
+('battleball', 3, 2, 12, 7, 4),
+('battleball', 3, 2, 13, 7, 4),
+('battleball', 3, 2, 14, 7, 4),
+('battleball', 3, 2, 15, 7, 4),
+('battleball', 3, 2, 16, 7, 4),
+('battleball', 3, 3, 16, 21, 0),
+('battleball', 3, 3, 15, 21, 0),
+('battleball', 3, 3, 14, 21, 0),
+('battleball', 3, 3, 13, 21, 0),
+('battleball', 3, 3, 12, 21, 0),
+('battleball', 3, 3, 11, 21, 0),
+('battleball', 1, 0, 0, 13, 2),
+('battleball', 1, 0, 0, 14, 2),
+('battleball', 1, 0, 0, 15, 2),
+('battleball', 1, 0, 0, 16, 2),
+('battleball', 1, 0, 0, 17, 2),
+('battleball', 1, 0, 0, 18, 2),
+('battleball', 1, 1, 27, 9, 6),
+('battleball', 1, 1, 27, 10, 6),
+('battleball', 1, 1, 27, 11, 6),
+('battleball', 1, 1, 27, 12, 6),
+('battleball', 1, 1, 27, 13, 6),
+('battleball', 1, 1, 27, 14, 6),
+('battleball', 1, 3, 13, 0, 4),
+('battleball', 1, 3, 14, 0, 4),
+('battleball', 1, 3, 15, 0, 4),
+('battleball', 1, 3, 16, 0, 4),
+('battleball', 1, 3, 17, 0, 4),
+('battleball', 1, 3, 18, 0, 4),
+('battleball', 1, 2, 14, 27, 0),
+('battleball', 1, 2, 13, 27, 0),
+('battleball', 1, 2, 12, 27, 0),
+('battleball', 1, 2, 11, 27, 0),
+('battleball', 1, 2, 10, 27, 0),
+('battleball', 1, 2, 9, 27, 0),
+('battleball', 2, 0, 0, 7, 2),
+('battleball', 2, 0, 0, 8, 2),
+('battleball', 2, 0, 0, 9, 2),
+('battleball', 2, 0, 0, 10, 2),
+('battleball', 2, 0, 0, 11, 2),
+('battleball', 2, 0, 0, 12, 2),
+('battleball', 2, 2, 14, 12, 6),
+('battleball', 2, 2, 14, 11, 6),
+('battleball', 2, 2, 14, 10, 6),
+('battleball', 2, 2, 14, 9, 6),
+('battleball', 2, 2, 14, 8, 6),
+('battleball', 2, 2, 14, 7, 6),
+('battleball', 2, 3, 18, 8, 2),
+('battleball', 2, 3, 18, 9, 2),
+('battleball', 2, 3, 18, 10, 2),
+('battleball', 2, 3, 18, 11, 2),
+('battleball', 2, 3, 18, 12, 2),
+('battleball', 2, 3, 18, 13, 2),
+('battleball', 2, 1, 32, 7, 6),
+('battleball', 2, 1, 32, 8, 6),
+('battleball', 2, 1, 32, 9, 6),
+('battleball', 2, 1, 32, 10, 6),
+('battleball', 2, 1, 32, 11, 6),
+('battleball', 2, 1, 32, 12, 6),
+('battleball', 4, 0, 12, 16, 0),
+('battleball', 4, 0, 13, 16, 0),
+('battleball', 4, 0, 14, 16, 0),
+('battleball', 4, 0, 15, 16, 0),
+('battleball', 4, 0, 16, 16, 0),
+('battleball', 4, 0, 17, 16, 0),
+('battleball', 4, 1, 17, 0, 4),
+('battleball', 4, 1, 16, 0, 4),
+('battleball', 4, 1, 15, 0, 4),
+('battleball', 4, 1, 14, 0, 4),
+('battleball', 4, 1, 13, 0, 4),
+('battleball', 4, 1, 12, 0, 4),
+('battleball', 4, 2, 7, 5, 2),
+('battleball', 4, 2, 7, 6, 2),
+('battleball', 4, 2, 7, 7, 2),
+('battleball', 4, 2, 7, 8, 2),
+('battleball', 4, 2, 7, 9, 2),
+('battleball', 4, 2, 7, 10, 2),
+('battleball', 4, 3, 21, 5, 6),
+('battleball', 4, 3, 21, 6, 6),
+('battleball', 4, 3, 21, 7, 6),
+('battleball', 4, 3, 21, 8, 6),
+('battleball', 4, 3, 21, 9, 6),
+('battleball', 4, 3, 21, 10, 6);
 
 -- --------------------------------------------------------
 
@@ -1236,11 +1337,11 @@ INSERT INTO `games_player_spawns` (`type`, `map_id`, `team_id`, `x`, `y`, `z`) V
 
 CREATE TABLE `games_ranks` (
   `id` int(5) NOT NULL,
-  `type` enum('battleball','snowstorm') CHARACTER SET utf8mb4 NOT NULL DEFAULT 'battleball',
-  `title` varchar(50) CHARACTER SET utf8mb4 NOT NULL,
+  `type` enum('battleball','snowstorm') NOT NULL DEFAULT 'battleball',
+  `title` varchar(50) NOT NULL,
   `min_points` int(10) NOT NULL,
   `max_points` int(10) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `games_ranks`
@@ -1263,13 +1364,13 @@ INSERT INTO `games_ranks` (`id`, `type`, `title`, `min_points`, `max_points`) VA
 --
 
 CREATE TABLE `housekeeping_audit_log` (
-  `action` enum('alert_user','kick_user','ban_user','room_alert','room_kick') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `action` enum('alert_user','kick_user','ban_user','room_alert','room_kick') NOT NULL,
   `user_id` int(11) NOT NULL,
   `target_id` int(11) NOT NULL DEFAULT -1,
-  `message` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `extra_notes` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `message` varchar(255) NOT NULL DEFAULT '',
+  `extra_notes` varchar(255) NOT NULL DEFAULT '',
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -1283,16 +1384,16 @@ CREATE TABLE `items` (
   `user_id` int(11) DEFAULT NULL,
   `room_id` int(11) DEFAULT 0,
   `definition_id` int(11) NOT NULL,
-  `x` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '0',
-  `y` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '0',
-  `z` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '0',
-  `wall_position` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `x` varchar(255) DEFAULT '0',
+  `y` varchar(255) DEFAULT '0',
+  `z` varchar(255) DEFAULT '0',
+  `wall_position` varchar(255) NOT NULL DEFAULT '',
   `rotation` int(11) DEFAULT 0,
-  `custom_data` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `custom_data` varchar(255) NOT NULL,
   `is_hidden` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -1302,21 +1403,21 @@ CREATE TABLE `items` (
 
 CREATE TABLE `items_definitions` (
   `id` int(11) NOT NULL,
-  `sprite` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sprite` varchar(50) DEFAULT NULL,
   `sprite_id` int(11) NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `colour` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0,0,0',
+  `name` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `colour` varchar(100) NOT NULL DEFAULT '0,0,0',
   `length` int(11) NOT NULL DEFAULT 0,
   `width` int(11) NOT NULL DEFAULT 0,
   `top_height` double NOT NULL DEFAULT 0,
-  `max_status` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
-  `behaviour` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `interactor` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'default',
+  `max_status` varchar(11) NOT NULL DEFAULT '0',
+  `behaviour` varchar(150) NOT NULL DEFAULT '',
+  `interactor` varchar(150) NOT NULL DEFAULT 'default',
   `is_tradable` tinyint(1) NOT NULL DEFAULT 1,
   `is_recyclable` tinyint(1) NOT NULL DEFAULT 1,
-  `drink_ids` text COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ''
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `drink_ids` text NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `items_definitions`
@@ -2146,7 +2247,8 @@ INSERT INTO `items_definitions` (`id`, `sprite`, `sprite_id`, `name`, `descripti
 (1407, 'sound_set_68', 1351, 'Pitchside Pro', 'Football Sounds 1', '0,0,0', 1, 1, 0.2, '2', 'solid,can_stack_on_top,sound_machine_sample_set,requires_rights_for_interaction', 'default', 1, 1, ''),
 (1408, 'sound_set_69', 1352, 'Referee Rhythm', 'Football Sounds 2', '0,0,0', 1, 1, 0.2, '2', 'solid,can_stack_on_top,sound_machine_sample_set,requires_rights_for_interaction', 'default', 1, 1, ''),
 (1409, 'sound_set_70', 1353, 'Squad Synth', 'Football Sounds 3', '0,0,0', 1, 1, 0.2, '2', 'solid,can_stack_on_top,sound_machine_sample_set,requires_rights_for_interaction', 'default', 1, 1, ''),
-(1412, 'song_disk', 1355, 'Traxdisc', 'Burn, baby burn', '0,0,0', 1, 1, 0.1, '0', 'solid,song_disk', 'default', 1, 1, '');
+(1412, 'song_disk', 1355, 'Traxdisc', 'Burn, baby burn', '0,0,0', 1, 1, 0.1, '0', 'solid,song_disk', 'default', 1, 1, ''),
+(1413, 'nest', 34, '', '', '0,0,0', 1, 1, 0, '2', 'can_stand_on_top,requires_rights_for_interaction', 'pet_nest', 1, 1, '');
 
 -- --------------------------------------------------------
 
@@ -2157,10 +2259,37 @@ INSERT INTO `items_definitions` (`id`, `sprite`, `sprite_id`, `name`, `descripti
 CREATE TABLE `items_moodlight_presets` (
   `item_id` int(11) NOT NULL,
   `current_preset` int(11) NOT NULL DEFAULT 1,
-  `preset_1` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1,#000000,255',
-  `preset_2` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1,#000000,255',
-  `preset_3` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1,#000000,255'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `preset_1` varchar(50) NOT NULL DEFAULT '1,#000000,255',
+  `preset_2` varchar(50) NOT NULL DEFAULT '1,#000000,255',
+  `preset_3` varchar(50) NOT NULL DEFAULT '1,#000000,255'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `items_pets`
+--
+
+CREATE TABLE `items_pets` (
+  `id` int(11) NOT NULL,
+  `item_id` bigint(11) NOT NULL,
+  `name` varchar(15) NOT NULL,
+  `type` varchar(1) NOT NULL,
+  `race` int(3) NOT NULL,
+  `colour` varchar(6) NOT NULL,
+  `nature_positive` int(3) NOT NULL,
+  `nature_negative` int(3) NOT NULL,
+  `friendship` float NOT NULL DEFAULT 1,
+  `born` bigint(11) NOT NULL,
+  `last_kip` bigint(11) NOT NULL,
+  `last_eat` bigint(11) NOT NULL,
+  `last_drink` bigint(11) NOT NULL,
+  `last_playtoy` bigint(11) NOT NULL,
+  `last_playuser` bigint(11) NOT NULL,
+  `x` int(3) NOT NULL DEFAULT 0,
+  `y` int(3) NOT NULL DEFAULT 0,
+  `rotation` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -2185,7 +2314,7 @@ CREATE TABLE `items_photos` (
 CREATE TABLE `items_teleporter_links` (
   `item_id` int(11) NOT NULL,
   `linked_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -2196,7 +2325,7 @@ CREATE TABLE `items_teleporter_links` (
 CREATE TABLE `messenger_friends` (
   `from_id` int(11) NOT NULL,
   `to_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -2208,10 +2337,10 @@ CREATE TABLE `messenger_messages` (
   `id` int(11) NOT NULL,
   `receiver_id` int(11) DEFAULT NULL,
   `sender_id` int(11) DEFAULT NULL,
-  `unread` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `body` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `unread` varchar(255) DEFAULT NULL,
+  `body` varchar(255) DEFAULT NULL,
   `date` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -2222,7 +2351,7 @@ CREATE TABLE `messenger_messages` (
 CREATE TABLE `messenger_requests` (
   `from_id` int(11) DEFAULT NULL,
   `to_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -2243,7 +2372,7 @@ CREATE TABLE `public_items` (
   `width` int(11) NOT NULL DEFAULT 1,
   `behaviour` varchar(255) NOT NULL DEFAULT '',
   `current_program` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `public_items`
@@ -5723,8 +5852,8 @@ INSERT INTO `public_items` (`id`, `room_model`, `sprite`, `x`, `y`, `z`, `rotati
 
 CREATE TABLE `rank_badges` (
   `rank` tinyint(1) UNSIGNED NOT NULL DEFAULT 1,
-  `badge` char(3) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `badge` char(3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -5734,8 +5863,8 @@ CREATE TABLE `rank_badges` (
 
 CREATE TABLE `rank_fuserights` (
   `min_rank` int(11) NOT NULL,
-  `fuseright` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `fuseright` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `rank_fuserights`
@@ -5776,7 +5905,7 @@ INSERT INTO `rank_fuserights` (`min_rank`, `fuseright`) VALUES
 CREATE TABLE `rare_cycle` (
   `sale_code` varchar(255) NOT NULL,
   `reuse_time` bigint(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -5786,24 +5915,24 @@ CREATE TABLE `rare_cycle` (
 
 CREATE TABLE `rooms` (
   `id` int(11) NOT NULL,
-  `owner_id` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `owner_id` varchar(11) NOT NULL,
   `category` int(11) DEFAULT 2,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `model` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ccts` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '',
+  `name` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `model` varchar(255) NOT NULL,
+  `ccts` varchar(255) DEFAULT '',
   `wallpaper` int(4) DEFAULT 0,
   `floor` int(4) DEFAULT 0,
   `showname` tinyint(1) DEFAULT 1,
   `superusers` tinyint(1) DEFAULT 0,
   `accesstype` tinyint(3) DEFAULT 0,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '',
+  `password` varchar(255) DEFAULT '',
   `visitors_now` int(11) DEFAULT 0,
   `visitors_max` int(11) DEFAULT 25,
   `rating` int(11) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
 
 --
 -- Dumping data for table `rooms`
@@ -5882,6 +6011,68 @@ INSERT INTO `rooms` (`id`, `owner_id`, `category`, `name`, `description`, `model
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `rooms_bots`
+--
+
+CREATE TABLE `rooms_bots` (
+  `id` int(11) NOT NULL,
+  `name` varchar(25) NOT NULL,
+  `mission` varchar(255) NOT NULL,
+  `x` int(11) NOT NULL,
+  `y` int(11) NOT NULL,
+  `start_look` varchar(25) NOT NULL,
+  `figure` varchar(255) NOT NULL,
+  `walkspace` text NOT NULL,
+  `room_id` int(11) NOT NULL DEFAULT 0,
+  `speech` mediumtext NOT NULL,
+  `response` mediumtext NOT NULL,
+  `unrecognised_response` mediumtext NOT NULL,
+  `hand_items` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `rooms_bots`
+--
+
+INSERT INTO `rooms_bots` (`id`, `name`, `mission`, `x`, `y`, `start_look`, `figure`, `walkspace`, `room_id`, `speech`, `response`, `unrecognised_response`, `hand_items`) VALUES
+(5, 'Xenia', 'The belle of the Battle Ball', 1, 8, '2,2', 'sd=001&sh=002/54,178,190&lg=200/230,49,57&ch=506/230,49,57,141&lh=001/168,123,67&rh=001/168,123,67&hd=001/168,123,67&ey=001&fc=001/168,123,67&hr=506/194,26,134,190&hrb=506/2,3,4&rs=002/230,49,57&ls=002/230,49,57&bd=001/168,123,67', '0,5 0,6 0,7 1,5 1,6 1,7 1,8', 66, 'Welcome to the BattleBall lobby!|Play games for free here|I\'m super pumped to beat other users in Battleball! :)|Calm down, other people are trying to score!#SHOUT|I\'m the best BattleBall player! *smirks*|I wonder how long it would take me to reach the highest level...|You can earn XP when playing BattleBall!', '', 'Hello there!|Hi, said the person who lost BattleBall|Hey!|Hey, I\'m just chilling here.. doing nothing', ''),
+(6, 'Pamela', ':)', 7, 8, '4,4', 'sd=001&sh=002/148,98,32&lg=005/230,49,57&ch=201/255,255,255&lh=001/215,175,125&rh=001/215,175,125&hd=001/215,175,125&ey=001&fc=001/215,175,125&hr=507/103,78,59&rs=002/255,255,255&ls=002/255,255,255&bd=001/215,175,125', '22,4 23,4 24,4 25,4 26,4 22,5 23,5 24,5 25,5 26,5', 45, '', '', '', ''),
+(7, 'Regina', 'I know, right?', 3, 6, '2,2', 'sd=001&sh=002/255,115,131&lg=005/255,115,131&ch=018/255,255,255&lh=001/255,204,153&rh=001/255,204,153&hd=001/255,204,153&ey=001&fc=001/255,204,153&hr=501/225,204,120&rs=003/255,255,255&ls=003/255,255,255&bd=001/255,204,153', '2,7 2,8 2,9 3,5 3,6 3,7 3,8 3,9 3,10', 10, 'I\'ve been busy practicing my dance routine for my latest song!|You like coffee? I like my job|You mocha me very happy.|Italians are so good at making coffee because they naturally like to espresso themselves.', 'Enjoy this|This will do the trick|One %lowercaseDrink% coming right up!', 'Repeat that please!|Say that again|What?|Hmm...', 'Coffee'),
+(8, 'James', 'Nemo my name forever more', 4, 24, '0,0', 'sd=001&sh=001/17,17,17&lg=001/17,17,17&ch=800&lh=001/240,213,179&rh=001/240,213,179&hd=001/240,213,179&ey=001/254,202,150&fc=001/240,213,179&hr=201/17,17,17&rs=800&ls=800&bd=001/240,213,179', '4,24 4,25 4,26 4,27 5,24 5,25 5,26 5,27', 23, '', '', '', ''),
+(9, 'Marion', 'I want to be Bonnie Blond!', 6, 25, '2,2', 'sd=001&sh=002/17,17,17&lg=005/255,115,131&ch=018/17,17,17&lh=001/230,200,162&rh=001/230,200,162&hd=001/230,200,162&ey=002&fc=001/230,200,162&hr=202/165,90,24&rs=003/17,17,17&ls=003/17,17,17&bd=001/230,200,162', '6,24 6,25 6,26 6,27', 23, '', '', '', ''),
+(10, 'Brone', 'Happy to help', 0, 8, '4,4', 'sd=001/0&hr=008/115,99,70&hd=002/145,98,55&ey=005/0&fc=001/145,98,55&bd=001/145,98,55&lh=001/145,98,55&rh=001/145,98,55&ch=005/17,17,17&ls=002/17,17,17&rs=002/17,17,17&lg=004/17,17,17&sh=003/17,17,17', '0,7 1,7 2,7 3,7 4,7 5,7 6,7 7,7 8,7 9,7 0,8 1,8 2,8 3,8 4,8 5,8 6,8 7,8 8,8 9,8', 21, 'Enjoy the dance!|I\'ve never seen what the other side is like...|My boss doesn\'t allow me to see the disco :(|I serve some mean drinks!', 'You look like you need this|Hmm, take this', 'Not sure what you said|Did I hear something?|What?', ''),
+(11, 'Marcus', 'Man of Talent', 0, 22, '2,2', 'sd=001/0&hr=010/224,186,120&hd=002/255,204,153&ey=005/0&fc=001/255,204,153&bd=001/255,204,153&lh=001/255,204,153&rh=001/255,204,153&ch=005/59,122,192&ls=002/59,122,192&rs=002/59,122,192&lg=006/119,159,187&sh=001/223,175,209', '0,21 0,22 0,23 1,21 1,22 1,23', 5, 'If you hear a funny noise, it\'s just Sid the sloth - he loves to sing!|No ordinary drink for no ordinary Habbo|Stressed out? The Ice House cinema\'s the best place to chill out.|Come on - you don\'t need Dutch courage|We\'ve got the coolest DVD playing this week - check it out!|Wow! You have a real talent!|See a hairy elephant? It\'s just Manny the moody mastodon.', 'Here you go!|Sure, %lowercaseDrink% it is!', 'Hello', 'Cola'),
+(12, 'Dave', 'Hello, hello', 10, 7, '2,2', 'sd=001/0&hr=995/255,255,255&hd=001/255,204,153&ey=001/0&fc=001/255,204,153&bd=001/255,204,153&lh=001/255,204,153&rh=001/255,204,153&ch=995/255,255,255&ls=002/255,255,255&rs=002/255,255,255&lg=999/255,255,255&sh=001/121,94,83', '9,2 9,3 9,4 10,2 10,3 10,4', 9, '', '', '', ''),
+(13, 'Sadie', 'Happy St. Patrick\'s Day!', 10, 5, '2,2', 'sd=001&sh=001/36&lg=999/255,255,255&ch=006/163&lh=001/255,204,153&rh=001/255,204,153&hd=001/255,204,153&ey=001&fc=001/255,204,153&hr=006/250,230,150&rs=002/163&ls=002/163&bd=001/255,204,153', '9,5 9,6 9,7 9,8 10,5 10,6 10,7 10,8', 9, '', '', '', ''),
+(14, 'Reginaldo', ':)', 23, 5, '4,4', 'sd=001&hd=001/236,214,186&fc=001/236,214,186&bd=001/236,214,186&rh=001/236,214,186&lh=001/236,214,186&hr=001/255,255,255&lg=001/40,40,40&sh=001/150,0,0&rs=002/255,255,255&ls=002/255,255,255&ch=202/255,255,255', '22,4 23,4 24,4 25,4 26,4 22,5 23,5 24,5 25,5 26,5', 17, 'It\'s pretty cool working here, I must say|Maybe some day I will become a club member...|Who knew that someone like me would end up working here?', 'Enjoy the %drink%!,Here you go!', 'Sorry? I didn\'t catch that|Hello there!|That\'s my name, don\'t wear it out', 'Water,Juice,Lemonade,Tea'),
+(15, 'Billy', 'You can call me Bill', 5, 13, '2,2', 'sd=001/0&hr=010/224,186,120&hd=002/255,203,152&ey=001/0&fc=001/255,203,152&bd=001/255,203,152&lh=001/255,203,152&rh=001/255,203,152&ch=502/57,65,148&ls=001/57,65,148&rs=001/57,65,148&lg=006/102,102,102&sh=003/51,51,51', '4,10 5,10 5,11 5,12 5,13', 11, 'I serve drinks here|Did you know that coffee comes from plants?|Espresso your opinions politely.|', 'Coming right up!|Be careful, don\'t hurt yourself!', 'Cool story, brew.|Yep, that\'s me', 'Latte,Coffee,Hot Chocolate,Espresso'),
+(16, 'Phillip', 'Why not try a nice burger?', 1, 13, '2,2', 'sd=001/0&hr=010/255,255,255&hd=002/255,204,153&ey=001/0&fc=001/255,204,153&bd=001/255,204,153&lh=001/255,204,153&rh=001/255,204,153&ch=001/217,113,69&ls=002/217,113,69&rs=002/217,113,69&lg=001/102,102,102&sh=003/47,45,38', '0,7 0,8 0,9 0,10 0,11 0,12 0,13 1,7 1,8 1,9 1,10 1,11 1,12 1,13', 16, '', '', '', ''),
+(17, 'Ariel', 'Happy to help', 0, 13, '2,2', 'sd=001&sh=001/36&lg=001/200,0,0&ch=006/163&lh=001/255,203,152&rh=001/255,203,152&hd=001/255,203,152&ey=001&fc=001/255,203,152&hr=003/250,50,2&rs=002/163&ls=002/163&bd=001/255,203,152', '0,9 0,10 0,11 0,12 0,13 0,14', 43, 'Sure is chilly at the Ice Cafe...|Here to serve, every, single, day...|Did you know that I never get a break?', '%drink% it is me\'dear\'!:)|Et voila!', 'Sorry - did you want something?', 'Iced Coffee,Coffee,Hot Chocolate,Espresso'),
+(18, 'Piers', 'The master of the kitchen!', 11, 12, '4,4', 'sd=001/0&hr=799/255,255,255&hd=002/255,204,153&ey=001/0&fc=001/255,204,153&bd=001/255,204,153&lh=001/255,204,153&rh=001/255,204,153&ch=003/255,255,255&ls=001/255,255,255&rs=001/255,255,255&lg=004/255,255,255&sh=004/255,255,255', '3,12 4,12 5,12 6,12 7,12 8,12 9,12 10,12 11,12 12,12 3,13 4,13 5,13 6,13 7,13 8,13 9,13 10,12 11,13 12,13', 8, 'Would you like to taste my wrath?|The silverback grilla is native to this area.|Heaters gonna heat.|That’s a recipe for disaster.', '', 'Yes?|What? I\'m busy you know|A FINE CHOICE#SHOUT|Soup man, how’s it going?', ''),
+(19, 'Marcel', 'In search of lost time', 11, 15, '2,2', 'sd=001&sh=003/154,154,154&lg=001/98,90,32&ch=202/255,210,179&lh=001/255,210,179&rh=001/255,210,179&hd=001/255,204,153&ey=001&fc=001/255,204,153&hr=203/98,98,98&rs=001/255,210,179&ls=001/255,210,179&bd=001/255,204,153', '7,14 8,14 9,14 10,14 11,14 7,15 8,15 9,15 10,15 11,15 7,16 8,16 9,16 10,16 11,16', 3, '', '', '', ''),
+(20, 'Chloe', 'Service with a smile', 6, 30, '2,2', 'sd=001&sh=001/255,115,41&lg=999/255,255,255&ch=006/35,134,182&lh=001/255,203,1522&rh=001/255,203,152&hd=001/255,203,152&ey=001&fc=001/255,203,152&hr=003/250,50,2&rs=002/35,134,182&ls=002/35,134,182&bd=001/255,203,152', '6,29 6,30', 36, 'I need to get out of the ice cream booth and into the DJ booth!|Ow there goes my eardrum!#SHOUT|I wish I looked that good in a bikini|When will I, will I be a famous Habbo who gets on the VIP list?|I\'m a fiery redhead - come here boys!', 'There you go.', 'Hello sweetie|Hi, how can I help?|Well hello there', ''),
+(22, 'Berith', 'Serving you with a smile :)', 11, 0, '4,4', 'sd=001&sh=002/148,98,32&lg=005/230,49,57&ch=201/255,255,255&lh=001/215,175,125&rh=001/215,175,125&hd=001/215,175,125&ey=001&fc=001/215,175,125&hr=506/103,78,59&rs=002/255,255,255&ls=002/255,255,255&bd=001/215,175,125', '6,0 7,0 8,0 9,0 10,0 11,0 12,0 6,1 7,1 8,1 9,1 10,1 11,1 12,1', 28, 'It\'s pretty cool working here, I must say|Maybe some day I will become a club member...|Who knew that someone like me would end up working here?', 'There you are!|Enjoy!|Here, take this!', 'Sorry? I didn\'t catch that|Hello there!|That\'s my name, don\'t wear it out', ''),
+(23, 'DJ von Beathoven', 'Turn the music up!', 18, 9, '4,4', 'sd=001&sh=001/36&lg=001&ch=005/163&lh=001/171,122,89&rh=001/171,122,89&hd=001/171,122,89&ey=001&fc=001/171,122,89&hr=931/255,255,255&rs=002/163&ls=002/163&bd=001/8', '17,7 17,8 17,9 18,8 18,9', 28, '', '', '', ''),
+(25, 'Ray', 'Chill out and have a coconut!', 1, 11, '2,2', 'sd=001&hd=001/236,214,186&fc=001/236,214,186&bd=001/236,214,186&rh=001/236,214,186&lh=001/236,214,186&hr=010/177,139,86&lg=001/103,70,54&sh=001/30,30,30&rs=002/255,255,255&ls=002/255,255,255&ch=700/255,255,255look=2,2', '1,9 1,10 1,11 1,12 2,9 2,10 2,11 2,12', 44, 'Official Fansite are voted by YOU, the Habbo community!|Did you know the Official Fansites are changed every 3 months?|If they aren\'t listed once you click the billboard then they aren\'t Official!|Once refreshed, visit an Official Fansite!|Click the billboard now to visit our Official Fansites!|Official Fansites have great events, comps and radio shows!', 'Refreshing!|Here you are, with extra coconut milk, only for you ;)|Here you go, hope you like the umbrella.|You sure are thirsty, huh?|You can only have one at a time!|That\'s my name! As in the beams of golden sunshine and not the sunglasses.|Hi my name is what? my name is who? my name is...ray', '', 'Cola,Coke,Coconut Milk'),
+(26, 'Amber', 'On the crest of a wave', 11, 2, '4,4', 'sd=001&sh=002/148,98,32&lg=200/120,66,21&ch=018/255,230,57&lh=001/215,175,125&rh=001/215,175,125&hd=001/215,175,125&ey=001&fc=001/215,175,125&hr=023/255,230,50&rs=003/255,230,57&ls=003/255,230,57&bd=001/215,175,125', '10,0 11,0 12,0 10,1 11,1 12,1 13,1 10,2 11,2 12,2 13,2', 26, 'Ask a guide for safety hints and tips. They have an guide badge.|P2S is giving your furni away!|I got this job by smiling sweetly at Redtiz for 40 minutes.|Be safe, not sorry! Learn to protect yourself|Quench it!|Glad to be of service!|Oh to be a star! Perhaps one day soon I\'ll be recognised?', 'This should quench your thirst!|\r\nThirst quenching, soul refreshing!', 'Hello, come for some safety tips? Ask a guide!', 'Water'),
+(27, 'Maarit', ':)', 11, 2, '4,4', 'sd=001&sh=001/255,115,41&lg=003/0,0,0&ch=018/0,0,0&lh=001/255,203,1522&rh=001/255,203,152&hd=001/255,203,152&ey=001&fc=001/255,203,152&hr=507/225,204,120&rs=001/255,255,255&ls=001/255,255,255&bd=001/255,255,255', '22,4 23,4 24,4 25,4 26,4 22,5 23,5 24,5 25,5 26,5', 19, '', '', '', ''),
+(28, 'Mr. DJ', 'Turn the music up!', 26, 10, '4,4', 'sd=001&sh=001/255,255,255&lg=006/255,255,255&ch=003/255,255,255&lh=001/145,98,55&rh=001/145,98,55&hd=001/145,98,55&ey=001&fc=001/145,98,55&hr=008/145,98,55&rs=002/255,255,255&ls=002/255,255,255&bd=001/8', '26,10 27,10 28,10', 60, '', '', '', ''),
+(29, 'Skye', 'On the top of the world', 3, 0, '4,4', 'sd=001&sh=002/148,98,32&lg=003/84,98,139&ch=022/97,114,164&lh=001/215,175,125&rh=001/215,175,125&hd=001/215,175,125&ey=001&fc=001/215,175,125&hr=503/235,240,163&rs=002/97,114,164&ls=002/97,114,164&bd=001/215,175,125', '1,0 2,0 3,0 4,0', 14, '', '', '', ''),
+(31, 'Jem', 'Don\'t look down', 1, 10, '2,2', 'sd=001&sh=002/255,115,131&lg=005/255,115,131&ch=015/255,189,189&lh=001/230,200,162&rh=001/230,200,162&hd=001/230,200,162&ey=002&fc=001/230,200,162&hr=501/165,90,24&hrb=501/2,3,4&rs=003/230,200,162&ls=003/230,200,162&bd=001/230,200,162', '0,8 0,9 0,10 0,11 0,12 0,13 1,8 1,9 1,10 1,11 1,12 1,13 1,14', 38, 'Quiet please, I\'m thinking#SHOUT|Purchase tickets at the machine by the pool.|It makes me dizzy to move too quickly!|Drink anyone?|Gerbils are good :)|Calm down|Habbo Staff making Habbos smile since 2001', 'There you go.', 'You calling? I\'m listening...|I\'m with ya...What\'s up?|Jem\'s the name, drinks are my game|That\'s my name, don\'t wear it out!', 'Water,Cola,Lemonade'),
+(32, 'Luigi', 'The master of bobbaa!', 1, 4, '4,4', 'sd=001&sh=001/255,0,0&lg=001/255,255,255&ch=995/255,255,255&lh=001/254,202,1508&rh=001/254,202,1508&hd=001/254,202,150&ey=001/254,202,150&fc=001/254,202,1508&hr=802/255,255,255&rs=002/255,255,255&ls=002/255,255,255&bd=001/254,202,150', '0,2 0,3 0,4 1,2 1,3 1,4', 15, '', '', '', ''),
+(33, 'Mario', 'Serving you with a smile :)', 1, 3, '4,4', 'sd=001&sh=001/255,0,0&lg=005/165,165,165&ch=017/255,255,255&lh=001/254,202,1508&rh=001/254,202,1508&hd=001/254,202,150&ey=001/254,202,150&fc=001/254,202,1508&hr=802/255,255,255&rs=002/255,255,255&ls=002/255,255,255&bd=001/254,202,150', '1,1 2,1 3,1 4,1 5,1', 15, '', '', '', ''),
+(38, 'Ingemar', 'Snowballs, schnowballs', 39, 18, '4,4', 'sd=001&sh=001/255,255,255&lg=006/255,255,255&ch=001/255,255,255&lh=001/145,98,55&rh=001/145,98,55&hd=001/215,175,125&ey=001&fc=001/145,98,55&ha=10/255,255,255&rs=001/255,255,255&ls=001/255,255,255&bd=001/255,203,152', '37,17 37,18 38,18 39,18 40,18', 67, 'You people are my best customer ever, I like you.|Somewhere in America, there\'s a street named after my dad|Snowballmachines give you snowballs fast|Use the scenery to your advantage', '', 'Watcha! Welcome to the coolest club in the whole hotel', ''),
+(39, 'Lofar', 'Service without gravity :)', 2, 0, '4,4', 'sd=001&sh=001/194,227,232&lg=001/255,255,255&ch=001/255,255,255&lh=001/240,213,179&rh=001/240,213,179&hd=001/240,213,179&ey=001/254,202,150&fc=001/240,213,179&hr=888/255,255,255&rs=001/255,255,255&ls=001/255,255,255&bd=001/240,213,179', '1,0 2,0 3,0 4,0 1,1 2,1 3,1 4,1', 12, 'This cafe is out of this world...|A space fish is usually called starfish.|I would have gone to space, but the cost is astronomical!|Two astronauts who were dating, met up for a launch date.|Becoming a space pilot is not easy. It requires a good altitude.', 'Here you go!|Drink up!|Here\'s what you asked for|Here\'s the %drink%', 'Sorry, I can\'t hear you in this space suit|What\'s that? Must be the lack of gravity', 'Water'),
+(40, 'Eric  ', ':)', 1, 15, '2,2', 'sd=001&sh=001/36&lg=201&ch=005/163,20,20&lh=001/171,122,89&rh=001/171,122,89&hd=001/171,122,89&ey=001&fc=001/171,122,89&hr=014/255,255,255&rs=002/163,20,20&ls=002/163,20,20&bd=001/8 look=2,2', '9,18 9,16 9,17 9,19 9,20 9,21 9,22 9,23 8,18 8,16 8,17 8,19 8,20 8,21 8,22 8,23', 6, 'Hmm - the lovely smell of coffee beans...', 'You look like you need this!', 'That\'s my name, don\'t wear it out!|Yes?|Hello there', ''),
+(41, 'Maya', 'Keeps you cool', 15, 3, '4,4', 'sd=001&sh=002/148,98,32&lg=005/230,49,57&ch=911/255,255,255&lh=001/215,175,125&rh=001/215,175,125&hd=001/215,175,125&ey=001&fc=001/215,175,125&hr=017/103,78,59&rs=002/255,255,255&ls=002/255,255,255&bd=001/215,175,125', '14,3 15,3', 31, '', '', '', ''),
+(42, 'ScubaJoe ', 'Relax, take a coconut', 22, 26, '2,2', 'sd=001&hd=001/201,143,113&fc=001/201,143,113&bd=001/201,143,113&rh=001/201,143,113&lh=001/201,143,113&hr=504/223,218,190&lg=201/230,49,57&sh=002/246,172,49&rs=003/201,143,113&ls=003/201,143,113&ch=501/246,172,49look=2,2', '22,24 23,24 22,25 23,25 22,26 23,26 22,27 23,27 22,28 23,28 22,29 23,29 22,30 23,30', 25, '', '', '', ''),
+(43, 'Tao', 'Tea is serenity', 10, 4, '4,4', 'sd=001&sh=001/36&lg=001&ch=002/163,20,20&lh=001/171,122,89&rh=001/171,122,89&hd=001/171,122,89&ey=001&fc=001/171,122,89&hr=791/255,255,255&rs=001/163,20,20&ls=001/163,20,20&bd=001/8', '8,2 9,2 10,2 11,2 8,3 9,3 10,3 11,3 8,4 9,4 10,4 11,4', 18, '', '', '', ''),
+(44, 'Harry', 'Happy to help', 8, 21, '2,2', 'sd=001&sh=003/41,41,41&lg=006/51,51,51&ch=202/139,24,32&lh=001/255,210,179&rh=001/255,210,179&hd=001/255,204,153&ey=001&fc=001/255,204,153&hr=203/103,78,59&hrb=203/2,3,4&rs=001/255,255,255&ls=001/255,255,255&bd=001/255,204,153', '9,18 9,16 9,17 9,19 9,20 9,21 9,22 9,23 8,18 8,16 8,17 8,19 8,20 8,21 8,22 8,23', 1, 'Please keep it down people are trying to think!#SHOUT|Only use the Call for help in an emergency!|Want to know more about Habbo Hotel? Ask a Habbo Guide!|Is it me or is something BIG about to happen?|In Trouble? Call for Moderator assistance using the Blue Question Mark!|There\'s no such thing as a free lunch or free credits!', 'Why Hello there! *Shakes Habbo Hand* My name\'s Harry.|Hello, Hello, Hello!|Hello and welcome to Habbo Hotel! Enjoy your stay! :)', 'Why Hello there! *Shakes Habbo Hand* My name\'s Harry.|Hello, Hello, Hello!|Hello and welcome to Habbo Hotel! Enjoy your stay! :)', ''),
+(45, 'Miho', 'My katana thinks you\'re cute!', 14, 25, '2,2', 'sd=001&sh=001/36&lg=200/204,204,204&ch=204/204,204,204&lh=001/215,175,125&rh=001/215,175,125&hd=001/215,175,125&ey=001&fc=001/215,175,125&hr=504/50,91,106&rs=002/204,204,204&ls=002/204,204,204&bd=001/8', '14,24 14,25', 27, 'Zen Garden is the ultimate in relaxation|Listen to the breeze blowing through the leaves|Welcome to my garden a place of quiet reflection...|Listen to the breeze blowing through the leaves...', 'I hope you make peace with this|Relax with this|Relaxation can be achieved this this', 'That is my name.|Say again - it\'s a bit noisy in here#WHISPER|You bring confusion to my mind, and pain to my ears...#WHISPER|', 'Water');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `rooms_categories`
 --
 
@@ -5890,12 +6081,12 @@ CREATE TABLE `rooms_categories` (
   `order_id` int(11) NOT NULL,
   `parent_id` int(11) NOT NULL,
   `isnode` int(11) DEFAULT 0,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) NOT NULL,
   `public_spaces` int(11) DEFAULT 0,
   `allow_trading` int(11) DEFAULT 0,
   `minrole_access` int(11) DEFAULT 1,
   `minrole_setflatcat` int(11) DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `rooms_categories`
@@ -5927,20 +6118,35 @@ INSERT INTO `rooms_categories` (`id`, `order_id`, `parent_id`, `isnode`, `name`,
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `rooms_events`
+--
+
+CREATE TABLE `rooms_events` (
+  `room_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `expire_time` bigint(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `rooms_models`
 --
 
 CREATE TABLE `rooms_models` (
   `id` int(11) NOT NULL,
-  `model_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `model_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `model_id` varchar(255) NOT NULL,
+  `model_name` varchar(255) DEFAULT NULL,
   `door_x` int(11) NOT NULL DEFAULT 0,
   `door_y` int(11) NOT NULL DEFAULT 0,
   `door_z` double NOT NULL,
   `door_dir` int(11) DEFAULT 2,
-  `heightmap` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `trigger_class` enum('flat_trigger','battleball_lobby_trigger','snowstorm_lobby_trigger','space_cafe_trigger','habbo_lido_trigger','rooftop_rumble_trigger','diving_deck_trigger','none') CHARACTER SET utf8 NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `heightmap` text NOT NULL,
+  `trigger_class` enum('flat_trigger','battleball_lobby_trigger','snowstorm_lobby_trigger','space_cafe_trigger','habbo_lido_trigger','rooftop_rumble_trigger','diving_deck_trigger','infobus_park','infobus_poll','none') NOT NULL DEFAULT 'flat_trigger'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `rooms_models`
@@ -5974,8 +6180,8 @@ INSERT INTO `rooms_models` (`id`, `model_id`, `model_name`, `door_x`, `door_y`, 
 (25, 'pub_a', 'pub_a', 15, 25, 0, 0, 'xxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxx2222222211111xxx|xxxxxxxxx2222222211111xxx|xxxxxxxxx2222222211111xxx|xxxxxxxxx2222222211111xxx|xxxxxxxxx2222222222111xxx|xxxxxxxxx2222222222111xxx|xxxxxxxxx2222222222000xxx|xxxxxxxxx2222222222000xxx|xxxxxxxxx2222222222000xxx|xxxxxxxxx2222222222000xxx|x333333332222222222000xxx|x333333332222222222000xxx|x333333332222222222000xxx|x333333332222222222000xxx|x333333332222222222000xxx|x333332222222222222000xxx|x333332222222222222000xxx|x333332222222222222000xxx|x333332222222222222000xxx|x333333332222222222000xxx|xxxxx31111112222222000xxx|xxxxx31111111000000000xxx|xxxxx31111111000000000xxx|xxxxx31111111000000000xxx|xxxxx31111111000000000xxx|xxxxxxxxxxxxxxx00xxxxxxxx|xxxxxxxxxxxxxxx00xxxxxxxx|xxxxxxxxxxxxxxx00xxxxxxxx|xxxxxxxxxxxxxxx00xxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxx', 'none'),
 (26, 'md_a', 'md_a', 3, 4, 7, 2, 'xxxxxxxx77xxxxxxxxxxxxxxxx|xxxxxxxx77xxxxxxxxxxxxxxxx|xxxxxx77777x77xxxxxxxxxxxx|xxx77777777777xxx44xxxxxxx|77777777777777xx444444444x|777777777777777xx44444444x|xxx777777777777xx44444444x|xxxx7777777777xxx44444444x|7777777777777777744448444x|7777777777777x4x744448444x|777777777777x444444448444x|7777777777774444444448444x|7777777777774444444448444x|777777777777x444444448444x|7777777777777x44444448444x|xxx777777777777x444448444x|xxx7777777777777444448444x|xxx7777777777777444448444x|xxx777777777777x444448444x|xxx77777777777x4444444444x|xxxx777777777444444444444x|xxxxxxxxxxxxxxxxxxxxxxxxxx', 'rooftop_rumble_trigger'),
 (27, 'picnic', 'picnic', 16, 5, 2, 4, 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xx22222xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|22xxxxxxxxxxxxx22xxxxxxxxxxxxxxxxxxxxx|2222222222222222222x222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222xxx222222222222222222222222|2222222222xx33x22222222222222222222222|222222222xx3333x2222222222222222222222|222222222x333333x222222222222222222222|222222222x333333x222222222222222222222|2222222222x3332x2222222222222222222222|22222222222x33x22222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222x22222xxxx22222222222222222222|22222222222222xxxx22222222222222222222|22222222222222xxx22222222X222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222', 'none'),
-(28, 'park_a', 'park_a', 2, 15, 0, 0, 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0xxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx00xxxxxxxxxxxx|xxxxxxxxxxxxx0x00xxxxxxxxxxx0x000xxxxxxxxxxx|xxxxxxxxxxxx0000000000000000000000xxxxxxxxxx|xxxxxxxxxxx000000000000000000000000xxxxxxxxx|xxxxxxxxxxx0000000000000000000000000xxxxxxxx|xxxxxxxxxxx00000000000000000000000000xxxxxxx|xxxxxxxx000000000000000000000000000000xxxxxx|xxxxxxx00000000000000000000000000000000xxxxx|xxxxxxx000000000000000000000000000000000xxxx|xxxxxxx0000000000000000000000000000000000xxx|xxxxxxxxx000000000000000000000000000000000xx|00000000000000000000xx00000000000000000000xx|0000000000000000000xxxx00000000000xxxxxxx0xx|0000000000000000000xxxx00000000000x00000xxxx|xxxxx00x0000000000xxxxx0xxxxxx0000x0000000xx|xxxxx0000000000000xxxxx0xx000x0000x000000xxx|xxxxx0000000000000xxxxx0x000000000x00000xxxx|xxxxx000000x0000000xxxx0x000000000xxx00xxxxx|xxxxxxxx000x0000000xxx00xxx000000x0000xxxxxx|xxxxxxxx000x000000xxxx0x0000000000000xxxxxxx|xxxxxxxx000x000000011100000000000000xxxxxxxx|xxxxxxxx000x00000001110000000000000xxxxxxxxx|xxxxxxxxx00x0000000111x00000000x00xxxxxxxxxx|xxxxxxxxxx0x0000000xxx0000000xxxxxxxxxxxxxxx|xxxxxxxxxxxx000000xxxx0000000xxxxxxxxxxxxxxx|xxxxxxxxxxxx000000xxx00xxxxx00xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx0xxx0xx000x00xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx0xxx0x000000xxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx0xxx0x00000xxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx0xxxxx00xxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx0xxxxx0xxxxxxxxxxxxxxxxxxxx', 'none'),
-(29, 'park_b', 'park_b', 11, 2, 0, 6, '0000x0000000|0000xx000000|000000000000|00000000000x|000000000000|00x0000x0000', 'none'),
+(28, 'park_a', 'park_a', 2, 15, 0, 0, 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0xxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx00xxxxxxxxxxxx|xxxxxxxxxxxxx0x00xxxxxxxxxxx0x000xxxxxxxxxxx|xxxxxxxxxxxx0000000000000000000000xxxxxxxxxx|xxxxxxxxxxx000000000000000000000000xxxxxxxxx|xxxxxxxxxxx0000000000000000000000000xxxxxxxx|xxxxxxxxxxx00000000000000000000000000xxxxxxx|xxxxxxxx000000000000000000000000000000xxxxxx|xxxxxxx00000000000000000000000000000000xxxxx|xxxxxxx000000000000000000000000000000000xxxx|xxxxxxx0000000000000000000000000000000000xxx|xxxxxxxxx000000000000000000000000000000000xx|00000000000000000000xx00000000000000000000xx|0000000000000000000xxxx00000000000xxxxxxx0xx|0000000000000000000xxxx00000000000x00000xxxx|xxxxx00x0000000000xxxxx0xxxxxx0000x0000000xx|xxxxx0000000000000xxxxx0xx000x0000x000000xxx|xxxxx0000000000000xxxxx0x000000000x00000xxxx|xxxxx000000x0000000xxxx0x000000000xxx00xxxxx|xxxxxxxx000x0000000xxx00xxx000000x0000xxxxxx|xxxxxxxx000x000000xxxx0x0000000000000xxxxxxx|xxxxxxxx000x000000011100000000000000xxxxxxxx|xxxxxxxx000x00000001110000000000000xxxxxxxxx|xxxxxxxxx00x0000000111x00000000x00xxxxxxxxxx|xxxxxxxxxx0x0000000xxx0000000xxxxxxxxxxxxxxx|xxxxxxxxxxxx000000xxxx0000000xxxxxxxxxxxxxxx|xxxxxxxxxxxx000000xxx00xxxxx00xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx0xxx0xx000x00xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx0xxx0x000000xxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx0xxx0x00000xxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx0xxxxx00xxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx0xxxxx0xxxxxxxxxxxxxxxxxxxx', 'infobus_park'),
+(29, 'park_b', 'park_b', 11, 2, 0, 6, '0000x0000000|0000xx000000|000000000000|00000000000x|000000000000|00x0000x0000', 'infobus_poll'),
 (30, 'pool_b', 'pool_b', 9, 21, 7, 1, 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx7xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx777xxxxxxxxxxx|xxxxxxxxxxxxxxxxxx8888888x7xxx77777xxxxxxxxxx|xxxxxxxxxxxxxxxxxx8888888x7xxx777777xxxxxxxxx|xxxxxxxxxxxxxxxx88xxxxx77x7x777777777xxxxxxxx|xxxxxxxxxxxxxxxx88x7777777777777777777xxxxxxx|xxxxxxxxxxxxxxxx88x77777777777777777777xxxxxx|xxxxxxxxxxxxxx9988x77777777777777777777xxxxxx|xxxxxxxxxxxxxx9988x7777777777777777777x00xxxx|xxxxxxxxxxxxxx9988x777777777777777777x0000xxx|xxxxxxxxxxxxxx9988x7777777x0000000000000000xx|xxxxxxxxxxxxxx9988x777777x000000000000000000x|7777777777xxxx9988777777x0x0000000000000000xx|x7777777777xxx998877777x000x00000000000000xxx|xx7777777777xx99887777x00000x000000000000xxxx|xxx7777777777x9988777x0000000x0000000000xxxxx|xxxx777777777x777777x00000000x000000000xxxxxx|xxxxx777777777777777000000000x00000000xxxxxxx|xxxxxx77777777777777000000000x0000000xxxxxxxx|xxxxxxx777777x7777770000000000xxxx00xxxxxxxxx|xxxxxxxx77777777777xx0000000000000xxxxxxxxxxx|xxxxxxxxx777777110000x000000000000xxxxxxxxxxx|xxxxxxxxxx7x77x1100000x0000000000xxxxxxxxxxxx|xxxxxxxxxxx777x11000000x00000000xxxxxxxxxxxxx|xxxxxxxxxxxx771110000000x000000xxxxxxxxxxxxxx|xxxxxxxxxxxxx111100000000x0000xxxxxxxxxxxxxxx|xxxxxxxxxxxxxx11100000000x000xxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxx1100000000x00xxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxx110000000x0xxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx110000000xxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxx1100000xxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxx11000xxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxx110xxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx1xxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', 'diving_deck_trigger'),
 (31, 'ballroom', 'ballroom', 13, 6, 0, 4, 'xxxx4444444444444444444|xxxx4444444444444444444|xxxx4444444444444444444|xxxx33x2222444442222x33|xxxx2222222x00xx2222222|xxxx22222220000x2222222|xxxx11x0000x000x0000x11|xxxx0000000000000000000|11100000000000000000000|11100000000000000000000|11100000000000000000000|xxxx0000000000000000000|22210000000000000000000|22210000000000000000000|22210000000000000000000|xxxx0000000000000000000|11100000000000000000000|11100000000000000000000|11100000000000000000000|xxxxx000x11111111x0000x|xxxxxx00x1111x111x000xx|xxxxxxx0x11111111x00xxx|xxxxxxxxx11111111x0xxxx|xxxxxxxxx11111111xxxxxx', 'none'),
 (32, 'cafe_gold0', 'cafe_gold0', 9, 29, 0, 0, 'xxxxxxxxxx1111xxxxxxx|xxxxxxxxxx11111xxxxxx|xxxxxxxxxx111111xxxxx|xx111111111111111xxxx|x11111111111111111xxx|1111111111111111111xx|11111111111111111111x|111111111111111111111|111111111111111111111|1111111111111x1111111|1111111000000x1111111|1111111000000x1111111|1111111000000x1111111|1111111000000x1111111|1111111000000x1111111|1111111000000x1111111|1111111000000x1111111|1111111000000x1111111|1111111000000x1111111|1111111000000xxx00000|111111100000000000000|111111100000000000000|111111100000000000000|111111100000000xxxxx0|11111110000000xxxxxx0|11111110000000xxxxxx0|11111110000000xxxxxxx|x1111110000000xxxxxxx|xxxxxxxx0000000000xxx|xxxxxxxx000xxxxxxxxxx|xxxxxxxx000xxxxxxxxxx|xxxxxxxx000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx', 'none'),
@@ -6046,7 +6252,21 @@ INSERT INTO `rooms_models` (`id`, `model_id`, `model_name`, `door_x`, `door_y`, 
 CREATE TABLE `rooms_rights` (
   `user_id` int(11) NOT NULL,
   `room_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `room_chatlogs`
+--
+
+CREATE TABLE `room_chatlogs` (
+  `user_id` int(11) NOT NULL,
+  `room_id` int(11) NOT NULL,
+  `timestamp` bigint(20) NOT NULL,
+  `chat_type` tinyint(1) NOT NULL,
+  `message` longtext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -6055,8 +6275,8 @@ CREATE TABLE `rooms_rights` (
 --
 
 CREATE TABLE `schema_migrations` (
-  `version` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `version` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `schema_migrations`
@@ -6132,9 +6352,9 @@ INSERT INTO `schema_migrations` (`version`) VALUES
 --
 
 CREATE TABLE `settings` (
-  `setting` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` text COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ''
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `setting` varchar(50) NOT NULL,
+  `value` text NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -6148,7 +6368,7 @@ CREATE TABLE `soundmachine_disks` (
   `slot_id` int(11) NOT NULL,
   `song_id` int(11) NOT NULL,
   `burned_at` bigint(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -6160,7 +6380,7 @@ CREATE TABLE `soundmachine_playlists` (
   `item_id` int(11) NOT NULL,
   `song_id` int(11) NOT NULL,
   `slot_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -6171,12 +6391,12 @@ CREATE TABLE `soundmachine_playlists` (
 CREATE TABLE `soundmachine_songs` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL DEFAULT 0,
-  `title` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(100) NOT NULL,
   `item_id` int(11) NOT NULL,
   `length` int(3) NOT NULL DEFAULT 0,
-  `data` text COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `data` text NOT NULL DEFAULT '',
   `burnt` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -6188,7 +6408,7 @@ CREATE TABLE `soundmachine_tracks` (
   `soundmachine_id` int(11) NOT NULL,
   `track_id` int(11) NOT NULL,
   `slot_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -6198,25 +6418,25 @@ CREATE TABLE `soundmachine_tracks` (
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `figure` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1000118001270012900121001',
-  `pool_figure` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `sex` char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'M',
-  `motto` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'de kepler whey',
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `figure` varchar(255) NOT NULL DEFAULT '1000118001270012900121001',
+  `pool_figure` varchar(255) NOT NULL,
+  `sex` char(1) NOT NULL DEFAULT 'M',
+  `motto` varchar(100) NOT NULL DEFAULT 'de kepler whey',
   `credits` int(11) NOT NULL DEFAULT 200,
   `tickets` int(11) NOT NULL DEFAULT 0,
   `film` int(11) NOT NULL DEFAULT 0,
   `rank` tinyint(1) UNSIGNED NOT NULL DEFAULT 1,
-  `console_motto` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'I''m a new user!',
+  `console_motto` varchar(100) NOT NULL DEFAULT 'I''m a new user!',
   `last_online` int(11) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `sso_ticket` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sso_ticket` varchar(255) DEFAULT NULL,
   `club_subscribed` bigint(11) NOT NULL DEFAULT 0,
   `club_expiration` bigint(11) NOT NULL DEFAULT 0,
   `club_gift_due` bigint(11) NOT NULL DEFAULT 0,
-  `badge` char(3) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `badge` char(3) NOT NULL DEFAULT '',
   `badge_active` tinyint(1) NOT NULL DEFAULT 1,
   `allow_stalking` tinyint(1) NOT NULL DEFAULT 1,
   `allow_friend_requests` tinyint(1) NOT NULL DEFAULT 1,
@@ -6224,7 +6444,7 @@ CREATE TABLE `users` (
   `tutorial_finished` tinyint(1) NOT NULL DEFAULT 0,
   `battleball_points` int(11) NOT NULL DEFAULT 0,
   `snowstorm_points` int(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -6234,8 +6454,21 @@ CREATE TABLE `users` (
 
 CREATE TABLE `users_badges` (
   `user_id` int(11) NOT NULL,
-  `badge` char(3) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `badge` char(3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users_bans`
+--
+
+CREATE TABLE `users_bans` (
+  `ban_type` enum('MACHINE_ID','IP_ADDRESS','USER_ID') NOT NULL,
+  `banned_value` varchar(250) NOT NULL,
+  `message` text NOT NULL,
+  `banned_until` bigint(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -6247,6 +6480,18 @@ CREATE TABLE `users_club_gifts` (
   `user_id` int(11) NOT NULL,
   `sprite` varchar(50) NOT NULL,
   `date_received` bigint(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users_ip_logs`
+--
+
+CREATE TABLE `users_ip_logs` (
+  `user_id` int(11) NOT NULL,
+  `ip_address` varchar(256) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -6269,7 +6514,7 @@ CREATE TABLE `users_mutes` (
 CREATE TABLE `users_room_favourites` (
   `room_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -6282,7 +6527,45 @@ CREATE TABLE `users_room_votes` (
   `room_id` int(11) NOT NULL,
   `vote` int(11) NOT NULL,
   `expire_time` bigint(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vouchers`
+--
+
+CREATE TABLE `vouchers` (
+  `voucher_code` varchar(100) NOT NULL,
+  `credits` int(11) NOT NULL DEFAULT 0,
+  `expiry_date` datetime DEFAULT NULL,
+  `is_single_use` tinyint(11) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vouchers_history`
+--
+
+CREATE TABLE `vouchers_history` (
+  `voucher_code` varchar(100) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `used_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `credits_redeemed` int(11) DEFAULT NULL,
+  `items_redeemed` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vouchers_items`
+--
+
+CREATE TABLE `vouchers_items` (
+  `voucher_code` varchar(100) NOT NULL,
+  `catalogue_sale_code` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
 
 --
 -- Indexes for dumped tables
@@ -6341,6 +6624,13 @@ ALTER TABLE `items_moodlight_presets`
   ADD PRIMARY KEY (`item_id`);
 
 --
+-- Indexes for table `items_pets`
+--
+ALTER TABLE `items_pets`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+
+--
 -- Indexes for table `items_photos`
 --
 ALTER TABLE `items_photos`
@@ -6380,11 +6670,24 @@ ALTER TABLE `rooms`
   ADD UNIQUE KEY `id` (`id`);
 
 --
+-- Indexes for table `rooms_bots`
+--
+ALTER TABLE `rooms_bots`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `rooms_categories`
 --
 ALTER TABLE `rooms_categories`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`);
+
+--
+-- Indexes for table `rooms_events`
+--
+ALTER TABLE `rooms_events`
+  ADD PRIMARY KEY (`room_id`),
+  ADD UNIQUE KEY `room_id` (`room_id`);
 
 --
 -- Indexes for table `rooms_models`
@@ -6432,6 +6735,24 @@ ALTER TABLE `users_badges`
   ADD KEY `users_badges_users_FK` (`user_id`);
 
 --
+-- Indexes for table `users_bans`
+--
+ALTER TABLE `users_bans`
+  ADD PRIMARY KEY (`banned_value`);
+
+--
+-- Indexes for table `vouchers`
+--
+ALTER TABLE `vouchers`
+  ADD UNIQUE KEY `voucher_code` (`voucher_code`);
+
+--
+-- Indexes for table `vouchers_items`
+--
+ALTER TABLE `vouchers_items`
+  ADD KEY `voucher_code` (`voucher_code`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -6463,7 +6784,13 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `items_definitions`
 --
 ALTER TABLE `items_definitions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1413;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1414;
+
+--
+-- AUTO_INCREMENT for table `items_pets`
+--
+ALTER TABLE `items_pets`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `messenger_messages`
@@ -6482,6 +6809,12 @@ ALTER TABLE `public_items`
 --
 ALTER TABLE `rooms`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1001;
+
+--
+-- AUTO_INCREMENT for table `rooms_bots`
+--
+ALTER TABLE `rooms_bots`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `rooms_categories`
