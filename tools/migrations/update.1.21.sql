@@ -135,14 +135,14 @@ INSERT INTO `games_player_spawns` (`type`, `map_id`, `team_id`, `x`, `y`, `rotat
 ('battleball', 4, 3, 21, 10, 6);
 
 CREATE TABLE `vouchers` (
-  `voucher_code` varchar(255) NOT NULL,
+  `voucher_code` varchar(100) NOT NULL,
   `credits` int(11) NOT NULL DEFAULT 0,
   `expiry_date` datetime DEFAULT NULL,
   `is_single_use` tinyint(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
 
 CREATE TABLE `vouchers_history` (
-  `voucher_code` varchar(255) NOT NULL,
+  `voucher_code` varchar(100) NOT NULL,
   `user_id` int(11) NOT NULL,
   `used_at` datetime NOT NULL DEFAULT current_timestamp(),
   `credits_redeemed` int(11) DEFAULT NULL,
@@ -150,8 +150,8 @@ CREATE TABLE `vouchers_history` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
 
 CREATE TABLE `vouchers_items` (
-  `voucher_code` varchar(255) NOT NULL,
-  `item_definition_id` int(11) NOT NULL
+  `voucher_code` varchar(100) NOT NULL,
+  `catalogue_sale_code` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
 
 ALTER TABLE `vouchers`
