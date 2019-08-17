@@ -75,7 +75,7 @@ public class Kepler {
                     " |_|\\_\\___| .__/|_|\\___|_|   \n" +
                     "          |_|                ");
 
-            log.info("Kepler - Habbo Hotel V21 Emulation");
+            log.info("Kepler - Habbo Hotel Emulation (max version supported: v26)");
 
             if (!Storage.connect()) {
                 return;
