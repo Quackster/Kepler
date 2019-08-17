@@ -16,8 +16,6 @@ public class PublicItemParser {
         List<String> randomPublicId = new ArrayList<>();
         Map<String, InteractionType> itemTriggerMap = new HashMap<>();
 
-        itemTriggerMap.put("poolExit", InteractionType.POOL_EXIT);
-        itemTriggerMap.put("poolEnter", InteractionType.POOL_ENTER);
         itemTriggerMap.put("poolLift", InteractionType.POOL_LIFT);
         itemTriggerMap.put("poolBooth", InteractionType.POOL_BOOTH);
         itemTriggerMap.put("queue_tile2", InteractionType.POOL_QUEUE);
