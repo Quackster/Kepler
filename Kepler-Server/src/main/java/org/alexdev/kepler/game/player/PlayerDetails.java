@@ -125,6 +125,7 @@ public class PlayerDetails {
         this.id = id;
         this.username = username;
         this.figure = figure;
+        this.poolFigure = "";
         this.motto = motto;
         this.sex = sex.toLowerCase().equals("f") ? 'F' : 'M';
     }
