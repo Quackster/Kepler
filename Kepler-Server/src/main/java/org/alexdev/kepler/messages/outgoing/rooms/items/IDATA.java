@@ -30,7 +30,9 @@ public class IDATA extends PlayerMessageComposer {
                 response.write(this.text);
             } else {
                 response.writeDelimeter(this.item.getId(), (char) 9);
-                response.write(this.item.getId() + " " + item.getCustomData());
+                response.writeDelimeter(this.item.getId(), ' ');
+                response.writeDelimeter(this.item.getOwnerId(), ' ');
+                response.write(this.item.getCustomData());
             }
         } else {
             if (this.item.hasBehaviour(ItemBehaviour.POST_IT)) {

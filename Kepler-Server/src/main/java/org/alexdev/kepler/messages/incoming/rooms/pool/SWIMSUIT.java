@@ -23,6 +23,11 @@ public class SWIMSUIT implements MessageEvent {
         }
 
         String swimsuit = reader.contents();
+
+        if (swimsuit == null || swimsuit.isBlank()) {
+            swimsuit = "";
+        }
+
         player.getDetails().setPoolFigure(swimsuit);
 
         room.send(new USER_OBJECTS(player));
