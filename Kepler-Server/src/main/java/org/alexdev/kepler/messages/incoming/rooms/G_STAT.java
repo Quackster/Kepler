@@ -18,6 +18,7 @@ import org.alexdev.kepler.messages.outgoing.games.SNOWSTORM_FULLGAMESTATUS;
 import org.alexdev.kepler.messages.outgoing.rooms.items.DICE_VALUE;
 import org.alexdev.kepler.messages.outgoing.rooms.items.SHOWPROGRAM;
 import org.alexdev.kepler.messages.outgoing.rooms.items.STUFFDATAUPDATE;
+import org.alexdev.kepler.messages.outgoing.rooms.user.USER_OBJECTS;
 import org.alexdev.kepler.messages.outgoing.rooms.user.USER_STATUSES;
 import org.alexdev.kepler.messages.outgoing.rooms.user.YOUARESPECTATOR;
 import org.alexdev.kepler.messages.types.MessageEvent;
@@ -56,7 +57,9 @@ public class G_STAT implements MessageEvent {
             room.refreshRights(player);
         }
 
+        room.send(new USER_OBJECTS(player), List.of(player));
         player.send(new USER_STATUSES(room.getEntities()));
+
         player.getRoomUser().setNeedsUpdate(true);
 
         for (Item item : room.getItems()) {

@@ -62,13 +62,27 @@ public class Room {
         this.votes = new ConcurrentHashMap<>();
     }
 
+
     /**
      * Send a packet to all players.
      *
      * @param composer the message composer packet
      */
     public void send(MessageComposer composer) {
+        this.send(composer, List.of());
+    }
+
+    /**
+     * Send a packet to all players but excludes to certain players when given a list
+     *
+     * @param composer the message composer packet
+     */
+    public void send(MessageComposer composer, List<Player> playerList) {
         for (Player player : this.roomEntityManager.getPlayers()) {
+            if (playerList.contains(player)) {
+                continue;
+            }
+
             player.send(composer);
         }
     }
