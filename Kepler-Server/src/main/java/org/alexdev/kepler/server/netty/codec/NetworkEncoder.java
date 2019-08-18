@@ -22,46 +22,50 @@ public class NetworkEncoder extends MessageToMessageEncoder<Object> {
     protected void encode(ChannelHandlerContext ctx, Object obj, List<Object> out) throws Exception {
         ByteBuf buffer = ctx.alloc().buffer();
 
-        if (obj instanceof MessageComposer) {
-            MessageComposer msg = (MessageComposer) obj;
+        try {
+            if (obj instanceof MessageComposer) {
+                MessageComposer msg = (MessageComposer) obj;
 
-            if (obj instanceof PlayerMessageComposer) {
-                Player player = ctx.channel().attr(Player.PLAYER_KEY).get();
-                PlayerMessageComposer playerMessageComposer = (PlayerMessageComposer) obj;
-                playerMessageComposer.setPlayer(player);
-            }
-
-            NettyResponse response = new NettyResponse(msg.getHeader(), buffer);
-
-            try {
-                msg.compose(response);
-            } catch (Exception ex) {
-                Player player = ctx.channel().attr(Player.PLAYER_KEY).get();
-
-                String name = "";
-
-                if (player != null && player.isLoggedIn()) {
-                    name = player.getDetails().getName();
+                if (obj instanceof PlayerMessageComposer) {
+                    Player player = ctx.channel().attr(Player.PLAYER_KEY).get();
+                    PlayerMessageComposer playerMessageComposer = (PlayerMessageComposer) obj;
+                    playerMessageComposer.setPlayer(player);
                 }
 
-                Log.getErrorLogger().error("Error occurred when composing (" + response.getHeader() + ") for user (" + name + "):", ex);
-                return;
+                NettyResponse response = new NettyResponse(msg.getHeader(), buffer);
+
+                try {
+                    msg.compose(response);
+                } catch (Exception ex) {
+                    Player player = ctx.channel().attr(Player.PLAYER_KEY).get();
+
+                    String name = "";
+
+                    if (player != null && player.isLoggedIn()) {
+                        name = player.getDetails().getName();
+                    }
+
+                    Log.getErrorLogger().error("Error occurred when composing (" + response.getHeader() + ") for user (" + name + "):", ex);
+                    return;
+                }
+
+                if (!response.isFinalised()) {
+                    buffer.writeByte(1);
+                    response.setFinalised(true);
+                }
+
+                if (ServerConfiguration.getBoolean("log.sent.packets")) {
+                    log.info("SENT: {} / {}", msg.getHeader(), response.getBodyString());
+                }
             }
 
-            if (!response.isFinalised()) {
-                buffer.writeByte(1);
-                response.setFinalised(true);
+            if (obj instanceof String) {
+                buffer.writeBytes(((String) obj).getBytes());
             }
 
-            if (ServerConfiguration.getBoolean("log.sent.packets")) {
-                log.info("SENT: {} / {}", msg.getHeader(), response.getBodyString());
-            }
+            out.add(buffer);
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-
-        if (obj instanceof String) {
-            buffer.writeBytes(((String) obj).getBytes());
-        }
-
-        out.add(buffer);
     }
 }

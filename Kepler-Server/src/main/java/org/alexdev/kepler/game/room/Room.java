@@ -26,6 +26,7 @@ import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.util.config.GameConfiguration;
 import org.alexdev.kepler.util.schedule.FutureRunnable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -69,7 +70,7 @@ public class Room {
      * @param composer the message composer packet
      */
     public void send(MessageComposer composer) {
-        this.send(composer, List.of());
+        this.send(composer, new ArrayList<>());
     }
 
     /**
@@ -79,10 +80,6 @@ public class Room {
      */
     public void send(MessageComposer composer, List<Player> playerList) {
         for (Player player : this.roomEntityManager.getPlayers()) {
-            if (playerList.contains(player)) {
-                continue;
-            }
-
             player.send(composer);
         }
     }

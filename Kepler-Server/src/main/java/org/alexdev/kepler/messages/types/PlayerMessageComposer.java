@@ -20,10 +20,6 @@ public abstract class PlayerMessageComposer extends MessageComposer {
      * @param player the player
      */
     public void setPlayer(Player player) throws Exception {
-        if (this.player != null) {
-            throw new Exception("The player has already been set!");
-        }
-
         this.player = player;
     }
 }
