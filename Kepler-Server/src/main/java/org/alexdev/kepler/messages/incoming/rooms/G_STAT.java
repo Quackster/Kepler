@@ -50,7 +50,6 @@ public class G_STAT implements MessageEvent {
         }
 
         Room room = player.getRoomUser().getRoom();
-        room.getEntityManager().tryRoomEntry(player);
 
         // Only refresh rights when in private room
         if (!room.isPublicRoom()) {
@@ -58,8 +57,9 @@ public class G_STAT implements MessageEvent {
         }
 
         room.send(new USER_OBJECTS(player), List.of(player));
-        player.send(new USER_STATUSES(room.getEntities()));
+        room.getEntityManager().tryRoomEntry(player);
 
+        player.send(new USER_STATUSES(room.getEntities()));
         player.getRoomUser().setNeedsUpdate(true);
 
         for (Item item : room.getItems()) {
