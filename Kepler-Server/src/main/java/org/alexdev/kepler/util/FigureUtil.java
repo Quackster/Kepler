@@ -6,7 +6,6 @@ public class FigureUtil {
             return figure;
         }
 
-        System.out.println("hmmmm!");
         return figure;
     }
 }
