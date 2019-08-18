@@ -93,6 +93,13 @@ public class CatalogueManager {
         Item item = new Item();
         item.setOwnerId(player.getDetails().getId());
         item.setDefinitionId(def.getId());
+
+        if (def.getInteractionType() == InteractionType.PET_NEST) {
+            if (extraData != null) {
+                item.setDefinitionId(ItemManager.getInstance().getDefinitionBySprite("nest").getId());
+            }
+        }
+
         item.setCustomData(customData);
 
         ItemDao.newItem(item);
@@ -122,7 +129,6 @@ public class CatalogueManager {
 
         if (def.getInteractionType() == InteractionType.PET_NEST) {
             if (extraData != null) {
-                item.setDefinitionId(ItemManager.getInstance().getDefinitionBySprite("nest").getId());
                 String[] petData = extraData.split(Character.toString((char) 2));
                 String name = StringUtil.filterInput(petData[0], true);
                 String type = def.getSprite().replace("pets", "");
