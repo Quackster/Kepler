@@ -32,11 +32,7 @@ public class PoolLiftInteractor extends GenericTrigger {
     }
 
     @Override
-    public void onEntityLeave(Entity entity, RoomEntity roomEntity, Item item, Object... customArgs) {
-        if (roomEntity.isWalking()) {
-            return;
-        }
-
+    public void onEntityLeave(Entity entity, RoomEntity roomEntity, Item item) {
         item.showProgram("open");
     }
 }

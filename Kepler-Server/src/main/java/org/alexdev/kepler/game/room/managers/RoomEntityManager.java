@@ -1,5 +1,6 @@
 package org.alexdev.kepler.game.room.managers;
 
+import android.os.SystemPropertiesProto;
 import org.alexdev.kepler.dao.mysql.ItemDao;
 import org.alexdev.kepler.dao.mysql.RoomDao;
 import org.alexdev.kepler.dao.mysql.RoomRightsDao;
@@ -280,14 +281,14 @@ public class RoomEntityManager {
             return;
         }
 
-        this.room.getEntities().remove(entity);
-
         // Set up trigger for leaving a current item
         if (entity.getRoomUser().getCurrentItem() != null) {
             if (entity.getRoomUser().getCurrentItem().getDefinition().getInteractionType().getTrigger() != null) {
                 entity.getRoomUser().getCurrentItem().getDefinition().getInteractionType().getTrigger().onEntityLeave(entity, entity.getRoomUser(), entity.getRoomUser().getCurrentItem());
             }
         }
+
+        this.room.getEntities().remove(entity);
 
         // Trigger for leaving room
         if (this.room.getModel().getModelTrigger() != null) {
@@ -308,13 +309,6 @@ public class RoomEntityManager {
                 nextTile.removeEntity(entity);
             }
         }
-
-        // Handle the room logic behind the entity removal
-        this.room.getData().setVisitorsNow(this.room.getEntityManager().getPlayers().size());
-        this.room.send(new LOGOUT(entity.getRoomUser().getInstanceId()));
-        this.room.tryDispose();
-
-        entity.getRoomUser().reset();
 
         // From this point onwards we send packets for the user to leave
         this.room.getData().setVisitorsNow(this.room.getEntityManager().getPlayers().size());

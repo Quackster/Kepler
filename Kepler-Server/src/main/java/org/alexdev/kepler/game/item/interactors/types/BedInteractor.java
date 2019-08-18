@@ -50,11 +50,6 @@ public class BedInteractor extends GenericTrigger {
         roomEntity.setNeedsUpdate(true);
     }
 
-    @Override
-    public void onEntityLeave(Entity entity, RoomEntity roomEntity, Item item, Object... customArgs) {
-
-    }
-
     /**
      * Converts any coordinate within the bed dimensions to the closest pillow.
      *

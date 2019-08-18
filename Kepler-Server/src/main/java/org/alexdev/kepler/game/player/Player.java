@@ -311,19 +311,23 @@ public class Player extends Entity {
      */
     @Override
     public void dispose() {
-        if (this.loggedIn) {
-            if (this.roomEntity.getRoom() != null) {
-                this.roomEntity.getRoom().getEntityManager().leaveRoom(this, false);
+        try {
+            if (this.loggedIn) {
+                if (this.roomEntity.getRoom() != null) {
+                    this.roomEntity.getRoom().getEntityManager().leaveRoom(this, false);
+                }
+
+                PlayerDao.saveLastOnline(this.getDetails());
+                PlayerManager.getInstance().removePlayer(this);
+
+                this.messenger.sendStatusUpdate();
             }
 
-            PlayerDao.saveLastOnline(this.getDetails());
-            PlayerManager.getInstance().removePlayer(this);
-            
-            this.messenger.sendStatusUpdate();
+            this.disconnected = true;
+            this.loggedIn = false;
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-
-        this.disconnected = true;
-        this.loggedIn = false;
     }
 
     public Set<String> getIgnoredList() {

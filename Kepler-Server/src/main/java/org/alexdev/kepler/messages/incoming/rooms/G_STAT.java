@@ -50,7 +50,6 @@ public class G_STAT implements MessageEvent {
         }
 
         Room room = player.getRoomUser().getRoom();
-        room.getEntityManager().tryRoomEntry(player);
 
         // Only refresh rights when in private room
         if (!room.isPublicRoom()) {

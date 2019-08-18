@@ -29,10 +29,9 @@ public class SWIMSUIT implements MessageEvent {
         }
 
         player.getDetails().setPoolFigure(swimsuit);
+        PlayerDao.saveDetails(player.getDetails());
 
         room.send(new USER_OBJECTS(player));
         PoolHandler.exitBooth(player);
-
-        PlayerDao.saveDetails(player.getDetails());
     }
 }

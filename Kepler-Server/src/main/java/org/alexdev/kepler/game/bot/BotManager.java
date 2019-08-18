@@ -5,6 +5,7 @@ import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.tasks.BotTask;
+import org.alexdev.kepler.util.config.GameConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,10 @@ public class BotManager {
      * @param room the room to add the bots to
      */
     public void addBots(Room room) {
+        if (!GameConfiguration.getInstance().getBoolean("room.bots.enabled")) {
+            return;
+        }
+
         List<BotData> botDataList = BotDao.getBotData(room.getId());
 
         for (BotData botData : botDataList) {

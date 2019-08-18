@@ -27,8 +27,8 @@ public class BattleShipsTrigger extends GameTrigger {
     }
 
     @Override
-    public void onEntityLeave(Entity entity, RoomEntity roomEntity, Item item, Object... customArgs) {
-        super.onEntityLeave(entity, roomEntity, item, customArgs);
+    public void onEntityLeave(Entity entity, RoomEntity roomEntity, Item item) {
+        super.onEntityLeave(entity, roomEntity, item);
     }
 
     /**

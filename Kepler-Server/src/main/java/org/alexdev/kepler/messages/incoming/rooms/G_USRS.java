@@ -18,8 +18,8 @@ public class G_USRS implements MessageEvent {
         }
 
         Room room = player.getRoomUser().getRoom();
+        room.getEntityManager().tryRoomEntry(player);
 
         player.send(new USER_OBJECTS(room.getEntities()));
-        room.send(new USER_OBJECTS(player));
     }
 }

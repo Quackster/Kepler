@@ -107,7 +107,7 @@ public class PoolHandler {
             }
 
             if (player.getRoomUser().getPosition().getX() == 9) {
-                player.getRoomUser().walkTo(9, 9);
+                player.getRoomUser().walkTo(9, 2);
             }
         }
     }

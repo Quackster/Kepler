@@ -46,10 +46,5 @@ public class PoolQueueInteractor extends GenericTrigger {
         // When they stop walking, check if the player is on a pool lido queue and walk to the next one
         StatusTask.processPoolQueue(player);
     }
-
-    @Override
-    public void onEntityLeave(Entity entity, RoomEntity roomEntity, Item item, Object... customArgs) {
-
-    }
 }
 
