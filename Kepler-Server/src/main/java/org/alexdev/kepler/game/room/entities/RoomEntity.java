@@ -331,67 +331,74 @@ public abstract class RoomEntity {
             return;
         }
 
-        DrinkType[] drinks = new DrinkType[26];
-        drinks[1] = DrinkType.DRINK;  // Tea
-        drinks[2] = DrinkType.DRINK;  // Juice
-        drinks[3] = DrinkType.EAT;    // Carrot
-        drinks[4] = DrinkType.EAT;    // Ice-cream
-        drinks[5] = DrinkType.DRINK;  // Milk
-        drinks[6] = DrinkType.DRINK;  // Blackcurrant
-        drinks[7] = DrinkType.DRINK;  // Water
-        drinks[8] = DrinkType.DRINK;  // Regular
-        drinks[9] = DrinkType.DRINK;  // Decaff
-        drinks[10] = DrinkType.DRINK; // Latte
-        drinks[11] = DrinkType.DRINK; // Mocha
-        drinks[12] = DrinkType.DRINK; // Macchiato
-        drinks[13] = DrinkType.DRINK; // Espresso
-        drinks[14] = DrinkType.DRINK; // Filter
-        drinks[15] = DrinkType.DRINK; // Iced
-        drinks[16] = DrinkType.DRINK; // Cappuccino
-        drinks[17] = DrinkType.DRINK; // Java
-        drinks[18] = DrinkType.DRINK; // Tap
-        drinks[19] = DrinkType.DRINK; // H*bbo Cola
-        drinks[20] = DrinkType.ITEM;  // Camera
-        drinks[21] = DrinkType.EAT;   // Hamburger
-        drinks[22] = DrinkType.DRINK; // Lime H*bbo Soda
-        drinks[23] = DrinkType.DRINK; // Beetroot H*bbo Soda
-        drinks[24] = DrinkType.DRINK; // Bubble juice from 1999
-        drinks[25] = DrinkType.DRINK; // Lovejuice
-
-        // Public rooms send the localised handitem name instead of the drink ID
-        if (carryName != null) {
-            for (int i = 0; i <= 25; i++) {
-                String externalDrinkName = TextsManager.getInstance().getValue("handitem" + i);
-
-                if (externalDrinkName != null && externalDrinkName.equals(carryName)) {
-                    carryId = i;
-                }
-            }
-        }
-
-        // Not a valid drink ID
-        if (carryId <= 0 || carryId > 25) {
-            return;
-        }
 
         StatusType carryStatus = null;
         StatusType useStatus = null;
 
-        DrinkType type = drinks[carryId];
+        if (carryId != -1) {
+            DrinkType[] drinks = new DrinkType[26];
+            drinks[1] = DrinkType.DRINK;  // Tea
+            drinks[2] = DrinkType.DRINK;  // Juice
+            drinks[3] = DrinkType.EAT;    // Carrot
+            drinks[4] = DrinkType.EAT;    // Ice-cream
+            drinks[5] = DrinkType.DRINK;  // Milk
+            drinks[6] = DrinkType.DRINK;  // Blackcurrant
+            drinks[7] = DrinkType.DRINK;  // Water
+            drinks[8] = DrinkType.DRINK;  // Regular
+            drinks[9] = DrinkType.DRINK;  // Decaff
+            drinks[10] = DrinkType.DRINK; // Latte
+            drinks[11] = DrinkType.DRINK; // Mocha
+            drinks[12] = DrinkType.DRINK; // Macchiato
+            drinks[13] = DrinkType.DRINK; // Espresso
+            drinks[14] = DrinkType.DRINK; // Filter
+            drinks[15] = DrinkType.DRINK; // Iced
+            drinks[16] = DrinkType.DRINK; // Cappuccino
+            drinks[17] = DrinkType.DRINK; // Java
+            drinks[18] = DrinkType.DRINK; // Tap
+            drinks[19] = DrinkType.DRINK; // H*bbo Cola
+            drinks[20] = DrinkType.ITEM;  // Camera
+            drinks[21] = DrinkType.EAT;   // Hamburger
+            drinks[22] = DrinkType.DRINK; // Lime H*bbo Soda
+            drinks[23] = DrinkType.DRINK; // Beetroot H*bbo Soda
+            drinks[24] = DrinkType.DRINK; // Bubble juice from 1999
+            drinks[25] = DrinkType.DRINK; // Lovejuice
 
-        if (type == DrinkType.DRINK) {
+            // Public rooms send the localised handitem name instead of the drink ID
+            if (carryName != null) {
+                for (int i = 0; i <= 25; i++) {
+                    String externalDrinkName = TextsManager.getInstance().getValue("handitem" + i);
+
+                    if (externalDrinkName != null && externalDrinkName.equals(carryName)) {
+                        carryId = i;
+                    }
+                }
+            }
+
+            // Not a valid drink ID
+            if (carryId <= 0 || carryId > 25) {
+                return;
+            }
+
+            DrinkType type = drinks[carryId];
+
+            if (type == DrinkType.DRINK) {
+                carryStatus = StatusType.CARRY_DRINK;
+                useStatus = StatusType.USE_DRINK;
+            }
+
+            if (type == DrinkType.EAT) {
+                carryStatus = StatusType.CARRY_FOOD;
+                useStatus = StatusType.USE_FOOD;
+            }
+
+            if (type == DrinkType.ITEM) {
+                carryStatus = StatusType.CARRY_ITEM;
+                useStatus = StatusType.USE_ITEM;
+            }
+        } else {
             carryStatus = StatusType.CARRY_DRINK;
             useStatus = StatusType.USE_DRINK;
-        }
 
-        if (type == DrinkType.EAT) {
-            carryStatus = StatusType.CARRY_FOOD;
-            useStatus = StatusType.USE_FOOD;
-        }
-
-        if (type == DrinkType.ITEM) {
-            carryStatus = StatusType.CARRY_ITEM;
-            useStatus = StatusType.USE_ITEM;
         }
 
         this.removeStatus(StatusType.CARRY_ITEM);
@@ -399,10 +406,14 @@ public abstract class RoomEntity {
         this.removeStatus(StatusType.CARRY_DRINK);
         this.removeStatus(StatusType.DANCE);
 
-        if (carryStatus != StatusType.CARRY_ITEM) {
-            this.setStatus(carryStatus, carryId, GameConfiguration.getInstance().getInteger("carry.timer.seconds"), useStatus, 12, 1);
+        if (carryId != -1) {
+            if (carryStatus != StatusType.CARRY_ITEM) {
+                this.setStatus(carryStatus, carryId, GameConfiguration.getInstance().getInteger("carry.timer.seconds"), useStatus, 12, 1);
+            } else {
+                this.setStatus(carryStatus, carryId); // Use camera for infinite time, don't switch between using and holding item.
+            }
         } else {
-            this.setStatus(carryStatus, carryId); // Use camera for infinite time, don't switch between using and holding item.
+            this.setStatus(carryStatus, carryName, GameConfiguration.getInstance().getInteger("carry.timer.seconds"), useStatus, 12, 1);
         }
 
         this.needsUpdate = true;
