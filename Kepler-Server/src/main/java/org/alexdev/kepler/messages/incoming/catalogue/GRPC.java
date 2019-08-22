@@ -92,6 +92,7 @@ public class GRPC implements MessageEvent {
             }
 
             extraData = extraData.replace(Item.PRESENT_DELIMETER, "");
+            presentNote = presentNote.replace(Item.PRESENT_DELIMETER, "");
 
             Item present = new Item();
             present.setOwnerId(receivingUserDetails.getId());
