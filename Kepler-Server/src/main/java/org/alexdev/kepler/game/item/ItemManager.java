@@ -2,6 +2,7 @@ package org.alexdev.kepler.game.item;
 
 import org.alexdev.kepler.dao.mysql.ItemDao;
 import org.alexdev.kepler.dao.mysql.SongMachineDao;
+import org.alexdev.kepler.game.catalogue.CatalogueManager;
 import org.alexdev.kepler.game.item.base.ItemDefinition;
 import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.song.Song;
@@ -30,14 +31,22 @@ public class ItemManager {
      * @param saleCode the sprite to give
      * @return the item as gift
      */
-    public Item createGift(PlayerDetails playerDetails, String saleCode, String presentLabel) {
+    public Item createGift(PlayerDetails playerDetails, String saleCode, String presentLabel, String extraData, boolean isRecycled) {
+        ItemDefinition itemDef = null;
+
+        if (isRecycled) {
+            itemDef = ItemManager.getInstance().getDefinitionBySprite("ecotron_box");
+        } else {
+            itemDef = ItemManager.getInstance().getDefinitionBySprite("present_gen" + ThreadLocalRandom.current().nextInt(1, 7));
+        }
+
         Item item = new Item();
-        item.setDefinitionId(ItemManager.getInstance().getDefinitionBySprite("present_gen" + ThreadLocalRandom.current().nextInt(1, 7)).getId());
+        item.setDefinitionId(itemDef.getId());
         item.setOwnerId(playerDetails.getId());
-        item.setCustomData(saleCode +
+        item.setCustomData(CatalogueManager.getInstance().getCatalogueItem(saleCode).getId() +
                 Item.PRESENT_DELIMETER + playerDetails.getName() +
-                Item.PRESENT_DELIMETER + presentLabel + //From Habbo" +
-                Item.PRESENT_DELIMETER +
+                Item.PRESENT_DELIMETER + presentLabel.replace(Item.PRESENT_DELIMETER, "") + //From Habbo" +
+                Item.PRESENT_DELIMETER + extraData.replace(Item.PRESENT_DELIMETER, "") +
                 Item.PRESENT_DELIMETER + DateUtil.getCurrentTimeSeconds());
 
         try {
