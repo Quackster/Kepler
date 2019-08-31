@@ -1,6 +1,5 @@
 package org.alexdev.kepler.game.games;
 
-import org.alexdev.kepler.dao.mysql.GameDao;
 import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.games.battleball.events.PlayerMoveEvent;
 import org.alexdev.kepler.game.games.enums.GameState;
@@ -19,7 +18,9 @@ import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.util.config.GameConfiguration;
 import org.alexdev.kepler.util.schedule.FutureRunnable;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
@@ -228,11 +229,8 @@ public abstract class Game {
             p.getPlayer().getRoomUser().setWalkingAllowed(false);
         }
 
-        // Save all users' points
         if (this.canIncreasePoints()) {
-            for (GamePlayer p : this.getPlayers()) {
-                GameDao.increasePoints(p.getPlayer().getDetails(), this.gameType, p.getScore());
-            }
+            CompletableFuture.runAsync(new GameFinishTask(this.gameType, this.getPlayers(), this.getTeams()));
         }
 
         // Send scores to everybody
