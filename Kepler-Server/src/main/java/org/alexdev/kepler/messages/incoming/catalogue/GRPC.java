@@ -1,14 +1,14 @@
 package org.alexdev.kepler.messages.incoming.catalogue;
 
-import org.alexdev.kepler.dao.mysql.*;
-import org.alexdev.kepler.game.catalogue.*;
+import org.alexdev.kepler.dao.mysql.CurrencyDao;
+import org.alexdev.kepler.dao.mysql.PlayerDao;
+import org.alexdev.kepler.game.catalogue.CatalogueItem;
+import org.alexdev.kepler.game.catalogue.CatalogueManager;
+import org.alexdev.kepler.game.catalogue.CataloguePage;
+import org.alexdev.kepler.game.catalogue.RareManager;
+import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.ItemManager;
-import org.alexdev.kepler.game.item.base.ItemBehaviour;
-import org.alexdev.kepler.game.item.base.ItemDefinition;
-import org.alexdev.kepler.game.fuserights.Fuseright;
-import org.alexdev.kepler.game.item.interactors.InteractionType;
-import org.alexdev.kepler.game.pets.PetManager;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.player.PlayerManager;
@@ -16,19 +16,15 @@ import org.alexdev.kepler.game.texts.TextsManager;
 import org.alexdev.kepler.messages.outgoing.catalogue.NO_CREDITS;
 import org.alexdev.kepler.messages.outgoing.rooms.items.ITEM_DELIVERED;
 import org.alexdev.kepler.messages.outgoing.user.ALERT;
-import org.alexdev.kepler.messages.outgoing.user.currencies.CREDIT_BALANCE;
-import org.alexdev.kepler.messages.outgoing.user.currencies.FILM;
 import org.alexdev.kepler.messages.outgoing.user.NO_USER_FOUND;
+import org.alexdev.kepler.messages.outgoing.user.currencies.CREDIT_BALANCE;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 import org.alexdev.kepler.util.DateUtil;
 import org.alexdev.kepler.util.StringUtil;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class GRPC implements MessageEvent {
     @Override
@@ -94,7 +90,7 @@ public class GRPC implements MessageEvent {
             extraData = extraData.replace(Item.PRESENT_DELIMETER, "");
             presentNote = presentNote.replace(Item.PRESENT_DELIMETER, "");
 
-            Item present = ItemManager.getInstance().createGift(player.getDetails(), item.getSaleCode(), StringUtil.filterInput(presentNote, true), extraData, true);//new Item();
+            Item present = ItemManager.getInstance().createGift(player.getDetails(), item.getSaleCode(), StringUtil.filterInput(presentNote, false), extraData, true);//new Item();
             /*present.setOwnerId(receivingUserDetails.getId());
             present.setDefinitionId(ItemManager.getInstance().getDefinitionBySprite("present_gen" + ThreadLocalRandom.current().nextInt(1, 7)).getId());
             present.setCustomData(saleCode +
