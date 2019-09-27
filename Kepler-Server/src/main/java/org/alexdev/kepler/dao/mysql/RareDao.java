@@ -1,11 +1,12 @@
 package org.alexdev.kepler.dao.mysql;
 
 import org.alexdev.kepler.dao.Storage;
-import org.alexdev.kepler.game.item.Item;
-import org.alexdev.kepler.game.item.Photo;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,7 +57,7 @@ public class RareDao {
         }
     }
 
-    public static Map<String, Long> getActiveBlockedRares() throws SQLException {
+    public static Map<String, Long> getUsedRares() throws SQLException {
         Map<String, Long> rares = new LinkedHashMap<>();
 
         Connection sqlConnection = null;
@@ -70,7 +71,7 @@ public class RareDao {
             preparedStatement = Storage.getStorage().prepare("SELECT sale_code, reuse_time FROM rare_cycle ORDER BY reuse_time DESC", sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
-            if (resultSet.next()) {
+            while (resultSet.next()) {
                 rares.put(resultSet.getString("sale_code"), resultSet.getLong("reuse_time"));
             }
         } catch (Exception e) {

@@ -41,7 +41,7 @@ public class RareManager {
         }
 
         try {
-            this.daysSinceUsed = RareDao.getActiveBlockedRares();
+            this.daysSinceUsed = RareDao.getUsedRares();
 
             if (this.daysSinceUsed.size() > 0) {
                 var currentItemData = RareDao.getCurrentRare();
