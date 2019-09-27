@@ -93,7 +93,10 @@ public class GameConfiguration {
         config.put("rare.cycle.refresh.interval", "1");
 
         config.put("rare.cycle.reuse.timeunit", "DAYS");
-        config.put("rare.cycle.reuse.interval", "3");
+        config.put("rare.cycle.reuse.interval", "7");
+
+        config.put("rare.cycle.reuse.throne.timeunit", "DAYS");
+        config.put("rare.cycle.reuse.throne.interval", "30");
 
         config.put("club.gift.timeunit", "DAYS");
         config.put("club.gift.interval", "31");
