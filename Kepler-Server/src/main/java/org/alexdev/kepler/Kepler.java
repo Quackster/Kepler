@@ -8,14 +8,14 @@ import org.alexdev.kepler.game.catalogue.CatalogueManager;
 import org.alexdev.kepler.game.catalogue.RareManager;
 import org.alexdev.kepler.game.commands.CommandManager;
 import org.alexdev.kepler.game.events.EventsManager;
+import org.alexdev.kepler.game.fuserights.FuserightsManager;
 import org.alexdev.kepler.game.games.GameManager;
 import org.alexdev.kepler.game.item.ItemManager;
-import org.alexdev.kepler.game.fuserights.FuserightsManager;
 import org.alexdev.kepler.game.moderation.ChatManager;
 import org.alexdev.kepler.game.navigator.NavigatorManager;
 import org.alexdev.kepler.game.player.PlayerManager;
+import org.alexdev.kepler.game.recycler.RecyclerManager;
 import org.alexdev.kepler.game.room.RoomManager;
-import org.alexdev.kepler.game.room.models.RoomModel;
 import org.alexdev.kepler.game.room.models.RoomModelManager;
 import org.alexdev.kepler.game.room.public_rooms.walkways.WalkwaysManager;
 import org.alexdev.kepler.game.texts.TextsManager;
@@ -102,6 +102,7 @@ public class Kepler {
             CommandManager.getInstance();
             MessageHandler.getInstance();
             TextsManager.getInstance();
+            RecyclerManager.getInstance();
 
             setupRcon();
             setupMus();

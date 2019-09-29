@@ -21,33 +21,40 @@ public class CATALOGUE_PAGE extends MessageComposer {
 
     @Override
     public void compose(NettyResponse response) {
+        //Ai:Recycler{13}n:Recycler{13}l:ctlg_recycler{13}g:catalog_recycler_headline1{13}
         response.writeKeyValue("i", this.page.getNameIndex());
         response.writeKeyValue("n", this.page.getName());
         response.writeKeyValue("l", this.page.getLayout());
         response.writeKeyValue("g", this.page.getImageHeadline());
-        response.writeKeyValue("e", this.page.getImageTeasers());
-        response.writeKeyValue("h", this.page.getBody());
 
-        if (this.page.getLinkList().length() > 0) {
-            response.writeKeyValue("u", this.page.getLinkList());
+        if (this.page.getImageTeasers() != null && this.page.getImageTeasers().length() > 0) {
+            response.writeKeyValue("e", this.page.getImageTeasers());
         }
 
-        if (!StringUtil.isNullOrEmpty(this.page.getLabelPick())) {
-            response.writeKeyValue("w", this.page.getLabelPick());
-        }
+        if (this.page.getBody() != null && this.page.getBody().length() > 0) {
+            response.writeKeyValue("h", this.page.getBody());
 
-        if (!StringUtil.isNullOrEmpty(this.page.getLabelExtra_s())) {
-            response.writeKeyValue("s", this.page.getLabelExtra_s());
-        }
-
-        for (int labelDataId = 1; labelDataId < 11; labelDataId++) {
-            String extraDataId = "label_extra_t_" + labelDataId;
-
-            if (!this.page.getLabelExtra().containsKey(extraDataId)) {
-                continue;
+            if (this.page.getLinkList().length() > 0) {
+                response.writeKeyValue("u", this.page.getLinkList());
             }
 
-            response.writeKeyValue("t" + labelDataId, this.page.getLabelExtra().get(extraDataId));
+            if (!StringUtil.isNullOrEmpty(this.page.getLabelPick())) {
+                response.writeKeyValue("w", this.page.getLabelPick());
+            }
+
+            if (!StringUtil.isNullOrEmpty(this.page.getLabelExtra_s())) {
+                response.writeKeyValue("s", this.page.getLabelExtra_s());
+            }
+
+            for (int labelDataId = 1; labelDataId < 11; labelDataId++) {
+                String extraDataId = "label_extra_t_" + labelDataId;
+
+                if (!this.page.getLabelExtra().containsKey(extraDataId)) {
+                    continue;
+                }
+
+                response.writeKeyValue("t" + labelDataId, this.page.getLabelExtra().get(extraDataId));
+            }
         }
 
         for (CatalogueItem item : this.catalogueItems) {
