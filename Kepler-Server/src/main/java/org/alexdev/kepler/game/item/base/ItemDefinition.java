@@ -19,6 +19,7 @@ public class ItemDefinition {
     private String name;
     private String description;
     private int[] drinkIds;
+    private boolean isRecyclable;
     private InteractionType interactionType;
 
     public ItemDefinition() {
@@ -33,7 +34,7 @@ public class ItemDefinition {
         this.drinkIds = new int[0];
     }
 
-    public ItemDefinition(int id, String sprite, String name, String description, String behaviourData, String interactor, double topHeight, int length, int width, String colour, String drinkIdData) {
+    public ItemDefinition(int id, String sprite, String name, String description, String behaviourData, String interactor, double topHeight, int length, int width, String colour, String drinkIdData, boolean isRecyclable) {
         this.id = id;
         this.sprite = sprite;
         this.name = name;
@@ -44,6 +45,7 @@ public class ItemDefinition {
         this.length = length;
         this.width = width;
         this.colour = colour;
+        this.isRecyclable = isRecyclable;
         this.behaviourList = parseBehaviour(this.behaviourData);
         this.drinkIds = new int[drinkIdData.split(",").length];
 
@@ -229,6 +231,14 @@ public class ItemDefinition {
 
     public void setInteractionType(InteractionType interactionType) {
         this.interactionType = interactionType;
+    }
+
+    public boolean isRecyclable() {
+        return isRecyclable;
+    }
+
+    public void setRecyclable(boolean recyclable) {
+        isRecyclable = recyclable;
     }
 }
 
