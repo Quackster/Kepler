@@ -26,9 +26,11 @@ public class RECYCLER_CONFIGURATION extends MessageComposer {
 
         for (RecyclerReward recyclerReward : this.recyclerRewards) {
             response.writeInt(recyclerReward.getItemCost());
-            response.writeString(recyclerReward.getCatalogueItem().getDefinition().getSprite());
 
             var definition = recyclerReward.getCatalogueItem().getDefinition();
+
+            response.writeBool(definition.hasBehaviour(ItemBehaviour.WALL_ITEM));
+            response.writeString(recyclerReward.getCatalogueItem().getDefinition().getSprite());
 
             if (definition.hasBehaviour(ItemBehaviour.WALL_ITEM)) {
                 if (recyclerReward.getCatalogueItem().getItemSpecialId() > 0) {
