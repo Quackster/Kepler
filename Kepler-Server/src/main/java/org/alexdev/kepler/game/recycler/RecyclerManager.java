@@ -9,19 +9,24 @@ import java.util.List;
 public class RecyclerManager {
     private static RecyclerManager instance;
     private final List<RecyclerReward> recyclerRewards;
-    private boolean recyclerDisabled;
+    private boolean recyclerEnabled;
     private Logger log = LoggerFactory.getLogger(RecyclerManager.class);
 
     public RecyclerManager() {
+        this.recyclerEnabled = true;
         this.recyclerRewards = RecyclerDao.getRewards();
         this.recyclerRewards.forEach(recyclerReward -> {
             if (recyclerReward.getCatalogueItem() == null) {
                 this.log.error("Could not locate catalogue item with sale code: " + recyclerReward.getSaleCode());
-                this.recyclerDisabled = true;
+                this.recyclerEnabled = false;
             }
         });
 
-        if (this.recyclerDisabled) {
+        if (this.recyclerRewards.isEmpty()) {
+            this.recyclerEnabled = false;
+        }
+
+        if (!this.recyclerEnabled) {
             this.recyclerRewards.clear();
             log.warn("Recycler is disabled");
         }
@@ -32,8 +37,8 @@ public class RecyclerManager {
      *
      * @return true, if disabled
      */
-    public boolean isRecyclerDisabled() {
-        return recyclerDisabled;
+    public boolean isRecyclerEnabled() {
+        return recyclerEnabled;
     }
 
     /**

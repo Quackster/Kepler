@@ -8,17 +8,17 @@ import org.alexdev.kepler.server.netty.streams.NettyResponse;
 import java.util.List;
 
 public class RECYCLER_CONFIGURATION extends MessageComposer {
-    private final boolean isRecyclerDisabled;
+    private final boolean isRecyclerEnabled;
     private final List<RecyclerReward> recyclerRewards;
 
-    public RECYCLER_CONFIGURATION(boolean isRecyclerDisabled, List<RecyclerReward> recyclerRewards) {
-        this.isRecyclerDisabled = isRecyclerDisabled;
+    public RECYCLER_CONFIGURATION(boolean isRecyclerEnabled, List<RecyclerReward> recyclerRewards) {
+        this.isRecyclerEnabled = isRecyclerEnabled;
         this.recyclerRewards = recyclerRewards;
     }
 
     @Override
     public void compose(NettyResponse response) {
-        response.writeBool(!this.isRecyclerDisabled);//tServiceEnabled = tConn.GetIntFrom()
+        response.writeBool(this.isRecyclerEnabled);//tServiceEnabled = tConn.GetIntFrom()
         response.writeInt(180);//tQuarantineMinutes = tConn.GetIntFrom()
         response.writeInt(120);//tRecyclingMinutes = tConn.GetIntFrom()
         response.writeInt(60);//tMinutesToTimeout = tConn.GetIntFrom()

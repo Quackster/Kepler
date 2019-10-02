@@ -10,7 +10,7 @@ public class GET_FURNI_RECYCLER_CONFIGURATION implements MessageEvent {
     @Override
     public void handle(Player player, NettyRequest reader) throws Exception {
         player.send(new RECYCLER_CONFIGURATION(
-                RecyclerManager.getInstance().isRecyclerDisabled(),
+                RecyclerManager.getInstance().isRecyclerEnabled(),
                 RecyclerManager.getInstance().getRecyclerRewards()
         ));
     }
