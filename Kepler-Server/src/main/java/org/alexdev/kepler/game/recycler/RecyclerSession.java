@@ -31,7 +31,8 @@ public class RecyclerSession {
      */
     public int getMinutesLeft() {
         if (!this.isRecyclingDone()) {
-            return RecyclerManager.getInstance().getRecyclerSessionLengthSeconds() - getMinutesPassed();
+            int minutesPassed = getMinutesPassed();
+            return (int) (TimeUnit.SECONDS.toMinutes(RecyclerManager.getInstance().getRecyclerSessionLengthSeconds()) - minutesPassed);
         }
 
         return 0;

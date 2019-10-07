@@ -10,6 +10,7 @@ import org.alexdev.kepler.server.netty.streams.NettyRequest;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class START_FURNI_RECYCLING implements MessageEvent {
     @Override
@@ -41,6 +42,6 @@ public class START_FURNI_RECYCLING implements MessageEvent {
             return;
         }
 
-        RecyclerDao.createSession(player.getDetails().getId(), recyclerReward.getId());
+        RecyclerDao.createSession(player.getDetails().getId(), recyclerReward.getId(), items.stream().map(i -> String.valueOf(i.getId())).collect(Collectors.joining(",")));
     }
 }

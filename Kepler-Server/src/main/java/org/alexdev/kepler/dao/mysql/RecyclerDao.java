@@ -66,15 +66,16 @@ public class RecyclerDao {
         return recyclerSession;
     }
 
-    public static void createSession(int userId, int rewardId) {
+    public static void createSession(int userId, int rewardId, String items) {
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
 
         try {
             sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("INSERT INTO recycler_sessions (user_id, reward_id) VALUES (?, ?)", sqlConnection);
+            preparedStatement = Storage.getStorage().prepare("INSERT INTO recycler_sessions (user_id, reward_id, items) VALUES (?, ?, ?)", sqlConnection);
             preparedStatement.setInt(1, userId);
             preparedStatement.setInt(2, rewardId);
+            preparedStatement.setString(3, items);
             preparedStatement.execute();
         } catch (Exception e) {
             Storage.logError(e);
