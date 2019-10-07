@@ -108,8 +108,8 @@ public class GameConfiguration {
         config.put("events.category.count", "11");
         config.put("events.expiry.minutes", "120");
 
-        config.put("recycler.timeout.seconds", "300");
-        config.put("recycler.session.length.seconds", "3660");
+        config.put("recycler.max.time.to.collect.seconds", "1800");
+        config.put("recycler.session.length.seconds", "3600");
         config.put("recycler.item.quarantine.seconds", "2592000");
 
         // Catalogue pages for rare items, delimetered by pipe, first integer is page ID and second number is the amount of hours required for that rare to be affordable

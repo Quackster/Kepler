@@ -18,7 +18,7 @@ public class RecyclerManager {
     private Logger log = LoggerFactory.getLogger(RecyclerManager.class);
 
     public RecyclerManager() {
-        this.recyclerTimeoutSeconds = GameConfiguration.getInstance().getInteger("recycler.timeout.seconds");
+        this.recyclerTimeoutSeconds = GameConfiguration.getInstance().getInteger("recycler.max.time.to.collect.seconds");
         this.recyclerSessionLengthSeconds = GameConfiguration.getInstance().getInteger("recycler.session.length.seconds");
         this.recyclerItemQuarantineSeconds = GameConfiguration.getInstance().getInteger("recycler.item.quarantine.seconds");
 

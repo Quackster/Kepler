@@ -8,13 +8,11 @@ import java.util.concurrent.TimeUnit;
 public class RecyclerSession {
     private final int rewardId;
     private final long sessionStarted;
-    private final boolean claimed;
     private final int[] items;
 
-    public RecyclerSession(int rewardId, long sessionStarted, boolean claimed, String items) {
+    public RecyclerSession(int rewardId, long sessionStarted, String items) {
         this.rewardId = rewardId;
         this.sessionStarted = sessionStarted;
-        this.claimed = claimed;
         this.items = Arrays.stream(items.split(",")).mapToInt(Integer::parseInt).toArray();;
     }
 
@@ -24,7 +22,8 @@ public class RecyclerSession {
      * @return the minutes passed
      */
     public int getMinutesPassed() {
-        return (int) TimeUnit.SECONDS.toMinutes(DateUtil.getCurrentTimeSeconds() - this.sessionStarted);
+        int seconds = (int) (DateUtil.getCurrentTimeSeconds() - this.sessionStarted);
+        return (int) TimeUnit.SECONDS.toMinutes(seconds);
     }
 
     /**
@@ -34,7 +33,8 @@ public class RecyclerSession {
      */
     public int getMinutesLeft() {
         if (!this.isRecyclingDone()) {
-            return (int) (TimeUnit.SECONDS.toMinutes(RecyclerManager.getInstance().getRecyclerSessionLengthSeconds()) - getMinutesPassed());
+            int seconds = (int) (RecyclerManager.getInstance().getRecyclerSessionLengthSeconds() - (DateUtil.getCurrentTimeSeconds() - this.sessionStarted));
+            return (int) TimeUnit.SECONDS.toMinutes(seconds);
         }
 
         return 0;
@@ -45,8 +45,8 @@ public class RecyclerSession {
     }
 
     public boolean hasTimeout() {
-        if (this.isClaimed()) {
-            return getMinutesPassed() <= TimeUnit.SECONDS.toMinutes(RecyclerManager.getInstance().getRecyclerSessionLengthSeconds() + RecyclerManager.getInstance().getRecyclerTimeoutSeconds());
+        if (this.isRecyclingDone()) {
+            return getMinutesPassed() >= TimeUnit.SECONDS.toMinutes(RecyclerManager.getInstance().getRecyclerSessionLengthSeconds() + RecyclerManager.getInstance().getRecyclerTimeoutSeconds());
         }
 
         return false;
@@ -78,16 +78,6 @@ public class RecyclerSession {
     public long getSessionStarted() {
         return sessionStarted;
     }
-
-    /**
-     * Get if the item has been claimed or not (for timeouts).
-     *
-     * @return true, if successful
-     */
-    public boolean isClaimed() {
-        return claimed;
-    }
-
     /**
      * Get the id of the items used.
      *

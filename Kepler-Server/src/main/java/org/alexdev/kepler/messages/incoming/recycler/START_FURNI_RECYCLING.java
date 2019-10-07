@@ -5,7 +5,7 @@ import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.recycler.RecyclerManager;
 import org.alexdev.kepler.game.recycler.RecyclerReward;
-import org.alexdev.kepler.messages.outgoing.recycler.START_RECYCLING_RESULT;
+import org.alexdev.kepler.messages.outgoing.recycler.RECYCLER_STATUS;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 
@@ -49,9 +49,11 @@ public class START_FURNI_RECYCLING implements MessageEvent {
             }
 
             player.getInventory().getView("new");
-            RecyclerDao.createSession(player.getDetails().getId(), recyclerReward.getId(), items.stream().map(i -> String.valueOf(i.getId())).collect(Collectors.joining(",")));
-        }
+            var session = RecyclerDao.createSession(player.getDetails().getId(), recyclerReward.getId(), items.stream().map(i -> String.valueOf(i.getId())).collect(Collectors.joining(",")));
 
-        player.send(new START_RECYCLING_RESULT(canRecycle));
+            player.send(new RECYCLER_STATUS(
+                    RecyclerManager.getInstance().isRecyclerEnabled(),
+                    session));
+        }
     }
 }

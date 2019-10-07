@@ -46,6 +46,8 @@ public class CONFIRM_FURNI_RECYCLING implements MessageEvent {
 
         if (isCancel) {
             RecyclerDao.deleteSession(player.getDetails().getId());
+        } else {
+            //RecyclerDao.claimItem(player.getDetails().getId());
         }
 
         player.send(new START_RECYCLING_RESULT(true));

@@ -3,6 +3,7 @@ package org.alexdev.kepler.dao.mysql;
 import org.alexdev.kepler.dao.Storage;
 import org.alexdev.kepler.game.recycler.RecyclerReward;
 import org.alexdev.kepler.game.recycler.RecyclerSession;
+import org.alexdev.kepler.util.DateUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -52,8 +53,7 @@ public class RecyclerDao {
             resultSet =  preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                recyclerSession = new RecyclerSession(resultSet.getInt("reward_id"), resultSet.getTime("session_started").getTime() / 1000L, resultSet.getBoolean("is_claimed"),
-                        resultSet.getString("items"));
+                recyclerSession = new RecyclerSession(resultSet.getInt("reward_id"), resultSet.getTime("session_started").getTime() / 1000L, resultSet.getString("items"));
             }
 
         } catch (Exception e) {
@@ -67,7 +67,7 @@ public class RecyclerDao {
         return recyclerSession;
     }
 
-    public static void createSession(int userId, int rewardId, String items) {
+    public static RecyclerSession createSession(int userId, int rewardId, String items) {
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
 
@@ -84,23 +84,8 @@ public class RecyclerDao {
             Storage.closeSilently(preparedStatement);
             Storage.closeSilently(sqlConnection);
         }
-    }
 
-    public static void claimItem(int userId) {
-        Connection sqlConnection = null;
-        PreparedStatement preparedStatement = null;
-
-        try {
-            sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("UPDATE recycler_sessions SET is_claimed = 1 WHERE user_id = ?", sqlConnection);
-            preparedStatement.setInt(1, userId);
-            preparedStatement.execute();
-        } catch (Exception e) {
-            Storage.logError(e);
-        } finally {
-            Storage.closeSilently(preparedStatement);
-            Storage.closeSilently(sqlConnection);
-        }
+        return new RecyclerSession(rewardId, DateUtil.getCurrentTimeSeconds(), items);
     }
 
 

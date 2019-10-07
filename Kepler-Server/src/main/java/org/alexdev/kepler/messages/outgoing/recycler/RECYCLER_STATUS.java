@@ -21,22 +21,15 @@ public class RECYCLER_STATUS extends MessageComposer {
             return;
         }
 
-        if (this.session.isClaimed()) {
-            if (this.session.hasTimeout()) {
+        if (this.session.hasTimeout()) {
                 response.writeInt(3);
-            } else {
-                response.writeInt(0);
-            }
         } else {
-            if (this.session.isRecyclingDone()) {
-                response.writeInt(2);
-                response.writeInt(this.session.getRecyclerReward().getCatalogueItem().getDefinition().hasBehaviour(ItemBehaviour.WALL_ITEM) ? 1 : 0);
-                response.writeString(this.session.getRecyclerReward().getCatalogueItem().getDefinition().getSprite());
-            } else {
-                response.writeInt(1);
-                response.writeInt(this.session.getRecyclerReward().getCatalogueItem().getDefinition().hasBehaviour(ItemBehaviour.WALL_ITEM) ? 1 : 0);
-                response.writeString(this.session.getRecyclerReward().getCatalogueItem().getDefinition().getSprite());
-                response.writeInt(this.session.getMinutesLeft());
+            response.writeInt(this.session.isRecyclingDone() ? 2 : 1);
+            response.writeInt(this.session.getRecyclerReward().getCatalogueItem().getDefinition().hasBehaviour(ItemBehaviour.WALL_ITEM) ? 1 : 0);
+            response.writeString(this.session.getRecyclerReward().getCatalogueItem().getDefinition().getSprite());
+
+            if (!this.session.isRecyclingDone()) {
+                response.writeInt(this.session.getMinutesLeft() % 60 == 0 ? this.session.getMinutesLeft() - 1 : this.session.getMinutesLeft());
             }
         }
 
