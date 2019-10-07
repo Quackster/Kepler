@@ -66,6 +66,7 @@ public class EJECT_SOUND_PACKAGE implements MessageEvent {
 
 
         soundset.setHidden(false);
+        player.getInventory().addItem(soundset); // Re-add at start.
         soundset.save();
 
         player.getInventory().getView("new");

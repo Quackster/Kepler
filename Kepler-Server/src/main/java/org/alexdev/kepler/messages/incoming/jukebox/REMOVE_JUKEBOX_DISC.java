@@ -51,6 +51,7 @@ public class REMOVE_JUKEBOX_DISC implements MessageEvent {
         }
 
         songDisk.setHidden(false);
+        player.getInventory().addItem(songDisk); // Re-add at start.
         songDisk.save();
 
         SongMachineDao.removePlaylistSong(burnedDisk.getSongId(), room.getItemManager().getSoundMachine().getId());
