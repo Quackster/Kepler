@@ -201,10 +201,7 @@ public class Inventory {
      * @param item the item
      */
     public void addItem(Item item) {
-        if (this.items.contains(item)) {
-            return;
-        }
-
+        this.items.remove(item);
         this.items.add(0, item);
     }
 
