@@ -25,6 +25,7 @@ import org.alexdev.kepler.messages.incoming.moderation.*;
 import org.alexdev.kepler.messages.incoming.navigator.*;
 import org.alexdev.kepler.messages.incoming.purse.GETUSERCREDITLOG;
 import org.alexdev.kepler.messages.incoming.purse.REDEEM_VOUCHER;
+import org.alexdev.kepler.messages.incoming.recycler.START_FURNI_RECYCLING;
 import org.alexdev.kepler.messages.incoming.recycler.GET_FURNI_RECYCLER_CONFIGURATION;
 import org.alexdev.kepler.messages.incoming.recycler.GET_FURNI_RECYCLER_STATUS;
 import org.alexdev.kepler.messages.incoming.register.*;
@@ -105,6 +106,7 @@ public class MessageHandler {
     private void registerEcotronPackets() {
         registerEvent(222, new GET_FURNI_RECYCLER_CONFIGURATION());
         registerEvent(223, new GET_FURNI_RECYCLER_STATUS());
+        registerEvent(225, new START_FURNI_RECYCLING());
     }
 
     /**

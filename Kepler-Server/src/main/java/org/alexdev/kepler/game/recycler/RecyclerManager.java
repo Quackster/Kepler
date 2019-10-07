@@ -1,6 +1,7 @@
 package org.alexdev.kepler.game.recycler;
 
 import org.alexdev.kepler.dao.mysql.RecyclerDao;
+import org.alexdev.kepler.util.config.GameConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,10 +10,24 @@ import java.util.List;
 public class RecyclerManager {
     private static RecyclerManager instance;
     private final List<RecyclerReward> recyclerRewards;
+    private final int recyclerTimeoutSeconds;
+    private final int recyclerSessionLengthSeconds;
+    private final int recyclerItemQuarantineSeconds;
+
     private boolean recyclerEnabled;
     private Logger log = LoggerFactory.getLogger(RecyclerManager.class);
 
     public RecyclerManager() {
+        this.recyclerTimeoutSeconds = GameConfiguration.getInstance().getInteger("recycler.timeout.seconds");
+        this.recyclerSessionLengthSeconds = GameConfiguration.getInstance().getInteger("recycler.session.length.seconds");
+        this.recyclerItemQuarantineSeconds = GameConfiguration.getInstance().getInteger("recycler.item.quarantine.seconds");
+
+        /*
+                config.put("recycler.timeout.seconds", "300");
+        config.put("recycler.session.length.seconds", "3660");
+        config.put("recycler.item.quarantine.seconds", "2592000");
+         */
+
         this.recyclerEnabled = true;
         this.recyclerRewards = RecyclerDao.getRewards();
         this.recyclerRewards.forEach(recyclerReward -> {
@@ -48,6 +63,33 @@ public class RecyclerManager {
      */
     public List<RecyclerReward> getRecyclerRewards() {
         return recyclerRewards;
+    }
+
+    /**
+     * Get the timeout/cooldown until we can use recycler again.
+     *
+     * @return the cooldown seconds
+     */
+    public int getRecyclerTimeoutSeconds() {
+        return recyclerTimeoutSeconds;
+    }
+
+    /**
+     * Get the time it takes for recycling.
+     *
+     * @return the seconds
+     */
+    public int getRecyclerSessionLengthSeconds() {
+        return recyclerSessionLengthSeconds;
+    }
+
+    /**
+     * Get how long you must own a furni before you can recycle it.
+     *
+     * @return the ownership time
+     */
+    public int getRecyclerItemQuarantineSeconds() {
+        return recyclerItemQuarantineSeconds;
     }
 
     /**

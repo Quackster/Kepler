@@ -14,18 +14,37 @@ public class RecyclerReward {
         this.itemCost = itemCost;
     }
 
+    /**
+     * Get the id of the recycler reward
+     * @return the id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Get the sale code (the same one for catalogue items).
+     *
+     * @return the sale code
+     */
     public String getSaleCode() {
         return saleCode;
     }
 
+    /**
+     * Get the catalogue item this is linked to.
+     *
+     * @return the catalogue item
+     */
     public CatalogueItem getCatalogueItem() {
         return CatalogueManager.getInstance().getCatalogueItem(this.saleCode);
     }
 
+    /**
+     * Get the amount of recyclable items required.
+     *
+     * @return the amount of items required
+     */
     public int getItemCost() {
         return itemCost;
     }

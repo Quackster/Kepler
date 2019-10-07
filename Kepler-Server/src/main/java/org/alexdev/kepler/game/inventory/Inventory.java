@@ -151,7 +151,7 @@ public class Inventory {
             response.writeDelimeter(item.getDefinition().getWidth(), (char) 30);
             response.writeDelimeter(item.getCustomData(), (char) 30);
             response.writeDelimeter(item.getDefinition().getColour(), (char) 30);
-            response.writeDelimeter(item.getDefinition().isRecyclable() ? 1 : 0, (char) 30);
+            response.writeDelimeter(item.getDefinition().isRecyclable() ? 1 : 1, (char) 30);
             response.writeDelimeter(item.getDefinition().getSprite(), (char) 30);
         }
 

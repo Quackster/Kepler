@@ -6,22 +6,30 @@ import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class RECYCLER_CONFIGURATION extends MessageComposer {
     private final boolean isRecyclerEnabled;
     private final List<RecyclerReward> recyclerRewards;
+    private final int recyclerTimeoutSeconds;
+    private final int recyclerItemQuarantineSeconds;
+    private final int recyclerSessionLengthSeconds;
 
-    public RECYCLER_CONFIGURATION(boolean isRecyclerEnabled, List<RecyclerReward> recyclerRewards) {
+    public RECYCLER_CONFIGURATION(boolean isRecyclerEnabled, List<RecyclerReward> recyclerRewards, int recyclerTimeoutSeconds, int recyclerItemQuarantineSeconds, int recyclerSessionLengthSeconds) {
         this.isRecyclerEnabled = isRecyclerEnabled;
         this.recyclerRewards = recyclerRewards;
+        this.recyclerTimeoutSeconds = recyclerTimeoutSeconds;
+        this.recyclerItemQuarantineSeconds = recyclerItemQuarantineSeconds;
+        this.recyclerSessionLengthSeconds = recyclerSessionLengthSeconds;
+
     }
 
     @Override
     public void compose(NettyResponse response) {
         response.writeBool(this.isRecyclerEnabled);//tServiceEnabled = tConn.GetIntFrom()
-        response.writeInt(180);//tQuarantineMinutes = tConn.GetIntFrom()
-        response.writeInt(120);//tRecyclingMinutes = tConn.GetIntFrom()
-        response.writeInt(60);//tMinutesToTimeout = tConn.GetIntFrom()
+        response.writeInt((int) TimeUnit.SECONDS.toMinutes(this.recyclerItemQuarantineSeconds));//tQuarantineMinutes = tConn.GetIntFrom()
+        response.writeInt((int) TimeUnit.SECONDS.toMinutes(this.recyclerSessionLengthSeconds));//tRecyclingMinutes = tConn.GetIntFrom()
+        response.writeInt((int) TimeUnit.SECONDS.toMinutes(this.recyclerTimeoutSeconds));//tMinutesToTimeout = tConn.GetIntFrom()
         response.writeInt(this.recyclerRewards.size());//tNumOfRewardItems = tConn.GetIntFrom()
 
         for (RecyclerReward recyclerReward : this.recyclerRewards) {
