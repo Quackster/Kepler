@@ -5,6 +5,7 @@ import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.recycler.RecyclerManager;
 import org.alexdev.kepler.game.recycler.RecyclerReward;
+import org.alexdev.kepler.messages.outgoing.recycler.START_RECYCLING_RESULT;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 
@@ -16,6 +17,7 @@ public class START_FURNI_RECYCLING implements MessageEvent {
     @Override
     public void handle(Player player, NettyRequest reader) throws Exception {
         List<Item> items = new ArrayList<>();
+        boolean canRecycle = false;
 
         for (int i = 0; i < 2; i++) {
             int count = reader.readInt();
@@ -34,14 +36,22 @@ public class START_FURNI_RECYCLING implements MessageEvent {
 
         RecyclerReward recyclerReward = RecyclerManager.getInstance().getRecyclerRewards().stream().filter(reward -> reward.getItemCost() == items.size()).findFirst().orElse(null);
 
-        if (recyclerReward == null) {
-            return;
+        if (recyclerReward != null) {
+            if (RecyclerDao.getSession(player.getDetails().getId()) == null) {
+                canRecycle = true;
+            }
         }
 
-        if (RecyclerDao.getSession(player.getDetails().getId()) != null) {
-            return;
+        if (canRecycle) {
+            for (Item item : items) {
+                item.setHidden(true);
+                item.save();
+            }
+
+            player.getInventory().getView("new");
+            RecyclerDao.createSession(player.getDetails().getId(), recyclerReward.getId(), items.stream().map(i -> String.valueOf(i.getId())).collect(Collectors.joining(",")));
         }
 
-        RecyclerDao.createSession(player.getDetails().getId(), recyclerReward.getId(), items.stream().map(i -> String.valueOf(i.getId())).collect(Collectors.joining(",")));
+        player.send(new START_RECYCLING_RESULT(canRecycle));
     }
 }

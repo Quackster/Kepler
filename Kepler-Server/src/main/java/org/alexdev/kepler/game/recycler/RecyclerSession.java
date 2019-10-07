@@ -2,17 +2,20 @@ package org.alexdev.kepler.game.recycler;
 
 import org.alexdev.kepler.util.DateUtil;
 
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 public class RecyclerSession {
     private final int rewardId;
     private final long sessionStarted;
     private final boolean claimed;
+    private final int[] items;
 
-    public RecyclerSession(int rewardId, long sessionStarted, boolean claimed) {
+    public RecyclerSession(int rewardId, long sessionStarted, boolean claimed, String items) {
         this.rewardId = rewardId;
         this.sessionStarted = sessionStarted;
         this.claimed = claimed;
+        this.items = Arrays.stream(items.split(",")).mapToInt(Integer::parseInt).toArray();;
     }
 
     /**
@@ -31,8 +34,7 @@ public class RecyclerSession {
      */
     public int getMinutesLeft() {
         if (!this.isRecyclingDone()) {
-            int minutesPassed = getMinutesPassed();
-            return (int) (TimeUnit.SECONDS.toMinutes(RecyclerManager.getInstance().getRecyclerSessionLengthSeconds()) - minutesPassed);
+            return (int) (TimeUnit.SECONDS.toMinutes(RecyclerManager.getInstance().getRecyclerSessionLengthSeconds()) - getMinutesPassed());
         }
 
         return 0;
@@ -84,5 +86,14 @@ public class RecyclerSession {
      */
     public boolean isClaimed() {
         return claimed;
+    }
+
+    /**
+     * Get the id of the items used.
+     *
+     * @return the id
+     */
+    public int[] getItems() {
+        return items;
     }
 }

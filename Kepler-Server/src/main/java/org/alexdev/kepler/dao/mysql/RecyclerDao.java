@@ -52,7 +52,8 @@ public class RecyclerDao {
             resultSet =  preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                recyclerSession = new RecyclerSession(resultSet.getInt("reward_id"), resultSet.getTime("session_started").getTime() / 1000L, resultSet.getBoolean("is_claimed"));
+                recyclerSession = new RecyclerSession(resultSet.getInt("reward_id"), resultSet.getTime("session_started").getTime() / 1000L, resultSet.getBoolean("is_claimed"),
+                        resultSet.getString("items"));
             }
 
         } catch (Exception e) {
