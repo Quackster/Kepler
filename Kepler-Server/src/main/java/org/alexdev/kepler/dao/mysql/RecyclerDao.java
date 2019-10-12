@@ -25,7 +25,8 @@ public class RecyclerDao {
             resultSet =  preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                recyclerRewardList.add(new RecyclerReward(resultSet.getInt("id"), resultSet.getString("sale_code"), resultSet.getInt("item_cost")));
+                recyclerRewardList.add(new RecyclerReward(resultSet.getInt("id"), resultSet.getString("sale_code"), resultSet.getInt("item_cost"),
+                        resultSet.getInt("recycling_time_sessions"), resultSet.getInt("collection_time_seconds")));
             }
 
         } catch (Exception e) {

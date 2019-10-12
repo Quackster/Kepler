@@ -33,7 +33,7 @@ public class RecyclerSession {
      */
     public int getMinutesLeft() {
         if (!this.isRecyclingDone()) {
-            int seconds = (int) (RecyclerManager.getInstance().getRecyclerSessionLengthSeconds() - (DateUtil.getCurrentTimeSeconds() - this.sessionStarted));
+            int seconds = (int) (this.getRecyclerReward().getRecyclingTimeSessions() - (DateUtil.getCurrentTimeSeconds() - this.sessionStarted));
             return (int) TimeUnit.SECONDS.toMinutes(seconds);
         }
 
@@ -41,12 +41,12 @@ public class RecyclerSession {
     }
 
     public boolean isRecyclingDone() {
-        return getMinutesPassed() >= TimeUnit.SECONDS.toMinutes(RecyclerManager.getInstance().getRecyclerSessionLengthSeconds());
+        return getMinutesPassed() >= TimeUnit.SECONDS.toMinutes(this.getRecyclerReward().getRecyclingTimeSessions());
     }
 
     public boolean hasTimeout() {
         if (this.isRecyclingDone()) {
-            return getMinutesPassed() >= TimeUnit.SECONDS.toMinutes(RecyclerManager.getInstance().getRecyclerSessionLengthSeconds() + RecyclerManager.getInstance().getRecyclerTimeoutSeconds());
+            return getMinutesPassed() >= TimeUnit.SECONDS.toMinutes(this.getRecyclerReward().getRecyclingTimeSessions() + this.getRecyclerReward().getCollectionTimeSeconds());
         }
 
         return false;
