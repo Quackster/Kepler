@@ -1,20 +1,21 @@
 package org.alexdev.kepler.game.games.gamehalls;
 
-import gherkin.lexer.Pl;
 import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.games.gamehalls.utils.GameShip;
 import org.alexdev.kepler.game.games.gamehalls.utils.GameShipMove;
 import org.alexdev.kepler.game.games.gamehalls.utils.GameShipMoveResult;
 import org.alexdev.kepler.game.games.gamehalls.utils.GameShipType;
+import org.alexdev.kepler.game.games.triggers.GameTrigger;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
-import org.alexdev.kepler.game.games.triggers.GameTrigger;
 import org.alexdev.kepler.messages.outgoing.rooms.games.ITEMMSG;
-import org.alexdev.kepler.messages.outgoing.rooms.games.OPENGAMEBOARD;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 

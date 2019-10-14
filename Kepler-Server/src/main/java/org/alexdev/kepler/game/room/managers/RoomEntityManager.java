@@ -1,6 +1,5 @@
 package org.alexdev.kepler.game.room.managers;
 
-import android.os.SystemPropertiesProto;
 import org.alexdev.kepler.dao.mysql.ItemDao;
 import org.alexdev.kepler.dao.mysql.RoomDao;
 import org.alexdev.kepler.dao.mysql.RoomRightsDao;
@@ -20,11 +19,11 @@ import org.alexdev.kepler.game.room.mapping.RoomTile;
 import org.alexdev.kepler.game.room.tasks.TeleporterTask;
 import org.alexdev.kepler.messages.outgoing.events.ROOMEEVENT_INFO;
 import org.alexdev.kepler.messages.outgoing.rooms.FLATPROPERTY;
-import org.alexdev.kepler.messages.outgoing.rooms.ROOM_URL;
 import org.alexdev.kepler.messages.outgoing.rooms.ROOM_READY;
+import org.alexdev.kepler.messages.outgoing.rooms.ROOM_URL;
 import org.alexdev.kepler.messages.outgoing.rooms.UPDATE_VOTES;
-import org.alexdev.kepler.messages.outgoing.rooms.user.LOGOUT;
 import org.alexdev.kepler.messages.outgoing.rooms.user.HOTEL_VIEW;
+import org.alexdev.kepler.messages.outgoing.rooms.user.LOGOUT;
 import org.alexdev.kepler.messages.outgoing.rooms.user.USER_OBJECTS;
 
 import java.util.ArrayList;
