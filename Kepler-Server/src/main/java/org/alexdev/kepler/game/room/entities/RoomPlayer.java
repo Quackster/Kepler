@@ -1,6 +1,5 @@
 package org.alexdev.kepler.game.room.entities;
 
-import android.os.SystemPropertiesProto;
 import org.alexdev.kepler.dao.mysql.ItemDao;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.game.games.Game;
@@ -9,7 +8,6 @@ import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.player.Player;
-import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.RoomManager;
 import org.alexdev.kepler.game.room.managers.RoomTradeManager;
 import org.alexdev.kepler.game.triggers.GameLobbyTrigger;
@@ -57,15 +55,18 @@ public class RoomPlayer extends RoomEntity {
 
     @Override
     public boolean walkTo(int X, int Y) {
-        if (this.getGoal() != null && !this.getGoal().equals(this.getPosition())) {
-            if ((X == 20 && Y == 28) ||
-                    (X == 21 && Y == 28) ||
-                    (X == 17 && Y == 19) ||
-                    (X == 17 && Y == 21) ||
-                    (X == 17 && Y == 22) ||
-                    (X == 31 && Y == 11) ||
-                    (X == 31 && Y == 10)) {
-                return walkTo(this.getGoal().getX(), this.getGoal().getY());
+        if (this.getRoom() != null && (this.getRoom().getModel().getName().startsWith("pool_a") || (this.getRoom().getModel().getName().equals("md_a"))))
+        {
+            if (this.getGoal() != null && !this.getGoal().equals(this.getPosition())) {
+                if ((X == 20 && Y == 28) ||
+                        (X == 21 && Y == 28) ||
+                        (X == 17 && Y == 19) ||
+                        (X == 17 && Y == 21) ||
+                        (X == 17 && Y == 22) ||
+                        (X == 31 && Y == 11) ||
+                        (X == 31 && Y == 10)) {
+                    return walkTo(this.getGoal().getX(), this.getGoal().getY());
+                }
             }
         }
 
