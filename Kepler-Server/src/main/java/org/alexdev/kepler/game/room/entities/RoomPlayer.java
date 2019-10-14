@@ -55,8 +55,7 @@ public class RoomPlayer extends RoomEntity {
 
     @Override
     public boolean walkTo(int X, int Y) {
-        if (this.getRoom() != null && (this.getRoom().getModel().getName().startsWith("pool_a") || (this.getRoom().getModel().getName().equals("md_a"))))
-        {
+        if (this.getRoom() != null && (this.getRoom().getModel().getName().startsWith("pool_a") || (this.getRoom().getModel().getName().equals("md_a")))) {
             if (this.getGoal() != null && !this.getGoal().equals(this.getPosition())) {
                 if ((X == 20 && Y == 28) ||
                         (X == 21 && Y == 28) ||
