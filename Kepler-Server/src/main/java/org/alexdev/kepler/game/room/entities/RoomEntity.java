@@ -101,7 +101,7 @@ public abstract class RoomEntity {
         // Attempt to walk to the door
         this.walkTo(doorLocation.getX(), doorLocation.getY());
         this.isWalkingAllowed = allowWalking;
-        this.beingKicked = !allowWalking;
+        this.beingKicked = true;
 
         // If user isn't walking, leave immediately
         if (!this.isWalking) {
