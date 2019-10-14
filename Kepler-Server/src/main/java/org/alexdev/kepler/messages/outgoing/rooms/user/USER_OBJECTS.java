@@ -1,10 +1,8 @@
 package org.alexdev.kepler.messages.outgoing.rooms.user;
 
-import gherkin.lexer.En;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityState;
 import org.alexdev.kepler.game.entity.EntityType;
-import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.messages.types.PlayerMessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 import org.alexdev.kepler.util.FigureUtil;

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.8.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 14, 2019 at 11:44 PM
--- Server version: 10.3.10-MariaDB
--- PHP Version: 7.2.7
+-- Generation Time: Oct 14, 2019 at 05:15 PM
+-- Server version: 10.4.7-MariaDB
+-- PHP Version: 7.2.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -988,6 +988,10 @@ INSERT INTO `catalogue_items` (`id`, `sale_code`, `page_id`, `order_id`, `price`
 (1343, 'sound_set_68', '88', 9, 3, 0, 1, 1407, 0, 'Pitchside Pro', 'Football Sounds 1', 0, NULL, NULL),
 (1344, 'sound_set_69', '88', 9, 3, 0, 1, 1408, 0, 'Referee Rhythm', 'Football Sounds 2', 0, NULL, NULL),
 (1345, 'sound_set_70', '88', 9, 3, 0, 1, 1409, 0, 'Squad Synth', 'Football Sounds 3', 0, NULL, NULL);
+INSERT INTO `catalogue_items` (`id`, `sale_code`, `page_id`, `order_id`, `price`, `is_hidden`, `amount`, `definition_id`, `item_specialspriteid`, `name`, `description`, `is_package`, `package_name`, `package_description`) VALUES
+(1348, 'rclr_chair', '92', 9, 1, 0, 1, 1414, 0, 'Palm Chair', 'Watch out for coconuts', 0, NULL, NULL),
+(1349, 'rclr_garden', '92', 9, 1, 0, 1, 1415, 0, 'Water Garden', 'Self watering', 0, NULL, NULL),
+(1350, 'rclr_sofa', '92', 9, 1, 0, 1, 1416, 0, 'Polar Sofa', 'Snuggle up together', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1113,8 +1117,7 @@ INSERT INTO `catalogue_pages` (`id`, `order_id`, `min_role`, `index_visible`, `i
 (87, 30, 1, 1, 0, 'Rock Trax', '', 'Rock Trax', 'ctlg_soundmachine', 'catalog_trx_header3', 'catalog_trx_teaser3', 'Welcome to the Rock Trax Store! With heavy beats and rockin\' riffs, this is the section for every rock fan to experiment with.', '', NULL, ''),
 (88, 31, 1, 1, 0, 'SFX Trax', '', 'SFX Trax', 'ctlg_soundmachine', 'catalog_trx_header4', 'catalog_trx_teaser4', 'Welcome to the SFX Trax Store! With crazy sounds and weird noises, this is the section for every creative room builder  to indulge in.', '', NULL, ''),
 (89, 32, 1, 1, 0, 'Urban Trax', '', 'Urban Trax', 'ctlg_soundmachine', 'catalog_trx_header5', 'catalog_trx_teaser5', 'Welcome to the Urban Trax Store! With hip hop beats and RnB vocals, this is the section for every city bopper  to indulge in.', '', NULL, ''),
-(90, 34, 1, 1, 0, 'Presents', '', 'Presents', 'ctlg_presents', 'catalog_gifts_headline1', 'catalog_presents_teaser1,catalog_presents_teaser2', 'Show your Habbo friends just how much you care and send them a gift from the Habbo Catalogue.  ANY Catalogue item can be sent as a gift to ANY Habbo, all you need is their Habbo name!', '', NULL, '1:Buying an item as a gift couldn\'t be simpler...  <br><br>Buy an item from the Catalogue in the normal way, but tick \'buy as a gift\'. Tell us which Habbo you want to give the gift to and we\'\'ll gift wrap it and deliver it straight to their hand.'),
-(91, 13, 1, 1, 0, 'Ecotron', '', 'Ecotron', 'ctlg_recycler', 'catalog_recycler_headline1', NULL, '', NULL, NULL, NULL);
+(90, 34, 1, 1, 0, 'Presents', '', 'Presents', 'ctlg_presents', 'catalog_gifts_headline1', 'catalog_presents_teaser1,catalog_presents_teaser2', 'Show your Habbo friends just how much you care and send them a gift from the Habbo Catalogue.  ANY Catalogue item can be sent as a gift to ANY Habbo, all you need is their Habbo name!', '', NULL, '1:Buying an item as a gift couldn\'t be simpler...  <br><br>Buy an item from the Catalogue in the normal way, but tick \'buy as a gift\'. Tell us which Habbo you want to give the gift to and we\'\'ll gift wrap it and deliver it straight to their hand.');
 
 -- --------------------------------------------------------
 
@@ -1835,14 +1838,14 @@ INSERT INTO `items_definitions` (`id`, `sprite`, `sprite_id`, `name`, `descripti
 (412, 'sound_set_62', 74, 'Alhambra Trax 1', 'Music of the Arabian night!', '0,0,0', 1, 1, 0.2, '2', 'solid,can_stack_on_top,sound_machine_sample_set,requires_rights_for_interaction', 'default', 1, 1, ''),
 (413, 'sound_set_63', 75, 'Alhambra Trax 2', 'Desert hits by the oasis!', '0,0,0', 1, 1, 0.2, '2', 'solid,can_stack_on_top,sound_machine_sample_set,requires_rights_for_interaction', 'default', 1, 1, ''),
 (414, 'sound_set_64', 76, 'Alhambra Trax 3', 'Make a little Jinn-gle!', '0,0,0', 1, 1, 0.2, '2', 'solid,can_stack_on_top,sound_machine_sample_set,requires_rights_for_interaction', 'default', 1, 1, ''),
-(415, 'present_gen1', 1372, 'Gift', 'What\'s inside?', '0,0,0', 1, 1, 1, '0', 'solid,present,can_stack_on_top', 'default', 1, 1, ''),
-(416, 'present_gen2', 1373, 'Gift', 'What\'s inside?', '0,0,0', 1, 1, 1, '0', 'solid,present,can_stack_on_top', 'default', 1, 1, ''),
-(417, 'present_gen3', 1374, 'Gift', 'What\'s inside?', '0,0,0', 1, 1, 1, '0', 'solid,present,can_stack_on_top', 'default', 1, 1, ''),
-(418, 'present_gen4', 1375, 'Gift', 'What\'s inside?', '0,0,0', 1, 1, 1, '0', 'solid,present,can_stack_on_top', 'default', 1, 1, ''),
-(419, 'present_gen5', 1376, 'Gift', 'What\'s inside?', '0,0,0', 1, 1, 1, '0', 'solid,present,can_stack_on_top', 'default', 1, 1, ''),
-(420, 'present_gen6', 1377, 'Gift', 'What\'s inside?', '0,0,0', 1, 1, 1, '0', 'solid,present,can_stack_on_top', 'default', 1, 1, ''),
+(415, 'present_gen1', 1372, 'Gift', 'What\'s inside?', '0,0,0', 1, 1, 1, '0', 'solid,present,can_stack_on_top', 'default', 1, 0, ''),
+(416, 'present_gen2', 1373, 'Gift', 'What\'s inside?', '0,0,0', 1, 1, 1, '0', 'solid,present,can_stack_on_top', 'default', 1, 0, ''),
+(417, 'present_gen3', 1374, 'Gift', 'What\'s inside?', '0,0,0', 1, 1, 1, '0', 'solid,present,can_stack_on_top', 'default', 1, 0, ''),
+(418, 'present_gen4', 1375, 'Gift', 'What\'s inside?', '0,0,0', 1, 1, 1, '0', 'solid,present,can_stack_on_top', 'default', 1, 0, ''),
+(419, 'present_gen5', 1376, 'Gift', 'What\'s inside?', '0,0,0', 1, 1, 1, '0', 'solid,present,can_stack_on_top', 'default', 1, 0, ''),
+(420, 'present_gen6', 1377, 'Gift', 'What\'s inside?', '0,0,0', 1, 1, 1, '0', 'solid,present,can_stack_on_top', 'default', 1, 0, ''),
 (421, 'camera', 145, 'Camera', 'Smile!', '0,0,0', 1, 1, 0, '2', 'solid,requires_rights_for_interaction', 'default', 1, 1, ''),
-(422, 'photo', 11221, 'Photo', 'Photo from Habbo', '', 0, 0, 0, '0', 'photo,wall_item', 'default', 1, 1, ''),
+(422, 'photo', 11221, 'Photo', 'Photo from Habbo', '', 0, 0, 0, '0', 'photo,wall_item', 'default', 1, 0, ''),
 (423, 'film', 0, '', '', '', 0, 0, 0, '0', '', 'default', 1, 1, ''),
 (424, 'table_plasto_4leg*6', 415, 'Occasional table Table', 'Hip plastic furniture', '#FFFFFF,#3444FF', 2, 2, 1, '2', 'solid,can_stack_on_top,requires_rights_for_interaction', 'default', 1, 1, ''),
 (425, 'table_plasto_round', 400, 'Round Dining Table', 'Hip plastic furniture', '0,0,0', 2, 2, 1, '2', 'solid,can_stack_on_top,requires_rights_for_interaction', 'default', 1, 1, ''),
@@ -2247,8 +2250,11 @@ INSERT INTO `items_definitions` (`id`, `sprite`, `sprite_id`, `name`, `descripti
 (1407, 'sound_set_68', 1351, 'Pitchside Pro', 'Football Sounds 1', '0,0,0', 1, 1, 0.2, '2', 'solid,can_stack_on_top,sound_machine_sample_set,requires_rights_for_interaction', 'default', 1, 1, ''),
 (1408, 'sound_set_69', 1352, 'Referee Rhythm', 'Football Sounds 2', '0,0,0', 1, 1, 0.2, '2', 'solid,can_stack_on_top,sound_machine_sample_set,requires_rights_for_interaction', 'default', 1, 1, ''),
 (1409, 'sound_set_70', 1353, 'Squad Synth', 'Football Sounds 3', '0,0,0', 1, 1, 0.2, '2', 'solid,can_stack_on_top,sound_machine_sample_set,requires_rights_for_interaction', 'default', 1, 1, ''),
-(1412, 'song_disk', 1355, 'Traxdisc', 'Burn, baby burn', '0,0,0', 1, 1, 0.1, '0', 'solid,song_disk', 'default', 1, 1, ''),
-(1413, 'nest', 34, '', '', '0,0,0', 1, 1, 0, '2', 'can_stand_on_top,requires_rights_for_interaction', 'pet_nest', 1, 1, '');
+(1412, 'song_disk', 1355, 'Traxdisc', 'Burn, baby burn', '0,0,0', 1, 1, 0.1, '0', 'solid,song_disk', 'default', 1, 0, ''),
+(1413, 'nest', 34, '', '', '0,0,0', 1, 1, 0, '2', 'can_stand_on_top,requires_rights_for_interaction', 'pet_nest', 1, 1, ''),
+(1414, 'rclr_chair', -1, 'Palm Chair', 'Watch out for coconuts', '0,0,0', 1, 1, 1, '2', 'can_sit_on_top', 'chair', 1, 0, ''),
+(1415, 'rclr_garden', -1, 'Water Garden', 'Self watering', '0,0,0', 1, 3, 0, '2', 'solid', 'default', 1, 0, ''),
+(1416, 'rclr_sofa', -1, 'Polar Sofa', 'Snuggle up together', '0,0,0', 2, 1, 1, '0', 'can_sit_on_top', 'chair', 1, 0, '');
 
 -- --------------------------------------------------------
 
@@ -5907,6 +5913,49 @@ CREATE TABLE `rare_cycle` (
   `reuse_time` bigint(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `rare_cycle`
+--
+
+INSERT INTO `rare_cycle` (`sale_code`, `reuse_time`) VALUES
+('marquee*4', 1571678093);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `recycler_rewards`
+--
+
+CREATE TABLE `recycler_rewards` (
+  `id` int(11) NOT NULL,
+  `sale_code` varchar(255) NOT NULL,
+  `item_cost` int(11) NOT NULL DEFAULT 10,
+  `recycling_session_time_seconds` int(11) DEFAULT 0,
+  `collection_time_seconds` int(11) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `recycler_rewards`
+--
+
+INSERT INTO `recycler_rewards` (`id`, `sale_code`, `item_cost`, `recycling_session_time_seconds`, `collection_time_seconds`) VALUES
+(2, 'rclr_garden', 30, 7200, 1800),
+(3, 'rclr_sofa', 50, 10800, 1800),
+(1, 'rclr_chair', 20, 3600, 1800);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `recycler_sessions`
+--
+
+CREATE TABLE `recycler_sessions` (
+  `user_id` int(11) NOT NULL,
+  `reward_id` int(11) NOT NULL,
+  `session_started` datetime NOT NULL DEFAULT current_timestamp(),
+  `items` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- --------------------------------------------------------
 
 --
@@ -6006,7 +6055,7 @@ INSERT INTO `rooms` (`id`, `owner_id`, `category`, `name`, `description`, `model
 (65, '0', 13, 'Poker hall', 'cunning_fox_gamehall/4', 'hallD', 'hh_room_gamehall,hh_games', 0, 0, 1, 0, 0, '', 0, 25, 0, '2018-08-11 07:54:01', '2018-08-11 07:54:01'),
 (66, '0', 13, 'Battleball Lobby', 'bb_lobby_beginner_0', 'bb_lobby_1', 'hh_game_bb,hh_game_bb_room,hh_game_bb_ui,hh_gamesys', 0, 0, 1, 0, 0, '', 0, 25, 0, '2018-08-11 07:54:01', '2018-11-17 00:07:05'),
 (67, '0', 13, 'Snowstorm Lobby', 'sw_lobby_beginner_0', 'snowwar_lobby_1', 'hh_gamesys,hh_game_snowwar,hh_game_snowwar_room,hh_game_snowwar_ui', 0, 0, 1, 0, 0, '', 0, 25, 0, '2018-08-11 07:54:01', '2018-08-11 07:54:01'),
-(1000, '1', 2, 'test', '', 'model_a', '', 0, 0, 1, 0, 0, '', 1, 25, 0, '2019-01-03 01:59:51', '2019-01-03 02:07:54');
+(1000, '1', 2, 'test', '', 'model_a', '', 0, 0, 1, 0, 0, '', 0, 25, 0, '2019-01-03 01:59:51', '2019-10-15 03:14:53');
 
 -- --------------------------------------------------------
 
@@ -6356,6 +6405,72 @@ CREATE TABLE `settings` (
   `value` text NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `settings`
+--
+
+INSERT INTO `settings` (`setting`, `value`) VALUES
+('afk.timer.seconds', '900'),
+('battleball.create.game.enabled', 'true'),
+('battleball.game.lifetime.seconds', '180'),
+('battleball.increase.points', 'true'),
+('battleball.preparing.game.seconds', '10'),
+('battleball.restart.game.seconds', '30'),
+('battleball.start.minimum.active.teams', '2'),
+('battleball.ticket.charge', '2'),
+('carry.timer.seconds', '300'),
+('chat.bubble.timeout.seconds', '15'),
+('chat.garbled.text', 'true'),
+('club.gift.interval', '31'),
+('club.gift.present.label', 'You have just received your monthly club gift!'),
+('club.gift.timeunit', 'DAYS'),
+('credits.scheduler.amount', '20'),
+('credits.scheduler.enabled', 'true'),
+('credits.scheduler.interval', '15'),
+('credits.scheduler.timeunit', 'MINUTES'),
+('events.category.count', '11'),
+('events.expiry.minutes', '120'),
+('fuck.aaron', 'true'),
+('game.finished.listing.expiry.seconds', '300'),
+('max.connections.per.ip', '2'),
+('messenger.max.friends.club', '600'),
+('messenger.max.friends.nonclub', '100'),
+('navigator.show.hidden.rooms', 'false'),
+('normalise.input.strings', 'false'),
+('profile.editing', 'true'),
+('rare.cycle.page.id', '2'),
+('rare.cycle.page.text', 'Okay this thing is fucking epic!<br><br>The time until the next rare is {rareCountdown}!'),
+('rare.cycle.pages', '28,3|29,3|31,3|32,3|33,3|34,3|35,3|36,3|40,3|43,3|30,6|37,6|38,6|39,6|44,6'),
+('rare.cycle.refresh.interval', '1'),
+('rare.cycle.refresh.timeunit', 'DAYS'),
+('rare.cycle.reuse.interval', '7'),
+('rare.cycle.reuse.throne.interval', '30'),
+('rare.cycle.reuse.throne.timeunit', 'DAYS'),
+('rare.cycle.reuse.timeunit', 'DAYS'),
+('rare.cycle.tick.time', '1'),
+('recycler.item.quarantine.seconds', '2592000'),
+('reset.sso.after.login', 'true'),
+('roller.tick.default', '2000'),
+('room.bots.enabled', 'true'),
+('room.dispose.timer.enabled', 'true'),
+('room.dispose.timer.seconds', '60'),
+('roomdimmer.scripting.allowed', 'false'),
+('shutdown.minutes', '1'),
+('sleep.timer.seconds', '300'),
+('snowstorm.create.game.enabled', 'false'),
+('snowstorm.increase.points', 'true'),
+('snowstorm.preparing.game.seconds', '10'),
+('snowstorm.restart.game.seconds', '30'),
+('snowstorm.start.minimum.active.teams', '2'),
+('snowstorm.ticket.charge', '2'),
+('stack.height.limit', '8'),
+('tutorial.enabled', 'true'),
+('users.figure.parts.club', '100,105,110,115,120,125,130,135,140,145,150,155,160,165,170,175,176,177,178,180,185,190,195,200,205,206,207,210,215,220,225,230,235,240,245,250,255,260,265,266,267,270,275,280,281,285,290,295,300,305,500,505,510,515,520,525,530,535,540,545,550,555,565,570,575,580,585,590,595,596,600,605,610,615,620,625,626,627,630,635,640,645,650,655,660,665,667,669,670,675,680,685,690,695,696,700,705,710,715,720,725,730,735,740,800,801,802,803,804,805,806,807,808,809,810,811,812,813,814,815,816,817,818,819,820,821,822,823,824,825,826,827,828,829,830,831,832,833,834,835,836,837,838,839,840,841,842,843,844,845,846,847,848,849,850,851,852,853,854,855,856,857,858,859,860,861,862,863,864,865,866,867,868,869,870,871,872,873'),
+('users.figure.parts.default', '100,105,110,115,120,125,130,135,140,145,150,155,160,165,170,175,176,177,178,180,185,190,195,200,205,206,207,210,215,220,225,230,235,240,245,250,255,260,265,266,267,270,275,280,281,285,290,295,300,305,500,505,510,515,520,525,530,535,540,545,550,555,565,570,575,580,585,590,595,596,600,605,610,615,620,625,626,627,630,635,640,645,650,655,660,665,667,669,670,675,680,685,690,695,696,700,705,710,715,720,725,730,735,740'),
+('vouchers.enabled', 'true'),
+('welcome.message.content', 'Hello, %username%! And welcome to the Kepler server!'),
+('welcome.message.enabled', 'false');
+
 -- --------------------------------------------------------
 
 --
@@ -6663,6 +6778,12 @@ ALTER TABLE `rare_cycle`
   ADD PRIMARY KEY (`sale_code`);
 
 --
+-- Indexes for table `recycler_sessions`
+--
+ALTER TABLE `recycler_sessions`
+  ADD PRIMARY KEY (`user_id`);
+
+--
 -- Indexes for table `rooms`
 --
 ALTER TABLE `rooms`
@@ -6760,7 +6881,7 @@ ALTER TABLE `vouchers_items`
 -- AUTO_INCREMENT for table `catalogue_items`
 --
 ALTER TABLE `catalogue_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1348;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1351;
 
 --
 -- AUTO_INCREMENT for table `catalogue_packages`
@@ -6784,7 +6905,7 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `items_definitions`
 --
 ALTER TABLE `items_definitions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1414;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1417;
 
 --
 -- AUTO_INCREMENT for table `items_pets`
