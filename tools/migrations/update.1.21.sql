@@ -1,10 +1,9 @@
 ALTER TABLE `users` CHANGE `sso_ticket` `sso_ticket` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;
 
-DROP TABLE `games_player_spawns`;
-
-DROP TABLE `vouchers`;
-DROP TABLE `vouchers_history`;
-DROP TABLE `vouchers_items`;
+DROP TABLE IF EXISTS `games_player_spawns`;
+DROP TABLE IF EXISTS `vouchers`;
+DROP TABLE IF EXISTS `vouchers_history`;
+DROP TABLE IF EXISTS `vouchers_items`;
 
 CREATE TABLE `games_player_spawns` (
   `type` enum('battleball','snowstorm') NOT NULL DEFAULT 'battleball',
