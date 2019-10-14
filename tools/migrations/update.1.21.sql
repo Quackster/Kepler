@@ -2,6 +2,10 @@ ALTER TABLE `users` CHANGE `sso_ticket` `sso_ticket` VARCHAR(255) CHARACTER SET 
 
 DROP TABLE `games_player_spawns`;
 
+DROP TABLE `vouchers`;
+DROP TABLE `vouchers_history`;
+DROP TABLE `vouchers_items`;
+
 CREATE TABLE `games_player_spawns` (
   `type` enum('battleball','snowstorm') NOT NULL DEFAULT 'battleball',
   `map_id` int(11) NOT NULL,
@@ -251,4 +255,5 @@ ALTER TABLE `vouchers_history` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_
 ALTER TABLE `vouchers_items`DEFAULT  CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
 ALTER TABLE `vouchers_items` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 
+DELETE FROM catalogue_pages WHERE layout = 'ctlg_recycler';
 INSERT INTO `catalogue_pages` (`id`, `order_id`, `min_role`, `name_index`, `name`, `layout`, `image_headline`) VALUES ('91', '13', '1', 'Ecotron', 'Ecotron', 'ctlg_recycler', 'catalog_recycler_headline1'); 
