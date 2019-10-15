@@ -300,5 +300,5 @@ INSERT INTO `items_definitions` (`id`, `sprite`, `sprite_id`, `name`, `descripti
 INSERT INTO `items_definitions` (`id`, `sprite`, `sprite_id`, `name`, `description`, `colour`, `length`, `width`, `top_height`, `max_status`, `behaviour`, `interactor`, `is_tradable`, `is_recyclable`, `drink_ids`) VALUES (1415, 'rclr_garden', -1, 'Water Garden', 'Self watering', '0,0,0', 1, 3, 0, '2', 'solid', 'default', 1, 0, '');
 INSERT INTO `items_definitions` (`id`, `sprite`, `sprite_id`, `name`, `description`, `colour`, `length`, `width`, `top_height`, `max_status`, `behaviour`, `interactor`, `is_tradable`, `is_recyclable`, `drink_ids`) VALUES (1416, 'rclr_sofa', -1, 'Polar Sofa', 'Snuggle up together', '0,0,0', 2, 1, 1, '0', 'can_sit_on_top', 'chair', 1, 0, '');
 
-
-
+UPDATE items_definitions SET interactor = 'pet_nest' WHERE sprite LIKE 'pets%';
+DELETE FROM items WHERE definition_id IN (154, 776, 777);
