@@ -114,29 +114,7 @@ public class Player extends Entity {
         }
 
         this.messenger.sendStatusUpdate();
-
-        if (!this.details.hasClubSubscription()) {
-            // If the database still thinks we have Habbo club even after it expired, reset it back to 0.
-            if (this.details.getClubExpiration() > 0) {
-                //this.details.setFirstClubSubscription(0);
-                this.details.setClubExpiration(0);
-                this.details.getBadges().remove("HC1"); // If their HC ran out, remove badge.
-                this.details.getBadges().remove("HC2"); // No gold badge when not subscribed.
-
-                this.refreshFuserights();
-                PlayerDao.saveSubscription(this.details);
-            }
-        } else {
-            if (!this.details.getBadges().contains("HC1")) {
-                this.details.getBadges().add("HC1");
-            }
-
-            if (this.details.hasGoldClubSubscription()) {
-                if (!this.details.getBadges().contains("HC2")) {
-                    this.details.getBadges().add("HC2");
-                }
-            }
-        }
+        ClubSubscription.refreshBadge(this);
     }
 
     /**
@@ -147,6 +125,7 @@ public class Player extends Entity {
             this.send(new AVAILABLE_SETS("[" + GameConfiguration.getInstance().getString("users.figure.parts.club") + "]"));
         }
 
+        ClubSubscription.refreshBadge(this);
         ClubSubscription.sendHcDays(this);
     }
 
