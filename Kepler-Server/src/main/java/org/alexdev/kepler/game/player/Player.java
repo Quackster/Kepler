@@ -3,22 +3,25 @@ package org.alexdev.kepler.game.player;
 import io.netty.util.AttributeKey;
 import org.alexdev.kepler.Kepler;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
+import org.alexdev.kepler.dao.mysql.SettingsDao;
 import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.club.ClubSubscription;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
-import org.alexdev.kepler.game.inventory.Inventory;
-import org.alexdev.kepler.game.messenger.Messenger;
 import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.fuserights.FuserightsManager;
+import org.alexdev.kepler.game.inventory.Inventory;
+import org.alexdev.kepler.game.messenger.Messenger;
 import org.alexdev.kepler.game.room.entities.RoomPlayer;
 import org.alexdev.kepler.messages.outgoing.club.CLUB_GIFT;
-import org.alexdev.kepler.messages.outgoing.handshake.*;
+import org.alexdev.kepler.messages.outgoing.handshake.AVAILABLE_SETS;
+import org.alexdev.kepler.messages.outgoing.handshake.LOGIN;
+import org.alexdev.kepler.messages.outgoing.handshake.RIGHTS;
 import org.alexdev.kepler.messages.outgoing.moderation.USER_BANNED;
-import org.alexdev.kepler.messages.outgoing.openinghours.*;
+import org.alexdev.kepler.messages.outgoing.openinghours.INFO_HOTEL_CLOSING;
 import org.alexdev.kepler.messages.outgoing.user.ALERT;
 import org.alexdev.kepler.messages.outgoing.user.HOTEL_LOGOUT;
-import org.alexdev.kepler.messages.outgoing.user.HOTEL_LOGOUT.*;
+import org.alexdev.kepler.messages.outgoing.user.HOTEL_LOGOUT.LogoutReason;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.NettyPlayerNetwork;
 import org.alexdev.kepler.util.config.GameConfiguration;
@@ -73,6 +76,8 @@ public class Player extends Entity {
             PlayerDao.clearSSOTicket(this.details.getId()); // Protect against replay attacks
         }
 
+        SettingsDao.updateSetting("players.online", String.valueOf(PlayerManager.getInstance().getPlayers().size()));
+
         this.messenger = new Messenger(this.details);
         this.inventory = new Inventory(this);
 
@@ -114,39 +119,18 @@ public class Player extends Entity {
         }
 
         this.messenger.sendStatusUpdate();
+        ClubSubscription.refreshBadge(this);
     }
 
     /**
      * Refresh club for player.
      */
     public void refreshClub() {
-        if (!this.details.hasClubSubscription()) {
-            // If the database still thinks we have Habbo club even after it expired, reset it back to 0.
-            if (this.details.getClubExpiration() > 0) {
-                //this.details.setFirstClubSubscription(0);
-                this.details.setClubExpiration(0);
-                this.details.getBadges().remove("HC1"); // If their HC ran out, remove badge.
-                this.details.getBadges().remove("HC2"); // No gold badge when not subscribed.
-
-                this.refreshFuserights();
-                PlayerDao.saveSubscription(this.details);
-            }
-        } else {
-            if (!this.details.getBadges().contains("HC1")) {
-                this.details.getBadges().add("HC1");
-            }
-
-            if (this.details.hasGoldClubSubscription()) {
-                if (!this.details.getBadges().contains("HC2")) {
-                    this.details.getBadges().add("HC2");
-                }
-            }
-        }
-
         if (this.details.hasClubSubscription()) {
             this.send(new AVAILABLE_SETS("[" + GameConfiguration.getInstance().getString("users.figure.parts.club") + "]"));
         }
 
+        ClubSubscription.refreshBadge(this);
         ClubSubscription.sendHcDays(this);
     }
 
@@ -318,8 +302,9 @@ public class Player extends Entity {
                 }
 
                 PlayerDao.saveLastOnline(this.getDetails());
-                PlayerManager.getInstance().removePlayer(this);
+                SettingsDao.updateSetting("players.online", String.valueOf(PlayerManager.getInstance().getPlayers().size()));
 
+                PlayerManager.getInstance().removePlayer(this);
                 this.messenger.sendStatusUpdate();
             }
 

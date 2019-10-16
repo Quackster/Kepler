@@ -227,4 +227,34 @@ public class ClubSubscription {
     private static long getClubGiftSeconds() {
         return TimeUnit.valueOf(GameConfiguration.getInstance().getString("club.gift.timeunit")).toSeconds(GameConfiguration.getInstance().getInteger("club.gift.interval"));
     }
+
+    /**
+     * Refresh club page for user.
+     *
+     * @param player the player to check against
+     */
+    public static void refreshBadge(Player player) {
+        if (!player.getDetails().hasClubSubscription()) {
+            // If the database still thinks we have Habbo club even after it expired, reset it back to 0.
+            if (player.getDetails().getClubExpiration() > 0) {
+                //player.getDetails().setFirstClubSubscription(0);
+                player.getDetails().setClubExpiration(0);
+                player.getDetails().getBadges().remove("HC1"); // If their HC ran out, remove badge.
+                player.getDetails().getBadges().remove("HC2"); // No gold badge when not subscribed.
+
+                player.refreshFuserights();
+                PlayerDao.saveSubscription(player.getDetails());
+            }
+        } else {
+            if (!player.getDetails().getBadges().contains("HC1")) {
+                player.getDetails().getBadges().add("HC1");
+            }
+
+            if (player.getDetails().hasGoldClubSubscription()) {
+                if (!player.getDetails().getBadges().contains("HC2")) {
+                    player.getDetails().getBadges().add("HC2");
+                }
+            }
+        }
+    }
 }

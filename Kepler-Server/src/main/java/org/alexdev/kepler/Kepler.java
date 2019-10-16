@@ -2,6 +2,7 @@ package org.alexdev.kepler;
 
 import io.netty.util.ResourceLeakDetector;
 import org.alexdev.kepler.dao.Storage;
+import org.alexdev.kepler.dao.mysql.SettingsDao;
 import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.bot.BotManager;
 import org.alexdev.kepler.game.catalogue.CatalogueManager;
@@ -103,6 +104,9 @@ public class Kepler {
             MessageHandler.getInstance();
             TextsManager.getInstance();
             RecyclerManager.getInstance();
+
+            // Update players online back to 0
+            SettingsDao.updateSetting("players.online", "0");
 
             setupRcon();
             setupMus();
