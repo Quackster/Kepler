@@ -114,12 +114,7 @@ public class Player extends Entity {
         }
 
         this.messenger.sendStatusUpdate();
-    }
 
-    /**
-     * Refresh club for player.
-     */
-    public void refreshClub() {
         if (!this.details.hasClubSubscription()) {
             // If the database still thinks we have Habbo club even after it expired, reset it back to 0.
             if (this.details.getClubExpiration() > 0) {
@@ -142,7 +137,12 @@ public class Player extends Entity {
                 }
             }
         }
+    }
 
+    /**
+     * Refresh club for player.
+     */
+    public void refreshClub() {
         if (this.details.hasClubSubscription()) {
             this.send(new AVAILABLE_SETS("[" + GameConfiguration.getInstance().getString("users.figure.parts.club") + "]"));
         }
