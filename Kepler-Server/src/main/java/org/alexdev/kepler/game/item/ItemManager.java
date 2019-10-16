@@ -31,13 +31,12 @@ public class ItemManager {
      * @param saleCode the sprite to give
      * @return the item as gift
      */
-    public Item createGift(PlayerDetails playerDetails, String saleCode, String presentLabel, String extraData, boolean isRecycled) {
-        ItemDefinition itemDef = null;
+    public Item createGift(PlayerDetails playerDetails, String saleCode, String presentLabel, String extraData) throws Exception {
+        String sprite = "present_gen" + ThreadLocalRandom.current().nextInt(1, 7);
+        ItemDefinition itemDef = ItemManager.getInstance().getDefinitionBySprite(sprite);
 
-        if (isRecycled) {
-            itemDef = ItemManager.getInstance().getDefinitionBySprite("ecotron_box");
-        } else {
-            itemDef = ItemManager.getInstance().getDefinitionBySprite("present_gen" + ThreadLocalRandom.current().nextInt(1, 7));
+        if (itemDef == null) {
+            throw new Exception("Could not create gift, the definition for sprite " + sprite + " doesn't exist");
         }
 
         Item item = new Item();
