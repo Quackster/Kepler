@@ -112,6 +112,8 @@ public class GameConfiguration {
         //config.put("recycler.session.length.seconds", "3600");
         config.put("recycler.item.quarantine.seconds", "2592000");
 
+        config.put("players.online", "0");
+
         // Catalogue pages for rare items, delimetered by pipe, first integer is page ID and second number is the amount of hours required for that rare to be affordable
         config.put("rare.cycle.pages", "28,3|29,3|31,3|32,3|33,3|34,3|35,3|36,3|40,3|43,3|30,6|37,6|38,6|39,6|44,6");
     }
