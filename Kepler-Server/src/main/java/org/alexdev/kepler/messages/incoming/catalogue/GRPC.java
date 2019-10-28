@@ -28,7 +28,7 @@ import java.util.Optional;
 
 public class GRPC implements MessageEvent {
     @Override
-    public void handle(Player player, NettyRequest reader) throws SQLException {
+    public void handle(Player player, NettyRequest reader) throws Exception {
         String content = reader.contents();
         String[] data = content.split(Character.toString((char) 13));
 
@@ -90,7 +90,7 @@ public class GRPC implements MessageEvent {
             extraData = extraData.replace(Item.PRESENT_DELIMETER, "");
             presentNote = presentNote.replace(Item.PRESENT_DELIMETER, "");
 
-            Item present = ItemManager.getInstance().createGift(player.getDetails(), item.getSaleCode(), StringUtil.filterInput(presentNote, false), extraData, true);//new Item();
+            Item present = ItemManager.getInstance().createGift(player.getDetails(), item.getSaleCode(), StringUtil.filterInput(presentNote, false), extraData);//new Item();
             /*present.setOwnerId(receivingUserDetails.getId());
             present.setDefinitionId(ItemManager.getInstance().getDefinitionBySprite("present_gen" + ThreadLocalRandom.current().nextInt(1, 7)).getId());
             present.setCustomData(saleCode +

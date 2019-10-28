@@ -79,7 +79,7 @@ public class ClubSubscription {
      * @param days the amount of days to subscribe for
      * @param credits the amount of credits cost
      */
-    public static void subscribeClub(Player player, int days, int credits) {
+    public static void subscribeClub(Player player, int days, int credits) throws Exception {
         if (days <= 0) {
             return;
         }
@@ -96,7 +96,7 @@ public class ClubSubscription {
         if (player.getDetails().getFirstClubSubscription() == 0) {
             player.getDetails().setFirstClubSubscription(now);
 
-            Item item = ItemManager.getInstance().createGift(player.getDetails(), "club_sofa", GameConfiguration.getInstance().getString("club.gift.present.label"), "", false);
+            Item item = ItemManager.getInstance().createGift(player.getDetails(), "club_sofa", GameConfiguration.getInstance().getString("club.gift.present.label"), "");
 
             player.getDetails().setClubGiftDue(DateUtil.getCurrentTimeSeconds() + getClubGiftSeconds());
             ClubGiftDao.saveNextGiftDate(player.getDetails());
@@ -138,7 +138,7 @@ public class ClubSubscription {
         return true;
     }
 
-    public static void tryNextGift(Player player) throws SQLException {
+    public static void tryNextGift(Player player) throws Exception {
         if (!isGiftDue(player)) {
             return;
         }
@@ -147,7 +147,7 @@ public class ClubSubscription {
 
         if (player.getDetails().getFirstClubSubscription() == 0) {
             player.getDetails().setFirstClubSubscription(DateUtil.getCurrentTimeSeconds());
-            item = ItemManager.getInstance().createGift(player.getDetails(), "club_sofa", GameConfiguration.getInstance().getString("club.gift.present.label"), "", false);
+            item = ItemManager.getInstance().createGift(player.getDetails(), "club_sofa", GameConfiguration.getInstance().getString("club.gift.present.label"), "");
 
             PlayerDao.saveSubscription(player.getDetails());
         } else {
@@ -175,8 +175,7 @@ public class ClubSubscription {
             }
 
             ClubGiftDao.addGift(player.getDetails().getId(), nextSpriteGift);
-
-            item = ItemManager.getInstance().createGift(player.getDetails(), nextSpriteGift, GameConfiguration.getInstance().getString("club.gift.present.label"), "", false);
+            item = ItemManager.getInstance().createGift(player.getDetails(), nextSpriteGift, GameConfiguration.getInstance().getString("club.gift.present.label"), "");
         }
 
         player.getDetails().setClubGiftDue(DateUtil.getCurrentTimeSeconds() + getClubGiftSeconds());
