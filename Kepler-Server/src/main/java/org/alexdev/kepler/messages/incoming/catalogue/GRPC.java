@@ -23,7 +23,6 @@ import org.alexdev.kepler.server.netty.streams.NettyRequest;
 import org.alexdev.kepler.util.DateUtil;
 import org.alexdev.kepler.util.StringUtil;
 
-import java.sql.SQLException;
 import java.util.Optional;
 
 public class GRPC implements MessageEvent {
@@ -90,7 +89,7 @@ public class GRPC implements MessageEvent {
             extraData = extraData.replace(Item.PRESENT_DELIMETER, "");
             presentNote = presentNote.replace(Item.PRESENT_DELIMETER, "");
 
-            Item present = ItemManager.getInstance().createGift(player.getDetails(), item.getSaleCode(), StringUtil.filterInput(presentNote, false), extraData);//new Item();
+            Item present = ItemManager.getInstance().createGift(receivingUserDetails, player.getDetails(), item.getSaleCode(), StringUtil.filterInput(presentNote, false), extraData);//new Item();
             /*present.setOwnerId(receivingUserDetails.getId());
             present.setDefinitionId(ItemManager.getInstance().getDefinitionBySprite("present_gen" + ThreadLocalRandom.current().nextInt(1, 7)).getId());
             present.setCustomData(saleCode +

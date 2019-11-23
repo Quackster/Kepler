@@ -12,7 +12,6 @@ import org.alexdev.kepler.util.DateUtil;
 import org.alexdev.kepler.util.config.GameConfiguration;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.sql.SQLException;
 import java.util.concurrent.TimeUnit;
 
 public class ClubSubscription {
@@ -96,7 +95,7 @@ public class ClubSubscription {
         if (player.getDetails().getFirstClubSubscription() == 0) {
             player.getDetails().setFirstClubSubscription(now);
 
-            Item item = ItemManager.getInstance().createGift(player.getDetails(), "club_sofa", GameConfiguration.getInstance().getString("club.gift.present.label"), "");
+            Item item = ItemManager.getInstance().createGift(player.getDetails(), player.getDetails(), "club_sofa", GameConfiguration.getInstance().getString("club.gift.present.label"), "");
 
             player.getDetails().setClubGiftDue(DateUtil.getCurrentTimeSeconds() + getClubGiftSeconds());
             ClubGiftDao.saveNextGiftDate(player.getDetails());
@@ -147,7 +146,7 @@ public class ClubSubscription {
 
         if (player.getDetails().getFirstClubSubscription() == 0) {
             player.getDetails().setFirstClubSubscription(DateUtil.getCurrentTimeSeconds());
-            item = ItemManager.getInstance().createGift(player.getDetails(), "club_sofa", GameConfiguration.getInstance().getString("club.gift.present.label"), "");
+            item = ItemManager.getInstance().createGift(player.getDetails(), player.getDetails(), "club_sofa", GameConfiguration.getInstance().getString("club.gift.present.label"), "");
 
             PlayerDao.saveSubscription(player.getDetails());
         } else {
@@ -175,7 +174,7 @@ public class ClubSubscription {
             }
 
             ClubGiftDao.addGift(player.getDetails().getId(), nextSpriteGift);
-            item = ItemManager.getInstance().createGift(player.getDetails(), nextSpriteGift, GameConfiguration.getInstance().getString("club.gift.present.label"), "");
+            item = ItemManager.getInstance().createGift(player.getDetails(), player.getDetails(), nextSpriteGift, GameConfiguration.getInstance().getString("club.gift.present.label"), "");
         }
 
         player.getDetails().setClubGiftDue(DateUtil.getCurrentTimeSeconds() + getClubGiftSeconds());

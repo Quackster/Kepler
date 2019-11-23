@@ -27,11 +27,11 @@ public class ItemManager {
     /**
      * Quick and easy method for creating gifts.
      *
-     * @param playerDetails the user to give the gift to
+     * @param toPlayer the user to give the gift to
      * @param saleCode the sprite to give
      * @return the item as gift
      */
-    public Item createGift(PlayerDetails playerDetails, String saleCode, String presentLabel, String extraData) throws Exception {
+    public Item createGift(PlayerDetails toPlayer, PlayerDetails fromPlayer, String saleCode, String presentLabel, String extraData) throws Exception {
         String sprite = "present_gen" + ThreadLocalRandom.current().nextInt(1, 7);
         ItemDefinition itemDef = ItemManager.getInstance().getDefinitionBySprite(sprite);
 
@@ -41,9 +41,9 @@ public class ItemManager {
 
         Item item = new Item();
         item.setDefinitionId(itemDef.getId());
-        item.setOwnerId(playerDetails.getId());
+        item.setOwnerId(toPlayer.getId());
         item.setCustomData(CatalogueManager.getInstance().getCatalogueItem(saleCode).getId() +
-                Item.PRESENT_DELIMETER + playerDetails.getName() +
+                Item.PRESENT_DELIMETER + fromPlayer.getName() +
                 Item.PRESENT_DELIMETER + presentLabel.replace(Item.PRESENT_DELIMETER, "") + //From Habbo" +
                 Item.PRESENT_DELIMETER + extraData.replace(Item.PRESENT_DELIMETER, "") +
                 Item.PRESENT_DELIMETER + DateUtil.getCurrentTimeSeconds());
