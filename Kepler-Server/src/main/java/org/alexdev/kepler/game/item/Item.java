@@ -327,7 +327,9 @@ public class Item {
             return false;
         }
 
-        boolean isRotation = (item.getPosition().getRotation() != rotation) && new Position(x, y).equals(item.getPosition());
+        boolean isRotation = (item.getPosition().getRotation() != rotation) && (new Position(x, y).equals(item.getPosition())
+                || (item.getRollingData() != null && new Position(x, y).equals(item.getRollingData().getNextPosition()))
+                || (item.getRollingData() != null && new Position(x, y).equals(item.getRollingData().getFromPosition())));
 
         if (isRotation) {
             if (item.getRollingData() != null) {
