@@ -8,7 +8,7 @@ import java.util.List;
 
 public class RollerEntry {
     private Item roller;
-    private List<Item> rollingItems;
+    private List<RollingData> rollingItems;
     private Entity rollingEntity;
 
     public RollerEntry(Item roller) {
@@ -21,7 +21,7 @@ public class RollerEntry {
         return roller;
     }
 
-    public List<Item> getRollingItems() {
+    public List<RollingData> getRollingItems() {
         return rollingItems;
     }
 

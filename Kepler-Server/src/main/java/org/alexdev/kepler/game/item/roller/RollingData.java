@@ -60,4 +60,8 @@ public class RollingData {
     public void setDisplayHeight(double displayHeight) {
         this.displayHeight = displayHeight;
     }
+
+    public Entity getEntity() {
+        return entity;
+    }
 }
