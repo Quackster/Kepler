@@ -35,6 +35,10 @@ public class RollerTask implements Runnable {
             ItemRollingAnalysis itemRollingAnalysis = new ItemRollingAnalysis();
             EntityRollingAnalysis entityRollingAnalysis = new EntityRollingAnalysis();
 
+            if (this.room.getItems().stream().anyMatch(item -> item.hasBehaviour(ItemBehaviour.ROLLER))) {
+                this.room.getMapping().regenerateCollisionMap();
+            }
+
             for (Item roller : this.room.getItems()) {
                 if (!roller.hasBehaviour(ItemBehaviour.ROLLER)) {
                     continue;
@@ -56,8 +60,9 @@ public class RollerTask implements Runnable {
 
                     if (nextPosition != null) {
                         itemsRolling.put(item, Pair.of(roller, nextPosition));
-                        rollerEntry.getRollingItems().add(item);
+                        rollerEntry.getRollingItems().add(item.getRollingData());
                     }
+
                 }
 
                 // Process entities on rollers
@@ -65,7 +70,7 @@ public class RollerTask implements Runnable {
                 if (roller.getTile().getEntities().size() > 0) {
                     var optional = roller.getTile().getEntities().stream().findFirst();
 
-                    if (!optional.isPresent())
+                    if (optional.isEmpty())
                         continue;
 
                     Entity entity = optional.get();
@@ -96,12 +101,19 @@ public class RollerTask implements Runnable {
 
             // Perform roll animation for item
             for (var kvp : itemsRolling.entrySet()) {
-                itemRollingAnalysis.doRoll(kvp.getKey(), kvp.getValue().getLeft(), this.room, kvp.getKey().getPosition(), kvp.getValue().getRight());
+                Item item = kvp.getKey();
+
+                if (!item.isCurrentRollBlocked()) {
+                    itemRollingAnalysis.doRoll(kvp.getKey(), kvp.getValue().getLeft(), this.room, kvp.getKey().getPosition(), kvp.getValue().getRight());
+                }
             }
 
             // Send roller packets
             for (RollerEntry entry : rollerEntries) {
-                this.room.send(new SLIDEOBJECTBUNDLE(entry.getRoller(), entry.getRollingItems(), entry.getRollingEntity()));
+                var rollingItems = new ArrayList<>(entry.getRollingItems());
+                rollingItems.removeIf(item -> item.getItem().isCurrentRollBlocked());
+
+                this.room.send(new SLIDEOBJECTBUNDLE(entry.getRoller(), rollingItems, entry.getRollingEntity().getRoomUser().getRollingData()));
             }
 
             if (itemsRolling.size() > 0) {

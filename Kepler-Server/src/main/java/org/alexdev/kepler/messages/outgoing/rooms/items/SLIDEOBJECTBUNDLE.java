@@ -1,7 +1,7 @@
 package org.alexdev.kepler.messages.outgoing.rooms.items;
 
-import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.item.Item;
+import org.alexdev.kepler.game.item.roller.RollingData;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
@@ -12,8 +12,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class SLIDEOBJECTBUNDLE extends MessageComposer {
     private Item roller;
-    private List<Item> rollingItems;
-    private Entity rollingEntity;
+    private List<RollingData> rollingItems;
+    private RollingData rollingEntity;
 
     private Position position;
     private int destX;
@@ -21,7 +21,7 @@ public class SLIDEOBJECTBUNDLE extends MessageComposer {
     private float destZ;
     private int id;
 
-    public SLIDEOBJECTBUNDLE(Item roller, List<Item> rollingItems, Entity rollingEntity) {
+    public SLIDEOBJECTBUNDLE(Item roller, List<RollingData> rollingItems, RollingData rollingEntity) {
         this.roller = roller;
         this.rollingItems = rollingItems;
         this.rollingEntity = rollingEntity;
@@ -55,19 +55,19 @@ public class SLIDEOBJECTBUNDLE extends MessageComposer {
             response.writeInt(this.roller.getPosition().getSquareInFront().getY());
             response.writeInt(this.rollingItems.size());
 
-            for (Item item : this.rollingItems) {
-                response.writeInt(item.getId());
-                response.writeString(StringUtil.format(item.getRollingData().getFromPosition().getZ()));
-                response.writeString(StringUtil.format(item.getRollingData().getNextPosition().getZ()));
+            for (RollingData item : this.rollingItems) {
+                response.writeInt(item.getItem().getId());
+                response.writeString(StringUtil.format(item.getFromPosition().getZ()));
+                response.writeString(StringUtil.format(item.getNextPosition().getZ()));
             }
 
             response.writeInt(this.roller.getId());
             response.writeInt(this.rollingEntity != null ? 2 : 0);
 
             if (this.rollingEntity != null) {
-                response.writeInt(this.rollingEntity.getRoomUser().getInstanceId());
-                response.writeString(StringUtil.format(this.rollingEntity.getRoomUser().getRollingData().getFromPosition().getZ()));
-                response.writeString(StringUtil.format(this.rollingEntity.getRoomUser().getRollingData().getDisplayHeight()));
+                response.writeInt(this.rollingEntity.getEntity().getRoomUser().getInstanceId());
+                response.writeString(StringUtil.format(this.rollingEntity.getFromPosition().getZ()));
+                response.writeString(StringUtil.format(this.rollingEntity.getDisplayHeight()));
             }
         }
     }
