@@ -3,16 +3,15 @@ package org.alexdev.kepler.messages.incoming.rooms.items;
 import org.alexdev.kepler.dao.mysql.ItemDao;
 import org.alexdev.kepler.game.catalogue.CatalogueItem;
 import org.alexdev.kepler.game.catalogue.CatalogueManager;
+import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
-import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
-import org.alexdev.kepler.messages.incoming.catalogue.GRPC;
 import org.alexdev.kepler.messages.outgoing.catalogue.DELIVER_PRESENT;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
-import org.alexdev.kepler.util.DateUtil;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 import java.util.regex.Pattern;
@@ -48,7 +47,13 @@ public class PRESENTOPEN implements MessageEvent {
         //System.out.println("Custom data: " + item.getCustomData());
         //System.out.println(receivedFrom);
 
-        CatalogueItem catalogueItem = CatalogueManager.getInstance().getCatalogueItem(saleCode);
+        CatalogueItem catalogueItem = null;
+
+        if (StringUtils.isNumeric(saleCode)) {
+            catalogueItem = CatalogueManager.getInstance().getCatalogueItems().stream().filter(shopItem -> shopItem.getId() == Integer.parseInt(saleCode)).findFirst().orElse(null);
+        } else {
+            catalogueItem = CatalogueManager.getInstance().getCatalogueItem(saleCode);
+        }
 
         // Don't create a new item instance, reuse if the item isn't a trophy or teleporter, etc
         if (!catalogueItem.isPackage() && !catalogueItem.getDefinition().hasBehaviour(ItemBehaviour.PRIZE_TROPHY) &&

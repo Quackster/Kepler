@@ -1,20 +1,11 @@
 package org.alexdev.kepler.messages.incoming.rooms;
 
 import org.alexdev.kepler.game.games.Game;
-import org.alexdev.kepler.game.games.GameObject;
-import org.alexdev.kepler.game.games.battleball.BattleBallGame;
-import org.alexdev.kepler.game.games.enums.GameState;
-import org.alexdev.kepler.game.games.player.GamePlayer;
-import org.alexdev.kepler.game.games.player.GameTeam;
-import org.alexdev.kepler.game.games.snowstorm.SnowStormGame;
-import org.alexdev.kepler.game.games.snowstorm.object.SnowStormAvatarObject;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
-import org.alexdev.kepler.messages.outgoing.games.FULLGAMESTATUS;
 import org.alexdev.kepler.messages.outgoing.games.GAMESTART;
-import org.alexdev.kepler.messages.outgoing.games.SNOWSTORM_FULLGAMESTATUS;
 import org.alexdev.kepler.messages.outgoing.rooms.items.DICE_VALUE;
 import org.alexdev.kepler.messages.outgoing.rooms.items.SHOWPROGRAM;
 import org.alexdev.kepler.messages.outgoing.rooms.items.STUFFDATAUPDATE;
@@ -24,7 +15,6 @@ import org.alexdev.kepler.messages.outgoing.rooms.user.YOUARESPECTATOR;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class G_STAT implements MessageEvent {
@@ -57,6 +47,8 @@ public class G_STAT implements MessageEvent {
         }
 
         room.send(new USER_OBJECTS(player), List.of(player));
+        player.send(new USER_OBJECTS(room.getEntities()));
+
         room.getEntityManager().tryRoomEntry(player);
 
         player.send(new USER_STATUSES(room.getEntities()));
