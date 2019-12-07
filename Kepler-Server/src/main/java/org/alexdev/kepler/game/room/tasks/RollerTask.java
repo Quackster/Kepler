@@ -113,7 +113,9 @@ public class RollerTask implements Runnable {
                 var rollingItems = new ArrayList<>(entry.getRollingItems());
                 rollingItems.removeIf(item -> item.getItem().isCurrentRollBlocked());
 
-                var entityRollerData = entry.getRollingEntity().getRoomUser() == null ? null : entry.getRollingEntity().getRoomUser().getRollingData();
+                var entityRollerData = entry.getRollingEntity() == null ? null :
+                        (entry.getRollingEntity().getRoomUser() == null ? null : entry.getRollingEntity().getRoomUser().getRollingData());
+                
                 this.room.send(new SLIDEOBJECTBUNDLE(entry.getRoller(), rollingItems, entityRollerData));
             }
 
