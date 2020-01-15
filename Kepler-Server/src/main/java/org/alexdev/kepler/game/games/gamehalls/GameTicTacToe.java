@@ -390,10 +390,10 @@ public class GameTicTacToe extends GamehallGame {
 
         for (char[] mapData : this.gameMap) {
             for (char mapLetter : mapData) {
-                boardData.append(mapLetter);
+                boardData.append(mapLetter == '0' ? (char)32 : mapLetter);
             }
 
-            boardData.append((char)13);
+            boardData.append((char)32);
         }
 
         String[] playerNames = this.getCurrentlyPlaying();
