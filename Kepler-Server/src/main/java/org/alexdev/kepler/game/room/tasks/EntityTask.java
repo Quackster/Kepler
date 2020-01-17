@@ -2,13 +2,14 @@ package org.alexdev.kepler.game.room.tasks;
 
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
-import org.alexdev.kepler.game.pets.Pet;
-import org.alexdev.kepler.game.pets.PetManager;
-import org.alexdev.kepler.game.room.entities.RoomEntity;
-import org.alexdev.kepler.game.room.enums.StatusType;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.pathfinder.Rotation;
+import org.alexdev.kepler.game.pets.Pet;
+import org.alexdev.kepler.game.pets.PetManager;
+import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
+import org.alexdev.kepler.game.room.entities.RoomEntity;
+import org.alexdev.kepler.game.room.enums.StatusType;
 import org.alexdev.kepler.game.room.mapping.RoomTile;
 import org.alexdev.kepler.log.Log;
 import org.alexdev.kepler.messages.outgoing.rooms.user.CHAT_MESSAGE;
@@ -42,6 +43,10 @@ public class EntityTask implements Runnable {
 
                     if (entity.getType() == EntityType.PET) {
                         this.processPet((Pet) entity);
+                    }
+
+                    if (entity.getType() == EntityType.PLAYER) {
+                        ((Player)entity).getRoomUser().handleSpamTicks();
                     }
 
                     this.processEntity(entity);

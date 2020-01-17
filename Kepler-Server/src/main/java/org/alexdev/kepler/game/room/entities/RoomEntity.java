@@ -463,16 +463,7 @@ public abstract class RoomEntity {
      * @param recieveMessages the message to send to
      */
     public void talk(String message, CHAT_MESSAGE.ChatMessageType chatMessageType, List<Player> recieveMessages) {
-        if (message.endsWith("o/")) {
-            this.wave();
-
-            if (message.equals("o/")) {
-                return; // Don't move mouth if it's just a wave
-            }
-        }
-
         //message = WordfilterManager.filterSentence(message);
-
         if (chatMessageType != CHAT_MESSAGE.ChatMessageType.WHISPER) {
             List<Entity> entities = new ArrayList<>(recieveMessages);
 

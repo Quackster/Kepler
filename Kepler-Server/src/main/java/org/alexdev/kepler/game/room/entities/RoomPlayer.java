@@ -11,8 +11,10 @@ import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.RoomManager;
 import org.alexdev.kepler.game.room.managers.RoomTradeManager;
 import org.alexdev.kepler.game.triggers.GameLobbyTrigger;
+import org.alexdev.kepler.messages.outgoing.rooms.user.CHAT_MESSAGE;
 import org.alexdev.kepler.messages.outgoing.rooms.user.FIGURE_CHANGE;
 import org.alexdev.kepler.messages.outgoing.user.USER_OBJECT;
+import org.alexdev.kepler.util.DateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,12 +37,52 @@ public class RoomPlayer extends RoomEntity {
     private GamePlayer gamePlayer;
     private String currentGameId;
 
+    private int chatSpamCount = 0;
+    private int chatSpamTicks = 16;
+    private long muteTime;
+
     public RoomPlayer(Player player) {
         super(player);
         this.player = player;
         this.authenticateId = -1;
         this.authenticateTelporterId = -1;
         this.tradeItems = new ArrayList<>();
+    }
+
+    public void handleSpamTicks() {
+        if (this.chatSpamTicks >= 0) {
+            this.chatSpamTicks--;
+
+            if (this.chatSpamTicks == -1) {
+                this.chatSpamCount = 0;
+            }
+        }
+    }
+
+    @Override
+    public void talk(String message, CHAT_MESSAGE.ChatMessageType chatMessageType, List<Player> recieveMessages) {
+        if (message.endsWith("o/")) {
+            this.wave();
+
+            if (message.equals("o/")) {
+                return; // Don't move mouth if it's just a wave
+            }
+        }
+
+        this.chatSpamCount++;
+
+        if (this.chatSpamTicks == -1)
+            this.chatSpamTicks = 8;
+
+        if (this.chatSpamCount >= 6) {
+            this.muteTime = DateUtil.getCurrentTimeSeconds() + 30;
+        }
+
+        if (this.muteTime > DateUtil.getCurrentTimeSeconds()) {
+            return;
+        }
+
+        super.talk(message, chatMessageType, recieveMessages);
     }
 
     @Override
