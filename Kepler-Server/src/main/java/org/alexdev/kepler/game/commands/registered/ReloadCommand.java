@@ -4,8 +4,8 @@ import org.alexdev.kepler.game.catalogue.CatalogueManager;
 import org.alexdev.kepler.game.commands.Command;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
-import org.alexdev.kepler.game.item.ItemManager;
 import org.alexdev.kepler.game.fuserights.Fuseright;
+import org.alexdev.kepler.game.item.ItemManager;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerManager;
 import org.alexdev.kepler.game.room.models.RoomModelManager;
@@ -13,6 +13,7 @@ import org.alexdev.kepler.game.texts.TextsManager;
 import org.alexdev.kepler.messages.outgoing.catalogue.CATALOGUE_PAGES;
 import org.alexdev.kepler.messages.outgoing.user.ALERT;
 import org.alexdev.kepler.util.config.GameConfiguration;
+import org.alexdev.kepler.util.config.writer.GameConfigWriter;
 
 public class ReloadCommand extends Command {
     @Override
@@ -71,7 +72,8 @@ public class ReloadCommand extends Command {
 
         if (component.equalsIgnoreCase("settings") ||
                 component.equalsIgnoreCase("config")) {
-            GameConfiguration.reset();
+
+            GameConfiguration.reset(new GameConfigWriter());
             componentName = "Game settings";
         }
 

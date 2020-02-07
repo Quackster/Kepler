@@ -8,6 +8,7 @@ import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.messages.outgoing.user.ALERT;
 import org.alexdev.kepler.util.config.GameConfiguration;
+import org.alexdev.kepler.util.config.writer.GameConfigWriter;
 
 public class SetConfigCommand extends Command {
     @Override
@@ -40,7 +41,7 @@ public class SetConfigCommand extends Command {
         String oldValue = GameConfiguration.getInstance().getConfig().get(setting);
 
         SettingsDao.updateSetting(setting, value);
-        GameConfiguration.reset();
+        GameConfiguration.reset(new GameConfigWriter());
 
         player.send(new ALERT("The setting \"" + setting + "\" value has been updated from \"" + oldValue + "\" to \"" + value + "\"")); // TODO: Add locale
     }

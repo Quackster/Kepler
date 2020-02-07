@@ -1,0 +1,90 @@
+2020-02-07T19:20:16.485 - [org.alexdev.http.KeplerWeb] - HavanaWeb by Quackster
+2020-02-07T19:20:16.486 - [org.alexdev.http.KeplerWeb] - Loading configuration..
+2020-02-07T19:20:16.491 - [org.alexdev.kepler.dao.Storage] - Connecting to MySQL server
+2020-02-07T19:20:16.510 - [com.zaxxer.hikari.HikariDataSource] - processing - Starting...
+2020-02-07T19:20:16.558 - [com.zaxxer.hikari.pool.HikariPool] - processing - Exception during pool initialization.
+java.sql.SQLInvalidAuthorizationSpecException: Access denied for user 'havana'@'localhost' (using password: YES)
+	at org.mariadb.jdbc.internal.util.exceptions.ExceptionMapper.get(ExceptionMapper.java:173)
+	at org.mariadb.jdbc.internal.util.exceptions.ExceptionMapper.getException(ExceptionMapper.java:110)
+	at org.mariadb.jdbc.internal.protocol.AbstractConnectProtocol.connectWithoutProxy(AbstractConnectProtocol.java:1107)
+	at org.mariadb.jdbc.internal.util.Utils.retrieveProxy(Utils.java:502)
+	at org.mariadb.jdbc.MariaDbConnection.newConnection(MariaDbConnection.java:155)
+	at org.mariadb.jdbc.Driver.connect(Driver.java:86)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:353)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:473)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:562)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115)
+	at com.zaxxer.hikari.HikariDataSource.<init>(HikariDataSource.java:81)
+	at org.alexdev.kepler.dao.Storage.<init>(Storage.java:51)
+	at org.alexdev.kepler.dao.Storage.connect(Storage.java:71)
+	at org.alexdev.http.KeplerWeb.main(KeplerWeb.java:54)
+Caused by: java.sql.SQLException: Access denied for user 'havana'@'localhost' (using password: YES)
+Current charset is UTF-8. If password has been set using other charset, consider using option 'passwordCharacterEncoding'
+	at org.mariadb.jdbc.internal.protocol.AbstractConnectProtocol.authentication(AbstractConnectProtocol.java:854)
+	at org.mariadb.jdbc.internal.protocol.AbstractConnectProtocol.handleConnectionPhases(AbstractConnectProtocol.java:777)
+	at org.mariadb.jdbc.internal.protocol.AbstractConnectProtocol.connect(AbstractConnectProtocol.java:451)
+	at org.mariadb.jdbc.internal.protocol.AbstractConnectProtocol.connectWithoutProxy(AbstractConnectProtocol.java:1103)
+	... 13 more
+2020-02-07T19:20:16.561 - [org.alexdev.kepler.dao.Storage] - Could not connect
+2020-02-07T19:20:48.964 - [org.alexdev.http.KeplerWeb] - HavanaWeb by Quackster
+2020-02-07T19:20:48.964 - [org.alexdev.http.KeplerWeb] - Loading configuration..
+2020-02-07T19:20:48.970 - [org.alexdev.kepler.dao.Storage] - Connecting to MySQL server
+2020-02-07T19:20:48.986 - [com.zaxxer.hikari.HikariDataSource] - processing - Starting...
+2020-02-07T19:20:49.030 - [com.zaxxer.hikari.pool.HikariPool] - processing - Exception during pool initialization.
+java.sql.SQLInvalidAuthorizationSpecException: Access denied for user 'havana'@'localhost' (using password: YES)
+	at org.mariadb.jdbc.internal.util.exceptions.ExceptionMapper.get(ExceptionMapper.java:173)
+	at org.mariadb.jdbc.internal.util.exceptions.ExceptionMapper.getException(ExceptionMapper.java:110)
+	at org.mariadb.jdbc.internal.protocol.AbstractConnectProtocol.connectWithoutProxy(AbstractConnectProtocol.java:1107)
+	at org.mariadb.jdbc.internal.util.Utils.retrieveProxy(Utils.java:502)
+	at org.mariadb.jdbc.MariaDbConnection.newConnection(MariaDbConnection.java:155)
+	at org.mariadb.jdbc.Driver.connect(Driver.java:86)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:353)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:473)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:562)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115)
+	at com.zaxxer.hikari.HikariDataSource.<init>(HikariDataSource.java:81)
+	at org.alexdev.kepler.dao.Storage.<init>(Storage.java:51)
+	at org.alexdev.kepler.dao.Storage.connect(Storage.java:71)
+	at org.alexdev.http.KeplerWeb.main(KeplerWeb.java:54)
+Caused by: java.sql.SQLException: Access denied for user 'havana'@'localhost' (using password: YES)
+Current charset is UTF-8. If password has been set using other charset, consider using option 'passwordCharacterEncoding'
+	at org.mariadb.jdbc.internal.protocol.AbstractConnectProtocol.authentication(AbstractConnectProtocol.java:854)
+	at org.mariadb.jdbc.internal.protocol.AbstractConnectProtocol.handleConnectionPhases(AbstractConnectProtocol.java:777)
+	at org.mariadb.jdbc.internal.protocol.AbstractConnectProtocol.connect(AbstractConnectProtocol.java:451)
+	at org.mariadb.jdbc.internal.protocol.AbstractConnectProtocol.connectWithoutProxy(AbstractConnectProtocol.java:1103)
+	... 13 more
+2020-02-07T19:20:49.032 - [org.alexdev.kepler.dao.Storage] - Could not connect
+2020-02-07T19:21:47.008 - [org.alexdev.http.KeplerWeb] - HavanaWeb by Quackster
+2020-02-07T19:21:47.008 - [org.alexdev.http.KeplerWeb] - Loading configuration..
+2020-02-07T19:21:47.014 - [org.alexdev.kepler.dao.Storage] - Connecting to MySQL server
+2020-02-07T19:21:47.031 - [com.zaxxer.hikari.HikariDataSource] - processing - Starting...
+2020-02-07T19:21:47.073 - [com.zaxxer.hikari.pool.HikariPool] - processing - Exception during pool initialization.
+java.sql.SQLInvalidAuthorizationSpecException: Access denied for user 'havana'@'localhost' (using password: YES)
+	at org.mariadb.jdbc.internal.util.exceptions.ExceptionMapper.get(ExceptionMapper.java:173)
+	at org.mariadb.jdbc.internal.util.exceptions.ExceptionMapper.getException(ExceptionMapper.java:110)
+	at org.mariadb.jdbc.internal.protocol.AbstractConnectProtocol.connectWithoutProxy(AbstractConnectProtocol.java:1107)
+	at org.mariadb.jdbc.internal.util.Utils.retrieveProxy(Utils.java:502)
+	at org.mariadb.jdbc.MariaDbConnection.newConnection(MariaDbConnection.java:155)
+	at org.mariadb.jdbc.Driver.connect(Driver.java:86)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:353)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:473)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:562)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115)
+	at com.zaxxer.hikari.HikariDataSource.<init>(HikariDataSource.java:81)
+	at org.alexdev.kepler.dao.Storage.<init>(Storage.java:51)
+	at org.alexdev.kepler.dao.Storage.connect(Storage.java:71)
+	at org.alexdev.http.KeplerWeb.main(KeplerWeb.java:48)
+Caused by: java.sql.SQLException: Access denied for user 'havana'@'localhost' (using password: YES)
+Current charset is UTF-8. If password has been set using other charset, consider using option 'passwordCharacterEncoding'
+	at org.mariadb.jdbc.internal.protocol.AbstractConnectProtocol.authentication(AbstractConnectProtocol.java:854)
+	at org.mariadb.jdbc.internal.protocol.AbstractConnectProtocol.handleConnectionPhases(AbstractConnectProtocol.java:777)
+	at org.mariadb.jdbc.internal.protocol.AbstractConnectProtocol.connect(AbstractConnectProtocol.java:451)
+	at org.mariadb.jdbc.internal.protocol.AbstractConnectProtocol.connectWithoutProxy(AbstractConnectProtocol.java:1103)
+	... 13 more
+2020-02-07T19:21:47.075 - [org.alexdev.kepler.dao.Storage] - Could not connect

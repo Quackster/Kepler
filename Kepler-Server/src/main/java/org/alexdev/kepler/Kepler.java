@@ -28,6 +28,8 @@ import org.alexdev.kepler.util.DateUtil;
 import org.alexdev.kepler.util.config.GameConfiguration;
 import org.alexdev.kepler.util.config.LoggingConfiguration;
 import org.alexdev.kepler.util.config.ServerConfiguration;
+import org.alexdev.kepler.util.config.writer.DefaultConfigWriter;
+import org.alexdev.kepler.util.config.writer.GameConfigWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,6 +66,8 @@ public class Kepler {
 
         try {
             LoggingConfiguration.checkLoggingConfig();
+
+            ServerConfiguration.setWriter(new DefaultConfigWriter());
             ServerConfiguration.load("server.ini");
 
             log = LoggerFactory.getLogger(Kepler.class);
@@ -85,7 +89,7 @@ public class Kepler {
             log.info("Setting up game");
             //log.info(REGISTER.createPassword("lol"));
 
-            GameConfiguration.getInstance();
+            GameConfiguration.getInstance(new GameConfigWriter());
             WalkwaysManager.getInstance();
             ItemManager.getInstance();
             CatalogueManager.getInstance();
