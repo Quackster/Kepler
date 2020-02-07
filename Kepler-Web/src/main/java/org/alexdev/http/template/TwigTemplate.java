@@ -37,9 +37,14 @@ public class TwigTemplate extends Template {
         this.view = view;
 
         try {
-            File file = Paths.get(ServerConfiguration.getString("template.directory"), ServerConfiguration.getString("template.name"), view + ".tpl").toFile();
+            File file = Paths.get(
+                            ServerConfiguration.getString("template.directory"),
+                            ServerConfiguration.getString("template.name"), view + ".tpl")
+                        .toFile();
 
-            if (file.exists() && file.isFile()) {
+            if (file.exists() &&
+                file.isFile()) {
+
                 this.file = file;
                 this.template = JtwigTemplate.fileTemplate(file);
                 this.model = JtwigModel.newModel();
@@ -79,14 +84,10 @@ public class TwigTemplate extends Template {
         return null;
     }
 
-    private void attachBinders() {
+    public String renderHTML() {
         this.registerBinder(new SessionBinder());
         this.registerBinder(new SiteBinder());
         this.registerBinder(new AlertBinder(this.webConnection.session().getString("alertMessage"), this.webConnection.session().getString("alertColour")));
-    }
-
-    public String renderHTML() {
-        this.attachBinders();
         return this.template.render(this.model);
     }
 

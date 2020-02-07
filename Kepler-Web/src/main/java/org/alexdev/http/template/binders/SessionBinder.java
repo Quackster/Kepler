@@ -3,6 +3,7 @@ package org.alexdev.http.template.binders;
 import org.alexdev.duckhttpd.server.connection.WebConnection;
 import org.alexdev.duckhttpd.template.Template;
 import org.alexdev.duckhttpd.template.TemplateBinder;
+import org.alexdev.http.util.SessionUtil;
 
 public class SessionBinder implements TemplateBinder {
     private boolean loggedIn;
@@ -12,7 +13,7 @@ public class SessionBinder implements TemplateBinder {
     public void onRegister(Template template, WebConnection webConnection) {
         this.currentPage = webConnection.session().getString("page");
 
-        if (webConnection.session().getBoolean("authenticated")) {
+        if (webConnection.session().getBoolean(SessionUtil.LOGGED_IN)) {
             this.loggedIn = true;
         }
 

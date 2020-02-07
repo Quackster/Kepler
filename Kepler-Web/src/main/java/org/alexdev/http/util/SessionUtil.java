@@ -4,18 +4,10 @@ import com.goterl.lazycode.lazysodium.interfaces.PwHash;
 import org.alexdev.duckhttpd.server.connection.WebConnection;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.game.player.PlayerDetails;
-import org.alexdev.kepler.util.DateUtil;
-
-import java.util.concurrent.TimeUnit;
 
 public class SessionUtil {
-    public static final String PLAYER = "player";
-    public static final String USER_ID = "user.id";
+    public static final String USER_ID = "userId";
     public static final String LOGGED_IN = "authenticated";
-    public static final String LOGGED_IN_HOUSKEEPING = "authenticatedHousekeeping";
-
-    public static String REMEMEBER_TOKEN_NAME = "remember_token";
-    public static int REAUTHENTICATE_TIME = (int) TimeUnit.MINUTES.toSeconds(30);
 
     public static boolean login(WebConnection webConnection, String username, String password, boolean deleteAuthVariables) {
         PlayerDetails details = new PlayerDetails();
@@ -40,8 +32,6 @@ public class SessionUtil {
             webConnection.session().set("authenticated", true);
             webConnection.session().set("captcha.invalid", false);
             webConnection.session().set("user.id", details.getId());
-            webConnection.session().set("clientAuthenticate", false);
-            webConnection.session().set("lastRequest", String.valueOf(DateUtil.getCurrentTimeSeconds() + SessionUtil.REAUTHENTICATE_TIME));
             return true;
         }
     }
@@ -50,8 +40,6 @@ public class SessionUtil {
         // Delete user login session
         webConnection.session().delete("user.id");
         webConnection.session().delete("authenticated");
-        webConnection.session().delete("minimailLabel");
-        webConnection.session().delete("lastBrowsedPage");
 
     }
 

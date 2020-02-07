@@ -11,17 +11,13 @@
 /cmake-build-debug/
 .idea/workspace.xml
 /*.jar
+/tmp
+*.ini
 
 gradlew
 gradlew.bat
 run.bat
-
 /tools/db/schema.sql
-
-config.ini
-locale.ini
-game.ini
-server.ini
 log4j.properties
 
 Kepler-Server-all.jar
@@ -30,3 +26,4 @@ server.log
 error.log
 .env
 Kepler-Server/src/main/java/META-INF/MANIFEST.MF
+*.log
