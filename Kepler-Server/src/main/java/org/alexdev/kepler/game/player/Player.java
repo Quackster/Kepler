@@ -301,10 +301,11 @@ public class Player extends Entity {
                     this.roomEntity.getRoom().getEntityManager().leaveRoom(this, false);
                 }
 
+                PlayerManager.getInstance().removePlayer(this);
+
                 PlayerDao.saveLastOnline(this.getDetails());
                 SettingsDao.updateSetting("players.online", String.valueOf(PlayerManager.getInstance().getPlayers().size()));
 
-                PlayerManager.getInstance().removePlayer(this);
                 this.messenger.sendStatusUpdate();
             }
 
