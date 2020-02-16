@@ -306,7 +306,8 @@ public class Player extends Entity {
                 PlayerDao.saveLastOnline(this.getDetails());
                 SettingsDao.updateSetting("players.online", String.valueOf(PlayerManager.getInstance().getPlayers().size()));
 
-                this.messenger.sendStatusUpdate();
+                if (this.messenger != null)
+                    this.messenger.sendStatusUpdate();
             }
 
             this.disconnected = true;
