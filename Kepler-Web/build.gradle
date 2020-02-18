@@ -42,7 +42,6 @@ dependencies {
     implementation name: 'duckHTTPD-all'
 
     // https://github.com/Quackster/Kepler/Kepler-Server
-    implementation project(':Kepler-Web')
     implementation "com.goterl.lazycode:lazysodium-java:3.3.0"
 
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12
