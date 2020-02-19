@@ -369,7 +369,7 @@ public abstract class RoomEntity {
             for (int i = 0; i <= 25; i++) {
                 String externalDrinkName = TextsManager.getInstance().getValue("handitem" + i);
 
-                if (externalDrinkName != null && externalDrinkName.equals(carryName)) {
+                if (externalDrinkName != null && externalDrinkName.equalsIgnoreCase(carryName)) {
                     carryId = i;
                 }
             }
