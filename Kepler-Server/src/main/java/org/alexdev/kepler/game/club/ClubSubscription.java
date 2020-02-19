@@ -6,6 +6,7 @@ import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.ItemManager;
 import org.alexdev.kepler.game.player.Player;
+import org.alexdev.kepler.messages.outgoing.rooms.badges.AVAILABLE_BADGES;
 import org.alexdev.kepler.messages.outgoing.user.CLUB_INFO;
 import org.alexdev.kepler.messages.outgoing.user.currencies.CREDIT_BALANCE;
 import org.alexdev.kepler.util.DateUtil;
@@ -255,5 +256,7 @@ public class ClubSubscription {
                 }
             }
         }
+
+        player.send(new AVAILABLE_BADGES(player.getDetails()));
     }
 }
