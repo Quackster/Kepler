@@ -1,5 +1,6 @@
 package org.alexdev.kepler.messages.incoming.infobus;
 
+import org.alexdev.kepler.game.infobus.InfobusManager;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
@@ -15,7 +16,8 @@ public class TRYBUS implements MessageEvent {
         if (!player.getRoomUser().getRoom().isPublicRoom()) {
             return;
         }
-
-        player.getRoomUser().walkTo(28,4); // Walk to enter square
+        if(InfobusManager.getInstance().bus(player.getRoomUser().getRoom()).isDoorOpen()) {
+            player.getRoomUser().walkTo(28,4); // Walk to enter square
+        }
     }
 }
