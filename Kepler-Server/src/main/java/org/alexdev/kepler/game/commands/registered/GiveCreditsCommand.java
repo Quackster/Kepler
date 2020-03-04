@@ -33,9 +33,8 @@ public class GiveCreditsCommand extends Command {
 
     @Override
     public void handleCommand(Entity entity, String message, String[] args) {
-        // :givebadge Alex NL1
+        // :credits Patrick 300
 
-        // should refuse to give badges that belong to ranks
         if (entity.getType() != EntityType.PLAYER) {
             return;
         }
@@ -60,7 +59,7 @@ public class GiveCreditsCommand extends Command {
 
         String credits = args[1];
 
-        // Badge should be alphanumeric
+        // credits should be numeric
         if (!NumberUtils.isCreatable(credits)) {
             player.send(new CHAT_MESSAGE(ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), "Credit amount is not a number."));
             return;
@@ -75,7 +74,7 @@ public class GiveCreditsCommand extends Command {
 
         targetUser.send(new CREDIT_BALANCE(targetUser.getDetails()));
 
-        player.send(new CHAT_MESSAGE(ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), "Credits " + credits + " added to user " + targetDetails.getName()));
+        player.send(new CHAT_MESSAGE(ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), credits + " has been added to user " + targetDetails.getName()));
     }
 
     @Override
