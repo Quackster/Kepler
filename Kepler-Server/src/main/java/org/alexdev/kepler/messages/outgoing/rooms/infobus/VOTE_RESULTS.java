@@ -3,10 +3,10 @@ package org.alexdev.kepler.messages.outgoing.rooms.infobus;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 
-public class POLL_QUESTION extends MessageComposer {
+public class VOTE_RESULTS extends MessageComposer {
     private final String message;
 
-    public POLL_QUESTION(String message) {
+    public VOTE_RESULTS(String message) {
         this.message = message;
     }
 
@@ -17,7 +17,7 @@ public class POLL_QUESTION extends MessageComposer {
 
     @Override
     public short getHeader() {
-        return 79; // "AO"
+        return 80; // "AP"
     }
 }
 

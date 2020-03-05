@@ -2,16 +2,10 @@ package org.alexdev.kepler.game.room.models.triggers;
 
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
-import org.alexdev.kepler.game.infobus.Infobus;
 import org.alexdev.kepler.game.infobus.InfobusManager;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
-import org.alexdev.kepler.game.room.RoomManager;
 import org.alexdev.kepler.game.triggers.GenericTrigger;
-import org.alexdev.kepler.messages.outgoing.rooms.items.SHOWPROGRAM;
-import org.alexdev.kepler.util.config.GameConfiguration;
-
-import java.util.concurrent.TimeUnit;
 
 public class InfobusParkTrigger extends GenericTrigger {
     @Override

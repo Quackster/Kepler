@@ -1,15 +1,11 @@
 package org.alexdev.kepler.game.room.models.triggers;
 
-import org.alexdev.kepler.game.infobus.Infobus;
 import org.alexdev.kepler.game.infobus.InfobusManager;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.triggers.GenericTrigger;
-import org.alexdev.kepler.messages.outgoing.rooms.items.SHOWPROGRAM;
-
-import java.util.concurrent.TimeUnit;
 //import org.alexdev.kepler.messages.outgoing.rooms.POLL_QUESTION;
 
 public class InfobusPollTrigger extends GenericTrigger {
@@ -20,7 +16,7 @@ public class InfobusPollTrigger extends GenericTrigger {
         }
 
         Player player = (Player) entity;
-        InfobusManager.getInstance().bus().addPlayer(player.getDetails().getId());
+        InfobusManager.getInstance().addPlayer(player.getDetails().getId());
 
         //player.send(new POLL_QUESTION("How about I fuck your shit up?", new String[] { "Yes please", "No please", "How about both?"}));
     }
@@ -32,6 +28,6 @@ public class InfobusPollTrigger extends GenericTrigger {
         }
 
         Player player = (Player) entity;
-        InfobusManager.getInstance().bus().removePlayer(player.getDetails().getId());
+        InfobusManager.getInstance().removePlayer(player.getDetails().getId());
     }
 }
