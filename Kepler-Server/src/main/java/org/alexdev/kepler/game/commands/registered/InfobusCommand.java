@@ -44,7 +44,7 @@ public class InfobusCommand extends Command {
 
 
         Room room = player.getRoomUser().getRoom();
-        Infobus bus = (Infobus) room.getTaskManager().getTask((InfobusManager.getInstance().getName()));
+        Infobus bus = InfobusManager.getInstance().bus();
 
         if(bus == null) {
             return;

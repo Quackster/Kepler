@@ -88,7 +88,7 @@ public class Infobus implements Runnable {
 
 
         for (int playerId : this.getPlayers()) {
-            PlayerManager.getInstance().getPlayerById(playerId).send(new POLL_QUESTION("Suck a dick\r1:Yes\r2:No\r3:WAAAT?"));
+            PlayerManager.getInstance().getPlayerById(playerId).send(new POLL_QUESTION("Isnt this great?\r1:Yes\r2:No\r3:WAAAT?\r4:Oh hell no?"));
         }
     }
 

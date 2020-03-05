@@ -16,7 +16,7 @@ public class TRYBUS implements MessageEvent {
         if (!player.getRoomUser().getRoom().isPublicRoom()) {
             return;
         }
-        if(InfobusManager.getInstance().bus(player.getRoomUser().getRoom()).isDoorOpen()) {
+        if(InfobusManager.getInstance().bus().isDoorOpen()) {
             player.getRoomUser().walkTo(28,4); // Walk to enter square
         }
     }
