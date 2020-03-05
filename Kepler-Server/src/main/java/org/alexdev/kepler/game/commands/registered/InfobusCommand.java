@@ -44,12 +44,10 @@ public class InfobusCommand extends Command {
 
 
         Room room = player.getRoomUser().getRoom();
-        Infobus bus = InfobusManager.getInstance().bus();
+        /*Infobus bus = InfobusManager.getInstance().bus();*/
 
-        if(bus == null) {
-            return;
-        }
-        if(cmd.equalsIgnoreCase("status")) {
+
+        /*if(cmd.equalsIgnoreCase("status")) {
             player.send(new ALERT("PLAYERS: " + bus.getPlayers().toString() + "\r" + "ACTIVE: " + "\r" + bus.getPollActive()));
         }
 
@@ -60,13 +58,14 @@ public class InfobusCommand extends Command {
         if(cmd.equalsIgnoreCase("startpoll")) {
             bus.startPoll();
         }
+        */
 
         if(cmd.equalsIgnoreCase("close")) {
-            bus.closeDoor();
+            InfobusManager.getInstance().closeDoor(room);
         }
 
         if(cmd.equalsIgnoreCase("open")) {
-            bus.openDoor();
+            InfobusManager.getInstance().openDoor(room);
         }
 
 

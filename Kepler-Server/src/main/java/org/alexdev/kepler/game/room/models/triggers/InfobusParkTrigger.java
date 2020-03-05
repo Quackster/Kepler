@@ -9,6 +9,7 @@ import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.RoomManager;
 import org.alexdev.kepler.game.triggers.GenericTrigger;
 import org.alexdev.kepler.messages.outgoing.rooms.items.SHOWPROGRAM;
+import org.alexdev.kepler.util.config.GameConfiguration;
 
 import java.util.concurrent.TimeUnit;
 
@@ -21,15 +22,18 @@ public class InfobusParkTrigger extends GenericTrigger {
 
         Player player = (Player) entity;
 
-        // Spawn new infobus
-        Infobus infobus = new Infobus(room);
+
+        if(InfobusManager.getInstance().isDoorOpen()) {
+            InfobusManager.getInstance().openDoor(room);
+        };
+       /* Infobus infobus = new Infobus(room);
         String infobusTaskName = InfobusManager.getInstance().getName();
         Room bus = RoomManager.getInstance().getRoomByModel("park_b");
         System.out.println(bus);
         if(!bus.getTaskManager().hasTask(infobusTaskName)) {
             infobus.openDoor();
             bus.getTaskManager().scheduleTask(infobusTaskName, infobus, TimeUnit.SECONDS.toMillis(3), 500, TimeUnit.MILLISECONDS);
-        };
+        };*/
 
     }
 
