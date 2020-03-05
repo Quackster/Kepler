@@ -19,7 +19,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class InfobusManager {
     private static InfobusManager instance;
     private boolean isDoorOpen;
-    private boolean pollIsActive;
     private List<Integer> playersInBus;
     private FutureRunnable gameTimerRunnable;
     private AtomicInteger pollTimeLeft;
@@ -49,7 +48,6 @@ public class InfobusManager {
     }
 
     public void startPoll() {
-        this.pollIsActive = true;
         this.pollTimeLeft = new AtomicInteger(30);
         this.gameTimerRunnable = new FutureRunnable() {
             public void run() {
@@ -136,7 +134,16 @@ public class InfobusManager {
         for (int playerId : this.getPlayers()) {
             PlayerManager.getInstance().getPlayerById(playerId).send(new VOTE_RESULTS(constructVoteResult()));
         }
-        this.pollIsActive = false;
+
+        this.reset();
+    }
+
+    public String getQuestion() {
+        return this.question;
+    }
+
+    public List<String> getOptions() {
+        return this.options;
     }
 
     public List<Integer> getPlayers() {

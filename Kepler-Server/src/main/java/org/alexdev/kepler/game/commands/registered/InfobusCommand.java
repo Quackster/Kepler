@@ -22,8 +22,7 @@ public class InfobusCommand extends Command {
 
     @Override
     public void addArguments() {
-        this.arguments.add("question");
-        //this.arguments.add("options");
+        this.arguments.add("subcommand");
     }
 
     @Override
@@ -43,74 +42,71 @@ public class InfobusCommand extends Command {
         InfobusManager bus = InfobusManager.getInstance();
 
 
-
-
         if(args[0].equalsIgnoreCase("status")) {
             player.send(new ALERT(bus.constructStatus()));
         }
 
         if(args[0].equalsIgnoreCase("start")) {
-            bus.startPoll();
+            if(bus.getQuestion() != null && !bus.getQuestion().isEmpty()) {
+                System.out.println("Question is not empty");
+                if(bus.getOptions().size() > 0) {
+                    System.out.println("Starting");
+                    bus.startPoll();
+                } else {
+                    player.send(new CHAT_MESSAGE(CHAT_MESSAGE.ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), "You need to add some options for the question: :infobus option [add/remove] [option]"));
+                }
+            } else {
+                player.send(new CHAT_MESSAGE(CHAT_MESSAGE.ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), "You need to set a question: :infobus question [question]"));
+            }
         }
 
         if(args[0].equalsIgnoreCase("reset")) {
+            player.send(new CHAT_MESSAGE(CHAT_MESSAGE.ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), "Reset question, options and votes."));
             bus.reset();
         }
 
         if(args[0].equalsIgnoreCase("question")) {
             String question = StringUtil.filterInput(String.join(" ", IntStream.range(1, args.length).mapToObj(i -> args[i]).toArray(String[]::new)), true);
+            player.send(new CHAT_MESSAGE(CHAT_MESSAGE.ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), "Infobus question is now: " + question));
             bus.setQuestion(question);
         }
 
-        if(args[0].equalsIgnoreCase("option") && args[1].equalsIgnoreCase("add") ) {
+        if(args[0].equalsIgnoreCase("option") && args[1].equalsIgnoreCase("add")) {
+
             if(args[2] == null) {
-                player.send(new CHAT_MESSAGE(CHAT_MESSAGE.ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), "You're missing option"));
+                player.send(new CHAT_MESSAGE(CHAT_MESSAGE.ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), "You're missing option text"));
             }
 
             String option = StringUtil.filterInput(String.join(" ", IntStream.range(2, args.length).mapToObj(i -> args[i]).toArray(String[]::new)), true);
             bus.addOption(option);
-        }
+            player.send(new CHAT_MESSAGE(CHAT_MESSAGE.ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), "Added option to the question, see the status by executing :infobus status"));
 
-        if(args[0].equalsIgnoreCase("option") && args[1].equalsIgnoreCase("remove") ) {
+        } else if(args[0].equalsIgnoreCase("option") && args[1].equalsIgnoreCase("remove")) {
+
             if(!NumberUtils.isCreatable(args[2])) {
                 player.send(new CHAT_MESSAGE(CHAT_MESSAGE.ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), "To remove a question you need to the number found in :infobus status."));
-                return;
             } else {
                  bus.removeOption(Integer.parseInt(args[2]));
+                player.send(new CHAT_MESSAGE(CHAT_MESSAGE.ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), "Removed option from the question, see the status by executing :infobus status"));
             }
+
+        } else if(args[0].equalsIgnoreCase("option") && args[1].isEmpty()) {
+            player.send(new CHAT_MESSAGE(CHAT_MESSAGE.ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), "Usage: :infobus option [add/remove] [option]"));
         }
 
-
-
         if(args[0].equalsIgnoreCase("close")) {
+            player.send(new CHAT_MESSAGE(CHAT_MESSAGE.ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), "Info-bus door closed."));
             InfobusManager.getInstance().closeDoor(room);
         }
 
         if(args[0].equalsIgnoreCase("open")) {
+            player.send(new CHAT_MESSAGE(CHAT_MESSAGE.ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), "Info-bus door opened."));
             InfobusManager.getInstance().openDoor(room);
         }
-
-
-
-
-        /*
-        String[] options = args[1].split(",");
-        String optionsString = new String();
-        for (String option: options) {
-            optionsString.concat(option + "\r ");
-        }
-
-        String alert = StringUtil.filterInput(String.join(" ", args), true);
-
-        String infobusPoll = args[0] + "\r" + args[1];
-
-        */
-
-
     }
 
     @Override
     public String getDescription() {
-        return "<question> <options> - Options seperated by comma fx 'no,yes'";
+        return "<subcommand> (open,close,question,option,reset,status) ";
     }
 }
