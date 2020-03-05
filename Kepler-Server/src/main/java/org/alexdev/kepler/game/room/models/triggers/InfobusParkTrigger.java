@@ -14,21 +14,9 @@ public class InfobusParkTrigger extends GenericTrigger {
             return;
         }
 
-        Player player = (Player) entity;
-
-
         if(InfobusManager.getInstance().isDoorOpen()) {
             InfobusManager.getInstance().openDoor(room);
         };
-       /* Infobus infobus = new Infobus(room);
-        String infobusTaskName = InfobusManager.getInstance().getName();
-        Room bus = RoomManager.getInstance().getRoomByModel("park_b");
-        System.out.println(bus);
-        if(!bus.getTaskManager().hasTask(infobusTaskName)) {
-            infobus.openDoor();
-            bus.getTaskManager().scheduleTask(infobusTaskName, infobus, TimeUnit.SECONDS.toMillis(3), 500, TimeUnit.MILLISECONDS);
-        };*/
-
     }
 
     @Override

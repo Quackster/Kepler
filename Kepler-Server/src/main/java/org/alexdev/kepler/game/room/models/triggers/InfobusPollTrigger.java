@@ -17,8 +17,6 @@ public class InfobusPollTrigger extends GenericTrigger {
 
         Player player = (Player) entity;
         InfobusManager.getInstance().addPlayer(player.getDetails().getId());
-
-        //player.send(new POLL_QUESTION("How about I fuck your shit up?", new String[] { "Yes please", "No please", "How about both?"}));
     }
 
     @Override
