@@ -6,7 +6,6 @@ import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.triggers.GenericTrigger;
-//import org.alexdev.kepler.messages.outgoing.rooms.POLL_QUESTION;
 
 public class InfobusPollTrigger extends GenericTrigger {
     @Override
