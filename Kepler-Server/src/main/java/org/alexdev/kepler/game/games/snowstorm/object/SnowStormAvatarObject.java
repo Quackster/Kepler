@@ -8,7 +8,6 @@ import org.alexdev.kepler.server.netty.streams.NettyResponse;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class SnowStormAvatarObject extends SnowStormObject {
     private final GamePlayer gamePlayer;
@@ -51,9 +50,6 @@ public class SnowStormAvatarObject extends SnowStormObject {
         pGameObjectsSyncValues.add(gamePlayer.getPlayer().getDetails().getId()); // player id
         pGameObjectsSyncValues.add(gamePlayer.getTeamId()); // team id
         pGameObjectsSyncValues.add(gamePlayer.getObjectId()); // room index
-
-        String strValues = pGameObjectsSyncValues.stream().map(Object::toString).collect(Collectors.joining(", "));
-        System.out.println("TURN " + gamePlayer.getTurnContainer().getCurrentTurn() + " / " + gamePlayer.getTurnContainer().getCheckSum() + " : " + strValues);
 
         /*
 

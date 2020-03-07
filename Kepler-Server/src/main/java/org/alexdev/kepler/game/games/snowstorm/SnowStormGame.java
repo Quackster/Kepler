@@ -7,13 +7,12 @@ import org.alexdev.kepler.game.games.enums.GameType;
 import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.games.player.GameTeam;
 import org.alexdev.kepler.game.games.snowstorm.object.SnowStormAvatarObject;
-import org.alexdev.kepler.game.pathfinder.Position;
+import org.alexdev.kepler.game.games.snowstorm.tasks.SnowStormUpdateTask;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.models.RoomModel;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -132,11 +131,7 @@ public class SnowStormGame extends Game {
         return num * tMultiplier;
     }
 
-    public List<GameObject> getExecutingEvents() {
-        return executingEvents;
-    }
-
-    public void setExecutingEvents(List<GameObject> executingEvents) {
-        this.executingEvents = executingEvents;
+    public SnowStormUpdateTask getUpdateTask() {
+        return (SnowStormUpdateTask) this.getRoom().getTaskManager().getTask("UpdateTask");
     }
 }
