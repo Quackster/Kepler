@@ -6,7 +6,6 @@ import org.alexdev.kepler.game.games.battleball.BattleBallGame;
 import org.alexdev.kepler.game.games.battleball.BattleBallTask;
 import org.alexdev.kepler.game.games.snowstorm.SnowStormGame;
 import org.alexdev.kepler.game.games.snowstorm.tasks.SnowStormUpdateTask;
-import org.alexdev.kepler.game.games.snowstorm.tasks.SnowstormWalkTask;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.tasks.EntityTask;
 import org.alexdev.kepler.game.room.tasks.RollerTask;
@@ -64,8 +63,6 @@ public class RoomTaskManager {
 
         if (game instanceof SnowStormGame) {
             SnowStormGame snowStormGame = (SnowStormGame) game;
-
-            this.scheduleTask("WalkTask", new SnowstormWalkTask(this.room, snowStormGame), 0, 1, TimeUnit.MILLISECONDS);
             this.scheduleTask("UpdateTask", new SnowStormUpdateTask(this.room, snowStormGame), 0, 500, TimeUnit.MILLISECONDS);
         }
     }

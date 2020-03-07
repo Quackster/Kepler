@@ -42,7 +42,7 @@ public class G_HMAP implements MessageEvent {
                         //events.add(new SnowStormObjectEvent(new SnowStormAvatarObject(p)));
                     }
                 }*/
-                
+
                 player.send(new SNOWSTORM_FULLGAMESTATUS(game, gamePlayer, objects, List.of()));
                 player.send(new MessageComposer() {
                     @Override

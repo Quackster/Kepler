@@ -71,24 +71,25 @@ public class SnowStormGame extends Game {
                 }
 
                 p.getPlayer().getRoomUser().setPosition(p.getSpawnPosition().copy());
-
-                var avatarObject = new SnowStormAvatarObject(p);
-                avatarObject.setX(p.getSpawnPosition().getX());
-                avatarObject.setY(p.getSpawnPosition().getY());
-                avatarObject.setBodyDirection(p.getSpawnPosition().getRotation());
-
-                avatarObject.setMoveTargetX(p.getSpawnPosition().getX());
-                avatarObject.setMoveTargetY(p.getSpawnPosition().getY());
-
-                avatarObject.setMoveNextX(p.getSpawnPosition().getX());
-                avatarObject.setMoveNextY(p.getSpawnPosition().getY());
-
-                p.setGameObject(avatarObject);
-
+                p.setGameObject(SnowStormGame.createAvatarObject(p));
                 this.getObjects().add(p.getGameObject());
 
             }
         }
+    }
+
+    public static SnowStormObject createAvatarObject(GamePlayer p) {
+        var avatarObject = new SnowStormAvatarObject(p);
+        avatarObject.setX(p.getPlayer().getRoomUser().getPosition().getX());
+        avatarObject.setY(p.getPlayer().getRoomUser().getPosition().getY());
+        avatarObject.setBodyDirection(p.getPlayer().getRoomUser().getPosition().getRotation());
+
+        avatarObject.setMoveTargetX(p.getPlayer().getRoomUser().getNextPosition() != null ? p.getPlayer().getRoomUser().getNextPosition().getX() : p.getPlayer().getRoomUser().getPosition().getX());
+        avatarObject.setMoveTargetY(p.getPlayer().getRoomUser().getNextPosition() != null ? p.getPlayer().getRoomUser().getNextPosition().getY() : p.getPlayer().getRoomUser().getPosition().getY());
+
+        avatarObject.setMoveNextX(p.getPlayer().getRoomUser().getNextPosition() != null ? p.getPlayer().getRoomUser().getNextPosition().getX() : p.getPlayer().getRoomUser().getPosition().getX());
+        avatarObject.setMoveNextY(p.getPlayer().getRoomUser().getNextPosition() != null ? p.getPlayer().getRoomUser().getNextPosition().getY() : p.getPlayer().getRoomUser().getPosition().getY());
+        return avatarObject;
     }
 
     @Override
