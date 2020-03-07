@@ -139,9 +139,9 @@ public class SnowStormUpdateTask implements Runnable {
                 this.queueSubTurn(walkingGameTurn, new SnowStormAvatarMoveEvent(gamePlayer.getObjectId(), roomEntity.getNextPosition().getX(), roomEntity.getNextPosition().getY()));
                 //this.queueSubTurn(4, new SnowStormAvatarMoveEvent(gamePlayer.getObjectId(), roomEntity.getNextPosition().getX(), roomEntity.getNextPosition().getY()));
             } else {
-                this.queueSubTurn(walkingGameTurn, new SnowStormAvatarMoveEvent(gamePlayer.getObjectId(), roomEntity.getNextPosition().getX(), roomEntity.getNextPosition().getY()));
+                //this.queueSubTurn(walkingGameTurn, new SnowStormAvatarMoveEvent(gamePlayer.getObjectId(), roomEntity.getNextPosition().getX(), roomEntity.getNextPosition().getY()));
                 roomEntity.stopWalking();
-                //this.queueSubTurn(4, new SnowStormAvatarMoveEvent(gamePlayer.getObjectId(), roomEntity.getPosition().getX(), roomEntity.getPosition().getY()));
+                this.queueSubTurn(walkingGameTurn, new SnowStormAvatarMoveEvent(gamePlayer.getObjectId(), roomEntity.getPosition().getX(), roomEntity.getPosition().getY()));
             }
 
             // If we're walking, make sure to tell the server

@@ -63,7 +63,7 @@ public class RoomTaskManager {
 
         if (game instanceof SnowStormGame) {
             SnowStormGame snowStormGame = (SnowStormGame) game;
-            this.scheduleTask("UpdateTask", new SnowStormUpdateTask(this.room, snowStormGame), 0, 500, TimeUnit.MILLISECONDS);
+            this.scheduleTask("UpdateTask", new SnowStormUpdateTask(this.room, snowStormGame), 0, 350, TimeUnit.MILLISECONDS);
         }
     }
 
