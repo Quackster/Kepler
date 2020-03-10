@@ -127,7 +127,9 @@ public class Player extends Entity {
      */
     public void refreshClub() {
         if (this.details.hasClubSubscription()) {
-            this.send(new AVAILABLE_SETS("[" + GameConfiguration.getInstance().getString("users.figure.parts.club") + "]"));
+            if (this.getVersion() <= 17) {
+                this.send(new AVAILABLE_SETS("[" + GameConfiguration.getInstance().getString("users.figure.parts.club") + "]"));
+            }
         }
 
         ClubSubscription.refreshBadge(this);
