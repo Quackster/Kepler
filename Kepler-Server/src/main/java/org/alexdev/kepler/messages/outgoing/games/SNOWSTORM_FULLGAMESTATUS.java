@@ -36,7 +36,7 @@ public class SNOWSTORM_FULLGAMESTATUS extends MessageComposer {
         response.writeBool(false);
         response.writeInt(this.game.getTeamAmount());
 
-        new SNOWSTORM_GAMESTATUS(this.game.getUpdateTask().getExecutingTurns()).compose(response);
+        new SNOWSTORM_GAMESTATUS().compose(response);
     }
 
     @Override
