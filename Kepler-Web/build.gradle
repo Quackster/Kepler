@@ -46,6 +46,9 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12
     implementation group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.25'
+
+    // https://github.com/Quackster/Kepler/Kepler-Server
+    implementation project(':Kepler-Server')
 }
 
 task fatJar(type: Jar) {

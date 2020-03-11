@@ -1,11 +1,9 @@
 package org.alexdev.kepler.messages.outgoing.games;
 
-import org.alexdev.kepler.game.games.Game;
 import org.alexdev.kepler.game.games.GameManager;
 import org.alexdev.kepler.game.games.GameObject;
 import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.games.snowstorm.SnowStormGame;
-import org.alexdev.kepler.game.games.snowstorm.TurnContainer;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 
@@ -38,7 +36,7 @@ public class SNOWSTORM_FULLGAMESTATUS extends MessageComposer {
         response.writeBool(false);
         response.writeInt(this.game.getTeamAmount());
 
-        new SNOWSTORM_GAMESTATUS(gamePlayer, events).compose(response);
+        new SNOWSTORM_GAMESTATUS().compose(response);
     }
 
     @Override

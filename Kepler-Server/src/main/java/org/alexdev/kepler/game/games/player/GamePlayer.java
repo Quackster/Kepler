@@ -6,7 +6,6 @@ import org.alexdev.kepler.game.games.GameObject;
 import org.alexdev.kepler.game.games.battleball.BattleBallGame;
 import org.alexdev.kepler.game.games.battleball.BattleBallTile;
 import org.alexdev.kepler.game.games.battleball.enums.BattleBallPlayerState;
-import org.alexdev.kepler.game.games.snowstorm.TurnContainer;
 import org.alexdev.kepler.game.games.utils.ScoreReference;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.player.Player;
@@ -23,7 +22,6 @@ public class GamePlayer {
     private boolean isSpectator;
     private boolean inGame;
     private boolean clickedRestart;
-    private TurnContainer turnContainer;
     private BattleBallPlayerState playerState;
     private GamePlayer harlequinPlayer;
 
@@ -37,7 +35,6 @@ public class GamePlayer {
         this.enteringGame = false;
         this.clickedRestart = false;
         this.position = new Position();
-        this.turnContainer = new TurnContainer();
     }
 
     /**
@@ -249,15 +246,6 @@ public class GamePlayer {
      */
     public void setSpectator(boolean spectator) {
         isSpectator = spectator;
-    }
-
-    /**
-     * Get the turn container, used for the SnowStorm checksum
-     *
-     * @return the turn container instance
-     */
-    public TurnContainer getTurnContainer() {
-        return turnContainer;
     }
 
     /**

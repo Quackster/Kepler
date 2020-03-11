@@ -3,20 +3,16 @@ package org.alexdev.kepler.messages.incoming.rooms;
 import org.alexdev.kepler.game.games.GameObject;
 import org.alexdev.kepler.game.games.battleball.BattleBallGame;
 import org.alexdev.kepler.game.games.player.GamePlayer;
-import org.alexdev.kepler.game.games.player.GameTeam;
 import org.alexdev.kepler.game.games.snowstorm.SnowStormGame;
-import org.alexdev.kepler.game.games.snowstorm.object.SnowStormAvatarObject;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.messages.outgoing.games.FULLGAMESTATUS;
 import org.alexdev.kepler.messages.outgoing.games.SNOWSTORM_FULLGAMESTATUS;
-import org.alexdev.kepler.messages.outgoing.games.SNOWSTORM_GAMESTATUS;
 import org.alexdev.kepler.messages.outgoing.rooms.HEIGHTMAP;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class G_HMAP implements MessageEvent {
@@ -46,9 +42,6 @@ public class G_HMAP implements MessageEvent {
                         //events.add(new SnowStormObjectEvent(new SnowStormAvatarObject(p)));
                     }
                 }*/
-
-                gamePlayer.getTurnContainer().iterateTurn();
-                gamePlayer.getTurnContainer().calculateChecksum(objects);
 
                 player.send(new SNOWSTORM_FULLGAMESTATUS(game, gamePlayer, objects, List.of()));
                 player.send(new MessageComposer() {
