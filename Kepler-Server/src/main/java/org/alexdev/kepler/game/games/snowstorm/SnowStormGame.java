@@ -11,19 +11,13 @@ public class SnowStormGame extends Game {
     }
 
     @Override
-    public void initialise() {
-
-    }
+    public void initialise() { }
 
     @Override
-    public void assignSpawnPoints() {
-
-    }
+    public void assignSpawnPoints() { }
 
     @Override
-    public void gameTick() {
-
-    }
+    public void gameTick() { }
 
     @Override
     public boolean canTimerContinue() {
@@ -36,7 +30,5 @@ public class SnowStormGame extends Game {
     }
 
     @Override
-    public void buildMap() {
-
-    }
+    public void buildMap() { }
 }
