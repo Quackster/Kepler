@@ -291,7 +291,7 @@ public class WobbleSquabbleGame implements Runnable {
         player.send(new TICKET_BALANCE(player.getDetails().getTickets()));
 
         if (isThrown) {
-            System.out.println("player thrown: " + player.getDetails().getName());
+            //System.out.println("player thrown: " + player.getDetails().getName());
             player.getRoomUser().setStatus(StatusType.SWIM, "");
 
             int newX = player.getRoomUser().getPosition().getX() + ((wsPlayer.getBalance() < 0 ? -1 : 1));

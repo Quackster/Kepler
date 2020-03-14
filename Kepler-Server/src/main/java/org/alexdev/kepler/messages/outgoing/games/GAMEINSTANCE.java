@@ -80,7 +80,7 @@ public class GAMEINSTANCE extends MessageComposer {
                     SnowStormGame snowStormGame = (SnowStormGame) this.game;
                     response.writeInt(snowStormGame.getGameLengthChoice());
 
-                    System.out.println("Map id: " + this.game.getMapId());
+                    //System.out.println("Map id: " + this.game.getMapId());
                 }
 
                 response.writeInt(this.game.getMapId());

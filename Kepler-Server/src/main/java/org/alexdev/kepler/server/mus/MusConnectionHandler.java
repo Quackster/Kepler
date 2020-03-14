@@ -122,7 +122,7 @@ public class MusConnectionHandler extends SimpleChannelInboundHandler<MusMessage
 
                 // Er, ma, gerd, we logged in! ;O
                 if (player != null && NettyPlayerNetwork.getIpAddress(player.getNetwork().getChannel()).equals(NettyPlayerNetwork.getIpAddress(ctx.channel()))) {
-                    System.out.println("RCON user " + player.getDetails().getName() + " logged in");
+                    //System.out.println("RCON user " + player.getDetails().getName() + " logged in");
                     client.setUserId(userId);
                 } else {
                     log.info("[MUS] RCON user kicked due to inappropriate formed message {}", ctx.channel().remoteAddress().toString().replace("/", ""));
