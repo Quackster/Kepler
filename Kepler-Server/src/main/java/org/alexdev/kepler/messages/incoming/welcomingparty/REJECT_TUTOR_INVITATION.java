@@ -9,7 +9,6 @@ public class REJECT_TUTOR_INVITATION implements MessageEvent {
     public void handle(Player player, NettyRequest reader) {
         // The client sends the user ID as string, god knows why
         String userId = reader.readString();
-
-        System.out.println(userId);
+        //System.out.println(userId);
     }
 }
