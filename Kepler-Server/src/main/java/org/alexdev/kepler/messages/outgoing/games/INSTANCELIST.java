@@ -1,10 +1,9 @@
 package org.alexdev.kepler.messages.outgoing.games;
 
-import org.alexdev.kepler.game.games.enums.GameType;
-import org.alexdev.kepler.game.games.snowstorm.SnowStormGame;
-import org.alexdev.kepler.game.games.utils.FinishedGame;
 import org.alexdev.kepler.game.games.Game;
 import org.alexdev.kepler.game.games.enums.GameState;
+import org.alexdev.kepler.game.games.enums.GameType;
+import org.alexdev.kepler.game.games.utils.FinishedGame;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 
@@ -34,8 +33,8 @@ public class INSTANCELIST extends MessageComposer {
             response.writeString(game.getGameCreator());
 
             if (game.getGameType() == GameType.SNOWSTORM) {
-                SnowStormGame snowStormGame = (SnowStormGame) game;
-                response.writeInt(snowStormGame.getGameLengthChoice());
+                //SnowStormGame snowStormGame = (SnowStormGame) game;
+                response.writeInt(0);//snowStormGame.getGameLengthChoice());
             }
 
             response.writeInt(game.getMapId());
@@ -49,8 +48,8 @@ public class INSTANCELIST extends MessageComposer {
             response.writeString(game.getGameCreator());
 
             if (game.getGameType() == GameType.SNOWSTORM) {
-                SnowStormGame snowStormGame = (SnowStormGame) game;
-                response.writeInt(snowStormGame.getGameLengthChoice());
+                //SnowStormGame snowStormGame = (SnowStormGame) game;
+                response.writeInt(0);//snowStormGame.getGameLengthChoice());
             }
 
             response.writeInt(game.getMapId());
