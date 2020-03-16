@@ -2,6 +2,7 @@ package org.alexdev.kepler.game.room.mapping;
 
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
+import org.alexdev.kepler.game.infobus.InfobusManager;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.item.interactors.InteractionType;
@@ -74,6 +75,16 @@ public class RoomTile {
 
         if (tile == null) {
             return false;
+        }
+
+        if (entity != null) {
+            if (room.getModel().getName().equals("park_a")) {
+                if (!InfobusManager.getInstance().isDoorOpen()) {
+                    if (position.equals(new Position(InfobusManager.getInstance().getDoorX(), InfobusManager.getInstance().getDoorY()))) {
+                        return false;
+                    }
+                }
+            }
         }
 
         if (tile.getHighestItem() != null && entity != null) {

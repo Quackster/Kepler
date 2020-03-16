@@ -18,6 +18,7 @@ import org.alexdev.kepler.messages.incoming.handshake.SSO;
 import org.alexdev.kepler.messages.incoming.handshake.TRY_LOGIN;
 import org.alexdev.kepler.messages.incoming.infobus.CHANGEWORLD;
 import org.alexdev.kepler.messages.incoming.infobus.TRYBUS;
+import org.alexdev.kepler.messages.incoming.infobus.VOTE;
 import org.alexdev.kepler.messages.incoming.inventory.GETSTRIP;
 import org.alexdev.kepler.messages.incoming.jukebox.*;
 import org.alexdev.kepler.messages.incoming.messenger.*;
@@ -319,6 +320,7 @@ public class MessageHandler {
      */
     private void registerInfobusPackets() {
         registerEvent(111, new CHANGEWORLD());
+        registerEvent(112, new VOTE());
         registerEvent(113, new TRYBUS());
     }
 
