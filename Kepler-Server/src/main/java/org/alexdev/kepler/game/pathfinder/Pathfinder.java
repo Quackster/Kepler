@@ -59,19 +59,36 @@ public class Pathfinder {
         Item fromItem = fromTile.getHighestItem();
         Item toItem = toTile.getHighestItem();
 
-        if (oldHeight - 3 >= newHeight) {
-            return fromItem != null && (fromItem.hasBehaviour(ItemBehaviour.TELEPORTER)
-                    || (fromItem.getDefinition().getSprite().equals("wsJoinQueue"))
-                    || (fromItem.getDefinition().getSprite().equals("wsQueueTile"))
-                    || (fromItem.getDefinition().getSprite().equals("poolEnter"))
-                    || (fromItem.getDefinition().getSprite().equals("poolExit")));
-        }
+        boolean hasPool = room.getModel().getName().startsWith("pool_") || room.getModel().getName().equals("md_a");
+        boolean isPrivateRoom =  !room.isPublicRoom();
 
-        if (oldHeight + 1.5 <= newHeight) {
-            return toItem != null && (toItem.hasBehaviour(ItemBehaviour.TELEPORTER)
-                    || (toItem.getDefinition().getSprite().equals("wsJoinQueue"))
-                    || (toItem.getDefinition().getSprite().equals("poolEnter"))
-                    || (toItem.getDefinition().getSprite().equals("poolExit")));
+        if (hasPool || isPrivateRoom) {
+            if (hasPool) {
+                if (oldHeight - 3 >= newHeight) {
+                    return fromItem != null && (fromItem.hasBehaviour(ItemBehaviour.TELEPORTER)
+                            || (fromItem.getDefinition().getSprite().equals("wsJoinQueue"))
+                            || (fromItem.getDefinition().getSprite().equals("wsQueueTile"))
+                            || (fromItem.getDefinition().getSprite().equals("poolEnter"))
+                            || (fromItem.getDefinition().getSprite().equals("poolExit")));
+                }
+
+            }
+
+            if (oldHeight + 1.5 <= newHeight) {
+                return toItem != null && (toItem.hasBehaviour(ItemBehaviour.TELEPORTER)
+                        || (toItem.getDefinition().getSprite().equals("wsJoinQueue"))
+                        || (toItem.getDefinition().getSprite().equals("poolEnter"))
+                        || (toItem.getDefinition().getSprite().equals("poolExit")));
+            }
+        } else {
+            // Apply this to the rest of public rooms
+            if (oldHeight - 1.5 >= newHeight) {
+                return false;
+            }
+
+            if (oldHeight + 1.5 <= newHeight) {
+                return false;
+            }
         }
 
         // Only check these below if the user is in a pool room.
