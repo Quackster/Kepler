@@ -1,17 +1,9 @@
--- --------------------------------------------------------
--- Host:                         127.0.0.1
--- Server version:               10.4.7-MariaDB - mariadb.org binary distribution
--- Server OS:                    Win64
--- HeidiSQL Version:             10.2.0.5599
--- --------------------------------------------------------
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
 /*!50503 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- Dumping structure for table kepler.catalogue_items
 CREATE TABLE IF NOT EXISTS `catalogue_items` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sale_code` varchar(255) DEFAULT NULL,
@@ -31,7 +23,6 @@ CREATE TABLE IF NOT EXISTS `catalogue_items` (
   KEY `id` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1351 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.catalogue_items: ~940 rows (approximately)
 /*!40000 ALTER TABLE `catalogue_items` DISABLE KEYS */;
 INSERT INTO `catalogue_items` (`id`, `sale_code`, `page_id`, `order_id`, `price`, `is_hidden`, `amount`, `definition_id`, `item_specialspriteid`, `name`, `description`, `is_package`, `package_name`, `package_description`) VALUES
 	(1, 'floor', '3', 1, 2, 0, 1, 249, 0, '', '', 0, NULL, NULL),
@@ -976,7 +967,6 @@ INSERT INTO `catalogue_items` (`id`, `sale_code`, `page_id`, `order_id`, `price`
 	(1350, 'rclr_sofa', '92', 9, 1, 0, 1, 1416, 0, 'Polar Sofa', 'Snuggle up together', 0, NULL, NULL);
 /*!40000 ALTER TABLE `catalogue_items` ENABLE KEYS */;
 
--- Dumping structure for table kepler.catalogue_packages
 CREATE TABLE IF NOT EXISTS `catalogue_packages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `salecode` varchar(255) DEFAULT NULL,
@@ -986,7 +976,6 @@ CREATE TABLE IF NOT EXISTS `catalogue_packages` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.catalogue_packages: ~18 rows (approximately)
 /*!40000 ALTER TABLE `catalogue_packages` DISABLE KEYS */;
 INSERT INTO `catalogue_packages` (`id`, `salecode`, `definition_id`, `special_sprite_id`, `amount`) VALUES
 	(1, 'a0 deal102', 184, 0, 5),
@@ -1009,7 +998,6 @@ INSERT INTO `catalogue_packages` (`id`, `salecode`, `definition_id`, `special_sp
 	(18, 'deal_throne', 107, 0, 10);
 /*!40000 ALTER TABLE `catalogue_packages` ENABLE KEYS */;
 
--- Dumping structure for table kepler.catalogue_pages
 CREATE TABLE IF NOT EXISTS `catalogue_pages` (
   `id` int(11) NOT NULL,
   `order_id` int(11) DEFAULT NULL,
@@ -1029,7 +1017,6 @@ CREATE TABLE IF NOT EXISTS `catalogue_pages` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.catalogue_pages: ~60 rows (approximately)
 /*!40000 ALTER TABLE `catalogue_pages` DISABLE KEYS */;
 INSERT INTO `catalogue_pages` (`id`, `order_id`, `min_role`, `index_visible`, `is_club_only`, `name_index`, `link_list`, `name`, `layout`, `image_headline`, `image_teasers`, `body`, `label_pick`, `label_extra_s`, `label_extra_t`) VALUES
 	(1, 1, 1, 1, 0, 'Frontpage', '', 'Frontpage', 'ctlg_frontpage2', 'catal_fp_header', 'catal_fp_pic4,catal_fp_pic5,', 'Welcome to the Hotel Catalogue. It\'s packed full of fab things for your room - there\'s something for everyone! Browse the ranges by clicking the tabs on the right.<br><br>Some ranges are seasonal, so check back regularly for new items.<br><br>We regularly', NULL, 'Home sweet home!', '1:You need Credits to buy Furni for your room, click the Purse at the bottom of your screen for more information about Credits.'),
@@ -1094,7 +1081,6 @@ INSERT INTO `catalogue_pages` (`id`, `order_id`, `min_role`, `index_visible`, `i
 	(92, 116, 5, 1, 0, 'Recycler Furni', '', 'Recycler Furni', 'ctlg_layout2', 'catalog_rares_headline1', '', 'Yet another special page.', 'Click on the item you want for more information', NULL, NULL);
 /*!40000 ALTER TABLE `catalogue_pages` ENABLE KEYS */;
 
--- Dumping structure for table kepler.external_texts
 CREATE TABLE IF NOT EXISTS `external_texts` (
   `entry` varchar(255) NOT NULL,
   `text` text NOT NULL,
@@ -1103,7 +1089,6 @@ CREATE TABLE IF NOT EXISTS `external_texts` (
   KEY `entry` (`entry`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.external_texts: ~31 rows (approximately)
 /*!40000 ALTER TABLE `external_texts` DISABLE KEYS */;
 INSERT INTO `external_texts` (`entry`, `text`) VALUES
 	('handitem1', 'Tea'),
@@ -1139,7 +1124,6 @@ INSERT INTO `external_texts` (`entry`, `text`) VALUES
 	('successfully_purchase_gift_for', 'Successfully purchased gift for user %user%!');
 /*!40000 ALTER TABLE `external_texts` ENABLE KEYS */;
 
--- Dumping structure for table kepler.games_maps
 CREATE TABLE IF NOT EXISTS `games_maps` (
   `type` enum('battleball','snowstorm') NOT NULL DEFAULT 'battleball',
   `id` enum('6','5','4','3','2','1') NOT NULL DEFAULT '1',
@@ -1147,9 +1131,13 @@ CREATE TABLE IF NOT EXISTS `games_maps` (
   `tile_map` mediumtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.games_maps: ~5 rows (approximately)
 /*!40000 ALTER TABLE `games_maps` DISABLE KEYS */;
 INSERT INTO `games_maps` (`type`, `id`, `heightmap`, `tile_map`) VALUES
+	('battleball', '5', 'xxxx000000000000000xxxx|xxxx000000000000000xxxx|xxxx000000000000000xxxx|xxxx000000000000000xxxx|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|xxxx000000000000000xxxx|xxxx000000000000000xxxx|xxxx000000000000000xxxx|xxxx000000000000000xxxx|', '00001111111111111110000|00001111111111111110000|00001111111111111110000|00001111111111111110000|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|00001111111111111110000|00001111111111111110000|00001111111111111110000|00001111111111111110000|'),
+	('battleball', '3', '0000000x000x0000xxxxxxxxxxxxxxxxx|0xx00x0x0x0000000111000xxxxxxxxxx|0xx00x0x0x00000001110000xxxxxxxxx|0000xx000xxx0000xxxxxx000xxxxxxxx|000xxxxxxxxxxxxxxxxxxxx000xxxxxxx|0xxxxxxxxxxxxxxxxxxxxxxx000xxxxxx|0000xxxxxxxxxxxxxxxxxxxxx000xxxxx|xxx0xxx111111111111111xxx0x0xxxxx|0000xxx111111111111111xxx0x0x0xxx|0xxxxxx111111111111111xxx0x0x0xxx|000xxxx1111111111111111000x00000x|x00xxxx1111111111111111000x0x0xxx|0000xxx111112222211111xxxxxxx0000|0000xxx111112222211111xxx000xxxx0|0000xxx111112222211111xxx000000x0|0000xxx111112222211111xxx000xx0x0|x00xxxx111112222211111xxxxxxx0000|x11xxxx11111111111111110000000xxx|x11xxxx11111111111111110000000xxx|x11xxxx111111111111111xxx0xxxxxxx|x00xxxx111111111111111xxx000xxxxx|x00xxxx111111111111111xxxxxxxxxxx|x000xxxxxx11xxxxx11xxxxxxxxxxxxxx|xx000xxxxx00xxxxx00xxxxxxxxxxxxxx|xxx000xxxx00xxxxx00xxxxxxxxxxxxxx|xxxx00000000x000x0000xxxxxxxxxxxx|xxxxx00xxxxxx000x00x0xxxxxxxxxxxx|xxxxxx000000x000x00x0xxxxxxxxxxxx|xxxxxxxxxx0xxx0xx00xxxxxxxxxxxxxx|xxxxxxxx00000x0x000xxxxxxxxxxxxxx|xxxxxxxxxx0x0x000xxxxxxxxxxxxxxxx|xxxxxxxxxx0x0xxx0xxxxxxxxxxxxxxxx|xxxxxxxxxxxx00000xxxxxxxxxxxxxxxx|', '111100000000111100000000000000000|100100000000111100000000000000000|100100000000111100000000000000000|111100000000111100000000000000000|000000000000000000000000000000000|000000000000000000000000000000000|000000000000000000000000000000000|000000011111110111111100000000000|000000011111110111111100000000000|000000011111110111111100000000000|000000011111110111111100000000000|000000011110000000111100000000000|111100011110000000111100000000000|111100011110011100111100011100000|111100000000011100000000011100000|111100011110011100111100011100000|000000011110000000111100000000000|000000011110000000111100000000000|000000011111110111111100000000000|000000011111110111111100000000000|000000011111110111111100000000000|000000011111110111111100000000000|000000000000000000000000000000000|000000000000000000000000000000000|000000000000000000000000000000000|000000000000011100000000000000000|000000000000011100000000000000000|000000000000011100000000000000000|000000000000000000000000000000000|000000000000000000000000000000000|000000000000000000000000000000000|000000000000000000000000000000000|000000000000000000000000000000000|'),
+	('battleball', '1', 'xxxxxxxxxxxxx444444xxxxxxxxx|xxxxxxxxxxxxx444444xxxxxxxxx|xxxxxxxxxxxxx444444xxxxxxxxx|xxx22222222xx444444xxxxxxxxx|xxx22222222xx444444xxxxxxxxx|xxx22222222xx333333xxxxxxxxx|xxx22222222xx222222xxxxxxxxx|xxx222222222222222222xxxxxxx|xxx222222222222222222xxxxxxx|xxx2222222222222222222100000|xxx2222222222222222222100000|xxxxxxx222222222222222100000|xxxxxxx222222222222222100000|4444432222222222222222100000|4444432222222222222222100000|444443222222222222222xxxxxxx|444443222222222222222xxxxxxx|4444432222222222222222222xxx|4444432222222222222222222xxx|xxxxxxx222222222222222222xxx|xxxxxxx222222222222222222xxx|xxxxxxxxx222222xx22222222xxx|xxxxxxxxx111111xx22222222xxx|xxxxxxxxx000000xx22222222xxx|xxxxxxxxx000000xx22222222xxx|xxxxxxxxx000000xxxxxxxxxxxxx|xxxxxxxxx000000xxxxxxxxxxxxx|xxxxxxxxx000000xxxxxxxxxxxxx|', '0000000000000111111000000000|0000000000000111111000000000|0000000000000111111000000000|0001111111100111111000000000|0001111111100000000000000000|0001111111100000000000000000|0001111111100000000000000000|0001111111111111111110000000|0001111111111111111110000000|0001111111111111111110001111|0001111111111111111110001111|0000000111111111111110001111|0000000111111111111110001111|1111000111111111111110001111|1111000111111111111110001111|1111000111111111111110000000|1111000111111111111110000000|1111000111111111111111110000|1111000111111111111111110000|0000000111111111111111111000|0000000111111111111111111000|0000000000000000011111111000|0000000000000000011111111000|0000000000000000011111111000|0000000001111110011111111000|0000000001111110000000000000|0000000001111110000000000000|0000000001111110000000000000|'),
+	('battleball', '2', 'xxxxxxx00000000xxx00000000xxxxxxx|xxxxxxx00000000xxx00000000xxxxxxx|xxxxxxx00000000xxx00000000xxxxxxx|xxxxxxx0000000000000000000xxxxxxx|xxxxxxx0000000000000000000xxxxxxx|xxxxxxx0000000000000000000xxxxxxx|xxxxxxx00000000xxx00000000xxxxxxx|2222xxx00000000xxx00000000xxx2222|2222xxx00000000xxx00000000xxx2222|222221000000000xxx000000000122222|222221000000000xxx000000000122222|2222xxx00000000xxx00000000xxx2222|2222xxx00000000xxx00000000xxx2222|xxxxxxx00000000xxx00000000xxxxxxx|xxxxxxx0000000000000000000xxxxxxx|xxxxxxx0000000000000000000xxxxxxx|xxxxxxx0000000000000000000xxxxxxx|xxxxxxx00000000xxx00000000xxxxxxx|xxxxxxx00000000xxx00000000xxxxxxx|xxxxxxx00000000xxx00000000xxxxxxx|', '000000011111111000111111110000000|000000011111111000111111110000000|000000011111111000111111110000000|000000011111111000111111110000000|000000011111111000111111110000000|000000011111111000111111110000000|000000011111111000111111110000000|111100011111111000111111110001111|111100011111111000111111110001111|111100011111111000111111110001111|111100011111111000111111110001111|111100011111111000111111110001111|111100011111111000111111110001111|000000011111111000111111110000000|000000011111111000111111110000000|000000011111111000111111110000000|000000011111111000111111110000000|000000011111111000111111110000000|000000011111111000111111110000000|000000011111111000111111110000000|'),
+	('battleball', '4', 'xxxxxxx222222222222222xxxxxxxx|xxxxxxx222222222222222xxxxxxxx|xxxxxxx222222222222222xxxxxxxx|xxxxxxx222222222222222xxxxxxxx|xxxxxxx222222222222222xxxxxxxx|00012222222222222222222211111x|00012222222222222222222211111x|00012222222222222222222211111x|00012222222222222222222211111x|00xxxxx222222222222222xxx1111x|000xxxx222222222222222xxx0000x|0000xxx222222222222222x0000000|0000xxx22222222222222210000000|0000xxx22222222222222210000000|0000xxx222222222222222x0000000|0000xxx222222222222222xxxxxxxx|00000xx222222222222222xxxxxxxx|000000xxxx11xx11xx11xxxxxxxxxx|x0000000000000000000000xxxxxxx|xx000000000000000000000xxxxxxx|xxx00000000000000000000xxxxxxx|xxxx0000000000000000000xxxxxxx|', '000000011111111111111100000000|000000011111111111111100000000|000000011111111111111100000000|000000011111111111111100000000|000000011111111111111100000000|000000011111111111111100011110|000000011111111111111100011110|000000011111111111111100011110|000000011111111111111100011110|110000011111111111111100000000|111000011111111111111100000000|111100011111111111111101111111|111100011111111111111101111111|111100011111111111111101111111|111100011111111111111101111111|111100011111111111111100000000|111110011111111111111100000000|111111000000000000000000000000|011111111111111111111110000000|001111111111111111111110000000|000111111111111111111110000000|000011111111111111111110000000|'),
 	('battleball', '5', 'xxxx000000000000000xxxx|xxxx000000000000000xxxx|xxxx000000000000000xxxx|xxxx000000000000000xxxx|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|xxxx000000000000000xxxx|xxxx000000000000000xxxx|xxxx000000000000000xxxx|xxxx000000000000000xxxx|', '00001111111111111110000|00001111111111111110000|00001111111111111110000|00001111111111111110000|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|00001111111111111110000|00001111111111111110000|00001111111111111110000|00001111111111111110000|'),
 	('battleball', '3', '0000000x000x0000xxxxxxxxxxxxxxxxx|0xx00x0x0x0000000111000xxxxxxxxxx|0xx00x0x0x00000001110000xxxxxxxxx|0000xx000xxx0000xxxxxx000xxxxxxxx|000xxxxxxxxxxxxxxxxxxxx000xxxxxxx|0xxxxxxxxxxxxxxxxxxxxxxx000xxxxxx|0000xxxxxxxxxxxxxxxxxxxxx000xxxxx|xxx0xxx111111111111111xxx0x0xxxxx|0000xxx111111111111111xxx0x0x0xxx|0xxxxxx111111111111111xxx0x0x0xxx|000xxxx1111111111111111000x00000x|x00xxxx1111111111111111000x0x0xxx|0000xxx111112222211111xxxxxxx0000|0000xxx111112222211111xxx000xxxx0|0000xxx111112222211111xxx000000x0|0000xxx111112222211111xxx000xx0x0|x00xxxx111112222211111xxxxxxx0000|x11xxxx11111111111111110000000xxx|x11xxxx11111111111111110000000xxx|x11xxxx111111111111111xxx0xxxxxxx|x00xxxx111111111111111xxx000xxxxx|x00xxxx111111111111111xxxxxxxxxxx|x000xxxxxx11xxxxx11xxxxxxxxxxxxxx|xx000xxxxx00xxxxx00xxxxxxxxxxxxxx|xxx000xxxx00xxxxx00xxxxxxxxxxxxxx|xxxx00000000x000x0000xxxxxxxxxxxx|xxxxx00xxxxxx000x00x0xxxxxxxxxxxx|xxxxxx000000x000x00x0xxxxxxxxxxxx|xxxxxxxxxx0xxx0xx00xxxxxxxxxxxxxx|xxxxxxxx00000x0x000xxxxxxxxxxxxxx|xxxxxxxxxx0x0x000xxxxxxxxxxxxxxxx|xxxxxxxxxx0x0xxx0xxxxxxxxxxxxxxxx|xxxxxxxxxxxx00000xxxxxxxxxxxxxxxx|', '111100000000111100000000000000000|100100000000111100000000000000000|100100000000111100000000000000000|111100000000111100000000000000000|000000000000000000000000000000000|000000000000000000000000000000000|000000000000000000000000000000000|000000011111110111111100000000000|000000011111110111111100000000000|000000011111110111111100000000000|000000011111110111111100000000000|000000011110000000111100000000000|111100011110000000111100000000000|111100011110011100111100011100000|111100000000011100000000011100000|111100011110011100111100011100000|000000011110000000111100000000000|000000011110000000111100000000000|000000011111110111111100000000000|000000011111110111111100000000000|000000011111110111111100000000000|000000011111110111111100000000000|000000000000000000000000000000000|000000000000000000000000000000000|000000000000000000000000000000000|000000000000011100000000000000000|000000000000011100000000000000000|000000000000011100000000000000000|000000000000000000000000000000000|000000000000000000000000000000000|000000000000000000000000000000000|000000000000000000000000000000000|000000000000000000000000000000000|'),
 	('battleball', '1', 'xxxxxxxxxxxxx444444xxxxxxxxx|xxxxxxxxxxxxx444444xxxxxxxxx|xxxxxxxxxxxxx444444xxxxxxxxx|xxx22222222xx444444xxxxxxxxx|xxx22222222xx444444xxxxxxxxx|xxx22222222xx333333xxxxxxxxx|xxx22222222xx222222xxxxxxxxx|xxx222222222222222222xxxxxxx|xxx222222222222222222xxxxxxx|xxx2222222222222222222100000|xxx2222222222222222222100000|xxxxxxx222222222222222100000|xxxxxxx222222222222222100000|4444432222222222222222100000|4444432222222222222222100000|444443222222222222222xxxxxxx|444443222222222222222xxxxxxx|4444432222222222222222222xxx|4444432222222222222222222xxx|xxxxxxx222222222222222222xxx|xxxxxxx222222222222222222xxx|xxxxxxxxx222222xx22222222xxx|xxxxxxxxx111111xx22222222xxx|xxxxxxxxx000000xx22222222xxx|xxxxxxxxx000000xx22222222xxx|xxxxxxxxx000000xxxxxxxxxxxxx|xxxxxxxxx000000xxxxxxxxxxxxx|xxxxxxxxx000000xxxxxxxxxxxxx|', '0000000000000111111000000000|0000000000000111111000000000|0000000000000111111000000000|0001111111100111111000000000|0001111111100000000000000000|0001111111100000000000000000|0001111111100000000000000000|0001111111111111111110000000|0001111111111111111110000000|0001111111111111111110001111|0001111111111111111110001111|0000000111111111111110001111|0000000111111111111110001111|1111000111111111111110001111|1111000111111111111110001111|1111000111111111111110000000|1111000111111111111110000000|1111000111111111111111110000|1111000111111111111111110000|0000000111111111111111111000|0000000111111111111111111000|0000000000000000011111111000|0000000000000000011111111000|0000000000000000011111111000|0000000001111110011111111000|0000000001111110000000000000|0000000001111110000000000000|0000000001111110000000000000|'),
@@ -1157,7 +1145,6 @@ INSERT INTO `games_maps` (`type`, `id`, `heightmap`, `tile_map`) VALUES
 	('battleball', '4', 'xxxxxxx222222222222222xxxxxxxx|xxxxxxx222222222222222xxxxxxxx|xxxxxxx222222222222222xxxxxxxx|xxxxxxx222222222222222xxxxxxxx|xxxxxxx222222222222222xxxxxxxx|00012222222222222222222211111x|00012222222222222222222211111x|00012222222222222222222211111x|00012222222222222222222211111x|00xxxxx222222222222222xxx1111x|000xxxx222222222222222xxx0000x|0000xxx222222222222222x0000000|0000xxx22222222222222210000000|0000xxx22222222222222210000000|0000xxx222222222222222x0000000|0000xxx222222222222222xxxxxxxx|00000xx222222222222222xxxxxxxx|000000xxxx11xx11xx11xxxxxxxxxx|x0000000000000000000000xxxxxxx|xx000000000000000000000xxxxxxx|xxx00000000000000000000xxxxxxx|xxxx0000000000000000000xxxxxxx|', '000000011111111111111100000000|000000011111111111111100000000|000000011111111111111100000000|000000011111111111111100000000|000000011111111111111100000000|000000011111111111111100011110|000000011111111111111100011110|000000011111111111111100011110|000000011111111111111100011110|110000011111111111111100000000|111000011111111111111100000000|111100011111111111111101111111|111100011111111111111101111111|111100011111111111111101111111|111100011111111111111101111111|111100011111111111111100000000|111110011111111111111100000000|111111000000000000000000000000|011111111111111111111110000000|001111111111111111111110000000|000111111111111111111110000000|000011111111111111111110000000|');
 /*!40000 ALTER TABLE `games_maps` ENABLE KEYS */;
 
--- Dumping structure for table kepler.games_player_spawns
 CREATE TABLE IF NOT EXISTS `games_player_spawns` (
   `type` enum('battleball','snowstorm') NOT NULL DEFAULT 'battleball',
   `map_id` int(11) NOT NULL,
@@ -1167,9 +1154,128 @@ CREATE TABLE IF NOT EXISTS `games_player_spawns` (
   `rotation` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.games_player_spawns: ~120 rows (approximately)
 /*!40000 ALTER TABLE `games_player_spawns` DISABLE KEYS */;
 INSERT INTO `games_player_spawns` (`type`, `map_id`, `team_id`, `x`, `y`, `rotation`) VALUES
+	('battleball', 5, 0, 22, 14, 6),
+	('battleball', 5, 0, 22, 13, 6),
+	('battleball', 5, 0, 22, 12, 6),
+	('battleball', 5, 0, 22, 11, 6),
+	('battleball', 5, 0, 22, 10, 6),
+	('battleball', 5, 0, 22, 9, 6),
+	('battleball', 5, 3, 9, 0, 4),
+	('battleball', 5, 3, 10, 0, 4),
+	('battleball', 5, 3, 11, 0, 4),
+	('battleball', 5, 3, 12, 0, 4),
+	('battleball', 5, 3, 13, 0, 4),
+	('battleball', 5, 3, 14, 0, 4),
+	('battleball', 5, 2, 9, 22, 0),
+	('battleball', 5, 2, 10, 22, 0),
+	('battleball', 5, 2, 11, 22, 0),
+	('battleball', 5, 2, 12, 22, 0),
+	('battleball', 5, 2, 13, 22, 0),
+	('battleball', 5, 2, 14, 22, 0),
+	('battleball', 5, 1, 0, 14, 2),
+	('battleball', 5, 1, 0, 13, 2),
+	('battleball', 5, 1, 0, 12, 2),
+	('battleball', 5, 1, 0, 11, 2),
+	('battleball', 5, 1, 0, 10, 2),
+	('battleball', 5, 1, 0, 9, 2),
+	('battleball', 3, 0, 21, 11, 6),
+	('battleball', 3, 0, 21, 12, 6),
+	('battleball', 3, 0, 21, 13, 6),
+	('battleball', 3, 0, 21, 14, 6),
+	('battleball', 3, 0, 21, 15, 6),
+	('battleball', 3, 0, 21, 16, 6),
+	('battleball', 3, 1, 7, 16, 2),
+	('battleball', 3, 1, 7, 15, 2),
+	('battleball', 3, 1, 7, 14, 2),
+	('battleball', 3, 1, 7, 13, 2),
+	('battleball', 3, 1, 7, 12, 2),
+	('battleball', 3, 1, 7, 11, 2),
+	('battleball', 3, 2, 11, 7, 4),
+	('battleball', 3, 2, 12, 7, 4),
+	('battleball', 3, 2, 13, 7, 4),
+	('battleball', 3, 2, 14, 7, 4),
+	('battleball', 3, 2, 15, 7, 4),
+	('battleball', 3, 2, 16, 7, 4),
+	('battleball', 3, 3, 16, 21, 0),
+	('battleball', 3, 3, 15, 21, 0),
+	('battleball', 3, 3, 14, 21, 0),
+	('battleball', 3, 3, 13, 21, 0),
+	('battleball', 3, 3, 12, 21, 0),
+	('battleball', 3, 3, 11, 21, 0),
+	('battleball', 1, 0, 0, 13, 2),
+	('battleball', 1, 0, 0, 14, 2),
+	('battleball', 1, 0, 0, 15, 2),
+	('battleball', 1, 0, 0, 16, 2),
+	('battleball', 1, 0, 0, 17, 2),
+	('battleball', 1, 0, 0, 18, 2),
+	('battleball', 1, 1, 27, 9, 6),
+	('battleball', 1, 1, 27, 10, 6),
+	('battleball', 1, 1, 27, 11, 6),
+	('battleball', 1, 1, 27, 12, 6),
+	('battleball', 1, 1, 27, 13, 6),
+	('battleball', 1, 1, 27, 14, 6),
+	('battleball', 1, 3, 13, 0, 4),
+	('battleball', 1, 3, 14, 0, 4),
+	('battleball', 1, 3, 15, 0, 4),
+	('battleball', 1, 3, 16, 0, 4),
+	('battleball', 1, 3, 17, 0, 4),
+	('battleball', 1, 3, 18, 0, 4),
+	('battleball', 1, 2, 14, 27, 0),
+	('battleball', 1, 2, 13, 27, 0),
+	('battleball', 1, 2, 12, 27, 0),
+	('battleball', 1, 2, 11, 27, 0),
+	('battleball', 1, 2, 10, 27, 0),
+	('battleball', 1, 2, 9, 27, 0),
+	('battleball', 2, 0, 0, 7, 2),
+	('battleball', 2, 0, 0, 8, 2),
+	('battleball', 2, 0, 0, 9, 2),
+	('battleball', 2, 0, 0, 10, 2),
+	('battleball', 2, 0, 0, 11, 2),
+	('battleball', 2, 0, 0, 12, 2),
+	('battleball', 2, 2, 14, 12, 6),
+	('battleball', 2, 2, 14, 11, 6),
+	('battleball', 2, 2, 14, 10, 6),
+	('battleball', 2, 2, 14, 9, 6),
+	('battleball', 2, 2, 14, 8, 6),
+	('battleball', 2, 2, 14, 7, 6),
+	('battleball', 2, 3, 18, 8, 2),
+	('battleball', 2, 3, 18, 9, 2),
+	('battleball', 2, 3, 18, 10, 2),
+	('battleball', 2, 3, 18, 11, 2),
+	('battleball', 2, 3, 18, 12, 2),
+	('battleball', 2, 3, 18, 13, 2),
+	('battleball', 2, 1, 32, 7, 6),
+	('battleball', 2, 1, 32, 8, 6),
+	('battleball', 2, 1, 32, 9, 6),
+	('battleball', 2, 1, 32, 10, 6),
+	('battleball', 2, 1, 32, 11, 6),
+	('battleball', 2, 1, 32, 12, 6),
+	('battleball', 4, 0, 12, 16, 0),
+	('battleball', 4, 0, 13, 16, 0),
+	('battleball', 4, 0, 14, 16, 0),
+	('battleball', 4, 0, 15, 16, 0),
+	('battleball', 4, 0, 16, 16, 0),
+	('battleball', 4, 0, 17, 16, 0),
+	('battleball', 4, 1, 17, 0, 4),
+	('battleball', 4, 1, 16, 0, 4),
+	('battleball', 4, 1, 15, 0, 4),
+	('battleball', 4, 1, 14, 0, 4),
+	('battleball', 4, 1, 13, 0, 4),
+	('battleball', 4, 1, 12, 0, 4),
+	('battleball', 4, 2, 7, 5, 2),
+	('battleball', 4, 2, 7, 6, 2),
+	('battleball', 4, 2, 7, 7, 2),
+	('battleball', 4, 2, 7, 8, 2),
+	('battleball', 4, 2, 7, 9, 2),
+	('battleball', 4, 2, 7, 10, 2),
+	('battleball', 4, 3, 21, 5, 6),
+	('battleball', 4, 3, 21, 6, 6),
+	('battleball', 4, 3, 21, 7, 6),
+	('battleball', 4, 3, 21, 8, 6),
+	('battleball', 4, 3, 21, 9, 6),
+	('battleball', 4, 3, 21, 10, 6),
 	('battleball', 5, 0, 22, 14, 6),
 	('battleball', 5, 0, 22, 13, 6),
 	('battleball', 5, 0, 22, 12, 6),
@@ -1292,7 +1398,6 @@ INSERT INTO `games_player_spawns` (`type`, `map_id`, `team_id`, `x`, `y`, `rotat
 	('battleball', 4, 3, 21, 10, 6);
 /*!40000 ALTER TABLE `games_player_spawns` ENABLE KEYS */;
 
--- Dumping structure for table kepler.games_ranks
 CREATE TABLE IF NOT EXISTS `games_ranks` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
   `type` enum('battleball','snowstorm') NOT NULL DEFAULT 'battleball',
@@ -1302,7 +1407,6 @@ CREATE TABLE IF NOT EXISTS `games_ranks` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.games_ranks: 8 rows
 /*!40000 ALTER TABLE `games_ranks` DISABLE KEYS */;
 INSERT INTO `games_ranks` (`id`, `type`, `title`, `min_points`, `max_points`) VALUES
 	(1, 'battleball', 'Beginner', 0, 10000),
@@ -1315,7 +1419,6 @@ INSERT INTO `games_ranks` (`id`, `type`, `title`, `min_points`, `max_points`) VA
 	(8, 'snowstorm', 'Expert', 500001, 0);
 /*!40000 ALTER TABLE `games_ranks` ENABLE KEYS */;
 
--- Dumping structure for table kepler.housekeeping_audit_log
 CREATE TABLE IF NOT EXISTS `housekeeping_audit_log` (
   `action` enum('alert_user','kick_user','ban_user','room_alert','room_kick') NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -1325,11 +1428,9 @@ CREATE TABLE IF NOT EXISTS `housekeeping_audit_log` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.housekeeping_audit_log: ~0 rows (approximately)
 /*!40000 ALTER TABLE `housekeeping_audit_log` DISABLE KEYS */;
 /*!40000 ALTER TABLE `housekeeping_audit_log` ENABLE KEYS */;
 
--- Dumping structure for table kepler.items
 CREATE TABLE IF NOT EXISTS `items` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) NOT NULL DEFAULT 0,
@@ -1349,11 +1450,9 @@ CREATE TABLE IF NOT EXISTS `items` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.items: ~0 rows (approximately)
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 
--- Dumping structure for table kepler.items_definitions
 CREATE TABLE IF NOT EXISTS `items_definitions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sprite` varchar(50) DEFAULT NULL,
@@ -1373,7 +1472,6 @@ CREATE TABLE IF NOT EXISTS `items_definitions` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1417 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.items_definitions: ~826 rows (approximately)
 /*!40000 ALTER TABLE `items_definitions` DISABLE KEYS */;
 INSERT INTO `items_definitions` (`id`, `sprite`, `sprite_id`, `name`, `description`, `colour`, `length`, `width`, `top_height`, `max_status`, `behaviour`, `interactor`, `is_tradable`, `is_recyclable`, `drink_ids`) VALUES
 	(1, 'shelves_norja', 293, 'Bookcase', 'For nic naks and art deco books', '#FFFFFF,#F7EBBC', 1, 1, 2, '2', 'solid,requires_rights_for_interaction', 'default', 1, 1, ''),
@@ -1588,7 +1686,7 @@ INSERT INTO `items_definitions` (`id`, `sprite`, `sprite_id`, `name`, `descripti
 	(211, 'CF_20_moneybag', 276, 'Sack of Credits', 'Worth 20 Credits', '0,0,0', 1, 1, 1, '2', 'solid,can_stack_on_top,redeemable,requires_rights_for_interaction', 'default', 1, 1, ''),
 	(212, 'CF_50_goldbar', 277, 'Gold Bar', 'Worth 50 Credits', '0,0,0', 1, 1, 0.4, '2', 'solid,can_stack_on_top,redeemable,requires_rights_for_interaction', 'default', 1, 1, ''),
 	(213, 'CF_5_coin_silver', 274, 'Silver Coin', 'Worth 5 Credits', '0,0,0', 1, 1, 0.1, '2', 'solid,can_stack_on_top,redeemable,requires_rights_for_interaction', 'default', 1, 1, ''),
-	(214, 'hc_tv', 993, 'Mega TV Set', 'Forget plasma, go HC!', '0,0,0', 2, 1, 1.3, '2', 'can_sit_on_top,custom_data_numeric_on_off,redirect_rotation_2', 'chair', 1, 1, ''),
+	(214, 'hc_tv', 993, 'Mega TV Set', 'Forget plasma, go HC!', '0,0,0', 2, 1, 1.3, '2', 'can_sit_on_top,custom_data_on_off,redirect_rotation_2', 'chair', 1, 1, ''),
 	(215, 'gothgate', 262, 'Gothic Portcullis', 'The dark side of Habbo', '#FFFFFF,#FFFFFF,#FFFFFF', 2, 1, 2.5, '2', 'solid,requires_rights_for_interaction,gate', 'default', 1, 1, ''),
 	(216, 'gothiccandelabra', 261, 'Gothic Candelabra', 'The dark side of Habbo', '#FFFFFF,#FFFFFF,#FFFFFF', 1, 1, 1, '2', 'solid,custom_data_numeric_on_off,requires_rights_for_interaction', 'default', 1, 1, ''),
 	(217, 'gothrailing', 258, 'Gothic Railing', 'The dark side of Habbo', '0,0,0', 2, 1, 1, '2', 'solid,can_stack_on_top,requires_rights_for_interaction', 'default', 1, 1, ''),
@@ -2204,7 +2302,6 @@ INSERT INTO `items_definitions` (`id`, `sprite`, `sprite_id`, `name`, `descripti
 	(1416, 'rclr_sofa', -1, 'Polar Sofa', 'Snuggle up together', '0,0,0', 2, 1, 1, '0', 'can_sit_on_top', 'chair', 1, 0, '');
 /*!40000 ALTER TABLE `items_definitions` ENABLE KEYS */;
 
--- Dumping structure for table kepler.items_moodlight_presets
 CREATE TABLE IF NOT EXISTS `items_moodlight_presets` (
   `item_id` int(11) NOT NULL,
   `current_preset` int(11) NOT NULL DEFAULT 1,
@@ -2214,11 +2311,9 @@ CREATE TABLE IF NOT EXISTS `items_moodlight_presets` (
   PRIMARY KEY (`item_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.items_moodlight_presets: ~0 rows (approximately)
 /*!40000 ALTER TABLE `items_moodlight_presets` DISABLE KEYS */;
 /*!40000 ALTER TABLE `items_moodlight_presets` ENABLE KEYS */;
 
--- Dumping structure for table kepler.items_pets
 CREATE TABLE IF NOT EXISTS `items_pets` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `item_id` bigint(11) NOT NULL,
@@ -2242,11 +2337,9 @@ CREATE TABLE IF NOT EXISTS `items_pets` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.items_pets: ~0 rows (approximately)
 /*!40000 ALTER TABLE `items_pets` DISABLE KEYS */;
 /*!40000 ALTER TABLE `items_pets` ENABLE KEYS */;
 
--- Dumping structure for table kepler.items_photos
 CREATE TABLE IF NOT EXISTS `items_photos` (
   `photo_id` int(11) NOT NULL,
   `photo_user_id` bigint(11) NOT NULL,
@@ -2257,32 +2350,26 @@ CREATE TABLE IF NOT EXISTS `items_photos` (
   UNIQUE KEY `photo_id` (`photo_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.items_photos: ~0 rows (approximately)
 /*!40000 ALTER TABLE `items_photos` DISABLE KEYS */;
 /*!40000 ALTER TABLE `items_photos` ENABLE KEYS */;
 
--- Dumping structure for table kepler.items_teleporter_links
 CREATE TABLE IF NOT EXISTS `items_teleporter_links` (
   `item_id` int(11) NOT NULL,
   `linked_id` int(11) NOT NULL,
   UNIQUE KEY `item_id` (`item_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.items_teleporter_links: ~0 rows (approximately)
 /*!40000 ALTER TABLE `items_teleporter_links` DISABLE KEYS */;
 /*!40000 ALTER TABLE `items_teleporter_links` ENABLE KEYS */;
 
--- Dumping structure for table kepler.messenger_friends
 CREATE TABLE IF NOT EXISTS `messenger_friends` (
   `from_id` int(11) NOT NULL,
   `to_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.messenger_friends: ~0 rows (approximately)
 /*!40000 ALTER TABLE `messenger_friends` DISABLE KEYS */;
 /*!40000 ALTER TABLE `messenger_friends` ENABLE KEYS */;
 
--- Dumping structure for table kepler.messenger_messages
 CREATE TABLE IF NOT EXISTS `messenger_messages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `receiver_id` int(11) DEFAULT NULL,
@@ -2294,21 +2381,17 @@ CREATE TABLE IF NOT EXISTS `messenger_messages` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.messenger_messages: ~0 rows (approximately)
 /*!40000 ALTER TABLE `messenger_messages` DISABLE KEYS */;
 /*!40000 ALTER TABLE `messenger_messages` ENABLE KEYS */;
 
--- Dumping structure for table kepler.messenger_requests
 CREATE TABLE IF NOT EXISTS `messenger_requests` (
   `from_id` int(11) DEFAULT NULL,
   `to_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.messenger_requests: ~0 rows (approximately)
 /*!40000 ALTER TABLE `messenger_requests` DISABLE KEYS */;
 /*!40000 ALTER TABLE `messenger_requests` ENABLE KEYS */;
 
--- Dumping structure for table kepler.public_items
 CREATE TABLE IF NOT EXISTS `public_items` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `room_model` varchar(255) NOT NULL,
@@ -2325,7 +2408,6 @@ CREATE TABLE IF NOT EXISTS `public_items` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3460 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.public_items: ~3,482 rows (approximately)
 /*!40000 ALTER TABLE `public_items` DISABLE KEYS */;
 INSERT INTO `public_items` (`id`, `room_model`, `sprite`, `x`, `y`, `z`, `rotation`, `top_height`, `length`, `width`, `behaviour`, `current_program`) VALUES
 	(1, 'picnic', 'picnic_cloth1', 6, 17, 2, 2, 0.001, 1, 1, 'solid', ''),
@@ -5789,25 +5871,45 @@ INSERT INTO `public_items` (`id`, `room_model`, `sprite`, `x`, `y`, `z`, `rotati
 	(3459, 'md_a', 'wsTileStart', 21, 11, 8, 0, 0.001, 1, 1, 'invisible,can_stand_on_top', '21,15');
 /*!40000 ALTER TABLE `public_items` ENABLE KEYS */;
 
--- Dumping structure for table kepler.rank_badges
 CREATE TABLE IF NOT EXISTS `rank_badges` (
   `rank` tinyint(1) unsigned NOT NULL DEFAULT 1,
   `badge` char(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.rank_badges: ~0 rows (approximately)
 /*!40000 ALTER TABLE `rank_badges` DISABLE KEYS */;
 /*!40000 ALTER TABLE `rank_badges` ENABLE KEYS */;
 
--- Dumping structure for table kepler.rank_fuserights
 CREATE TABLE IF NOT EXISTS `rank_fuserights` (
   `min_rank` int(11) NOT NULL,
   `fuseright` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.rank_fuserights: ~24 rows (approximately)
 /*!40000 ALTER TABLE `rank_fuserights` DISABLE KEYS */;
 INSERT INTO `rank_fuserights` (`min_rank`, `fuseright`) VALUES
+	(1, 'default'),
+	(1, 'fuse_login'),
+	(1, 'fuse_buy_credits'),
+	(1, 'fuse_trade'),
+	(1, 'fuse_room_queue_default'),
+	(2, 'fuse_enter_full_rooms'),
+	(3, 'fuse_enter_locked_rooms'),
+	(3, 'fuse_kick'),
+	(3, 'fuse_mute'),
+	(4, 'fuse_ban'),
+	(4, 'fuse_room_mute'),
+	(4, 'fuse_room_kick'),
+	(4, 'fuse_receive_calls_for_help'),
+	(4, 'fuse_remove_stickies'),
+	(5, 'fuse_mod'),
+	(5, 'fuse_superban'),
+	(5, 'fuse_pick_up_any_furni'),
+	(5, 'fuse_ignore_room_owner'),
+	(5, 'fuse_any_room_controller'),
+	(2, 'fuse_room_alert'),
+	(5, 'fuse_moderator_access'),
+	(6, 'fuse_administrator_access'),
+	(6, 'fuse_see_flat_ids'),
+	(5, 'fuse_credits'),
 	(1, 'default'),
 	(1, 'fuse_login'),
 	(1, 'fuse_buy_credits'),
@@ -5834,18 +5936,15 @@ INSERT INTO `rank_fuserights` (`min_rank`, `fuseright`) VALUES
 	(5, 'fuse_credits');
 /*!40000 ALTER TABLE `rank_fuserights` ENABLE KEYS */;
 
--- Dumping structure for table kepler.rare_cycle
 CREATE TABLE IF NOT EXISTS `rare_cycle` (
   `sale_code` varchar(255) NOT NULL,
   `reuse_time` bigint(11) NOT NULL,
   PRIMARY KEY (`sale_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.rare_cycle: ~0 rows (approximately)
 /*!40000 ALTER TABLE `rare_cycle` DISABLE KEYS */;
 /*!40000 ALTER TABLE `rare_cycle` ENABLE KEYS */;
 
--- Dumping structure for table kepler.recycler_rewards
 CREATE TABLE IF NOT EXISTS `recycler_rewards` (
   `id` int(11) NOT NULL,
   `sale_code` varchar(255) NOT NULL,
@@ -5854,15 +5953,16 @@ CREATE TABLE IF NOT EXISTS `recycler_rewards` (
   `collection_time_seconds` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.recycler_rewards: ~3 rows (approximately)
 /*!40000 ALTER TABLE `recycler_rewards` DISABLE KEYS */;
 INSERT INTO `recycler_rewards` (`id`, `sale_code`, `item_cost`, `recycling_session_time_seconds`, `collection_time_seconds`) VALUES
+	(2, 'rclr_garden', 30, 7200, 1800),
+	(3, 'rclr_sofa', 50, 10800, 1800),
+	(1, 'rclr_chair', 20, 3600, 1800),
 	(2, 'rclr_garden', 30, 7200, 1800),
 	(3, 'rclr_sofa', 50, 10800, 1800),
 	(1, 'rclr_chair', 20, 3600, 1800);
 /*!40000 ALTER TABLE `recycler_rewards` ENABLE KEYS */;
 
--- Dumping structure for table kepler.recycler_sessions
 CREATE TABLE IF NOT EXISTS `recycler_sessions` (
   `user_id` int(11) NOT NULL,
   `reward_id` int(11) NOT NULL,
@@ -5871,11 +5971,9 @@ CREATE TABLE IF NOT EXISTS `recycler_sessions` (
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.recycler_sessions: ~0 rows (approximately)
 /*!40000 ALTER TABLE `recycler_sessions` DISABLE KEYS */;
 /*!40000 ALTER TABLE `recycler_sessions` ENABLE KEYS */;
 
--- Dumping structure for table kepler.rooms
 CREATE TABLE IF NOT EXISTS `rooms` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `owner_id` varchar(11) NOT NULL,
@@ -5899,7 +5997,6 @@ CREATE TABLE IF NOT EXISTS `rooms` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
 
--- Dumping data for table kepler.rooms: ~69 rows (approximately)
 /*!40000 ALTER TABLE `rooms` DISABLE KEYS */;
 INSERT INTO `rooms` (`id`, `owner_id`, `category`, `name`, `description`, `model`, `ccts`, `wallpaper`, `floor`, `showname`, `superusers`, `accesstype`, `password`, `visitors_now`, `visitors_max`, `rating`, `created_at`, `updated_at`) VALUES
 	(1, '0', 3, 'Welcome Lounge', 'welcome_lounge', 'newbie_lobby', 'hh_room_nlobby', 0, 0, 0, 0, 0, '', 0, 40, 0, '2018-08-11 07:54:01', '2019-10-16 23:35:48'),
@@ -5971,7 +6068,6 @@ INSERT INTO `rooms` (`id`, `owner_id`, `category`, `name`, `description`, `model
 	(67, '0', 13, 'Snowstorm Lobby', 'sw_lobby_beginner_0', 'snowwar_lobby_1', 'hh_gamesys,hh_game_snowwar,hh_game_snowwar_room,hh_game_snowwar_ui', 0, 0, 1, 0, 0, '', 0, 25, 0, '2018-08-11 07:54:01', '2018-08-11 07:54:01');
 /*!40000 ALTER TABLE `rooms` ENABLE KEYS */;
 
--- Dumping structure for table kepler.rooms_bots
 CREATE TABLE IF NOT EXISTS `rooms_bots` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(25) NOT NULL,
@@ -5989,7 +6085,6 @@ CREATE TABLE IF NOT EXISTS `rooms_bots` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.rooms_bots: ~34 rows (approximately)
 /*!40000 ALTER TABLE `rooms_bots` DISABLE KEYS */;
 INSERT INTO `rooms_bots` (`id`, `name`, `mission`, `x`, `y`, `start_look`, `figure`, `walkspace`, `room_id`, `speech`, `response`, `unrecognised_response`, `hand_items`) VALUES
 	(5, 'Xenia', 'The belle of the Battle Ball', 1, 8, '2,2', 'sd=001&sh=002/54,178,190&lg=200/230,49,57&ch=506/230,49,57,141&lh=001/168,123,67&rh=001/168,123,67&hd=001/168,123,67&ey=001&fc=001/168,123,67&hr=506/194,26,134,190&hrb=506/2,3,4&rs=002/230,49,57&ls=002/230,49,57&bd=001/168,123,67', '0,5 0,6 0,7 1,5 1,6 1,7 1,8', 66, 'Welcome to the BattleBall lobby!|Play games for free here|I\'m super pumped to beat other users in Battleball! :)|Calm down, other people are trying to score!#SHOUT|I\'m the best BattleBall player! *smirks*|I wonder how long it would take me to reach the highest level...|You can earn XP when playing BattleBall!', '', 'Hello there!|Hi, said the person who lost BattleBall|Hey!|Hey, I\'m just chilling here.. doing nothing', ''),
@@ -6028,7 +6123,6 @@ INSERT INTO `rooms_bots` (`id`, `name`, `mission`, `x`, `y`, `start_look`, `figu
 	(45, 'Miho', 'My katana thinks you\'re cute!', 14, 25, '2,2', 'sd=001&sh=001/36&lg=200/204,204,204&ch=204/204,204,204&lh=001/215,175,125&rh=001/215,175,125&hd=001/215,175,125&ey=001&fc=001/215,175,125&hr=504/50,91,106&rs=002/204,204,204&ls=002/204,204,204&bd=001/8', '14,24 14,25', 27, 'Zen Garden is the ultimate in relaxation|Listen to the breeze blowing through the leaves|Welcome to my garden a place of quiet reflection...|Listen to the breeze blowing through the leaves...', 'I hope you make peace with this|Relax with this|Relaxation can be achieved this this', 'That is my name.|Say again - it\'s a bit noisy in here#WHISPER|You bring confusion to my mind, and pain to my ears...#WHISPER|', 'Water');
 /*!40000 ALTER TABLE `rooms_bots` ENABLE KEYS */;
 
--- Dumping structure for table kepler.rooms_categories
 CREATE TABLE IF NOT EXISTS `rooms_categories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) NOT NULL,
@@ -6043,7 +6137,6 @@ CREATE TABLE IF NOT EXISTS `rooms_categories` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.rooms_categories: ~21 rows (approximately)
 /*!40000 ALTER TABLE `rooms_categories` DISABLE KEYS */;
 INSERT INTO `rooms_categories` (`id`, `order_id`, `parent_id`, `isnode`, `name`, `public_spaces`, `allow_trading`, `minrole_access`, `minrole_setflatcat`) VALUES
 	(2, 0, 0, 0, 'No category', 0, 0, 1, 1),
@@ -6069,7 +6162,6 @@ INSERT INTO `rooms_categories` (`id`, `order_id`, `parent_id`, `isnode`, `name`,
 	(120, 0, 4, 0, 'Miscellaneous', 0, 0, 1, 1);
 /*!40000 ALTER TABLE `rooms_categories` ENABLE KEYS */;
 
--- Dumping structure for table kepler.rooms_events
 CREATE TABLE IF NOT EXISTS `rooms_events` (
   `room_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -6081,11 +6173,9 @@ CREATE TABLE IF NOT EXISTS `rooms_events` (
   UNIQUE KEY `room_id` (`room_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.rooms_events: ~0 rows (approximately)
 /*!40000 ALTER TABLE `rooms_events` DISABLE KEYS */;
 /*!40000 ALTER TABLE `rooms_events` ENABLE KEYS */;
 
--- Dumping structure for table kepler.rooms_models
 CREATE TABLE IF NOT EXISTS `rooms_models` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `model_id` varchar(255) NOT NULL,
@@ -6100,7 +6190,6 @@ CREATE TABLE IF NOT EXISTS `rooms_models` (
   KEY `id` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.rooms_models: ~88 rows (approximately)
 /*!40000 ALTER TABLE `rooms_models` DISABLE KEYS */;
 INSERT INTO `rooms_models` (`id`, `model_id`, `model_name`, `door_x`, `door_y`, `door_z`, `door_dir`, `heightmap`, `trigger_class`) VALUES
 	(1, 'model_a', 'model_a', 3, 5, 0, 2, 'xxxxxxxxxxxx|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxxxxxxxxxx|xxxxxxxxxxxx', 'flat_trigger'),
@@ -6193,17 +6282,14 @@ INSERT INTO `rooms_models` (`id`, `model_id`, `model_name`, `door_x`, `door_y`, 
 	(88, 'hallD', 'hallD', 0, 0, 1, 4, '11xxxxxxxxxxxxxxx|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111', 'none');
 /*!40000 ALTER TABLE `rooms_models` ENABLE KEYS */;
 
--- Dumping structure for table kepler.rooms_rights
 CREATE TABLE IF NOT EXISTS `rooms_rights` (
   `user_id` int(11) NOT NULL,
   `room_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.rooms_rights: ~0 rows (approximately)
 /*!40000 ALTER TABLE `rooms_rights` DISABLE KEYS */;
 /*!40000 ALTER TABLE `rooms_rights` ENABLE KEYS */;
 
--- Dumping structure for table kepler.room_chatlogs
 CREATE TABLE IF NOT EXISTS `room_chatlogs` (
   `user_id` int(11) NOT NULL,
   `room_id` int(11) NOT NULL,
@@ -6212,17 +6298,14 @@ CREATE TABLE IF NOT EXISTS `room_chatlogs` (
   `message` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.room_chatlogs: ~0 rows (approximately)
 /*!40000 ALTER TABLE `room_chatlogs` DISABLE KEYS */;
 /*!40000 ALTER TABLE `room_chatlogs` ENABLE KEYS */;
 
--- Dumping structure for table kepler.schema_migrations
 CREATE TABLE IF NOT EXISTS `schema_migrations` (
   `version` varchar(255) NOT NULL,
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.schema_migrations: ~61 rows (approximately)
 /*!40000 ALTER TABLE `schema_migrations` DISABLE KEYS */;
 INSERT INTO `schema_migrations` (`version`) VALUES
 	('20180605202455'),
@@ -6288,18 +6371,15 @@ INSERT INTO `schema_migrations` (`version`) VALUES
 	('20180916030415');
 /*!40000 ALTER TABLE `schema_migrations` ENABLE KEYS */;
 
--- Dumping structure for table kepler.settings
 CREATE TABLE IF NOT EXISTS `settings` (
   `setting` varchar(50) NOT NULL,
   `value` text NOT NULL DEFAULT '',
   PRIMARY KEY (`setting`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.settings: ~0 rows (approximately)
 /*!40000 ALTER TABLE `settings` DISABLE KEYS */;
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 
--- Dumping structure for table kepler.soundmachine_disks
 CREATE TABLE IF NOT EXISTS `soundmachine_disks` (
   `item_id` bigint(11) NOT NULL,
   `soundmachine_id` int(11) NOT NULL DEFAULT 0,
@@ -6308,11 +6388,9 @@ CREATE TABLE IF NOT EXISTS `soundmachine_disks` (
   `burned_at` bigint(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.soundmachine_disks: ~0 rows (approximately)
 /*!40000 ALTER TABLE `soundmachine_disks` DISABLE KEYS */;
 /*!40000 ALTER TABLE `soundmachine_disks` ENABLE KEYS */;
 
--- Dumping structure for table kepler.soundmachine_playlists
 CREATE TABLE IF NOT EXISTS `soundmachine_playlists` (
   `item_id` int(11) NOT NULL,
   `song_id` int(11) NOT NULL,
@@ -6321,11 +6399,9 @@ CREATE TABLE IF NOT EXISTS `soundmachine_playlists` (
   KEY `songid` (`song_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.soundmachine_playlists: ~0 rows (approximately)
 /*!40000 ALTER TABLE `soundmachine_playlists` DISABLE KEYS */;
 /*!40000 ALTER TABLE `soundmachine_playlists` ENABLE KEYS */;
 
--- Dumping structure for table kepler.soundmachine_songs
 CREATE TABLE IF NOT EXISTS `soundmachine_songs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL DEFAULT 0,
@@ -6337,22 +6413,18 @@ CREATE TABLE IF NOT EXISTS `soundmachine_songs` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.soundmachine_songs: ~0 rows (approximately)
 /*!40000 ALTER TABLE `soundmachine_songs` DISABLE KEYS */;
 /*!40000 ALTER TABLE `soundmachine_songs` ENABLE KEYS */;
 
--- Dumping structure for table kepler.soundmachine_tracks
 CREATE TABLE IF NOT EXISTS `soundmachine_tracks` (
   `soundmachine_id` int(11) NOT NULL,
   `track_id` int(11) NOT NULL,
   `slot_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.soundmachine_tracks: ~0 rows (approximately)
 /*!40000 ALTER TABLE `soundmachine_tracks` DISABLE KEYS */;
 /*!40000 ALTER TABLE `soundmachine_tracks` ENABLE KEYS */;
 
--- Dumping structure for table kepler.users
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
@@ -6385,11 +6457,9 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.users: ~0 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
--- Dumping structure for table kepler.users_badges
 CREATE TABLE IF NOT EXISTS `users_badges` (
   `user_id` int(11) NOT NULL,
   `badge` char(3) NOT NULL,
@@ -6397,11 +6467,9 @@ CREATE TABLE IF NOT EXISTS `users_badges` (
   CONSTRAINT `users_badges_users_FK` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.users_badges: ~0 rows (approximately)
 /*!40000 ALTER TABLE `users_badges` DISABLE KEYS */;
 /*!40000 ALTER TABLE `users_badges` ENABLE KEYS */;
 
--- Dumping structure for table kepler.users_bans
 CREATE TABLE IF NOT EXISTS `users_bans` (
   `ban_type` enum('MACHINE_ID','IP_ADDRESS','USER_ID') NOT NULL,
   `banned_value` varchar(250) NOT NULL,
@@ -6410,53 +6478,43 @@ CREATE TABLE IF NOT EXISTS `users_bans` (
   PRIMARY KEY (`banned_value`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.users_bans: ~0 rows (approximately)
 /*!40000 ALTER TABLE `users_bans` DISABLE KEYS */;
 /*!40000 ALTER TABLE `users_bans` ENABLE KEYS */;
 
--- Dumping structure for table kepler.users_club_gifts
 CREATE TABLE IF NOT EXISTS `users_club_gifts` (
   `user_id` int(11) NOT NULL,
   `sprite` varchar(50) NOT NULL,
   `date_received` bigint(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.users_club_gifts: ~0 rows (approximately)
 /*!40000 ALTER TABLE `users_club_gifts` DISABLE KEYS */;
 /*!40000 ALTER TABLE `users_club_gifts` ENABLE KEYS */;
 
--- Dumping structure for table kepler.users_ip_logs
 CREATE TABLE IF NOT EXISTS `users_ip_logs` (
   `user_id` int(11) NOT NULL,
   `ip_address` varchar(256) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.users_ip_logs: ~0 rows (approximately)
 /*!40000 ALTER TABLE `users_ip_logs` DISABLE KEYS */;
 /*!40000 ALTER TABLE `users_ip_logs` ENABLE KEYS */;
 
--- Dumping structure for table kepler.users_mutes
 CREATE TABLE IF NOT EXISTS `users_mutes` (
   `user_id` int(11) NOT NULL,
   `muted_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.users_mutes: ~0 rows (approximately)
 /*!40000 ALTER TABLE `users_mutes` DISABLE KEYS */;
 /*!40000 ALTER TABLE `users_mutes` ENABLE KEYS */;
 
--- Dumping structure for table kepler.users_room_favourites
 CREATE TABLE IF NOT EXISTS `users_room_favourites` (
   `room_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.users_room_favourites: ~0 rows (approximately)
 /*!40000 ALTER TABLE `users_room_favourites` DISABLE KEYS */;
 /*!40000 ALTER TABLE `users_room_favourites` ENABLE KEYS */;
 
--- Dumping structure for table kepler.users_room_votes
 CREATE TABLE IF NOT EXISTS `users_room_votes` (
   `user_id` int(11) NOT NULL,
   `room_id` int(11) NOT NULL,
@@ -6464,11 +6522,9 @@ CREATE TABLE IF NOT EXISTS `users_room_votes` (
   `expire_time` bigint(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table kepler.users_room_votes: ~0 rows (approximately)
 /*!40000 ALTER TABLE `users_room_votes` DISABLE KEYS */;
 /*!40000 ALTER TABLE `users_room_votes` ENABLE KEYS */;
 
--- Dumping structure for table kepler.vouchers
 CREATE TABLE IF NOT EXISTS `vouchers` (
   `voucher_code` varchar(100) NOT NULL,
   `credits` int(11) NOT NULL DEFAULT 0,
@@ -6477,11 +6533,9 @@ CREATE TABLE IF NOT EXISTS `vouchers` (
   UNIQUE KEY `voucher_code` (`voucher_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
 
--- Dumping data for table kepler.vouchers: ~0 rows (approximately)
 /*!40000 ALTER TABLE `vouchers` DISABLE KEYS */;
 /*!40000 ALTER TABLE `vouchers` ENABLE KEYS */;
 
--- Dumping structure for table kepler.vouchers_history
 CREATE TABLE IF NOT EXISTS `vouchers_history` (
   `voucher_code` varchar(100) NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -6490,18 +6544,15 @@ CREATE TABLE IF NOT EXISTS `vouchers_history` (
   `items_redeemed` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
 
--- Dumping data for table kepler.vouchers_history: ~0 rows (approximately)
 /*!40000 ALTER TABLE `vouchers_history` DISABLE KEYS */;
 /*!40000 ALTER TABLE `vouchers_history` ENABLE KEYS */;
 
--- Dumping structure for table kepler.vouchers_items
 CREATE TABLE IF NOT EXISTS `vouchers_items` (
   `voucher_code` varchar(100) NOT NULL,
   `catalogue_sale_code` varchar(100) NOT NULL,
   KEY `voucher_code` (`voucher_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
 
--- Dumping data for table kepler.vouchers_items: ~0 rows (approximately)
 /*!40000 ALTER TABLE `vouchers_items` DISABLE KEYS */;
 /*!40000 ALTER TABLE `vouchers_items` ENABLE KEYS */;
 
