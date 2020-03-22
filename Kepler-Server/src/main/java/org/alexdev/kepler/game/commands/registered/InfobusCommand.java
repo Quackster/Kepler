@@ -41,6 +41,20 @@ public class InfobusCommand extends Command {
         Room room = player.getRoomUser().getRoom();
         InfobusManager bus = InfobusManager.getInstance();
 
+        if(args[0].equalsIgnoreCase("help")) {
+
+            StringBuilder help = new StringBuilder();
+            help.append("INFOBUS COMMANDS:<br>").append("<br>");
+            help.append(":infobus open").append("<br>");
+            help.append(":infobus close").append("<br>");
+            help.append(":infobus question [text]").append("<br>");
+            help.append(":infobus option add [text]").append("<br>");
+            help.append(":infobus option remove [number]").append("<br>");
+            help.append(":infobus status").append("<br>");
+            help.append(":infobus reset");
+
+            player.send(new ALERT(help.toString()));
+        }
 
         if(args[0].equalsIgnoreCase("status")) {
             player.send(new ALERT(bus.constructStatus()));
@@ -107,6 +121,6 @@ public class InfobusCommand extends Command {
 
     @Override
     public String getDescription() {
-        return "<subcommand> (open,close,question,option,reset,status) ";
+        return "To show infobus commands use [:infobus help]";
     }
 }
