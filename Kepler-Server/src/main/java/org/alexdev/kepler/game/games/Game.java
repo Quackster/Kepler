@@ -388,9 +388,10 @@ public abstract class Game {
             this.sendObservers(new GAMEINSTANCE(this));
         }
 
-        if (!this.hasEnoughPlayers()) {
+        if (this.gameState == GameState.WAITING && this.gameCreatorId == gamePlayer.getPlayer().getDetails().getId()) {
             GameManager.getInstance().getGames().remove(this);
 
+            this.send(new GAMEDELETED(this.id));
             this.sendObservers(new GAMEDELETED(this.id));
             this.killSpectators();
         }
