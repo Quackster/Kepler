@@ -90,6 +90,8 @@ public class GameConfigWriter implements ConfigWriter {
         config.put("events.category.count", "11");
         config.put("events.expiry.minutes", "120");
 
+        config.put("disable.purchase.successful.alert", "false");
+
         //config.put("recycler.max.time.to.collect.seconds", "1800");
         //config.put("recycler.session.length.seconds", "3600");
         config.put("recycler.item.quarantine.seconds", "2592000");

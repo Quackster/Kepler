@@ -22,6 +22,7 @@ import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 import org.alexdev.kepler.util.DateUtil;
 import org.alexdev.kepler.util.StringUtil;
+import org.alexdev.kepler.util.config.GameConfiguration;
 
 import java.util.Optional;
 
@@ -129,7 +130,9 @@ public class GRPC implements MessageEvent {
             }
 
             if (showItemDelivered) {
-                player.send(new ITEM_DELIVERED());
+                if (!GameConfiguration.getInstance().getBoolean("disable.purchase.successful.alert")) {
+                    player.send(new ITEM_DELIVERED());
+                }
             }
         }
 
