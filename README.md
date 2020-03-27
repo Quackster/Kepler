@@ -49,7 +49,6 @@ $ git submodule update --init --recursive
 
 * Hoshiko
 * ThuGie
-* Alito
 * Ascii
 * Lightbulb
 * Raptosaur

@@ -27,7 +27,7 @@ public class AboutCommand extends Command {
                 "<br>Max version supported: r21_20080417_0343_5110_5527e6590eba8f3fb66348bdf271b5a2" +
                 "<br>" +
                 "<br>Contributors:" +
-                "<br> - ThuGie, Alito, Ascii, Sefhriloff, Copyright, Raptosaur, Hoshiko " + // Call for help
+                "<br> - ThuGie, Webbanditten, Ascii, Sefhriloff, Copyright, Raptosaur, Hoshiko " + // Call for help
                 "<br>   Romuald, Glaceon, Nillus, Holo Team, Meth0d, office.boy, killerloader" +
                 "<br>" +
                 "<br>" +
