@@ -391,6 +391,7 @@ public abstract class Game {
         if (this.gameState == GameState.WAITING && this.gameCreatorId == gamePlayer.getPlayer().getDetails().getId()) {
             GameManager.getInstance().getGames().remove(this);
 
+            this.send(new GAMEDELETED(this.id));
             this.sendObservers(new GAMEDELETED(this.id));
             this.killSpectators();
         }
