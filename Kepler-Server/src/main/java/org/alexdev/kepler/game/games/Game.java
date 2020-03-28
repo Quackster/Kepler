@@ -143,14 +143,9 @@ public abstract class Game {
         this.preparingTimerRunnable = new FutureRunnable() {
             public void run() {
                 try {
-                    if (!hasEnoughPlayers()) {
-                        this.cancelFuture();
-                        return;
-                    }
-
                     gamePrepareTick();
 
-                    if (preparingGameSecondsLeft.getAndDecrement() == 0) {
+                    if (preparingGameSecondsLeft.getAndDecrement() == 0 || getPlayers().isEmpty()) {
                         this.cancelFuture();
                         beginGame();
                     }
@@ -188,15 +183,10 @@ public abstract class Game {
         this.gameTimerRunnable = new FutureRunnable() {
             public void run() {
                 try {
-                    if (!hasEnoughPlayers()) {
-                        this.cancelFuture();
-                        return;
-                    }
-
                     gameTick();
 
                     // Game ends either when time runs out or there's no free tiles left to seal
-                    if (totalSecondsLeft.decrementAndGet() == 0 || !canTimerContinue()) {
+                    if (totalSecondsLeft.decrementAndGet() == 0 || !canTimerContinue() || getPlayers().isEmpty()) {
                         this.cancelFuture();
                         finishGame();
                     }
