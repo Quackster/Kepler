@@ -45,8 +45,8 @@ public class RoomTimerManager {
         this.sleepTimer = DateUtil.getCurrentTimeSeconds() + GameConfiguration.getInstance().getInteger("sleep.timer.seconds");
 
         // If the user was sleeping, remove the sleep and tell the room cycle to update our character
-        if (this.roomEntity.containsStatus(StatusType.SLEEP)) {
-            this.roomEntity.removeStatus(StatusType.SLEEP);
+        if (this.roomEntity.containsStatus(StatusType.AVATAR_SLEEP)) {
+            this.roomEntity.removeStatus(StatusType.AVATAR_SLEEP);
             this.roomEntity.setNeedsUpdate(true);
         }
     }

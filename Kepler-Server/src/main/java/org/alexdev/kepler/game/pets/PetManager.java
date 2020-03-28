@@ -104,6 +104,22 @@ public class PetManager {
         return speech;
     }
 
+    public PetType getType(Pet pet) {
+        switch (pet.getDetails().getType()) {
+            case "0": {
+                return PetType.DOG;
+            }
+            case "1": {
+                return PetType.CAT;
+            }
+            case "2": {
+                return PetType.CROC;
+            }
+        }
+
+        return null;
+    }
+
     /**
      * Get the {@link PetManager} instance
      *

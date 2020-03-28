@@ -72,7 +72,7 @@ public class PLACESTUFF implements MessageEvent {
 
                     if (totalStickies <= 0) {
                         player.getInventory().getItems().remove(item);
-                        ItemDao.deleteItem(item.getId());
+                        item.delete();
                     } else {
                         item.setCustomData(String.valueOf(totalStickies));
                         item.save();

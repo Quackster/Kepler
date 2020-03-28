@@ -241,7 +241,14 @@ public class Item {
      * Queue item saving.
      */
     public void save() {
-        GameScheduler.getInstance().queueSave(this);
+        GameScheduler.getInstance().queueSaveItem(this);
+    }
+
+    /**
+     * Queue item deletion.
+     */
+    public void delete() {
+        GameScheduler.getInstance().queueDeleteItem(this.getId());
     }
 
     /**

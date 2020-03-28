@@ -1,6 +1,5 @@
 package org.alexdev.kepler.messages.incoming.rooms.items;
 
-import org.alexdev.kepler.dao.mysql.ItemDao;
 import org.alexdev.kepler.game.catalogue.CatalogueItem;
 import org.alexdev.kepler.game.catalogue.CatalogueManager;
 import org.alexdev.kepler.game.fuserights.Fuseright;
@@ -65,8 +64,7 @@ public class PRESENTOPEN implements MessageEvent {
 
             item.setDefinitionId(catalogueItem.getDefinition().getId());
             item.setCustomData(extraData);
-
-            ItemDao.updateItem(item);
+            item.delete();
 
             player.send(new DELIVER_PRESENT(item));
 
@@ -81,7 +79,7 @@ public class PRESENTOPEN implements MessageEvent {
             }
 
             room.getMapping().removeItem(player, item);
-            ItemDao.deleteItem(item.getId());
+            item.delete();
         }
 }
 }

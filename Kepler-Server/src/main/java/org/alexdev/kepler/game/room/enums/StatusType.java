@@ -16,9 +16,13 @@ public enum StatusType {
     WAVE("wave"),
     GESTURE("gest"),
     TALK("talk"),
-    SLEEP("Sleep"),
+    AVATAR_SLEEP("Sleep"),
     TRADE("trd"),
-    SIGN("sign");
+    SIGN("sign"),
+    DEAD("ded"),
+    JUMP("jmp"),
+    PET_SLEEP("slp"),
+    EAT("eat");
 
     private String statusCode;
 

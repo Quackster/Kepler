@@ -472,7 +472,7 @@ public abstract class RoomEntity {
 
             // Make any users look towards player
             for (Entity entity : entities) {
-                if (entity.getRoomUser().containsStatus(StatusType.SLEEP)) {
+                if (entity.getRoomUser().containsStatus(StatusType.AVATAR_SLEEP)) {
                     continue;
                 }
 

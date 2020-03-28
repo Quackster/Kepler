@@ -239,57 +239,34 @@ public class ItemDao {
     }
 
     /**
-     * Delete item by item id.
-     *
-     * @param itemId the id of the item to delete it
-     */
-    public static void deleteItem(int itemId) throws SQLException {
-        Connection sqlConnection = null;
-        PreparedStatement preparedStatement = null;
-
-        try {
-            sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("DELETE FROM items WHERE id = ?", sqlConnection);
-            preparedStatement.setInt(1, itemId);
-            preparedStatement.execute();
-
-        } catch (Exception ex) {
-            Storage.logError(ex);
-            throw ex;
-        } finally {
-            Storage.closeSilently(preparedStatement);
-            Storage.closeSilently(sqlConnection);
-        }
-    }
-
-    /**
      * Delete an entire list of items at once.
      *
      * @param items the list of items
      */
-    public static void deleteItems(Collection<Item> items) throws SQLException {
-        Connection sqlConnection = null;
-        PreparedStatement preparedStatement = null;
+    public static void deleteItems(List<Integer> items) {
+        if (items.size() > 0) {
+            Connection sqlConnection = null;
+            PreparedStatement preparedStatement = null;
 
-        try {
-            sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("DELETE FROM items WHERE id = ?", sqlConnection);
-            sqlConnection.setAutoCommit(false);
+            try {
+                sqlConnection = Storage.getStorage().getConnection();
+                preparedStatement = Storage.getStorage().prepare("DELETE FROM items WHERE id = ?", sqlConnection);
+                sqlConnection.setAutoCommit(false);
 
-            for (Item item : items) {
-                preparedStatement.setInt(1, item.getId());
-                preparedStatement.addBatch();
+                for (Integer itemId : items) {
+                    preparedStatement.setInt(1, itemId);
+                    preparedStatement.addBatch();
+                }
+
+                preparedStatement.executeBatch();
+                sqlConnection.setAutoCommit(true);
+
+            } catch (Exception e) {
+                Storage.logError(e);
+            } finally {
+                Storage.closeSilently(preparedStatement);
+                Storage.closeSilently(sqlConnection);
             }
-
-            preparedStatement.executeBatch();
-            sqlConnection.setAutoCommit(true);
-
-        } catch (Exception ex) {
-            Storage.logError(ex);
-            throw ex;
-        } finally {
-            Storage.closeSilently(preparedStatement);
-            Storage.closeSilently(sqlConnection);
         }
     }
 

@@ -1,6 +1,5 @@
 package org.alexdev.kepler.messages.incoming.recycler;
 
-import org.alexdev.kepler.dao.mysql.ItemDao;
 import org.alexdev.kepler.dao.mysql.RecyclerDao;
 import org.alexdev.kepler.game.catalogue.CatalogueManager;
 import org.alexdev.kepler.game.item.Item;
@@ -44,7 +43,7 @@ public class CONFIRM_FURNI_RECYCLING implements MessageEvent {
                 player.getInventory().addItem(item);
             } else {
                 player.getInventory().getItems().remove(item);
-                ItemDao.deleteItem(itemId);
+                item.delete();
             }
         }
 

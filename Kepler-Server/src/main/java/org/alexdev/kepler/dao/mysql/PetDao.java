@@ -62,6 +62,28 @@ public class PetDao {
         }
     }
 
+    public static void saveDetails(int id, PetDetails petDetails) {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("UPDATE items_pets SET last_kip = ?, last_eat = ?, last_drink = ?, last_playtoy = ?, last_playuser = ? WHERE id = ?", sqlConnection);
+            preparedStatement.setLong(1, petDetails.getLastKip());
+            preparedStatement.setLong(2, petDetails.getLastEat());
+            preparedStatement.setLong(3, petDetails.getLastDrink());
+            preparedStatement.setLong(4, petDetails.getLastPlayToy());
+            preparedStatement.setLong(5, petDetails.getLastPlayUser());
+            preparedStatement.setInt(6, id);
+            preparedStatement.execute();
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+
     public static PetDetails getPetDetails(long itemId) {
         PetDetails petDetails = null;
 
