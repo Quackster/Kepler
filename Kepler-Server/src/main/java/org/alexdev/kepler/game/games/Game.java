@@ -372,10 +372,9 @@ public abstract class Game {
      * @param gamePlayer the game player to leave
      */
     public void leaveGame(GamePlayer gamePlayer) {
-        //System.out.println("called: " + gamePlayer.getUserId());
         boolean isSpectator = this.spectators.contains(gamePlayer);
-        this.spectators.remove(gamePlayer);
 
+        this.spectators.remove(gamePlayer);
         this.objects.remove(gamePlayer.getGameObject());
 
         gamePlayer.getPlayer().getRoomUser().setGamePlayer(null);
@@ -391,11 +390,24 @@ public abstract class Game {
         if (this.gameState == GameState.WAITING && this.gameCreatorId == gamePlayer.getPlayer().getDetails().getId()) {
             GameManager.getInstance().getGames().remove(this);
 
+            for (var player : this.getPlayers()) {
+                player.getPlayer().getRoomUser().setGamePlayer(null);
+            }
+
+            for (var player : this.getSpectators()) {
+                player.getPlayer().getRoomUser().setGamePlayer(null);
+            }
+
+            for (var player : this.getObservers()) {
+                player.getRoomUser().setObservingGameId(0);
+            }
+
             this.send(new GAMEDELETED(this.id));
             this.sendObservers(new GAMEDELETED(this.id));
             this.killSpectators();
         }
 
+        gamePlayer.getPlayer().getRoomUser().setGamePlayer(null);
         gamePlayer.setGameId(-1);
     }
 
