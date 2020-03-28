@@ -1,6 +1,10 @@
 package org.alexdev.kepler.game.pets;
 
+import org.alexdev.kepler.game.fuserights.Fuseright;
+import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.player.Player;
+import org.alexdev.kepler.game.room.Room;
+import org.alexdev.kepler.game.room.enums.StatusType;
 import org.alexdev.kepler.util.DateUtil;
 import org.alexdev.kepler.util.StringUtil;
 
@@ -20,8 +24,153 @@ public class PetManager {
      * @param player the player to call it
      * @param speech the speech to do
      */
-    public void handleSpeech(Player player, String speech) {
+    public void handleSpeech(Player player, Room room, String speech) {
+        String[] data = speech.split(" ");
 
+        if (data.length < 2)
+            return;
+
+        if (!room.hasRights(player.getDetails().getId()) && !player.hasFuse(Fuseright.MOD)) {
+            return;
+        }
+
+        for (Pet pet : room.getEntityManager().getEntitiesByClass(Pet.class)) {
+            if (pet.getDetails().getName().toLowerCase().equals(data[0].toLowerCase())) {
+                petCommand(player, room, pet, speech.replace(data[0] + " ", ""));
+            }
+        }
+    }
+
+    private void petCommand(Player player, Room room, Pet pet, String command) {
+        var item = pet.getRoomUser().getCurrentItem();
+        boolean petCommanded = false;
+
+        switch (command.toLowerCase()) {
+            case "speak": {
+                // Bark, meow, etc
+                break;
+            }
+            case "good": {
+                // Boosts pet's ego and makes them happy
+                break;
+            }
+            case "beg": {
+                // Beg for reward
+                break;
+            }
+            case "go":
+            case "go away": {
+                // Pet moves away from player
+                break;
+            }
+            case "bad": {
+                // Tells pet off
+                break;
+            }
+            case "come over":
+            case "come":
+            case "heel": {
+                // Follow player
+                break;
+            }
+            case "play dead":
+            case "dead": {
+                int length = ThreadLocalRandom.current().nextInt(4, 11);
+
+                pet.getRoomUser().getStatuses().clear();
+                pet.getRoomUser().getPosition().setRotation(pet.getRoomUser().getPosition().getBodyRotation());
+                pet.getRoomUser().setStatus(StatusType.DEAD, StatusType.DEAD.getStatusCode(), length, null, -1, -1);
+                pet.getRoomUser().setNeedsUpdate(true);
+
+                pet.setAction(PetAction.DEAD);
+                pet.setActionDuration(length);
+                petCommanded = true;
+                break;
+            }
+            case "sit": {
+                int length = ThreadLocalRandom.current().nextInt(10, 30);
+
+                pet.getRoomUser().getStatuses().clear();
+                pet.getRoomUser().getPosition().setRotation(pet.getRoomUser().getPosition().getBodyRotation());
+                pet.getRoomUser().setStatus(StatusType.SIT, StringUtil.format(pet.getRoomUser().getPosition().getZ()), length, null, -1, -1);
+                pet.getRoomUser().setNeedsUpdate(true);
+
+                pet.setAction(PetAction.SIT);
+                pet.setActionDuration(length);
+                petCommanded = true;
+                break;
+            }
+            case "lie down":
+            case "lay": {
+                pet.getRoomUser().getStatuses().clear();
+                pet.getRoomUser().getPosition().setRotation(pet.getRoomUser().getPosition().getBodyRotation());
+                pet.getRoomUser().setStatus(StatusType.LAY, StringUtil.format(pet.getRoomUser().getPosition().getZ()) + " null");
+                pet.getRoomUser().setNeedsUpdate(true);
+
+                pet.setAction(PetAction.LAY);
+                pet.setActionDuration(ThreadLocalRandom.current().nextInt(10, 30));
+
+                petCommanded = true;
+                break;
+            }
+            case "jump": {
+                if (!pet.isActionAllowed()) {
+                    return;
+                }
+
+                int length = ThreadLocalRandom.current().nextInt(2, 4);
+
+                pet.getRoomUser().getStatuses().clear();
+                pet.getRoomUser().getPosition().setRotation(pet.getRoomUser().getPosition().getBodyRotation());
+                pet.getRoomUser().setStatus(StatusType.JUMP, StatusType.JUMP.getStatusCode().toLowerCase(), length, null, -1, -1);
+                pet.getRoomUser().setNeedsUpdate(true);
+
+                pet.setAction(PetAction.JUMP);
+                pet.setActionDuration(length);
+                petCommanded = true;
+                break;
+            }
+            case "sleep": {
+                if (pet.isDoingAction()) {
+                    return;
+                }
+
+                Item nest = room.getItemManager().getById(pet.getDetails().getItemId());
+                pet.getRoomUser().walkTo(nest.getPosition().getX(), nest.getPosition().getY());
+
+                if (pet.getRoomUser().isWalking()) {
+                    pet.setAction(PetAction.SLEEP);
+                } else {
+                    if (item != null) {
+                        if (item.getId() == pet.getDetails().getItemId()) {
+                            item.getDefinition().getInteractionType().getTrigger().onEntityStop(pet, pet.getRoomUser(), item, false);
+                            pet.setAction(PetAction.SLEEP);
+                        }
+                    }
+                }
+
+                if (pet.getAction() == PetAction.SLEEP) {
+                    pet.getRoomUser().getStatuses().clear();
+                    pet.getRoomUser().setNeedsUpdate(true);
+                }
+
+                break;
+            }
+            case "awake": {
+                if (pet.getAction() != PetAction.SLEEP) {
+                    return;
+                }
+
+                pet.awake();
+                break;
+            }
+        }
+
+        if (petCommanded) {
+            if (pet.getRoomUser().isWalking()) {
+                pet.getRoomUser().stopWalking();
+            }
+        }
     }
 
     /**
@@ -56,11 +205,9 @@ public class PetManager {
     public boolean isValidName(String ownerName, String name) {
         String[] words = StringUtil.getWords(name);
 
-        /*for (String word : words) {
-            if (WordfilterManager.getInstance().getBannedWords().contains(word)) {
-                return false;
-            }
-        }*/
+        if (name.contains(" "))  {
+            return false;
+        }
 
         if (name.length() > 15) {
             return false;
@@ -75,6 +222,22 @@ public class PetManager {
         }
 
         return true;
+    }
+
+    public PetType getType(Pet pet) {
+        switch (pet.getDetails().getType()) {
+            case "0": {
+                return PetType.DOG;
+            }
+            case "1": {
+                return PetType.CAT;
+            }
+            case "2": {
+                return PetType.CROC;
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -102,22 +265,6 @@ public class PetManager {
         }
 
         return speech;
-    }
-
-    public PetType getType(Pet pet) {
-        switch (pet.getDetails().getType()) {
-            case "0": {
-                return PetType.DOG;
-            }
-            case "1": {
-                return PetType.CAT;
-            }
-            case "2": {
-                return PetType.CROC;
-            }
-        }
-
-        return null;
     }
 
     /**

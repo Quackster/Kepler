@@ -4,7 +4,7 @@ import org.alexdev.kepler.game.player.PlayerDetails;
 
 public class PetDetails extends PlayerDetails {
     private int id;
-    private long itemId;
+    private int itemId;
     private String name;
     private String type;
     private String race;
@@ -22,7 +22,7 @@ public class PetDetails extends PlayerDetails {
     private int Y;
     private int Rotation;
 
-    public PetDetails(int id, long itemId, String name, String type, String race, String colour, int naturePositive, int natureNegative, float friendship, long born, long lastKip, long lastEat, long lastDrink, long lastPlayToy, long lastPlayUser, int x, int y, int rotation) {
+    public PetDetails(int id, int itemId, String name, String type, String race, String colour, int naturePositive, int natureNegative, float friendship, long born, long lastKip, long lastEat, long lastDrink, long lastPlayToy, long lastPlayUser, int x, int y, int rotation) {
         this.id = id;
         this.itemId = itemId;
         this.name = name;
@@ -48,7 +48,7 @@ public class PetDetails extends PlayerDetails {
         return id;
     }
 
-    public long getItemId() {
+    public int getItemId() {
         return itemId;
     }
 
