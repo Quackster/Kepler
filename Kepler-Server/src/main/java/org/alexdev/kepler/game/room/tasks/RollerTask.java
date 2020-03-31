@@ -1,12 +1,11 @@
 package org.alexdev.kepler.game.room.tasks;
 
-import org.alexdev.kepler.dao.mysql.ItemDao;
 import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.item.Item;
+import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.item.roller.EntityRollingAnalysis;
 import org.alexdev.kepler.game.item.roller.ItemRollingAnalysis;
-import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.item.roller.RollerEntry;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.room.Room;
@@ -14,7 +13,10 @@ import org.alexdev.kepler.log.Log;
 import org.alexdev.kepler.messages.outgoing.rooms.items.SLIDEOBJECTBUNDLE;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class RollerTask implements Runnable {
@@ -40,6 +42,12 @@ public class RollerTask implements Runnable {
             }
 
             for (Item roller : this.room.getItems()) {
+                if (roller.getTile() == null) {
+                    continue;
+                }
+
+                var rollerTile = roller.getTile();
+
                 if (!roller.hasBehaviour(ItemBehaviour.ROLLER)) {
                     continue;
                 }
@@ -47,7 +55,7 @@ public class RollerTask implements Runnable {
                 RollerEntry rollerEntry = new RollerEntry(roller);
 
                 // Process items on rollers
-                for (Item item : roller.getTile().getItems()) {
+                for (Item item : rollerTile.getItems()) {
                     if (item.hasBehaviour(ItemBehaviour.ROLLER)) {
                         continue;
                     }
@@ -67,13 +75,10 @@ public class RollerTask implements Runnable {
 
                 // Process entities on rollers
                 //for (Entity entity : roller.getTile().getEntities()) {
-                if (roller.getTile().getEntities().size() > 0) {
-                    var optional = roller.getTile().getEntities().stream().findFirst();
+                var rollerEntities = rollerTile.getEntities();
 
-                    if (optional.isEmpty())
-                        continue;
-
-                    Entity entity = optional.get();
+                if (rollerEntities != null && rollerEntities.size() > 0) {
+                    var entity = rollerEntities.stream().findFirst().orElse(null);
 
                     if (entitiesRolling.containsKey(entity)) {
                         continue;
@@ -106,6 +111,8 @@ public class RollerTask implements Runnable {
                 if (!item.isCurrentRollBlocked()) {
                     itemRollingAnalysis.doRoll(kvp.getKey(), kvp.getValue().getLeft(), this.room, kvp.getKey().getPosition(), kvp.getValue().getRight());
                 }
+
+                item.save();
             }
 
             // Send roller packets
@@ -115,23 +122,13 @@ public class RollerTask implements Runnable {
 
                 var entityRollerData = entry.getRollingEntity() == null ? null :
                         (entry.getRollingEntity().getRoomUser() == null ? null : entry.getRollingEntity().getRoomUser().getRollingData());
-                
-                this.room.send(new SLIDEOBJECTBUNDLE(entry.getRoller(), rollingItems, entityRollerData));
-            }
 
-            if (itemsRolling.size() > 0) {
-                ItemDao.updateItems(itemsRolling.keySet());
+                this.room.send(new SLIDEOBJECTBUNDLE(entry.getRoller(), rollingItems, entityRollerData));
             }
 
             if (itemsRolling.size() > 0 || entitiesRolling.size() > 0) {
                 this.room.getMapping().regenerateCollisionMap();
-                GameScheduler.getInstance().getService().schedule(
-                        new RollerCompleteTask(
-                                itemsRolling.keySet(),
-                                entitiesRolling.keySet(), room),
-                        1,
-                        TimeUnit.SECONDS
-                );
+                GameScheduler.getInstance().getService().schedule(new RollerCompleteTask(itemsRolling.keySet(), entitiesRolling.keySet(), this.room), 800, TimeUnit.MILLISECONDS);
             }
         } catch (Exception ex) {
             Log.getErrorLogger().error("RollerTask crashed: ", ex);

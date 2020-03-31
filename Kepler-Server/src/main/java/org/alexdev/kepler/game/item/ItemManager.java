@@ -6,6 +6,7 @@ import org.alexdev.kepler.game.catalogue.CatalogueManager;
 import org.alexdev.kepler.game.item.base.ItemDefinition;
 import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.song.Song;
+import org.alexdev.kepler.log.Log;
 import org.alexdev.kepler.util.DateUtil;
 
 import java.sql.SQLException;
@@ -94,6 +95,28 @@ public class ItemManager {
         itemSavingQueue.drainTo(itemList);
 
         ItemDao.updateItems(itemList);
+    }
+
+    /**
+     * Handle bulk item deletion.
+     *
+     * @param itemDeletionQueue the queue that's used for deleting items
+     */
+    public void performItemDeletion(BlockingQueue<Integer> itemDeletionQueue) {
+        try {
+            if (itemDeletionQueue.isEmpty()) {
+                return;
+            }
+
+            List<Integer> itemList = new ArrayList<>();
+            itemDeletionQueue.drainTo(itemList);
+
+            if (itemList.size() > 0) {
+                ItemDao.deleteItems(itemList);
+            }
+        } catch (Exception ex) {
+            Log.getErrorLogger().error("Error when attempting to save items: ", ex);
+        }
     }
 
     /**

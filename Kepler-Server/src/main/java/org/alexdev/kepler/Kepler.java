@@ -230,7 +230,10 @@ public class Kepler {
 
             // TODO: all the managers
             ChatManager.getInstance().performChatSaving();
+            
             GameScheduler.getInstance().performItemSaving();
+            GameScheduler.getInstance().performItemDeletion();
+
             PlayerManager.getInstance().dispose();
 
             server.dispose();

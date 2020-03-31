@@ -264,7 +264,7 @@ public class PlayerManager {
                 continue;
             }
 
-            if (player.getRoomUser().containsStatus(StatusType.SLEEP)) {
+            if (player.getRoomUser().containsStatus(StatusType.AVATAR_SLEEP)) {
                 continue;
             }
 

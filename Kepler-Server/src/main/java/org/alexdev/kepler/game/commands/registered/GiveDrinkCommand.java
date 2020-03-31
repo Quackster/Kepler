@@ -62,7 +62,7 @@ public class GiveDrinkCommand extends Command {
         }
 
         if (drink != null) {
-            if (targetUser.getRoomUser().containsStatus(StatusType.SLEEP)) {
+            if (targetUser.getRoomUser().containsStatus(StatusType.AVATAR_SLEEP)) {
                 player.send(new CHAT_MESSAGE(ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), targetUser.getDetails().getName() + " is sleeping."));
                 return;
             }

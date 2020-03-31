@@ -32,9 +32,9 @@ public class AfkCommand extends Command {
             return;
         }
 
-        if (!player.getRoomUser().containsStatus(StatusType.SLEEP)) {
+        if (!player.getRoomUser().containsStatus(StatusType.AVATAR_SLEEP)) {
             player.getRoomUser().removeDrinks();
-            player.getRoomUser().setStatus(StatusType.SLEEP, "");
+            player.getRoomUser().setStatus(StatusType.AVATAR_SLEEP, "");
             player.getRoomUser().setNeedsUpdate(true);
 
             // Send immediate update to client

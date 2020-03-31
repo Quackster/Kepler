@@ -31,6 +31,7 @@ public class GameScheduler implements Runnable {
 
     private BlockingQueue<Player> creditsHandoutQueue;
     private BlockingQueue<Item> itemSavingQueue;
+    private BlockingQueue<Integer> itemDeletionQueue;
 
     private static GameScheduler instance;
 
@@ -39,6 +40,7 @@ public class GameScheduler implements Runnable {
         this.gameScheduler = this.schedulerService.scheduleAtFixedRate(this, 0, 1, TimeUnit.SECONDS);
         this.creditsHandoutQueue = new LinkedBlockingQueue<>();
         this.itemSavingQueue = new LinkedBlockingDeque<>();
+        this.itemDeletionQueue = new LinkedBlockingDeque<>();
     }
 
     /* (non-Javadoc)
@@ -54,9 +56,9 @@ public class GameScheduler implements Runnable {
 
                     // If their sleep timer is now lower than the current time, make them sleep.
                     if (DateUtil.getCurrentTimeSeconds() > player.getRoomUser().getTimerManager().getSleepTimer()) {
-                        if (!player.getRoomUser().containsStatus(StatusType.SLEEP)) {
+                        if (!player.getRoomUser().containsStatus(StatusType.AVATAR_SLEEP)) {
                             player.getRoomUser().removeDrinks();
-                            player.getRoomUser().setStatus(StatusType.SLEEP, "");
+                            player.getRoomUser().setStatus(StatusType.AVATAR_SLEEP, "");
                             player.getRoomUser().setNeedsUpdate(true);
                         }
                     }
@@ -69,7 +71,7 @@ public class GameScheduler implements Runnable {
                     // If they're not sleeping (aka, active) and their next handout expired, give them their credits!
                     if (GameConfiguration.getInstance().getBoolean("credits.scheduler.enabled")) {
                         if (DateUtil.getCurrentTimeSeconds() > player.getDetails().getNextHandout()) {
-                            if (!player.getRoomUser().containsStatus(StatusType.SLEEP)) {
+                            if (!player.getRoomUser().containsStatus(StatusType.AVATAR_SLEEP)) {
                                 this.creditsHandoutQueue.put(player);
                             }
 
@@ -114,6 +116,13 @@ public class GameScheduler implements Runnable {
                 }
             }
 
+            // Item deletion queue ticker every 1 second
+            if (this.tickRate.get() % 5 == 0) {
+                if (this.itemSavingQueue != null) {
+                    this.performItemDeletion();
+                }
+            }
+
             // Delete expired CFH's every 60 seconds
             if (this.tickRate.get() % 60 == 0) {
                 CallForHelpManager.getInstance().purgeExpiredCfh();
@@ -137,9 +146,19 @@ public class GameScheduler implements Runnable {
      *
      * @param item the item to save
      */
-    public void queueSave(Item item) {
+    public void queueSaveItem(Item item) {
         this.itemSavingQueue.removeIf(i -> i.getId() == item.getId());
         this.itemSavingQueue.add(item);
+    }
+
+    /**
+     * Queue item to be deleted.
+     *
+     * @param itemId the item to delete
+     */
+    public void queueDeleteItem(int itemId) {
+        this.itemDeletionQueue.removeIf(i -> i.equals(itemId));
+        this.itemDeletionQueue.add(itemId);
     }
 
     /**
@@ -147,6 +166,13 @@ public class GameScheduler implements Runnable {
      */
     public void performItemSaving() {
         ItemManager.getInstance().performItemSaving(this.itemSavingQueue);
+    }
+
+    /**
+     * Method to perform item deletion.
+     */
+    public void performItemDeletion() {
+        ItemManager.getInstance().performItemDeletion(this.itemDeletionQueue);
     }
 
 
