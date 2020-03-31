@@ -336,7 +336,7 @@ public class Item {
                 return false; // Don't allow rotating items when they're rolling
             }
 
-            if (item.getDefinition().getWidth() <= 1 && item.getDefinition().getWidth() <= 1) {
+            if (item.getDefinition().getLength() <= 1 && item.getDefinition().getWidth() <= 1) {
                 return true;
             }
         }
