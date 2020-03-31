@@ -8,10 +8,12 @@ import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.item.interactors.types.BedInteractor;
 import org.alexdev.kepler.game.item.roller.RollingData;
+import org.alexdev.kepler.game.moderation.ChatManager;
 import org.alexdev.kepler.game.pathfinder.Pathfinder;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.pathfinder.Rotation;
 import org.alexdev.kepler.game.pathfinder.game.AStar;
+import org.alexdev.kepler.game.pets.PetManager;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.RoomUserStatus;
@@ -521,7 +523,13 @@ public abstract class RoomEntity {
         }
 
         if (this.entity.getType() == EntityType.PLAYER) {
-            BotManager.getInstance().handleSpeech((Player) this.entity, room, message);
+            if (chatMessageType != CHAT_MESSAGE.ChatMessageType.WHISPER) {
+                BotManager.getInstance().handleSpeech((Player) this.entity, this.room, message);
+                PetManager.getInstance().handleSpeech((Player) this.entity, this.room, message);
+            }
+
+            ChatManager.getInstance().queue((Player) this.entity, this.room, message, chatMessageType);
+            this.timerManager.resetRoomTimer();
         }
     }
 

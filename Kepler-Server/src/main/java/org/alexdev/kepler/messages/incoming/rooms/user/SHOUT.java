@@ -1,8 +1,6 @@
 package org.alexdev.kepler.messages.incoming.rooms.user;
 
-import org.alexdev.kepler.dao.mysql.RoomDao;
 import org.alexdev.kepler.game.commands.CommandManager;
-import org.alexdev.kepler.game.moderation.ChatManager;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.messages.outgoing.rooms.user.CHAT_MESSAGE;
@@ -37,8 +35,5 @@ public class SHOUT implements MessageEvent {
         }
 
         player.getRoomUser().talk(message, CHAT_MESSAGE.ChatMessageType.SHOUT);
-        player.getRoomUser().getTimerManager().resetRoomTimer();
-
-        ChatManager.getInstance().queue(player, room, message, CHAT_MESSAGE.ChatMessageType.SHOUT);
     }
 }

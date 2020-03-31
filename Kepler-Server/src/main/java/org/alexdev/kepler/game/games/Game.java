@@ -143,14 +143,9 @@ public abstract class Game {
         this.preparingTimerRunnable = new FutureRunnable() {
             public void run() {
                 try {
-                    if (!hasEnoughPlayers()) {
-                        this.cancelFuture();
-                        return;
-                    }
-
                     gamePrepareTick();
 
-                    if (preparingGameSecondsLeft.getAndDecrement() == 0) {
+                    if (preparingGameSecondsLeft.getAndDecrement() == 0 || getPlayers().isEmpty()) {
                         this.cancelFuture();
                         beginGame();
                     }
@@ -188,15 +183,10 @@ public abstract class Game {
         this.gameTimerRunnable = new FutureRunnable() {
             public void run() {
                 try {
-                    if (!hasEnoughPlayers()) {
-                        this.cancelFuture();
-                        return;
-                    }
-
                     gameTick();
 
                     // Game ends either when time runs out or there's no free tiles left to seal
-                    if (totalSecondsLeft.decrementAndGet() == 0 || !canTimerContinue()) {
+                    if (totalSecondsLeft.decrementAndGet() == 0 || !canTimerContinue() || getPlayers().isEmpty()) {
                         this.cancelFuture();
                         finishGame();
                     }
@@ -372,10 +362,9 @@ public abstract class Game {
      * @param gamePlayer the game player to leave
      */
     public void leaveGame(GamePlayer gamePlayer) {
-        //System.out.println("called: " + gamePlayer.getUserId());
         boolean isSpectator = this.spectators.contains(gamePlayer);
-        this.spectators.remove(gamePlayer);
 
+        this.spectators.remove(gamePlayer);
         this.objects.remove(gamePlayer.getGameObject());
 
         gamePlayer.getPlayer().getRoomUser().setGamePlayer(null);
@@ -391,11 +380,24 @@ public abstract class Game {
         if (this.gameState == GameState.WAITING && this.gameCreatorId == gamePlayer.getPlayer().getDetails().getId()) {
             GameManager.getInstance().getGames().remove(this);
 
+            for (var player : this.getPlayers()) {
+                player.getPlayer().getRoomUser().setGamePlayer(null);
+            }
+
+            for (var player : this.getSpectators()) {
+                player.getPlayer().getRoomUser().setGamePlayer(null);
+            }
+
+            for (var player : this.getObservers()) {
+                player.getRoomUser().setObservingGameId(0);
+            }
+
             this.send(new GAMEDELETED(this.id));
             this.sendObservers(new GAMEDELETED(this.id));
             this.killSpectators();
         }
 
+        gamePlayer.getPlayer().getRoomUser().setGamePlayer(null);
         gamePlayer.setGameId(-1);
     }
 

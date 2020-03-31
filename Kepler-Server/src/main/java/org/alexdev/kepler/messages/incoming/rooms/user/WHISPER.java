@@ -1,14 +1,14 @@
 package org.alexdev.kepler.messages.incoming.rooms.user;
 
-import org.alexdev.kepler.dao.mysql.RoomDao;
-import org.alexdev.kepler.game.moderation.ChatManager;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerManager;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.messages.outgoing.rooms.user.CHAT_MESSAGE;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
-import org.alexdev.kepler.util.StringUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class WHISPER implements MessageEvent {
     @Override
@@ -22,27 +22,23 @@ public class WHISPER implements MessageEvent {
         String contents = reader.readString();
 
         String username = contents.substring(0, contents.indexOf(" "));
-        String message = StringUtil.filterInput(contents.substring(username.length() + 1), true);
+        String message = contents.substring(username.length() + 1);
 
-        if (message.isEmpty()) {
+        if (message.isBlank()) {
             return;
         }
 
-        CHAT_MESSAGE chatMessage = new CHAT_MESSAGE(CHAT_MESSAGE.ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), message);
-
-        player.send(chatMessage);
-        player.getRoomUser().getTimerManager().resetRoomTimer();
+        List<Player> receieveMessages = new ArrayList<>();
+        receieveMessages.add(player);
 
         Player whisperUser = PlayerManager.getInstance().getPlayerByName(username);
 
         if (whisperUser != null) {
             if (!whisperUser.getIgnoredList().contains(player.getDetails().getName())) {
-                whisperUser.send(chatMessage);
+                receieveMessages.add(whisperUser);
             }
-        }/* else {
-            player.send(new CHAT_MESSAGE(ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), "User not found. Whisper not sent.", 0));
-        }*/
+        }
 
-        ChatManager.getInstance().queue(player, room, contents, CHAT_MESSAGE.ChatMessageType.WHISPER);
+        player.getRoomUser().talk(message, CHAT_MESSAGE.ChatMessageType.WHISPER, receieveMessages);
     }
 }
