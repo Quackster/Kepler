@@ -2,6 +2,7 @@ package org.alexdev.kepler.messages.incoming.rooms.pool;
 
 import org.alexdev.kepler.dao.mysql.CurrencyDao;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
+import org.alexdev.kepler.dao.mysql.PurseDao;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.interactors.InteractionType;
 import org.alexdev.kepler.game.player.Player;
@@ -63,6 +64,7 @@ public class BTCKS implements MessageEvent {
 
         player.getRoomUser().getTimerManager().resetRoomTimer();
 
+        PurseDao.logCreditSpend("tickets", player.getDetails(), -costCredits);
         CurrencyDao.decreaseCredits(player.getDetails(), costCredits);
         player.send(new CREDIT_BALANCE(player.getDetails()));
 

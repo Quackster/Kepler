@@ -2,6 +2,7 @@ package org.alexdev.kepler.messages.incoming.catalogue;
 
 import org.alexdev.kepler.dao.mysql.CurrencyDao;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
+import org.alexdev.kepler.dao.mysql.PurseDao;
 import org.alexdev.kepler.game.catalogue.CatalogueItem;
 import org.alexdev.kepler.game.catalogue.CatalogueManager;
 import org.alexdev.kepler.game.catalogue.CataloguePage;
@@ -137,6 +138,7 @@ public class GRPC implements MessageEvent {
         }
 
         CurrencyDao.decreaseCredits(player.getDetails(), price);
+        PurseDao.logCreditSpend("stuff_store", player.getDetails(), -price);
         player.send(new CREDIT_BALANCE(player.getDetails()));
     }
 }

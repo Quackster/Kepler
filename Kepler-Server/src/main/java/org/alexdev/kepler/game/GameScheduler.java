@@ -1,6 +1,7 @@
 package org.alexdev.kepler.game;
 
 import org.alexdev.kepler.dao.mysql.CurrencyDao;
+import org.alexdev.kepler.dao.mysql.PurseDao;
 import org.alexdev.kepler.game.catalogue.RareManager;
 import org.alexdev.kepler.game.events.EventsManager;
 import org.alexdev.kepler.game.item.Item;
@@ -99,6 +100,7 @@ public class GameScheduler implements Runnable {
                     CurrencyDao.increaseCredits(playerDetailsToSave);
 
                     for (Player p : playersToHandout) {
+                        PurseDao.logCreditSpend("gift", p.getDetails(), amount);
                         p.send(new CREDIT_BALANCE(p.getDetails()));
                     }
                 }
