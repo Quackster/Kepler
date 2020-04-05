@@ -374,6 +374,12 @@ public class RoomMapping {
 
             if (highestItem != null && highestItem.getId() == item.getId()) {
                 tileHeight -= highestItem.getTotalHeight();
+
+                double defaultHeight = this.room.getModel().getTileHeight(item.getPosition().getX(), item.getPosition().getY());
+
+                if (tileHeight < defaultHeight) {
+                    tileHeight = defaultHeight;
+                }
             }
 
             item.getPosition().setZ(tileHeight);
