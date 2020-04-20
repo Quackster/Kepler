@@ -17,7 +17,7 @@ public class MESSENGER_MSG extends PlayerMessageComposer {
     @Override
     public void compose(NettyResponse response) {
         if (getPlayer().getVersion() < 23) {
-            if (getPlayer().getVersion() <= 14) {
+            if (getPlayer().getVersion() <= 15) {
                 response.writeInt(1);
             }
 
