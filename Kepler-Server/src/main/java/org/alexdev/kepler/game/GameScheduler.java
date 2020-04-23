@@ -2,6 +2,7 @@ package org.alexdev.kepler.game;
 
 import org.alexdev.kepler.dao.mysql.CurrencyDao;
 import org.alexdev.kepler.game.catalogue.RareManager;
+import org.alexdev.kepler.game.commandqueue.CommandQueueManager;
 import org.alexdev.kepler.game.events.EventsManager;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.ItemManager;
@@ -116,7 +117,14 @@ public class GameScheduler implements Runnable {
                 }
             }
 
-            // Item deletion queue ticker every 1 second
+            // Execute Command Queue every 1 second
+            if (this.tickRate.get() % 1 == 0) {
+                if (this.itemSavingQueue != null) {
+                    CommandQueueManager.getInstance().executeCommands();
+                }
+            }
+
+            // Item deletion queue ticker every 5 second
             if (this.tickRate.get() % 5 == 0) {
                 if (this.itemSavingQueue != null) {
                     this.performItemDeletion();
