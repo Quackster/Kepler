@@ -16,7 +16,7 @@ public class HarlequinHandle {
     public static void handle(BattleBallGame game, GamePlayer gamePlayer, Room room) {
         List<GamePlayer> affectedPlayers = new ArrayList<>();
 
-        for (GamePlayer p : gamePlayer.getGame().getPlayers()) {
+        for (GamePlayer p : gamePlayer.getGame().getActivePlayers()) {
             if (p.getColouringForOpponentId() != -1 || p.getTeamId() == gamePlayer.getTeamId()) {
                 continue;
             }

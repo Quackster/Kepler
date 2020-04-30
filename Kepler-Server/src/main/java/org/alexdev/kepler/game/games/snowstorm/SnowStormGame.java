@@ -14,6 +14,11 @@ public class SnowStormGame extends Game {
     public void initialise() { }
 
     @Override
+    public boolean hasEnoughPlayers() {
+        return false;
+    }
+
+    @Override
     public void assignSpawnPoints() { }
 
     @Override

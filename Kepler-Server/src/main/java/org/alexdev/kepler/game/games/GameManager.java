@@ -30,8 +30,10 @@ public class GameManager {
 
     private List<Game> games;
     private List<FinishedGame> finishedGames;
-
     private List<BattleBallMap> battleballTileMaps;
+
+    private AtomicInteger gameCounter;
+    private AtomicInteger finishedGameCounter;
 
     public GameManager() {
         this.rankList = GameDao.getRanks();
@@ -42,6 +44,9 @@ public class GameManager {
         this.games = new ArrayList<>();
         this.finishedGames = new ArrayList<>();
         this.idTracker = new AtomicInteger(0);
+
+        this.gameCounter = new AtomicInteger(0);
+        this.finishedGameCounter = new AtomicInteger(0);
 
         this.createExpiryCheckLoop();
     }
@@ -164,12 +169,35 @@ public class GameManager {
     }
 
     /**
+     * Reload the instance of {@link GameManager}
+     */
+    public static void reset() {
+        int gameCounter = 0;
+
+        if (instance != null) {
+            gameCounter = instance.gameCounter.get();
+        }
+
+        instance = null;
+        getInstance().getGameCounter().set(gameCounter);
+    }
+
+    /**
      * Creates a new game id for the game
      *
      * @return the game id
      */
     public int createId() {
-        return idTracker.incrementAndGet();
+        return gameCounter.incrementAndGet();
+    }
+
+    /**
+     * Gets the game id counter.
+     *
+     * @return the id counter
+     */
+    public AtomicInteger getGameCounter() {
+        return gameCounter;
     }
 
 

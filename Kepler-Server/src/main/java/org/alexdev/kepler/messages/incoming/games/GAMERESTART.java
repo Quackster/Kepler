@@ -4,7 +4,6 @@ import org.alexdev.kepler.game.games.Game;
 import org.alexdev.kepler.game.games.GameManager;
 import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.player.Player;
-import org.alexdev.kepler.messages.outgoing.games.JOINFAILED;
 import org.alexdev.kepler.messages.outgoing.games.PLAYERREJOINED;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
@@ -38,7 +37,7 @@ public class GAMERESTART implements MessageEvent {
         List<GamePlayer> players = new ArrayList<>(); // Players who wanted to restart
         List<GamePlayer> afkPlayers = new ArrayList<>(); // Players who didn't touch any button
 
-        for (GamePlayer p : game.getPlayers()) {
+        for (GamePlayer p : game.getActivePlayers()) {
             if (!p.isClickedRestart()) {
                 afkPlayers.add(p);
             } else {
@@ -47,7 +46,7 @@ public class GAMERESTART implements MessageEvent {
         }
 
         if (afkPlayers.isEmpty()) { // Everyone clicked restart
-            for (GamePlayer p : game.getPlayers()) {
+            for (GamePlayer p : game.getActivePlayers()) {
                 p.setClickedRestart(false); // Reset whether or not they clicked restart, for next game
             }
 
