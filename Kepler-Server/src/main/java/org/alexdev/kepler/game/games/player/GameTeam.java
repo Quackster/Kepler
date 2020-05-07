@@ -13,11 +13,13 @@ public class GameTeam {
     private int id;
     private Game game;
     private List<GamePlayer> playerList;
+    private int score;
 
     public GameTeam(int id, Game game) {
         this.id = id;
         this.game = game;
         this.playerList = new CopyOnWriteArrayList<>();
+        this.score = 0;
     }
 
     public int getId() {
@@ -29,9 +31,9 @@ public class GameTeam {
     }
 
     public int getScore() {
-        int score = 0;
-
         if (this.game instanceof BattleBallGame) {
+            this.score = 0;
+
             BattleBallGame battleBallGame = (BattleBallGame) this.game;
 
             for (BattleBallTile battleBallTile : battleBallGame.getTiles()) {
@@ -40,12 +42,16 @@ public class GameTeam {
                         continue;
                     }
 
-                    score += scoreReference.getScore();
+                    this.score += scoreReference.getScore();
                 }
             }
         }
-        
-        return score;
+
+        return this.score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 
     public List<GamePlayer> getActivePlayers() {

@@ -17,6 +17,7 @@ import org.alexdev.kepler.util.config.GameConfiguration;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class RoomMapping {
     public static final String TELEPORTER_CLOSE = "0";
@@ -50,107 +51,104 @@ public class RoomMapping {
             }
         }
 
-        this.regenerateEntityCollision();
-        this.regenerateItemCollision();
-    }
+        this.tileList = new CopyOnWriteArrayList<>();
+        this.roomModel = this.room.getModel();
+        this.roomMap = new RoomTile[this.roomModel.getMapSizeX()][this.roomModel.getMapSizeY()];
 
-    /**
-     * Regenerate the item collision map only.
-     */
-    private void regenerateItemCollision() {
-        try {
-            for (RoomTile tile : this.tileList) {
-                tile.setHighestItem(null);
-                tile.getItems().clear();
-                tile.setTileHeight(tile.getDefaultHeight());
+        for (int x = 0; x < this.roomModel.getMapSizeX(); x++) {
+            for (int y = 0; y < this.roomModel.getMapSizeY(); y++) {
+                var roomTile = new RoomTile(this.room, new Position(x, y), this.roomModel.getTileHeight(x, y));
+                this.roomMap[x][y] = roomTile;
+                this.tileList.add(roomTile);
             }
+        }
 
+        try {
             this.room.getItemManager().setSoundMachine(null);
             this.room.getItemManager().setMoodlight(null);
 
-            List<Item> items = new ArrayList<>(this.room.getItems());
-            items.sort(Comparator.comparingDouble((Item item) -> item.getPosition().getZ()));
+            if (!this.room.isGameArena()) {
+                List<Item> items = new ArrayList<>(this.room.getItems());
+                items.sort(Comparator.comparingDouble((Item item) -> item.getPosition().getZ()));
 
-            for (Item item : items) {
-                if (item.hasBehaviour(ItemBehaviour.WALL_ITEM)) {
-                    continue;
+                for (Item item : items) {
+                    if (item.hasBehaviour(ItemBehaviour.WALL_ITEM)) {
+                        continue;
+                    }
+
+                    RoomTile tile = item.getTile();
+
+                    if (tile == null) {
+                        continue;
+                    }
+
+                    for (Position position : AffectedTile.getAffectedTiles(item)) {
+                        RoomTile affectedTile = this.getTile(position);
+
+                        if (affectedTile == null) {
+                            continue;
+                        }
+
+                        affectedTile.addItem(item);
+
+                        if (item.hasBehaviour(ItemBehaviour.PUBLIC_SPACE_OBJECT)) {
+                            PoolHandler.setupRedirections(this.room, item);
+                        }
+                    }
                 }
+            }
 
-                RoomTile tile = item.getTile();
+        } catch (Exception ex) {
+            Log.getErrorLogger().error(String.format("Generate collision map failed for room %s", this.room.getId()), ex);
+        }
+
+        try {
+            for (Entity entity : this.room.getEntities()) {
+                RoomTile tile = entity.getRoomUser().getTile();
 
                 if (tile == null) {
                     continue;
                 }
 
-                tile.getItems().add(item);
-
-                if (tile.getTileHeight() < item.getTotalHeight() || item.hasBehaviour(ItemBehaviour.PUBLIC_SPACE_OBJECT)) {
-                    item.setItemBelow(tile.getHighestItem());
-                    tile.setTileHeight(item.getTotalHeight());
-                    tile.setHighestItem(item);
-
-                    List<Position> affectedTiles = AffectedTile.getAffectedTiles(item);
-
-                    for (Position position : affectedTiles) {
-                        if (position.getX() == item.getPosition().getX() && position.getY() == item.getPosition().getY()) {
-                            continue;
-                        }
-
-                        RoomTile affectedTile = this.getTile(position);
-
-                        // If there's an item in the affected tiles that has a higher height, then don't override it.
-                        if (affectedTile.getHighestItem() != null) {
-                            if (affectedTile.getWalkingHeight() > item.getTotalHeight()) {
-                                continue;
-                            }
-                        }
-
-                        affectedTile.setTileHeight(item.getTotalHeight());
-                        affectedTile.setHighestItem(item);
-                    }
-
-                    if (item.hasBehaviour(ItemBehaviour.PUBLIC_SPACE_OBJECT)) {
-                        PoolHandler.setupRedirections(this.room, item);
-                    }
-
-                    // Method to set only one jukebox per room
-                    if (this.room.getItemManager().getSoundMachine() == null) {
-                        if (item.hasBehaviour(ItemBehaviour.JUKEBOX) || item.hasBehaviour(ItemBehaviour.SOUND_MACHINE)) {
-                            this.room.getItemManager().setSoundMachine(item);
-                        }
-                    }
-                }
-            }
-
-            // Method to set only one moodlight per room
-            for (Item item : this.room.getItemManager().getWallItems()) {
-                if (item.hasBehaviour(ItemBehaviour.ROOMDIMMER)) {
-                    this.room.getItemManager().setMoodlight(item);
-                    break;
-                }
+                tile.addEntity(entity);
             }
 
         } catch (Exception ex) {
-            Log.getErrorLogger().error("Generate collision map failed for room: " + this.room.getId(), ex);
+            Log.getErrorLogger().error(String.format("Generate entity map failed for room %s", this.room.getId()), ex);
         }
+
+        refreshRoomItems();
     }
 
-    /**
-     * Regenerate the entity collision map only.
-     */
-    private void regenerateEntityCollision() {
-        for (RoomTile tile : this.tileList) {
-            tile.getEntities().clear();
-        }
+    public void refreshRoomItems() {
+        this.room.getItemManager().setSoundMachine(null);
+        this.room.getItemManager().setMoodlight(null);
 
-        for (Entity entity : this.room.getEntities()) {
-            RoomTile tile = entity.getRoomUser().getTile();
+        for (Item item : room.getItemManager().getFloorItems()) {
+            if (item.hasBehaviour(ItemBehaviour.WALL_ITEM)) {
+                continue;
+            }
+
+            RoomTile tile = item.getTile();
 
             if (tile == null) {
                 continue;
             }
 
-            tile.addEntity(entity);
+            // Method to set only one jukebox per room
+            if (this.room.getItemManager().getSoundMachine() == null) {
+                if (item.hasBehaviour(ItemBehaviour.JUKEBOX) || item.hasBehaviour(ItemBehaviour.SOUND_MACHINE)) {
+                    this.room.getItemManager().setSoundMachine(item);
+                }
+            }
+        }
+
+        // Method to set only one moodlight per room
+        for (Item item : this.room.getItemManager().getWallItems()) {
+            if (item.hasBehaviour(ItemBehaviour.ROOMDIMMER)) {
+                this.room.getItemManager().setMoodlight(item);
+                break;
+            }
         }
     }
 
@@ -189,7 +187,16 @@ public class RoomMapping {
             }
         } else {
             this.handleItemAdjustment(item, false);
-            this.regenerateCollisionMap();
+
+            for (Position position : AffectedTile.getAffectedTiles(item)) {
+                RoomTile affectedTile = this.getTile(position);
+
+                if (affectedTile == null) {
+                    continue;
+                }
+
+                affectedTile.addItem(item);
+            }
 
             this.room.send(new PLACE_FLOORITEM(item));
         }
@@ -230,7 +237,16 @@ public class RoomMapping {
 
         if (!item.hasBehaviour(ItemBehaviour.WALL_ITEM)) {
             this.handleItemAdjustment(item, isRotation);
-            this.regenerateCollisionMap();
+
+            for (Position position : AffectedTile.getAffectedTiles(item)) {
+                RoomTile affectedTile = this.getTile(position);
+
+                if (affectedTile == null) {
+                    continue;
+                }
+
+                affectedTile.addItem(item);
+            }
 
             this.room.send(new MOVE_FLOORITEM(item));
         }
@@ -257,7 +273,16 @@ public class RoomMapping {
         if (item.hasBehaviour(ItemBehaviour.WALL_ITEM)) {
             this.room.send(new REMOVE_WALLITEM(item));
         } else {
-            this.regenerateCollisionMap();
+            for (Position position : AffectedTile.getAffectedTiles(item)) {
+                RoomTile affectedTile = this.getTile(position);
+
+                if (affectedTile == null) {
+                    continue;
+                }
+
+                affectedTile.removeItem(item);
+            }
+
             this.room.send(new REMOVE_FLOORITEM(item));
         }
 
@@ -282,8 +307,9 @@ public class RoomMapping {
         item.getPosition().setRotation(0);
         item.setRoomId(0);
         item.setRollingData(null);
-
         item.save();
+
+        refreshRoomItems();
     }
 
     public static boolean resetExtraData(Item item, boolean roomLoad) {

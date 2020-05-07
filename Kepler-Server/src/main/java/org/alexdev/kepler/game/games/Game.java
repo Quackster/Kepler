@@ -63,6 +63,9 @@ public abstract class Game {
     private boolean gameStarted;
     private boolean gameFinished;
 
+    private int regenerateMapInterval;
+    private boolean regenerateMapEnabled;
+
     public Game(int id, int mapId, GameType gameType, String name, int teamAmount, Player gameCreator) {
         this.id = id;
         this.mapId = mapId;
@@ -86,8 +89,15 @@ public abstract class Game {
             this.teams.put(i, new GameTeam(i, this));
         }
 
-        this.objectId = new AtomicInteger(-1);
+        this.objectId = new AtomicInteger(0);
         this.gameState = GameState.WAITING;
+
+        this.regenerateMapEnabled = GameConfiguration.getInstance().getBoolean("regenerate.map.enabled");
+        this.regenerateMapInterval = GameConfiguration.getInstance().getInteger("regenerate.map.interval");
+    }
+
+    public void reassignGameId() {
+        this.id = GameManager.getInstance().getGameCounter().getAndIncrement();
     }
 
     /**
@@ -121,7 +131,7 @@ public abstract class Game {
 
         this.objects.clear();
         this.events.clear();
-
+        this.room.getMapping().regenerateCollisionMap();
         this.buildMap();
     }
 
@@ -132,12 +142,21 @@ public abstract class Game {
         this.initialise();
         this.assignSpawnPoints();
 
-        for (GamePlayer p : this.getPlayers()) {
+        var game = this;
+
+        for (GamePlayer p : this.getActivePlayers()) {
             p.setEnteringGame(true); // Set to true so when they leave the lobby, the server knows to initialise the user when they join the arena
         }
 
         this.send(new GAMELOCATION());
         this.sendSpectatorsToArena();
+
+        /*while (true) {
+            if (this.getPlayers().stream().allMatch(g -> g.getPlayer().getRoomUser().getRoom() != null)) {
+                this.send(new FULLGAMESTATUS(this));
+                break;
+            }
+        }*/
 
         // Preparing game seconds countdown
         this.preparingTimerRunnable = new FutureRunnable() {
@@ -145,7 +164,14 @@ public abstract class Game {
                 try {
                     gamePrepareTick();
 
-                    if (preparingGameSecondsLeft.getAndDecrement() == 0 || getPlayers().isEmpty()) {
+                    if (getActivePlayers().isEmpty()) {
+                        GameManager.getInstance().getGames().remove(game);
+                        killSpectators();
+                        this.cancelFuture();
+                        return;
+                    }
+
+                    if (preparingGameSecondsLeft.getAndDecrement() == 0) {
                         this.cancelFuture();
                         beginGame();
                     }
@@ -155,7 +181,7 @@ public abstract class Game {
             }
         };
 
-        var future = GameScheduler.getInstance().getService().scheduleAtFixedRate(this.preparingTimerRunnable, 1, 1, TimeUnit.SECONDS);
+        var future = GameScheduler.getInstance().getService().scheduleAtFixedRate(this.preparingTimerRunnable, 0, 1, TimeUnit.SECONDS);
         this.preparingTimerRunnable.setFuture(future);
 
         this.sendObservers(new GAMEINSTANCE(this));
@@ -169,7 +195,7 @@ public abstract class Game {
         this.gameStarted = true;
 
         // Stop all players from walking when game starts if they selected a tile
-        for (GamePlayer p : this.getPlayers()) {
+        for (GamePlayer p : this.getActivePlayers()) {
             p.getPlayer().getRoomUser().setWalkingAllowed(true);
         }
 
@@ -185,11 +211,18 @@ public abstract class Game {
                 try {
                     gameTick();
 
+                    if (regenerateMapEnabled) {
+                        if (totalSecondsLeft.get() % regenerateMapInterval == 0) {
+                            room.getMapping().regenerateCollisionMap();
+                        }
+                    }
+
                     // Game ends either when time runs out or there's no free tiles left to seal
-                    if (totalSecondsLeft.decrementAndGet() == 0 || !canTimerContinue() || getPlayers().isEmpty()) {
+                    if (totalSecondsLeft.decrementAndGet() == 0 || !canTimerContinue() || getActivePlayers().isEmpty()) {
                         this.cancelFuture();
                         finishGame();
                     }
+
                 } catch (Exception ex) {
                     Log.getErrorLogger().error("Error occurred in game timer runnable: ", ex);
                 }
@@ -215,12 +248,12 @@ public abstract class Game {
         GameManager.getInstance().getFinishedGames().add(finishedGame);
 
         // Stop all players from walking when game starts if they selected a tile
-        for (GamePlayer p : this.getPlayers()) {
+        for (GamePlayer p : this.getActivePlayers()) {
             p.getPlayer().getRoomUser().setWalkingAllowed(false);
         }
 
         if (this.canIncreasePoints()) {
-            CompletableFuture.runAsync(new GameFinishTask(this.gameType, this.getPlayers(), this.getTeams()));
+            CompletableFuture.runAsync(new GameFinishTask(this.gameType, this.getActivePlayers(), this.getTeams()));
         }
 
         // Send scores to everybody
@@ -239,7 +272,7 @@ public abstract class Game {
 
                 List<GamePlayer> afkPlayers = new ArrayList<>(); // Players who didn't touch any button
 
-                for (GamePlayer p : instance.getPlayers()) {
+                for (GamePlayer p : instance.getActivePlayers()) {
                     if (!p.isClickedRestart()) {
                         afkPlayers.add(p);
                     }
@@ -269,7 +302,7 @@ public abstract class Game {
         List<GamePlayer> players = new ArrayList<>(); // Players who wanted to restart
         List<GamePlayer> afkPlayers = new ArrayList<>(); // Players who didn't touch any button
 
-        for (GamePlayer p : this.getPlayers()) {
+        for (GamePlayer p : this.getActivePlayers()) {
             if (!p.isClickedRestart()) {
                 afkPlayers.add(p);
             } else {
@@ -321,7 +354,7 @@ public abstract class Game {
         this.initialise();
         this.assignSpawnPoints();
 
-        for (GamePlayer gamePlayer : this.getPlayers()) {
+        for (GamePlayer gamePlayer : this.getActivePlayers()) {
             gamePlayer.getPlayer().getRoomUser().setPosition(gamePlayer.getSpawnPosition());
         }
 
@@ -377,10 +410,10 @@ public abstract class Game {
             this.sendObservers(new GAMEINSTANCE(this));
         }
 
-        if (this.gameState == GameState.WAITING && this.gameCreatorId == gamePlayer.getPlayer().getDetails().getId()) {
+        if (this.gameState == GameState.WAITING && this.gameCreatorId == gamePlayer.getPlayer().getDetails().getId() || this.getActivePlayers().isEmpty()) {
             GameManager.getInstance().getGames().remove(this);
 
-            for (var player : this.getPlayers()) {
+            for (var player : this.getTotalPlayers()) {
                 player.getPlayer().getRoomUser().setGamePlayer(null);
             }
 
@@ -445,7 +478,7 @@ public abstract class Game {
      *
      * @param gamePlayer the player to send
      */
-    private void sendToLobby(GamePlayer gamePlayer) {
+    public void sendToLobby(GamePlayer gamePlayer) {
         Player player = gamePlayer.getPlayer();
 
         if (player.getRoomUser().getRoom() != this.room) {
@@ -462,11 +495,20 @@ public abstract class Game {
     }
 
     /**
+     * Get the lobby for this game.
+     *
+     * @return the room lobby
+     */
+    public Room getLobby() {
+        return RoomManager.getInstance().getRoomByModel(this.gameType.getLobbyModel());
+    }
+
+    /**
      * Moves a player from one team to another team.
      *
      * @param gamePlayer the player to move
      * @param fromTeamId the team to move from, -1 if just to add to team
-     * @param toTeamId the team to move to, -1 if just removing user from team
+     * @param toTeamId   the team to move to, -1 if just removing user from team
      */
     public void movePlayer(GamePlayer gamePlayer, int fromTeamId, int toTeamId) {
         if (fromTeamId != -1) {
@@ -504,7 +546,7 @@ public abstract class Game {
      * @param composer the composer to send
      */
     public void send(MessageComposer composer) {
-        for (GamePlayer gamePlayer : this.getPlayers()) {
+        for (GamePlayer gamePlayer : this.getActivePlayers()) {
             gamePlayer.getPlayer().send(composer);
         }
 
@@ -546,23 +588,20 @@ public abstract class Game {
         return this.teams.get(teamId).getActivePlayers().size() <= maxPerTeam;
     }
 
-    /**
-     * Get the cost of tickets required to play this game
-     *
-     * @return the ticket amount required
-     */
-    public int getTicketCost() {
-        return getTicketCost(this.getGameType());
-    }
+    public int getMaxPlayers() {
+        int maxPerTeam = 0;
 
-    /**
-     * Get the cost of tickets required to play each game
-     *
-     * @param gameType the type of game to get the ticket cost for
-     * @return the ticket amount required
-     */
-    public static int getTicketCost(GameType gameType) {
-        return GameConfiguration.getInstance().getInteger(gameType.name().toLowerCase() + ".ticket.charge");
+        if (this.teamAmount == 1) {
+            maxPerTeam = 10;
+        } else if (this.teamAmount == 2) {
+            maxPerTeam = 5;
+        } else if (this.teamAmount == 3) {
+            maxPerTeam = 3;
+        } else if (this.teamAmount == 4) {
+            maxPerTeam = 2;
+        }
+
+        return maxPerTeam * this.teamAmount;
     }
 
     /**
@@ -581,15 +620,19 @@ public abstract class Game {
      * @return true, if successful
      */
     public boolean canGameStart() {
-        int activeTeamCount = 0;
+        if (this.gameType == GameType.SNOWSTORM && this.teamAmount == 1) {
+            return this.getActivePlayers().size() > 1;
+        } else {
+            int activeTeamCount = 0;
 
-        for (int i = 0; i < this.teamAmount; i++) {
-            if (this.teams.get(i).getActivePlayers().size() > 0) {
-                activeTeamCount++;
+            for (int i = 0; i < this.teamAmount; i++) {
+                if (this.teams.get(i).getActivePlayers().size() > 0) {
+                    activeTeamCount++;
+                }
             }
-        }
 
-        return activeTeamCount >= GameConfiguration.getInstance().getInteger(this.gameType.name().toLowerCase() + ".start.minimum.active.teams");
+            return activeTeamCount >= GameConfiguration.getInstance().getInteger(this.gameType.name().toLowerCase() + ".start.minimum.active.teams");
+        }
     }
 
     /**
@@ -598,25 +641,16 @@ public abstract class Game {
      *
      * @return true, if successful
      */
-    public boolean hasEnoughPlayers() {
-        int activeTeamCount = 0;
-
-        for (int i = 0; i < this.teamAmount; i++) {
-            if (this.teams.get(i).getActivePlayers().size() > 0) {
-                activeTeamCount++;
-            }
-        }
-
-        return activeTeamCount > 0;
-    }
+    public abstract boolean hasEnoughPlayers();
 
     /**
      * Get the game player instance by id
+     *
      * @param userId the id to get the player by
      * @return the game player instance, else if null
      */
     public GamePlayer getGamePlayer(int userId) {
-        for (GamePlayer gamePlayer : this.getPlayers()) {
+        for (GamePlayer gamePlayer : this.getActivePlayers()) {
             if (gamePlayer.getUserId() == userId) {
                 return gamePlayer;
             }
@@ -637,7 +671,7 @@ public abstract class Game {
             return null;
         }
 
-        if (x >= this.roomModel.getMapSizeX() || y >= roomModel.getMapSizeY()) {
+        if (x >= this.roomModel.getMapSizeX() || y >= roomModel.getMapSizeY() || y >= getTileMap().length || x >= getTileMap()[0].length) {
             return null;
         }
 
@@ -659,7 +693,7 @@ public abstract class Game {
     }
 
     public void addPlayerMove(PlayerMoveEvent event) {
-        this.eventsQueue.removeIf(e -> e instanceof PlayerMoveEvent && ((PlayerMoveEvent)e).getGamePlayer() == event.getGamePlayer());
+        this.eventsQueue.removeIf(e -> e instanceof PlayerMoveEvent && ((PlayerMoveEvent) e).getGamePlayer() == event.getGamePlayer());
         this.eventsQueue.add(event);
     }
 
@@ -694,24 +728,35 @@ public abstract class Game {
     /**
      * Method called when the game initially began
      */
-    public void gamePrepare() { }
+    public void gamePrepare() {
+        for (GameTeam gameTeam : this.getTeams().values()) {
+            gameTeam.setScore(0);
+        }
+
+        for (GamePlayer gamePlayer : this.getActivePlayers()) {
+            gamePlayer.setScore(0);
+        }
+    }
 
     /**
      * Method called for the tick in game beginning
      */
-    public void gamePrepareTick() { }
+    public void gamePrepareTick() {
+    }
 
     /**
      * Method called when the game initially started
      */
-    public void gameStarted() { }
+    public void gameStarted() {
+    }
 
     /**
      * Method called when the game ends, when the scoreboard shows
      */
-    public void gameEnded() { }
+    public void gameEnded() {
+    }
 
-    public List<GamePlayer> getPlayers() {
+    public List<GamePlayer> getActivePlayers() {
         List<GamePlayer> gamePlayers = new ArrayList<>();
 
         for (GameTeam team : this.teams.values()) {
@@ -719,6 +764,35 @@ public abstract class Game {
         }
 
         return gamePlayers;
+    }
+
+    public List<GamePlayer> getTotalPlayers() {
+        List<GamePlayer> gamePlayers = new ArrayList<>();
+
+        for (GameTeam team : this.teams.values()) {
+            gamePlayers.addAll(team.getActivePlayers());
+        }
+
+        return gamePlayers;
+    }
+
+    /**
+     * Get the cost of tickets required to play this game
+     *
+     * @return the ticket amount required
+     */
+    public int getTicketCost() {
+        return getTicketCost(this.getGameType());
+    }
+
+    /**
+     * Get the cost of tickets required to play each game
+     *
+     * @param gameType the type of game to get the ticket cost for
+     * @return the ticket amount required
+     */
+    public static int getTicketCost(GameType gameType) {
+        return GameConfiguration.getInstance().getInteger(gameType.name().toLowerCase() + ".ticket.charge");
     }
 
     /**
@@ -731,7 +805,6 @@ public abstract class Game {
     }
 
     /**
-     *
      * @return
      */
     public List<Player> getObservers() {

@@ -114,7 +114,7 @@ public class ItemRollingAnalysis implements RollingAnalysis<Item> {
                         // Don't roll an item into the next roller, if the next roller is facing towards the roller
                         // it just rolled from, and the next roller has an item on it.
                         if (frontPosition.equals(item.getPosition())) {
-                            if (frontTile.getItems().size() > 1 || frontTile.getEntities().size() > 0) {
+                            if (frontTile.getItemsAbove(frontRoller).size() > 0 || frontTile.getEntities().size() > 0) {
                                 return null;
 
                             }
