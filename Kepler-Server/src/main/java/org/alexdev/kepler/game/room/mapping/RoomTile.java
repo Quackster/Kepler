@@ -356,4 +356,10 @@ public class RoomTile {
     public double getDefaultHeight() {
         return defaultHeight;
     }
+
+    public List<Item> getItemsAbove(Item item) {
+        var items = getItems();
+        items.removeIf(x -> x.getId() == item.getId() || x.getPosition().getZ() < item.getPosition().getZ());
+        return items;
+    }
 }
