@@ -217,7 +217,7 @@ public class ItemDao {
 
         try {
             sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("SELECT * FROM items WHERE room_id = ?", sqlConnection);
+            preparedStatement = Storage.getStorage().prepare("SELECT * FROM items WHERE room_id = ? ORDER BY z", sqlConnection);
             preparedStatement.setInt(1, roomData.getId());
             resultSet = preparedStatement.executeQuery();
 
