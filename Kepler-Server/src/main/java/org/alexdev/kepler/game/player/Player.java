@@ -96,7 +96,7 @@ public class Player extends Entity {
         if (!PlayerDao.getLatestIp(this.details.getId()).equals(ipAddress)) {
             PlayerDao.logIpAddress(this.getDetails().getId(), ipAddress);
         }
-
+        PlayerDao.setPlayerOnline(this.getDetails());
         this.details.loadBadges();
         this.details.resetNextHandout();
 
@@ -306,6 +306,7 @@ public class Player extends Entity {
                 PlayerManager.getInstance().removePlayer(this);
 
                 PlayerDao.saveLastOnline(this.getDetails());
+                PlayerDao.setPlayerOffline(this.getDetails());
                 SettingsDao.updateSetting("players.online", String.valueOf(PlayerManager.getInstance().getPlayers().size()));
 
                 if (this.messenger != null)

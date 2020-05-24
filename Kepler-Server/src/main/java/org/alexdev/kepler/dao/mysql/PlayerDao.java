@@ -367,6 +367,50 @@ public class PlayerDao {
         }
     }
 
+    public static void setPlayerOnline(PlayerDetails details) {
+        long currentTime = DateUtil.getCurrentTimeSeconds();
+        details.setLastOnline(currentTime);
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("UPDATE users SET status = 'online' WHERE id = ?", sqlConnection);
+            preparedStatement.setInt(1, details.getId());
+            preparedStatement.execute();
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+
+    public static void setPlayerOffline(PlayerDetails details) {
+        long currentTime = DateUtil.getCurrentTimeSeconds();
+        details.setLastOnline(currentTime);
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("UPDATE users SET status = 'offline' WHERE id = ?", sqlConnection);
+            preparedStatement.setInt(1, details.getId());
+            preparedStatement.execute();
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+
+
+
     /**
      * Update sound setting.
      *
