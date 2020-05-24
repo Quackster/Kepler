@@ -264,6 +264,7 @@ public class MessageHandler {
      * Register room item packets.
      */
     private void registerRoomItemPackets() {
+        registerEvent(128, new GETPETSTAT());
         registerEvent(90, new PLACESTUFF());
         registerEvent(73, new MOVESTUFF());
         registerEvent(67, new ADDSTRIPITEM());
