@@ -28,7 +28,7 @@ public class CommandQueueDao {
 
         try {
             sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("SELECT id, executed, command, arguments FROM kepler.command_queue where executed = '0'", sqlConnection);
+            preparedStatement = Storage.getStorage().prepare("SELECT id, executed, command, arguments FROM command_queue where executed = '0'", sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {

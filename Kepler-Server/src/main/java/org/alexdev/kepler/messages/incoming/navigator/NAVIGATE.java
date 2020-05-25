@@ -7,6 +7,7 @@ import org.alexdev.kepler.game.navigator.NavigatorManager;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.RoomManager;
+import org.alexdev.kepler.messages.outgoing.messenger.ROOMFORWARD;
 import org.alexdev.kepler.messages.outgoing.navigator.NAVNODEINFO;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
@@ -27,6 +28,7 @@ public class NAVIGATE implements MessageEvent {
 
             if (room != null) {
                 categoryId = room.getCategory().getId();
+                player.send(new ROOMFORWARD(true, room.getData().getId()));
             }
         }
 
