@@ -119,8 +119,8 @@ public class GameScheduler implements Runnable {
                 }
             }
 
-            // Execute Command Queue every 1 second
-            if (this.tickRate.get() % 1 == 0) {
+            // Execute Command Queue every 3 second
+            if (this.tickRate.get() % 3 == 0) {
                 CommandQueueManager.getInstance().executeCommands();
             }
 
