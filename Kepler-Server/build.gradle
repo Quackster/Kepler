@@ -23,7 +23,9 @@ jib {
         ports = ['12321/tcp', '12309/tcp','12322/tcp']
     }
 }
-
+intellij {
+    version '201.7846.76'
+}
 repositories {
     flatDir {
         dirs 'libs'
@@ -31,6 +33,7 @@ repositories {
 
     maven { url  "https://dl.bintray.com/terl/lazysodium-maven" }
     maven { url 'https://jitpack.io' }
+    maven { url 'https://dl.bintray.com/jetbrains/intellij-plugin-service'}
     mavenCentral()
 }
 

@@ -1,27 +1,18 @@
 package org.alexdev.kepler.dao.mysql;
 
-import com.intellij.openapi.vcs.history.VcsRevisionNumber;
 import org.alexdev.kepler.dao.Storage;
 import org.alexdev.kepler.game.catalogue.CatalogueItem;
-import org.alexdev.kepler.game.catalogue.CatalogueManager;
-import org.alexdev.kepler.game.events.Event;
-import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.purse.CreditLog;
 import org.alexdev.kepler.game.purse.Voucher;
-import org.alexdev.kepler.game.item.ItemManager;
-import org.alexdev.kepler.game.item.base.ItemDefinition;
-import org.alexdev.kepler.messages.incoming.catalogue.GRPC;
 import org.alexdev.kepler.util.DateUtil;
 
 import java.sql.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.stream.Collectors;
 
 public class PurseDao {
 

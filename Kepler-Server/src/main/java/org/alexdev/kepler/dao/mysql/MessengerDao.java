@@ -282,6 +282,94 @@ public class MessengerDao {
         }
     }
 
+
+    /**
+     * Create a message for other people to read them later, if they're offline.
+     *
+     * @param message the body of the message
+     * @param link the link text of the campaign
+     * @param url url of the link
+     */
+    public static int newCampaignMessage(String message, String link, String url) {
+        /*
+        *
+        * INSERT INTO messenger_messages (receiver_id, sender_id, unread, body, link, url date)
+        SELECT id, '0', 'Test'
+        FROM users
+        * */
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        int messageID = 0;
+
+        try {
+
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("INSERT INTO messenger_messages (receiver_id, sender_id, unread, body, link, url, date) SELECT id, '0', '1', ?, ?, ?, ? FROM users", sqlConnection);
+            preparedStatement.setString(1, message);
+            preparedStatement.setString(2, link);
+            preparedStatement.setString(3, url);
+            preparedStatement.setLong(4, DateUtil.getCurrentTimeSeconds());
+            preparedStatement.executeUpdate();
+
+            ResultSet row = preparedStatement.getGeneratedKeys();
+
+            if (row != null && row.next()) {
+                messageID = row.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+
+        return messageID;
+    }
+
+
+
+    /**
+     * Create a message for other people to read them later, if they're offline.
+     *
+     * @param toId    the id of the user to receive it
+     * @param message the body of the message
+     * @param link the link text of the campaign
+     * @param url url of the link
+     */
+    public static int newCampaignMessage(int toId, String message, String link, String url) {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        int messageID = 0;
+
+        try {
+
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("INSERT INTO messenger_messages (receiver_id, sender_id, unread, body, link, url, date) VALUES (?, '0', '1', ?, ?, ?, ?)", sqlConnection);
+            preparedStatement.setInt(1, toId);
+            preparedStatement.setString(2, message);
+            preparedStatement.setString(3, link);
+            preparedStatement.setString(4, url);
+            preparedStatement.setLong(5, DateUtil.getCurrentTimeSeconds());
+            preparedStatement.executeUpdate();
+
+            ResultSet row = preparedStatement.getGeneratedKeys();
+
+            if (row != null && row.next()) {
+                messageID = row.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+
+        return messageID;
+    }
     /**
      * Create a message for other people to read them later, if they're offline.
      *
@@ -345,7 +433,7 @@ public class MessengerDao {
             while (resultSet.next()) {
                 messages.put(resultSet.getInt("id"), new MessengerMessage(
                         resultSet.getInt("id"), resultSet.getInt("receiver_id"), resultSet.getInt("sender_id"),
-                        resultSet.getLong("date"), resultSet.getString("body")));
+                        resultSet.getLong("date"), resultSet.getString("body"), resultSet.getString("link"), resultSet.getString("url")));
 
             }
 
