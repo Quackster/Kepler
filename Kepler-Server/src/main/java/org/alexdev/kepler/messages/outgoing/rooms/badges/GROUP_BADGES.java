@@ -10,8 +10,10 @@ public class GROUP_BADGES extends MessageComposer {
     public void compose(NettyResponse response) {
         //response.write("IXXAs14114");
         response.writeInt(1);
-        response.writeInt(352);
+        response.writeInt(1);
         response.writeString("s14114");
+        //response.writeDelimeter("IXXAs14114", (char) 2);
+
     }
 
     @Override

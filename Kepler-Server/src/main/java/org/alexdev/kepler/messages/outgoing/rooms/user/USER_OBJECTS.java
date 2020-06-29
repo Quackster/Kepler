@@ -69,6 +69,8 @@ public class USER_OBJECTS extends PlayerMessageComposer {
                     response.writeKeyValue("b", states.getDetails().getCurrentBadge());
                 }
 
+                response.writeKeyValue("g", 1);
+
                 if (states.getRoom().getModel().getName().startsWith("pool_") ||
                         states.getRoom().getModel().getName().equals("md_a")) {
 
