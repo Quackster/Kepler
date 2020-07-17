@@ -1,6 +1,11 @@
 package org.alexdev.kepler.messages.outgoing.user;
 
+import org.alexdev.kepler.dao.mysql.MessengerDao;
+import org.alexdev.kepler.dao.mysql.PlayerDao;
+import org.alexdev.kepler.game.messenger.MessengerMessage;
 import org.alexdev.kepler.game.player.PlayerDetails;
+import org.alexdev.kepler.game.tag.Tag;
+import org.alexdev.kepler.messages.outgoing.messenger.CAMPAIGN_MSG;
 import org.alexdev.kepler.messages.types.PlayerMessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 
@@ -15,13 +20,19 @@ public class USER_TAGS extends PlayerMessageComposer {
     public void compose(NettyResponse response) {
 
         response.writeInt(this.details.getId());
-        response.writeInt(1);
-        response.writeString("Webbanditten");
+
+        var tags = PlayerDao.getTags(this.details.getId());
+        response.writeInt(tags.size());
+
+        for (Tag t : tags.values()) {
+            response.writeString(t.getTag());
+        }
+
 
     }
 
     @Override
     public short getHeader() {
-        return 350; // "??"
+        return 350; // "ZWA"
     }
 }
