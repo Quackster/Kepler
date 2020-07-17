@@ -158,6 +158,7 @@ public class MessageHandler {
         registerEvent(322, new UNIGNORE_USER());
         registerEvent(228, new GET_SOUND_SETTING());
         registerEvent(9, new GETAVAILABLESETS());
+        registerEvent(263, new GET_USER_TAGS());
         //registerEvent(315, new TEST_LATENCY());
     }
 
