@@ -14,7 +14,7 @@ public class CAMPAIGN_MSG extends PlayerMessageComposer {
 
     @Override
     public void compose(NettyResponse response) {
-        if (getPlayer().getVersion() <= 15) {
+        if (getPlayer().getVersion() <= 21) {
             response.writeInt(this.message.getId());
             response.writeString(this.message.getLink());
             response.writeString(this.message.getUrl());
