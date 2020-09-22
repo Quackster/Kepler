@@ -69,6 +69,17 @@ public class USER_OBJECTS extends PlayerMessageComposer {
                     response.writeKeyValue("b", states.getDetails().getCurrentBadge());
                 }
 
+
+
+                // Group Id
+                if(states.getDetails().getGroup() > 0) {
+                    response.writeKeyValue("g", states.getDetails().getGroup());
+                    // Group rights (1 = owner, 2 = admin, 3 = member)
+                    response.writeKeyValue("t", states.getDetails().getGroupStatus());
+                }
+
+
+
                 if (states.getRoom().getModel().getName().startsWith("pool_") ||
                         states.getRoom().getModel().getName().equals("md_a")) {
 

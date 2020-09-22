@@ -33,6 +33,8 @@ import org.alexdev.kepler.messages.incoming.recycler.GET_FURNI_RECYCLER_STATUS;
 import org.alexdev.kepler.messages.incoming.register.*;
 import org.alexdev.kepler.messages.incoming.rooms.*;
 import org.alexdev.kepler.messages.incoming.rooms.badges.GETAVAILABLEBADGES;
+import org.alexdev.kepler.messages.incoming.rooms.badges.GET_GROUP_BADGES;
+import org.alexdev.kepler.messages.incoming.rooms.badges.GET_GROUP_DETAILS;
 import org.alexdev.kepler.messages.incoming.rooms.badges.SETBADGE;
 import org.alexdev.kepler.messages.incoming.rooms.dimmer.MSG_ROOMDIMMER_CHANGE_STATE;
 import org.alexdev.kepler.messages.incoming.rooms.dimmer.MSG_ROOMDIMMER_GET_PRESETS;
@@ -157,6 +159,7 @@ public class MessageHandler {
         registerEvent(322, new UNIGNORE_USER());
         registerEvent(228, new GET_SOUND_SETTING());
         registerEvent(9, new GETAVAILABLESETS());
+        registerEvent(263, new GET_USER_TAGS());
         //registerEvent(315, new TEST_LATENCY());
     }
 
@@ -214,6 +217,8 @@ public class MessageHandler {
         registerEvent(98, new LETUSERIN());
         registerEvent(261, new RATEFLAT());
         registerEvent(114, new PTM());
+        registerEvent(230, new GET_GROUP_BADGES());
+        registerEvent(231, new GET_GROUP_DETAILS());
     }
 
     /**
