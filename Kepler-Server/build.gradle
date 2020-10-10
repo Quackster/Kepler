@@ -81,8 +81,6 @@ dependencies {
     implementation "com.google.protobuf:protobuf-java-util:${protobufVersion}"
 
     testImplementation "io.grpc:grpc-testing:${grpcVersion}"
-
-    implementation name: 'RetroRCON-1.1'
 }
 
 // Create fat jar with libraries inside of it.
