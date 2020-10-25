@@ -6,13 +6,10 @@ import com.goterl.lazycode.lazysodium.interfaces.PwHash;
 import org.alexdev.kepler.dao.Storage;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerDetails;
-import org.alexdev.kepler.game.tag.Tag;
 import org.alexdev.kepler.util.DateUtil;
 
 import java.nio.charset.StandardCharsets;
 import java.sql.*;
-import java.util.HashMap;
-import java.util.Map;
 
 public class PlayerDao {
     public static final LazySodiumJava LIB_SODIUM = new LazySodiumJava(new SodiumJava());
@@ -76,41 +73,6 @@ public class PlayerDao {
         return ip;
     }
 
-    /**
-     * Gets the tags for a user by id
-     *
-     * @param userId the user id
-     * @return tags
-     */
-    public static Map<Integer, Tag> getTags(int userId) {
-        Connection sqlConnection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
-        Map<Integer, Tag> tags = new HashMap<>();
-
-        try {
-            sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("SELECT * FROM tags WHERE user_id = ? LIMIT 8", sqlConnection);
-            preparedStatement.setInt(1, userId);
-            resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                tags.put(resultSet.getInt("id"), new Tag(
-                        resultSet.getInt("id"), resultSet.getString("tag"), resultSet.getInt("user_id")));
-
-            }
-
-        } catch (Exception e) {
-            Storage.logError(e);
-        } finally {
-            Storage.closeSilently(resultSet);
-            Storage.closeSilently(preparedStatement);
-            Storage.closeSilently(sqlConnection);
-        }
-
-        return tags;
-    }
 
     /**
      * Gets the details by user id
@@ -572,7 +534,6 @@ public class PlayerDao {
                 row.getBoolean("badge_active"), row.getBoolean("allow_stalking"),
                 row.getBoolean("allow_friend_requests"), row.getBoolean("sound_enabled"),
                 row.getBoolean("tutorial_finished"), row.getInt("battleball_points"),
-                row.getInt("snowstorm_points"),
-                row.getInt("group_id"));
+                row.getInt("snowstorm_points"));
     }
 }

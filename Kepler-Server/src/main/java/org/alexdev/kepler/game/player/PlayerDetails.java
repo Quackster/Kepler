@@ -2,7 +2,6 @@ package org.alexdev.kepler.game.player;
 
 import org.alexdev.kepler.dao.mysql.BadgeDao;
 import org.alexdev.kepler.dao.mysql.BanDao;
-import org.alexdev.kepler.dao.mysql.GroupDao;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.game.ban.BanType;
 import org.alexdev.kepler.game.games.enums.GameType;
@@ -21,8 +20,6 @@ public class PlayerDetails {
     private String figure;
     private String poolFigure;
     private int credits;
-    private int group;
-    private int groupStatus;
     private String motto;
     private String consoleMotto;
     private char sex;
@@ -81,10 +78,9 @@ public class PlayerDetails {
      * @param soundEnabled allow playing sound from client
      * @param battleballPoints the points accumulated when playing battleball
      * @param snowstormPoints the points accumulated when playing snowstorm
-     * @param group group
      */
     public void fill(int id, String username, String figure, String poolFigure, int credits, String motto, String consoleMotto, String sex, int tickets, int film, int rank, long lastOnline, long firstClubSubscription, long clubExpiration, long clubGiftDue, String currentBadge, boolean showBadge, boolean allowStalking, boolean allowFriendRequests, boolean soundEnabled,
-                     boolean tutorialFinished, int battleballPoints, int snowstormPoints, int group) {
+                     boolean tutorialFinished, int battleballPoints, int snowstormPoints) {
         this.id = id;
         this.username = StringUtil.filterInput(username, true);
         this.figure = StringUtil.filterInput(figure, true); // Format: hd-180-1.ch-255-70.lg-285-77.sh-295-74.fa-1205-91.hr-125-31.ha-1016-
@@ -108,12 +104,6 @@ public class PlayerDetails {
         this.tutorialFinished = tutorialFinished;
         this.battleballPoints = battleballPoints;
         this.snowstormPoints = snowstormPoints;
-        this.group = group;
-        if(group > 0) {
-            this.groupStatus = GroupDao.getMemberStatus(group, id);
-        } else {
-            this.groupStatus = 0;
-        }
 
         if (this.credits < 0) {
             // TODO: log warning
@@ -185,17 +175,6 @@ public class PlayerDetails {
 
     public int getId() {
         return id;
-    }
-
-    public int getGroup() {
-        return group;
-    }
-    public int getGroupStatus() {
-        return groupStatus;
-    }
-
-    public void setGroup(int group) {
-        this.group = group;
     }
 
     public String getName() {
