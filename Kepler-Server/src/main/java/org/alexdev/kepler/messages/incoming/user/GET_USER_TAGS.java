@@ -10,6 +10,6 @@ public class GET_USER_TAGS implements MessageEvent {
 
     @Override
     public void handle(Player player, NettyRequest reader) {
-        player.send(new USER_TAGS(player.getDetails()));
+        player.getRoomUser().getRoom().send(new USER_TAGS(player.getDetails()));
     }
 }

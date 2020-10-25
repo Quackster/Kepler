@@ -201,6 +201,8 @@ public class RoomEntityManager {
             player.send(new FLATPROPERTY("floor", this.room.getData().getFloor()));
         }
 
+        player.send(new FLATPROPERTY("landscape", 1));
+
         // Don't let the room owner vote on it's own room
         boolean voted = this.room.isOwner(player.getDetails().getId()) || this.room.hasVoted(player.getDetails().getId());
 

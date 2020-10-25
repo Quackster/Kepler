@@ -152,6 +152,7 @@ public abstract class RoomEntity {
         //System.out.println("User requested " + this.goal + " from " + this.position + " with item " + (tile.getHighestItem() != null ? tile.getHighestItem().getDefinition().getSprite() : "NULL"));
 
         if (!RoomTile.isValidTile(this.room, this.entity, this.goal)) {
+            System.out.println("INVALID TILE");
             return false;
         }
 
