@@ -123,6 +123,7 @@ public class MessageHandler {
         registerEvent(202, new GENERATEKEY());
         registerEvent(204, new SSO());
         registerEvent(4, new TRY_LOGIN());
+        registerEvent(756, new TRY_LOGIN());
     }
 
     /**

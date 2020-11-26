@@ -12,7 +12,7 @@ public class CallForHelp {
     private final int cryId;
     private final int callerId;
     private final String message;
-    private int pickedUpBy;
+    private String pickedUpBy;
     private final Room room;
     private final long requestTime;
     private int category = 2;
@@ -22,7 +22,7 @@ public class CallForHelp {
         this.cryId = cryId;
         this.callerId = callerId;
         this.message = message;
-        this.pickedUpBy = 0;
+        this.pickedUpBy = "N/A";
         this.room = room;
         this.requestTime = System.currentTimeMillis();
     }
@@ -31,7 +31,7 @@ public class CallForHelp {
         return this.message;
     }
 
-    public int getPickedUpBy() {
+    public String getPickedUpBy() {
         return this.pickedUpBy;
     }
 
@@ -52,11 +52,11 @@ public class CallForHelp {
     }
 
     public boolean isOpen() {
-        return this.pickedUpBy == 0;
+        return this.pickedUpBy == "N/A";
     }
 
     public String getFormattedRequestTime() {
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm d/MM/YYYY");
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm dd/MM/YYYY");
         Date resultDate = new Date(this.requestTime);
         return sdf.format(resultDate);
     }
@@ -66,7 +66,7 @@ public class CallForHelp {
     }
 
     public void setPickedUpBy(Player moderator) {
-        this.pickedUpBy = moderator.getDetails().getId();
+        this.pickedUpBy = moderator.getDetails().getName();
     }
 
     public long getExpireTime() {
