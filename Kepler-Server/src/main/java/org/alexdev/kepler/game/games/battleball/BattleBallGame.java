@@ -71,7 +71,7 @@ public class BattleBallGame extends Game {
         int ticketCharge = GameConfiguration.getInstance().getInteger("battleball.ticket.charge");
 
         if (ticketCharge > 0) {
-            for (GamePlayer gamePlayer : this.getPlayers()) {
+            for (GamePlayer gamePlayer : this.getActivePlayers()) {
                 CurrencyDao.decreaseTickets(gamePlayer.getPlayer().getDetails(), 2); // BattleBall costs 2 tickets
             }
         }
@@ -230,7 +230,7 @@ public class BattleBallGame extends Game {
                     }
                 }
 
-                if (spawnPosition == null) {
+                if (spawnPosition == null || this.getTile(spawnPosition.getX(), spawnPosition.getY()) == null) {
                     continue;
                 }
 
@@ -321,6 +321,18 @@ public class BattleBallGame extends Game {
         }
     }
 
+    @Override
+    public boolean hasEnoughPlayers() {
+        int activeTeamCount = 0;
+
+        for (int i = 0; i < this.getTeamAmount(); i++) {
+            if (this.getTeams().get(i).getActivePlayers().size() > 0) {
+                activeTeamCount++;
+            }
+        }
+
+        return activeTeamCount > 0;
+    }
 
     /**
      * Get if the game still has free tiles to use.

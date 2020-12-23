@@ -36,7 +36,7 @@ public class BattleBallTask implements Runnable {
     @Override
     public void run() {
         try {
-            if (this.game.getPlayers().isEmpty() || this.game.getGameState() == GameState.ENDED) {
+            if (this.game.getActivePlayers().isEmpty() || this.game.getGameState() == GameState.ENDED) {
                 return; // Don't send any packets or do any logic checks during when the game is finished
             }
 
@@ -51,7 +51,7 @@ public class BattleBallTask implements Runnable {
             this.game.getUpdateTilesQueue().drainTo(updateTiles);
             this.game.getFillTilesQueue().drainTo(fillTiles);
 
-            for (GamePlayer gamePlayer : this.game.getPlayers()) {
+            for (GamePlayer gamePlayer : this.game.getActivePlayers()) {
                 Player player = gamePlayer.getPlayer();
 
                 if (player.getRoomUser().getRoom() != this.room) {
