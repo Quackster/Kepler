@@ -225,6 +225,16 @@ public class RoomMapping {
             isRotation = true;
         }
 
+        for (Position position : AffectedTile.getAffectedTiles(item)) {
+            RoomTile affectedTile = this.getTile(position);
+
+            if (affectedTile == null) {
+                continue;
+            }
+
+            affectedTile.removeItem(item);
+        }
+
         Item itemBelow = item.getItemBelow();
         Item itemAbove = item.getItemAbove();
 
