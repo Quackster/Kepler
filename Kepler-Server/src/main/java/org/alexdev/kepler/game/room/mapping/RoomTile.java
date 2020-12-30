@@ -15,7 +15,9 @@ import org.alexdev.kepler.game.room.public_rooms.walkways.WalkwaysEntrance;
 import org.alexdev.kepler.game.room.public_rooms.walkways.WalkwaysManager;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class RoomTile {
@@ -39,11 +41,11 @@ public class RoomTile {
         add(new Position(12, 11));
         add(new Position(13, 12));
     }};
-    
+
     private Room room;
     private Position position;
     private CopyOnWriteArrayList<Entity> entities;
-    private CopyOnWriteArrayList<Item> items;
+    private ConcurrentHashMap<Integer, Item> items;
 
     private double tileHeight;
     private double defaultHeight;
@@ -56,7 +58,7 @@ public class RoomTile {
         this.tileHeight = tileHeight;
         this.defaultHeight = tileHeight;
         this.entities = new CopyOnWriteArrayList<>();
-        this.items = new CopyOnWriteArrayList<>();
+        this.items = new ConcurrentHashMap<>();
     }
 
     /**
@@ -349,15 +351,67 @@ public class RoomTile {
      *
      * @return the list of items
      */
-    public List<Item> getItems() {
-        return items;
-    }
 
     public double getDefaultHeight() {
         return defaultHeight;
     }
 
-    public List<Item> getItemsAbove(Item item) {
+    public void addItem(Item item)
+    {
+        if (item == null)
+            return;
+
+        items.put(item.getId(), item);
+
+        if (item.getTotalHeight() < tileHeight)
+            return;
+
+        resetHighestItem();
+    }
+
+    public void removeItem(Item item) {
+        if (item == null)
+            return;
+
+        items.remove(item.getId());
+
+        if (highestItem == null || item.getId() != highestItem.getId())
+            return;
+
+        resetHighestItem();
+    }
+
+    public void resetHighestItem() {
+        highestItem = null;
+        tileHeight = defaultHeight;
+
+        for (var item : items.values())
+        {
+            if (item == null)
+                continue;
+
+            double height = item.getTotalHeight();
+
+            if (height < tileHeight)
+                continue;
+
+            highestItem = item;
+            tileHeight = height;
+        }
+    }
+
+    /**
+     * Get the list of items on this tile.
+     *
+     * @return the list of items
+     */
+    public ArrayList<Item> getItems() {
+        var items = new ArrayList<>(this.items.values());
+        items.sort(Comparator.comparingDouble(item -> item.getPosition().getZ()));
+        return items;
+    }
+
+    public ArrayList<Item> getItemsAbove(Item item) {
         var items = getItems();
         items.removeIf(x -> x.getId() == item.getId() || x.getPosition().getZ() < item.getPosition().getZ());
         return items;
