@@ -81,7 +81,8 @@ public class Kepler {
                     "          |_|                ");
 
             log.info("Kepler - Habbo Hotel Emulation (max version supported: v26)");
-
+            String currentDirectory = System.getProperty("user.dir");
+            log.info("The current working directory is " + currentDirectory);
             if (!Storage.connect()) {
                 return;
             }
