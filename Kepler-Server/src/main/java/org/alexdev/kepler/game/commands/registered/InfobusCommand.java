@@ -62,9 +62,9 @@ public class InfobusCommand extends Command {
 
         if(args[0].equalsIgnoreCase("start")) {
             if(bus.getQuestion() != null && !bus.getQuestion().isEmpty()) {
-                System.out.println("Question is not empty");
+                //System.out.println("Question is not empty");
                 if(bus.getOptions().size() > 0) {
-                    System.out.println("Starting");
+                    //System.out.println("Starting");
                     bus.startPoll();
                 } else {
                     player.send(new CHAT_MESSAGE(CHAT_MESSAGE.ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), "You need to add some options for the question: :infobus option [add/remove] [option]"));

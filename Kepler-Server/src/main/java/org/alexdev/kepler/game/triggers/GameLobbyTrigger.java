@@ -25,9 +25,6 @@ public abstract class GameLobbyTrigger extends GenericTrigger {
     public abstract GameType getGameType();
 
     public MessageComposer getInstanceList() {
-        return new INSTANCELIST(
-                GameManager.getInstance().getGamesByType(this.getGameType()),
-                GameManager.getInstance().getFinishedGames().stream().filter(game -> game.getGameType() == this.getGameType())
-                        .collect(Collectors.toList()));
+        return new INSTANCELIST(GameManager.getInstance().getGamesByType(this.getGameType()), GameManager.getInstance().getLastPlayedGames(this.getGameType()));
     }
 }

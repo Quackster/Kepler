@@ -4,7 +4,10 @@ import org.alexdev.kepler.game.games.Game;
 import org.alexdev.kepler.game.games.battleball.BattleBallGame;
 import org.alexdev.kepler.game.games.battleball.BattleBallPowerUp;
 import org.alexdev.kepler.game.games.battleball.events.ActivatePowerUpEvent;
+import org.alexdev.kepler.game.games.enums.GameType;
 import org.alexdev.kepler.game.games.player.GamePlayer;
+import org.alexdev.kepler.game.games.snowstorm.SnowStormGame;
+import org.alexdev.kepler.game.games.snowstorm.messages.SnowStormMessageHandler;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
@@ -26,45 +29,50 @@ public class GAMEEVENT implements MessageEvent {
 
         int eventType = reader.readInt(); // Instance ID? Useless?
 
-        // Jump request
-        if (eventType == 2) {
-            if (!player.getRoomUser().isWalkingAllowed()) {
-                return;
-            }
+        if (game.getGameType() == GameType.SNOWSTORM) {
+            SnowStormMessageHandler.getInstance().handleMessage(eventType, reader, (SnowStormGame) game, gamePlayer);
+        } else {
 
-            int X = reader.readInt();
-            int Y = reader.readInt();
-
-            player.getRoomUser().bounceTo(X, Y);
-        }
-
-        // Use power up request
-        if (eventType == 4) {
-            int powerId = reader.readInt();
-
-            if (game instanceof BattleBallGame) {
-                BattleBallGame battleballGame = (BattleBallGame) game;
-
-                if (!battleballGame.getStoredPowers().containsKey(gamePlayer)) {
+            // Jump request
+            if (eventType == 2) {
+                if (!player.getRoomUser().isWalkingAllowed()) {
                     return;
                 }
 
-                var powerList = battleballGame.getStoredPowers().get(gamePlayer);
+                int X = reader.readInt();
+                int Y = reader.readInt();
 
-                BattleBallPowerUp powerUp = null;
+                player.getRoomUser().bounceTo(X, Y);
+            }
 
-                for (BattleBallPowerUp power : powerList) {
-                    if (power.getId() == powerId) {
-                        powerUp = power;
-                        break;
+            // Use power up request
+            if (eventType == 4) {
+                int powerId = reader.readInt();
+
+                if (game instanceof BattleBallGame) {
+                    BattleBallGame battleballGame = (BattleBallGame) game;
+
+                    if (!battleballGame.getStoredPowers().containsKey(gamePlayer)) {
+                        return;
                     }
-                }
 
-                if (powerUp != null) {
-                    battleballGame.getEventsQueue().add(new ActivatePowerUpEvent(gamePlayer, powerUp));
-                    powerList.remove(powerUp);
+                    var powerList = battleballGame.getStoredPowers().get(gamePlayer);
 
-                    powerUp.usePower(gamePlayer, player.getRoomUser().getPosition());
+                    BattleBallPowerUp powerUp = null;
+
+                    for (BattleBallPowerUp power : powerList) {
+                        if (power.getId() == powerId) {
+                            powerUp = power;
+                            break;
+                        }
+                    }
+
+                    if (powerUp != null) {
+                        battleballGame.getEventsQueue().add(new ActivatePowerUpEvent(gamePlayer, powerUp));
+                        powerList.remove(powerUp);
+
+                        powerUp.usePower(gamePlayer, player.getRoomUser().getPosition());
+                    }
                 }
             }
         }

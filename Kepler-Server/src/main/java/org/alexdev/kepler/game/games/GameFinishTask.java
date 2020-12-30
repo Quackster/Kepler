@@ -2,6 +2,7 @@ package org.alexdev.kepler.game.games;
 
 import org.alexdev.kepler.dao.mysql.GameDao;
 import org.alexdev.kepler.game.games.enums.GameType;
+import org.alexdev.kepler.game.games.history.GameHistory;
 import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.games.player.GameTeam;
 
@@ -15,7 +16,7 @@ public class GameFinishTask implements Runnable {
     private final Map<Integer, GameTeam> teams;
     private final GameType gameType;
 
-    public GameFinishTask(GameType gameType, List<GamePlayer> players, Map<Integer, GameTeam> teams) {
+    public GameFinishTask(GameType gameType, GameHistory gameHistory, List<GamePlayer> players, Map<Integer, GameTeam> teams) {
         this.gameType = gameType;
         this.players = players;
         this.teams = teams;

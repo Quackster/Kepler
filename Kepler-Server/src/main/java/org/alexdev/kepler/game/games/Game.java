@@ -1,12 +1,15 @@
 package org.alexdev.kepler.game.games;
 
 import org.alexdev.kepler.game.GameScheduler;
+import org.alexdev.kepler.game.games.battleball.BattleBallGame;
 import org.alexdev.kepler.game.games.battleball.events.PlayerMoveEvent;
 import org.alexdev.kepler.game.games.enums.GameState;
 import org.alexdev.kepler.game.games.enums.GameType;
+import org.alexdev.kepler.game.games.history.GameHistoryData;
 import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.games.player.GameTeam;
-import org.alexdev.kepler.game.games.utils.FinishedGame;
+import org.alexdev.kepler.game.games.history.GameHistory;
+import org.alexdev.kepler.game.games.snowstorm.SnowStormGame;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.RoomManager;
@@ -19,11 +22,13 @@ import org.alexdev.kepler.util.config.GameConfiguration;
 import org.alexdev.kepler.util.schedule.FutureRunnable;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 
 public abstract class Game {
     private int id;
@@ -238,14 +243,45 @@ public abstract class Game {
     /**
      * Finish game
      */
-    private void finishGame() {
+    public void finishGame() {
         Game instance = this;
         this.gameStarted = false;
         this.gameFinished = true;
         this.gameState = GameState.ENDED;
 
-        FinishedGame finishedGame = new FinishedGame(this);
-        GameManager.getInstance().getFinishedGames().add(finishedGame);
+        var gameHistoryData = new GameHistoryData();
+        var gameHistory = new GameHistory(gameHistoryData);
+        gameHistory.setGameCreator(this.gameCreatorName);
+
+        if (this.teams.size() > 0) {
+            var sortedTeamList = new ArrayList<>(this.teams.values());
+            sortedTeamList.sort(Comparator.comparingInt(GameTeam::getScore).reversed());
+
+            var winningTeam = sortedTeamList.get(0);
+
+            gameHistoryData.setTeamCount(sortedTeamList.size());
+
+            for (GameTeam team : sortedTeamList) {
+                for (GamePlayer gamePlayer : team.getPlayers()) {
+                    gameHistoryData.addPlayer(gamePlayer.getUserId(), gamePlayer.getScore(), gamePlayer.getTeamId());
+                }
+            }
+
+            gameHistory.setName(this.getName());
+            gameHistory.setWinningTeam(winningTeam.getId());
+            gameHistory.setWinningTeamScore(winningTeam.getScore());
+            gameHistory.setGameType(this.gameType);
+            gameHistory.setMapId(this.getMapId());
+
+            if (this.gameType == GameType.BATTLEBALL) {
+                gameHistory.setExtraData(((BattleBallGame) this).getAllowedPowerUps().stream().map(String::valueOf).collect(Collectors.joining(",")));
+            } else {
+                gameHistory.setExtraData(String.valueOf(((SnowStormGame) this).getGameLengthChoice()));
+            }
+
+            GameManager.getInstance().getLastPlayedGames(this.gameType).add(gameHistory);
+            GameManager.getInstance().refreshPlayedGames();
+        }
 
         // Stop all players from walking when game starts if they selected a tile
         for (GamePlayer p : this.getActivePlayers()) {
@@ -253,7 +289,7 @@ public abstract class Game {
         }
 
         if (this.canIncreasePoints()) {
-            CompletableFuture.runAsync(new GameFinishTask(this.gameType, this.getActivePlayers(), this.getTeams()));
+            CompletableFuture.runAsync(new GameFinishTask(this.gameType, gameHistory, this.getActivePlayers(), this.getTeams()));
         }
 
         // Send scores to everybody
@@ -291,7 +327,7 @@ public abstract class Game {
         var future = GameScheduler.getInstance().getService().scheduleAtFixedRate(this.restartRunnable, 0, 1, TimeUnit.SECONDS);
         this.restartRunnable.setFuture(future);
 
-        this.sendObservers(new GAMEINSTANCE(finishedGame));
+        this.sendObservers(new GAMEINSTANCE(gameHistory));
         this.observers.clear();
     }
 

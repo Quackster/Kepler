@@ -11,6 +11,7 @@ import org.alexdev.kepler.game.commands.CommandManager;
 import org.alexdev.kepler.game.events.EventsManager;
 import org.alexdev.kepler.game.fuserights.FuserightsManager;
 import org.alexdev.kepler.game.games.GameManager;
+import org.alexdev.kepler.game.games.snowstorm.SnowStormMapsManager;
 import org.alexdev.kepler.game.infobus.InfobusManager;
 import org.alexdev.kepler.game.item.ItemManager;
 import org.alexdev.kepler.game.moderation.ChatManager;
@@ -101,6 +102,7 @@ public class Kepler {
             FuserightsManager.getInstance();
             NavigatorManager.getInstance();
             ChatManager.getInstance();
+            SnowStormMapsManager.getInstance();
             GameScheduler.getInstance();
             GameManager.getInstance();
             CommandManager.getInstance();

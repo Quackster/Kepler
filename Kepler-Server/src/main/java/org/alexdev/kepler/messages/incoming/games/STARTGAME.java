@@ -3,11 +3,14 @@ package org.alexdev.kepler.messages.incoming.games;
 import org.alexdev.kepler.game.games.Game;
 import org.alexdev.kepler.game.games.GameManager;
 import org.alexdev.kepler.game.games.enums.GameState;
+import org.alexdev.kepler.game.games.enums.GameType;
 import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.triggers.GameLobbyTrigger;
 import org.alexdev.kepler.messages.outgoing.games.CREATEFAILED;
+import org.alexdev.kepler.messages.outgoing.games.STARTFAILED;
+import org.alexdev.kepler.messages.outgoing.user.ALERT;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 
@@ -42,7 +45,11 @@ public class STARTGAME implements MessageEvent {
         }
 
         if (!game.canGameStart()) {
-            player.send(new CREATEFAILED(CREATEFAILED.FailedReason.MINIMUM_TEAMS_REQUIRED));
+            if (game.getGameType() == GameType.SNOWSTORM && game.getTeamAmount() == 1) {
+                player.send(new ALERT("There needs to be at least two players to start this match"));
+            } else {
+                player.send(new STARTFAILED(STARTFAILED.FailedReason.MINIMUM_TEAMS_REQUIRED, null));
+            }
             return;
         }
 

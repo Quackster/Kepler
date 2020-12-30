@@ -1,6 +1,6 @@
 package org.alexdev.kepler.messages.incoming.games;
 
-import org.alexdev.kepler.game.games.utils.FinishedGame;
+import org.alexdev.kepler.game.games.history.GameHistory;
 import org.alexdev.kepler.game.games.Game;
 import org.alexdev.kepler.game.games.GameManager;
 import org.alexdev.kepler.game.games.enums.GameState;
@@ -36,7 +36,8 @@ public class OBSERVEINSTANCE implements MessageEvent {
             return;
         }
 
-        FinishedGame finishedGame = GameManager.getInstance().getFinishedGameById(gameId);
+        var lobbyTrigger = (GameLobbyTrigger)room.getModel().getModelTrigger();
+        GameHistory finishedGame = GameManager.getInstance().getFinishedGameById(lobbyTrigger.getGameType(), gameId);
 
         if (finishedGame != null) {
             player.send(new GAMEINSTANCE(finishedGame));
