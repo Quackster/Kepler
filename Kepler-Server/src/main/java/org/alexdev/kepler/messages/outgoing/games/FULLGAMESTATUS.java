@@ -5,6 +5,7 @@ import org.alexdev.kepler.game.games.GameManager;
 import org.alexdev.kepler.game.games.battleball.BattleBallTile;
 import org.alexdev.kepler.game.games.enums.GameState;
 import org.alexdev.kepler.game.games.enums.GameType;
+import org.alexdev.kepler.game.games.snowstorm.SnowStormGame;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 
@@ -17,36 +18,56 @@ public class FULLGAMESTATUS extends MessageComposer {
 
     @Override
     public void compose(NettyResponse response) {
-        response.writeInt(GameState.STARTED.getStateId());
-        response.writeInt(this.game.getPreparingGameSecondsLeft().get());
-        response.writeInt(GameManager.getInstance().getPreparingSeconds(game.getGameType()));
-        response.writeInt(this.game.getObjects().size()); // TODO: Objects here
-
         if (this.game.getGameType() == GameType.BATTLEBALL) {
-            for (var gameObject : this.game.getObjects()) {
-                response.writeInt(gameObject.getGameObjectType().getObjectId()); // type, 0 = player
-                gameObject.serialiseObject(response);
-            }
+            response.writeInt(GameState.STARTED.getStateId());
+            response.writeInt(this.game.getPreparingGameSecondsLeft().get());
+            response.writeInt(GameManager.getInstance().getPreparingSeconds(game.getGameType()));
+            response.writeInt(this.game.getObjects().size()); // TODO: Objects here
 
-            response.writeInt(this.game.getRoomModel().getMapSizeY());
-            response.writeInt(this.game.getRoomModel().getMapSizeX());
+            if (this.game.getGameType() == GameType.BATTLEBALL) {
+                for (var gameObject : this.game.getObjects()) {
+                    response.writeInt(gameObject.getGameObjectType().getObjectId()); // type, 0 = player
+                    gameObject.serialiseObject(response);
+                }
 
-            for (int y = 0; y < this.game.getRoomModel().getMapSizeY(); y++) {
-                for (int x = 0; x < this.game.getRoomModel().getMapSizeX(); x++) {
-                    BattleBallTile tile = (BattleBallTile) this.game.getTile(x, y);
+                response.writeInt(this.game.getRoomModel().getMapSizeY());
+                response.writeInt(this.game.getRoomModel().getMapSizeX());
 
-                    if (tile == null) {
-                        response.writeInt(-1);
-                        response.writeInt(0);
-                    } else {
-                        response.writeInt(tile.getColour().getColourId());
-                        response.writeInt(tile.getState().getTileStateId());
+                for (int y = 0; y < this.game.getRoomModel().getMapSizeY(); y++) {
+                    for (int x = 0; x < this.game.getRoomModel().getMapSizeX(); x++) {
+                        BattleBallTile tile = (BattleBallTile) this.game.getTile(x, y);
+
+                        if (tile == null) {
+                            response.writeInt(-1);
+                            response.writeInt(0);
+                        } else {
+                            response.writeInt(tile.getColour().getColourId());
+                            response.writeInt(tile.getState().getTileStateId());
+                        }
                     }
                 }
+
+                response.writeInt(1);
+                response.writeInt(0); // TODO: Show events on game load
+            }
+        }
+        else {
+            var objects = this.game.getObjects();
+            var turns = ((SnowStormGame)this.game).getUpdateTask().getExecutingTurns();
+
+            response.writeInt(this.game.getGameState().getStateId());
+            response.writeInt(this.game.getPreparingGameSecondsLeft().get());
+            response.writeInt(GameManager.getInstance().getPreparingSeconds(game.getGameType()));
+            response.writeInt(this.game.getObjects().size()); // TODO: Objects here
+
+            for (var obj : objects) {
+                obj.serialiseObject(response);
             }
 
-            response.writeInt(1);
-            response.writeInt(0); // TODO: Show events on game load
+            response.writeBool(false);
+            response.writeInt(this.game.getTeamAmount());
+
+            new SNOWSTORM_GAMESTATUS(turns).compose(response);
         }
     }
 
@@ -55,3 +76,4 @@ public class FULLGAMESTATUS extends MessageComposer {
         return 243; // "Cs"
     }
 }
+

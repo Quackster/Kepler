@@ -142,7 +142,7 @@ public class CommandManager {
                     Player player = (Player)entity;
                     player.send(new ALERT(TextsManager.getInstance().getValue("player_commands_no_args")));
                 } else {
-                    System.out.println(TextsManager.getInstance().getValue("player_commands_no_args"));
+                    //System.out.println(TextsManager.getInstance().getValue("player_commands_no_args"));
                 }
                 return;
             }

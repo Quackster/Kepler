@@ -238,7 +238,7 @@ public abstract class Game {
     /**
      * Finish game
      */
-    private void finishGame() {
+    public void finishGame() {
         Game instance = this;
         this.gameStarted = false;
         this.gameFinished = true;
