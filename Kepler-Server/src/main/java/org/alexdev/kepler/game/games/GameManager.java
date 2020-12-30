@@ -8,6 +8,7 @@ import org.alexdev.kepler.game.games.history.GameHistory;
 import org.alexdev.kepler.game.games.player.GameRank;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.models.RoomModel;
+import org.alexdev.kepler.messages.outgoing.games.GAMEDELETED;
 import org.alexdev.kepler.util.DateUtil;
 import org.alexdev.kepler.util.config.GameConfiguration;
 
@@ -67,7 +68,7 @@ public class GameManager {
             var games = this.lastPlayedGames.get(gameType);
 
             if (games.size() > GameManager.MAX_HISTORY) {
-                games = games.subList(games.size() - GameManager.MAX_HISTORY, games.size());
+                games = games.subList(games.size() - Math.min(games.size(), GameManager.MAX_HISTORY + 1), games.size());
                 this.lastPlayedGames.put(gameType, games);
             }
         }
