@@ -4,36 +4,40 @@ import org.alexdev.kepler.dao.mysql.GameDao;
 import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.games.battleball.BattleBallMap;
 import org.alexdev.kepler.game.games.enums.GameType;
+import org.alexdev.kepler.game.games.history.GameHistory;
 import org.alexdev.kepler.game.games.player.GameRank;
-import org.alexdev.kepler.game.games.utils.FinishedGame;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.models.RoomModel;
 import org.alexdev.kepler.util.DateUtil;
 import org.alexdev.kepler.util.config.GameConfiguration;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class GameManager {
+    private static final int MAX_HISTORY = 15;
     private static GameManager instance = null;
     private ScheduledFuture<?> expiryLoop;
 
-    private AtomicInteger idTracker;
+    private AtomicInteger gameCounter;
+    private AtomicInteger finishedGameCounter;
 
     private List<GameSpawn> spawnList;
     private List<GameRank> rankList;
     private List<RoomModel> modelList;
 
     private List<Game> games;
-    private List<FinishedGame> finishedGames;
     private List<BattleBallMap> battleballTileMaps;
 
-    private AtomicInteger gameCounter;
-    private AtomicInteger finishedGameCounter;
+    private Map<GameType, List<GameHistory>> lastPlayedGames;
 
     public GameManager() {
         this.rankList = GameDao.getRanks();
@@ -42,23 +46,42 @@ public class GameManager {
         this.battleballTileMaps = GameDao.getBattleballTileMaps();
 
         this.games = new ArrayList<>();
-        this.finishedGames = new ArrayList<>();
-        this.idTracker = new AtomicInteger(0);
 
         this.gameCounter = new AtomicInteger(0);
         this.finishedGameCounter = new AtomicInteger(0);
 
-        this.createExpiryCheckLoop();
+       // this.createExpiryCheckLoop();
+        this.refreshPlayedGames();
     }
+
+    public void refreshPlayedGames() {
+        if (this.lastPlayedGames == null) {
+            this.lastPlayedGames = new ConcurrentHashMap<>();
+
+            for (GameType gameType : GameType.values()) {
+                this.lastPlayedGames.put(gameType, new CopyOnWriteArrayList<>());
+            }
+        }
+
+        for (GameType gameType : GameType.values()) {
+            var games = this.lastPlayedGames.get(gameType);
+
+            if (games.size() > GameManager.MAX_HISTORY) {
+                games = games.subList(games.size() - GameManager.MAX_HISTORY, games.size());
+                this.lastPlayedGames.put(gameType, games);
+            }
+        }
+    }
+
 
     /**
      * Recurring task used to clear old games after their listing time has expired.
      */
-    private void createExpiryCheckLoop() {
+    /*private void createExpiryCheckLoop() {
         this.expiryLoop = GameScheduler.getInstance().getService().scheduleAtFixedRate(() -> {
             finishedGames.removeIf(game -> DateUtil.getCurrentTimeSeconds() > game.getExpireTime());
         }, 0, getListingExpiryTime() / 10, TimeUnit.SECONDS);
-    }
+    }*/
 
     /**
      * Get the game spawn list by game type, map id and team id
@@ -266,17 +289,11 @@ public class GameManager {
      *
      * @return the list of finished games
      */
-    public List<FinishedGame> getFinishedGames() {
-        return finishedGames;
+    public List<GameHistory> getLastPlayedGames(GameType gameType) {
+        return lastPlayedGames.get(gameType);
     }
 
-    public FinishedGame getFinishedGameById(int id) {
-        for (FinishedGame game : this.finishedGames) {
-            if (game.getId() == id) {
-                return game;
-            }
-        }
-
-        return null;
+    public GameHistory getFinishedGameById(GameType gameType, int gameId) {
+        return this.lastPlayedGames.get(gameType).stream().filter(g -> g.getId() == gameId).findFirst().orElse(null);
     }
 }

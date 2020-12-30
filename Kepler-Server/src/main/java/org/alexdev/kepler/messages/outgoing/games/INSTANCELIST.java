@@ -1,9 +1,10 @@
 package org.alexdev.kepler.messages.outgoing.games;
 
+import org.alexdev.kepler.game.games.enums.GameType;
+import org.alexdev.kepler.game.games.history.GameHistory;
+import org.alexdev.kepler.game.games.snowstorm.SnowStormGame;
 import org.alexdev.kepler.game.games.Game;
 import org.alexdev.kepler.game.games.enums.GameState;
-import org.alexdev.kepler.game.games.enums.GameType;
-import org.alexdev.kepler.game.games.utils.FinishedGame;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 
@@ -13,9 +14,9 @@ import java.util.stream.Collectors;
 public class INSTANCELIST extends MessageComposer {
     private final List<Game> createdGames;
     private final List<Game> startedGames;
-    private final List<FinishedGame> finishedGames;
+    private final List<GameHistory> finishedGames;
 
-    public INSTANCELIST(List<Game> gamesByType, List<FinishedGame> finishedGames) {
+    public INSTANCELIST(List<Game> gamesByType, List<GameHistory> finishedGames) {
         this.createdGames = gamesByType.stream().filter(game -> game.getGameState() == GameState.WAITING).collect(Collectors.toList());
         this.startedGames = gamesByType.stream().filter(game -> game.getGameState() == GameState.STARTED).collect(Collectors.toList());
         this.finishedGames = finishedGames;
@@ -33,8 +34,8 @@ public class INSTANCELIST extends MessageComposer {
             response.writeString(game.getGameCreator());
 
             if (game.getGameType() == GameType.SNOWSTORM) {
-                //SnowStormGame snowStormGame = (SnowStormGame) game;
-                response.writeInt(0);//snowStormGame.getGameLengthChoice());
+                SnowStormGame snowStormGame = (SnowStormGame) game;
+                response.writeInt(snowStormGame.getGameLength());
             }
 
             response.writeInt(game.getMapId());
@@ -48,8 +49,8 @@ public class INSTANCELIST extends MessageComposer {
             response.writeString(game.getGameCreator());
 
             if (game.getGameType() == GameType.SNOWSTORM) {
-                //SnowStormGame snowStormGame = (SnowStormGame) game;
-                response.writeInt(0);//snowStormGame.getGameLengthChoice());
+                SnowStormGame snowStormGame = (SnowStormGame) game;
+                response.writeInt(snowStormGame.getGameLength());
             }
 
             response.writeInt(game.getMapId());
@@ -57,14 +58,13 @@ public class INSTANCELIST extends MessageComposer {
 
         response.writeInt(this.finishedGames.size());
 
-        for (FinishedGame game : this.finishedGames) {
+        for (GameHistory game : this.finishedGames) {
             response.writeInt(game.getId());
             response.writeString(game.getName());
-            response.writeString(game.getMapCreator());
+            response.writeString(game.getGameCreator());
 
             if (game.getGameType() == GameType.SNOWSTORM) {
-                //SnowStormGame snowStormGame = (SnowStormGame) this.game;
-                response.writeInt(0);//snowStormGame.getGameLengthChoice());
+                response.writeInt(game.getGameLength());
             }
 
             response.writeInt(game.getMapId());

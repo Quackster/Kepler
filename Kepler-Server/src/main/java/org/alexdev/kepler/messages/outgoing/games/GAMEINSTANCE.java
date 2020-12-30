@@ -1,11 +1,13 @@
 package org.alexdev.kepler.messages.outgoing.games;
 
+import org.alexdev.kepler.game.games.history.GameHistory;
+import org.alexdev.kepler.game.games.history.GameHistoryPlayer;
+import org.alexdev.kepler.game.games.snowstorm.SnowStormGame;
 import org.alexdev.kepler.game.games.Game;
-import org.alexdev.kepler.game.games.battleball.BattleBallGame;
 import org.alexdev.kepler.game.games.enums.GameState;
 import org.alexdev.kepler.game.games.enums.GameType;
+import org.alexdev.kepler.game.games.battleball.BattleBallGame;
 import org.alexdev.kepler.game.games.player.GamePlayer;
-import org.alexdev.kepler.game.games.utils.FinishedGame;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 
@@ -13,13 +15,13 @@ import java.util.List;
 
 public class GAMEINSTANCE extends MessageComposer {
     private Game game;
-    private FinishedGame finishedGame;
+    private GameHistory finishedGame;
 
     public GAMEINSTANCE(Game game) {
         this.game = game;
     }
 
-    public GAMEINSTANCE(FinishedGame game) {
+    public GAMEINSTANCE(GameHistory game) {
         this.finishedGame = game;
     }
 
@@ -37,7 +39,8 @@ public class GAMEINSTANCE extends MessageComposer {
                 response.writeString(this.game.getGameCreator());
 
                 if (this.game.getGameType() == GameType.SNOWSTORM) {
-                    response.writeInt(0);
+                    SnowStormGame snowStormGame = (SnowStormGame) this.game;
+                    response.writeInt(snowStormGame.getGameLengthChoice());
                 }
 
                 response.writeInt(this.game.getMapId());
@@ -75,7 +78,8 @@ public class GAMEINSTANCE extends MessageComposer {
                 response.writeString(this.game.getGameCreator());
 
                 if (this.game.getGameType() == GameType.SNOWSTORM) {
-                    response.writeInt(0);
+                    SnowStormGame snowStormGame = (SnowStormGame) this.game;
+                    response.writeInt(snowStormGame.getGameLengthChoice());
                 }
 
                 response.writeInt(this.game.getMapId());
@@ -112,25 +116,29 @@ public class GAMEINSTANCE extends MessageComposer {
             response.writeInt(GameState.ENDED.getStateId());
             response.writeInt(this.finishedGame.getId());
             response.writeString(this.finishedGame.getName());
-            response.writeString(this.finishedGame.getMapCreator());
+            response.writeString(this.finishedGame.getGameCreator());
 
             if (this.finishedGame.getGameType() == GameType.SNOWSTORM) {
-                response.writeInt(0);//snowStormGame.getGameLengthChoice());
+                response.writeInt(Integer.valueOf(this.finishedGame.getExtraData()));
             }
 
+            var teamData = this.finishedGame.getHistoryData().getTeamData();
+
             response.writeInt(this.finishedGame.getMapId());
-            response.writeInt(this.finishedGame.getTeamScores().size());
+            response.writeInt(teamData.size());
 
-            for (int i = 0; i < this.finishedGame.getTeamScores().size(); i++) {
-                FinishedGame.FinishedGameTeam gameTeam = this.finishedGame.getTeamScores().get(i);
-                response.writeInt(gameTeam.getPlayerScores().size());
+            for (int i = 0; i < teamData.size(); i++) {
+                var players = teamData.get(i);
+                var teamScore = players.stream().mapToInt(GameHistoryPlayer::getScore).sum();
 
-                for (var kvp : gameTeam.getPlayerScores()) {
-                    response.writeString(kvp.getKey());
-                    response.writeInt(kvp.getValue());
+                response.writeInt(players.size());
+
+                for (var kvp : players) {
+                    response.writeString(kvp.getName());
+                    response.writeInt(kvp.getScore());
                 }
 
-                response.writeInt(gameTeam.getScore());
+                response.writeInt(teamScore);
             }
 
             if (this.finishedGame.getGameType() == GameType.BATTLEBALL) {
