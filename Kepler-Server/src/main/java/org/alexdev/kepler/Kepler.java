@@ -25,7 +25,6 @@ import org.alexdev.kepler.game.texts.TextsManager;
 import org.alexdev.kepler.messages.MessageHandler;
 import org.alexdev.kepler.server.mus.MusServer;
 import org.alexdev.kepler.server.netty.NettyServer;
-import org.alexdev.kepler.server.rcon.RconServer;
 import org.alexdev.kepler.util.DateUtil;
 import org.alexdev.kepler.util.config.GameConfiguration;
 import org.alexdev.kepler.util.config.LoggingConfiguration;
@@ -35,7 +34,6 @@ import org.alexdev.kepler.util.config.writer.GameConfigWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.net.UnknownHostException;
 
 public class Kepler {
@@ -55,7 +53,6 @@ public class Kepler {
     
     private static NettyServer server;
     private static MusServer musServer;
-    private static RconServer rcon;
 
     private static Logger log;
 
@@ -116,7 +113,6 @@ public class Kepler {
             // Update players online back to 0
             SettingsDao.updateSetting("players.online", "0");
 
-            setupRcon();
             setupMus();
             setupServer();
 
@@ -184,26 +180,6 @@ public class Kepler {
         server.bind();
     }
 
-    private static void setupRcon() throws IOException {
-        // Create the RCON instance
-        String rconBind = ServerConfiguration.getString("rcon.bind");
-
-        if (rconBind.length() == 0) {
-            log.error("Remote control (RCON) server bind address is not provided");
-            return;
-        }
-
-        rconPort = ServerConfiguration.getInteger("rcon.port");
-
-        if (rconPort == 0) {
-            log.error("Remote control (RCON) server port not provided");
-            return;
-        }
-
-        rcon = new RconServer(rconBind, rconPort);
-        rcon.listen();
-    }
-
     private static void setupMus() throws UnknownHostException {
         String musBind = ServerConfiguration.getString("bind");
 
@@ -239,7 +215,6 @@ public class Kepler {
             PlayerManager.getInstance().dispose();
 
             server.dispose();
-            rcon.dispose();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -252,15 +227,6 @@ public class Kepler {
      */
     public static NettyServer getServer() {
         return server;
-    }
-
-    /**
-     * Returns the interface to the server handler
-     *
-     * @return {@link NettyServer} interface
-     */
-    public static RconServer getRcon() {
-        return rcon;
     }
 
     /**

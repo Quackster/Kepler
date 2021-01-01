@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static org.apache.batik.svggen.font.table.GlyfDescript.repeat;
-
 public class VOUCHER_REDEEM_OK extends MessageComposer {
     private final List<CatalogueItem> redeemableItems;
 
