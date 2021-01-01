@@ -49,8 +49,7 @@ public class RconConnectionHandler extends ChannelInboundHandlerAdapter {
         }
 
         RconMessage message = (RconMessage) msg;
-
-        //log.info("[RCON] Message received: " + message);
+        //log.info("[RCON] Message received: " + message.getHeader());
 
         try {
             switch (message.getHeader()) {
@@ -63,14 +62,17 @@ public class RconConnectionHandler extends ChannelInboundHandlerAdapter {
 
                     break;
                 case HOTEL_ALERT:
-                    String messageSender = message.getValues().get("sender");
                     String hotelAlert = message.getValues().get("message");
 
                     StringBuilder alert = new StringBuilder();
-                    alert.append(hotelAlert).append("<br>");
+                    alert.append(hotelAlert);
+
+                    if (message.getValues().containsKey("sender")) {
+                    String messageSender = message.getValues().get("sender");
+                    alert.append("<br>");
                     alert.append("<br>");
                     alert.append("- ").append(messageSender);
-
+}
                     for (Player player : PlayerManager.getInstance().getPlayers()) {
                         player.send(new ALERT(alert.toString()));
                     }
