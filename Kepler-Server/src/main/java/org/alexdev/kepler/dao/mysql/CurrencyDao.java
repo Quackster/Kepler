@@ -496,4 +496,32 @@ public class CurrencyDao {
             Storage.closeSilently(conn);
         }
     }
+
+    public static int getCredits(int userId) {
+        int credits = 0;
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("SELECT credits FROM users WHERE id = ?", sqlConnection);
+            preparedStatement.setInt(1, userId);
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                credits = resultSet.getInt("credits");
+            }
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+
+        return credits;
+    }
 }

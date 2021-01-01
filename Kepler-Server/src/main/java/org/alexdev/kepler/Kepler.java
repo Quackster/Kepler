@@ -25,6 +25,7 @@ import org.alexdev.kepler.game.texts.TextsManager;
 import org.alexdev.kepler.messages.MessageHandler;
 import org.alexdev.kepler.server.mus.MusServer;
 import org.alexdev.kepler.server.netty.NettyServer;
+import org.alexdev.kepler.server.rcon.RconServer;
 import org.alexdev.kepler.util.DateUtil;
 import org.alexdev.kepler.util.config.GameConfiguration;
 import org.alexdev.kepler.util.config.LoggingConfiguration;
@@ -34,6 +35,7 @@ import org.alexdev.kepler.util.config.writer.GameConfigWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.net.UnknownHostException;
 
 public class Kepler {
@@ -50,10 +52,10 @@ public class Kepler {
     private static int rconPort;
 
     private static boolean isShutdown;
-    
+
     private static NettyServer server;
     private static MusServer musServer;
-
+    private static RconServer rconServer;
     private static Logger log;
 
     /**
@@ -114,6 +116,7 @@ public class Kepler {
             SettingsDao.updateSetting("players.online", "0");
 
             setupMus();
+            setupRcon();
             setupServer();
 
             /*Connection sqlConnection = null;
@@ -156,10 +159,6 @@ public class Kepler {
         }
     }
 
-    private static int bitLeft(int n, int s) {
-        return (int) (n * Math.pow(2, Math.floorMod(s, 32)));
-    }
-
     private static void setupServer() throws UnknownHostException {
         String serverIP = ServerConfiguration.getString("bind");
 
@@ -180,10 +179,31 @@ public class Kepler {
         server.bind();
     }
 
-    private static void setupMus() throws UnknownHostException {
-        String musBind = ServerConfiguration.getString("bind");
+    private static void setupRcon() throws IOException {
+        // Create the RCON instance
+        rconIP = ServerConfiguration.getString("rcon.bind");
 
-        if (musBind.length() == 0) {
+        if (rconIP.length() == 0) {
+            log.error("Remote control (RCON) server bind address is not provided");
+            return;
+        }
+
+        rconPort = ServerConfiguration.getInteger("rcon.port");
+
+        if (rconPort == 0) {
+            log.error("Remote control (RCON) server port not provided");
+            return;
+        }
+
+        rconServer = new RconServer(rconIP, rconPort);
+        rconServer.createSocket();
+        rconServer.bind();
+    }
+
+    private static void setupMus() throws UnknownHostException {
+        musServerIP = ServerConfiguration.getString("bind");
+
+        if (musServerIP.length() == 0) {
             log.error("Multi User Server (MUS) bind address is not provided");
             return;
         }
@@ -195,7 +215,7 @@ public class Kepler {
             return;
         }
 
-        musServer = new MusServer(musBind, musServerPort);
+        musServer = new MusServer(musServerIP, musServerPort);
         musServer.createSocket();
         musServer.bind();
     }

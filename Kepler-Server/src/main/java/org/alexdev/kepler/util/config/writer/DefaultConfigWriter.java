@@ -13,7 +13,9 @@ public class DefaultConfigWriter implements ConfigWriter {
         config.put("server.port", "12321");
         config.put("server.limit.bandwidth", "false");//String.valueOf(40*1024));
         config.put("server.limit.bandwidth.amount", String.valueOf(40*1024));
+
         config.put("mus.port", "12322");
+
         config.put("rcon.bind", "127.0.0.1");
         config.put("rcon.port", "12309");
 
