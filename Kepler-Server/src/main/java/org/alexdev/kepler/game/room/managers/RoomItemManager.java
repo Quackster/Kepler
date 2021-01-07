@@ -92,6 +92,10 @@ public class RoomItemManager {
                 continue;
             }
 
+            if (item.hasBehaviour(ItemBehaviour.ELEVATION)) {
+                item.getDefinition().setTopHeight(item.getElevation());
+            }
+
             items.add(item);
         }
 

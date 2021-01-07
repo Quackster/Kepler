@@ -1,12 +1,15 @@
 package org.alexdev.kepler.messages.incoming.rooms.items;
 
+import org.alexdev.kepler.game.games.triggers.GameTrigger;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.fuserights.Fuseright;
+import org.alexdev.kepler.game.item.interactors.InteractionType;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.mapping.RoomTile;
+import org.alexdev.kepler.game.triggers.GenericTrigger;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 import org.apache.commons.lang3.StringUtils;
@@ -130,6 +133,22 @@ public class SETSTUFFDATA implements MessageEvent {
         }
 
         item.setCustomData(newData);
+
+        if(item.hasBehaviour(ItemBehaviour.ELEVATION)) {
+            System.out.println("Item data changed");
+
+            double topHeight = item.getDefinition().getTopHeight();
+
+            System.out.println("Top Height = " + topHeight);
+
+            Position entityPosition = new Position(item.getPosition().getX(), item.getPosition().getY(), item.getElevation());
+
+            System.out.println("New position z = " + entityPosition.getZ());
+
+            item.getTile().setTileHeight(entityPosition.getZ());
+            player.getRoomUser().updateNewHeight(entityPosition);
+        }
+
         item.updateStatus();
 
         player.getRoomUser().setLastInteractedItem(item);
