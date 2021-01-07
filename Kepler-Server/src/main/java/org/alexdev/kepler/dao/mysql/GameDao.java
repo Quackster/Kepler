@@ -5,6 +5,7 @@ import org.alexdev.kepler.game.games.GameSpawn;
 import org.alexdev.kepler.game.games.enums.GameType;
 import org.alexdev.kepler.game.games.battleball.BattleBallMap;
 import org.alexdev.kepler.game.games.player.GameRank;
+import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.room.models.RoomModel;
 
@@ -130,7 +131,26 @@ public class GameDao {
 
         return spawns;
     }
+    public static void addHighscore(PlayerDetails details, GameType type, int amount) throws SQLException {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
 
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("INSERT INTO highscores (uid, gametype, score) VALUES (?,?,?)", sqlConnection);
+            preparedStatement.setInt(1, details.getId());
+            preparedStatement.setString(2, type.name().toLowerCase());
+            preparedStatement.setInt(3, amount);
+            preparedStatement.execute();
+
+        } catch (SQLException e) {
+            Storage.logError(e);
+            throw e;
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
     /**
      * Atomically increase tickets.
      *
