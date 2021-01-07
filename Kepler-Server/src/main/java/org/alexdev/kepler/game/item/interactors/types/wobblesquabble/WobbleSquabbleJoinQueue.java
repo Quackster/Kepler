@@ -12,6 +12,7 @@ import org.alexdev.kepler.game.room.enums.StatusType;
 import org.alexdev.kepler.game.room.mapping.RoomTile;
 import org.alexdev.kepler.game.triggers.GenericTrigger;
 import org.alexdev.kepler.messages.outgoing.user.ALERT;
+import org.alexdev.kepler.messages.outgoing.user.currencies.NO_TICKETS;
 
 public class WobbleSquabbleJoinQueue extends GenericTrigger {
     public void onEntityStep(Entity entity, RoomEntity roomEntity, Item item, Position oldPosition) {
@@ -31,7 +32,7 @@ public class WobbleSquabbleJoinQueue extends GenericTrigger {
         Player player = (Player) entity;
 
         if (player.getDetails().getTickets() < WobbleSquabbleManager.WS_GAME_TICKET_COST) {
-            player.send(new ALERT("You need at least " + WobbleSquabbleManager.WS_GAME_TICKET_COST + " ticket(s) to play Wobble Squabble!"));
+            player.send(new NO_TICKETS());
             return; // Too poor!
         }
 
