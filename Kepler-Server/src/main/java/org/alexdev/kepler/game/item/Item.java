@@ -487,18 +487,23 @@ public class Item {
     }
 
     public double getElevation() {
-        switch(Integer.parseInt(this.customData)) {
-            case 2:
-                return 0.5;
-            case 3:
-                return 1;
-            case 4:
-                return 1.5;
-            case 5:
-                return 2;
-            default:
-                return 0;
+        try {
+            switch(Integer.parseInt(this.customData)) {
+                case 2:
+                    return 0.5;
+                case 3:
+                    return 1;
+                case 4:
+                    return 1.5;
+                case 5:
+                    return 2;
+                default:
+                    return 0;
+            }
+        } catch(Exception e) {
+            return 0;
         }
+
     }
 
     public int getId() {
