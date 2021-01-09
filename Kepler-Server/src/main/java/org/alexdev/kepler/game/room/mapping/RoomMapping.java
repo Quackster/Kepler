@@ -205,10 +205,6 @@ public class RoomMapping {
             item.setCustomData("FALSE");
         }
 
-        if (item.hasBehaviour(ItemBehaviour.ELEVATION)) {
-            item.getDefinition().setTopHeight(item.getElevation());
-        }
-
         item.updateEntities(null);
         item.save();
 

@@ -135,18 +135,19 @@ public class SETSTUFFDATA implements MessageEvent {
         item.setCustomData(newData);
 
         if(item.hasBehaviour(ItemBehaviour.ELEVATION)) {
-            System.out.println("Item data changed");
+            Position playerPos = player.getRoomUser().getPosition();
+            Position itemPos = item.getPosition();
 
-            double topHeight = item.getDefinition().getTopHeight();
+            item.getTile().resetHighestItem();
+            item.getTile().setTileHeight(item.getTile().getWalkingHeight());
 
-            System.out.println("Top Height = " + topHeight);
+            if(playerPos.getY() == itemPos.getY() && playerPos.getX() == itemPos.getX()) {
+                playerPos.setZ(player.getRoomUser().getTile().getWalkingHeight());
+                player.getRoomUser().updateNewHeight(playerPos);
+                player.getRoomUser().warp(player.getRoomUser().getPosition(), true);
+            }
 
-            Position entityPosition = new Position(item.getPosition().getX(), item.getPosition().getY(), item.getElevation());
 
-            System.out.println("New position z = " + entityPosition.getZ());
-
-            item.getTile().setTileHeight(entityPosition.getZ());
-            player.getRoomUser().updateNewHeight(entityPosition);
         }
 
         item.updateStatus();

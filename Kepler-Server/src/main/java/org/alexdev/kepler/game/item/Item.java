@@ -161,6 +161,9 @@ public class Item {
      * @return the total height
      */
     public double getTotalHeight() {
+        if(this.hasBehaviour(ItemBehaviour.ELEVATION))
+            return this.position.getZ() + this.getElevation();
+
         return this.position.getZ() + this.getDefinition().getTopHeight();
     }
 
