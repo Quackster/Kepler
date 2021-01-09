@@ -34,6 +34,7 @@ public enum ItemBehaviour {
     PLACE_ROLLER_ON_TOP,
     INVISIBLE,
     EFFECT,
+    ELEVATION,
 
     REDIRECT_ROTATION_0,
     REDIRECT_ROTATION_2,

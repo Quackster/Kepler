@@ -161,6 +161,9 @@ public class Item {
      * @return the total height
      */
     public double getTotalHeight() {
+        if(this.hasBehaviour(ItemBehaviour.ELEVATION))
+            return this.position.getZ() + this.getElevation();
+
         return this.position.getZ() + this.getDefinition().getTopHeight();
     }
 
@@ -481,6 +484,21 @@ public class Item {
     public void setDefinitionId(int definitionId) {
         this.definition = null;
         this.definitionId = definitionId;
+    }
+
+    public double getElevation() {
+        switch(Integer.parseInt(this.customData)) {
+            case 2:
+                return 0.5;
+            case 3:
+                return 1;
+            case 4:
+                return 1.5;
+            case 5:
+                return 2;
+            default:
+                return 0;
+        }
     }
 
     public int getId() {
