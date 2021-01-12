@@ -1,5 +1,4 @@
 plugins {
-    id 'com.google.cloud.tools.jib' version '0.9.8'
     id "org.jetbrains.intellij" version "0.3.5"
 }
 
@@ -11,14 +10,6 @@ targetCompatibility = "1.12"
 
 mainClassName = 'org.alexdev.kepler.Kepler'
 
-jib {
-    from {
-        image = 'openjdk:12-jre-slim'
-    }
-    container {
-        ports = ['12321/tcp', '12309/tcp','12322/tcp']
-    }
-}
 
 repositories {
     flatDir {
