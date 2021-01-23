@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS `catalogue_items` (
   KEY `id` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1351 DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `catalogue_items`;
 /*!40000 ALTER TABLE `catalogue_items` DISABLE KEYS */;
 INSERT INTO `catalogue_items` (`id`, `sale_code`, `page_id`, `order_id`, `price`, `is_hidden`, `amount`, `definition_id`, `item_specialspriteid`, `name`, `description`, `is_package`, `package_name`, `package_description`) VALUES
 	(1, 'floor', '3', 1, 2, 0, 1, 249, 0, '', '', 0, NULL, NULL),
@@ -976,6 +977,7 @@ CREATE TABLE IF NOT EXISTS `catalogue_packages` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `catalogue_packages`;
 /*!40000 ALTER TABLE `catalogue_packages` DISABLE KEYS */;
 INSERT INTO `catalogue_packages` (`id`, `salecode`, `definition_id`, `special_sprite_id`, `amount`) VALUES
 	(1, 'a0 deal102', 184, 0, 5),
@@ -1017,6 +1019,7 @@ CREATE TABLE IF NOT EXISTS `catalogue_pages` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `catalogue_pages`;
 /*!40000 ALTER TABLE `catalogue_pages` DISABLE KEYS */;
 INSERT INTO `catalogue_pages` (`id`, `order_id`, `min_role`, `index_visible`, `is_club_only`, `name_index`, `link_list`, `name`, `layout`, `image_headline`, `image_teasers`, `body`, `label_pick`, `label_extra_s`, `label_extra_t`) VALUES
 	(1, 1, 1, 1, 0, 'Frontpage', '', 'Frontpage', 'ctlg_frontpage2', 'catal_fp_header', 'catal_fp_pic4,catal_fp_pic5,', 'Welcome to the Hotel Catalogue. It\'s packed full of fab things for your room - there\'s something for everyone! Browse the ranges by clicking the tabs on the right.<br><br>Some ranges are seasonal, so check back regularly for new items.<br><br>We regularly', NULL, 'Home sweet home!', '1:You need Credits to buy Furni for your room, click the Purse at the bottom of your screen for more information about Credits.'),
@@ -1087,6 +1090,7 @@ CREATE TABLE IF NOT EXISTS `external_texts` (
   UNIQUE KEY `entry` (`entry`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `external_texts`;
 /*!40000 ALTER TABLE `external_texts` DISABLE KEYS */;
 INSERT INTO `external_texts` (`entry`, `text`) VALUES
 	('handitem1', 'Tea'),
@@ -1123,20 +1127,22 @@ INSERT INTO `external_texts` (`entry`, `text`) VALUES
 /*!40000 ALTER TABLE `external_texts` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `games_maps` (
-  `type` enum('battleball','snowstorm') NOT NULL DEFAULT 'battleball',
-  `id` enum('6','5','4','3','2','1') NOT NULL DEFAULT '1',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `game_type` enum('battleball','snowstorm') NOT NULL DEFAULT 'battleball',
+  `map_id` enum('6','5','4','3','2','1') NOT NULL DEFAULT '1',
   `heightmap` mediumtext NOT NULL,
   `tile_map` mediumtext NOT NULL,
-  UNIQUE KEY `type_id` (`type`,`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `games_maps`;
 /*!40000 ALTER TABLE `games_maps` DISABLE KEYS */;
-INSERT INTO `games_maps` (`type`, `id`, `heightmap`, `tile_map`) VALUES
-	('battleball', '5', 'xxxx000000000000000xxxx|xxxx000000000000000xxxx|xxxx000000000000000xxxx|xxxx000000000000000xxxx|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|xxxx000000000000000xxxx|xxxx000000000000000xxxx|xxxx000000000000000xxxx|xxxx000000000000000xxxx|', '00001111111111111110000|00001111111111111110000|00001111111111111110000|00001111111111111110000|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|00001111111111111110000|00001111111111111110000|00001111111111111110000|00001111111111111110000|'),
-	('battleball', '4', 'xxxxxxx222222222222222xxxxxxxx|xxxxxxx222222222222222xxxxxxxx|xxxxxxx222222222222222xxxxxxxx|xxxxxxx222222222222222xxxxxxxx|xxxxxxx222222222222222xxxxxxxx|00012222222222222222222211111x|00012222222222222222222211111x|00012222222222222222222211111x|00012222222222222222222211111x|00xxxxx222222222222222xxx1111x|000xxxx222222222222222xxx0000x|0000xxx222222222222222x0000000|0000xxx22222222222222210000000|0000xxx22222222222222210000000|0000xxx222222222222222x0000000|0000xxx222222222222222xxxxxxxx|00000xx222222222222222xxxxxxxx|000000xxxx11xx11xx11xxxxxxxxxx|x0000000000000000000000xxxxxxx|xx000000000000000000000xxxxxxx|xxx00000000000000000000xxxxxxx|xxxx0000000000000000000xxxxxxx|', '000000011111111111111100000000|000000011111111111111100000000|000000011111111111111100000000|000000011111111111111100000000|000000011111111111111100000000|000000011111111111111100011110|000000011111111111111100011110|000000011111111111111100011110|000000011111111111111100011110|110000011111111111111100000000|111000011111111111111100000000|111100011111111111111101111111|111100011111111111111101111111|111100011111111111111101111111|111100011111111111111101111111|111100011111111111111100000000|111110011111111111111100000000|111111000000000000000000000000|011111111111111111111110000000|001111111111111111111110000000|000111111111111111111110000000|000011111111111111111110000000|'),
-	('battleball', '3', '0000000x000x0000xxxxxxxxxxxxxxxxx|0xx00x0x0x0000000111000xxxxxxxxxx|0xx00x0x0x00000001110000xxxxxxxxx|0000xx000xxx0000xxxxxx000xxxxxxxx|000xxxxxxxxxxxxxxxxxxxx000xxxxxxx|0xxxxxxxxxxxxxxxxxxxxxxx000xxxxxx|0000xxxxxxxxxxxxxxxxxxxxx000xxxxx|xxx0xxx111111111111111xxx0x0xxxxx|0000xxx111111111111111xxx0x0x0xxx|0xxxxxx111111111111111xxx0x0x0xxx|000xxxx1111111111111111000x00000x|x00xxxx1111111111111111000x0x0xxx|0000xxx111112222211111xxxxxxx0000|0000xxx111112222211111xxx000xxxx0|0000xxx111112222211111xxx000000x0|0000xxx111112222211111xxx000xx0x0|x00xxxx111112222211111xxxxxxx0000|x11xxxx11111111111111110000000xxx|x11xxxx11111111111111110000000xxx|x11xxxx111111111111111xxx0xxxxxxx|x00xxxx111111111111111xxx000xxxxx|x00xxxx111111111111111xxxxxxxxxxx|x000xxxxxx11xxxxx11xxxxxxxxxxxxxx|xx000xxxxx00xxxxx00xxxxxxxxxxxxxx|xxx000xxxx00xxxxx00xxxxxxxxxxxxxx|xxxx00000000x000x0000xxxxxxxxxxxx|xxxxx00xxxxxx000x00x0xxxxxxxxxxxx|xxxxxx000000x000x00x0xxxxxxxxxxxx|xxxxxxxxxx0xxx0xx00xxxxxxxxxxxxxx|xxxxxxxx00000x0x000xxxxxxxxxxxxxx|xxxxxxxxxx0x0x000xxxxxxxxxxxxxxxx|xxxxxxxxxx0x0xxx0xxxxxxxxxxxxxxxx|xxxxxxxxxxxx00000xxxxxxxxxxxxxxxx|', '111100000000111100000000000000000|100100000000111100000000000000000|100100000000111100000000000000000|111100000000111100000000000000000|000000000000000000000000000000000|000000000000000000000000000000000|000000000000000000000000000000000|000000011111110111111100000000000|000000011111110111111100000000000|000000011111110111111100000000000|000000011111110111111100000000000|000000011110000000111100000000000|111100011110000000111100000000000|111100011110011100111100011100000|111100000000011100000000011100000|111100011110011100111100011100000|000000011110000000111100000000000|000000011110000000111100000000000|000000011111110111111100000000000|000000011111110111111100000000000|000000011111110111111100000000000|000000011111110111111100000000000|000000000000000000000000000000000|000000000000000000000000000000000|000000000000000000000000000000000|000000000000011100000000000000000|000000000000011100000000000000000|000000000000011100000000000000000|000000000000000000000000000000000|000000000000000000000000000000000|000000000000000000000000000000000|000000000000000000000000000000000|000000000000000000000000000000000|'),
-	('battleball', '2', 'xxxxxxx00000000xxx00000000xxxxxxx|xxxxxxx00000000xxx00000000xxxxxxx|xxxxxxx00000000xxx00000000xxxxxxx|xxxxxxx0000000000000000000xxxxxxx|xxxxxxx0000000000000000000xxxxxxx|xxxxxxx0000000000000000000xxxxxxx|xxxxxxx00000000xxx00000000xxxxxxx|2222xxx00000000xxx00000000xxx2222|2222xxx00000000xxx00000000xxx2222|222221000000000xxx000000000122222|222221000000000xxx000000000122222|2222xxx00000000xxx00000000xxx2222|2222xxx00000000xxx00000000xxx2222|xxxxxxx00000000xxx00000000xxxxxxx|xxxxxxx0000000000000000000xxxxxxx|xxxxxxx0000000000000000000xxxxxxx|xxxxxxx0000000000000000000xxxxxxx|xxxxxxx00000000xxx00000000xxxxxxx|xxxxxxx00000000xxx00000000xxxxxxx|xxxxxxx00000000xxx00000000xxxxxxx|', '000000011111111000111111110000000|000000011111111000111111110000000|000000011111111000111111110000000|000000011111111000111111110000000|000000011111111000111111110000000|000000011111111000111111110000000|000000011111111000111111110000000|111100011111111000111111110001111|111100011111111000111111110001111|111100011111111000111111110001111|111100011111111000111111110001111|111100011111111000111111110001111|111100011111111000111111110001111|000000011111111000111111110000000|000000011111111000111111110000000|000000011111111000111111110000000|000000011111111000111111110000000|000000011111111000111111110000000|000000011111111000111111110000000|000000011111111000111111110000000|'),
-	('battleball', '1', 'xxxxxxxxxxxxx444444xxxxxxxxx|xxxxxxxxxxxxx444444xxxxxxxxx|xxxxxxxxxxxxx444444xxxxxxxxx|xxx22222222xx444444xxxxxxxxx|xxx22222222xx444444xxxxxxxxx|xxx22222222xx333333xxxxxxxxx|xxx22222222xx222222xxxxxxxxx|xxx222222222222222222xxxxxxx|xxx222222222222222222xxxxxxx|xxx2222222222222222222100000|xxx2222222222222222222100000|xxxxxxx222222222222222100000|xxxxxxx222222222222222100000|4444432222222222222222100000|4444432222222222222222100000|444443222222222222222xxxxxxx|444443222222222222222xxxxxxx|4444432222222222222222222xxx|4444432222222222222222222xxx|xxxxxxx222222222222222222xxx|xxxxxxx222222222222222222xxx|xxxxxxxxx222222xx22222222xxx|xxxxxxxxx111111xx22222222xxx|xxxxxxxxx000000xx22222222xxx|xxxxxxxxx000000xx22222222xxx|xxxxxxxxx000000xxxxxxxxxxxxx|xxxxxxxxx000000xxxxxxxxxxxxx|xxxxxxxxx000000xxxxxxxxxxxxx|', '0000000000000111111000000000|0000000000000111111000000000|0000000000000111111000000000|0001111111100111111000000000|0001111111100000000000000000|0001111111100000000000000000|0001111111100000000000000000|0001111111111111111110000000|0001111111111111111110000000|0001111111111111111110001111|0001111111111111111110001111|0000000111111111111110001111|0000000111111111111110001111|1111000111111111111110001111|1111000111111111111110001111|1111000111111111111110000000|1111000111111111111110000000|1111000111111111111111110000|1111000111111111111111110000|0000000111111111111111111000|0000000111111111111111111000|0000000000000000011111111000|0000000000000000011111111000|0000000000000000011111111000|0000000001111110011111111000|0000000001111110000000000000|0000000001111110000000000000|0000000001111110000000000000|');
+INSERT INTO `games_maps` (`id`, `game_type`, `map_id`, `heightmap`, `tile_map`) VALUES
+	(1, 'battleball', '5', 'xxxx000000000000000xxxx|xxxx000000000000000xxxx|xxxx000000000000000xxxx|xxxx000000000000000xxxx|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|00000000000000000000000|xxxx000000000000000xxxx|xxxx000000000000000xxxx|xxxx000000000000000xxxx|xxxx000000000000000xxxx|', '00001111111111111110000|00001111111111111110000|00001111111111111110000|00001111111111111110000|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|11111111111111111111111|00001111111111111110000|00001111111111111110000|00001111111111111110000|00001111111111111110000|'),
+	(2, 'battleball', '3', '0000000x000x0000xxxxxxxxxxxxxxxxx|0xx00x0x0x0000000111000xxxxxxxxxx|0xx00x0x0x00000001110000xxxxxxxxx|0000xx000xxx0000xxxxxx000xxxxxxxx|000xxxxxxxxxxxxxxxxxxxx000xxxxxxx|0xxxxxxxxxxxxxxxxxxxxxxx000xxxxxx|0000xxxxxxxxxxxxxxxxxxxxx000xxxxx|xxx0xxx111111111111111xxx0x0xxxxx|0000xxx111111111111111xxx0x0x0xxx|0xxxxxx111111111111111xxx0x0x0xxx|000xxxx1111111111111111000x00000x|x00xxxx1111111111111111000x0x0xxx|0000xxx111112222211111xxxxxxx0000|0000xxx111112222211111xxx000xxxx0|0000xxx111112222211111xxx000000x0|0000xxx111112222211111xxx000xx0x0|x00xxxx111112222211111xxxxxxx0000|x11xxxx11111111111111110000000xxx|x11xxxx11111111111111110000000xxx|x11xxxx111111111111111xxx0xxxxxxx|x00xxxx111111111111111xxx000xxxxx|x00xxxx111111111111111xxxxxxxxxxx|x000xxxxxx11xxxxx11xxxxxxxxxxxxxx|xx000xxxxx00xxxxx00xxxxxxxxxxxxxx|xxx000xxxx00xxxxx00xxxxxxxxxxxxxx|xxxx00000000x000x0000xxxxxxxxxxxx|xxxxx00xxxxxx000x00x0xxxxxxxxxxxx|xxxxxx000000x000x00x0xxxxxxxxxxxx|xxxxxxxxxx0xxx0xx00xxxxxxxxxxxxxx|xxxxxxxx00000x0x000xxxxxxxxxxxxxx|xxxxxxxxxx0x0x000xxxxxxxxxxxxxxxx|xxxxxxxxxx0x0xxx0xxxxxxxxxxxxxxxx|xxxxxxxxxxxx00000xxxxxxxxxxxxxxxx|', '111100000000111100000000000000000|100100000000111100000000000000000|100100000000111100000000000000000|111100000000111100000000000000000|000000000000000000000000000000000|000000000000000000000000000000000|000000000000000000000000000000000|000000011111110111111100000000000|000000011111110111111100000000000|000000011111110111111100000000000|000000011111110111111100000000000|000000011110000000111100000000000|111100011110000000111100000000000|111100011110011100111100011100000|111100000000011100000000011100000|111100011110011100111100011100000|000000011110000000111100000000000|000000011110000000111100000000000|000000011111110111111100000000000|000000011111110111111100000000000|000000011111110111111100000000000|000000011111110111111100000000000|000000000000000000000000000000000|000000000000000000000000000000000|000000000000000000000000000000000|000000000000011100000000000000000|000000000000011100000000000000000|000000000000011100000000000000000|000000000000000000000000000000000|000000000000000000000000000000000|000000000000000000000000000000000|000000000000000000000000000000000|000000000000000000000000000000000|'),
+	(3, 'battleball', '1', 'xxxxxxxxxxxxx444444xxxxxxxxx|xxxxxxxxxxxxx444444xxxxxxxxx|xxxxxxxxxxxxx444444xxxxxxxxx|xxx22222222xx444444xxxxxxxxx|xxx22222222xx444444xxxxxxxxx|xxx22222222xx333333xxxxxxxxx|xxx22222222xx222222xxxxxxxxx|xxx222222222222222222xxxxxxx|xxx222222222222222222xxxxxxx|xxx2222222222222222222100000|xxx2222222222222222222100000|xxxxxxx222222222222222100000|xxxxxxx222222222222222100000|4444432222222222222222100000|4444432222222222222222100000|444443222222222222222xxxxxxx|444443222222222222222xxxxxxx|4444432222222222222222222xxx|4444432222222222222222222xxx|xxxxxxx222222222222222222xxx|xxxxxxx222222222222222222xxx|xxxxxxxxx222222xx22222222xxx|xxxxxxxxx111111xx22222222xxx|xxxxxxxxx000000xx22222222xxx|xxxxxxxxx000000xx22222222xxx|xxxxxxxxx000000xxxxxxxxxxxxx|xxxxxxxxx000000xxxxxxxxxxxxx|xxxxxxxxx000000xxxxxxxxxxxxx|', '0000000000000111111000000000|0000000000000111111000000000|0000000000000111111000000000|0001111111100111111000000000|0001111111100000000000000000|0001111111100000000000000000|0001111111100000000000000000|0001111111111111111110000000|0001111111111111111110000000|0001111111111111111110001111|0001111111111111111110001111|0000000111111111111110001111|0000000111111111111110001111|1111000111111111111110001111|1111000111111111111110001111|1111000111111111111110000000|1111000111111111111110000000|1111000111111111111111110000|1111000111111111111111110000|0000000111111111111111111000|0000000111111111111111111000|0000000000000000011111111000|0000000000000000011111111000|0000000000000000011111111000|0000000001111110011111111000|0000000001111110000000000000|0000000001111110000000000000|0000000001111110000000000000|'),
+	(4, 'battleball', '2', 'xxxxxxx00000000xxx00000000xxxxxxx|xxxxxxx00000000xxx00000000xxxxxxx|xxxxxxx00000000xxx00000000xxxxxxx|xxxxxxx0000000000000000000xxxxxxx|xxxxxxx0000000000000000000xxxxxxx|xxxxxxx0000000000000000000xxxxxxx|xxxxxxx00000000xxx00000000xxxxxxx|2222xxx00000000xxx00000000xxx2222|2222xxx00000000xxx00000000xxx2222|222221000000000xxx000000000122222|222221000000000xxx000000000122222|2222xxx00000000xxx00000000xxx2222|2222xxx00000000xxx00000000xxx2222|xxxxxxx00000000xxx00000000xxxxxxx|xxxxxxx0000000000000000000xxxxxxx|xxxxxxx0000000000000000000xxxxxxx|xxxxxxx0000000000000000000xxxxxxx|xxxxxxx00000000xxx00000000xxxxxxx|xxxxxxx00000000xxx00000000xxxxxxx|xxxxxxx00000000xxx00000000xxxxxxx|', '000000011111111000111111110000000|000000011111111000111111110000000|000000011111111000111111110000000|000000011111111000111111110000000|000000011111111000111111110000000|000000011111111000111111110000000|000000011111111000111111110000000|111100011111111000111111110001111|111100011111111000111111110001111|111100011111111000111111110001111|111100011111111000111111110001111|111100011111111000111111110001111|111100011111111000111111110001111|000000011111111000111111110000000|000000011111111000111111110000000|000000011111111000111111110000000|000000011111111000111111110000000|000000011111111000111111110000000|000000011111111000111111110000000|000000011111111000111111110000000|'),
+	(5, 'battleball', '4', 'xxxxxxx222222222222222xxxxxxxx|xxxxxxx222222222222222xxxxxxxx|xxxxxxx222222222222222xxxxxxxx|xxxxxxx222222222222222xxxxxxxx|xxxxxxx222222222222222xxxxxxxx|00012222222222222222222211111x|00012222222222222222222211111x|00012222222222222222222211111x|00012222222222222222222211111x|00xxxxx222222222222222xxx1111x|000xxxx222222222222222xxx0000x|0000xxx222222222222222x0000000|0000xxx22222222222222210000000|0000xxx22222222222222210000000|0000xxx222222222222222x0000000|0000xxx222222222222222xxxxxxxx|00000xx222222222222222xxxxxxxx|000000xxxx11xx11xx11xxxxxxxxxx|x0000000000000000000000xxxxxxx|xx000000000000000000000xxxxxxx|xxx00000000000000000000xxxxxxx|xxxx0000000000000000000xxxxxxx|', '000000011111111111111100000000|000000011111111111111100000000|000000011111111111111100000000|000000011111111111111100000000|000000011111111111111100000000|000000011111111111111100011110|000000011111111111111100011110|000000011111111111111100011110|000000011111111111111100011110|110000011111111111111100000000|111000011111111111111100000000|111100011111111111111101111111|111100011111111111111101111111|111100011111111111111101111111|111100011111111111111101111111|111100011111111111111100000000|111110011111111111111100000000|111111000000000000000000000000|011111111111111111111110000000|001111111111111111111110000000|000111111111111111111110000000|000011111111111111111110000000|');
 /*!40000 ALTER TABLE `games_maps` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `games_player_spawns` (
@@ -1148,6 +1154,7 @@ CREATE TABLE IF NOT EXISTS `games_player_spawns` (
   `rotation` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `games_player_spawns`;
 /*!40000 ALTER TABLE `games_player_spawns` DISABLE KEYS */;
 INSERT INTO `games_player_spawns` (`type`, `map_id`, `team_id`, `x`, `y`, `rotation`) VALUES
 	('battleball', 5, 0, 22, 14, 6),
@@ -1401,6 +1408,7 @@ CREATE TABLE IF NOT EXISTS `games_ranks` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `games_ranks`;
 /*!40000 ALTER TABLE `games_ranks` DISABLE KEYS */;
 INSERT INTO `games_ranks` (`id`, `type`, `title`, `min_points`, `max_points`) VALUES
 	(1, 'battleball', 'Beginner', 0, 10000),
@@ -1422,6 +1430,7 @@ CREATE TABLE IF NOT EXISTS `housekeeping_audit_log` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `housekeeping_audit_log`;
 /*!40000 ALTER TABLE `housekeeping_audit_log` DISABLE KEYS */;
 /*!40000 ALTER TABLE `housekeeping_audit_log` ENABLE KEYS */;
 
@@ -1444,6 +1453,7 @@ CREATE TABLE IF NOT EXISTS `items` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `items`;
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 
@@ -1466,6 +1476,7 @@ CREATE TABLE IF NOT EXISTS `items_definitions` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1417 DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `items_definitions`;
 /*!40000 ALTER TABLE `items_definitions` DISABLE KEYS */;
 INSERT INTO `items_definitions` (`id`, `sprite`, `sprite_id`, `name`, `description`, `colour`, `length`, `width`, `top_height`, `max_status`, `behaviour`, `interactor`, `is_tradable`, `is_recyclable`, `drink_ids`) VALUES
 	(1, 'shelves_norja', 293, 'Bookcase', 'For nic naks and art deco books', '#FFFFFF,#F7EBBC', 1, 1, 2, '2', 'solid,requires_rights_for_interaction', 'default', 1, 1, ''),
@@ -2305,6 +2316,7 @@ CREATE TABLE IF NOT EXISTS `items_moodlight_presets` (
   PRIMARY KEY (`item_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `items_moodlight_presets`;
 /*!40000 ALTER TABLE `items_moodlight_presets` DISABLE KEYS */;
 /*!40000 ALTER TABLE `items_moodlight_presets` ENABLE KEYS */;
 
@@ -2331,6 +2343,7 @@ CREATE TABLE IF NOT EXISTS `items_pets` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `items_pets`;
 /*!40000 ALTER TABLE `items_pets` DISABLE KEYS */;
 /*!40000 ALTER TABLE `items_pets` ENABLE KEYS */;
 
@@ -2344,6 +2357,7 @@ CREATE TABLE IF NOT EXISTS `items_photos` (
   UNIQUE KEY `photo_id` (`photo_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `items_photos`;
 /*!40000 ALTER TABLE `items_photos` DISABLE KEYS */;
 /*!40000 ALTER TABLE `items_photos` ENABLE KEYS */;
 
@@ -2353,6 +2367,7 @@ CREATE TABLE IF NOT EXISTS `items_teleporter_links` (
   UNIQUE KEY `item_id` (`item_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `items_teleporter_links`;
 /*!40000 ALTER TABLE `items_teleporter_links` DISABLE KEYS */;
 /*!40000 ALTER TABLE `items_teleporter_links` ENABLE KEYS */;
 
@@ -2361,6 +2376,7 @@ CREATE TABLE IF NOT EXISTS `messenger_friends` (
   `to_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `messenger_friends`;
 /*!40000 ALTER TABLE `messenger_friends` DISABLE KEYS */;
 /*!40000 ALTER TABLE `messenger_friends` ENABLE KEYS */;
 
@@ -2375,6 +2391,7 @@ CREATE TABLE IF NOT EXISTS `messenger_messages` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `messenger_messages`;
 /*!40000 ALTER TABLE `messenger_messages` DISABLE KEYS */;
 /*!40000 ALTER TABLE `messenger_messages` ENABLE KEYS */;
 
@@ -2383,6 +2400,7 @@ CREATE TABLE IF NOT EXISTS `messenger_requests` (
   `to_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `messenger_requests`;
 /*!40000 ALTER TABLE `messenger_requests` DISABLE KEYS */;
 /*!40000 ALTER TABLE `messenger_requests` ENABLE KEYS */;
 
@@ -2400,11 +2418,12 @@ CREATE TABLE IF NOT EXISTS `public_items` (
   `behaviour` varchar(255) NOT NULL DEFAULT '',
   `current_program` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3460 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3462 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
 
+DELETE FROM `public_items`;
 /*!40000 ALTER TABLE `public_items` DISABLE KEYS */;
 INSERT INTO `public_items` (`id`, `room_model`, `sprite`, `x`, `y`, `z`, `rotation`, `top_height`, `length`, `width`, `behaviour`, `current_program`) VALUES
-	(1, 'picnic', 'picnic_cloth1', 6, 17, 2, 2, 0.001, 1, 1, 'solid', ''),
+	(1, 'picnic', 'picnic_cloth1', 5, 16, 0.001, 0, 0.001, 0, 0, 'can_stand_on_top', ''),
 	(2, 'newbie_lobby', 'crl_lamp', 16, 0, 0, 0, 0.001, 1, 1, 'solid', ''),
 	(3, 'newbie_lobby', 'crl_sofa2c', 17, 0, 0, 4, 1, 1, 1, 'can_sit_on_top', ''),
 	(4, 'newbie_lobby', 'crl_sofa2b', 18, 0, 0, 4, 1, 1, 1, 'can_sit_on_top', ''),
@@ -2530,23 +2549,23 @@ INSERT INTO `public_items` (`id`, `room_model`, `sprite`, `x`, `y`, `z`, `rotati
 	(124, 'library', 'libstool', 21, 36, 2, 0, 1, 1, 1, 'can_sit_on_top', ''),
 	(125, 'library', 'libstool', 22, 36, 2, 0, 1, 1, 1, 'can_sit_on_top', ''),
 	(126, 'library', 'libstool', 23, 36, 2, 0, 1, 1, 1, 'can_sit_on_top', ''),
-	(127, 'floatinggarden', 'stone', 15, 37, 1, 4, 1, 1, 1, 'can_sit_on_top', ''),
-	(128, 'floatinggarden', 'stone', 16, 37, 1, 4, 1, 1, 1, 'can_sit_on_top', ''),
-	(129, 'floatinggarden', 'stone', 17, 29, 1, 2, 1, 1, 1, 'can_sit_on_top', ''),
-	(130, 'floatinggarden', 'stone', 17, 30, 1, 2, 1, 1, 1, 'can_sit_on_top', ''),
-	(131, 'floatinggarden', 'stone', 17, 31, 1, 2, 1, 1, 1, 'can_sit_on_top', ''),
-	(132, 'floatinggarden', 'stone', 17, 35, 1, 2, 1, 1, 1, 'can_sit_on_top', ''),
-	(133, 'floatinggarden', 'stone', 17, 36, 1, 2, 1, 1, 1, 'can_sit_on_top', ''),
-	(134, 'floatinggarden', 'stone', 21, 33, 1, 2, 1, 1, 1, 'can_sit_on_top', ''),
-	(135, 'floatinggarden', 'stone', 21, 34, 1, 2, 1, 1, 1, 'can_sit_on_top', ''),
-	(136, 'floatinggarden', 'stone', 21, 35, 1, 2, 1, 1, 1, 'can_sit_on_top', ''),
-	(137, 'floatinggarden', 'stone', 21, 36, 1, 2, 1, 1, 1, 'can_sit_on_top', ''),
+	(127, 'floatinggarden', 'stone', 15, 37, 1, 4, 1, 1, 1, 'can_sit_on_top,invisible', ''),
+	(128, 'floatinggarden', 'stone', 16, 37, 1, 4, 1, 1, 1, 'can_sit_on_top,invisible', ''),
+	(129, 'floatinggarden', 'stone', 17, 29, 1, 2, 1, 1, 1, 'can_sit_on_top,invisible', ''),
+	(130, 'floatinggarden', 'stone', 17, 30, 1, 2, 1, 1, 1, 'can_sit_on_top,invisible', ''),
+	(131, 'floatinggarden', 'stone', 17, 31, 1, 2, 1, 1, 1, 'can_sit_on_top,invisible', ''),
+	(132, 'floatinggarden', 'stone', 17, 35, 1, 2, 1, 1, 1, 'can_sit_on_top,invisible', ''),
+	(133, 'floatinggarden', 'stone', 17, 36, 1, 2, 1, 1, 1, 'can_sit_on_top,invisible', ''),
+	(134, 'floatinggarden', 'stone', 21, 33, 1, 2, 1, 1, 1, 'can_sit_on_top,invisible', ''),
+	(135, 'floatinggarden', 'stone', 21, 34, 1, 2, 1, 1, 1, 'can_sit_on_top,invisible', ''),
+	(136, 'floatinggarden', 'stone', 21, 35, 1, 2, 1, 1, 1, 'can_sit_on_top,invisible', ''),
+	(137, 'floatinggarden', 'stone', 21, 36, 1, 2, 1, 1, 1, 'can_sit_on_top,invisible', ''),
 	(138, 'floatinggarden', 'stone', 24, 9, 3, 4, 1, 1, 1, 'can_sit_on_top', ''),
 	(139, 'floatinggarden', 'stone', 25, 9, 3, 4, 1, 1, 1, 'can_sit_on_top', ''),
-	(140, 'floatinggarden', 'stone', 26, 33, 1, 6, 1, 1, 1, 'can_sit_on_top', ''),
-	(141, 'floatinggarden', 'stone', 26, 34, 1, 6, 1, 1, 1, 'can_sit_on_top', ''),
-	(142, 'floatinggarden', 'stone', 26, 35, 1, 6, 1, 1, 1, 'can_sit_on_top', ''),
-	(143, 'floatinggarden', 'stone', 26, 36, 1, 6, 1, 1, 1, 'can_sit_on_top', ''),
+	(140, 'floatinggarden', 'stone', 26, 33, 1, 6, 1, 1, 1, 'can_sit_on_top,invisible', ''),
+	(141, 'floatinggarden', 'stone', 26, 34, 1, 6, 1, 1, 1, 'can_sit_on_top,invisible', ''),
+	(142, 'floatinggarden', 'stone', 26, 35, 1, 6, 1, 1, 1, 'can_sit_on_top,invisible', ''),
+	(143, 'floatinggarden', 'stone', 26, 36, 1, 6, 1, 1, 1, 'can_sit_on_top,invisible', ''),
 	(144, 'floatinggarden', 'stone', 28, 13, 3, 4, 1, 1, 1, 'can_sit_on_top', ''),
 	(145, 'floatinggarden', 'stone', 29, 13, 3, 4, 1, 1, 1, 'can_sit_on_top', ''),
 	(146, 'floatinggarden', 'floatbench1', 17, 18, 3, 2, 1, 1, 1, 'can_sit_on_top', ''),
@@ -2852,15 +2871,15 @@ INSERT INTO `public_items` (`id`, `room_model`, `sprite`, `x`, `y`, `z`, `rotati
 	(446, 'picnic', 'hedge9', 18, 8, 2, 4, 0.001, 1, 1, 'solid', ''),
 	(447, 'picnic', 'hedge5', 3, 9, 2, 4, 0.001, 1, 1, 'solid', ''),
 	(448, 'picnic', 'hedge9', 3, 10, 2, 4, 0.001, 1, 1, 'solid', ''),
-	(449, 'picnic', 'picnic_ground', 21, 13, 2, 4, 0.001, 1, 1, 'solid', ''),
-	(450, 'picnic', 'picnic_ground', 7, 14, 2, 4, 0.001, 1, 1, 'solid', ''),
-	(451, 'picnic', 'picnic_ground', 19, 15, 2, 2, 0.001, 1, 1, 'solid', ''),
-	(452, 'picnic', 'picnic_ground', 23, 15, 2, 6, 0.001, 1, 1, 'solid', ''),
-	(453, 'picnic', 'picnic_ground', 5, 16, 2, 2, 0.001, 1, 1, 'solid', ''),
-	(454, 'picnic', 'picnic_ground', 9, 16, 2, 6, 0.001, 1, 1, 'solid', ''),
-	(455, 'picnic', 'picnic_cloth1', 20, 16, 2, 2, 0.001, 1, 1, 'solid', ''),
-	(456, 'picnic', 'picnic_ground', 21, 17, 2, 0, 0.001, 1, 1, 'solid', ''),
-	(457, 'picnic', 'picnic_ground', 7, 18, 2, 0, 0.001, 1, 1, 'solid', ''),
+	(449, 'picnic', 'picnic_ground', 21, 13, 2, 4, 0.2, 1, 1, 'can_sit_on_top', ''),
+	(450, 'picnic', 'picnic_ground', 7, 14, 2, 4, 0.2, 1, 1, 'can_sit_on_top', ''),
+	(451, 'picnic', 'picnic_ground', 19, 15, 2, 2, 0.2, 1, 1, 'can_sit_on_top', ''),
+	(452, 'picnic', 'picnic_ground', 23, 15, 2, 6, 0.2, 1, 1, 'can_sit_on_top', ''),
+	(453, 'picnic', 'picnic_ground', 5, 16, 2, 2, 0.2, 1, 1, 'can_sit_on_top', ''),
+	(454, 'picnic', 'picnic_ground', 9, 16, 2, 6, 0.2, 1, 1, 'can_sit_on_top', ''),
+	(455, 'picnic', 'picnic_cloth1', 19, 15, 0.001, 0, 0.001, 0, 0, 'can_stand_on_top', ''),
+	(456, 'picnic', 'picnic_ground', 21, 17, 2, 0, 0.2, 1, 1, 'can_sit_on_top', ''),
+	(457, 'picnic', 'picnic_ground', 7, 18, 2, 0, 0.2, 1, 1, 'can_sit_on_top', ''),
 	(458, 'picnic', 'picnic_redbench2', 0, 19, 2, 2, 1, 1, 1, 'can_sit_on_top', ''),
 	(459, 'picnic', 'picnic_redbench1', 0, 20, 2, 2, 1, 1, 1, 'can_sit_on_top', ''),
 	(460, 'picnic', 'hedge6', 11, 20, 2, 4, 0.001, 1, 1, 'solid', ''),
@@ -2882,7 +2901,7 @@ INSERT INTO `public_items` (`id`, `room_model`, `sprite`, `x`, `y`, `z`, `rotati
 	(476, 'picnic', 'picnic_redbench2', 0, 22, 2, 2, 1, 1, 1, 'can_sit_on_top', ''),
 	(477, 'picnic', 'hedge5', 11, 22, 2, 4, 0.001, 1, 1, 'solid', ''),
 	(478, 'picnic', 'hedge5', 20, 22, 2, 4, 0.001, 1, 1, 'solid', ''),
-	(479, 'picnic', 'picnic_ground', 25, 22, 2, 4, 0.001, 1, 1, 'solid', ''),
+	(479, 'picnic', 'picnic_ground', 25, 22, 2, 4, 0.2, 1, 1, 'can_sit_on_top', ''),
 	(480, 'picnic', 'picnic_redbench1', 0, 23, 2, 2, 1, 1, 1, 'can_sit_on_top', ''),
 	(481, 'picnic', 'hedge5', 11, 23, 2, 4, 0.001, 1, 1, 'solid', ''),
 	(482, 'picnic', 'picnic_bench1', 12, 23, 2, 2, 1, 1, 1, 'can_sit_on_top', ''),
@@ -2895,14 +2914,14 @@ INSERT INTO `public_items` (`id`, `room_model`, `sprite`, `x`, `y`, `z`, `rotati
 	(489, 'picnic', 'picnic_bench2', 12, 24, 2, 2, 1, 1, 1, 'can_sit_on_top', ''),
 	(490, 'picnic', 'picnic_bench2', 19, 24, 2, 6, 1, 1, 1, 'can_sit_on_top', ''),
 	(491, 'picnic', 'hedge5', 20, 24, 2, 4, 0.001, 1, 1, 'solid', ''),
-	(492, 'picnic', 'picnic_ground', 23, 24, 2, 2, 0.001, 1, 1, 'solid', ''),
-	(493, 'picnic', 'picnic_ground', 27, 24, 2, 6, 0.001, 1, 1, 'solid', ''),
+	(492, 'picnic', 'picnic_ground', 23, 24, 2, 2, 0.2, 1, 1, 'can_sit_on_top', ''),
+	(493, 'picnic', 'picnic_ground', 27, 24, 2, 6, 0.2, 1, 1, 'can_sit_on_top', ''),
 	(494, 'picnic', 'picnic_stump', 5, 25, 2, 2, 0.001, 1, 1, 'solid', ''),
 	(495, 'picnic', 'hedge5', 11, 25, 2, 4, 0.001, 1, 1, 'solid', ''),
 	(496, 'picnic', 'picnic_bench2', 12, 25, 2, 2, 1, 1, 1, 'can_sit_on_top', ''),
 	(497, 'picnic', 'picnic_bench2', 19, 25, 2, 6, 1, 1, 1, 'can_sit_on_top', ''),
 	(498, 'picnic', 'hedge5', 20, 25, 2, 4, 0.001, 1, 1, 'solid', ''),
-	(499, 'picnic', 'picnic_cloth2', 24, 25, 2, 2, 0.001, 1, 1, 'solid', ''),
+	(499, 'picnic', 'picnic_cloth2', 23, 24, 0.001, 0, 0.001, 0, 0, 'can_stand_on_top', ''),
 	(500, 'picnic', 'picnic_stump', 7, 26, 2, 0, 0.001, 1, 1, 'solid', ''),
 	(501, 'picnic', 'hedge5', 11, 26, 2, 4, 0.001, 1, 1, 'solid', ''),
 	(502, 'picnic', 'picnic_bench3', 12, 26, 2, 2, 1, 1, 1, 'can_sit_on_top', ''),
@@ -2910,7 +2929,7 @@ INSERT INTO `public_items` (`id`, `room_model`, `sprite`, `x`, `y`, `z`, `rotati
 	(504, 'picnic', 'picnic_fireplace2', 16, 26, 2, 2, 0.001, 1, 1, 'solid', ''),
 	(505, 'picnic', 'picnic_bench3', 19, 26, 2, 6, 1, 1, 1, 'can_sit_on_top', ''),
 	(506, 'picnic', 'hedge5', 20, 26, 2, 4, 0.001, 1, 1, 'solid', ''),
-	(507, 'picnic', 'picnic_ground', 25, 26, 2, 0, 0.001, 1, 1, 'solid', ''),
+	(507, 'picnic', 'picnic_ground', 25, 26, 2, 0, 0.2, 1, 1, 'can_sit_on_top', ''),
 	(508, 'picnic', 'hedge9', 11, 27, 2, 4, 0.001, 1, 1, 'solid', ''),
 	(509, 'picnic', 'picnic_lemonade', 12, 27, 2, 4, 0.001, 1, 1, 'solid', ''),
 	(510, 'picnic', 'hedge9', 20, 27, 2, 4, 0.001, 1, 1, 'solid', ''),
@@ -2997,7 +3016,7 @@ INSERT INTO `public_items` (`id`, `room_model`, `sprite`, `x`, `y`, `z`, `rotati
 	(591, 'park_b', 'chair1line', 6, 0, 0, 4, 1, 1, 1, 'can_sit_on_top', ''),
 	(592, 'park_b', 'chair1', 7, 0, 0, 4, 1, 1, 1, 'can_sit_on_top', ''),
 	(593, 'park_b', 'chair1frontend', 8, 0, 0, 4, 1, 1, 1, 'can_sit_on_top', ''),
-	(594, 'park_b', 'hububar', 10, 0, 0, 4, 0.001, 1, 1, 'solid', ''),
+	(594, 'park_b', 'bar_basic', 10, 0, 0, 4, 0.001, 1, 1, 'solid,private_furniture', ''),
 	(595, 'park_b', 'cornerchair1', 0, 1, 0, 2, 1, 1, 1, 'can_sit_on_top', ''),
 	(596, 'park_b', 'chair1', 0, 2, 0, 2, 1, 1, 1, 'can_sit_on_top', ''),
 	(597, 'park_b', 'chair1', 0, 3, 0, 2, 1, 1, 1, 'can_sit_on_top', ''),
@@ -3474,7 +3493,7 @@ INSERT INTO `public_items` (`id`, `room_model`, `sprite`, `x`, `y`, `z`, `rotati
 	(1068, 'chill', 'jap_table3', 4, 30, 0, 0, 0.001, 1, 1, 'solid', ''),
 	(1069, 'chill', 'jap_table3', 5, 21, 0, 2, 0.001, 1, 1, 'solid', ''),
 	(1070, 'chill', 'jap_table3', 5, 25, 0, 0, 0.001, 1, 1, 'solid', ''),
-	(1071, 'chill', 'stone', 11, 3, 0, 4, 1, 1, 1, 'can_sit_on_top', ''),
+	(1071, 'chill', 'stone', 11, 3, 0, 4, 2, 1, 1, 'can_sit_on_top', ''),
 	(1072, 'chill', 'stone', 13, 10, 0, 2, 1, 1, 1, 'can_sit_on_top', ''),
 	(1073, 'chill', 'stone', 13, 7, 0, 4, 1, 1, 1, 'can_sit_on_top', ''),
 	(1074, 'chill', 'stone', 13, 8, 0, 2, 1, 1, 1, 'can_sit_on_top', ''),
@@ -4485,12 +4504,12 @@ INSERT INTO `public_items` (`id`, `room_model`, `sprite`, `x`, `y`, `z`, `rotati
 	(2079, 'pizza', 'deskb', 1, 5, 1, 0, 0.001, 1, 1, 'solid', ''),
 	(2080, 'pizza', 'deskc', 2, 5, 1, 0, 0.001, 1, 1, 'solid', ''),
 	(2081, 'pizza', 'deskd', 2, 4, 1, 0, 0.001, 1, 1, 'solid', ''),
-	(2082, 'pizza', 'deske', 2, 3, 1, 0, 0.001, 1, 1, 'solid', ''),
+	(2082, 'pizza', 'deske', 2, 3, 1, 4, 0.001, 1, 1, 'solid', ''),
 	(2083, 'pizza', 'deskf', 2, 2, 1, 0, 0.001, 1, 1, 'solid', ''),
-	(2084, 'pizza', 'deskg', 3, 2, 1, 0, 0.001, 1, 1, 'solid', ''),
-	(2085, 'pizza', 'deskh', 4, 2, 1, 0, 0.001, 1, 1, 'solid', ''),
-	(2086, 'pizza', 'deski', 5, 2, 1, 0, 0.001, 1, 1, 'solid', ''),
-	(2087, 'pizza', 'deskj', 6, 2, 1, 0, 0.001, 1, 1, 'solid', ''),
+	(2084, 'pizza', 'deskg', 3, 2, 1, 4, 0.001, 1, 1, 'solid', ''),
+	(2085, 'pizza', 'deskh', 4, 2, 1, 4, 0.001, 1, 1, 'solid', ''),
+	(2086, 'pizza', 'deski', 5, 2, 1, 4, 0.001, 1, 1, 'solid', ''),
+	(2087, 'pizza', 'deskj', 6, 2, 1, 4, 0.001, 1, 1, 'solid', ''),
 	(2088, 'pizza', 'deskk', 6, 1, 1, 0, 0.001, 1, 1, 'solid', ''),
 	(2089, 'pizza', 'deskl', 6, 0, 1, 0, 0.001, 1, 1, 'solid', ''),
 	(2090, 'bb_lobby_1', 'bb_crossrd', 3, 0, 2, 2, 0.001, 1, 1, 'solid', ''),
@@ -5729,14 +5748,14 @@ INSERT INTO `public_items` (`id`, `room_model`, `sprite`, `x`, `y`, `z`, `rotati
 	(3323, 'pizza', 'invisible_table', 12, 21, 1, 0, 0.002, 2, 2, 'solid,invisible', ''),
 	(3324, 'pizza', 'invisible_table', 14, 4, 0, 0, 0.002, 2, 2, 'solid,invisible', ''),
 	(3325, 'pizza', 'invisible_table', 14, 11, 0, 0, 0.002, 2, 2, 'solid,invisible', ''),
-	(3326, 'md_a', 'wsJoinQueue', 21, 19, 4, 0, 0.001, 1, 1, 'invisible,can_stand_on_top', '21,18,0'),
-	(3327, 'md_a', 'wsJoinQueue', 21, 7, 4, 0, 0.001, 1, 1, 'invisible,can_stand_on_top', '21,8,4'),
-	(3328, 'md_a', 'wsQueueTile', 21, 18, 8, 0, 0.001, 1, 1, 'invisible,can_stand_on_top', '21,18'),
-	(3329, 'md_a', 'wsQueueTile', 21, 17, 8, 0, 0.001, 1, 1, 'invisible,can_stand_on_top', ''),
-	(3330, 'md_a', 'wsQueueTile', 21, 16, 8, 0, 0.001, 1, 1, 'invisible,can_stand_on_top', ''),
-	(3331, 'md_a', 'wsQueueTile', 21, 8, 8, 0, 0.001, 1, 1, 'invisible,can_stand_on_top', ''),
-	(3332, 'md_a', 'wsQueueTile', 21, 9, 8, 0, 0.001, 1, 1, 'invisible,can_stand_on_top', ''),
-	(3333, 'md_a', 'wsQueueTile', 21, 10, 8, 0, 0.001, 1, 1, 'invisible,can_stand_on_top', ''),
+	(3326, 'md_a', 'wsJoinQueue', 21, 19, 4, 0, 0.002, 1, 1, 'invisible,can_stand_on_top', '21,18,0'),
+	(3327, 'md_a', 'wsJoinQueue', 21, 7, 4, 0, 0.002, 1, 1, 'invisible,can_stand_on_top', '21,8,4'),
+	(3328, 'md_a', 'wsQueueTile', 21, 18, 8, 0, 0.002, 1, 1, 'invisible,can_stand_on_top', '21,18'),
+	(3329, 'md_a', 'wsQueueTile', 21, 17, 8, 0, 0.002, 1, 1, 'invisible,can_stand_on_top', ''),
+	(3330, 'md_a', 'wsQueueTile', 21, 16, 8, 0, 0.002, 1, 1, 'invisible,can_stand_on_top', ''),
+	(3331, 'md_a', 'wsQueueTile', 21, 8, 8, 0, 0.002, 1, 1, 'invisible,can_stand_on_top', ''),
+	(3332, 'md_a', 'wsQueueTile', 21, 9, 8, 0, 0.002, 1, 1, 'invisible,can_stand_on_top', ''),
+	(3333, 'md_a', 'wsQueueTile', 21, 10, 8, 0, 0.002, 1, 1, 'invisible,can_stand_on_top', ''),
 	(3334, 'hallway2', 'hw_chair', 17, 18, 0, 2, 1, 1, 1, 'can_sit_on_top', ''),
 	(3335, 'gate_park', 'gate_drumchair', 13, 15, 0, 6, 1, 1, 1, 'can_sit_on_top', ''),
 	(3336, 'emperors', 'invisichair', 12, 7, 4, 4, 1, 1, 1, 'invisible,can_sit_on_top', ''),
@@ -5861,8 +5880,10 @@ INSERT INTO `public_items` (`id`, `room_model`, `sprite`, `x`, `y`, `z`, `rotati
 	(3455, 'beauty_salon1', 'longchair2', 14, 21, 0, 0, 1, 1, 1, 'can_sit_on_top', ''),
 	(3456, 'beauty_salon1', 'longchair3', 15, 21, 0, 0, 1, 1, 1, 'can_sit_on_top', ''),
 	(3457, 'ice_cafe', 'cafe_deskb', 1, 15, 1, 0, 0.001, 1, 1, 'solid', ''),
-	(3458, 'md_a', 'wsTileStart', 21, 15, 8, 0, 0.001, 1, 1, 'invisible,can_stand_on_top', '21,11'),
-	(3459, 'md_a', 'wsTileStart', 21, 11, 8, 0, 0.001, 1, 1, 'invisible,can_stand_on_top', '21,15');
+	(3458, 'md_a', 'wsTileStart', 21, 15, 8, 0, 0.002, 1, 1, 'invisible,can_stand_on_top', '21,11'),
+	(3459, 'md_a', 'wsTileStart', 21, 11, 8, 0, 0.002, 1, 1, 'invisible,can_stand_on_top', '21,15'),
+	(3460, 'cafe_gold0', 'ignore', 15, 3, 1, 0, 1, 1, 1, 'solid,invisible', NULL),
+	(3461, 'cafe_gold0', 'ignore', 16, 3, 1, 0, 1, 1, 1, 'solid,invisible', NULL);
 /*!40000 ALTER TABLE `public_items` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `rank_badges` (
@@ -5870,6 +5891,7 @@ CREATE TABLE IF NOT EXISTS `rank_badges` (
   `badge` char(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `rank_badges`;
 /*!40000 ALTER TABLE `rank_badges` DISABLE KEYS */;
 /*!40000 ALTER TABLE `rank_badges` ENABLE KEYS */;
 
@@ -5878,6 +5900,7 @@ CREATE TABLE IF NOT EXISTS `rank_fuserights` (
   `fuseright` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `rank_fuserights`;
 /*!40000 ALTER TABLE `rank_fuserights` DISABLE KEYS */;
 INSERT INTO `rank_fuserights` (`min_rank`, `fuseright`) VALUES
 	(1, 'default'),
@@ -5936,6 +5959,7 @@ CREATE TABLE IF NOT EXISTS `rare_cycle` (
   PRIMARY KEY (`sale_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `rare_cycle`;
 /*!40000 ALTER TABLE `rare_cycle` DISABLE KEYS */;
 /*!40000 ALTER TABLE `rare_cycle` ENABLE KEYS */;
 
@@ -5947,6 +5971,7 @@ CREATE TABLE IF NOT EXISTS `recycler_rewards` (
   `collection_time_seconds` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `recycler_rewards`;
 /*!40000 ALTER TABLE `recycler_rewards` DISABLE KEYS */;
 INSERT INTO `recycler_rewards` (`id`, `sale_code`, `item_cost`, `recycling_session_time_seconds`, `collection_time_seconds`) VALUES
 	(2, 'rclr_garden', 30, 7200, 1800),
@@ -5965,6 +5990,7 @@ CREATE TABLE IF NOT EXISTS `recycler_sessions` (
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `recycler_sessions`;
 /*!40000 ALTER TABLE `recycler_sessions` DISABLE KEYS */;
 /*!40000 ALTER TABLE `recycler_sessions` ENABLE KEYS */;
 
@@ -5991,6 +6017,7 @@ CREATE TABLE IF NOT EXISTS `rooms` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
 
+DELETE FROM `rooms`;
 /*!40000 ALTER TABLE `rooms` DISABLE KEYS */;
 INSERT INTO `rooms` (`id`, `owner_id`, `category`, `name`, `description`, `model`, `ccts`, `wallpaper`, `floor`, `showname`, `superusers`, `accesstype`, `password`, `visitors_now`, `visitors_max`, `rating`, `created_at`, `updated_at`) VALUES
 	(1, '0', 3, 'Welcome Lounge', 'welcome_lounge', 'newbie_lobby', 'hh_room_nlobby', 0, 0, 0, 0, 0, '', 0, 40, 0, '2018-08-11 07:54:01', '2019-10-16 23:35:48'),
@@ -6022,15 +6049,15 @@ INSERT INTO `rooms` (`id`, `owner_id`, `category`, `name`, `description`, `model
 	(27, '0', 9, 'Treehugger Garden', 'chill', 'chill', 'hh_room_chill', 0, 0, 0, 0, 0, '', 0, 30, 0, '2018-08-11 07:54:01', '2019-12-05 01:05:25'),
 	(28, '0', 8, 'Club Mammoth', 'club_mammoth', 'club_mammoth', 'hh_room_clubmammoth', 0, 0, 0, 0, 0, '', 0, 45, 0, '2018-08-11 07:54:01', '2018-08-11 07:54:01'),
 	(29, '0', 9, 'Floating Garden', 'floatinggarden', 'floatinggarden', 'hh_room_floatinggarden', 0, 0, 0, 0, 0, '', 0, 80, 0, '2018-08-11 07:54:01', '2018-08-11 07:54:01'),
-	(30, '0', 9, 'Picnic Fields', 'picnic', 'picnic', 'hh_room_picnic', 0, 0, 0, 0, 0, '', 0, 55, 0, '2018-08-11 07:54:01', '2019-10-16 23:19:57'),
+	(30, '0', 9, 'Picnic Fields', 'picnic', 'picnic', 'hh_room_picnic', 0, 0, 0, 0, 0, '', 0, 55, 0, '2018-08-11 07:54:01', '2021-01-23 17:10:13'),
 	(31, '0', 9, 'Sun Terrace', 'sun_terrace', 'sun_terrace', 'hh_room_sun_terrace', 0, 0, 0, 0, 0, '', 0, 50, 0, '2018-08-11 07:54:01', '2019-10-16 23:21:54'),
 	(32, '0', 9, 'Peaceful Park', 'gate_park', 'gate_park', 'hh_room_gate_park', 0, 0, 0, 0, 0, '', 0, 50, 0, '2018-08-11 07:54:01', '2018-11-17 00:14:57'),
 	(33, '0', 9, 'Peaceful Park B', 'gate_park', 'gate_park_2', 'hh_room_gate_park', 0, 0, 0, 0, 0, '', 0, 50, 0, '2018-08-11 07:54:01', '2018-11-17 00:14:48'),
-	(34, '0', 9, 'The Park', 'park', 'park_a', 'hh_room_park_general,hh_room_park', 0, 0, 0, 0, 0, '', 0, 45, 0, '2018-08-11 07:54:01', '2019-10-16 23:21:33'),
+	(34, '0', 9, 'The Park', 'park', 'park_a', 'hh_room_park_general,hh_room_park', 0, 0, 0, 0, 0, '', 0, 45, 0, '2018-08-11 07:54:01', '2021-01-23 17:10:25'),
 	(35, '0', 9, 'The Infobus', 'park', 'park_b', 'hh_room_park_general,hh_room_park', 0, 0, 0, 0, 0, '', 0, 20, 0, '2018-08-11 07:54:01', '2018-11-17 00:10:49'),
-	(36, '0', 10, 'Habbo Lido', 'habbo_lido', 'pool_a', 'hh_room_pool,hh_people_pool', 0, 0, 0, 0, 0, '', 0, 60, 0, '2018-08-11 07:54:01', '2018-11-17 00:19:43'),
-	(37, '0', 10, 'Lido B', 'habbo_lido_ii', 'pool_b', 'hh_room_pool,hh_people_pool', 0, 0, 0, 0, 0, '', 0, 60, 0, '2018-08-11 07:54:01', '2018-11-17 00:20:45'),
-	(38, '0', 10, 'Rooftop Rumble', 'rooftop_rumble', 'md_a', 'hh_room_terrace,hh_paalu,hh_people_pool,hh_people_paalu', 0, 0, 0, 0, 0, '', 0, 50, 0, '2018-08-11 07:54:01', '2018-08-11 07:54:01'),
+	(36, '0', 10, 'Habbo Lido', 'habbo_lido', 'pool_a', 'hh_room_pool,hh_people_pool', 0, 0, 0, 0, 0, '', 0, 60, 0, '2018-08-11 07:54:01', '2021-01-23 17:10:48'),
+	(37, '0', 10, 'Lido B', 'habbo_lido_ii', 'pool_b', 'hh_room_pool,hh_people_pool', 0, 0, 0, 0, 0, '', 0, 60, 0, '2018-08-11 07:54:01', '2021-01-23 17:12:22'),
+	(38, '0', 10, 'Rooftop Rumble', 'rooftop_rumble', 'md_a', 'hh_room_terrace,hh_paalu,hh_people_pool,hh_people_paalu', 0, 0, 0, 0, 0, '', 0, 50, 0, '2018-08-11 07:54:01', '2021-01-23 17:10:01'),
 	(39, '0', 11, 'Main Lobby', 'main_lobby', 'lobby_a', 'hh_room_lobby', 0, 0, 0, 0, 0, '', 0, 100, 0, '2018-08-11 07:54:01', '2018-08-11 07:54:01'),
 	(40, '0', 11, 'Basement Lobby', 'basement_lobby', 'floorlobby_a', 'hh_room_floorlobbies', 0, 0, 0, 0, 0, '', 0, 50, 0, '2018-08-11 07:54:01', '2018-08-11 07:54:01'),
 	(41, '0', 11, 'Median Lobby', 'median_lobby', 'floorlobby_b', 'hh_room_floorlobbies', 0, 0, 0, 0, 0, '', 0, 50, 0, '2018-08-11 07:54:01', '2019-10-16 23:06:33'),
@@ -6053,13 +6080,13 @@ INSERT INTO `rooms` (`id`, `owner_id`, `category`, `name`, `description`, `model
 	(58, '0', 12, 'Upper Hallways V', 'hallway_ii', 'hallway11', 'hh_room_hallway', 0, 0, 1, 0, 0, '', 0, 25, 0, '2018-08-11 07:54:01', '2018-11-16 22:28:00'),
 	(59, '0', 7, 'Star Lounge', 'star_lounge', 'star_lounge', 'hh_room_starlounge', 0, 0, 1, 0, 0, '', 0, 35, 0, '2018-08-11 07:54:01', '2019-10-15 20:45:32'),
 	(60, '0', 8, 'Club Orient', 'orient', 'orient', 'hh_room_orient', 0, 0, 1, 0, 0, '', 0, 35, 0, '2018-08-11 07:54:01', '2019-10-16 23:30:17'),
-	(61, '0', 13, 'Cunning Fox Gamehall', 'cunning_fox_gamehall', 'entryhall', 'hh_room_gamehall,hh_games', 0, 0, 1, 0, 0, '', 0, 25, 0, '2018-08-11 07:54:01', '2018-11-17 00:06:39'),
+	(61, '0', 13, 'Cunning Fox Gamehall', 'cunning_fox_gamehall', 'entryhall', 'hh_room_gamehall,hh_games', 0, 0, 1, 0, 0, '', 0, 25, 0, '2018-08-11 07:54:01', '2021-01-23 17:39:36'),
 	(62, '0', 13, 'TicTacToe hall', 'cunning_fox_gamehall/1', 'hallA', 'hh_room_gamehall,hh_games', 0, 0, 1, 0, 0, '', 0, 25, 0, '2018-08-11 07:54:01', '2018-11-16 22:41:26'),
 	(63, '0', 13, 'Battleships hall', 'cunning_fox_gamehall/2', 'hallB', 'hh_room_gamehall,hh_games', 0, 0, 1, 0, 0, '', 0, 25, 0, '2018-08-11 07:54:01', '2018-11-16 22:40:42'),
-	(64, '0', 13, 'Chess hall', 'cunning_fox_gamehall/3', 'hallC', 'hh_room_gamehall,hh_games', 0, 0, 1, 0, 0, '', 0, 25, 0, '2018-08-11 07:54:01', '2018-11-16 22:40:30'),
+	(64, '0', 13, 'Chess hall', 'cunning_fox_gamehall/3', 'hallC', 'hh_room_gamehall,hh_games', 0, 0, 1, 0, 0, '', 0, 25, 0, '2018-08-11 07:54:01', '2021-01-23 17:54:43'),
 	(65, '0', 13, 'Poker hall', 'cunning_fox_gamehall/4', 'hallD', 'hh_room_gamehall,hh_games', 0, 0, 1, 0, 0, '', 0, 25, 0, '2018-08-11 07:54:01', '2018-08-11 07:54:01'),
-	(66, '0', 13, 'Battleball Lobby', 'bb_lobby_beginner_0', 'bb_lobby_1', 'hh_game_bb,hh_game_bb_room,hh_game_bb_ui,hh_gamesys', 0, 0, 1, 0, 0, '', 0, 25, 0, '2018-08-11 07:54:01', '2019-12-08 12:20:33'),
-	(67, '0', 13, 'Snowstorm Lobby', 'sw_lobby_beginner_0', 'snowwar_lobby_1', 'hh_gamesys,hh_game_snowwar,hh_game_snowwar_room,hh_game_snowwar_ui', 0, 0, 1, 0, 0, '', 0, 25, 0, '2018-08-11 07:54:01', '2018-08-11 07:54:01');
+	(66, '0', 13, 'Battleball Lobby', 'bb_lobby_beginner_0', 'bb_lobby_1', 'hh_game_bb,hh_game_bb_room,hh_game_bb_ui,hh_gamesys', 0, 0, 1, 0, 0, '', 0, 25, 0, '2018-08-11 07:54:01', '2021-01-23 17:39:26'),
+	(67, '0', 13, 'Snowstorm Lobby', 'sw_lobby_beginner_0', 'snowwar_lobby_1', 'hh_gamesys,hh_game_snowwar,hh_game_snowwar_room,hh_game_snowwar_ui', 0, 0, 1, 0, 0, '', 0, 25, 0, '2018-08-11 07:54:01', '2021-01-23 17:38:51');
 /*!40000 ALTER TABLE `rooms` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `rooms_bots` (
@@ -6079,6 +6106,7 @@ CREATE TABLE IF NOT EXISTS `rooms_bots` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `rooms_bots`;
 /*!40000 ALTER TABLE `rooms_bots` DISABLE KEYS */;
 INSERT INTO `rooms_bots` (`id`, `name`, `mission`, `x`, `y`, `start_look`, `figure`, `walkspace`, `room_id`, `speech`, `response`, `unrecognised_response`, `hand_items`) VALUES
 	(5, 'Xenia', 'The belle of the Battle Ball', 1, 8, '2,2', 'sd=001&sh=002/54,178,190&lg=200/230,49,57&ch=506/230,49,57,141&lh=001/168,123,67&rh=001/168,123,67&hd=001/168,123,67&ey=001&fc=001/168,123,67&hr=506/194,26,134,190&hrb=506/2,3,4&rs=002/230,49,57&ls=002/230,49,57&bd=001/168,123,67', '0,5 0,6 0,7 1,5 1,6 1,7 1,8', 66, 'Welcome to the BattleBall lobby!|Play games for free here|I\'m super pumped to beat other users in Battleball! :)|Calm down, other people are trying to score!#SHOUT|I\'m the best BattleBall player! *smirks*|I wonder how long it would take me to reach the highest level...|You can earn XP when playing BattleBall!', '', 'Hello there!|Hi, said the person who lost BattleBall|Hey!|Hey, I\'m just chilling here.. doing nothing', ''),
@@ -6131,6 +6159,7 @@ CREATE TABLE IF NOT EXISTS `rooms_categories` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `rooms_categories`;
 /*!40000 ALTER TABLE `rooms_categories` DISABLE KEYS */;
 INSERT INTO `rooms_categories` (`id`, `order_id`, `parent_id`, `isnode`, `name`, `public_spaces`, `allow_trading`, `minrole_access`, `minrole_setflatcat`) VALUES
 	(2, 0, 0, 0, 'No category', 0, 0, 1, 1),
@@ -6167,6 +6196,7 @@ CREATE TABLE IF NOT EXISTS `rooms_events` (
   UNIQUE KEY `room_id` (`room_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `rooms_events`;
 /*!40000 ALTER TABLE `rooms_events` DISABLE KEYS */;
 /*!40000 ALTER TABLE `rooms_events` ENABLE KEYS */;
 
@@ -6182,8 +6212,9 @@ CREATE TABLE IF NOT EXISTS `rooms_models` (
   `trigger_class` enum('flat_trigger','battleball_lobby_trigger','snowstorm_lobby_trigger','space_cafe_trigger','habbo_lido_trigger','rooftop_rumble_trigger','diving_deck_trigger','infobus_park','infobus_poll','none') NOT NULL DEFAULT 'flat_trigger',
   PRIMARY KEY (`id`),
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `rooms_models`;
 /*!40000 ALTER TABLE `rooms_models` DISABLE KEYS */;
 INSERT INTO `rooms_models` (`id`, `model_id`, `model_name`, `door_x`, `door_y`, `door_z`, `door_dir`, `heightmap`, `trigger_class`) VALUES
 	(1, 'model_a', 'model_a', 3, 5, 0, 2, 'xxxxxxxxxxxx|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxxxxxxxxxx|xxxxxxxxxxxx', 'flat_trigger'),
@@ -6210,9 +6241,9 @@ INSERT INTO `rooms_models` (`id`, `model_id`, `model_name`, `door_x`, `door_y`, 
 	(22, 'floatinggarden', 'floatinggarden', 2, 21, 5, 4, 'xxxxxxxxxxxxxxxx333333xxxxxxxxx|xxxxxxxxxxxxxxxx3xxxx3xxxxxxxxx|xxxxxxxxxxxxxxxx3xxxx3xxxxxxxxx|xxxxxxxxxxxxxxxx3xxxx3xxxxxxxxx|xxxxxxxxxxxxxxx223xxx33xxxxxxxx|xxxxxxxxxxxxxxx11xxx33333xxxxxx|xxxxxxxxxxxxxxxx11xx3333333xxxx|xxxxxxxxxxxxxxxx11xx33333333xxx|xxxxxxxxxxxxxxxxx11xxxxxxxx3xxx|xxxxxxxxxxxxxxxxxx11xxxx3333xxx|xxxxxxxxxxxxxxxxxxx1xxxx33333xx|xxxxxxxxxxxxxxxxxxx1xxx3333333x|555xxxxxxxxxxx1111111x333333333|555xxxxxxxxxxx21111111xxxxxx333|555xxxxxxxxxxx22111111111xxxxxx|555xxxxxxxxxxx222xxxxxxx111xxxx|555xxxxxxxxxxx22xxxxxxxxxx1xxxx|555xxxxxxxxxxx23333333333x111xx|555xxxxxxxx33333333333333x111xx|555xxxxxxxx333333x3333333x111xx|555xxxxxxxx33333333333333x111xx|555xxxxxxxx33x33333333333x111xx|555xxxxxxxx33x33x33333333x111xx|555xxxxxxxx33x33x33333333x111xx|5554333333333x333x3333333x111xx|x554333333xxxx33xxxxxxxxxx111xx|xxxxxxxxx3xxxx333221111111111xx|xxxxxxxxx3xxxx333221111111111xx|xxxxxxxxx33333333xx1111x11x11xx|xxxxxxxxx33333333111xxx11xxxxxx|xxxxxxxxxxxxxx33311xxxx11xxxxxx|xxxxxxxxxxxxxx33311xxxx11xxxxxx|xxxxxxxxxxxxxx333x1xxxx11xxxxxx|xxxxxxxxxxxxxx333x1xx111111xxxx|xxxxxxxxxxxxxx33311xx111111xxxx|xxxxxxxxxx333333311xx111111xxxx|xxxxxxxxxxx33333311xx111111xxxx|xxxxxxxxxxxxxxxx111xxxxxxxxxxxx|xxxxxxxxxxxxxxx111xxxxxxxxxxxxx', 'none'),
 	(23, 'sunset_cafe', 'sunset_cafe', 34, 40, 0, 0, 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0000000xxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxx00000xx00000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx000000000000000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx000000000000000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx000000000000000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx000000000000000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx00000000xxx0000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx00000000xxxx000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx00000000xxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx0000000000000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx00000000000000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx00000000000000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx00000000000000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx00000000000000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx00000000000000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', 'none'),
 	(24, 'pool_a', 'pool_a', 2, 25, 7, 2, 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx7xxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx777xxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxx7777777xxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxx77777777xxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxx77777777xxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxx777777777xxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxx7xxx777777xxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxx7x777777777xxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxx7xxx77777777xxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxx7x777777777x7xxxxxxxxxxxxxxx|xxxxxxxxxxxxxxx7xxx7777777777xxxxxxxxxxxxxx|xxxxxxxxxxxxxxx777777777777xxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxx77777777777x2111xxxxxxxxxxxx|xxxxxxxxxxxxxxx7777777777x221111xxxxxxxxxxx|xxxxxxxxx7777777777777777x2211111xxxxxxxxxx|xxxxxxxxx7777777777777777x22211111xxxxxxxxx|xxxxxxxxx7777777777777777x222211111xxxxxxxx|xxxxxx77777777777777777777x222211111xxxxxxx|xxxxxx7777777xx777777777777x222211111xxxxxx|xxxxxx7777777xx77777777777772222111111xxxxx|xxxxxx777777777777777777777x22221111111xxxx|xx7777777777777777777777x322222211111111xxx|77777777777777777777777x33222222111111111xx|7777777777777777777777x333222222211111111xx|xx7777777777777777777x333322222222111111xxx|xx7777777777777777777333332222222221111xxxx|xx777xxx777777777777733333222222222211xxxxx|xx777x7x77777777777773333322222222222xxxxxx|xx777x7x7777777777777x33332222222222xxxxxxx|xxx77x7x7777777777777xx333222222222xxxxxxxx|xxxx77777777777777777xxx3222222222xxxxxxxxx|xxxxx777777777777777777xx22222222xxxxxxxxxx|xxxxxx777777777777777777x2222222xxxxxxxxxxx|xxxxxxx777777777777777777222222xxxxxxxxxxxx|xxxxxxxx7777777777777777722222xxxxxxxxxxxxx|xxxxxxxxx77777777777777772222xxxxxxxxxxxxxx|xxxxxxxxxx777777777777777222xxxxxxxxxxxxxxx|xxxxxxxxxxx77777777777777x2xxxxxxxxxxxxxxxx|xxxxxxxxxxxx77777777777777xxxxxxxxxxxxxxxxx|xxxxxxxxxxxxx777777777777xxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxx7777777777xxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxx77777777xxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxx777777xxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx7777xxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxx77xxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', 'habbo_lido_trigger'),
-	(25, 'pub_a', 'pub_a', 15, 25, 0, 0, 'xxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxx2222222211111xxx|xxxxxxxxx2222222211111xxx|xxxxxxxxx2222222211111xxx|xxxxxxxxx2222222211111xxx|xxxxxxxxx2222222222111xxx|xxxxxxxxx2222222222111xxx|xxxxxxxxx2222222222000xxx|xxxxxxxxx2222222222000xxx|xxxxxxxxx2222222222000xxx|xxxxxxxxx2222222222000xxx|x333333332222222222000xxx|x333333332222222222000xxx|x333333332222222222000xxx|x333333332222222222000xxx|x333333332222222222000xxx|x333332222222222222000xxx|x333332222222222222000xxx|x333332222222222222000xxx|x333332222222222222000xxx|x333333332222222222000xxx|xxxxx31111112222222000xxx|xxxxx31111111000000000xxx|xxxxx31111111000000000xxx|xxxxx31111111000000000xxx|xxxxx31111111000000000xxx|xxxxxxxxxxxxxxx00xxxxxxxx|xxxxxxxxxxxxxxx00xxxxxxxx|xxxxxxxxxxxxxxx00xxxxxxxx|xxxxxxxxxxxxxxx00xxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxx', 'none'),
+	(25, 'pub_a', 'pub_a', 15, 25, 0, 0, 'xxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxx2222211111xxx|xxxxxxxxx2222222211111xxx|xxxxxxxxx2222222211111xxx|xxxxxxxxx2222222211111xxx|xxxxxxxxx2222222222111xxx|xxxxxxxxx2222222222111xxx|xxxxxxxxx2222222222000xxx|xxxxxxxxx2222222222000xxx|xxxxxxxxx2222222222000xxx|xxxxxxxxx2222222222000xxx|x333333332222222222000xxx|x333333332222222222000xxx|x333333332222222222000xxx|x333333332222222222000xxx|x333333332222222222000xxx|x333332222222222222000xxx|x333332222222222222000xxx|x333332222222222222000xxx|x333332222222222222000xxx|x333333332222222222000xxx|xxxxx31111112222222000xxx|xxxxx31111111000000000xxx|xxxxx31111111000000000xxx|xxxxx31111111000000000xxx|xxxxx31111111000000000xxx|xxxxxxxxxxxxxxx00xxxxxxxx|xxxxxxxxxxxxxxx00xxxxxxxx|xxxxxxxxxxxxxxx00xxxxxxxx|xxxxxxxxxxxxxxx00xxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxx', 'none'),
 	(26, 'md_a', 'md_a', 3, 4, 7, 2, 'xxxxxxxx77xxxxxxxxxxxxxxxx|xxxxxxxx77xxxxxxxxxxxxxxxx|xxxxxx77777x77xxxxxxxxxxxx|xxx77777777777xxx44xxxxxxx|77777777777777xx444444444x|777777777777777xx44444444x|xxx777777777777xx44444444x|xxxx7777777777xxx44444444x|7777777777777777744448444x|7777777777777x4x744448444x|777777777777x444444448444x|7777777777774444444448444x|7777777777774444444448444x|777777777777x444444448444x|7777777777777x44444448444x|xxx777777777777x444448444x|xxx7777777777777444448444x|xxx7777777777777444448444x|xxx777777777777x444448444x|xxx77777777777x4444444444x|xxxx777777777444444444444x|xxxxxxxxxxxxxxxxxxxxxxxxxx', 'rooftop_rumble_trigger'),
-	(27, 'picnic', 'picnic', 16, 5, 2, 4, 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xx22222xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|22xxxxxxxxxxxxx22xxxxxxxxxxxxxxxxxxxxx|2222222222222222222x222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222xxx222222222222222222222222|2222222222xx33x22222222222222222222222|222222222xx3333x2222222222222222222222|222222222x333333x222222222222222222222|222222222x333333x222222222222222222222|2222222222x3332x2222222222222222222222|22222222222x33x22222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222x22222xxxx22222222222222222222|22222222222222xxxx22222222222222222222|22222222222222xxx22222222X222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222', 'none'),
+	(27, 'picnic', 'picnic', 16, 5, 2, 4, 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xx22222xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|22xxxxxxxxxxxxx22xxxxxxxxxxxxxxxxxxxxx|2222222222222222222x222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222xxx222222222222222222222222|2222222222xx33x22222222222222222222222|222222222xx3333x2222222222222222222222|222222222x333333x222222222222222222222|222222222x333333x222222222222222222222|2222222222x3332x2222222222222222222222|22222222222x33x22222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222x22222xxxx22222222222222222222|22222222222222xxxx22222222222222222222|22222222222222xxx222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222', 'none'),
 	(28, 'park_a', 'park_a', 2, 15, 0, 0, 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0xxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx00xxxxxxxxxxxx|xxxxxxxxxxxxx0x00xxxxxxxxxxx0x000xxxxxxxxxxx|xxxxxxxxxxxx0000000000000000000000xxxxxxxxxx|xxxxxxxxxxx000000000000000000000000xxxxxxxxx|xxxxxxxxxxx0000000000000000000000000xxxxxxxx|xxxxxxxxxxx00000000000000000000000000xxxxxxx|xxxxxxxx000000000000000000000000000000xxxxxx|xxxxxxx00000000000000000000000000000000xxxxx|xxxxxxx000000000000000000000000000000000xxxx|xxxxxxx0000000000000000000000000000000000xxx|xxxxxxxxx000000000000000000000000000000000xx|00000000000000000000xx00000000000000000000xx|0000000000000000000xxxx00000000000xxxxxxx0xx|0000000000000000000xxxx00000000000x00000xxxx|xxxxx00x0000000000xxxxx0xxxxxx0000x0000000xx|xxxxx0000000000000xxxxx0xx000x0000x000000xxx|xxxxx0000000000000xxxxx0x000000000x00000xxxx|xxxxx000000x0000000xxxx0x000000000xxx00xxxxx|xxxxxxxx000x0000000xxx00xxx000000x0000xxxxxx|xxxxxxxx000x000000xxxx0x0000000000000xxxxxxx|xxxxxxxx000x000000011100000000000000xxxxxxxx|xxxxxxxx000x00000001110000000000000xxxxxxxxx|xxxxxxxxx00x0000000111x00000000x00xxxxxxxxxx|xxxxxxxxxx0x0000000xxx0000000xxxxxxxxxxxxxxx|xxxxxxxxxxxx000000xxxx0000000xxxxxxxxxxxxxxx|xxxxxxxxxxxx000000xxx00xxxxx00xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx0xxx0xx000x00xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx0xxx0x000000xxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx0xxx0x00000xxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx0xxxxx00xxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx0xxxxx0xxxxxxxxxxxxxxxxxxxx', 'infobus_park'),
 	(29, 'park_b', 'park_b', 11, 2, 0, 6, '0000x0000000|0000xx000000|000000000000|00000000000x|000000000000|00x0000x0000', 'infobus_poll'),
 	(30, 'pool_b', 'pool_b', 9, 21, 7, 1, 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx7xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx777xxxxxxxxxxx|xxxxxxxxxxxxxxxxxx8888888x7xxx77777xxxxxxxxxx|xxxxxxxxxxxxxxxxxx8888888x7xxx777777xxxxxxxxx|xxxxxxxxxxxxxxxx88xxxxx77x7x777777777xxxxxxxx|xxxxxxxxxxxxxxxx88x7777777777777777777xxxxxxx|xxxxxxxxxxxxxxxx88x77777777777777777777xxxxxx|xxxxxxxxxxxxxx9988x77777777777777777777xxxxxx|xxxxxxxxxxxxxx9988x7777777777777777777x00xxxx|xxxxxxxxxxxxxx9988x777777777777777777x0000xxx|xxxxxxxxxxxxxx9988x7777777x0000000000000000xx|xxxxxxxxxxxxxx9988x777777x000000000000000000x|7777777777xxxx9988777777x0x0000000000000000xx|x7777777777xxx998877777x000x00000000000000xxx|xx7777777777xx99887777x00000x000000000000xxxx|xxx7777777777x9988777x0000000x0000000000xxxxx|xxxx777777777x777777x00000000x000000000xxxxxx|xxxxx777777777777777000000000x00000000xxxxxxx|xxxxxx77777777777777000000000x0000000xxxxxxxx|xxxxxxx777777x7777770000000000xxxx00xxxxxxxxx|xxxxxxxx77777777777xx0000000000000xxxxxxxxxxx|xxxxxxxxx777777110000x000000000000xxxxxxxxxxx|xxxxxxxxxx7x77x1100000x0000000000xxxxxxxxxxxx|xxxxxxxxxxx777x11000000x00000000xxxxxxxxxxxxx|xxxxxxxxxxxx771110000000x000000xxxxxxxxxxxxxx|xxxxxxxxxxxxx111100000000x0000xxxxxxxxxxxxxxx|xxxxxxxxxxxxxx11100000000x000xxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxx1100000000x00xxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxx110000000x0xxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx110000000xxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxx1100000xxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxx11000xxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxx110xxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx1xxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', 'diving_deck_trigger'),
@@ -6221,7 +6252,7 @@ INSERT INTO `rooms_models` (`id`, `model_id`, `model_name`, `door_x`, `door_y`, 
 	(33, 'cafe', 'cafe', 30, 40, 0, 0, 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0000000xxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxx00000xx00000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx000000000000000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx000000000000000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx000000000000000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx000000000000000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx00000000xxx0000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx00000000xxxx000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx00000000xxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx0000000000000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx00000000000000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx00000000000000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx00000000000000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx00000000000000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx00000000000000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', 'none'),
 	(34, 'den', 'den', 3, 22, 0, 0, '00000000xxxxxxxx|0000000000000000|0000000000000000|000000000000xx00|0000000000000000|0000000000000000|0000000000000000|x000000000000000|0000000000000000|0000000000000000|0000000000000000|0000000000000000|x000000000000000|x000000000000000|x000000000000000|x000000000000000|x000000000000000|x000000000000000|x000000000000000|x000000000000000|xxx00xxxxxxxxxxx|xxx00xxxxxxxxxxx|xxx00xxxxxxxxxxx', 'none'),
 	(35, 'gardens', 'gardens', 2, 15, 0, 0, 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0xxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx00xxxxxxxxxxxx|xxxxxxxxxxxxx0x00xxxxxxxxxxx0x000xxxxxxxxxxx|xxxxxxxxxxxx0000000000000000000000xxxxxxxxxx|xxxxxxxxxxx000000000000000000000000xxxxxxxxx|xxxxxxxxxxx0000000000000000000000000xxxxxxxx|xxxxxxxxxxx00000000000000000000000000xxxxxxx|xxxxxxxx000000000000000000000000000000xxxxxx|xxxxxxx00000000000000000000000000000000xxxxx|xxxxxxx000000000000000000000000000000000xxxx|xxxxxxx0000000000000000000000000000000000xxx|xxxxxxxxx000000000000000000000000000000000xx|00000000000000000000xx00000000000000000000xx|0000000000000000000xxxx00000000000xxxxxxx0xx|0000000000000000000xxxx00000000000x00000xxxx|xxxxx00x0000000000xxxxx0xxxxxx0000x0000000xx|xxxxx0000000000000xxxxx0xx000x0000x000000xxx|xxxxx0000000000000xxxxx0x000000000x00000xxxx|xxxxx000000x0000000xxxx0x000000000xxx00xxxxx|xxxxxxxx000x0000000xxx00xxx000000x0000xxxxxx|xxxxxxxx000x000000xxxx0x0000000000000xxxxxxx|xxxxxxxx000x000000011100000000000000xxxxxxxx|xxxxxxxx000x00000001110000000000000xxxxxxxxx|xxxxxxxxx00x0000000111x00000000x00xxxxxxxxxx|xxxxxxxxxx0x0000000xxx0000000xxxxxxxxxxxxxxx|xxxxxxxxxxxx000000xxxx0000000xxxxxxxxxxxxxxx|xxxxxxxxxxxx000000xxx00xxxxx00xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx0xxx0xx000x00xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx0xxx0x000000xxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx0xxx0x00000xxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx0xxxxx00xxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx0xxxxx0xxxxxxxxxxxxxxxxxxxx', 'none'),
-	(36, 'gate_park', 'gate_park', 17, 26, 0, 0, 'xxxxxxxxx222xx222222xxx222xxxxxx|xxxxxxxxx222xx2222222xx222xxxxxx|xxxxxxxxx22222222222222222xxxxxx|xxxxxxxxx22222222222222222xxxxxx|xxxxxxxxx22222222222222222xxxxxx|xxxxxxxxx22222x22222x22222xxxxxx|xxxxxxxxx11111x22222x11111xxxxxx|0000000xx00000x22222x00000xxxxxx|0000000xx00000000000000000xxxxxx|000000000000000000000000000xx00x|000000000000xxx00000xxx00000000x|000000000000xxx00000xxx00000000x|000000000000xxx00000xxx000000000|00000000000000000000000000000000|x0000000000000000000000000000000|xxx00000000000000000000000000000|xxxxx000000000000000000000000000|xxxxx000000000000000000000000000|xxxxx000000000000000000000000xxx|xxxxxx00000000000000000000000xxx|xxxxxxx000000000000000000000xxxx|xxxxxxxxxx00000000000000000xxxxx|xxxxxxxxxx0000000000000000xxxxxx|xxxxxxxxxx000000000000000xxxxxxx|xxxxxxxxxxxxx00000000000xxxxxxxx|xxxxxxxxxxxxxx000000000xxxxxxxxx|xxxxxxxxxxxxxxxx000xxxxxxxxxxxxx|xxxxxxxxxxxxxxxx000xxxxxxxxxxxxx|xxxxxxxxxxxxxxxx000xxxxxxxxxxxxx', 'none'),
+	(36, 'gate_park', 'gate_park', 17, 26, 0, 0, 'xxxxxxxxx222xx222222xxx22xxxxxxx|xxxxxxxxx222xx2222222xx22xxxxxxx|xxxxxxxxx22222222222222222xxxxxx|xxxxxxxxx22222222222222222xxxxxx|xxxxxxxxx22222222222222222xxxxxx|xxxxxxxxx22222x22222x22222xxxxxx|xxxxxxxxx11111x22222x11111xxxxxx|0000000xx00000x22222x00000xxxxxx|0000000xx00000000000000000xxxxxx|000000000000000000000000000xx00x|000000000000xxx00000xxx00000000x|000000000000xxx00000xxx00000000x|000000000000xxx00000xxx000000000|00000000000000000000000000000000|x0000000000000000000000000000000|xxx00000000000000000000000000000|xxxxx000000000000000000000000000|xxxxx000000000000000000000000000|xxxxx000000000000000000000000xxx|xxxxxx00000000000000000000000xxx|xxxxxxx000000000000000000000xxxx|xxxxxxxxxx00000000000000000xxxxx|xxxxxxxxxx0000000000000000xxxxxx|xxxxxxxxxx000000000000000xxxxxxx|xxxxxxxxxxxxx00000000000xxxxxxxx|xxxxxxxxxxxxxx000000000xxxxxxxxx|xxxxxxxxxxxxxxxx000xxxxxxxxxxxxx|xxxxxxxxxxxxxxxx000xxxxxxxxxxxxx|xxxxxxxxxxxxxxxx000xxxxxxxxxxxxx', 'none'),
 	(37, 'gate_park_2', 'gate_park_2', 17, 23, 0, 0, 'xxxxxxxxxxx111111111111xxxxxxxxxxxx|xxxxxxxxxx11111111111111xxxxxxxxxxx|xxxxxxxxxx11111111111111xxxxxxxxxxx|xxxxxxxxxx11xxxx11xxxx11xxxxxxxxxxx|xxxxxxxxxx00xxxx00xxxx00xxxxxxxxxxx|xxxxxxx0000000000000000000xxxxxxxxx|xxxxxx000000000000000000000xxxxxxxx|xxxxx0000000000000000000x000xxxxxxx|xxxx00000000000000000000xx000xxxxxx|xxxx00000000000000000000xxx000xxxxx|xxxx00000000000000000000xxxx00xxxxx|000000000000000000000000000000xxxxx|0000000000000000000000000000000xxxx|000000000000000000000000000000xxxxx|000000000000000000000000000000xxxxx|000000000000000000000000000000xxxxx|xx00000000000000000000000000000000x|xxx000xxxx00000000000000xxxx0000000|xxx0000xxx00000000000000xxx00000000|xxxx0000xx00000000000000xx000000000|xxxxx0000x00000000000000x00000000xx|xxxxxx00000000000000000000000xxxxxx|xxxxxxx00000x000000000000000x0xxxxx|xxxxxxxx0000xxx0000xxx000000xxxxxxx|xxxxxxxxx000xxx0000xxx000000xxxxxxx|xxxxxxxxxxxxxxx0000xxx000000xxxxxxx|xxxxxxxxxxxxxxxx000xxx000000xxxxxxx|xxxxxxxxxxxxxxxxxxxxxx00000xxxxxxxx', 'none'),
 	(38, 'sun_terrace', 'sun_terrace', 9, 17, 0, 2, 'xxxxxx21000000000xxxxxxxx|xxxxxx3xxx000xx000xxxxxxx|xxxxxx4xxx000xxx000xxxxxx|xxxxxx44xx000x00x000xxxxx|xxxxxx44xx0000xx00000xxxx|xxxxxx44xx000000000000xxx|xxxxxx44xx0000000000000xx|xxxxxxx4xxxxxxx00000000xx|xxxxxxx4xxxxxxx0000000xxx|xxxxxx444432222xxx00xxxxx|xxxxxx444432222x0000000xx|xxxxxx444432222x0000000xx|xxxxxx44400x222x0000000xx|xxxxxx444000x11x0000000xx|xxxxxx444000000x0000000xx|xxxxxx444000000x0000000xx|xxxxxx440000000000000000x|xxxxxx4400000000000000000|x8876x444000000x000000000|x8xx6x444000000x000000000|x9xx6x444000000x000000000|999x65444000000x000000000|999xxx444xxxxxxxxxx000000|999xxx444xxxxxxxxxxx00000|999xxx333xxxxxxxxxxxx0000|999xxx222222222222222x000|xxxxxx222222222222222xx00|xxxxxx222222222222222xxx0|xxxxxx222222222222222xxxx|xxxxxxx22222222222222xxxx|xxxxxxxx2222222222222xxxx', 'none'),
 	(39, 'space_cafe', 'space_cafe', 21, 17, 1, 0, 'x3333x333211111xxxxxxxxx|x3333x333211111xx3333333|xxxxxx333211111xx3333333|33333333xx11111xx3333333|33333333xx11111xx3333333|33x333xxxx11111xx3333333|xxx222xxx111111xx3333333|22222222xx11111xx3333333|22222222xxx1111xx3333333|22222222xxxx1111x2222222|22222222xxxx1111x1111111|22222222xxxx111111111111|22222222xxxx111111111111|xxx222xxxxx1111111111111|xxxx33xxxx11111111111111|xxx333321111111111111111|xxx333321111111111111111|xxx333321111111111111111|xxxxxxxxxxxxx1111xxxx11x|xxxxxxxxxxxxx0000xxxx11x|xxxxxxxxxx0000000xxxx11x|xxxxxxxxxx0000000xxxxxxx|xxxxxxxxxx0000000xxxxxxx|xxxxxxxxxx0000000xxxxxxx|xxxxxxxxxx0000000xxxxxxx|xxxxxxxxxx0000000xxxxxxx', 'space_cafe_trigger'),
@@ -6257,7 +6288,7 @@ INSERT INTO `rooms_models` (`id`, `model_id`, `model_name`, `door_x`, `door_y`, 
 	(69, 'netcafe', 'netcafe', 22, 12, 0, 6, 'xxxxx1111xxxxxxxxxxx1xxxx|xxxxx1111111111111111xxxx|xxxxx1111111111111111xxxx|xxxxx1111111111111111xxxx|xxxxxxxx0000000000000xxxx|111111100000000000000xxxx|111111100000000000000xxxx|111111100000000000000xxxx|xxxx11100000000000000xxxx|x1xx11100000000000000xxxx|x1xx11100000000000000xxxx|x1xx111000000000000000000|x1xx111000000000000000000|xxxx111000000000000000000|xxxx11100000000000000xxxx|xxxx1110000000xx11111xxxx|xxxxx111110000x111111xxxx|xxxxxx111100001111111xxxx|xxxxxx111100001111111xxxx|xxxxxx111100001111111xxxx|xxxxxx111100001111111xxxx|xxxxxx111100001111111xxxx|xxxxxx111100001111111xxxx|xxxxx1111100001111111xxxx|', 'none'),
 	(70, 'hallway0', 'hallway0', 2, 2, 0, 2, 'xxxx000000001111111111111111xxxx|xxxx000000001111111111111111xxxx|00000000000011111111111111111111|00000000000011111111111111111111|00000000000011111111111111111111|00000000000011111111111111111111|xxxx000000001111111111111111xxxx|xxxx0000000x1111111111111111xxxx|xxxxxxxxxxxxx1111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxxxx1111xxxxxxxxxxxxxx|xxxxxxxxxxxxxx1111xxxxxxxxxxxxxx|xxxxxxxxxxxxxx1111xxxxxxxxxxxxxx|xxxxxxxxxxxxxx1111xxxxxxxxxxxxxx', 'none'),
 	(71, 'hallway9', 'hallway9', 21, 23, 0, 7, 'xxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxx000000000000000000000000xxxx|xxxx000000000000000000000000xxxx|00000000000000000000000000000000|00000000000000000000000000000000|00000000000000000000000000000000|00000000000000000000000000000000|xxxx000000000000000000000000xxxx|xxxx000000000000000000000000xxxx|xxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxx000000000000xxxxxxxx|xxxxxxxxxxxx000000000000xxxxxxxx|xxxxxxxxxxxx000000000000xxxxxxxx|xxxxxxxxxxxx000000000000xxxxxxxx|xxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxx0000xxxxxxxxxxxxxx', 'none'),
-	(72, 'hallway2', 'hallway2', 15, 2, 0, 4, 'xxxxxxxxxxxxxx0000xxxxxxxxxx|xxxxxxxxxxxxxx0000xxxxxxxxxx|xxxxxxxxxxxxxx0000xxxxxxxxxx|xxxxxxxxxxxxxx0000xxxxxxxxxx|xxxx11111111000000000000xxxx|xxxx11111111000000000000xxxx|1111111111110000000000000000|1111111111110000000000000000|1111111111110000000000000000|1111111111110000000000000000|xxxx11111111000000000000xxxx|xxxx11111111000000000000xxxx|xxxx11111111xxxx00000000xxxx|xxxx11111111xxxx00000000xxxx|xxxx11111111xxxx00000000xxxx|xxxx11111111xxxx00000000xxxx|xxxx11111111xxxx00000000xxxx|xxxx11111111xxxx00000000xxxx|xxxx11111111xxxx00000000xxxx|xxxx11111111xxxx00000000xxxx|xxxxxx1111xxxxxxxxxxxxxxxxxx|xxxxxx1111xxxxxxxxxxxxxxxxxx|xxxxxx1111xxxxxxxxxxxxxxxxxx|xxxxxx1111xxxxxxxxxxxxxxxxxx', 'none'),
+	(72, 'hallway2', 'hallway2', 15, 2, 0, 4, 'xxxxxxxxxxxxxx000xxxxxxxxxxx|xxxxxxxxxxxxxx000xxxxxxxxxxx|xxxxxxxxxxxxxx000xxxxxxxxxxx|xxxxxxxxxxxxxx0000xxxxxxxxxx|xxxx11111111000000000000xxxx|xxxx11111111000000000000xxxx|1111111111110000000000000000|1111111111110000000000000000|1111111111110000000000000000|1111111111110000000000000000|xxxx11111111000000000000xxxx|xxxx11111111000000000000xxxx|xxxx11111111xxxx00000000xxxx|xxxx11111111xxxx00000000xxxx|xxxx11111111xxxx00000000xxxx|xxxx11111111xxxx00000000xxxx|xxxx11111111xxxx00000000xxxx|xxxx11111111xxxx00000000xxxx|xxxx11111111xxxx00000000xxxx|xxxx11111111xxxx00000000xxxx|xxxxxx1111xxxxxxxxxxxxxxxxxx|xxxxxx1111xxxxxxxxxxxxxxxxxx|xxxxxx1111xxxxxxxxxxxxxxxxxx|xxxxxx1111xxxxxxxxxxxxxxxxxx', 'none'),
 	(73, 'hallway1', 'hallway1', 2, 14, 0, 2, 'xxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxx0000000000000000xxxx|xxxxxxxxxxxx0000000000000000xxxx|xxxxxxxxxxxx00000000000000000000|xxxxxxxxxxxx00000000000000000000|xxxxxxxxxxxx00000000000000000000|xxxxxxxxxxxx00000000000000000000|xxxxxxxxxxxx0000000000000000xxxx|xxxxxxxxxxxx0000000000000000xxxx|xxxx1111111100000000xxxxxxxxxxxx|xxxx1111111100000000xxxxxxxxxxxx|11111111111100000000xxxxxxxxxxxx|11111111111100000000xxxxxxxxxxxx|11111111111100000000xxxxxxxxxxxx|11111111111100000000xxxxxxxxxxxx|xxxx1111111100000000xxxxxxxxxxxx|xxxx1111111100000000xxxxxxxxxxxx', 'none'),
 	(74, 'hallway3', 'hallway3', 14, 21, 1, 0, 'xxxxxx1111xxxxxxxxxxxxxxxxxxxxxx|xxxxxx1111xxxxxxxxxxxxxxxxxxxxxx|xxxxxx1111xxxxxxxxxxxxxxxxxxxxxx|xxxxxx1111xxxxxxxxxxxxxxxxxxxxxx|xxxx111111111111111100000000xxxx|xxxx111111111111111100000000xxxx|11111111111111111111000000000000|11111111111111111111000000000000|11111111111111111111000000000000|11111111111111111111000000000000|xxxx111111111111111100000000xxxx|xxxx111111111111111100000000xxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxxxx1111xxxxxxxxxxxxxx|xxxxxxxxxxxxxx1111xxxxxxxxxxxxxx|xxxxxxxxxxxxxx1111xxxxxxxxxxxxxx|xxxxxxxxxxxxxx1111xxxxxxxxxxxxxx', 'none'),
 	(75, 'hallway4', 'hallway4', 29, 3, 1, 6, 'xxxx000000001111111111111111xxxx|xxxx000000001111111111111111xxxx|00000000000011111111111111111111|00000000000011111111111111111111|00000000000011111111111111111111|00000000000011111111111111111111|xxxx000000001111111111111111xxxx|xxxx000000001111111111111111xxxx|xxxxxxxxxxxxxxxxxxxx11111111xxxx|xxxxxxxxxxxxxxxxxxxx11111111xxxx|xxxxxxxxxxxxxxxxxxxx11111111xxxx|xxxxxxxxxxxxxxxxxxxx11111111xxxx|xxxxxxxxxxxxxxxxxxxx11111111xxxx|xxxxxxxxxxxxxxxxxxxx11111111xxxx|xxxxxxxxxxxxxxxxxxxx11111111xxxx|xxxxxxxxxxxxxxxxxxxx11111111xxxx|xxxxxxxxxxxxxxxxxxxxxx1111xxxxxx|xxxxxxxxxxxxxxxxxxxxxx1111xxxxxx|xxxxxxxxxxxxxxxxxxxxxx1111xxxxxx|xxxxxxxxxxxxxxxxxxxxxx1111xxxxxx', 'none'),
@@ -6273,7 +6304,10 @@ INSERT INTO `rooms_models` (`id`, `model_id`, `model_name`, `door_x`, `door_y`, 
 	(85, 'hallA', 'hallA', 0, 0, 1, 4, '11xxxxxxxxxxxxxxx|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111', 'none'),
 	(86, 'hallB', 'hallB', 1, 0, 1, 4, 'x11xxxxxxxxxxxxxxxx|1111111111111111111|1111111111111111111|1111111111111111111|1111111111111111111|1111111111111111111|1111111111111111111|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx', 'none'),
 	(87, 'hallC', 'hallC', 0, 0, 1, 4, '11xxxxxxxxxxxxxxx|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111', 'none'),
-	(88, 'hallD', 'hallD', 0, 0, 1, 4, '11xxxxxxxxxxxxxxx|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111', 'none');
+	(88, 'hallD', 'hallD', 0, 0, 1, 4, '11xxxxxxxxxxxxxxx|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111', 'none'),
+	(89, 'model_s', 'model_s', 0, 3, 0, 2, 'xxxxxxx|x00000x|x00000x|000000x|x00000x|x00000x|x00000x|x00000x|xxxxxxx', 'flat_trigger'),
+	(90, 'emperors', 'emperors', 11, 31, 0, 0, 'xxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxx444xxxx4444xxxxxx|xxxx2x4444xxxx44444x2xxx|xxxx2x44444x4x44444x2xxx|xxxx2x4444444444444x2xxx|xxxx2x33xx33333xx33x2xxx|xxxx2222xx22222xx2222xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22xx222222222xx22xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22222xx22x2222222xxx|xxxxx2xx2xx22xxx2xx2xxxx|xxxxxxxxxxx11xxxxxxxxxxx|xxxxxxxxxxx00xxxxxxxxxxx|xxxxxxxxxxx00xxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxx', 'none'),
+	(91, 'beauty_salon1', 'beauty_salon1', 14, 3, 0, 1, 'xxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxx0xxxxxxxxx|xxxxxxx000000000000000xx|xxxxxx0000000000000000xx|xxxxx000000000000xxxxxxx|xxxx000000000000000000xx|xxx0000000000000000000xx|xxx0000000000000000000xx|xxx0000000000000000000xx|xxxxxxxxxxxxxxxx000000xx|xx0000000000000x000000xx|000000000000000x000000xx|000000000000000x000000xx|000000000000000x000000xx|00x000000000000x000000xx|00xxxxxxxxxxxxxx000000xx|00xxxxxxxxxxxxxx000000xx|00x0000000000000000000xx|00x0000000000000000000xx|00x0000000000000000000xx|0000000000000000000000xx|x000000000000000000000xx|xxx0000000000000000000xx', 'none');
 /*!40000 ALTER TABLE `rooms_models` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `rooms_rights` (
@@ -6281,6 +6315,7 @@ CREATE TABLE IF NOT EXISTS `rooms_rights` (
   `room_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `rooms_rights`;
 /*!40000 ALTER TABLE `rooms_rights` DISABLE KEYS */;
 /*!40000 ALTER TABLE `rooms_rights` ENABLE KEYS */;
 
@@ -6292,6 +6327,7 @@ CREATE TABLE IF NOT EXISTS `room_chatlogs` (
   `message` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `room_chatlogs`;
 /*!40000 ALTER TABLE `room_chatlogs` DISABLE KEYS */;
 /*!40000 ALTER TABLE `room_chatlogs` ENABLE KEYS */;
 
@@ -6300,6 +6336,7 @@ CREATE TABLE IF NOT EXISTS `schema_migrations` (
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `schema_migrations`;
 /*!40000 ALTER TABLE `schema_migrations` DISABLE KEYS */;
 INSERT INTO `schema_migrations` (`version`) VALUES
 	('20180605202455'),
@@ -6371,6 +6408,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
   PRIMARY KEY (`setting`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `settings`;
 /*!40000 ALTER TABLE `settings` DISABLE KEYS */;
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 
@@ -6382,6 +6420,7 @@ CREATE TABLE IF NOT EXISTS `soundmachine_disks` (
   `burned_at` bigint(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `soundmachine_disks`;
 /*!40000 ALTER TABLE `soundmachine_disks` DISABLE KEYS */;
 /*!40000 ALTER TABLE `soundmachine_disks` ENABLE KEYS */;
 
@@ -6393,6 +6432,7 @@ CREATE TABLE IF NOT EXISTS `soundmachine_playlists` (
   KEY `songid` (`song_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `soundmachine_playlists`;
 /*!40000 ALTER TABLE `soundmachine_playlists` DISABLE KEYS */;
 /*!40000 ALTER TABLE `soundmachine_playlists` ENABLE KEYS */;
 
@@ -6407,6 +6447,7 @@ CREATE TABLE IF NOT EXISTS `soundmachine_songs` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `soundmachine_songs`;
 /*!40000 ALTER TABLE `soundmachine_songs` DISABLE KEYS */;
 /*!40000 ALTER TABLE `soundmachine_songs` ENABLE KEYS */;
 
@@ -6416,6 +6457,7 @@ CREATE TABLE IF NOT EXISTS `soundmachine_tracks` (
   `slot_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `soundmachine_tracks`;
 /*!40000 ALTER TABLE `soundmachine_tracks` DISABLE KEYS */;
 /*!40000 ALTER TABLE `soundmachine_tracks` ENABLE KEYS */;
 
@@ -6451,6 +6493,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
@@ -6461,6 +6504,7 @@ CREATE TABLE IF NOT EXISTS `users_badges` (
   CONSTRAINT `users_badges_users_FK` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `users_badges`;
 /*!40000 ALTER TABLE `users_badges` DISABLE KEYS */;
 /*!40000 ALTER TABLE `users_badges` ENABLE KEYS */;
 
@@ -6472,6 +6516,7 @@ CREATE TABLE IF NOT EXISTS `users_bans` (
   PRIMARY KEY (`banned_value`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `users_bans`;
 /*!40000 ALTER TABLE `users_bans` DISABLE KEYS */;
 /*!40000 ALTER TABLE `users_bans` ENABLE KEYS */;
 
@@ -6481,6 +6526,7 @@ CREATE TABLE IF NOT EXISTS `users_club_gifts` (
   `date_received` bigint(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `users_club_gifts`;
 /*!40000 ALTER TABLE `users_club_gifts` DISABLE KEYS */;
 /*!40000 ALTER TABLE `users_club_gifts` ENABLE KEYS */;
 
@@ -6490,6 +6536,7 @@ CREATE TABLE IF NOT EXISTS `users_ip_logs` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `users_ip_logs`;
 /*!40000 ALTER TABLE `users_ip_logs` DISABLE KEYS */;
 /*!40000 ALTER TABLE `users_ip_logs` ENABLE KEYS */;
 
@@ -6498,6 +6545,7 @@ CREATE TABLE IF NOT EXISTS `users_mutes` (
   `muted_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `users_mutes`;
 /*!40000 ALTER TABLE `users_mutes` DISABLE KEYS */;
 /*!40000 ALTER TABLE `users_mutes` ENABLE KEYS */;
 
@@ -6506,6 +6554,7 @@ CREATE TABLE IF NOT EXISTS `users_room_favourites` (
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `users_room_favourites`;
 /*!40000 ALTER TABLE `users_room_favourites` DISABLE KEYS */;
 /*!40000 ALTER TABLE `users_room_favourites` ENABLE KEYS */;
 
@@ -6516,6 +6565,7 @@ CREATE TABLE IF NOT EXISTS `users_room_votes` (
   `expire_time` bigint(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM `users_room_votes`;
 /*!40000 ALTER TABLE `users_room_votes` DISABLE KEYS */;
 /*!40000 ALTER TABLE `users_room_votes` ENABLE KEYS */;
 
@@ -6527,6 +6577,7 @@ CREATE TABLE IF NOT EXISTS `vouchers` (
   UNIQUE KEY `voucher_code` (`voucher_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
 
+DELETE FROM `vouchers`;
 /*!40000 ALTER TABLE `vouchers` DISABLE KEYS */;
 /*!40000 ALTER TABLE `vouchers` ENABLE KEYS */;
 
@@ -6538,6 +6589,7 @@ CREATE TABLE IF NOT EXISTS `vouchers_history` (
   `items_redeemed` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
 
+DELETE FROM `vouchers_history`;
 /*!40000 ALTER TABLE `vouchers_history` DISABLE KEYS */;
 /*!40000 ALTER TABLE `vouchers_history` ENABLE KEYS */;
 
@@ -6547,6 +6599,7 @@ CREATE TABLE IF NOT EXISTS `vouchers_items` (
   KEY `voucher_code` (`voucher_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
 
+DELETE FROM `vouchers_items`;
 /*!40000 ALTER TABLE `vouchers_items` DISABLE KEYS */;
 /*!40000 ALTER TABLE `vouchers_items` ENABLE KEYS */;
 
