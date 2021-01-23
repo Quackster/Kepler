@@ -50,7 +50,7 @@ public class CARRYDRINK implements MessageEvent {
                 return;
             }
 
-            if (!item.getTile().touches(player.getRoomUser().getTile())) {
+            if (!item.getTile().getPosition().touches(player.getRoomUser().getTile().getPosition())) {
                 return;
             }
 

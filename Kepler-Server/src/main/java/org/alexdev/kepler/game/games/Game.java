@@ -707,7 +707,7 @@ public abstract class Game {
             return null;
         }
 
-        if (x >= this.roomModel.getMapSizeX() || y >= roomModel.getMapSizeY() || y >= getTileMap().length || x >= getTileMap()[0].length) {
+        if (x >= this.roomModel.getMapSizeX() || y >= roomModel.getMapSizeY() || y >= getTileMap()[0].length || x >= getTileMap().length) {
             return null;
         }
 

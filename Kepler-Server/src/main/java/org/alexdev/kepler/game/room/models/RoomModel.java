@@ -2,11 +2,13 @@ package org.alexdev.kepler.game.room.models;
 
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.room.mapping.RoomTileState;
-import org.apache.commons.lang3.StringUtils;
+import org.alexdev.kepler.game.room.models.RoomModelTriggerType;
 import org.alexdev.kepler.game.triggers.GenericTrigger;
 import org.alexdev.kepler.util.StringUtil;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.regex.Pattern;
 
 public class RoomModel {
     private String modelId;
@@ -22,7 +24,7 @@ public class RoomModel {
     private RoomTileState[][] tileStates;
     private double[][] tileHeights;
 
-    private GenericTrigger modelTrigger;
+    private RoomModelTriggerType modelTrigger;
 
     public RoomModel(String modelId, String modelName, int doorX, int doorY, double doorZ, int doorRotation, String heightmap, String triggerClass) {
         this.modelId = modelId;
@@ -31,11 +33,11 @@ public class RoomModel {
         this.doorY = doorY;
         this.doorZ = doorZ;
         this.doorRotation = doorRotation;
-        this.heightmap = heightmap.replace("|", "\r");
+        this.heightmap = heightmap;
 
         if (!StringUtil.isNullOrEmpty(triggerClass)) {
             try {
-                this.modelTrigger = RoomModelTriggerType.valueOf(triggerClass.toUpperCase()).getRoomTrigger();
+                this.modelTrigger = RoomModelTriggerType.valueOf(triggerClass.toUpperCase());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -49,7 +51,7 @@ public class RoomModel {
      * for walking, stairs, etc.
      */
     private void parse() {
-        String[] lines = this.heightmap.split("\r");
+        String[] lines = this.heightmap.split(Pattern.quote("|"));
 
         this.mapSizeY = lines.length;
         this.mapSizeX = lines[0].length();
@@ -152,8 +154,15 @@ public class RoomModel {
         return heightmap;
     }
 
-    public GenericTrigger getModelTrigger() {
+    public RoomModelTriggerType getModelTrigger() {
         return modelTrigger;
+    }
+
+    public GenericTrigger getRoomTrigger() {
+        if (modelTrigger != null )
+            return modelTrigger.getRoomTrigger();
+        else
+            return null;
     }
 
     public int getRandomBound(int boundId) {

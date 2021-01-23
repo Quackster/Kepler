@@ -23,7 +23,7 @@ public class INITIATEJOINGAME implements MessageEvent {
         int instanceId = reader.readInt();
         int teamId = reader.readInt();
 
-        if (!(room.getModel().getModelTrigger() instanceof GameLobbyTrigger)) {
+        if (!(room.getModel().getRoomTrigger() instanceof GameLobbyTrigger)) {
             return;
         }
 
