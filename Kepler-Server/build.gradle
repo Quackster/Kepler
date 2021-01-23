@@ -59,6 +59,9 @@ dependencies {
 
     implementation 'com.goterl.lazycode:lazysodium-java:3.3.0'
     implementation 'com.github.bhlangonijr:chesslib:1.1.1'
+
+    // https://mvnrepository.com/artifact/at.favre.lib/bcrypt
+    compile group: 'at.favre.lib', name: 'bcrypt', version: '0.9.0'
 }
 
 // Create fat jar with libraries inside of it.
