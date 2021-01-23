@@ -18,11 +18,11 @@ public class INITIATECREATEGAME implements MessageEvent {
 
         Room room = player.getRoomUser().getRoom();
 
-        if (!(room.getModel().getModelTrigger() instanceof GameLobbyTrigger)) {
+        if (!(room.getModel().getRoomTrigger() instanceof GameLobbyTrigger)) {
             return;
         }
 
-        GameLobbyTrigger gameLobbyTrigger = (GameLobbyTrigger) room.getModel().getModelTrigger();
+        GameLobbyTrigger gameLobbyTrigger = (GameLobbyTrigger) room.getModel().getRoomTrigger();
         GameParameter[] parameters = null;
 
         if (gameLobbyTrigger.getGameType() == GameType.BATTLEBALL) {

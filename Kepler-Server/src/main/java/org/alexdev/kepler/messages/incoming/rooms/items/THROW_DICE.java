@@ -49,7 +49,7 @@ public class THROW_DICE implements MessageEvent {
         }
 
         // Check if user is next to dice
-        if (!roomEntity.getTile().touches(item.getTile())) {
+        if (!roomEntity.getTile().getPosition().touches(item.getTile().getPosition())) {
             return;
         }
 

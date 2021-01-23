@@ -20,11 +20,11 @@ public class GETINSTANCELIST implements MessageEvent {
 
         Room room = player.getRoomUser().getRoom();
 
-        if (!(room.getModel().getModelTrigger() instanceof GameLobbyTrigger)) {
+        if (!(room.getModel().getRoomTrigger() instanceof GameLobbyTrigger)) {
             return;
         }
 
-        GameLobbyTrigger gameLobbyTrigger = (GameLobbyTrigger) room.getModel().getModelTrigger();
+        GameLobbyTrigger gameLobbyTrigger = (GameLobbyTrigger) room.getModel().getRoomTrigger();
 
         // Don't show panel and lounge info if create game is disabled
         if (!GameConfiguration.getInstance().getBoolean(gameLobbyTrigger.getGameType().name().toLowerCase() + ".create.game.enabled")) {

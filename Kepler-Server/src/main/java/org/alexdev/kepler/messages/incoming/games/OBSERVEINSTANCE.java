@@ -20,7 +20,7 @@ public class OBSERVEINSTANCE implements MessageEvent {
 
         Room room = player.getRoomUser().getRoom();
 
-        if (!(room.getModel().getModelTrigger() instanceof GameLobbyTrigger)) {
+        if (!(room.getModel().getRoomTrigger() instanceof GameLobbyTrigger)) {
             return;
         }
 
@@ -36,7 +36,7 @@ public class OBSERVEINSTANCE implements MessageEvent {
             return;
         }
 
-        var lobbyTrigger = (GameLobbyTrigger)room.getModel().getModelTrigger();
+        var lobbyTrigger = (GameLobbyTrigger)room.getModel().getRoomTrigger();
         GameHistory finishedGame = GameManager.getInstance().getFinishedGameById(lobbyTrigger.getGameType(), gameId);
 
         if (finishedGame != null) {

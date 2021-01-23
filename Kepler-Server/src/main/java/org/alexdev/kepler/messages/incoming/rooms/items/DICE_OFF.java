@@ -40,7 +40,7 @@ public class DICE_OFF implements MessageEvent {
             return;
         }
 
-        if (!roomEntity.getTile().touches(item.getTile())) {
+        if (!roomEntity.getTile().getPosition().touches(item.getTile().getPosition())) {
             return;
         }
 
