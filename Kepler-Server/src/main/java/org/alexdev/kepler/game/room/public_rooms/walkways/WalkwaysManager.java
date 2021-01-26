@@ -11,34 +11,37 @@ import java.util.Map;
 
 public class WalkwaysManager {
     private static WalkwaysManager instance;
-    private static Map<String, String> walkwayMap = new HashMap<>() {{
-        put("rooftop_2", "rooftop");
-        put("old_skool1", "old_skool0");
-        put("malja_bar_b", "malja_bar_a");
-        put("bar_b", "bar_a");
-        put("pool_b", "pool_a");
+    private static Map<String, String> walkwayMap = new HashMap<>() {
+        {
+            put("rooftop_2", "rooftop");
+            put("old_skool1", "old_skool0");
+            put("malja_bar_b", "malja_bar_a");
+            put("bar_b", "bar_a");
+            put("pool_b", "pool_a");
 
-        put("hallway0", "hallway2");
-        put("hallway1", "hallway2");
-        put("hallway3", "hallway2");
-        put("hallway4", "hallway2");
-        put("hallway5", "hallway2");
+            put("hallway0", "hallway2");
+            put("hallway1", "hallway2");
+            put("hallway3", "hallway2");
+            put("hallway4", "hallway2");
+            put("hallway5", "hallway2");
 
-        put("hallway6", "hallway9");
-        put("hallway7", "hallway9");
-        put("hallway8", "hallway9");
-        put("hallway10", "hallway9");
-        put("hallway11", "hallway9");
+            put("hallway6", "hallway9");
+            put("hallway7", "hallway9");
+            put("hallway8", "hallway9");
+            put("hallway10", "hallway9");
+            put("hallway11", "hallway9");
 
-        put("hallA", "entryhall");
-        put("hallB", "entryhall");
-        put("hallC", "entryhall");
-        put("hallD", "entryhall");
+            put("hallA", "entryhall");
+            put("hallB", "entryhall");
+            put("hallC", "entryhall");
+            put("hallD", "entryhall");
 
-        put("gate_park_2", "gate_park");
+            put("gate_park_2", "gate_park");
 
-        put("park_b", "park_a");
-    }};
+            put("park_b", "park_a");
+            put("beauty_salon1", "beauty_salon0");
+        }
+    };
 
     private List<WalkwaysEntrance> walkways;
 
@@ -49,7 +52,8 @@ public class WalkwaysManager {
         this.addWalkway("park_b", "park_a", "11,2", "28,5,0,4");
 
         this.addWalkway("gate_park", "gate_park_2", "23,0 22,0 20,0 19,0 18,0 17,0 16,0 15,0 14,0 11,0 10,0 9,0", null);
-        this.addWalkway("gate_park_2", "gate_park", "16,24 15,24 17,24 18,24 18,25 17,25 16,25 15,25 18,26 17,26 16,26", "16,2,2,4");
+        this.addWalkway("gate_park_2", "gate_park", "16,24 15,24 17,24 18,24 18,25 17,25 16,25 15,25 18,26 17,26 16,26",
+                "16,2,2,4");
 
         this.addWalkway("rooftop", "rooftop_2", "9,4 10,4 9,3", null);
         this.addWalkway("rooftop_2", "rooftop", "3,11 4,11 5,11", "10,5,4,4");
@@ -64,11 +68,11 @@ public class WalkwaysManager {
         this.addWalkway("bar_b", "bar_a", "1,10 1,11 1,12", "10,30,5,0");
 
         this.addWalkway("pool_a", "pool_b", "19,3 20,4 21,5 22,6 23,7 24,8 25,9 26,10 27,11 28,12", null);
-        this.addWalkway("pool_b", "pool_a", "0,13 1,14 2,15 3,16 4,17 5,18 6,19 7,20 8,21 9,22 10,23 11,24 12,25", "23,7,7,5");
+        this.addWalkway("pool_b", "pool_a", "0,13 1,14 2,15 3,16 4,17 5,18 6,19 7,20 8,21 9,22 10,23 11,24 12,25",
+                "23,7,7,5");
 
         this.addWalkway("pool_a", "pool_b", "30,14 31,15 32,16 33,17 34,18 35,19 36,20 37,21 38,22 39,23", "18,30,1,1");
         this.addWalkway("pool_b", "pool_a", "13,26 14,27 15,28 16,29 17,30 18,31 19,32 20,33 21,34", "34,19,1,5");
-
 
         // Lower Hallways
         this.addWalkway("hallway2", "hallway0", "0,6 0,7 0,8 0,9", "29,3,1,6");
@@ -102,6 +106,9 @@ public class WalkwaysManager {
         this.addWalkway("hallway11", "hallway10", "8,18 8,19 8,20 8,21", "15,1,0,6");
         this.addWalkway("hallway11", "hallway9", "0,5 0,4 0,3 0,2", "29,15,0,6");
 
+        this.addWalkway("beauty_salon0", "beauty_salon1", "21,23 21,24 21,25", "0,22,0,0");
+        this.addWalkway("beauty_salon1", "beauty_salon0", "0,22 1,23", "21,23,0,0");
+
         // Cunning Fox Gamehall
         this.addWalkway("entryhall", "hallA", "2,0 3,0", "1,1,1,4");
         this.addWalkway("entryhall", "hallB", "8,0 9,0", "2,1,1,4");
@@ -112,7 +119,6 @@ public class WalkwaysManager {
         this.addWalkway("hallB", "entryhall", "2,0 1,0", "9,1,1,4");
         this.addWalkway("hallC", "entryhall", "0,0 1,0", "15,1,1,4");
         this.addWalkway("hallD", "entryhall", "0,0 1,0", "1,3,1,2");
-        //this.addWalkway("ha", "rooftop", "3,11 4,11 5,11", "10,5,4,4");
     }
 
     private void addWalkway(String modelFrom, String modelTo, String fromCoords, String destination) {
