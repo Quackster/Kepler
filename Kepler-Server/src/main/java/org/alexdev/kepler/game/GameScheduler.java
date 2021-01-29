@@ -141,7 +141,6 @@ public class GameScheduler implements Runnable {
                 ChatManager.getInstance().performChatSaving();
             }
 
-            RareManager.getInstance().performRareManagerJob(this.tickRate);
         } catch (Exception ex) {
             Log.getErrorLogger().error("GameScheduler crashed: ", ex);
         }
