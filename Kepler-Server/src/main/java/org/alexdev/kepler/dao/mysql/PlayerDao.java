@@ -1,6 +1,5 @@
 package org.alexdev.kepler.dao.mysql;
 
-import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.goterl.lazycode.lazysodium.LazySodiumJava;
 import com.goterl.lazycode.lazysodium.SodiumJava;
 import com.goterl.lazycode.lazysodium.interfaces.PwHash;
@@ -11,7 +10,6 @@ import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.tag.Tag;
 import org.alexdev.kepler.util.DateUtil;
 
-import java.lang.constant.Constable;
 import java.nio.charset.StandardCharsets;
 import java.sql.*;
 import java.util.HashMap;
@@ -250,18 +248,6 @@ public class PlayerDao {
 
                     if (success) {
                         fill(player, resultSet);
-                    }
-                }
-
-                if (useBcrypt) {
-                    var hashedPassword = resultSet.getString("password");
-
-                    BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), hashedPassword);
-                    success = result.verified;
-
-                    if (success) {
-                        fill(player, resultSet);
-
                     }
                 }
             }
