@@ -139,7 +139,7 @@ public class SETSTUFFDATA implements MessageEvent {
             Position itemPos = item.getPosition();
 
             item.getTile().resetHighestItem();
-            item.getTile().setTileHeight(item.getTile().getWalkingHeight());
+            //item.getTile().setHighestItem(item);
 
             if(playerPos.getY() == itemPos.getY() && playerPos.getX() == itemPos.getX()) {
                 playerPos.setZ(player.getRoomUser().getTile().getWalkingHeight());

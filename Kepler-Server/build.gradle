@@ -10,6 +10,9 @@ targetCompatibility = "1.12"
 
 mainClassName = 'org.alexdev.kepler.Kepler'
 
+intellij {
+    version '201.7846.76'
+}
 repositories {
     flatDir {
         dirs 'libs'
