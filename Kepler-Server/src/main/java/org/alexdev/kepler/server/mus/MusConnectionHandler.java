@@ -30,6 +30,7 @@ import org.alexdev.kepler.server.mus.streams.MusTypes;
 import org.alexdev.kepler.server.netty.NettyPlayerNetwork;
 import org.alexdev.kepler.util.DateUtil;
 import org.alexdev.kepler.util.StringUtil;
+import org.alexdev.kepler.util.config.ServerConfiguration;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -109,7 +110,10 @@ public class MusConnectionHandler extends SimpleChannelInboundHandler<MusMessage
 
                     PlayerDetails playerDetails = new PlayerDetails();
 
-                    if (PlayerDao.login(playerDetails, username, password)) {
+                    if (PlayerDao.login(playerDetails, username, password,
+                            ServerConfiguration.getStringOrDefault("password.hashing.library", "argon2").equalsIgnoreCase("argon2"),
+                            ServerConfiguration.getStringOrDefault("password.hashing.library", "argon2").equalsIgnoreCase("bcrypt")
+                    )) {
                         player =  PlayerManager.getInstance().getPlayerById(playerDetails.getId());
                         userId = playerDetails.getId();
                     } else {

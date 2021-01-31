@@ -1,11 +1,14 @@
 package org.alexdev.kepler.messages.incoming.register;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.goterl.lazycode.lazysodium.interfaces.PwHash;
+import org.alexdev.kepler.Kepler;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.NettyPlayerNetwork;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
+import org.alexdev.kepler.util.config.ServerConfiguration;
 
 public class REGISTER implements MessageEvent {
     @Override
@@ -67,28 +70,39 @@ public class REGISTER implements MessageEvent {
             return;
         }
 
-        PlayerDao.register(username, createPassword(password), figure, gender);
+        var hashedPassword = createPassword(password);
+
+        if (hashedPassword == null)
+            return;
+
+        PlayerDao.register(username, hashedPassword, figure, gender);
         //System.out.println(name + " / " + figure + " / " + gender + " / " + email + " / " + birthday + " / " + password);
     }
 
     public static String createPassword(String password) throws Exception {
-        byte[] pw = password.getBytes();
-        byte[] outputHash = new byte[PwHash.STR_BYTES];
-        PwHash.Native pwHash = (PwHash.Native) PlayerDao.LIB_SODIUM;
-        boolean success = pwHash.cryptoPwHashStr(
-                outputHash,
-                pw,
-                pw.length,
-                PwHash.OPSLIMIT_INTERACTIVE,
-                PwHash.MEMLIMIT_INTERACTIVE
-        );
+        if (ServerConfiguration.getStringOrDefault("password.hashing.library", "argon2").equalsIgnoreCase("argon2")) {
+            byte[] pw = password.getBytes();
+            byte[] outputHash = new byte[PwHash.STR_BYTES];
+            PwHash.Native pwHash = (PwHash.Native) Kepler.getLibSodium();
+            boolean success = pwHash.cryptoPwHashStr(
+                    outputHash,
+                    pw,
+                    pw.length,
+                    PwHash.OPSLIMIT_INTERACTIVE,
+                    PwHash.MEMLIMIT_INTERACTIVE
+            );
 
-        if (!success) {
-            throw new Exception("Password creation was a failure!");
+            if (!success) {
+                throw new Exception("Password creation was a failure!");
+            }
+
+            return new String(outputHash).replace((char) 0 + "", "");
         }
 
-        return new String(outputHash).replace((char)0 + "", "");
+        if (ServerConfiguration.getStringOrDefault("password.hashing.library", "argon2").equalsIgnoreCase("bcrypt")) {
+            return BCrypt.withDefaults().hashToString(12, password.toCharArray());
+        }
+
+        return null;
     }
-
-
 }

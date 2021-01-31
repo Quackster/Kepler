@@ -20,7 +20,7 @@ public class KICKPLAYER implements MessageEvent {
 
         Room room = player.getRoomUser().getRoom();
 
-        if (!(room.getModel().getModelTrigger() instanceof GameLobbyTrigger)) {
+        if (!(room.getModel().getRoomTrigger() instanceof GameLobbyTrigger)) {
             return;
         }
 

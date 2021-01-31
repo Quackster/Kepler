@@ -262,8 +262,8 @@ public class RoomEntityManager {
             this.room.setActive(true);
         };
 
-        if (this.room.getModel().getModelTrigger() != null) {
-            this.room.getModel().getModelTrigger().onRoomEntry(player, this.room, !isRoomActive);
+        if (this.room.getModel().getRoomTrigger() != null) {
+            this.room.getModel().getRoomTrigger().onRoomEntry(player, this.room, !isRoomActive);
         }
 
         // Load bot data if first entry
@@ -292,8 +292,8 @@ public class RoomEntityManager {
         this.room.getEntities().remove(entity);
 
         // Trigger for leaving room
-        if (this.room.getModel().getModelTrigger() != null) {
-            this.room.getModel().getModelTrigger().onRoomLeave(entity, this.room);
+        if (this.room.getModel().getRoomTrigger() != null) {
+            this.room.getModel().getRoomTrigger().onRoomLeave(entity, this.room);
         }
 
         // Entity tile removal

@@ -13,7 +13,9 @@ public class DefaultConfigWriter implements ConfigWriter {
         config.put("server.port", "12321");
         config.put("server.limit.bandwidth", "false");//String.valueOf(40*1024));
         config.put("server.limit.bandwidth.amount", String.valueOf(40*1024));
+
         config.put("mus.port", "12322");
+
         config.put("rcon.bind", "127.0.0.1");
         config.put("rcon.port", "12309");
 
@@ -33,6 +35,7 @@ public class DefaultConfigWriter implements ConfigWriter {
         config.put("v21.version.port", "0");
         config.put("v26.version.port", "0");
 
+        config.put("password.hashing.library", "argon2");
         config.put("debug", "false");
         return config;
     }
@@ -65,6 +68,8 @@ public class DefaultConfigWriter implements ConfigWriter {
         writer.println("mysql.username=" + config.get("mysql.username"));
         writer.println("mysql.password=" + config.get("mysql.password"));
         writer.println("mysql.database=" + config.get("mysql.database"));
+        writer.println("");
+        writer.println("password.hashing.library=" + config.get("password.hashing.library"));
         writer.println("");
         writer.println("[Logging]");
         writer.println("log.received.packets=" + config.get("log.received.packets"));

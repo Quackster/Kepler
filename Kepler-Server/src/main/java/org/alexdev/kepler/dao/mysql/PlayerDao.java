@@ -1,22 +1,23 @@
 package org.alexdev.kepler.dao.mysql;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.goterl.lazycode.lazysodium.LazySodiumJava;
 import com.goterl.lazycode.lazysodium.SodiumJava;
 import com.goterl.lazycode.lazysodium.interfaces.PwHash;
+import org.alexdev.kepler.Kepler;
 import org.alexdev.kepler.dao.Storage;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.tag.Tag;
 import org.alexdev.kepler.util.DateUtil;
 
+import java.lang.constant.Constable;
 import java.nio.charset.StandardCharsets;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 
 public class PlayerDao {
-    public static final LazySodiumJava LIB_SODIUM = new LazySodiumJava(new SodiumJava());
-
     /**
      * Logs the IP address for a given user
      *
@@ -226,7 +227,7 @@ public class PlayerDao {
      * @param password password
      * @return true, if successful
      */
-    public static boolean login(PlayerDetails player, String username, String password) {
+    public static boolean login(PlayerDetails player, String username, String password, boolean useLibSodium, boolean useBcrypt) {
         boolean success = false;
 
         Connection sqlConnection = null;
@@ -240,14 +241,28 @@ public class PlayerDao {
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                byte[] hashedPassword = (resultSet.getString("password") + '\0').getBytes(StandardCharsets.UTF_8);
-                byte[] pass = password.getBytes(StandardCharsets.UTF_8);
+                if (useLibSodium) {
+                    byte[] hashedPassword = (resultSet.getString("password") + '\0').getBytes(StandardCharsets.UTF_8);
+                    byte[] pass = password.getBytes(StandardCharsets.UTF_8);
 
-                PwHash.Native pwHash = (PwHash.Native) LIB_SODIUM;
-                success = pwHash.cryptoPwHashStrVerify(hashedPassword, pass, pass.length);
+                    PwHash.Native pwHash = (PwHash.Native) Kepler.getLibSodium();
+                    success = pwHash.cryptoPwHashStrVerify(hashedPassword, pass, pass.length);
 
-                if (success) {
-                    fill(player, resultSet);
+                    if (success) {
+                        fill(player, resultSet);
+                    }
+                }
+
+                if (useBcrypt) {
+                    var hashedPassword = resultSet.getString("password");
+
+                    BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), hashedPassword);
+                    success = result.verified;
+
+                    if (success) {
+                        fill(player, resultSet);
+
+                    }
                 }
             }
 

@@ -59,7 +59,12 @@ public class GameDao {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                String modelName = (resultSet.getString("type").equalsIgnoreCase("battleball") ? "bb" : "ss") + "_arena_" + resultSet.getInt("id");
+                String modelName = "bb" + "_arena_" + resultSet.getInt("map_id");
+
+                if (!resultSet.getString("game_type").equals("battleball")) {
+                    modelName = "ss_arena_" + resultSet.getInt("map_id");
+                }
+
                 maps.add(new RoomModel(modelName, modelName, Integer.MAX_VALUE, Integer.MAX_VALUE, Double.MAX_VALUE, 0, resultSet.getString("heightmap"), null));
             }
 
@@ -84,11 +89,11 @@ public class GameDao {
 
         try {
             sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("SELECT * FROM games_maps WHERE type = 'battleball'", sqlConnection);
+            preparedStatement = Storage.getStorage().prepare("SELECT * FROM games_maps WHERE game_type = 'battleball'", sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                maps.add(new BattleBallMap(resultSet.getInt("id"), GameType.BATTLEBALL, resultSet.getString("tile_map")));
+                maps.add(new BattleBallMap(resultSet.getInt("map_id"), GameType.BATTLEBALL, resultSet.getString("tile_map")));
             }
 
         } catch (Exception e) {

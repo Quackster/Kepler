@@ -1,5 +1,7 @@
 package org.alexdev.kepler.game.pathfinder;
 
+import org.alexdev.kepler.game.room.mapping.RoomTile;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -192,11 +194,24 @@ public class Position {
      * @param point the point
      * @return the distance squared
      */
-    public int getDistanceSquared(Position point) {
+    public int getDistance(Position point) {
         int dx = this.getX() - point.getX();
         int dy = this.getY() - point.getY();
 
         return (dx * dx) + (dy * dy);
+    }
+
+    /**
+     * Gets the distance squared.
+     *
+     * @param point the point
+     * @return the distance squared
+     */
+    public double getDistanceSquared(Position point) {
+        int dx = this.getX() - point.getX();
+        int dy = this.getY() - point.getY();
+
+        return Math.sqrt((dx * dx) + (dy * dy));
     }
     
     /**
@@ -428,4 +443,10 @@ public class Position {
         return "[" + this.X + ", " + this.Y + ", " + this.Z + "]";
     }
 
+    /**
+     * Checks if current tile touches target tile
+     */
+    public boolean touches(Position position) {
+        return this.getDistance(position) <= 2;
+    }
 }

@@ -59,7 +59,7 @@ public class BattleBallTask implements Runnable {
                 }
 
                 if (gamePlayer.getPlayerState() == BattleBallPlayerState.CLIMBING_INTO_CANNON ||
-                    gamePlayer.getPlayerState() == BattleBallPlayerState.FLYING_THROUGH_AIR) {
+                        gamePlayer.getPlayerState() == BattleBallPlayerState.FLYING_THROUGH_AIR) {
                     continue;
                 }
 
@@ -69,6 +69,7 @@ public class BattleBallTask implements Runnable {
                     }
                 }
 
+                player.getRoomUser().handleSpamTicks();
                 this.processEntity(gamePlayer, objects, events, updateTiles, fillTiles);
 
                 objects.add(new PlayerUpdateObject(gamePlayer));
@@ -99,25 +100,25 @@ public class BattleBallTask implements Runnable {
                 roomEntity.getPosition().setY(roomEntity.getNextPosition().getY());
                 roomEntity.updateNewHeight(roomEntity.getPosition());*/
                 /*RoomTile nextTile = roomEntity.getRoom().getMapping().getTile(roomEntity.getNextPosition());
-
                 boolean isRedirected = false;
-
                 if (nextTile.getEntities().size() > 0 && !nextTile.containsEntity(entity)) {
                     roomEntity.setNextPosition(roomEntity.getPosition().copy());
                     isRedirected = true;
                 }*/
-                
+
                 roomEntity.getPosition().setX(roomEntity.getNextPosition().getX());
                 roomEntity.getPosition().setY(roomEntity.getNextPosition().getY());
                 roomEntity.updateNewHeight(roomEntity.getPosition());
 
-                RoomTile nextTile = roomEntity.getRoom().getMapping().getTile(roomEntity.getNextPosition());
+                if (roomEntity.getNextPosition() != null) {
+                    RoomTile nextTile = roomEntity.getRoom().getMapping().getTile(roomEntity.getNextPosition());
 
-                if (nextTile.getOtherEntities(entity).size() < 1) {
-                    BattleBallTile tile = (BattleBallTile) game.getTile(roomEntity.getNextPosition().getX(), roomEntity.getNextPosition().getY());
+                    if (nextTile != null && nextTile.getOtherEntities(entity).size() < 1) {
+                        BattleBallTile tile = (BattleBallTile) game.getTile(roomEntity.getNextPosition().getX(), roomEntity.getNextPosition().getY());
 
-                    if (tile != null) {
-                        tile.interact(gamePlayer, objects, events, updateTiles, fillTiles);
+                        if (tile != null) {
+                            tile.interact(gamePlayer, objects, events, updateTiles, fillTiles);
+                        }
                     }
                 }
             }
@@ -126,25 +127,28 @@ public class BattleBallTask implements Runnable {
             if (roomEntity.getPath().size() > 0) {
                 Position next = roomEntity.getPath().pop();
 
+                RoomTile previousTile = roomEntity.getTile();
+                RoomTile nextTile = roomEntity.getRoom().getMapping().getTile(next);
+
                 // Tile was invalid after we started walking, so lets try again!
-                if (!RoomTile.isValidTile(this.room, entity, next) && !next.equals(goal)) {
+                if (nextTile == null || !RoomTile.isValidTile(this.room, entity, next) && !next.equals(goal)) {
                     entity.getRoomUser().getPath().clear();
                     roomEntity.walkTo(goal.getX(), goal.getY());
                     this.processEntity(gamePlayer, objects, events, updateTiles, fillTiles);
                     return;
                 }
 
-                RoomTile previousTile = roomEntity.getTile();
-                previousTile.removeEntity(entity);
+                if (previousTile != null) {
+                    previousTile.removeEntity(entity);
+                }
 
-                RoomTile nextTile = roomEntity.getRoom().getMapping().getTile(next);
                 nextTile.addEntity(entity);
 
                 roomEntity.removeStatus(StatusType.LAY);
                 roomEntity.removeStatus(StatusType.SIT);
 
                 int rotation = Rotation.calculateWalkDirection(position.getX(), position.getY(), next.getX(), next.getY());
-                double height = this.room.getMapping().getTile(next).getWalkingHeight();
+                double height = nextTile.getWalkingHeight();
 
                 roomEntity.getPosition().setRotation(rotation);
                 roomEntity.setStatus(StatusType.MOVE, next.getX() + "," + next.getY() + "," + StringUtil.format(height));
@@ -159,7 +163,7 @@ public class BattleBallTask implements Runnable {
                 RoomTile nextTile = roomEntity.getRoom().getMapping().getTile(roomEntity.getPosition().getSquareBehind());
 
                 // If an entity exists on the tile, push them back
-                if (!(previousTile.getOtherEntities(entity).size() < 1)) {
+                if (previousTile != null && !(previousTile.getOtherEntities(entity).size() < 1)) {
                     previousTile.removeEntity(entity);
                     nextTile.addEntity(entity);
 

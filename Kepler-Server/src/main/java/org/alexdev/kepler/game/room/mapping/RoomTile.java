@@ -45,6 +45,7 @@ public class RoomTile {
     private Room room;
     private Position position;
     private CopyOnWriteArrayList<Entity> entities;
+    private CopyOnWriteArrayList<Entity> nonBlockingEntities;
     private ConcurrentHashMap<Integer, Item> items;
 
     private double tileHeight;
@@ -58,6 +59,7 @@ public class RoomTile {
         this.tileHeight = tileHeight;
         this.defaultHeight = tileHeight;
         this.entities = new CopyOnWriteArrayList<>();
+        this.nonBlockingEntities = new CopyOnWriteArrayList<>();
         this.items = new ConcurrentHashMap<>();
     }
 
@@ -69,7 +71,7 @@ public class RoomTile {
      * @return true, if successful
      */
     public static boolean isValidTile(Room room, Entity entity, Position position) {
-        if (room == null) {
+        if (room == null ) {
             return false;
         }
 
@@ -87,21 +89,21 @@ public class RoomTile {
                     }
                 }
             }
-        }
 
-        if (tile.getHighestItem() != null && entity != null) {
-            Item item = tile.getHighestItem();
+            if (tile.getHighestItem() != null) {
+                Item item = tile.getHighestItem();
 
-            if (item.getDefinition().getSprite().equals("poolExit") && item.getPosition().equals(new Position(19, 19))) {
-                return entity.getRoomUser().containsStatus(StatusType.SWIM);
-            }
+                if (item.getDefinition().getSprite().equals("poolExit") && item.getPosition().equals(new Position(19, 19))) {
+                    return entity.getRoomUser().containsStatus(StatusType.SWIM);
+                }
 
-            // Allow pets to walk to their own pet bed.
-            if (entity.getType() == EntityType.PET) {
-                Pet pet = (Pet) entity;
+                // Allow pets to walk to their own pet bed.
+                if (entity.getType() == EntityType.PET) {
+                    Pet pet = (Pet) entity;
 
-                if (pet.getDetails().getItemId() == item.getId()) {
-                    return true;
+                    if (pet.getDetails().getItemId() == item.getId()) {
+                        return true;
+                    }
                 }
             }
         }
@@ -122,7 +124,7 @@ public class RoomTile {
 
         if (!tile.hasWalkableFurni()) {
             if (entity != null) {
-                return tile.getHighestItem().getPosition().equals(entity.getRoomUser().getPosition());
+                return tile.getHighestItem() != null && tile.getHighestItem().getPosition().equals(entity.getRoomUser().getPosition());
             }
 
             return false;
@@ -167,13 +169,6 @@ public class RoomTile {
     }
 
     /**
-     * Checks if current tile touches target tile
-     */
-    public boolean touches(RoomTile targetTile) {
-        return this.position.getDistanceSquared(targetTile.getPosition()) <= 2;
-    }
-
-    /**
      * Get if the highest item has walkable furni, true if no furni is on the tile.
      *
      * @return true, if successful.
@@ -193,28 +188,18 @@ public class RoomTile {
      * @return a valid position, else null
      */
     public Position getNextAvailablePosition(Entity entity) {
+        List<Position> positions = new ArrayList<>();
+
         for (Position POINT : Pathfinder.DIAGONAL_MOVE_POINTS) {
             Position tmp = this.position.copy().add(POINT);
 
             if (RoomTile.isValidTile(this.room, entity, tmp)) {
-                return tmp;
+                positions.add(tmp);
             }
         }
 
-        return null;
-    }
-
-    /**
-     * Get a list of entities that excludes the current entity
-     *
-     * @param entity the entity
-     * @return the list without the entity supplied
-     */
-    public List<Entity> getOtherEntities(Entity entity) {
-        List<Entity> temp = new ArrayList<>(this.entities);
-        temp.removeIf(e -> e.getRoomUser().getInstanceId() == entity.getRoomUser().getInstanceId());
-
-        return temp;
+        positions.sort(Position::getDistance);
+        return (positions.size() > 0 ? positions.get(0) : null);
     }
 
     /**
@@ -224,7 +209,9 @@ public class RoomTile {
      */
     public void addEntity(Entity entity) {
         // Don't add a user to the tile in a doorway.
-        if (new Position(this.position.getX(), this.position.getY()).equals(this.room.getModel().getDoorLocation())) {
+        var currentPosition = new Position(this.position.getX(), this.position.getY());
+
+        if (currentPosition.equals(this.room.getModel().getDoorLocation())) {
             return;
         }
 
@@ -252,6 +239,23 @@ public class RoomTile {
             }
         }
 
+        if (!this.room.isGameArena()) {
+            if (currentPosition.equals(this.room.getModel().getDoorLocation().getSquareInFront())) {
+                this.nonBlockingEntities.add(entity);
+                return;
+            }
+
+            if (currentPosition.equals(this.room.getModel().getDoorLocation().getSquareInFront().getSquareLeft())) {
+                this.nonBlockingEntities.add(entity);
+                return;
+            }
+
+            if (currentPosition.equals(this.room.getModel().getDoorLocation().getSquareInFront().getSquareRight())) {
+                this.nonBlockingEntities.add(entity);
+                return;
+            }
+        }
+
         this.entities.add(entity);
     }
 
@@ -262,7 +266,26 @@ public class RoomTile {
      * @return true, if successful
      */
     public boolean containsEntity(Entity entity) {
-        return this.entities.contains(entity);
+        if (entities.contains(entity))
+            return true;
+
+        if (nonBlockingEntities.contains(entity))
+            return true;
+
+        return false;
+    }
+
+    /**
+     * Contains the entity.
+     *
+     * @param entity the entity
+     * @return true, if successful
+     */
+    public List<Entity> getOtherEntities(Entity entity) {
+        List<Entity> temp = new ArrayList<>(this.entities);
+        temp.removeIf(e -> e.getRoomUser().getInstanceId() == entity.getRoomUser().getInstanceId());
+
+        return temp;
     }
 
     /**
@@ -272,6 +295,52 @@ public class RoomTile {
      */
     public void removeEntity(Entity entity) {
         this.entities.remove(entity);
+        this.nonBlockingEntities.remove(entity);
+    }
+
+    public void addItem(Item item)
+    {
+        if (item == null)
+            return;
+
+        items.put(item.getId(), item);
+
+        if (item.getTotalHeight() < tileHeight)
+            return;
+
+        resetHighestItem();
+    }
+
+    public void removeItem(Item item)
+    {
+        if (item == null)
+            return;
+
+        items.remove(item.getId());
+
+        if (highestItem == null || item.getId() != highestItem.getId())
+            return;
+
+        resetHighestItem();
+    }
+
+    public void resetHighestItem() {
+        highestItem = null;
+        tileHeight = defaultHeight;
+
+        for (var item : items.values())
+        {
+            if (item == null)
+                continue;
+
+            double height = item.getTotalHeight();
+
+            if (height < tileHeight)
+                continue;
+
+            highestItem = item;
+            tileHeight = height;
+        }
     }
 
     /**
@@ -311,15 +380,6 @@ public class RoomTile {
     }
 
     /**
-     * Set the tile height of this tile.
-     *
-     * @param tileHeight the new tile height
-     */
-    public void setTileHeight(double tileHeight) {
-        this.tileHeight = tileHeight;
-    }
-
-    /**
      * Get the highest item in this tile.
      *
      * @return the highest item
@@ -330,11 +390,9 @@ public class RoomTile {
 
     /**
      * Set the highest item in this tile.
-     *
-     * @return the highest item
      */
-    public void setHighestItem(Item highestItem) {
-        this.highestItem = highestItem;
+    public void setHighestItem(Item item) {
+        highestItem = item;
     }
 
     /**
@@ -347,59 +405,23 @@ public class RoomTile {
     }
 
     /**
-     * Get the list of items on this tile.
+     * Get list of non-blocking entities on this tile.
      *
-     * @return the list of items
+     * @return the list of entities
      */
-
-    public double getDefaultHeight() {
-        return defaultHeight;
+    public List<Entity> getNonBlockingEntities() {
+        return this.nonBlockingEntities;
     }
 
-    public void addItem(Item item)
-    {
-        if (item == null)
-            return;
-
-        items.put(item.getId(), item);
-
-        if (item.getTotalHeight() < tileHeight)
-            return;
-
-        resetHighestItem();
+    /**
+     * Get all entities, including ones on non-blocking tiles, used for furni interactions
+     */
+    public List<Entity> getEntireEntities() {
+        List<Entity> entityList = new ArrayList<>();
+        entityList.addAll(this.entities);
+        entityList.addAll(this.nonBlockingEntities);
+        return entityList;
     }
-
-    public void removeItem(Item item) {
-        if (item == null)
-            return;
-
-        items.remove(item.getId());
-
-        if (highestItem == null || item.getId() != highestItem.getId())
-            return;
-
-        resetHighestItem();
-    }
-
-    public void resetHighestItem() {
-        highestItem = null;
-        tileHeight = defaultHeight;
-
-        for (var item : items.values())
-        {
-            if (item == null)
-                continue;
-
-            double height = item.getTotalHeight();
-
-            if (height < tileHeight)
-                continue;
-
-            highestItem = item;
-            tileHeight = height;
-        }
-    }
-
     /**
      * Get the list of items on this tile.
      *
@@ -409,6 +431,10 @@ public class RoomTile {
         var items = new ArrayList<>(this.items.values());
         items.sort(Comparator.comparingDouble(item -> item.getPosition().getZ()));
         return items;
+    }
+
+    public double getDefaultHeight() {
+        return defaultHeight;
     }
 
     public ArrayList<Item> getItemsAbove(Item item) {

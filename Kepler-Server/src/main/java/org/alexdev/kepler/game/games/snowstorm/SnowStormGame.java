@@ -181,7 +181,7 @@ public class SnowStormGame extends Game {
                     continue;
                 }
 
-                int distance = gamePlayer.getSpawnPosition().getDistanceSquared(candidate);
+                int distance = gamePlayer.getSpawnPosition().getDistance(candidate);
 
                 if (distance < spawn.getMinDistance()) {
                     generateSpawn(p);

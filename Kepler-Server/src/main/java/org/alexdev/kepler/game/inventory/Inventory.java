@@ -21,10 +21,21 @@ public class Inventory {
 
     public Inventory(Player player) {
         this.player = player;
+        this.reload();
+    }
+
+    /**
+     * Reload inventory.
+     */
+    public void reload() {
         this.handStripPageIndex = 0;
         this.items = ItemDao.getInventory(this.player.getDetails().getId());
-        this.paginatedItems = new LinkedHashMap<>();
         this.refreshPagination();
+
+        // Prevent possible virtual item dupes
+        if (this.player.getRoomUser().getRoom() != null) {
+            this.items.removeIf(x -> this.player.getRoomUser().getRoom().getItems().stream().anyMatch(item -> x.getId() == item.getId()));
+        }
     }
 
     /**

@@ -59,6 +59,16 @@ public class ServerConfiguration {
     }
 
     /**
+     * Get value from configuration
+     *
+     * @param key the key to use
+     * @return value
+     */
+    public static String getStringOrDefault(String key, String value) {
+        return config.getOrDefault(key, value);
+    }
+
+    /**
      * Get value from configuration and cast to an Integer
      *
      * @param key the key to use

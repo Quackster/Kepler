@@ -55,7 +55,7 @@ public class SETSTUFFDATA implements MessageEvent {
         }
         
         if (item.hasBehaviour(ItemBehaviour.REQUIRES_TOUCHING_FOR_INTERACTION)) {
-            if (!item.getTile().touches(player.getRoomUser().getTile())) {
+            if (!item.getTile().getPosition().touches(player.getRoomUser().getTile().getPosition())) {
                 Position nextPosition = item.getPosition().getSquareInFront();
 
                 // TODO: Look into why everyone receives the door close packet, in the meantime, disable the check for teleporters, otherwise everyone will work towards the teleporter
