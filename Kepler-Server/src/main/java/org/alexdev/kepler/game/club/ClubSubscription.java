@@ -18,28 +18,16 @@ import java.util.concurrent.TimeUnit;
 
 public class ClubSubscription {
     private static String[] giftOrder = new String[]{
-            "hc_tv",
-            "hcamme",
-            "hc_crtn",
+            "hcplastos",
             "mocchamaster",
-            "hc_crpt",
             "edicehc",
-            "hc_wall_lamp",
+            "hcamme",
             "doorD",
-            "deal_hcrollers",
             "hcsohva",
-            "hc_bkshlf",
             "hc_lmp",
-            "hc_trll",
             "hc_tbl",
-            "hc_machine",
             "hc_chr",
-            "hc_rntgn",
-            "hc_dsk",
-            "hc_djset",
-            "hc_lmpst",
-            "hc_frplc",
-            "hc_btlr"
+            "hc_dsk"
     };
 
     /**
