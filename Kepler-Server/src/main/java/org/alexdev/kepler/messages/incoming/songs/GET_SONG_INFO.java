@@ -1,5 +1,6 @@
 package org.alexdev.kepler.messages.incoming.songs;
 
+import com.intellij.ide.ui.EditorOptionsTopHitProvider;
 import org.alexdev.kepler.dao.mysql.SongMachineDao;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
@@ -31,7 +32,11 @@ public class GET_SONG_INFO implements MessageEvent {
             player.send(new USER_SOUND_PACKAGES(player.getInventory().getSoundsets()));
             player.send(new SOUND_PACKAGES(SongMachineDao.getTracks(room.getItemManager().getSoundMachine().getId())));
         } else {
-            songId = reader.readInt();
+            try {
+                songId = reader.readInt();
+            } catch (Exception ex){
+                throw new Exception("Replace your fucking CCTs with the ones in /tools/v15_ccts.zip if you're running this on v15 port");
+            }
         }
 
         var song = SongMachineDao.getSong(songId);
