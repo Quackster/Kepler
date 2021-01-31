@@ -18,14 +18,18 @@ import java.util.List;
 public class NAVIGATE implements MessageEvent {
 
     @Override
-    public void handle(Player player, NettyRequest reader) {
+    public void handle(Player player, NettyRequest reader) throws Exception {
         boolean hideFull = reader.readInt() == 1;
         int categoryId = reader.readInt();
+
+        boolean wasFollow = false;
+        int originalCategoryId = categoryId;
 
         if (categoryId >= RoomManager.PUBLIC_ROOM_OFFSET) { // Public room follow, there should not any categories with an ID of 1000 or over... lol
             Room room = RoomManager.getInstance().getRoomById(categoryId - RoomManager.PUBLIC_ROOM_OFFSET);
 
             if (room != null) {
+                wasFollow = true;
                 categoryId = room.getCategory().getId();
             }
         }
@@ -83,5 +87,9 @@ public class NAVIGATE implements MessageEvent {
 
         player.send(new NAVNODEINFO(player, category, rooms, hideFull, subCategories, categoryCurrentVisitors, categoryMaxVisitors, player.getDetails().getRank().getRankId()));
 
+        if (wasFollow && player.getMessenger().getFollowed() != null) {
+            player.getMessenger().getFollowed().forward(player, false);
+            player.getMessenger().hasFollowed(null);
+        }
     }
 }

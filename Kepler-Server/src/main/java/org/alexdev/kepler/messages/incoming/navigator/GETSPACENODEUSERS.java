@@ -7,6 +7,9 @@ import org.alexdev.kepler.messages.outgoing.navigator.NODESPACEUSERS;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GETSPACENODEUSERS implements MessageEvent {
     @Override
     public void handle(Player player, NettyRequest reader) throws Exception {
@@ -18,8 +21,16 @@ public class GETSPACENODEUSERS implements MessageEvent {
 
         var players = room.getEntityManager().getPlayers();
 
-        if (room.getData().getChildRooms().size() > 0) {
-            for (Room childRoom : room.getData().getChildRooms()) {
+        List<Room> childRooms;
+
+        if (room.isPublicRoom()) {
+            childRooms = RoomManager.getInstance().getChildRooms(room);
+        } else {
+            childRooms = new ArrayList<>();
+        }
+
+        if (childRooms.size() > 0) {
+            for (Room childRoom : childRooms) {
                 players.addAll(childRoom.getEntityManager().getPlayers());
             }
         }

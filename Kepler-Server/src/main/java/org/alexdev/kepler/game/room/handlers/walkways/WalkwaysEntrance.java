@@ -1,28 +1,28 @@
-package org.alexdev.kepler.game.room.public_rooms.walkways;
+package org.alexdev.kepler.game.room.handlers.walkways;
 
 import org.alexdev.kepler.game.pathfinder.Position;
 
 import java.util.List;
 
 public class WalkwaysEntrance {
-    private String modelFrom;
-    private String modelTo;
+    private int roomId;
+    private int roomTargetId;
     private List<Position> fromCoords;
     private Position destination;
 
-    public WalkwaysEntrance(String modelFrom, String modelTo, List<Position> fromCoords, Position destination) {
-        this.modelFrom = modelFrom;
-        this.modelTo = modelTo;
+    public WalkwaysEntrance(int roomId, int roomTargetId, List<Position> fromCoords, Position destination) {
+        this.roomId = roomId;
+        this.roomTargetId = roomTargetId;
         this.fromCoords = fromCoords;
         this.destination = destination;
     }
 
-    public String getModelFrom() {
-        return this.modelFrom;
+    public int getRoomId() {
+        return roomId;
     }
 
-    public String getModelTo() {
-        return this.modelTo;
+    public int getRoomTargetId() {
+        return roomTargetId;
     }
 
     public List<Position> getFromCoords() {

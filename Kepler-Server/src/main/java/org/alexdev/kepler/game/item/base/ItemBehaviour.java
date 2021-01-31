@@ -44,5 +44,7 @@ public enum ItemBehaviour {
     PET_FOOD,
     PET_CAT_FOOD,
     PET_DOG_FOOD,
-    PET_CROC_FOOD;
+    PET_CROC_FOOD,
+
+    PRIVATE_FURNITURE;
 }

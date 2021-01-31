@@ -1,7 +1,9 @@
 package org.alexdev.kepler.game.item.public_items;
 
 import org.alexdev.kepler.dao.mysql.ItemDao;
+import org.alexdev.kepler.dao.mysql.PublicRoomsDao;
 import org.alexdev.kepler.game.item.Item;
+import org.alexdev.kepler.game.item.ItemManager;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.item.interactors.InteractionType;
 
@@ -43,7 +45,7 @@ public class PublicItemParser {
 
 
         List<Item> items = new ArrayList<>();
-        List<PublicItemData> publicItemData = ItemDao.getPublicItemData(modelId);
+        List<PublicItemData> publicItemData = PublicRoomsDao.getPublicItemData(modelId);
 
         for (PublicItemData itemData : publicItemData) {
             String customId = null;
@@ -97,6 +99,10 @@ public class PublicItemParser {
             if (item.getDefinition().getSprite().equals("poolLift") ||
                 item.getDefinition().getSprite().equals("poolBooth")) {
                 item.showProgram("open");
+            }
+
+            if (item.getDefinition().hasBehaviour(ItemBehaviour.PRIVATE_FURNITURE)) {
+                item.setDefinitionId(ItemManager.getInstance().getDefinitionBySprite(itemData.getSprite()).getId());
             }
 
             if (item.getDefinition().getSprite().equals("queue_tile2")) {

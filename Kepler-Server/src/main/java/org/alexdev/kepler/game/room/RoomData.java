@@ -1,11 +1,13 @@
 package org.alexdev.kepler.game.room;
 
 import org.alexdev.kepler.game.games.Game;
-import org.alexdev.kepler.game.room.public_rooms.walkways.WalkwaysManager;
+import org.alexdev.kepler.game.games.GameManager;
+import org.alexdev.kepler.game.games.enums.GameType;
+import org.alexdev.kepler.game.room.handlers.walkways.WalkwaysManager;
+import org.alexdev.kepler.game.room.models.RoomModelTriggerType;
 import org.alexdev.kepler.util.StringUtil;
 import org.alexdev.kepler.util.config.GameConfiguration;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RoomData {
@@ -29,10 +31,10 @@ public class RoomData {
     private String password;
     private int visitorsNow;
     private int visitorsMax;
-    private boolean navigatorHide;
-    private List<Room> childRooms;
     private int rating;
     private Game game;
+    private int groupId;
+    private boolean isHidden;
 
     RoomData(Room room) {
         this.room = room;
@@ -48,7 +50,8 @@ public class RoomData {
         this.ownerName = "";
     }
 
-    public void fill(int id, int ownerId, String ownerName, int category, String name, String description, String model, String ccts, int wallpaper, int floor, boolean showName, boolean superUsers, int accessType, String password, int visitorsNow, int visitorsMax, int rating) {
+    public void fill(int id, int ownerId, String ownerName, int category, String name, String description, String model, String ccts, int wallpaper, int floor, boolean showName, boolean superUsers, int accessType, String password, int visitorsNow, int visitorsMax, int rating,
+                     boolean isHidden) {
         this.id = id;
         this.ownerId = ownerId;
         this.ownerName = StringUtil.filterInput(ownerName, true);;
@@ -65,107 +68,47 @@ public class RoomData {
         this.password = password;
         this.visitorsNow = visitorsNow;
         this.visitorsMax = visitorsMax;
-        this.childRooms = new ArrayList<>();
         this.rating = rating;
-        this.applyModelSettings();
-    }
+        this.groupId = groupId;
+        this.isHidden = isHidden;
 
-    public void applyModelSettings() {
-        if (GameConfiguration.getInstance().getBoolean("navigator.show.hidden.rooms")) {
-            return;
-        }
-
-        if (this.model.equals("gate_park")) {
-            this.childRooms.add(RoomManager.getInstance().getRoomByModel("gate_park_2"));
-        }
-
-        if (this.model.equals("rooftop")) {
-            this.childRooms.add(RoomManager.getInstance().getRoomByModel("rooftop_2"));
-        }
-
-        if (this.model.equals("old_skool0")) {
-            this.childRooms.add(RoomManager.getInstance().getRoomByModel("old_skool1"));
-        }
-
-        if (this.model.equals("malja_bar_a")) {
-            this.childRooms.add(RoomManager.getInstance().getRoomByModel("malja_bar_b"));
-        }
-
-        if (this.model.equals("pool_a")) {
-            this.childRooms.add(RoomManager.getInstance().getRoomByModel("pool_b"));
-        }
-
-        if (this.model.equals("bar_a")) {
-            this.childRooms.add(RoomManager.getInstance().getRoomByModel("bar_b"));
-        }
-
-        if (this.model.equals("entryhall")) {
-            this.childRooms.add(RoomManager.getInstance().getRoomByModel("hallA"));
-            this.childRooms.add(RoomManager.getInstance().getRoomByModel("hallB"));
-            this.childRooms.add(RoomManager.getInstance().getRoomByModel("hallC"));
-            this.childRooms.add(RoomManager.getInstance().getRoomByModel("hallD"));
-
-        }
-
-        if (this.model.equals("hallway2")) {
-            this.childRooms.add(RoomManager.getInstance().getRoomByModel("hallway0"));
-            this.childRooms.add(RoomManager.getInstance().getRoomByModel("hallway1"));
-            this.childRooms.add(RoomManager.getInstance().getRoomByModel("hallway3"));
-            this.childRooms.add(RoomManager.getInstance().getRoomByModel("hallway4"));
-            this.childRooms.add(RoomManager.getInstance().getRoomByModel("hallway5"));
-        }
-
-        if (this.model.equals("hallway9")) {
-            this.childRooms.add(RoomManager.getInstance().getRoomByModel("hallway10"));
-            this.childRooms.add(RoomManager.getInstance().getRoomByModel("hallway11"));
-            this.childRooms.add(RoomManager.getInstance().getRoomByModel("hallway8"));
-            this.childRooms.add(RoomManager.getInstance().getRoomByModel("hallway7"));
-            this.childRooms.add(RoomManager.getInstance().getRoomByModel("hallway6"));
+        if (WalkwaysManager.getInstance().getWalkways().stream().anyMatch(walkway -> walkway.getRoomTargetId() == this.room.getId())) {
+            WalkwaysManager.getInstance().getWalkways().stream().filter(walkway -> walkway.getRoomTargetId() == this.room.getId()).findFirst().ifPresent(roomData -> this.room.setFollowRedirect(roomData.getRoomId()));
         }
     }
-
 
     public boolean isNavigatorHide() {
         if (GameConfiguration.getInstance().getBoolean("navigator.show.hidden.rooms")) {
             return false;
         }
 
-        Room parentModel = RoomManager.getInstance().getRoomByModel(WalkwaysManager.getWalkwayMap().get(this.model));
-
-        if (parentModel != null) {
-            room.setFollowRedirect(parentModel.getId());
-            return true;
-        }
-
-        return false;
+        return this.isHidden;
     }
 
     public int getTotalVisitorsNow() {
-        if (this.childRooms.size() > 0) {
-            int totalVisitors = this.visitorsNow;
+        var childRooms = RoomManager.getInstance().getChildRooms(this.room);
+        int totalVisitors = this.getVisitorsNow();
 
-            for (Room room : this.childRooms) {
+        if (childRooms.size() > 0) {
+            for (Room room : childRooms) {
                 totalVisitors += room.getData().getVisitorsNow();
             }
-
-            return totalVisitors;
         }
 
-        return this.visitorsNow;
+        return totalVisitors;
     }
 
     public int getTotalVisitorsMax() {
-        if (this.childRooms.size() > 0) {
-            int totalMaxVisitors = this.visitorsMax;
+        var childRooms = RoomManager.getInstance().getChildRooms(this.room);
+        int totalMaxVisitors = this.getVisitorsMax();
 
-            for (Room room : this.childRooms) {
+        if (childRooms.size() > 0) {
+            for (Room room : childRooms) {
                 totalMaxVisitors += room.getData().getVisitorsMax();
             }
-
-            return totalMaxVisitors;
         }
 
-        return this.visitorsMax;
+        return totalMaxVisitors;
     }
 
     public int getId() {
@@ -174,6 +117,10 @@ public class RoomData {
 
     public int getOwnerId() {
         return ownerId;
+    }
+
+    public void setOwnerId(int ownerId) {
+        this.ownerId = ownerId;
     }
 
     public String getOwnerName() {
@@ -303,7 +250,9 @@ public class RoomData {
     }
 
     public int getVisitorsNow() {
-        return visitorsNow;
+        //return this.visitorsNow;
+        int visitors = this.visitorsNow;
+        return visitors;
     }
 
     public void setVisitorsNow(int visitorsNow) {
@@ -311,7 +260,8 @@ public class RoomData {
     }
 
     public int getVisitorsMax() {
-        return visitorsMax;
+        int visitors = this.visitorsMax;
+        return visitors;
     }
 
     public void setVisitorsMax(int visitorsMax) {
@@ -342,25 +292,20 @@ public class RoomData {
         this.gameLobby = gameLobby;
     }
 
-    public List<Room> getChildRooms() {
-        return childRooms;
-    }
-
-    /**
-     * Get the game instance for this room.
-     *
-     * @return the game
-     */
     public Game getGame() {
         return game;
     }
 
-    /**
-     * Sets the game instance for this room.
-     *
-     * @param game the game
-     */
     public void setGame(Game game) {
         this.game = game;
     }
+
+    public boolean isHidden() {
+        return isHidden;
+    }
+
+    public void setHidden(boolean hidden) {
+        isHidden = hidden;
+    }
+
 }
