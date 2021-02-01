@@ -16,14 +16,15 @@ import org.alexdev.kepler.game.pathfinder.game.AStar;
 import org.alexdev.kepler.game.pets.PetManager;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
+import org.alexdev.kepler.game.room.RoomManager;
 import org.alexdev.kepler.game.room.RoomUserStatus;
 import org.alexdev.kepler.game.room.enums.DrinkType;
 import org.alexdev.kepler.game.room.enums.StatusType;
+import org.alexdev.kepler.game.room.handlers.walkways.WalkwaysEntrance;
+import org.alexdev.kepler.game.room.handlers.walkways.WalkwaysManager;
 import org.alexdev.kepler.game.room.managers.RoomTimerManager;
 import org.alexdev.kepler.game.room.mapping.RoomTile;
 import org.alexdev.kepler.game.room.public_rooms.SunTerraceHandler;
-import org.alexdev.kepler.game.room.public_rooms.walkways.WalkwaysEntrance;
-import org.alexdev.kepler.game.room.public_rooms.walkways.WalkwaysManager;
 import org.alexdev.kepler.game.room.tasks.WaveTask;
 import org.alexdev.kepler.game.texts.TextsManager;
 import org.alexdev.kepler.messages.outgoing.rooms.user.CHAT_MESSAGE;
@@ -237,36 +238,38 @@ public abstract class RoomEntity {
         this.nextPosition = null;
         this.removeStatus(StatusType.MOVE);
 
-        if (!this.beingKicked) {
-            WalkwaysEntrance entrance = WalkwaysManager.getInstance().getWalkway(this.getRoom(), this.getPosition());
+        if (this.entity.getType() == EntityType.PLAYER) {
+            if (!this.beingKicked) {
+                WalkwaysEntrance entrance = WalkwaysManager.getInstance().getWalkway(this.getRoom(), this.getPosition());
 
-            if (entrance != null) {
-                Room room = WalkwaysManager.getInstance().getWalkwayRoom(entrance.getModelTo());
+                if (entrance != null) {
+                    Room room = RoomManager.getInstance().getRoomById(entrance.getRoomTargetId());
 
-                if (room != null) {
-                    room.getEntityManager().enterRoom(this.entity, entrance.getDestination());
-                    return;
+                    if (room != null) {
+                        room.getEntityManager().enterRoom(this.entity, entrance.getDestination());
+                        return;
+                    }
                 }
             }
-        }
 
-        boolean leaveRoom = this.beingKicked;
-        Position doorPosition = this.getRoom().getModel().getDoorLocation();
+            boolean leaveRoom = this.beingKicked;
+            Position doorPosition = this.getRoom().getModel().getDoorLocation();
 
-        if (doorPosition.equals(this.getPosition())) {
-            leaveRoom = true;
-        }
-
-        if (this.getRoom().isPublicRoom()) {
-            if (WalkwaysManager.getInstance().getWalkway(this.getRoom(), doorPosition) != null) {
-                leaveRoom = false;
+            if (doorPosition.equals(this.getPosition())) {
+                leaveRoom = true;
             }
-        }
 
-        // Leave room if the tile is the door and we are in a flat or we're being kicked
-        if (leaveRoom || this.beingKicked) {
-            this.getRoom().getEntityManager().leaveRoom(this.entity, true);
-            return;
+            if (this.getRoom().isPublicRoom()) {
+                if (WalkwaysManager.getInstance().getWalkway(this.getRoom(), doorPosition) != null) {
+                    leaveRoom = false;
+                }
+            }
+
+            // Leave room if the tile is the door and we are in a flat or we're being kicked
+            if (leaveRoom || this.beingKicked) {
+                this.getRoom().getEntityManager().leaveRoom(this.entity, true);
+                return;
+            }
         }
 
         this.invokeItem(null);

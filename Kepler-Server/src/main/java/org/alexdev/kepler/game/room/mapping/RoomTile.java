@@ -11,8 +11,8 @@ import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.pets.Pet;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.enums.StatusType;
-import org.alexdev.kepler.game.room.public_rooms.walkways.WalkwaysEntrance;
-import org.alexdev.kepler.game.room.public_rooms.walkways.WalkwaysManager;
+import org.alexdev.kepler.game.room.handlers.walkways.WalkwaysEntrance;
+import org.alexdev.kepler.game.room.handlers.walkways.WalkwaysManager;
 
 import java.util.ArrayList;
 import java.util.Comparator;

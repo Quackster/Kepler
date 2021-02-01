@@ -420,11 +420,13 @@ public class RoomDao {
 
         String ownerName = row.getString("username");
 
+        //     public void fill(int id, int ownerId, String ownerName, int category, String name, String description, String model, String ccts, int wallpaper, int floor, String decoration, boolean showName, boolean superUsers, int accessType,
+        //     String password, int visitorsNow, int visitorsMax, int rating, boolean isHidden) {
         data.fill(row.getInt("id"), row.getInt("owner_id"), ownerName != null ? ownerName : "", row.getInt("category"),
                 row.getString("name"), row.getString("description"), row.getString("model"),
                 row.getString("ccts"), row.getInt("wallpaper"), row.getInt("floor"), row.getBoolean("showname"),
                 row.getBoolean("superusers"), row.getInt("accesstype"), row.getString("password"),
-                row.getInt("visitors_now"), row.getInt("visitors_max"), row.getInt("rating"));
+                row.getInt("visitors_now"), row.getInt("visitors_max"), row.getInt("rating"), row.getBoolean("is_hidden"));
 
     }
 }

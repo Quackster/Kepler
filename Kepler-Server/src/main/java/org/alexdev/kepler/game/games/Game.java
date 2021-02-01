@@ -527,7 +527,7 @@ public abstract class Game {
             this.leaveGame(gamePlayer);
         }
 
-        player.send(new ROOMFORWARD(true, RoomManager.getInstance().getRoomByModel(this.gameType.getLobbyModel()).getId()));
+        this.getLobby().forward(gamePlayer.getPlayer(), false);
     }
 
     /**

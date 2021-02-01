@@ -1,5 +1,6 @@
 package org.alexdev.kepler.messages.incoming.messenger;
 
+import org.alexdev.kepler.game.messenger.MessengerUser;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerManager;
 import org.alexdev.kepler.game.room.Room;
@@ -43,7 +44,7 @@ public class FOLLOW_FRIEND implements MessageEvent {
             return;
         }
 
-        if (friend.getRoomUser().getRoom() == null) {
+        if (friend.getRoomUser().getRoom() == null || !new MessengerUser(friend.getDetails()).canFollowFriend(player)) {
             player.send(new FOLLOW_ERROR(FollowErrors.ON_HOTELVIEW.getErrorId())); // Friend is on hotelview
             return;
         }
@@ -54,27 +55,7 @@ public class FOLLOW_FRIEND implements MessageEvent {
         }
 
         Room friendRoom = friend.getRoomUser().getRoom();
-
-        boolean isPublic = friendRoom.isPublicRoom();
-        int roomId = friendRoom.getId();
-
-        // If you tried to follow someone in arena, send them to lobby.
-        if (friendRoom.getData().isGameArena()) {
-            String modelType = friendRoom.getData().getGameLobby();
-            roomId = RoomManager.getInstance().getRoomByModel(modelType).getId();
-            isPublic = true;
-        }
-
-        if (isPublic) { // Some weird offset shit required...
-            Room room = RoomManager.getInstance().getRoomById(roomId);
-
-            if (room.getData().isNavigatorHide()) {
-                roomId = room.getFollowRedirect();
-            }
-
-           // roomId = roomId + RoomManager.PUBLIC_ROOM_OFFSET;
-        }
-
-        player.send(new ROOMFORWARD(isPublic, roomId));
+        player.getMessenger().hasFollowed(friendRoom);
+        friendRoom.forward(player, false);
     }
 }

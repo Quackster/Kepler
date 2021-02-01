@@ -52,44 +52,6 @@ public class ItemDao {
         return definitions;
     }
 
-    /**
-     * Get the item definitions.
-     *
-     * @return the list of item definitions
-     */
-    public static List<PublicItemData> getPublicItemData(String roomModel) {
-       List<PublicItemData> itemDataList = new ArrayList<>();
-
-        Connection sqlConnection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
-        try {
-            sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("SELECT * FROM public_items WHERE room_model = ?", sqlConnection);
-            preparedStatement.setString(1, roomModel);
-            resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                PublicItemData itemData = new PublicItemData(resultSet.getString("id"), resultSet.getString("room_model"),
-                        resultSet.getString("sprite"), resultSet.getInt("x"), resultSet.getInt("y"),
-                        resultSet.getDouble("z"), resultSet.getInt("rotation"),  resultSet.getDouble("top_height"),
-                        resultSet.getInt("length"), resultSet.getInt("width"), resultSet.getString("behaviour"),
-                        resultSet.getString("current_program"));
-
-                itemDataList.add(itemData);
-            }
-
-        } catch (Exception e) {
-            Storage.logError(e);
-        } finally {
-            Storage.closeSilently(resultSet);
-            Storage.closeSilently(preparedStatement);
-            Storage.closeSilently(sqlConnection);
-        }
-
-        return itemDataList;
-    }
 
     /**
      * Create new item entry with the definition id, user id and custom data. It will

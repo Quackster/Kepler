@@ -5,6 +5,7 @@ import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.player.PlayerManager;
+import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.messages.incoming.messenger.FRIENDLIST_UPDATE;
 import org.alexdev.kepler.messages.outgoing.messenger.CONSOLE_MOTTO;
 import org.alexdev.kepler.messages.outgoing.messenger.FRIEND_REQUEST;
@@ -29,6 +30,7 @@ public class Messenger {
     private int friendsLimit;
     private boolean allowsFriendRequests;
     private MessengerUser user;
+    private Room followed;
 
     public Messenger(PlayerDetails details) {
         this.user = new MessengerUser(details);
@@ -245,4 +247,11 @@ public class Messenger {
         this.friendsUpdate.add(friend);
     }
 
+    public void hasFollowed(Room friendRoom) {
+        this.followed = friendRoom;
+    }
+
+    public Room getFollowed() {
+        return followed;
+    }
 }

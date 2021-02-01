@@ -66,6 +66,10 @@ public class RoomItemManager {
                 continue;
             }
 
+            if (item.hasBehaviour(ItemBehaviour.PRIVATE_FURNITURE)) {
+                continue;
+            }
+
             if (!item.hasBehaviour(ItemBehaviour.PUBLIC_SPACE_OBJECT)) {
                 continue;
             }

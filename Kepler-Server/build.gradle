@@ -68,17 +68,8 @@ dependencies {
     // https://mvnrepository.com/artifact/commons-validator/commons-validator
     implementation group: 'commons-validator', name: 'commons-validator', version: '1.6'
 
-    implementation "com.goterl.lazycode:lazysodium-java:3.3.0"
-
-    implementation "com.google.api.grpc:proto-google-common-protos:1.0.0"
-    implementation "io.grpc:grpc-alts:${grpcVersion}"
-    implementation "io.grpc:grpc-netty:${grpcVersion}"
-    implementation "io.grpc:grpc-protobuf:${grpcVersion}"
-    implementation "io.grpc:grpc-stub:${grpcVersion}"
-    implementation "io.grpc:grpc-services:${grpcVersion}"
-    compileOnly "javax.annotation:javax.annotation-api:1.2"
-
-    implementation "com.google.protobuf:protobuf-java-util:${protobufVersion}"
+    implementation 'com.goterl.lazycode:lazysodium-java:3.3.0'
+    implementation 'com.github.bhlangonijr:chesslib:1.1.1'
 
     testImplementation "io.grpc:grpc-testing:${grpcVersion}"
 }

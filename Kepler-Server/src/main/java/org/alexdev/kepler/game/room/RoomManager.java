@@ -4,6 +4,8 @@ import org.alexdev.kepler.dao.Storage;
 import org.alexdev.kepler.dao.mysql.RoomDao;
 import org.alexdev.kepler.dao.mysql.RoomFavouritesDao;
 import org.alexdev.kepler.dao.mysql.RoomVoteDao;
+import org.alexdev.kepler.game.room.handlers.walkways.WalkwaysEntrance;
+import org.alexdev.kepler.game.room.handlers.walkways.WalkwaysManager;
 
 import java.sql.SQLException;
 import java.util.*;
@@ -154,6 +156,42 @@ public class RoomManager {
 
             if (newRating != room.getData().getRating()) {
                 RoomDao.saveRating(room.getId(), newRating);
+            }
+        }
+    }
+
+    /**
+     * Get the child rooms by room id - for rooms with walkways.
+     *
+     * @param room the room to check
+     */
+    public List<Room> getChildRooms(Room room) {
+        List<Room> roomList = new ArrayList<>();
+
+        if (room.isPublicRoom()) {
+            getSubRooms(room.getId(), roomList);
+
+            for (Room r : roomList) {
+                getSubRooms(r.getId(), roomList);
+            }
+        }
+
+        return roomList;
+    }
+
+    /**
+     * Get child rooms, if they have a walkway.
+     *
+     * @param id the id to check
+     * @param roomList the list to add to
+     */
+    private void getSubRooms(int id, List<Room> roomList) {
+        for (WalkwaysEntrance walkway : WalkwaysManager.getInstance().getWalkways()) {
+            if (walkway.getRoomTargetId() == id && walkway.getRoomId() != id) {
+                if (roomList.stream().noneMatch(r -> r.getId() == walkway.getRoomId()) &&
+                        roomList.stream().noneMatch(r -> r.getId() == walkway.getRoomTargetId())) {
+                    roomList.add(this.getRoomById(walkway.getRoomId()));
+                }
             }
         }
     }
