@@ -22,8 +22,6 @@ repositories {
 }
 
 dependencies {
-    compile 'com.maxmind.geoip2:geoip2:2.12.0'
-
     // https://mvnrepository.com/artifact/com.zaxxer/HikariCP
     implementation group: 'com.zaxxer', name: 'HikariCP', version: '3.4.1'
 
@@ -58,7 +56,7 @@ dependencies {
     implementation 'com.github.bhlangonijr:chesslib:1.1.1'
 
     // https://mvnrepository.com/artifact/at.favre.lib/bcrypt
-    compile group: 'at.favre.lib', name: 'bcrypt', version: '0.9.0'
+    implementation group: 'at.favre.lib', name: 'bcrypt', version: '0.9.0'
 }
 
 // Create fat jar with libraries inside of it.
