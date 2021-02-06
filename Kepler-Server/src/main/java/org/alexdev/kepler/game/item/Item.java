@@ -377,10 +377,6 @@ public class Item {
             if (highestItem != null && highestItem.getId() != item.getId()) {
                 if (!this.canPlaceOnTop(item, highestItem)) {
                     return false;
-                } else {
-                    if(highestItem.getPosition().getZ() == item.getPosition().getZ() && isRotation) {
-                        return false;
-                    }
                 }
             }
 
