@@ -210,9 +210,7 @@ public class PlayerDao {
                     if (success) {
                         fill(player, resultSet);
                     }
-                }
-
-                if (useBcrypt) {
+                } else if (useBcrypt) {
                     var hashedPassword = resultSet.getString("password");
 
                     BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), hashedPassword);
@@ -221,6 +219,12 @@ public class PlayerDao {
                     if (success) {
                         fill(player, resultSet);
 
+                    }
+                } else {
+                    success = password.equals(resultSet.getString("password"));
+
+                    if (success) {
+                        fill(player, resultSet);
                     }
                 }
             }

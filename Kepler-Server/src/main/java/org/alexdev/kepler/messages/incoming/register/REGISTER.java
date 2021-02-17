@@ -97,12 +97,10 @@ public class REGISTER implements MessageEvent {
             }
 
             return new String(outputHash).replace((char) 0 + "", "");
-        }
-
-        if (ServerConfiguration.getStringOrDefault("password.hashing.library", "argon2").equalsIgnoreCase("bcrypt")) {
+        } else if (ServerConfiguration.getStringOrDefault("password.hashing.library", "argon2").equalsIgnoreCase("bcrypt")) {
             return BCrypt.withDefaults().hashToString(12, password.toCharArray());
+        } else {
+            return password;
         }
-
-        return null;
     }
 }
