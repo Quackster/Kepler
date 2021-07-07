@@ -80,6 +80,16 @@ $ git clone https://github.com/Quackster/Kepler
 $ git submodule update --init --recursive
 ```
 
+## Development
+IntelliJ config: 
+![intellijconfig.PNG](intellijconfig.PNG)
+
+
+Use gradle wrapper config and Java 12.0.
+
+
+
+
 # Thanks to
 
 * Hoshiko

@@ -31,13 +31,14 @@ repositories {
         dirs 'libs'
     }
 
-    maven { url  "https://dl.bintray.com/terl/lazysodium-maven" }
     maven { url 'https://jitpack.io' }
-    maven { url 'https://dl.bintray.com/jetbrains/intellij-plugin-service'}
+
     mavenCentral()
 }
 
 dependencies {
+    compile group: 'net.java.dev.jna', name: 'jna', version: '5.1.0'
+
     implementation 'com.github.bhlangonijr:chesslib:1.1.1'
     testImplementation group: 'junit', name: 'junit', version: '4.12'
 

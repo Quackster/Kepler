@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.goterl.lazycode</groupId>
+  <artifactId>lazysodium-java</artifactId>
+  <version>3.3.0</version>
+  <packaging>pom</packaging>
+  <dependencies>
+    <dependency>
+      <groupId>net.java.dev.jna</groupId>
+      <artifactId>jna</artifactId>
+      <version>4.5.1</version>
+      <scope>runtime</scope>
+    </dependency>
+  </dependencies>
+  <description>Lazysodium (Java) makes it effortless for Java developers to get started with Libsodium's cryptography.</description>
+  <name>lazysodium-java</name>
+  <url>https://github.com/terl/lazysodium-java</url>
+  <scm>
+    <connection>scm:git:git://github.com/terl/lazysodium-java.git</connection>
+    <developerConnection>scm:git:ssh://github.com/terl/lazysodium-java</developerConnection>
+    <url>http://github.com/terl/lazysodium-java</url>
+  </scm>
+  <licenses>
+    <license>
+      <name>Mozilla Public License, Version 2.0</name>
+      <url>http://www.mozilla.org/MPL/2.0/index.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <name>Terl Tech Ltd</name>
+      <email>hello@terl.co</email>
+    </developer>
+  </developers>
+</project>
