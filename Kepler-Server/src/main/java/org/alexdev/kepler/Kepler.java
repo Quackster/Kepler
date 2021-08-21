@@ -1,11 +1,9 @@
 package org.alexdev.kepler;
 
-import at.favre.lib.crypto.bcrypt.BCrypt;
-import com.goterl.lazycode.lazysodium.LazySodiumJava;
-import com.goterl.lazycode.lazysodium.SodiumJava;
+import com.goterl.lazysodium.LazySodiumJava;
+import com.goterl.lazysodium.SodiumJava;
 import io.netty.util.ResourceLeakDetector;
 import org.alexdev.kepler.dao.Storage;
-import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.dao.mysql.SettingsDao;
 import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.bot.BotManager;
@@ -20,7 +18,6 @@ import org.alexdev.kepler.game.infobus.InfobusManager;
 import org.alexdev.kepler.game.item.ItemManager;
 import org.alexdev.kepler.game.moderation.ChatManager;
 import org.alexdev.kepler.game.navigator.NavigatorManager;
-import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.player.PlayerManager;
 import org.alexdev.kepler.game.recycler.RecyclerManager;
 import org.alexdev.kepler.game.room.RoomManager;
@@ -28,7 +25,6 @@ import org.alexdev.kepler.game.room.handlers.walkways.WalkwaysManager;
 import org.alexdev.kepler.game.room.models.RoomModelManager;
 import org.alexdev.kepler.game.texts.TextsManager;
 import org.alexdev.kepler.messages.MessageHandler;
-import org.alexdev.kepler.messages.incoming.register.REGISTER;
 import org.alexdev.kepler.server.mus.MusServer;
 import org.alexdev.kepler.server.netty.NettyServer;
 import org.alexdev.kepler.server.rcon.RconServer;
@@ -41,7 +37,6 @@ import org.alexdev.kepler.util.config.writer.GameConfigWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.Console;
 import java.io.IOException;
 import java.net.UnknownHostException;
 

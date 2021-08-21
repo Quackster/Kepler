@@ -10,13 +10,10 @@ targetCompatibility = "1.12"
 
 mainClassName = 'org.alexdev.kepler.Kepler'
 
-
 repositories {
     flatDir {
         dirs 'libs'
     }
-
-    maven { url 'https://dl.bintray.com/terl/lazysodium-maven' }
     maven { url 'https://jitpack.io' }
     mavenCentral()
 }
@@ -52,8 +49,9 @@ dependencies {
     // https://mvnrepository.com/artifact/commons-validator/commons-validator
     implementation group: 'commons-validator', name: 'commons-validator', version: '1.6'
 
-    implementation 'com.goterl.lazycode:lazysodium-java:3.3.0'
     implementation 'com.github.bhlangonijr:chesslib:1.1.1'
+    implementation 'com.goterl:lazysodium-java:5.0.1'
+    implementation "net.java.dev.jna:jna:5.8.0"
 
     implementation name: 'bcrypt-0.9.0'
     implementation name: 'bcrypt-cli-0.9.0-full'
