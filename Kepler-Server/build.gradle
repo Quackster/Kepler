@@ -1,8 +1,11 @@
 apply plugin: 'java'
 apply plugin: 'application'
 
-sourceCompatibility = "1.12"
-targetCompatibility = "1.12"
+
+java {
+    sourceCompatibility = JavaVersion.toVersion("1.17")
+    targetCompatibility = JavaVersion.toVersion("1.17")
+}
 
 mainClassName = 'org.alexdev.kepler.Kepler'
 
