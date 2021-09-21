@@ -1,7 +1,7 @@
 package org.alexdev.kepler.dao.mysql;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-import com.goterl.lazycode.lazysodium.interfaces.PwHash;
+import com.goterl.lazysodium.interfaces.PwHash;
 import org.alexdev.kepler.Kepler;
 import org.alexdev.kepler.dao.Storage;
 import org.alexdev.kepler.game.player.Player;

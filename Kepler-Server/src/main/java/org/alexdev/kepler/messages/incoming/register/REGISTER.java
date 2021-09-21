@@ -1,12 +1,11 @@
 package org.alexdev.kepler.messages.incoming.register;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-import com.goterl.lazycode.lazysodium.interfaces.PwHash;
+import com.goterl.lazysodium.interfaces.PwHash;
 import org.alexdev.kepler.Kepler;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.messages.types.MessageEvent;
-import org.alexdev.kepler.server.netty.NettyPlayerNetwork;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 import org.alexdev.kepler.util.config.ServerConfiguration;
 

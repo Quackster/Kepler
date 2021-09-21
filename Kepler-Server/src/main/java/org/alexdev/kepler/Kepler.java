@@ -1,11 +1,9 @@
 package org.alexdev.kepler;
 
-import at.favre.lib.crypto.bcrypt.BCrypt;
-import com.goterl.lazycode.lazysodium.LazySodiumJava;
-import com.goterl.lazycode.lazysodium.SodiumJava;
+import com.goterl.lazysodium.LazySodiumJava;
+import com.goterl.lazysodium.SodiumJava;
 import io.netty.util.ResourceLeakDetector;
 import org.alexdev.kepler.dao.Storage;
-import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.dao.mysql.SettingsDao;
 import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.bot.BotManager;
@@ -175,7 +173,7 @@ public class Kepler {
         }
     }
 
-    private static void setupServer() throws UnknownHostException {
+    private static void setupServer() {
         String serverIP = ServerConfiguration.getString("bind");
 
         if (serverIP.length() == 0) {
@@ -195,7 +193,7 @@ public class Kepler {
         server.bind();
     }
 
-    private static void setupRcon() throws IOException {
+    private static void setupRcon() {
         // Create the RCON instance
         rconIP = ServerConfiguration.getString("rcon.bind");
 
@@ -216,7 +214,7 @@ public class Kepler {
         rconServer.bind();
     }
 
-    private static void setupMus() throws UnknownHostException {
+    private static void setupMus() {
         musServerIP = ServerConfiguration.getString("bind");
 
         if (musServerIP.length() == 0) {
