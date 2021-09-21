@@ -170,7 +170,7 @@ public class Kepler {
         }
     }
 
-    private static void setupServer() throws UnknownHostException {
+    private static void setupServer() {
         String serverIP = ServerConfiguration.getString("bind");
 
         if (serverIP.length() == 0) {
@@ -190,7 +190,7 @@ public class Kepler {
         server.bind();
     }
 
-    private static void setupRcon() throws IOException {
+    private static void setupRcon() {
         // Create the RCON instance
         rconIP = ServerConfiguration.getString("rcon.bind");
 
@@ -211,7 +211,7 @@ public class Kepler {
         rconServer.bind();
     }
 
-    private static void setupMus() throws UnknownHostException {
+    private static void setupMus() {
         musServerIP = ServerConfiguration.getString("bind");
 
         if (musServerIP.length() == 0) {
