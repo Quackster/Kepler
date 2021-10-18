@@ -1,8 +1,7 @@
 package org.alexdev.kepler.dao.mysql;
 
-import com.goterl.lazycode.lazysodium.LazySodiumJava;
-import com.goterl.lazycode.lazysodium.SodiumJava;
-import com.goterl.lazycode.lazysodium.interfaces.PwHash;
+import at.favre.lib.crypto.bcrypt.BCrypt;
+import com.goterl.lazysodium.interfaces.PwHash;
 import org.alexdev.kepler.Kepler;
 import org.alexdev.kepler.dao.Storage;
 import org.alexdev.kepler.game.player.Player;
@@ -245,6 +244,22 @@ public class PlayerDao {
 
                     PwHash.Native pwHash = (PwHash.Native) Kepler.getLibSodium();
                     success = pwHash.cryptoPwHashStrVerify(hashedPassword, pass, pass.length);
+
+                    if (success) {
+                        fill(player, resultSet);
+                    }
+                } else if (useBcrypt) {
+                    var hashedPassword = resultSet.getString("password");
+
+                    BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), hashedPassword);
+                    success = result.verified;
+
+                    if (success) {
+                        fill(player, resultSet);
+
+                    }
+                } else {
+                    success = password.equals(resultSet.getString("password"));
 
                     if (success) {
                         fill(player, resultSet);

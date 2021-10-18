@@ -1,11 +1,11 @@
 package org.alexdev.kepler.messages.incoming.register;
 
-import com.goterl.lazycode.lazysodium.interfaces.PwHash;
+import at.favre.lib.crypto.bcrypt.BCrypt;
+import com.goterl.lazysodium.interfaces.PwHash;
 import org.alexdev.kepler.Kepler;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.messages.types.MessageEvent;
-import org.alexdev.kepler.server.netty.NettyPlayerNetwork;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 import org.alexdev.kepler.util.config.ServerConfiguration;
 
@@ -96,8 +96,10 @@ public class REGISTER implements MessageEvent {
             }
 
             return new String(outputHash).replace((char) 0 + "", "");
+        } else if (ServerConfiguration.getStringOrDefault("password.hashing.library", "argon2").equalsIgnoreCase("bcrypt")) {
+            return BCrypt.withDefaults().hashToString(12, password.toCharArray());
+        } else {
+            return password;
         }
-
-        return null;
     }
 }
