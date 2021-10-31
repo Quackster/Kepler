@@ -169,7 +169,7 @@ public class Item {
      *
      * @return true, if successful.
      */
-    public boolean isWalkable(Position selectedPosition) {
+    public boolean isWalkable() {
         if (this.getDefinition().getSprite().equals("poolLift")) {
             return this.currentProgramValue.equals("open");
         }
@@ -364,7 +364,7 @@ public class Item {
             }
 
             if (tile.getEntities().size() > 0) {
-                if (!item.isWalkable(new Position(x, y))) {
+                if (!item.isWalkable()) {
                     return false;
                 }
             }

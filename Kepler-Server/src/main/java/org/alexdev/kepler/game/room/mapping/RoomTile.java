@@ -160,7 +160,7 @@ public class RoomTile {
                 return false;
             }
 
-            if (!tile.getHighestItem().isWalkable(position)) {
+            if (!tile.getHighestItem().isWalkable()) {
                 return false;
             }
         }
@@ -175,7 +175,7 @@ public class RoomTile {
      */
     public boolean hasWalkableFurni() {
         if (this.highestItem != null) {
-            return this.highestItem.isWalkable(this.position);
+            return this.highestItem.isWalkable();
         }
 
         return true;
@@ -198,7 +198,7 @@ public class RoomTile {
             }
         }
 
-        positions.sort(Position::getDistance);
+        positions.sort(Position::getDistanceSquared);
         return (positions.size() > 0 ? positions.get(0) : null);
     }
 
@@ -377,6 +377,24 @@ public class RoomTile {
         }
 
         return height;
+    }
+
+    /**
+     * Is the next tile lower than our current tile in walking height
+     * @param otherTile the tile adjacent to this one
+     * @return whether it is lower or not
+     */
+    public boolean isHeightDrop(RoomTile otherTile) {
+        return this.getWalkingHeight() > otherTile.getWalkingHeight();
+    }
+
+    /**
+     * Is the next tile higher than our current tile in walking height
+     * @param otherTile the tile adjacent to this one
+     * @return whether it is higher or not
+     */
+    public boolean isHeightUpwards(RoomTile otherTile) {
+        return this.getWalkingHeight() < otherTile.getWalkingHeight();
     }
 
     /**
