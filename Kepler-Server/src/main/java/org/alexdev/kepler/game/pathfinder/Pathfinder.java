@@ -94,7 +94,7 @@ public class Pathfinder {
                 || (toItem.getDefinition().getSprite().equals("poolEnter"))
                 || (toItem.getDefinition().getSprite().equals("poolExit")));
 
-        if (fromItem == null || !fromItemHeightExempt) {
+        if (!fromItemHeightExempt) {
             if (fromTile.isHeightUpwards(toTile)) {
                 if ((oldHeight - newHeight) > MAX_LIFT_HEIGHT) {
                     return false;
@@ -106,9 +106,11 @@ public class Pathfinder {
                     return false;
                 }
             }
+        } else {
+            return true;
         }
 
-        if (toItem == null || !toItemHeightExempt) {
+        if (!toItemHeightExempt) {
             if (toTile.isHeightUpwards(fromTile)) {
                 if ((oldHeight - newHeight) > MAX_LIFT_HEIGHT) {
                     return false;
@@ -120,6 +122,8 @@ public class Pathfinder {
                     return false;
                 }
             }
+        } else {
+            return true;
         }
 
         /*if (hasPool || isPrivateRoom) {
@@ -213,7 +217,7 @@ public class Pathfinder {
         if (!current.equals(room.getModel().getDoorLocation())) {
             if (toItem != null) {
                 if (isFinalMove) {
-                    return toItem.isWalkable();
+                    return toItem.isWalkable(entity);
                 } else {
                     return toItem.hasBehaviour(ItemBehaviour.CAN_STAND_ON_TOP) || toItem.isGateOpen();
                 }

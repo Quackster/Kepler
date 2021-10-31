@@ -122,7 +122,7 @@ public class RoomTile {
         }
 
 
-        if (!tile.hasWalkableFurni()) {
+        if (!tile.hasWalkableFurni(entity)) {
             if (entity != null) {
                 return tile.getHighestItem() != null && tile.getHighestItem().getPosition().equals(entity.getRoomUser().getPosition());
             }
@@ -160,7 +160,7 @@ public class RoomTile {
                 return false;
             }
 
-            if (!tile.getHighestItem().isWalkable()) {
+            if (!tile.getHighestItem().isWalkable(entity)) {
                 return false;
             }
         }
@@ -173,9 +173,9 @@ public class RoomTile {
      *
      * @return true, if successful.
      */
-    public boolean hasWalkableFurni() {
+    public boolean hasWalkableFurni(Entity entity) {
         if (this.highestItem != null) {
-            return this.highestItem.isWalkable();
+            return this.highestItem.isWalkable(entity);
         }
 
         return true;
