@@ -1,9 +1,19 @@
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Server version:               10.6.4-MariaDB - mariadb.org binary distribution
+-- Server OS:                    Win64
+-- HeidiSQL Version:             11.3.0.6295
+-- --------------------------------------------------------
+
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
 /*!50503 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+-- Dumping structure for table kepler.catalogue_items
+DROP TABLE IF EXISTS `catalogue_items`;
 CREATE TABLE IF NOT EXISTS `catalogue_items` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sale_code` varchar(255) DEFAULT NULL,
@@ -23,6 +33,7 @@ CREATE TABLE IF NOT EXISTS `catalogue_items` (
   KEY `id` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1351 DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.catalogue_items: ~940 rows (approximately)
 DELETE FROM `catalogue_items`;
 /*!40000 ALTER TABLE `catalogue_items` DISABLE KEYS */;
 INSERT INTO `catalogue_items` (`id`, `sale_code`, `page_id`, `order_id`, `price`, `is_hidden`, `amount`, `definition_id`, `item_specialspriteid`, `name`, `description`, `is_package`, `package_name`, `package_description`) VALUES
@@ -968,6 +979,8 @@ INSERT INTO `catalogue_items` (`id`, `sale_code`, `page_id`, `order_id`, `price`
 	(1350, 'rclr_sofa', '92', 9, 1, 0, 1, 1416, 0, 'Polar Sofa', 'Snuggle up together', 0, NULL, NULL);
 /*!40000 ALTER TABLE `catalogue_items` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.catalogue_packages
+DROP TABLE IF EXISTS `catalogue_packages`;
 CREATE TABLE IF NOT EXISTS `catalogue_packages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `salecode` varchar(255) DEFAULT NULL,
@@ -977,6 +990,7 @@ CREATE TABLE IF NOT EXISTS `catalogue_packages` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.catalogue_packages: ~18 rows (approximately)
 DELETE FROM `catalogue_packages`;
 /*!40000 ALTER TABLE `catalogue_packages` DISABLE KEYS */;
 INSERT INTO `catalogue_packages` (`id`, `salecode`, `definition_id`, `special_sprite_id`, `amount`) VALUES
@@ -1000,6 +1014,8 @@ INSERT INTO `catalogue_packages` (`id`, `salecode`, `definition_id`, `special_sp
 	(18, 'deal_throne', 107, 0, 10);
 /*!40000 ALTER TABLE `catalogue_packages` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.catalogue_pages
+DROP TABLE IF EXISTS `catalogue_pages`;
 CREATE TABLE IF NOT EXISTS `catalogue_pages` (
   `id` int(11) NOT NULL,
   `order_id` int(11) DEFAULT NULL,
@@ -1019,6 +1035,7 @@ CREATE TABLE IF NOT EXISTS `catalogue_pages` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.catalogue_pages: ~60 rows (approximately)
 DELETE FROM `catalogue_pages`;
 /*!40000 ALTER TABLE `catalogue_pages` DISABLE KEYS */;
 INSERT INTO `catalogue_pages` (`id`, `order_id`, `min_role`, `index_visible`, `is_club_only`, `name_index`, `link_list`, `name`, `layout`, `image_headline`, `image_teasers`, `body`, `label_pick`, `label_extra_s`, `label_extra_t`) VALUES
@@ -1084,12 +1101,15 @@ INSERT INTO `catalogue_pages` (`id`, `order_id`, `min_role`, `index_visible`, `i
 	(92, 116, 5, 1, 0, 'Recycler Furni', '', 'Recycler Furni', 'ctlg_layout2', 'catalog_rares_headline1', '', 'Yet another special page.', 'Click on the item you want for more information', NULL, NULL);
 /*!40000 ALTER TABLE `catalogue_pages` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.external_texts
+DROP TABLE IF EXISTS `external_texts`;
 CREATE TABLE IF NOT EXISTS `external_texts` (
   `entry` varchar(255) NOT NULL,
   `text` text NOT NULL,
   UNIQUE KEY `entry` (`entry`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.external_texts: ~31 rows (approximately)
 DELETE FROM `external_texts`;
 /*!40000 ALTER TABLE `external_texts` DISABLE KEYS */;
 INSERT INTO `external_texts` (`entry`, `text`) VALUES
@@ -1126,6 +1146,8 @@ INSERT INTO `external_texts` (`entry`, `text`) VALUES
 	('successfully_purchase_gift_for', 'Successfully purchased gift for user %user%!');
 /*!40000 ALTER TABLE `external_texts` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.games_maps
+DROP TABLE IF EXISTS `games_maps`;
 CREATE TABLE IF NOT EXISTS `games_maps` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `game_type` enum('battleball','snowstorm') NOT NULL DEFAULT 'battleball',
@@ -1135,6 +1157,7 @@ CREATE TABLE IF NOT EXISTS `games_maps` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.games_maps: ~5 rows (approximately)
 DELETE FROM `games_maps`;
 /*!40000 ALTER TABLE `games_maps` DISABLE KEYS */;
 INSERT INTO `games_maps` (`id`, `game_type`, `map_id`, `heightmap`, `tile_map`) VALUES
@@ -1145,6 +1168,8 @@ INSERT INTO `games_maps` (`id`, `game_type`, `map_id`, `heightmap`, `tile_map`) 
 	(5, 'battleball', '4', 'xxxxxxx222222222222222xxxxxxxx|xxxxxxx222222222222222xxxxxxxx|xxxxxxx222222222222222xxxxxxxx|xxxxxxx222222222222222xxxxxxxx|xxxxxxx222222222222222xxxxxxxx|00012222222222222222222211111x|00012222222222222222222211111x|00012222222222222222222211111x|00012222222222222222222211111x|00xxxxx222222222222222xxx1111x|000xxxx222222222222222xxx0000x|0000xxx222222222222222x0000000|0000xxx22222222222222210000000|0000xxx22222222222222210000000|0000xxx222222222222222x0000000|0000xxx222222222222222xxxxxxxx|00000xx222222222222222xxxxxxxx|000000xxxx11xx11xx11xxxxxxxxxx|x0000000000000000000000xxxxxxx|xx000000000000000000000xxxxxxx|xxx00000000000000000000xxxxxxx|xxxx0000000000000000000xxxxxxx|', '000000011111111111111100000000|000000011111111111111100000000|000000011111111111111100000000|000000011111111111111100000000|000000011111111111111100000000|000000011111111111111100011110|000000011111111111111100011110|000000011111111111111100011110|000000011111111111111100011110|110000011111111111111100000000|111000011111111111111100000000|111100011111111111111101111111|111100011111111111111101111111|111100011111111111111101111111|111100011111111111111101111111|111100011111111111111100000000|111110011111111111111100000000|111111000000000000000000000000|011111111111111111111110000000|001111111111111111111110000000|000111111111111111111110000000|000011111111111111111110000000|');
 /*!40000 ALTER TABLE `games_maps` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.games_player_spawns
+DROP TABLE IF EXISTS `games_player_spawns`;
 CREATE TABLE IF NOT EXISTS `games_player_spawns` (
   `type` enum('battleball','snowstorm') NOT NULL DEFAULT 'battleball',
   `map_id` int(11) NOT NULL,
@@ -1154,6 +1179,7 @@ CREATE TABLE IF NOT EXISTS `games_player_spawns` (
   `rotation` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.games_player_spawns: ~240 rows (approximately)
 DELETE FROM `games_player_spawns`;
 /*!40000 ALTER TABLE `games_player_spawns` DISABLE KEYS */;
 INSERT INTO `games_player_spawns` (`type`, `map_id`, `team_id`, `x`, `y`, `rotation`) VALUES
@@ -1399,6 +1425,8 @@ INSERT INTO `games_player_spawns` (`type`, `map_id`, `team_id`, `x`, `y`, `rotat
 	('battleball', 4, 3, 21, 10, 6);
 /*!40000 ALTER TABLE `games_player_spawns` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.games_ranks
+DROP TABLE IF EXISTS `games_ranks`;
 CREATE TABLE IF NOT EXISTS `games_ranks` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
   `type` enum('battleball','snowstorm') NOT NULL DEFAULT 'battleball',
@@ -1408,6 +1436,7 @@ CREATE TABLE IF NOT EXISTS `games_ranks` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.games_ranks: 8 rows
 DELETE FROM `games_ranks`;
 /*!40000 ALTER TABLE `games_ranks` DISABLE KEYS */;
 INSERT INTO `games_ranks` (`id`, `type`, `title`, `min_points`, `max_points`) VALUES
@@ -1421,6 +1450,8 @@ INSERT INTO `games_ranks` (`id`, `type`, `title`, `min_points`, `max_points`) VA
 	(8, 'snowstorm', 'Expert', 500001, 0);
 /*!40000 ALTER TABLE `games_ranks` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.housekeeping_audit_log
+DROP TABLE IF EXISTS `housekeeping_audit_log`;
 CREATE TABLE IF NOT EXISTS `housekeeping_audit_log` (
   `action` enum('alert_user','kick_user','ban_user','room_alert','room_kick') NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -1430,10 +1461,13 @@ CREATE TABLE IF NOT EXISTS `housekeeping_audit_log` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.housekeeping_audit_log: ~0 rows (approximately)
 DELETE FROM `housekeeping_audit_log`;
 /*!40000 ALTER TABLE `housekeeping_audit_log` DISABLE KEYS */;
 /*!40000 ALTER TABLE `housekeeping_audit_log` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.items
+DROP TABLE IF EXISTS `items`;
 CREATE TABLE IF NOT EXISTS `items` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) NOT NULL DEFAULT 0,
@@ -1453,10 +1487,13 @@ CREATE TABLE IF NOT EXISTS `items` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.items: ~0 rows (approximately)
 DELETE FROM `items`;
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.items_definitions
+DROP TABLE IF EXISTS `items_definitions`;
 CREATE TABLE IF NOT EXISTS `items_definitions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sprite` varchar(50) DEFAULT NULL,
@@ -1476,6 +1513,7 @@ CREATE TABLE IF NOT EXISTS `items_definitions` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1417 DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.items_definitions: ~826 rows (approximately)
 DELETE FROM `items_definitions`;
 /*!40000 ALTER TABLE `items_definitions` DISABLE KEYS */;
 INSERT INTO `items_definitions` (`id`, `sprite`, `sprite_id`, `name`, `description`, `colour`, `length`, `width`, `top_height`, `max_status`, `behaviour`, `interactor`, `is_tradable`, `is_recyclable`, `drink_ids`) VALUES
@@ -2307,6 +2345,8 @@ INSERT INTO `items_definitions` (`id`, `sprite`, `sprite_id`, `name`, `descripti
 	(1416, 'rclr_sofa', -1, 'Polar Sofa', 'Snuggle up together', '0,0,0', 2, 1, 1, '0', 'can_sit_on_top', 'chair', 1, 0, '');
 /*!40000 ALTER TABLE `items_definitions` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.items_moodlight_presets
+DROP TABLE IF EXISTS `items_moodlight_presets`;
 CREATE TABLE IF NOT EXISTS `items_moodlight_presets` (
   `item_id` int(11) NOT NULL,
   `current_preset` int(11) NOT NULL DEFAULT 1,
@@ -2316,10 +2356,13 @@ CREATE TABLE IF NOT EXISTS `items_moodlight_presets` (
   PRIMARY KEY (`item_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.items_moodlight_presets: ~0 rows (approximately)
 DELETE FROM `items_moodlight_presets`;
 /*!40000 ALTER TABLE `items_moodlight_presets` DISABLE KEYS */;
 /*!40000 ALTER TABLE `items_moodlight_presets` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.items_pets
+DROP TABLE IF EXISTS `items_pets`;
 CREATE TABLE IF NOT EXISTS `items_pets` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `item_id` bigint(11) NOT NULL,
@@ -2343,10 +2386,13 @@ CREATE TABLE IF NOT EXISTS `items_pets` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.items_pets: ~0 rows (approximately)
 DELETE FROM `items_pets`;
 /*!40000 ALTER TABLE `items_pets` DISABLE KEYS */;
 /*!40000 ALTER TABLE `items_pets` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.items_photos
+DROP TABLE IF EXISTS `items_photos`;
 CREATE TABLE IF NOT EXISTS `items_photos` (
   `photo_id` int(11) NOT NULL,
   `photo_user_id` bigint(11) NOT NULL,
@@ -2357,29 +2403,38 @@ CREATE TABLE IF NOT EXISTS `items_photos` (
   UNIQUE KEY `photo_id` (`photo_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.items_photos: ~0 rows (approximately)
 DELETE FROM `items_photos`;
 /*!40000 ALTER TABLE `items_photos` DISABLE KEYS */;
 /*!40000 ALTER TABLE `items_photos` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.items_teleporter_links
+DROP TABLE IF EXISTS `items_teleporter_links`;
 CREATE TABLE IF NOT EXISTS `items_teleporter_links` (
   `item_id` int(11) NOT NULL,
   `linked_id` int(11) NOT NULL,
   UNIQUE KEY `item_id` (`item_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.items_teleporter_links: ~0 rows (approximately)
 DELETE FROM `items_teleporter_links`;
 /*!40000 ALTER TABLE `items_teleporter_links` DISABLE KEYS */;
 /*!40000 ALTER TABLE `items_teleporter_links` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.messenger_friends
+DROP TABLE IF EXISTS `messenger_friends`;
 CREATE TABLE IF NOT EXISTS `messenger_friends` (
   `from_id` int(11) NOT NULL,
   `to_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.messenger_friends: ~0 rows (approximately)
 DELETE FROM `messenger_friends`;
 /*!40000 ALTER TABLE `messenger_friends` DISABLE KEYS */;
 /*!40000 ALTER TABLE `messenger_friends` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.messenger_messages
+DROP TABLE IF EXISTS `messenger_messages`;
 CREATE TABLE IF NOT EXISTS `messenger_messages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `receiver_id` int(11) DEFAULT NULL,
@@ -2391,19 +2446,25 @@ CREATE TABLE IF NOT EXISTS `messenger_messages` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.messenger_messages: ~0 rows (approximately)
 DELETE FROM `messenger_messages`;
 /*!40000 ALTER TABLE `messenger_messages` DISABLE KEYS */;
 /*!40000 ALTER TABLE `messenger_messages` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.messenger_requests
+DROP TABLE IF EXISTS `messenger_requests`;
 CREATE TABLE IF NOT EXISTS `messenger_requests` (
   `from_id` int(11) DEFAULT NULL,
   `to_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.messenger_requests: ~0 rows (approximately)
 DELETE FROM `messenger_requests`;
 /*!40000 ALTER TABLE `messenger_requests` DISABLE KEYS */;
 /*!40000 ALTER TABLE `messenger_requests` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.public_items
+DROP TABLE IF EXISTS `public_items`;
 CREATE TABLE IF NOT EXISTS `public_items` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `room_model` varchar(255) NOT NULL,
@@ -2420,6 +2481,7 @@ CREATE TABLE IF NOT EXISTS `public_items` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3462 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
 
+-- Dumping data for table kepler.public_items: ~3,477 rows (approximately)
 DELETE FROM `public_items`;
 /*!40000 ALTER TABLE `public_items` DISABLE KEYS */;
 INSERT INTO `public_items` (`id`, `room_model`, `sprite`, `x`, `y`, `z`, `rotation`, `top_height`, `length`, `width`, `behaviour`, `current_program`) VALUES
@@ -5886,20 +5948,95 @@ INSERT INTO `public_items` (`id`, `room_model`, `sprite`, `x`, `y`, `z`, `rotati
 	(3461, 'cafe_gold0', 'ignore', 16, 3, 1, 0, 1, 1, 1, 'solid,invisible', NULL);
 /*!40000 ALTER TABLE `public_items` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.public_roomwalkways
+DROP TABLE IF EXISTS `public_roomwalkways`;
+CREATE TABLE IF NOT EXISTS `public_roomwalkways` (
+  `room_id` int(11) DEFAULT NULL,
+  `to_id` int(1) DEFAULT NULL,
+  `coords_map` varchar(255) DEFAULT NULL,
+  `door_position` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Dumping data for table kepler.public_roomwalkways: ~54 rows (approximately)
+DELETE FROM `public_roomwalkways`;
+/*!40000 ALTER TABLE `public_roomwalkways` DISABLE KEYS */;
+INSERT INTO `public_roomwalkways` (`room_id`, `to_id`, `coords_map`, `door_position`) VALUES
+	(45, 69, '20,23 20,24 20,25 21,23 21,24 21,25', '3,23,0,2'),
+	(69, 45, '0,22 1,23', '19,24,0,6'),
+	(34, 35, '28,4', NULL),
+	(35, 34, '11,2', '28,5,0,4'),
+	(32, 33, '23,0 22,0 20,0 19,0 18,0 17,0 16,0 15,0 14,0 11,0 10,0 9,0', NULL),
+	(33, 32, '16,24 15,24 17,24 18,24 18,25 17,25 16,25 15,25 18,26 17,26 16,26', '16,2,2,4'),
+	(13, 14, '9,4 10,4 9,3', NULL),
+	(14, 13, '3,11 4,11 5,11', '10,5,4,4'),
+	(19, 20, '16,18', NULL),
+	(20, 19, '0,7', '15,18,0,6'),
+	(21, 22, '14,0 15,0', NULL),
+	(22, 21, '5,25 ', '15,1,4,4'),
+	(23, 24, '9,32 10,32 11,32 9,33 10,33', NULL),
+	(24, 23, '1,10 1,11 1,12', '10,30,5,0'),
+	(36, 37, '19,3 20,4 21,5 22,6 23,7 24,8 25,9 26,10 27,11 28,12', NULL),
+	(36, 37, '30,14 31,15 32,16 33,17 34,18 35,19 36,20 37,21 38,22 39,23', '18,30,1,1'),
+	(37, 36, '13,26 14,27 15,28 16,29 17,30 18,31 19,32 20,33 21,34', '34,19,1,5'),
+	(47, 48, '0,6 0,7 0,8 0,9', '29,3,1,6'),
+	(47, 50, '6,23 7,23 8,23 9,23', '7,2,1,4'),
+	(47, 52, '27,6 27,7 27,8 27,9', '2,3,0,2'),
+	(48, 47, '31,5 31,4 31,3 31,2', '2,7,1,2'),
+	(48, 49, '14,19 15,19 16,19 17,19', '15,2,0,4'),
+	(49, 50, '31,9 31,8 31,7 31,6', '2,8,1,2'),
+	(49, 48, '17,0 16,0 15,0 14,0', '16,17,1,0'),
+	(50, 47, '9,0 8,0 7,0 6,0', '8,21,1,0'),
+	(50, 49, '0,9 0,8 0,7 0,6', '29,7,0,6'),
+	(50, 51, '31,6 31,7 31,8 31,9', '2,15,0,2'),
+	(51, 50, '0,17 0,16 0,15 0,14', '29,7,0,6'),
+	(51, 52, '22,0 23,0 24,0 25,0', '24,17,1,0'),
+	(52, 47, '0,2 0,3 0,4 0,5', '25,7,0,6'),
+	(52, 51, '22,19 23,19 24,19 25,19', '24,2,1,4'),
+	(53, 54, '14,0 15,0 16,0 17,0', '19,21,0,0'),
+	(53, 57, '14,31 15,31 16,31 17,31', '3,6,1,4'),
+	(53, 55, '0,14 0,15 0,16 0,17', '17,23,0,6'),
+	(53, 58, '31,17 31,16 31,15 31,14', '2,3,1,2'),
+	(54, 55, '0,14 0,15 0,16 0,17', '13,8,1,6'),
+	(54, 53, '18,23 19,23 20,23 21,23', '16,2,0,4'),
+	(55, 54, '15,6 15,7 15,8 15,9', '2,15,1,2'),
+	(55, 56, '0,25 0,24 0,23 0,22', '21,12,0,6'),
+	(55, 53, '19,22 19,23 19,24 19,25', '2,15,0,2'),
+	(56, 55, '23,13 23,12 23,11 23,10', '2,23,0,2'),
+	(57, 53, '2,4 3,4 4,4 5,4', '15,29,0,0'),
+	(57, 58, '17,0 17,1 17,2 17,3', '10,19,0,2'),
+	(58, 57, '8,18 8,19 8,20 8,21', '15,1,0,6'),
+	(58, 53, '0,5 0,4 0,3 0,2', '29,15,0,6'),
+	(61, 62, '2,0 3,0', '1,1,1,4'),
+	(61, 63, '8,0 9,0', '2,1,1,4'),
+	(61, 64, '14,0 15,0', '1,1,1,4'),
+	(61, 65, '0,2 0,3', '1,1,1,4'),
+	(62, 61, '0,0 1,0', '3,1,1,4'),
+	(63, 61, '2,0 1,0', '9,1,1,4'),
+	(64, 61, '0,0 1,0', '15,1,1,4'),
+	(65, 61, '0,0 1,0', '1,3,1,2'),
+	(37, 36, '0,13 1,14 2,15 3,16 4,17 5,18 6,19 7,20 8,21 9,22 10,23 11,24 12,25', '23,7,7,5');
+/*!40000 ALTER TABLE `public_roomwalkways` ENABLE KEYS */;
+
+-- Dumping structure for table kepler.rank_badges
+DROP TABLE IF EXISTS `rank_badges`;
 CREATE TABLE IF NOT EXISTS `rank_badges` (
   `rank` tinyint(1) unsigned NOT NULL DEFAULT 1,
   `badge` char(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.rank_badges: ~0 rows (approximately)
 DELETE FROM `rank_badges`;
 /*!40000 ALTER TABLE `rank_badges` DISABLE KEYS */;
 /*!40000 ALTER TABLE `rank_badges` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.rank_fuserights
+DROP TABLE IF EXISTS `rank_fuserights`;
 CREATE TABLE IF NOT EXISTS `rank_fuserights` (
   `min_rank` int(11) NOT NULL,
   `fuseright` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.rank_fuserights: ~48 rows (approximately)
 DELETE FROM `rank_fuserights`;
 /*!40000 ALTER TABLE `rank_fuserights` DISABLE KEYS */;
 INSERT INTO `rank_fuserights` (`min_rank`, `fuseright`) VALUES
@@ -5953,16 +6090,23 @@ INSERT INTO `rank_fuserights` (`min_rank`, `fuseright`) VALUES
 	(5, 'fuse_credits');
 /*!40000 ALTER TABLE `rank_fuserights` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.rare_cycle
+DROP TABLE IF EXISTS `rare_cycle`;
 CREATE TABLE IF NOT EXISTS `rare_cycle` (
   `sale_code` varchar(255) NOT NULL,
   `reuse_time` bigint(11) NOT NULL,
   PRIMARY KEY (`sale_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.rare_cycle: ~1 rows (approximately)
 DELETE FROM `rare_cycle`;
 /*!40000 ALTER TABLE `rare_cycle` DISABLE KEYS */;
+INSERT INTO `rare_cycle` (`sale_code`, `reuse_time`) VALUES
+	('wooden_screen*9', 1636497183);
 /*!40000 ALTER TABLE `rare_cycle` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.recycler_rewards
+DROP TABLE IF EXISTS `recycler_rewards`;
 CREATE TABLE IF NOT EXISTS `recycler_rewards` (
   `id` int(11) NOT NULL,
   `sale_code` varchar(255) NOT NULL,
@@ -5971,6 +6115,7 @@ CREATE TABLE IF NOT EXISTS `recycler_rewards` (
   `collection_time_seconds` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.recycler_rewards: ~6 rows (approximately)
 DELETE FROM `recycler_rewards`;
 /*!40000 ALTER TABLE `recycler_rewards` DISABLE KEYS */;
 INSERT INTO `recycler_rewards` (`id`, `sale_code`, `item_cost`, `recycling_session_time_seconds`, `collection_time_seconds`) VALUES
@@ -5982,6 +6127,8 @@ INSERT INTO `recycler_rewards` (`id`, `sale_code`, `item_cost`, `recycling_sessi
 	(1, 'rclr_chair', 20, 3600, 1800);
 /*!40000 ALTER TABLE `recycler_rewards` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.recycler_sessions
+DROP TABLE IF EXISTS `recycler_sessions`;
 CREATE TABLE IF NOT EXISTS `recycler_sessions` (
   `user_id` int(11) NOT NULL,
   `reward_id` int(11) NOT NULL,
@@ -5990,10 +6137,13 @@ CREATE TABLE IF NOT EXISTS `recycler_sessions` (
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.recycler_sessions: ~0 rows (approximately)
 DELETE FROM `recycler_sessions`;
 /*!40000 ALTER TABLE `recycler_sessions` DISABLE KEYS */;
 /*!40000 ALTER TABLE `recycler_sessions` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.rooms
+DROP TABLE IF EXISTS `rooms`;
 CREATE TABLE IF NOT EXISTS `rooms` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `owner_id` varchar(11) NOT NULL,
@@ -6017,6 +6167,7 @@ CREATE TABLE IF NOT EXISTS `rooms` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
 
+-- Dumping data for table kepler.rooms: ~67 rows (approximately)
 DELETE FROM `rooms`;
 /*!40000 ALTER TABLE `rooms` DISABLE KEYS */;
 INSERT INTO `rooms` (`id`, `owner_id`, `category`, `name`, `description`, `model`, `ccts`, `wallpaper`, `floor`, `showname`, `superusers`, `accesstype`, `password`, `visitors_now`, `visitors_max`, `rating`, `created_at`, `updated_at`) VALUES
@@ -6089,6 +6240,8 @@ INSERT INTO `rooms` (`id`, `owner_id`, `category`, `name`, `description`, `model
 	(67, '0', 13, 'Snowstorm Lobby', 'sw_lobby_beginner_0', 'snowwar_lobby_1', 'hh_gamesys,hh_game_snowwar,hh_game_snowwar_room,hh_game_snowwar_ui', 0, 0, 1, 0, 0, '', 0, 25, 0, '2018-08-11 07:54:01', '2021-01-23 17:38:51');
 /*!40000 ALTER TABLE `rooms` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.rooms_bots
+DROP TABLE IF EXISTS `rooms_bots`;
 CREATE TABLE IF NOT EXISTS `rooms_bots` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(25) NOT NULL,
@@ -6106,6 +6259,7 @@ CREATE TABLE IF NOT EXISTS `rooms_bots` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.rooms_bots: ~34 rows (approximately)
 DELETE FROM `rooms_bots`;
 /*!40000 ALTER TABLE `rooms_bots` DISABLE KEYS */;
 INSERT INTO `rooms_bots` (`id`, `name`, `mission`, `x`, `y`, `start_look`, `figure`, `walkspace`, `room_id`, `speech`, `response`, `unrecognised_response`, `hand_items`) VALUES
@@ -6122,7 +6276,7 @@ INSERT INTO `rooms_bots` (`id`, `name`, `mission`, `x`, `y`, `start_look`, `figu
 	(15, 'Billy', 'You can call me Bill', 5, 13, '2,2', 'sd=001/0&hr=010/224,186,120&hd=002/255,203,152&ey=001/0&fc=001/255,203,152&bd=001/255,203,152&lh=001/255,203,152&rh=001/255,203,152&ch=502/57,65,148&ls=001/57,65,148&rs=001/57,65,148&lg=006/102,102,102&sh=003/51,51,51', '4,10 5,10 5,11 5,12 5,13', 11, 'I serve drinks here|Did you know that coffee comes from plants?|Espresso your opinions politely.|', 'Coming right up!|Be careful, don\'t hurt yourself!', 'Cool story, brew.|Yep, that\'s me', 'Latte,Coffee,Hot Chocolate,Espresso'),
 	(16, 'Phillip', 'Why not try a nice burger?', 1, 13, '2,2', 'sd=001/0&hr=010/255,255,255&hd=002/255,204,153&ey=001/0&fc=001/255,204,153&bd=001/255,204,153&lh=001/255,204,153&rh=001/255,204,153&ch=001/217,113,69&ls=002/217,113,69&rs=002/217,113,69&lg=001/102,102,102&sh=003/47,45,38', '0,7 0,8 0,9 0,10 0,11 0,12 0,13 1,7 1,8 1,9 1,10 1,11 1,12 1,13', 16, '', '', '', ''),
 	(17, 'Ariel', 'Happy to help', 0, 13, '2,2', 'sd=001&sh=001/36&lg=001/200,0,0&ch=006/163&lh=001/255,203,152&rh=001/255,203,152&hd=001/255,203,152&ey=001&fc=001/255,203,152&hr=003/250,50,2&rs=002/163&ls=002/163&bd=001/255,203,152', '0,9 0,10 0,11 0,12 0,13 0,14', 43, 'Sure is chilly at the Ice Cafe...|Here to serve, every, single, day...|Did you know that I never get a break?', '%drink% it is me\'dear\'!:)|Et voila!', 'Sorry - did you want something?', 'Iced Coffee,Coffee,Hot Chocolate,Espresso'),
-	(18, 'Piers', 'The master of the kitchen!', 11, 12, '4,4', 'sd=001/0&hr=799/255,255,255&hd=002/255,204,153&ey=001/0&fc=001/255,204,153&bd=001/255,204,153&lh=001/255,204,153&rh=001/255,204,153&ch=003/255,255,255&ls=001/255,255,255&rs=001/255,255,255&lg=004/255,255,255&sh=004/255,255,255', '3,12 4,12 5,12 6,12 7,12 8,12 9,12 10,12 11,12 12,12 3,13 4,13 5,13 6,13 7,13 8,13 9,13 10,12 11,13 12,13', 8, 'Would you like to taste my wrath?|The silverback grilla is native to this area.|Heaters gonna heat.|That’s a recipe for disaster.', '', 'Yes?|What? I\'m busy you know|A FINE CHOICE#SHOUT|Soup man, how’s it going?', ''),
+	(18, 'Piers', 'The master of the kitchen!', 11, 12, '4,4', 'sd=001/0&hr=799/255,255,255&hd=002/255,204,153&ey=001/0&fc=001/255,204,153&bd=001/255,204,153&lh=001/255,204,153&rh=001/255,204,153&ch=003/255,255,255&ls=001/255,255,255&rs=001/255,255,255&lg=004/255,255,255&sh=004/255,255,255', '3,12 4,12 5,12 6,12 7,12 8,12 9,12 10,12 11,12 12,12 3,13 4,13 5,13 6,13 7,13 8,13 9,13 10,12 11,13 12,13', 8, 'Would you like to taste my wrath?|The silverback grilla is native to this area.|Heaters gonna heat.|That\'s a recipe for disaster.', '', 'Yes?|What? I\'m busy you know|A FINE CHOICE#SHOUT|Soup man, howâ€™s it going?', ''),
 	(19, 'Marcel', 'In search of lost time', 11, 15, '2,2', 'sd=001&sh=003/154,154,154&lg=001/98,90,32&ch=202/255,210,179&lh=001/255,210,179&rh=001/255,210,179&hd=001/255,204,153&ey=001&fc=001/255,204,153&hr=203/98,98,98&rs=001/255,210,179&ls=001/255,210,179&bd=001/255,204,153', '7,14 8,14 9,14 10,14 11,14 7,15 8,15 9,15 10,15 11,15 7,16 8,16 9,16 10,16 11,16', 3, '', '', '', ''),
 	(20, 'Chloe', 'Service with a smile', 6, 30, '2,2', 'sd=001&sh=001/255,115,41&lg=999/255,255,255&ch=006/35,134,182&lh=001/255,203,1522&rh=001/255,203,152&hd=001/255,203,152&ey=001&fc=001/255,203,152&hr=003/250,50,2&rs=002/35,134,182&ls=002/35,134,182&bd=001/255,203,152', '6,29 6,30', 36, 'I need to get out of the ice cream booth and into the DJ booth!|Ow there goes my eardrum!#SHOUT|I wish I looked that good in a bikini|When will I, will I be a famous Habbo who gets on the VIP list?|I\'m a fiery redhead - come here boys!', 'There you go.', 'Hello sweetie|Hi, how can I help?|Well hello there', ''),
 	(22, 'Berith', 'Serving you with a smile :)', 11, 0, '4,4', 'sd=001&sh=002/148,98,32&lg=005/230,49,57&ch=201/255,255,255&lh=001/215,175,125&rh=001/215,175,125&hd=001/215,175,125&ey=001&fc=001/215,175,125&hr=506/103,78,59&rs=002/255,255,255&ls=002/255,255,255&bd=001/215,175,125', '6,0 7,0 8,0 9,0 10,0 11,0 12,0 6,1 7,1 8,1 9,1 10,1 11,1 12,1', 28, 'It\'s pretty cool working here, I must say|Maybe some day I will become a club member...|Who knew that someone like me would end up working here?', 'There you are!|Enjoy!|Here, take this!', 'Sorry? I didn\'t catch that|Hello there!|That\'s my name, don\'t wear it out', ''),
@@ -6145,6 +6299,8 @@ INSERT INTO `rooms_bots` (`id`, `name`, `mission`, `x`, `y`, `start_look`, `figu
 	(45, 'Miho', 'My katana thinks you\'re cute!', 14, 25, '2,2', 'sd=001&sh=001/36&lg=200/204,204,204&ch=204/204,204,204&lh=001/215,175,125&rh=001/215,175,125&hd=001/215,175,125&ey=001&fc=001/215,175,125&hr=504/50,91,106&rs=002/204,204,204&ls=002/204,204,204&bd=001/8', '14,24 14,25', 27, 'Zen Garden is the ultimate in relaxation|Listen to the breeze blowing through the leaves|Welcome to my garden a place of quiet reflection...|Listen to the breeze blowing through the leaves...', 'I hope you make peace with this|Relax with this|Relaxation can be achieved this this', 'That is my name.|Say again - it\'s a bit noisy in here#WHISPER|You bring confusion to my mind, and pain to my ears...#WHISPER|', 'Water');
 /*!40000 ALTER TABLE `rooms_bots` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.rooms_categories
+DROP TABLE IF EXISTS `rooms_categories`;
 CREATE TABLE IF NOT EXISTS `rooms_categories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) NOT NULL,
@@ -6159,6 +6315,7 @@ CREATE TABLE IF NOT EXISTS `rooms_categories` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.rooms_categories: ~21 rows (approximately)
 DELETE FROM `rooms_categories`;
 /*!40000 ALTER TABLE `rooms_categories` DISABLE KEYS */;
 INSERT INTO `rooms_categories` (`id`, `order_id`, `parent_id`, `isnode`, `name`, `public_spaces`, `allow_trading`, `minrole_access`, `minrole_setflatcat`) VALUES
@@ -6185,6 +6342,8 @@ INSERT INTO `rooms_categories` (`id`, `order_id`, `parent_id`, `isnode`, `name`,
 	(120, 0, 4, 0, 'Miscellaneous', 0, 0, 1, 1);
 /*!40000 ALTER TABLE `rooms_categories` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.rooms_events
+DROP TABLE IF EXISTS `rooms_events`;
 CREATE TABLE IF NOT EXISTS `rooms_events` (
   `room_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -6196,10 +6355,13 @@ CREATE TABLE IF NOT EXISTS `rooms_events` (
   UNIQUE KEY `room_id` (`room_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.rooms_events: ~0 rows (approximately)
 DELETE FROM `rooms_events`;
 /*!40000 ALTER TABLE `rooms_events` DISABLE KEYS */;
 /*!40000 ALTER TABLE `rooms_events` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.rooms_models
+DROP TABLE IF EXISTS `rooms_models`;
 CREATE TABLE IF NOT EXISTS `rooms_models` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `model_id` varchar(255) NOT NULL,
@@ -6212,8 +6374,9 @@ CREATE TABLE IF NOT EXISTS `rooms_models` (
   `trigger_class` enum('flat_trigger','battleball_lobby_trigger','snowstorm_lobby_trigger','space_cafe_trigger','habbo_lido_trigger','rooftop_rumble_trigger','diving_deck_trigger','infobus_park','infobus_poll','none') NOT NULL DEFAULT 'flat_trigger',
   PRIMARY KEY (`id`),
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.rooms_models: ~91 rows (approximately)
 DELETE FROM `rooms_models`;
 /*!40000 ALTER TABLE `rooms_models` DISABLE KEYS */;
 INSERT INTO `rooms_models` (`id`, `model_id`, `model_name`, `door_x`, `door_y`, `door_z`, `door_dir`, `heightmap`, `trigger_class`) VALUES
@@ -6310,15 +6473,20 @@ INSERT INTO `rooms_models` (`id`, `model_id`, `model_name`, `door_x`, `door_y`, 
 	(91, 'beauty_salon1', 'beauty_salon1', 14, 3, 0, 1, 'xxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxx0xxxxxxxxx|xxxxxxx000000000000000xx|xxxxxx0000000000000000xx|xxxxx000000000000xxxxxxx|xxxx000000000000000000xx|xxx0000000000000000000xx|xxx0000000000000000000xx|xxx0000000000000000000xx|xxxxxxxxxxxxxxxx000000xx|xx0000000000000x000000xx|000000000000000x000000xx|000000000000000x000000xx|000000000000000x000000xx|00x000000000000x000000xx|00xxxxxxxxxxxxxx000000xx|00xxxxxxxxxxxxxx000000xx|00x0000000000000000000xx|00x0000000000000000000xx|00x0000000000000000000xx|0000000000000000000000xx|x000000000000000000000xx|xxx0000000000000000000xx', 'none');
 /*!40000 ALTER TABLE `rooms_models` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.rooms_rights
+DROP TABLE IF EXISTS `rooms_rights`;
 CREATE TABLE IF NOT EXISTS `rooms_rights` (
   `user_id` int(11) NOT NULL,
   `room_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.rooms_rights: ~0 rows (approximately)
 DELETE FROM `rooms_rights`;
 /*!40000 ALTER TABLE `rooms_rights` DISABLE KEYS */;
 /*!40000 ALTER TABLE `rooms_rights` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.room_chatlogs
+DROP TABLE IF EXISTS `room_chatlogs`;
 CREATE TABLE IF NOT EXISTS `room_chatlogs` (
   `user_id` int(11) NOT NULL,
   `room_id` int(11) NOT NULL,
@@ -6327,15 +6495,19 @@ CREATE TABLE IF NOT EXISTS `room_chatlogs` (
   `message` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.room_chatlogs: ~0 rows (approximately)
 DELETE FROM `room_chatlogs`;
 /*!40000 ALTER TABLE `room_chatlogs` DISABLE KEYS */;
 /*!40000 ALTER TABLE `room_chatlogs` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.schema_migrations
+DROP TABLE IF EXISTS `schema_migrations`;
 CREATE TABLE IF NOT EXISTS `schema_migrations` (
   `version` varchar(255) NOT NULL,
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.schema_migrations: ~61 rows (approximately)
 DELETE FROM `schema_migrations`;
 /*!40000 ALTER TABLE `schema_migrations` DISABLE KEYS */;
 INSERT INTO `schema_migrations` (`version`) VALUES
@@ -6402,16 +6574,21 @@ INSERT INTO `schema_migrations` (`version`) VALUES
 	('20180916030415');
 /*!40000 ALTER TABLE `schema_migrations` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.settings
+DROP TABLE IF EXISTS `settings`;
 CREATE TABLE IF NOT EXISTS `settings` (
   `setting` varchar(50) NOT NULL,
   `value` text NOT NULL DEFAULT '',
   PRIMARY KEY (`setting`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.settings: ~0 rows (approximately)
 DELETE FROM `settings`;
 /*!40000 ALTER TABLE `settings` DISABLE KEYS */;
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.soundmachine_disks
+DROP TABLE IF EXISTS `soundmachine_disks`;
 CREATE TABLE IF NOT EXISTS `soundmachine_disks` (
   `item_id` bigint(11) NOT NULL,
   `soundmachine_id` int(11) NOT NULL DEFAULT 0,
@@ -6420,10 +6597,13 @@ CREATE TABLE IF NOT EXISTS `soundmachine_disks` (
   `burned_at` bigint(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.soundmachine_disks: ~0 rows (approximately)
 DELETE FROM `soundmachine_disks`;
 /*!40000 ALTER TABLE `soundmachine_disks` DISABLE KEYS */;
 /*!40000 ALTER TABLE `soundmachine_disks` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.soundmachine_playlists
+DROP TABLE IF EXISTS `soundmachine_playlists`;
 CREATE TABLE IF NOT EXISTS `soundmachine_playlists` (
   `item_id` int(11) NOT NULL,
   `song_id` int(11) NOT NULL,
@@ -6432,10 +6612,13 @@ CREATE TABLE IF NOT EXISTS `soundmachine_playlists` (
   KEY `songid` (`song_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.soundmachine_playlists: ~0 rows (approximately)
 DELETE FROM `soundmachine_playlists`;
 /*!40000 ALTER TABLE `soundmachine_playlists` DISABLE KEYS */;
 /*!40000 ALTER TABLE `soundmachine_playlists` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.soundmachine_songs
+DROP TABLE IF EXISTS `soundmachine_songs`;
 CREATE TABLE IF NOT EXISTS `soundmachine_songs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL DEFAULT 0,
@@ -6447,20 +6630,26 @@ CREATE TABLE IF NOT EXISTS `soundmachine_songs` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.soundmachine_songs: ~0 rows (approximately)
 DELETE FROM `soundmachine_songs`;
 /*!40000 ALTER TABLE `soundmachine_songs` DISABLE KEYS */;
 /*!40000 ALTER TABLE `soundmachine_songs` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.soundmachine_tracks
+DROP TABLE IF EXISTS `soundmachine_tracks`;
 CREATE TABLE IF NOT EXISTS `soundmachine_tracks` (
   `soundmachine_id` int(11) NOT NULL,
   `track_id` int(11) NOT NULL,
   `slot_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.soundmachine_tracks: ~0 rows (approximately)
 DELETE FROM `soundmachine_tracks`;
 /*!40000 ALTER TABLE `soundmachine_tracks` DISABLE KEYS */;
 /*!40000 ALTER TABLE `soundmachine_tracks` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.users
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
@@ -6493,10 +6682,13 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.users: ~0 rows (approximately)
 DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.users_badges
+DROP TABLE IF EXISTS `users_badges`;
 CREATE TABLE IF NOT EXISTS `users_badges` (
   `user_id` int(11) NOT NULL,
   `badge` char(3) NOT NULL,
@@ -6504,10 +6696,13 @@ CREATE TABLE IF NOT EXISTS `users_badges` (
   CONSTRAINT `users_badges_users_FK` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.users_badges: ~0 rows (approximately)
 DELETE FROM `users_badges`;
 /*!40000 ALTER TABLE `users_badges` DISABLE KEYS */;
 /*!40000 ALTER TABLE `users_badges` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.users_bans
+DROP TABLE IF EXISTS `users_bans`;
 CREATE TABLE IF NOT EXISTS `users_bans` (
   `ban_type` enum('MACHINE_ID','IP_ADDRESS','USER_ID') NOT NULL,
   `banned_value` varchar(250) NOT NULL,
@@ -6516,48 +6711,63 @@ CREATE TABLE IF NOT EXISTS `users_bans` (
   PRIMARY KEY (`banned_value`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.users_bans: ~0 rows (approximately)
 DELETE FROM `users_bans`;
 /*!40000 ALTER TABLE `users_bans` DISABLE KEYS */;
 /*!40000 ALTER TABLE `users_bans` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.users_club_gifts
+DROP TABLE IF EXISTS `users_club_gifts`;
 CREATE TABLE IF NOT EXISTS `users_club_gifts` (
   `user_id` int(11) NOT NULL,
   `sprite` varchar(50) NOT NULL,
   `date_received` bigint(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.users_club_gifts: ~0 rows (approximately)
 DELETE FROM `users_club_gifts`;
 /*!40000 ALTER TABLE `users_club_gifts` DISABLE KEYS */;
 /*!40000 ALTER TABLE `users_club_gifts` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.users_ip_logs
+DROP TABLE IF EXISTS `users_ip_logs`;
 CREATE TABLE IF NOT EXISTS `users_ip_logs` (
   `user_id` int(11) NOT NULL,
   `ip_address` varchar(256) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.users_ip_logs: ~0 rows (approximately)
 DELETE FROM `users_ip_logs`;
 /*!40000 ALTER TABLE `users_ip_logs` DISABLE KEYS */;
 /*!40000 ALTER TABLE `users_ip_logs` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.users_mutes
+DROP TABLE IF EXISTS `users_mutes`;
 CREATE TABLE IF NOT EXISTS `users_mutes` (
   `user_id` int(11) NOT NULL,
   `muted_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.users_mutes: ~0 rows (approximately)
 DELETE FROM `users_mutes`;
 /*!40000 ALTER TABLE `users_mutes` DISABLE KEYS */;
 /*!40000 ALTER TABLE `users_mutes` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.users_room_favourites
+DROP TABLE IF EXISTS `users_room_favourites`;
 CREATE TABLE IF NOT EXISTS `users_room_favourites` (
   `room_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.users_room_favourites: ~0 rows (approximately)
 DELETE FROM `users_room_favourites`;
 /*!40000 ALTER TABLE `users_room_favourites` DISABLE KEYS */;
 /*!40000 ALTER TABLE `users_room_favourites` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.users_room_votes
+DROP TABLE IF EXISTS `users_room_votes`;
 CREATE TABLE IF NOT EXISTS `users_room_votes` (
   `user_id` int(11) NOT NULL,
   `room_id` int(11) NOT NULL,
@@ -6565,10 +6775,13 @@ CREATE TABLE IF NOT EXISTS `users_room_votes` (
   `expire_time` bigint(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Dumping data for table kepler.users_room_votes: ~0 rows (approximately)
 DELETE FROM `users_room_votes`;
 /*!40000 ALTER TABLE `users_room_votes` DISABLE KEYS */;
 /*!40000 ALTER TABLE `users_room_votes` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.vouchers
+DROP TABLE IF EXISTS `vouchers`;
 CREATE TABLE IF NOT EXISTS `vouchers` (
   `voucher_code` varchar(100) NOT NULL,
   `credits` int(11) NOT NULL DEFAULT 0,
@@ -6577,10 +6790,13 @@ CREATE TABLE IF NOT EXISTS `vouchers` (
   UNIQUE KEY `voucher_code` (`voucher_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
 
+-- Dumping data for table kepler.vouchers: ~0 rows (approximately)
 DELETE FROM `vouchers`;
 /*!40000 ALTER TABLE `vouchers` DISABLE KEYS */;
 /*!40000 ALTER TABLE `vouchers` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.vouchers_history
+DROP TABLE IF EXISTS `vouchers_history`;
 CREATE TABLE IF NOT EXISTS `vouchers_history` (
   `voucher_code` varchar(100) NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -6589,20 +6805,25 @@ CREATE TABLE IF NOT EXISTS `vouchers_history` (
   `items_redeemed` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
 
+-- Dumping data for table kepler.vouchers_history: ~0 rows (approximately)
 DELETE FROM `vouchers_history`;
 /*!40000 ALTER TABLE `vouchers_history` DISABLE KEYS */;
 /*!40000 ALTER TABLE `vouchers_history` ENABLE KEYS */;
 
+-- Dumping structure for table kepler.vouchers_items
+DROP TABLE IF EXISTS `vouchers_items`;
 CREATE TABLE IF NOT EXISTS `vouchers_items` (
   `voucher_code` varchar(100) NOT NULL,
   `catalogue_sale_code` varchar(100) NOT NULL,
   KEY `voucher_code` (`voucher_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
 
+-- Dumping data for table kepler.vouchers_items: ~0 rows (approximately)
 DELETE FROM `vouchers_items`;
 /*!40000 ALTER TABLE `vouchers_items` DISABLE KEYS */;
 /*!40000 ALTER TABLE `vouchers_items` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
