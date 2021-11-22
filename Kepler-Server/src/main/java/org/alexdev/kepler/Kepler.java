@@ -152,27 +152,6 @@ public class Kepler {
         server.bind();
     }
 
-    private static void setupRcon() {
-        // Create the RCON instance
-        rconIP = ServerConfiguration.getString("rcon.bind");
-
-        if (rconIP.length() == 0) {
-            log.error("Remote control (RCON) server bind address is not provided");
-            return;
-        }
-
-        rconPort = ServerConfiguration.getInteger("rcon.port");
-
-        if (rconPort == 0) {
-            log.error("Remote control (RCON) server port not provided");
-            return;
-        }
-
-        rconServer = new RconServer(rconIP, rconPort);
-        rconServer.createSocket();
-        rconServer.bind();
-    }
-
     private static void setupMus() {
         musServerIP = ServerConfiguration.getString("bind");
 
