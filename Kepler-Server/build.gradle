@@ -1,17 +1,17 @@
 apply plugin: 'java'
 apply plugin: 'application'
 
-sourceCompatibility = "1.12"
-targetCompatibility = "1.12"
+java {
+    sourceCompatibility = JavaVersion.toVersion("1.11")
+    targetCompatibility = JavaVersion.toVersion("1.11")
+}
 
 mainClassName = 'org.alexdev.kepler.Kepler'
-
 
 repositories {
     flatDir {
         dirs 'libs'
     }
-
     maven { url 'https://jitpack.io' }
     mavenCentral()
 }

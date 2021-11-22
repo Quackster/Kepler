@@ -172,7 +172,7 @@ public class Item {
      *
      * @return true, if successful.
      */
-    public boolean isWalkable(Position selectedPosition) {
+    public boolean isWalkable(Entity entity) {
         if (this.getDefinition().getSprite().equals("poolLift")) {
             return this.currentProgramValue.equals("open");
         }
@@ -210,6 +210,14 @@ public class Item {
         }
 
         if (this.hasBehaviour(ItemBehaviour.TELEPORTER)) {
+            if (entity instanceof Player) {
+                Player player = (Player) entity;
+
+                if (player.getRoomUser().getAuthenticateTelporterId() == this.id) {
+                    return true;
+                }
+            }
+
             return this.customData.equals("TRUE");
         }
 
@@ -330,7 +338,7 @@ public class Item {
      * @param rotation the new rotation to check
      * @return true, if successful
      */
-    public boolean isValidMove(Item item, Room room, int x, int y, int rotation) {
+    public boolean isValidMove(Item item, Room room, Entity entity, int x, int y, int rotation) {
         RoomTile tile = room.getMapping().getTile(x, y);
 
         if (tile == null) {
@@ -367,7 +375,7 @@ public class Item {
             }
 
             if (tile.getEntities().size() > 0) {
-                if (!item.isWalkable(new Position(x, y))) {
+                if (!item.isWalkable(entity)) {
                     return false;
                 }
             }

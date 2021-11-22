@@ -107,7 +107,7 @@ public class PLACESTUFF implements MessageEvent {
                 rotation = 4;
             }
 
-            if (!item.isValidMove(item, room, x, y, rotation)) {
+            if (!item.isValidMove(item, room, player, x, y, rotation)) {
                 return;
             }
 

@@ -168,7 +168,7 @@ public abstract class RoomEntity {
         //AStar aStar = new AStar(this.room.getModel());
         //var pathList = aStar.calculateAStarNoTerrain(this.entity, this.position, this.goal);
 
-        LinkedList<Position> pathList = Pathfinder.makePath(this.entity);
+        LinkedList<Position> pathList = Pathfinder.makePath(this.entity, this.position.copy(), this.goal.copy());
 
         if (pathList == null) {
             return false;

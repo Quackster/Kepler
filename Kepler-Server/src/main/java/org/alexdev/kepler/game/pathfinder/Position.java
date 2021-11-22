@@ -1,12 +1,9 @@
 package org.alexdev.kepler.game.pathfinder;
 
-import org.alexdev.kepler.game.room.mapping.RoomTile;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Position {
-
     private int X;
     private int Y;
     private double Z;
@@ -28,7 +25,7 @@ public class Position {
         this.Y = y;
         this.Z = z;
     }
-    
+
     public Position(int x, int y, double z, int headRotation, int bodyRotation) {
         this.X = x;
         this.Y = y;
@@ -38,25 +35,10 @@ public class Position {
     }
 
     /**
-     * Gets the height difference between another height variable
-     *
-     * @param differentZ the other height
-     * @return the height difference
+     * Checks if current tile touches target tile
      */
-    public static double getHeightDifference(double firstZ, double differentZ) {
-        
-        double bigger;
-        double smaller;
-        
-        if (differentZ > firstZ) {
-            bigger = differentZ;
-            smaller = firstZ;
-        } else {
-            bigger = firstZ;
-            smaller = differentZ;
-        }
-        
-        return (bigger - smaller);
+    public boolean touches(Position position) {
+        return this.getDistanceSquared(position) <= 1;
     }
 
     /**
@@ -194,26 +176,13 @@ public class Position {
      * @param point the point
      * @return the distance squared
      */
-    public int getDistance(Position point) {
+    public int getDistanceSquared(Position point) {
         int dx = this.getX() - point.getX();
         int dy = this.getY() - point.getY();
 
-        return (dx * dx) + (dy * dy);
+        return (int) Math.sqrt((dx * dx) + (dy * dy));
     }
 
-    /**
-     * Gets the distance squared.
-     *
-     * @param point the point
-     * @return the distance squared
-     */
-    public double getDistanceSquared(Position point) {
-        int dx = this.getX() - point.getX();
-        int dy = this.getY() - point.getY();
-
-        return Math.sqrt((dx * dx) + (dy * dy));
-    }
-    
     /**
      * Gets the square in front.
      *
@@ -254,7 +223,7 @@ public class Position {
      */
     public Position getSquareBehind() {
         Position square = this.copy();
-        
+
         if (this.bodyRotation == 0) {
             square.Y++;
         } else if (this.bodyRotation == 1) {
@@ -404,7 +373,7 @@ public class Position {
                         }
                         //}*/
     }
-    
+
     /**
      * Copies the position.
      *
@@ -431,7 +400,7 @@ public class Position {
             Position position = (Position) obj;
             return position.getX() == this.X && position.getY() == this.Y;
         }
-        
+
         return false;
     }
 
@@ -440,13 +409,7 @@ public class Position {
      */
     @Override
     public String toString() {
-        return "[" + this.X + ", " + this.Y + ", " + this.Z + "]";
+        return "[" + this.X + ", " + this.Y + "]";
     }
 
-    /**
-     * Checks if current tile touches target tile
-     */
-    public boolean touches(Position position) {
-        return this.getDistance(position) <= 2;
-    }
 }

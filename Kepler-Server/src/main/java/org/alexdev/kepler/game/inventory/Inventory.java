@@ -128,6 +128,12 @@ public class Inventory {
             this.handStripPageIndex = this.paginatedItems.size() - 1;
         }
 
+        if (stripView.equals("update")) {
+            if (this.handStripPageIndex > this.paginatedItems.size() - 1) {
+                this.handStripPageIndex = this.paginatedItems.size() - 1;
+            }
+        }
+
         if (!this.paginatedItems.containsKey(this.handStripPageIndex)) {
             this.handStripPageIndex = 0;
         }
