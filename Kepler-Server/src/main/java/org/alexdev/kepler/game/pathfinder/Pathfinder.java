@@ -86,13 +86,15 @@ public class Pathfinder {
                 || (fromItem.getDefinition().getSprite().equals("wsJoinQueue"))
                 || (fromItem.getDefinition().getSprite().equals("wsQueueTile"))
                 || (fromItem.getDefinition().getSprite().equals("poolEnter"))
-                || (fromItem.getDefinition().getSprite().equals("poolExit")));
+                || (fromItem.getDefinition().getSprite().equals("poolExit"))
+                || (fromItem.getDefinition().getSprite().equals("poolLift")));
 
         boolean toItemHeightExempt = toItem != null && (toItem.hasBehaviour(ItemBehaviour.TELEPORTER)
                 || (toItem.getDefinition().getSprite().equals("wsJoinQueue"))
                 || (toItem.getDefinition().getSprite().equals("wsQueueTile"))
                 || (toItem.getDefinition().getSprite().equals("poolEnter"))
-                || (toItem.getDefinition().getSprite().equals("poolExit")));
+                || (toItem.getDefinition().getSprite().equals("poolExit"))
+                || (toItem.getDefinition().getSprite().equals("poolLift")));
 
         if (!fromItemHeightExempt) {
             if (fromTile.isHeightUpwards(toTile)) {
