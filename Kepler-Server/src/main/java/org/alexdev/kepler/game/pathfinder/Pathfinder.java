@@ -84,44 +84,30 @@ public class Pathfinder {
         // boolean isPrivateRoom =  !room.isPublicRoom();
 
         boolean fromItemHeightExempt = fromItem != null && (fromItem.hasBehaviour(ItemBehaviour.TELEPORTER)
-                || (fromItem.getDefinition().getSprite().equals("wsJoinQueue"))
-                || (fromItem.getDefinition().getSprite().equals("wsQueueTile"))
-                || (fromItem.getDefinition().getSprite().equals("poolEnter"))
-                || (fromItem.getDefinition().getSprite().equals("poolExit"))
-                || (fromItem.getDefinition().getSprite().equals("poolLift")));
+                || fromItem.getDefinition().getSprite().equals("wsJoinQueue")
+                || fromItem.getDefinition().getSprite().equals("wsQueueTile")
+                || fromItem.getDefinition().getSprite().equals("poolEnter")
+                || fromItem.getDefinition().getSprite().equals("poolExit")
+                || fromItem.getDefinition().getSprite().equals("poolLift")
+                || fromItem.getDefinition().getSprite().equals("queue_tile2"));
 
         boolean toItemHeightExempt = toItem != null && (toItem.hasBehaviour(ItemBehaviour.TELEPORTER)
-                || (toItem.getDefinition().getSprite().equals("wsJoinQueue"))
-                || (toItem.getDefinition().getSprite().equals("wsQueueTile"))
-                || (toItem.getDefinition().getSprite().equals("poolEnter"))
-                || (toItem.getDefinition().getSprite().equals("poolExit"))
-                || (toItem.getDefinition().getSprite().equals("poolLift")));
+                || toItem.getDefinition().getSprite().equals("wsJoinQueue")
+                || toItem.getDefinition().getSprite().equals("wsQueueTile")
+                || toItem.getDefinition().getSprite().equals("poolEnter")
+                || toItem.getDefinition().getSprite().equals("poolExit")
+                || toItem.getDefinition().getSprite().equals("poolLift")
+                || toItem.getDefinition().getSprite().equals("queue_tile2"));
 
-        if (!fromItemHeightExempt) {
-            if (fromTile.isHeightUpwards(toTile)) {
-                if (Math.abs(newHeight - oldHeight) > MAX_LIFT_HEIGHT) {
-                    return false;
-                }
-            }
-
-            if (fromTile.isHeightDrop(toTile)) {
-                if (Math.abs(oldHeight - newHeight) > MAX_DROP_HEIGHT) {
-                    return false;
-                }
+        if (fromTile.isHeightUpwards(toTile) && (!fromItemHeightExempt && !toItemHeightExempt)) {
+            if (Math.abs(newHeight - oldHeight) > MAX_LIFT_HEIGHT) {
+                return false;
             }
         }
 
-        if (!toItemHeightExempt) {
-            if (toTile.isHeightUpwards(fromTile)) {
-                if (Math.abs(newHeight - oldHeight) > MAX_LIFT_HEIGHT) {
-                    return false;
-                }
-            }
-
-            if (toTile.isHeightDrop(fromTile)) {
-                if (Math.abs(oldHeight - newHeight) > MAX_DROP_HEIGHT) {
-                    return false;
-                }
+        if (fromTile.isHeightDrop(toTile) && (!fromItemHeightExempt && !toItemHeightExempt)) {
+            if (Math.abs(oldHeight - newHeight) > MAX_DROP_HEIGHT) {
+                return false;
             }
         }
 
