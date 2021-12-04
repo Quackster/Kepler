@@ -99,13 +99,14 @@ public class Pathfinder {
                 || toItem.getDefinition().getSprite().equals("poolLift")
                 || toItem.getDefinition().getSprite().equals("queue_tile2"));
 
-        if (fromTile.isHeightUpwards(toTile) && (!fromItemHeightExempt && !toItemHeightExempt)) {
+        // Pathfinder makes the path from reversed, so we compare the drop reversed (To tile height against From tile height)
+        if (toTile.isHeightUpwards(fromTile) && (!fromItemHeightExempt && !toItemHeightExempt)) {
             if (Math.abs(newHeight - oldHeight) > MAX_LIFT_HEIGHT) {
                 return false;
             }
         }
 
-        if (fromTile.isHeightDrop(toTile) && (!fromItemHeightExempt && !toItemHeightExempt)) {
+        if (toTile.isHeightDrop(fromTile) && (!fromItemHeightExempt && !toItemHeightExempt)) {
             if (Math.abs(oldHeight - newHeight) > MAX_DROP_HEIGHT) {
                 return false;
             }
