@@ -36,8 +36,8 @@ public class SPLASH_POSITION implements MessageEvent {
             return;
         }
 
-        String contents = "24,19";
-        Position destination = new Position(24, 19);
+        Position destination = new Position(23, 19, 0);
+        String contents = destination.getX() + "," + destination.getY();
 
         player.getRoomUser().setStatus(StatusType.SWIM, "");
         player.getRoomUser().warp(destination, true, false);
@@ -45,7 +45,7 @@ public class SPLASH_POSITION implements MessageEvent {
         room.send(new SHOWPROGRAM(new String[] { "BIGSPLASH", "POSITION", contents,}));
 
         player.getRoomUser().setDiving(false);
-        player.getRoomUser().walkTo(18, 19);
+        player.getRoomUser().walkTo(20, 19);
 
         // Allow walkng after 3 seconds
         GameScheduler.getInstance().getService().schedule(() -> {
