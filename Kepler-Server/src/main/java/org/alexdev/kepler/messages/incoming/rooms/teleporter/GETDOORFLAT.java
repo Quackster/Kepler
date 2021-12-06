@@ -62,7 +62,7 @@ public class GETDOORFLAT implements MessageEvent {
                     return;
                 }
 
-                player.getRoomUser().warp(linkedTeleporter.getPosition().copy(), false);
+                player.getRoomUser().warp(linkedTeleporter.getPosition().copy(), false, false);
                 room.send(new BROADCAST_TELEPORTER(linkedTeleporter, player.getDetails().getName(), false));
             }, 1000, TimeUnit.MILLISECONDS);
 

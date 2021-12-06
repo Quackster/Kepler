@@ -50,7 +50,7 @@ public class WobbleSquabbleJoinQueue extends GenericTrigger {
         }
 
         roomEntity.removeStatus(StatusType.SWIM);
-        roomEntity.warp(teleportPosition, true);
+        roomEntity.warp(teleportPosition, true, false);
 
         InteractionType.WS_QUEUE_TILE.getTrigger().onEntityStop(entity, roomEntity, item, isRotation);
     }

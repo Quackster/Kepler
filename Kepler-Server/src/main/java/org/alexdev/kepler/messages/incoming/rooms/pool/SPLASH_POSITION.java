@@ -40,7 +40,7 @@ public class SPLASH_POSITION implements MessageEvent {
         Position destination = new Position(24, 19);
 
         player.getRoomUser().setStatus(StatusType.SWIM, "");
-        player.getRoomUser().warp(destination, true);
+        player.getRoomUser().warp(destination, true, false);
 
         room.send(new SHOWPROGRAM(new String[] { "BIGSPLASH", "POSITION", contents,}));
 

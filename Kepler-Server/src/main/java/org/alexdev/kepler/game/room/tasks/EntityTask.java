@@ -218,12 +218,12 @@ public class EntityTask implements Runnable {
                 }
 
                 // Set up trigger for leaving a current item
-                if (roomEntity.getLastInteractedItem() != null) {
-                    if (roomEntity.getLastInteractedItem().getDefinition().getInteractionType().getTrigger() != null) {
-                        roomEntity.getLastInteractedItem().getDefinition().getInteractionType().getTrigger().onEntityLeave(entity, roomEntity, roomEntity.getCurrentItem());
+                if (roomEntity.getLastItemInteraction() != null) {
+                    if (roomEntity.getLastItemInteraction().getDefinition().getInteractionType().getTrigger() != null) {
+                        roomEntity.getLastItemInteraction().getDefinition().getInteractionType().getTrigger().onEntityLeave(entity, roomEntity, roomEntity.getCurrentItem());
                     }
 
-                    roomEntity.setLastInteractedItem(null);
+                    roomEntity.setLastItemInteraction(null);
                 }
 
                 roomEntity.removeStatus(StatusType.LAY);

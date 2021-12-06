@@ -33,8 +33,8 @@ public class RoomPet extends RoomEntity {
      * Triggers the current item that the player has walked on top of.
      */
     @Override
-    public void invokeItem(Position oldPosition) {
-        super.invokeItem(oldPosition);
+    public void invokeItem(Position oldPosition, boolean instantUpdate) {
+        super.invokeItem(oldPosition, instantUpdate);
         this.pet.setWalkBeforeSitLay(false);
     }
 

@@ -59,7 +59,7 @@ public class BombHandle {
                 BattleBallTile battleballTile = (BattleBallTile) game.getTile(pushBack.getX(), pushBack.getY());
 
                 if (TileUtil.isValidGameTile(stunnedPlayer, battleballTile, true)) {
-                    stunnedPlayer.getPlayer().getRoomUser().warp(pushBack, false);
+                    stunnedPlayer.getPlayer().getRoomUser().warp(pushBack, false, false);
                 }
             }
 

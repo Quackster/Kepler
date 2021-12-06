@@ -23,7 +23,7 @@ public class PoolQueueInteractor extends GenericTrigger {
         if (player.getDetails().getTickets() == 0 || player.getDetails().getPoolFigure().isEmpty()) {
             oldPosition.setRotation(2); // Make user face this way, like the original Lido behaviour
             player.getRoomUser().stopWalking();
-            player.getRoomUser().warp(oldPosition, false);
+            player.getRoomUser().warp(oldPosition, false, false);
 
             if (player.getDetails().getTickets() == 0) {
                 player.send(new NO_TICKETS());

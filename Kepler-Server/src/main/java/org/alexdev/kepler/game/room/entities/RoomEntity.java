@@ -28,6 +28,7 @@ import org.alexdev.kepler.game.room.public_rooms.SunTerraceHandler;
 import org.alexdev.kepler.game.room.tasks.WaveTask;
 import org.alexdev.kepler.game.texts.TextsManager;
 import org.alexdev.kepler.messages.outgoing.rooms.user.CHAT_MESSAGE;
+import org.alexdev.kepler.messages.outgoing.rooms.user.USER_OBJECTS;
 import org.alexdev.kepler.messages.outgoing.rooms.user.USER_STATUSES;
 import org.alexdev.kepler.util.config.GameConfiguration;
 
@@ -52,13 +53,13 @@ public abstract class RoomEntity {
     private LinkedList<Position> path;
 
     private int instanceId;
-    private Item lastInteractedItem;
+    private Item lastItemInteraction;
 
     private boolean isWalking;
     private boolean isWalkingAllowed;
     private boolean beingKicked;
     private boolean needsUpdate;
-    private Item lastItemInteraction;
+    private boolean enableWalkingOnStop;
 
     public RoomEntity(Entity entity) {
         this.entity = entity;
@@ -74,7 +75,7 @@ public abstract class RoomEntity {
         this.goal = null;
         this.room = null;
         this.rollingData = null;
-        this.lastInteractedItem = null;
+        this.lastItemInteraction = null;
         this.isWalking = false;
         this.isWalkingAllowed = true;
         this.beingKicked = false;
@@ -237,6 +238,11 @@ public abstract class RoomEntity {
         this.nextPosition = null;
         this.removeStatus(StatusType.MOVE);
 
+        if (this.enableWalkingOnStop) {
+            this.enableWalkingOnStop = false;
+            this.isWalkingAllowed = true;
+        }
+
         if (this.entity.getType() == EntityType.PLAYER) {
             if (!this.beingKicked) {
                 WalkwaysEntrance entrance = WalkwaysManager.getInstance().getWalkway(this.getRoom(), this.getPosition());
@@ -271,12 +277,12 @@ public abstract class RoomEntity {
             }
         }
 
-        this.invokeItem(null);
+        this.invokeItem(null, false);
     }
     /**
      * Triggers the current item that the player has walked on top of.
      */
-    public void invokeItem(Position oldPosition) {
+    public void invokeItem(Position oldPosition, boolean instantUpdate) {
         this.position.setZ(this.getTile().getWalkingHeight());
 
         Item item = /*isRolling ? this.room.getMapping().getTile(this.rollingData.getNextPosition()).getHighestItem() : */this.getCurrentItem();
@@ -321,7 +327,12 @@ public abstract class RoomEntity {
         }
 
         this.updateNewHeight(this.position);
-        this.needsUpdate = true;
+
+        if (instantUpdate) {
+            this.room.send(new USER_STATUSES(List.of(this.entity)));
+        } else {
+            this.needsUpdate = true;
+        }
     }
 
     /**
@@ -656,11 +667,19 @@ public abstract class RoomEntity {
      * @param position the new position
      * @param instantUpdate whether the warping should show an instant update on the client
      */
-    public void warp(Position position, boolean instantUpdate) {
+    public void warp(Position position, boolean instantUpdate, boolean sendUserObject) {
         RoomTile oldTile = this.getTile();
 
         if (oldTile != null) {
             oldTile.removeEntity(this.entity);
+        }
+
+        if (this.nextPosition != null) {
+            RoomTile nextTile = this.room.getMapping().getTile(this.nextPosition);
+
+            if (nextTile != null) {
+                nextTile.removeEntity(this.entity);
+            }
         }
 
         this.position = position.copy();
@@ -673,7 +692,15 @@ public abstract class RoomEntity {
         }
 
         if (instantUpdate && this.room != null) {
+            if (sendUserObject) {
+                this.room.send(new USER_OBJECTS(List.of(this.entity)));
+            }
+
             this.room.send(new USER_STATUSES(List.of(this.entity)));
+
+            if (oldTile != null) {
+                this.invokeItem(oldTile.getPosition(), true);
+            }
         }
     }
 
@@ -864,15 +891,21 @@ public abstract class RoomEntity {
         isWalkingAllowed = walkingAllowed;
     }
 
-    public Item getLastInteractedItem() {
-        return lastInteractedItem;
+    public Item getLastItemInteraction() {
+        return lastItemInteraction;
     }
 
-    public void setLastInteractedItem(Item lastInteractedItem) {
-        this.lastInteractedItem = lastInteractedItem;
+    public void setLastItemInteraction(Item lastItemInteraction) {
+        this.lastItemInteraction = lastItemInteraction;
     }
 
     public boolean isRolling() {
         return this.rollingData != null;
     }
+
+    public void setEnableWalkingOnStop(boolean enableWalkingOnStop) {
+        this.enableWalkingOnStop = enableWalkingOnStop;
+        this.isWalkingAllowed = !enableWalkingOnStop;
+    }
+
 }
