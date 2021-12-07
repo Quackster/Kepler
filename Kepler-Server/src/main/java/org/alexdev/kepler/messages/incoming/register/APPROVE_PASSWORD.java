@@ -8,9 +8,11 @@ import org.alexdev.kepler.server.netty.streams.NettyRequest;
 public class APPROVE_PASSWORD implements MessageEvent {
     @Override
     public void handle(Player player, NettyRequest reader) throws Exception {
+        /*
         if (player.isLoggedIn()) {
             return;
         }
+        */
 
         String username = reader.readString();
         String password = reader.readString();

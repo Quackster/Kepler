@@ -1,13 +1,11 @@
 package org.alexdev.kepler.messages.incoming.register;
 
-import at.favre.lib.crypto.bcrypt.BCrypt;
-import com.goterl.lazysodium.interfaces.PwHash;
-import org.alexdev.kepler.Kepler;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.game.player.Player;
+import org.alexdev.kepler.game.player.PlayerManager;
+import org.alexdev.kepler.game.player.register.RegisterDataType;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
-import org.alexdev.kepler.util.config.ServerConfiguration;
 
 public class REGISTER implements MessageEvent {
     @Override
@@ -35,27 +33,53 @@ public class REGISTER implements MessageEvent {
     im_read(message, 11);
     char *password = im_read_str(message);*/
 
+        /*
+        pRegMsgStruct.setAt("parentagree", [#id:1, "type":#boolean])
+        pRegMsgStruct.setAt("name", [#id:2, "type":#string])
+        pRegMsgStruct.setAt("password", [#id:3, "type":#string])
+        pRegMsgStruct.setAt("figure", [#id:4, "type":#string])
+        pRegMsgStruct.setAt("sex", [#id:5, "type":#string])
+        pRegMsgStruct.setAt("customData", [#id:6, "type":#string])
+        pRegMsgStruct.setAt("email", [#id:7, "type":#string])
+        pRegMsgStruct.setAt("birthday", [#id:8, "type":#string])
+        pRegMsgStruct.setAt("directMail", [#id:9, "type":#boolean])
+        pRegMsgStruct.setAt("has_read_agreement", [#id:10, "type":#boolean])
+        pRegMsgStruct.setAt("isp_id", [#id:11, "type":#string])
+        pRegMsgStruct.setAt("partnersite", [#id:12, "type":#string])
+        pRegMsgStruct.setAt("oldpassword", [#id:13, "type":#string])
+         */
 
-        reader.readBase64();
-        String username = reader.readString();
+        var registerValues = PlayerManager.getInstance().getRegisterValues();
 
-        reader.readBase64();
-        String figure = reader.readString();
+        while (reader.remainingBytes().length > 0) {
+            var valueId = reader.readBase64();
 
-        reader.readBase64();
-        String gender = reader.readString();
+            if (!registerValues.containsKey(valueId)) {
+                return;
+            }
 
-        reader.readBase64();
-        reader.readBase64();
+            var value = registerValues.get(valueId);
 
-        reader.readBase64();
-        String email = reader.readString();
+            switch (value.getDataType()) {
+                case STRING:
+                {
+                    value.setValue(reader.readString());
+                    break;
+                }
+                case BOOLEAN:
+                {
+                    value.setFlag(reader.readBytes(1)[0] == 'A');
+                    break;
+                }
+            }
+        }
 
-        reader.readBase64();
-        String birthday = reader.readString();
-
-        reader.readBytes(11);
-        String password = reader.readString();
+        String username = (String) PlayerManager.getInstance().getRegisterValue(registerValues, "name");
+        String figure = (String) PlayerManager.getInstance().getRegisterValue(registerValues, "figure");
+        String gender = (String) PlayerManager.getInstance().getRegisterValue(registerValues, "sex");
+        String email = (String) PlayerManager.getInstance().getRegisterValue(registerValues, "email");
+        String birthday = (String) PlayerManager.getInstance().getRegisterValue(registerValues, "birthday");
+        String password = (String) PlayerManager.getInstance().getRegisterValue(registerValues, "password");
 
         if (username.equals(password)) {
             return;
@@ -69,37 +93,12 @@ public class REGISTER implements MessageEvent {
             return;
         }
 
-        var hashedPassword = createPassword(password);
+        var hashedPassword = PlayerManager.getInstance().createPassword(password);
 
         if (hashedPassword == null)
             return;
 
-        PlayerDao.register(username, hashedPassword, figure, gender);
+        PlayerDao.register(username, hashedPassword, figure, gender, email, birthday);
         //System.out.println(name + " / " + figure + " / " + gender + " / " + email + " / " + birthday + " / " + password);
-    }
-
-    public static String createPassword(String password) throws Exception {
-        if (ServerConfiguration.getStringOrDefault("password.hashing.library", "argon2").equalsIgnoreCase("argon2")) {
-            byte[] pw = password.getBytes();
-            byte[] outputHash = new byte[PwHash.STR_BYTES];
-            PwHash.Native pwHash = (PwHash.Native) Kepler.getLibSodium();
-            boolean success = pwHash.cryptoPwHashStr(
-                    outputHash,
-                    pw,
-                    pw.length,
-                    PwHash.OPSLIMIT_INTERACTIVE,
-                    PwHash.MEMLIMIT_INTERACTIVE
-            );
-
-            if (!success) {
-                throw new Exception("Password creation was a failure!");
-            }
-
-            return new String(outputHash).replace((char) 0 + "", "");
-        } else if (ServerConfiguration.getStringOrDefault("password.hashing.library", "argon2").equalsIgnoreCase("bcrypt")) {
-            return BCrypt.withDefaults().hashToString(12, password.toCharArray());
-        } else {
-            return password;
-        }
     }
 }
