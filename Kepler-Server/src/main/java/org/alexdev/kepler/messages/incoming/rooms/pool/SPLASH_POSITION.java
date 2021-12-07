@@ -46,11 +46,7 @@ public class SPLASH_POSITION implements MessageEvent {
 
         player.getRoomUser().setDiving(false);
         player.getRoomUser().walkTo(20, 19);
-
-        // Allow walkng after 3 seconds
-        GameScheduler.getInstance().getService().schedule(() -> {
-            player.getRoomUser().setWalkingAllowed(true);
-        }, 3, TimeUnit.SECONDS);
+        player.getRoomUser().setEnableWalkingOnStop(true);
 
         currentItem.showProgram("open");
 
