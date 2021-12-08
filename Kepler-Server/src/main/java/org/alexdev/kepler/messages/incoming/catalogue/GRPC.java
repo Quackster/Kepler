@@ -9,6 +9,7 @@ import org.alexdev.kepler.game.catalogue.RareManager;
 import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.ItemManager;
+import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.player.PlayerManager;
@@ -89,6 +90,10 @@ public class GRPC implements MessageEvent {
             
             extraData = extraData.replace(Item.PRESENT_DELIMETER, "");
             presentNote = presentNote.replace(Item.PRESENT_DELIMETER, "");
+
+            if (item.getDefinition() != null && item.getDefinition().getSprite().equals("poster")) {
+                extraData = String.valueOf(item.getItemSpecialId());
+            }
 
             Item present = ItemManager.getInstance().createGift(receivingUserDetails, player.getDetails(), item.getSaleCode(), StringUtil.filterInput(presentNote, false), extraData);//new Item();
             /*present.setOwnerId(receivingUserDetails.getId());
