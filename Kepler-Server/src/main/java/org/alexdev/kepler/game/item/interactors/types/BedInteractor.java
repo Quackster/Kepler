@@ -30,7 +30,7 @@ public class BedInteractor extends GenericTrigger {
                 return;
             }
 
-            entity.getRoomUser().warp(destination, false);
+            entity.getRoomUser().warp(destination, false, false);
 
             roomEntity.removeDrinks();
             roomEntity.removeStatus(StatusType.DANCE);

@@ -86,18 +86,31 @@ public class Pathfinder {
         boolean fromItemHeightExempt = fromItem != null && (fromItem.hasBehaviour(ItemBehaviour.TELEPORTER)
                 || fromItem.getDefinition().getSprite().equals("wsJoinQueue")
                 || fromItem.getDefinition().getSprite().equals("wsQueueTile")
-                || fromItem.getDefinition().getSprite().equals("poolEnter")
-                || fromItem.getDefinition().getSprite().equals("poolExit")
+                || (fromItem.getDefinition().getSprite().equals("poolEnter") && toItem != null && toItem.getDefinition().getSprite().equals("poolExit")) // No height check when going between pool triggers
+                || (fromItem.getDefinition().getSprite().equals("poolExit") && toItem != null && toItem.getDefinition().getSprite().equals("poolEnter")) // No height check when going between pool triggers
                 || fromItem.getDefinition().getSprite().equals("poolLift")
                 || fromItem.getDefinition().getSprite().equals("queue_tile2"));
 
         boolean toItemHeightExempt = toItem != null && (toItem.hasBehaviour(ItemBehaviour.TELEPORTER)
                 || toItem.getDefinition().getSprite().equals("wsJoinQueue")
                 || toItem.getDefinition().getSprite().equals("wsQueueTile")
-                || toItem.getDefinition().getSprite().equals("poolEnter")
-                || toItem.getDefinition().getSprite().equals("poolExit")
+                || (toItem.getDefinition().getSprite().equals("poolEnter") && fromItem != null && fromItem.getDefinition().getSprite().equals("poolExit")) // No height check when going between pool triggers
+                || (toItem.getDefinition().getSprite().equals("poolExit") && fromItem != null && fromItem.getDefinition().getSprite().equals("poolEnter")) // No height check when going between pool triggers
                 || toItem.getDefinition().getSprite().equals("poolLift")
                 || toItem.getDefinition().getSprite().equals("queue_tile2"));
+
+        // Pathfinder makes the path from reversed, so we compare the drop reversed (To tile height against From tile height)
+        if (toTile.isHeightUpwards(fromTile) && (!fromItemHeightExempt && !toItemHeightExempt)) {
+            if (Math.abs(newHeight - oldHeight) > MAX_LIFT_HEIGHT) {
+                return false;
+            }
+        }
+
+        if (toTile.isHeightDrop(fromTile) && (!fromItemHeightExempt && !toItemHeightExempt)) {
+            if (Math.abs(oldHeight - newHeight) > MAX_DROP_HEIGHT) {
+                return false;
+            }
+        }
 
         if (fromTile.isHeightUpwards(toTile) && (!fromItemHeightExempt && !toItemHeightExempt)) {
             if (Math.abs(newHeight - oldHeight) > MAX_LIFT_HEIGHT) {
@@ -115,8 +128,16 @@ public class Pathfinder {
             return false;
         }
 
-        // Can't walk diagonal between two non-walkable tiles.
-        if (!room.getModel().getName().startsWith("sun_terrace")) { // Don't enable diagonal checking for the Sun Terrace
+        // Don't enable diagonal checking for the Sun Terrace
+        // Don't allow diagonal for pool triggers
+        boolean canWalkDiagonal = !room.getModel().getName().startsWith("sun_terrace") &&
+                !(fromItem != null && fromItem.getDefinition().getSprite().equals("poolExit")) &&
+                !(fromItem != null && fromItem.getDefinition().getSprite().equals("poolEnter")) &&
+                !(toItem != null && toItem.getDefinition().getSprite().equals("poolExit")) &&
+                !(toItem != null && toItem.getDefinition().getSprite().equals("poolEnter"));
+
+        // Can't walk diagonal between two non-walkable tiles
+        if (canWalkDiagonal) {
             if (current.getX() != tmp.getX() && current.getY() != tmp.getY()) {
 
                 boolean firstValidTile = RoomTile.isValidDiagonalTile(room, entity, new Position(tmp.getX(), current.getY()));

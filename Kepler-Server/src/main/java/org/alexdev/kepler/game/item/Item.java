@@ -51,6 +51,9 @@ public class Item {
     private RollingData rollingData;
     private boolean isHidden;
 
+    private Position teleportTo;
+    private Position swimTo;
+
     public Item() {
         this.id = 0;
         this.definition = new ItemDefinition();
@@ -151,7 +154,7 @@ public class Item {
         }
 
         for (Entity entity : entitiesToUpdate) {
-            entity.getRoomUser().invokeItem(oldPosition);
+            entity.getRoomUser().invokeItem(oldPosition, true);
         }
     }
 
@@ -655,6 +658,22 @@ public class Item {
 
     public void setCurrentRollBlocked(boolean currentRollBlocked) {
         isCurrentRollBlocked = currentRollBlocked;
+    }
+
+    public Position getTeleportTo() {
+        return teleportTo;
+    }
+
+    public void setTeleportTo(Position teleportTo) {
+        this.teleportTo = teleportTo;
+    }
+
+    public Position getSwimTo() {
+        return swimTo;
+    }
+
+    public void setSwimTo(Position swimTo) {
+        this.swimTo = swimTo;
     }
 }
 

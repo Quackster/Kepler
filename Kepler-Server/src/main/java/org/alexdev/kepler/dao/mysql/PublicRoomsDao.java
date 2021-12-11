@@ -35,7 +35,7 @@ public class PublicRoomsDao {
                         resultSet.getString("sprite"), resultSet.getInt("x"), resultSet.getInt("y"),
                         resultSet.getDouble("z"), resultSet.getInt("rotation"),  resultSet.getDouble("top_height"),
                         resultSet.getInt("length"), resultSet.getInt("width"), resultSet.getString("behaviour"),
-                        resultSet.getString("current_program"));
+                        resultSet.getString("current_program"), resultSet.getString("teleport_to"), resultSet.getString("swim_to"));
 
                 itemDataList.add(itemData);
             }

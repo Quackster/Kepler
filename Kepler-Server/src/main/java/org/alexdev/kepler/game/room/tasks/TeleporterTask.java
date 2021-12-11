@@ -23,7 +23,7 @@ public class TeleporterTask implements Runnable {
 
     @Override
     public void run() {
-        this.entity.getRoomUser().warp(this.item.getPosition().copy(), true);
+        this.entity.getRoomUser().warp(this.item.getPosition().copy(), true, false);
 
         if (this.entity.getType() == EntityType.PLAYER) {
             Player player = (Player) this.entity;

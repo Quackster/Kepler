@@ -32,19 +32,19 @@ public class CARRYDRINK implements MessageEvent {
                 player.getRoomUser().carryItem(-1, contents);
             }
         } else {
-            if (player.getRoomUser().getLastInteractedItem() == null) {
+            if (player.getRoomUser().getLastItemInteraction() == null) {
                 RoomTile roomTile = player.getRoomUser().getRoom().getMapping().getTile(player.getRoomUser().getPosition().getSquareInFront());
 
                 if (roomTile.getItems().stream().anyMatch(item -> item.getDefinition().getInteractionType() == InteractionType.VENDING_MACHINE)) {
-                    player.getRoomUser().setLastInteractedItem(roomTile.getItems().stream().filter(item -> item.getDefinition().getInteractionType() == InteractionType.VENDING_MACHINE).findFirst().orElse(null));
+                    player.getRoomUser().setLastItemInteraction(roomTile.getItems().stream().filter(item -> item.getDefinition().getInteractionType() == InteractionType.VENDING_MACHINE).findFirst().orElse(null));
                 }
 
-                if (player.getRoomUser().getLastInteractedItem() == null) {
+                if (player.getRoomUser().getLastItemInteraction() == null) {
                     return;
                 }
             }
 
-            Item item = player.getRoomUser().getLastInteractedItem();
+            Item item = player.getRoomUser().getLastItemInteraction();
 
             if (item.getDefinition().getInteractionType() != InteractionType.VENDING_MACHINE) {
                 return;
@@ -57,7 +57,7 @@ public class CARRYDRINK implements MessageEvent {
             int randomDrinkId = item.getDefinition().getDrinkIds()[ThreadLocalRandom.current().nextInt(0, item.getDefinition().getDrinkIds().length)];
 
             player.getRoomUser().carryItem(randomDrinkId, null);
-            player.getRoomUser().setLastInteractedItem(null);
+            player.getRoomUser().setLastItemInteraction(null);
         }
 
         player.getRoomUser().getTimerManager().resetRoomTimer();

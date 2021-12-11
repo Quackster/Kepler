@@ -13,8 +13,11 @@ public class PublicItemData {
     private int width;
     private String behaviour;
     private String currentProgram;
+    private String teleportTo;
+    private String swimTo;
 
-    public PublicItemData(String id, String roomModel, String sprite, int x, int y, double z, int rotation, double topHeight, int length, int width, String behaviour, String currentProgram) {
+    public PublicItemData(String id, String roomModel, String sprite, int x, int y, double z, int rotation, double topHeight, int length, int width, String behaviour, String currentProgram,
+                          String teleportTo, String swimTo) {
         this.id = id;
         this.roomModel = roomModel;
         this.sprite = sprite;
@@ -27,6 +30,8 @@ public class PublicItemData {
         this.width = width;
         this.behaviour = behaviour;
         this.currentProgram = currentProgram;
+        this.teleportTo = teleportTo;
+        this.swimTo = swimTo;
     }
 
     public String getId() {
@@ -75,5 +80,13 @@ public class PublicItemData {
 
     public double getTopHeight() {
         return topHeight;
+    }
+
+    public String[] getTeleportTo() {
+        return teleportTo != null ? teleportTo.split(" ") : null;
+    }
+
+    public String[] getSwimTo() {
+        return swimTo != null ? swimTo.split(" ") : null;
     }
 }

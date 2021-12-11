@@ -99,7 +99,7 @@ public class CannonHandle {
                     if (setPosition != null) {
                         setPosition.setRotation(stunnedPlayer.getPlayer().getRoomUser().getPosition().getRotation());
                         //stunnedPlayer.getPlayer().getRoomUser().setPosition(setPosition);
-                        stunnedPlayer.getPlayer().getRoomUser().warp(setPosition, false);
+                        stunnedPlayer.getPlayer().getRoomUser().warp(setPosition, false, false);
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -148,6 +148,6 @@ public class CannonHandle {
             PowerUpUtil.stunPlayer(game, gamePlayer, BattleBallPlayerState.STUNNED);
         }, 800, TimeUnit.MILLISECONDS);
 
-        gamePlayer.getPlayer().getRoomUser().warp(lastPosition, false);
+        gamePlayer.getPlayer().getRoomUser().warp(lastPosition, false, false);
     }
 }

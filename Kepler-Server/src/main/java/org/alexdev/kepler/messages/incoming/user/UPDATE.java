@@ -13,29 +13,45 @@ public class UPDATE implements MessageEvent {
             return;
         }
 
-        for (int i = 0; i < 3; i++) {
-            if (reader.remainingBytes().length <= 0) {
-                continue;
-            }
-
+        while (reader.remainingBytes().length > 0) {
             int updateId = reader.readBase64();
+            System.out.println(updateId);
 
-            if (updateId == 4) {
-                String figure = StringUtil.filterInput(reader.readString(), true);
-                player.getDetails().setFigure(figure);
-            }
-
-            if (updateId == 5) {
-                char sex = StringUtil.filterInput(reader.readString(), true).toCharArray()[0];
-
-                if (sex != player.getDetails().getSex()) {
-                    player.getDetails().setSex(sex);
+            switch (updateId) {
+                case 9:
+                {
+                    boolean receiveNews = reader.readBytes(1)[0] == 'A';
+                    player.getDetails().setReceiveNews(receiveNews);
+                    break;
                 }
-            }
+                case 4:
+                {
+                    String figure = StringUtil.filterInput(reader.readString(), true);
+                    player.getDetails().setFigure(figure);
+                    break;
+                }
+                case 5:
+                {
+                    char sex = StringUtil.filterInput(reader.readString(), true).toCharArray()[0];
 
-            if (updateId == 6) {
-                String motto = StringUtil.filterInput(reader.readString(), true);
-                player.getDetails().setMotto(motto);
+                    if (sex != player.getDetails().getSex()) {
+                        player.getDetails().setSex(sex);
+                    }
+
+                    break;
+                }
+                case 6:
+                {
+                    String motto = StringUtil.filterInput(reader.readString(), true);
+                    player.getDetails().setMotto(motto);
+                    break;
+                }
+                default:
+                {
+                    System.out.println("Unknown: " + new String(reader.remainingBytes()));
+                    reader.readBytes(reader.remainingBytes().length);
+                    break;
+                }
             }
         }
 

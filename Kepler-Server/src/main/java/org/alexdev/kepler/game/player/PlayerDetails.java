@@ -26,6 +26,7 @@ public class PlayerDetails {
     private String motto;
     private String consoleMotto;
     private char sex;
+    private boolean receiveNews;
 
     // Currencies
     private int tickets;
@@ -394,5 +395,13 @@ public class PlayerDetails {
 
     public void setClubGiftDue(long clubGiftDue) {
         this.clubGiftDue = clubGiftDue;
+    }
+
+    public boolean isReceiveNews() {
+        return receiveNews;
+    }
+
+    public void setReceiveNews(boolean receiveNews) {
+        this.receiveNews = receiveNews;
     }
 }

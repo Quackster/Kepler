@@ -95,6 +95,7 @@ public class RoomPlayer extends RoomEntity {
         RoomTradeManager.close(this);
     }
 
+    /*
     @Override
     public boolean walkTo(int X, int Y) {
         if (this.getRoom() != null && (this.getRoom().getModel().getName().startsWith("pool_a") || (this.getRoom().getModel().getName().equals("md_a")))) {
@@ -118,7 +119,7 @@ public class RoomPlayer extends RoomEntity {
         }
 
         return walking;
-    }
+    }*/
 
     @Override
     public void stopWalking() {

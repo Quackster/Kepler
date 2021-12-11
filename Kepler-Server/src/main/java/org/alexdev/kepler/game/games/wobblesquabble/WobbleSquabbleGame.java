@@ -300,7 +300,7 @@ public class WobbleSquabbleGame implements Runnable {
             Position position = new Position(newX, newY);
             position.setRotation(player.getRoomUser().getPosition().getRotation());
 
-            player.getRoomUser().warp(position, true);
+            player.getRoomUser().warp(position, true, false);
         }
     }
 
