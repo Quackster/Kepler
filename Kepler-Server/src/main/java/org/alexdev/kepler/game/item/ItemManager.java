@@ -4,7 +4,11 @@ import org.alexdev.kepler.dao.mysql.ItemDao;
 import org.alexdev.kepler.dao.mysql.SongMachineDao;
 import org.alexdev.kepler.game.catalogue.CatalogueManager;
 import org.alexdev.kepler.game.item.base.ItemDefinition;
+import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerDetails;
+import org.alexdev.kepler.game.player.PlayerManager;
+import org.alexdev.kepler.game.room.Room;
+import org.alexdev.kepler.game.room.RoomManager;
 import org.alexdev.kepler.game.song.Song;
 import org.alexdev.kepler.log.Log;
 import org.alexdev.kepler.util.DateUtil;
@@ -179,5 +183,45 @@ public class ItemManager {
     public static void reset() {
         instance = null;
         ItemManager.getInstance();
+    }
+
+    /**
+     * Resolve the active room item by database id.
+     *
+     * @param itemId the room item
+     * @return the instance of the item, if found
+     */
+    public Item resolveItem(String itemId) {
+        Item databaseItem = ItemDao.getItem(itemId);
+
+        if (databaseItem == null) {
+            return null;
+        }
+
+        return this.resolveItem(databaseItem);
+    }
+
+    /**
+     * Resolve the active room item by database instance
+     *
+     * @param databaseItem the database item instance
+     * @return the instance of the item, if found
+     */
+    public Item resolveItem(Item databaseItem) {
+        if (RoomManager.getInstance().getRoomById(databaseItem.getRoomId()) != null) {
+            Room room = databaseItem.getRoom();
+
+            if (room != null) {
+                return room.getItemManager().getByDatabaseId(databaseItem.getDatabaseId());
+            }
+        } else {
+            Player itemOwner = PlayerManager.getInstance().getPlayerById(databaseItem.getOwnerId());
+
+            if (itemOwner != null) {
+                return itemOwner.getInventory().getItemByDatabaseId(databaseItem.getDatabaseId());
+            }
+        }
+
+        return null;
     }
 }

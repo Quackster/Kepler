@@ -3,6 +3,7 @@ package org.alexdev.kepler.messages.incoming.rooms.items;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.fuserights.Fuseright;
+import org.alexdev.kepler.game.item.interactors.types.TeleportInteractor;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
@@ -44,6 +45,11 @@ public class SETSTUFFDATA implements MessageEvent {
             return; // Prevent dice rigging, scripting trophies, post-its, etc.
         }
 
+        if (item.hasBehaviour(ItemBehaviour.TELEPORTER)) {
+            var interaction = new TeleportInteractor();
+            interaction.onInteract(player, room, item, 0);
+            return;
+        }
 
         if (item.hasBehaviour(ItemBehaviour.REQUIRES_RIGHTS_FOR_INTERACTION)
                 && !room.hasRights(player.getDetails().getId())

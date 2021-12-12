@@ -39,7 +39,7 @@ public class GOVIADOOR implements MessageEvent {
         }
 
 
-        Item linkedTeleporter = ItemDao.getItem(item.getDatabaseId());
+        Item linkedTeleporter = ItemDao.getItem(item.getTeleporterId());
         Room target = RoomManager.getInstance().getRoomById(roomId);
 
         if (linkedTeleporter != null && target != null) {

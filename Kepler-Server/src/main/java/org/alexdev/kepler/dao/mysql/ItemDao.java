@@ -61,37 +61,34 @@ public class ItemDao {
     public static void newItem(Item item) throws SQLException {
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
-        ResultSet row = null;
+        // ResultSet row = null;
 
-        String itemId = null;
+        String itemId = UUID.randomUUID().toString();
 
         try {
 
             sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("INSERT INTO items (user_id, definition_id, custom_data) VALUES (?,?,?)", sqlConnection);
-            preparedStatement.setInt(1, item.getOwnerId());
-            preparedStatement.setInt(2, item.getDefinition().getId());
-            preparedStatement.setString(3, item.getCustomData());
+            preparedStatement = Storage.getStorage().prepare("INSERT INTO items (id, user_id, definition_id, custom_data) VALUES (?, ?,?,?)", sqlConnection);
+            preparedStatement.setString(1, itemId);
+            preparedStatement.setInt(2, item.getOwnerId());
+            preparedStatement.setInt(3, item.getDefinition().getId());
+            preparedStatement.setString(4, item.getCustomData());
             preparedStatement.executeUpdate();
 
-            row = preparedStatement.getResultSet();
+            /*
+            preparedStatement = Storage.getStorage().prepare("SELECT * items WHERE id = ? LIMIT 1", sqlConnection);
+            preparedStatement.setString(1, itemId);
+            row = preparedStatement.executeQuery();
 
             if (row != null && row.next()) {
                 itemId = row.getString(1);
-
-                for (int i = 0; i < 10; i++) {
-                    try {
-                        System.out.println(row.getString(i));
-                    } catch (Exception ex) { }
-                }
-
             }
-
+             */
         } catch (SQLException e) {
             Storage.logError(e);
             throw e;
         } finally {
-            Storage.closeSilently(row);
+           //  Storage.closeSilently(row);
             Storage.closeSilently(preparedStatement);
             Storage.closeSilently(sqlConnection);
         }

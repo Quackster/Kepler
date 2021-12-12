@@ -196,6 +196,22 @@ public class Inventory {
     }
 
     /**
+     * Get inventory item by database id.
+     *
+     * @param databaseId the id used to get the inventory item
+     * @return the inventory item
+     */
+    public Item getItemByDatabaseId(String databaseId) {
+        for (Item item : this.items) {
+            if (item.getDatabaseId().equals(databaseId)) {
+                return item;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Get all soundset track IDs within the inventory.
      *
      * @return the list of soundsets
