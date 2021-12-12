@@ -127,6 +127,7 @@ public class CallForHelpManager {
      * @param cfh the cfh to delete
      */
     public void deleteCall(CallForHelp cfh) {
+        cfh.setDeleted(true);
         cfh.setExpireTime(DateUtil.getCurrentTimeSeconds() + TimeUnit.MINUTES.toSeconds(30));
         sendToModerators(new DELETE_CRY(cfh.getCryId()));
     }
@@ -135,7 +136,7 @@ public class CallForHelpManager {
      * Purges expired cfhs, server remembers them for atleast 30 minutes
      */
     public void purgeExpiredCfh() {
-        this.callsForHelp.values().removeIf(cfh -> !cfh.isOpen() && DateUtil.getCurrentTimeSeconds() > cfh.getExpireTime());
+        this.callsForHelp.values().removeIf(cfh -> !cfh.isOpen() || DateUtil.getCurrentTimeSeconds() > cfh.getExpireTime());
     }
 
     /**

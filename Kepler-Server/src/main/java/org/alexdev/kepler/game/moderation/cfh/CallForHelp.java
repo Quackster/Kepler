@@ -17,6 +17,7 @@ public class CallForHelp {
     private final long requestTime;
     private int category = 2;
     private long expireTime;
+    private boolean isDeleted;
 
     CallForHelp(int cryId, int callerId, Room room, String message) {
         this.cryId = cryId;
@@ -52,7 +53,7 @@ public class CallForHelp {
     }
 
     public boolean isOpen() {
-        return this.pickedUpBy == 0;
+        return this.pickedUpBy == 0 && !this.isDeleted;
     }
 
     public String getFormattedRequestTime() {
@@ -75,5 +76,13 @@ public class CallForHelp {
 
     public void setExpireTime(long expireTime) {
         this.expireTime = expireTime;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 }
