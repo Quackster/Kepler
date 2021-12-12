@@ -26,7 +26,7 @@ public class DiceTask implements Runnable {
 
         int randomNumber = ThreadLocalRandom.current().nextInt(1, maxNumber + 1); // between 1 and 6
 
-        this.dice.getRoom().send(new DICE_VALUE(this.dice.getId(), false, randomNumber));
+        this.dice.getRoom().send(new DICE_VALUE(this.dice.getGameId(), false, randomNumber));
 
         this.dice.setCustomData(Integer.toString(randomNumber));
         this.dice.updateStatus();

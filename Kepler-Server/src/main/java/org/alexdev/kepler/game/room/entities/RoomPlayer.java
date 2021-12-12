@@ -23,7 +23,7 @@ public class RoomPlayer extends RoomEntity {
     private Player player;
 
     private int authenticateId;
-    private int authenticateTelporterId;
+    private String authenticateTelporterId;
     private int observingGameId;
     private int lidoVote;
 
@@ -45,7 +45,7 @@ public class RoomPlayer extends RoomEntity {
         super(player);
         this.player = player;
         this.authenticateId = -1;
-        this.authenticateTelporterId = -1;
+        this.authenticateTelporterId = null;
         this.tradeItems = new ArrayList<>();
     }
 
@@ -150,7 +150,7 @@ public class RoomPlayer extends RoomEntity {
 
         // Remove authentications
         this.authenticateId = -1;
-        this.authenticateTelporterId = -1;
+        this.authenticateTelporterId = null;
     }
 
     public void stopObservingGame() {
@@ -196,11 +196,11 @@ public class RoomPlayer extends RoomEntity {
         this.authenticateId = authenticateId;
     }
 
-    public int getAuthenticateTelporterId() {
+    public String getAuthenticateTelporterId() {
         return authenticateTelporterId;
     }
 
-    public void setAuthenticateTelporterId(int authenticateTelporterId) {
+    public void setAuthenticateTelporterId(String authenticateTelporterId) {
         this.authenticateTelporterId = authenticateTelporterId;
     }
 

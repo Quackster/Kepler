@@ -24,7 +24,7 @@ public class SETITEMSTATE implements MessageEvent {
         }
 
         int itemId = Integer.parseInt(itemIdString);
-        Item item = room.getItemManager().getById(itemId);
+        Item item = room.getItemManager().getByVirtualId(itemId);
 
         if (item == null) {
             return;

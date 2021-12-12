@@ -25,11 +25,11 @@ public class MSG_ROOMDIMMER_GET_PRESETS implements MessageEvent {
             return;
         }
 
-        if (!MoodlightDao.containsPreset(item.getId())) {
-            MoodlightDao.createPresets(item.getId());
+        if (!MoodlightDao.containsPreset(item.getGameId())) {
+            MoodlightDao.createPresets(item.getGameId());
         }
 
-        Pair<Integer, ArrayList<String>> presetData = MoodlightDao.getPresets(item.getId());
+        Pair<Integer, ArrayList<String>> presetData = MoodlightDao.getPresets(item.getGameId());
 
         int currentPreset = presetData.getLeft();
         ArrayList<String> presets = presetData.getRight();

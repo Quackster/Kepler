@@ -408,7 +408,7 @@ public class RoomMapping {
             Item highestItem = tile.getHighestItem();
             double tileHeight = tile.getTileHeight();
 
-            if (highestItem != null && highestItem.getId() == item.getId()) {
+            if (highestItem != null && highestItem.getGameId() == item.getGameId()) {
                 tileHeight -= highestItem.getTotalHeight();
 
                 double defaultHeight = this.room.getModel().getTileHeight(item.getPosition().getX(), item.getPosition().getY());

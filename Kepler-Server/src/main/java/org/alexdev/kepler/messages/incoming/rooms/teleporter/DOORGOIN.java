@@ -14,10 +14,16 @@ public class DOORGOIN implements MessageEvent {
     @Override
     public void handle(Player player, NettyRequest reader) {
         int itemId = Integer.parseInt(reader.contents());
+        var item = player.getRoomUser().getRoom().getItemManager().getByVirtualId(itemId);
 
-        if (player.getRoomUser().getAuthenticateTelporterId() == itemId) {
-            Item item = player.getRoomUser().getRoom().getItemManager().getById(itemId);
-            player.getRoomUser().getRoom().send(new BROADCAST_TELEPORTER(item, player.getDetails().getName(), false));
+        if (item == null) {
+            return;
         }
+
+        if (!player.getRoomUser().getAuthenticateTelporterId().equals(item.getDatabaseId())) {
+            return;
+        }
+
+        player.getRoomUser().getRoom().send(new BROADCAST_TELEPORTER(item, player.getDetails().getName(), false));
     }
 }

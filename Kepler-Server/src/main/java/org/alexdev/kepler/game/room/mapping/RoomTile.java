@@ -93,15 +93,11 @@ public class RoomTile {
             if (tile.getHighestItem() != null) {
                 Item item = tile.getHighestItem();
 
-                if (item.getDefinition().getSprite().equals("poolExit") && item.getPosition().equals(new Position(19, 19))) {
-                    return entity.getRoomUser().containsStatus(StatusType.SWIM);
-                }
-
                 // Allow pets to walk to their own pet bed.
                 if (entity.getType() == EntityType.PET) {
                     Pet pet = (Pet) entity;
 
-                    if (pet.getDetails().getItemId() == item.getId()) {
+                    if (pet.getDetails().getItemId().equals(item.getDatabaseId())) {
                         return true;
                     }
                 }
@@ -303,7 +299,7 @@ public class RoomTile {
         if (item == null)
             return;
 
-        items.put(item.getId(), item);
+        items.put(item.getGameId(), item);
 
         if (item.getTotalHeight() < tileHeight)
             return;
@@ -316,9 +312,9 @@ public class RoomTile {
         if (item == null)
             return;
 
-        items.remove(item.getId());
+        items.remove(item.getGameId());
 
-        if (highestItem == null || item.getId() != highestItem.getId())
+        if (highestItem == null || item.getGameId() != highestItem.getGameId())
             return;
 
         resetHighestItem();
@@ -457,7 +453,7 @@ public class RoomTile {
 
     public ArrayList<Item> getItemsAbove(Item item) {
         var items = getItems();
-        items.removeIf(x -> x.getId() == item.getId() || x.getPosition().getZ() < item.getPosition().getZ());
+        items.removeIf(x -> x.getGameId() == item.getGameId() || x.getPosition().getZ() < item.getPosition().getZ());
         return items;
     }
 }

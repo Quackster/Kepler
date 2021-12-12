@@ -12,7 +12,7 @@ public class QUIT implements MessageEvent {
         }
 
         // Remove authentication values when user manually leaves
-        player.getRoomUser().setAuthenticateTelporterId(-1);
+        player.getRoomUser().setAuthenticateTelporterId(null);
         player.getRoomUser().setAuthenticateId(-1);
 
         player.getRoomUser().getRoom().getEntityManager().leaveRoom(player, false);

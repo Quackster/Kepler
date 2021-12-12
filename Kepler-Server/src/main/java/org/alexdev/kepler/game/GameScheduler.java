@@ -147,7 +147,7 @@ public class GameScheduler implements Runnable {
      * @param item the item to save
      */
     public void queueSaveItem(Item item) {
-        this.itemSavingQueue.removeIf(i -> i.getId() == item.getId());
+        this.itemSavingQueue.removeIf(i -> i.getDatabaseId().equals(item.getDatabaseId()));
         this.itemSavingQueue.add(item);
     }
 

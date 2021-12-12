@@ -30,7 +30,7 @@ public class CONVERT_FURNI_TO_CREDITS implements MessageEvent {
             return;
         }
 
-        Item item = room.getItemManager().getById(itemId);
+        Item item = room.getItemManager().getByVirtualId(itemId);
 
         if (item == null || !item.hasBehaviour(ItemBehaviour.REDEEMABLE)) {
             return;

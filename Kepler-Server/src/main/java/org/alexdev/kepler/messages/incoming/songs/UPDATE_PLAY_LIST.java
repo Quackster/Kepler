@@ -34,13 +34,13 @@ public class UPDATE_PLAY_LIST implements MessageEvent {
         // We don't want a user to get kicked when making cool beats
         player.getRoomUser().getTimerManager().resetRoomTimer();
 
-        SongMachineDao.clearPlaylist(room.getItemManager().getSoundMachine().getId());
+        SongMachineDao.clearPlaylist(room.getItemManager().getSoundMachine().getGameId());
 
         for (int i = 0; i < amount; i++) {
             int songId = reader.readInt();
-            SongMachineDao.addPlaylist(room.getItemManager().getSoundMachine().getId(), songId, i);
+            SongMachineDao.addPlaylist(room.getItemManager().getSoundMachine().getGameId(), songId, i);
         }
 
-        room.send(new SONG_PLAYLIST(SongMachineDao.getSongPlaylist(room.getItemManager().getSoundMachine().getId())));
+        room.send(new SONG_PLAYLIST(SongMachineDao.getSongPlaylist(room.getItemManager().getSoundMachine().getGameId())));
     }
 }

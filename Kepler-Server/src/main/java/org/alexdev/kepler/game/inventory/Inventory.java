@@ -34,7 +34,11 @@ public class Inventory {
 
         // Prevent possible virtual item dupes
         if (this.player.getRoomUser().getRoom() != null) {
-            this.items.removeIf(x -> this.player.getRoomUser().getRoom().getItems().stream().anyMatch(item -> x.getId() == item.getId()));
+            this.items.removeIf(x -> this.player.getRoomUser().getRoom().getItems().stream().anyMatch(item -> x.getDatabaseId().equals(item.getDatabaseId())));
+        }
+
+        for (var item : this.items) {
+            item.assignVirtualId();
         }
     }
 
@@ -148,7 +152,7 @@ public class Inventory {
      */
     public static void serialise(NettyResponse response, Item item, int stripSlotId) {
         response.writeDelimeter("SI", (char) 30);
-        response.writeDelimeter(item.getId(), (char) 30);
+        response.writeDelimeter(item.getGameId(), (char) 30);
         response.writeDelimeter(stripSlotId, (char) 30);
 
         if (item.hasBehaviour(ItemBehaviour.WALL_ITEM)) {
@@ -157,7 +161,7 @@ public class Inventory {
             response.writeDelimeter("S", (char) 30);
         }
 
-        response.writeDelimeter(item.getId(), (char) 30);
+        response.writeDelimeter(item.getGameId(), (char) 30);
         response.writeDelimeter(item.getDefinition().getSprite(), (char) 30);
 
         if (item.hasBehaviour(ItemBehaviour.WALL_ITEM)) {
@@ -183,7 +187,7 @@ public class Inventory {
      */
     public Item getItem(int itemId) {
         for (Item item : this.items) {
-            if (item.getId() == itemId) {
+            if (item.getGameId() == itemId) {
                 return item;
             }
         }

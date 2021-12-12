@@ -13,7 +13,7 @@ import org.alexdev.kepler.game.triggers.GenericTrigger;
 public class PetNestInteractor extends GenericTrigger {
     @Override
     public void onItemPlaced(Player player, Room room, Item item) {
-        PetDetails petDetails = PetDao.getPetDetails(item.getId());
+        PetDetails petDetails = PetDao.getPetDetails(item.getGameId());
 
         if (petDetails != null) {
             Pet pet = this.addPet(room, petDetails, item.getPosition());
@@ -27,7 +27,7 @@ public class PetNestInteractor extends GenericTrigger {
 
     @Override
     public void onItemPickup(Player player, Room room, Item item) {
-        PetDetails petDetails = PetDao.getPetDetails(item.getId());
+        PetDetails petDetails = PetDao.getPetDetails(item.getGameId());
 
         if (petDetails == null) {
             return;

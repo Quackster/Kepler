@@ -35,8 +35,8 @@ public class MSG_ROOMDIMMER_SET_PRESET implements MessageEvent {
             return;
         }
 
-        if (!MoodlightDao.containsPreset(item.getId())) {
-            MoodlightDao.createPresets(item.getId());
+        if (!MoodlightDao.containsPreset(item.getGameId())) {
+            MoodlightDao.createPresets(item.getGameId());
         }
 
         int presetId = reader.readInt();
@@ -72,7 +72,7 @@ public class MSG_ROOMDIMMER_SET_PRESET implements MessageEvent {
             player.send(new CHAT_MESSAGE(ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), "Rainbow room dimmer cycle has stopped"));
         }
 
-        Pair<Integer, ArrayList<String>> presetData = MoodlightDao.getPresets(item.getId());
+        Pair<Integer, ArrayList<String>> presetData = MoodlightDao.getPresets(item.getGameId());
         List<String> presets = presetData.getRight();
 
         presets.set(presetId - 1, backgroundState + "," + presetColour + "," + presetStrength);
@@ -81,6 +81,6 @@ public class MSG_ROOMDIMMER_SET_PRESET implements MessageEvent {
         item.updateStatus();
         item.save();
 
-        MoodlightDao.updatePresets(item.getId(), presetId, presets);
+        MoodlightDao.updatePresets(item.getGameId(), presetId, presets);
     }
 }

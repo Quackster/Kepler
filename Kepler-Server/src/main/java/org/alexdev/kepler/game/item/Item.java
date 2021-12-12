@@ -28,11 +28,12 @@ public class Item {
     public static final String DEFAULT_ROOMDIMMER_CUSTOM_DATA = "1,1,1,#000000,255";
     public static final String PRESENT_DELIMETER = "|";
 
-    private int id;
+    private int gameId;
+    private String databaseId;
     private int orderId;
     private int ownerId;
     private int roomId;
-    private int teleporterId;
+    private String teleporterId;
 
     private ItemDefinition definition;
     private int definitionId;
@@ -55,7 +56,7 @@ public class Item {
     private Position swimTo;
 
     public Item() {
-        this.id = 0;
+        this.gameId = 0;
         this.definition = new ItemDefinition();
         this.position = new Position();
         this.customData = "";
@@ -66,8 +67,8 @@ public class Item {
         this.rollingData = null;
     }
 
-    public void fill(int id, int orderId, int ownerId, int roomId, int definitionId, int X, int Y, double Z, int rotation, String wallPosition, String customData, boolean isHidden) {
-        this.id = id;
+    public void fill(String databaseId, int orderId, int ownerId, int roomId, int definitionId, int X, int Y, double Z, int rotation, String wallPosition, String customData, boolean isHidden) {
+        this.databaseId = databaseId;
         this.orderId = orderId;
         this.ownerId = ownerId;
         this.roomId = roomId;
@@ -81,7 +82,7 @@ public class Item {
         this.setDefinitionId(this.definitionId);
 
         if (this.hasBehaviour(ItemBehaviour.TELEPORTER)) {
-            this.teleporterId = TeleporterDao.getTeleporterId(this.id);
+            this.teleporterId = TeleporterDao.getTeleporterId(this.databaseId);
         }
     }
 
@@ -145,8 +146,8 @@ public class Item {
 
                     Player player = (Player) entity;
 
-                    if (entity.getRoomUser().getPosition().equals(this.position) || player.getRoomUser().getAuthenticateTelporterId() == id) {
-                        player.getRoomUser().setAuthenticateTelporterId(-1);
+                    if (entity.getRoomUser().getPosition().equals(this.position) || player.getRoomUser().getAuthenticateTelporterId() != null && player.getRoomUser().getAuthenticateTelporterId().equals(getDatabaseId())) {
+                        player.getRoomUser().setAuthenticateTelporterId(null);
                         player.getRoomUser().setWalkingAllowed(true);
                     }
                 }
@@ -213,8 +214,10 @@ public class Item {
             if (entity instanceof Player) {
                 Player player = (Player) entity;
 
-                if (player.getRoomUser().getAuthenticateTelporterId() == this.id) {
-                    return true;
+                if (player.getRoomUser().getAuthenticateTelporterId() != null) {
+                    if (player.getRoomUser().getAuthenticateTelporterId().equals(this.databaseId)) {
+                        return true;
+                    }
                 }
             }
 
@@ -259,7 +262,7 @@ public class Item {
      * Queue item deletion.
      */
     public void delete() {
-        GameScheduler.getInstance().queueDeleteItem(this.getId());
+        GameScheduler.getInstance().queueDeleteItem(this.getGameId());
     }
 
     /**
@@ -285,7 +288,7 @@ public class Item {
             response.write(Character.toString((char) 13));
         } else {
             if (this.hasBehaviour(ItemBehaviour.WALL_ITEM)) {
-                response.writeDelimeter(this.id, (char) 9);
+                response.writeDelimeter(this.gameId, (char) 9);
                 response.writeDelimeter(definition.getSprite(), (char) 9);
                 response.writeDelimeter(" ", (char) 9);
                 response.writeDelimeter(this.wallPosition, (char) 9);
@@ -300,7 +303,7 @@ public class Item {
 
                 response.write(Character.toString((char) 13));
             } else {
-                response.writeString(this.id);
+                response.writeString(this.gameId);
                 response.writeString(definition.getSprite());
                 response.writeInt(this.position.getX());
                 response.writeInt(this.position.getY());
@@ -382,14 +385,14 @@ public class Item {
 
             Item highestItem = tile.getHighestItem();
 
-            if (highestItem != null && highestItem.getId() != item.getId()) {
+            if (highestItem != null && highestItem.getGameId() != item.getGameId()) {
                 if (!this.canPlaceOnTop(item, highestItem)) {
                     return false;
                 }
             }
 
             for (Item tileItem : tile.getItems()) {
-                if (tileItem.getId() == item.getId()) {
+                if (tileItem.getGameId() == item.getGameId()) {
                     continue;
                 }
 
@@ -494,12 +497,21 @@ public class Item {
         this.definitionId = definitionId;
     }
 
-    public int getId() {
-        return id;
+    /**
+     * Sets the virtual id.
+     */
+    public void assignVirtualId() {
+        this.gameId = ItemManager.getInstance().getVirtualIdCounter().incrementAndGet();
+        //System.out.println("Assigned virtual id " + this.id + " to item with db id " + this.databaseId);
     }
 
-    public void setId(int id) {
-        this.id = id;
+
+    public int getGameId() {
+        return gameId;
+    }
+
+    public void setGameId(int gameId) {
+        this.gameId = gameId;
     }
 
     public int getOwnerId() {
@@ -510,11 +522,11 @@ public class Item {
         this.ownerId = ownerId;
     }
 
-    public int getTeleporterId() {
+    public String getTeleporterId() {
         return teleporterId;
     }
 
-    public void setTeleporterId(int teleporterId) {
+    public void setTeleporterId(String teleporterId) {
         this.teleporterId = teleporterId;
     }
 
@@ -645,6 +657,14 @@ public class Item {
 
     public void setSwimTo(Position swimTo) {
         this.swimTo = swimTo;
+    }
+
+    public String getDatabaseId() {
+        return databaseId;
+    }
+
+    public void setDatabaseId(String databaseId) {
+        this.databaseId = databaseId;
     }
 }
 

@@ -27,7 +27,7 @@ public class TeleporterTask implements Runnable {
 
         if (this.entity.getType() == EntityType.PLAYER) {
             Player player = (Player) this.entity;
-            player.getRoomUser().setAuthenticateTelporterId(-1);
+            player.getRoomUser().setAuthenticateTelporterId(null);
         }
 
         this.room.send(new BROADCAST_TELEPORTER(this.item, this.entity.getDetails().getName(), false));

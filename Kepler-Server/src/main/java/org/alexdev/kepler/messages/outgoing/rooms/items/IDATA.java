@@ -2,7 +2,6 @@ package org.alexdev.kepler.messages.outgoing.rooms.items;
 
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
-import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.messages.types.PlayerMessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 
@@ -25,23 +24,23 @@ public class IDATA extends PlayerMessageComposer {
     public void compose(NettyResponse response) {
         if (this.getPlayer().getVersion() > 9) {
             if (this.item.hasBehaviour(ItemBehaviour.POST_IT)) {
-                response.writeDelimeter(this.item.getId(), (char) 9);
+                response.writeDelimeter(this.item.getGameId(), (char) 9);
                 response.writeDelimeter(this.colour, ' ');
                 response.write(this.text);
             } else {
-                response.writeDelimeter(this.item.getId(), (char) 9);
-                response.writeDelimeter(this.item.getId(), ' ');
+                response.writeDelimeter(this.item.getGameId(), (char) 9);
+                response.writeDelimeter(this.item.getGameId(), ' ');
                 response.writeDelimeter(this.item.getOwnerId(), ' ');
                 response.write(this.item.getCustomData());
             }
         } else {
             if (this.item.hasBehaviour(ItemBehaviour.POST_IT)) {
-                response.writeDelimeter(this.item.getId(), (char) 9);
+                response.writeDelimeter(this.item.getGameId(), (char) 9);
                 response.writeDelimeter(this.colour, (char) 13);
                 response.write(this.text);
             } else {
-                response.writeDelimeter(this.item.getId(), (char) 9);
-                response.writeDelimeter(this.item.getId(), ' ');
+                response.writeDelimeter(this.item.getGameId(), (char) 9);
+                response.writeDelimeter(this.item.getGameId(), ' ');
                 response.writeDelimeter(this.item.getOwnerId(), ' ');
                 response.write(this.item.getCustomData());
             }

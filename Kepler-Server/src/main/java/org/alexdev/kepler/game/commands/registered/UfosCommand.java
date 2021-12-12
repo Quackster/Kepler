@@ -51,7 +51,7 @@ public class UfosCommand extends Command {
                 int ufoId = Integer.MAX_VALUE - (i + 1);
 
                 Item pItem = new Item();
-                pItem.setId(ufoId);
+                pItem.setGameId(ufoId);
                 pItem.setPosition(new Position(
                         ThreadLocalRandom.current().nextInt(0, 45),
                         ThreadLocalRandom.current().nextInt(0, 45),
@@ -67,7 +67,7 @@ public class UfosCommand extends Command {
                 int destY = ThreadLocalRandom.current().nextInt(-(20 + (pItem.getPosition().getY() * 2)), 20 + (pItem.getPosition().getX() * 2));// + ThreadLocalRandom.current().nextInt(-10, -20);
                 float destZ = ThreadLocalRandom.current().nextInt(-9, 10);
 
-                room.send(new SLIDEOBJECTBUNDLE(pItem.getPosition(), destX, destY, destZ, pItem.getId()));
+                room.send(new SLIDEOBJECTBUNDLE(pItem.getPosition(), destX, destY, destZ, pItem.getGameId()));
             //}, 0, incremental += 10, TimeUnit.MILLISECONDS);
         }
     }

@@ -33,7 +33,7 @@ public class EDIT_SONG implements MessageEvent {
         int songId = reader.readInt();
 
         player.send(new SONG_INFO(SongMachineDao.getSong(songId)));
-        player.send(new SOUND_PACKAGES(SongMachineDao.getTracks(room.getItemManager().getSoundMachine().getId())));
+        player.send(new SOUND_PACKAGES(SongMachineDao.getTracks(room.getItemManager().getSoundMachine().getGameId())));
         player.send(new USER_SOUND_PACKAGES(player.getInventory().getSoundsets()));
     }
 }

@@ -27,7 +27,7 @@ public class RESET_JUKEBOX implements MessageEvent {
             return;
         }
 
-        SongMachineDao.clearPlaylist(room.getItemManager().getSoundMachine().getId());
+        SongMachineDao.clearPlaylist(room.getItemManager().getSoundMachine().getGameId());
         room.send(new SONG_PLAYLIST(List.of()));
     }
 }

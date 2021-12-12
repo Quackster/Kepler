@@ -27,7 +27,7 @@ public class MOVESTUFF implements MessageEvent {
         String[] data = content.split(" ");
 
         int itemId = Integer.parseInt(data[0]);
-        Item item = room.getItemManager().getById(itemId);
+        Item item = room.getItemManager().getByVirtualId(itemId);
 
         if (item == null) {
             return;

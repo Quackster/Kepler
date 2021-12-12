@@ -34,13 +34,13 @@ public class SAVE_SONG_NEW implements MessageEvent {
         String data = StringUtil.filterInput(reader.readString(), true);
 
         SongMachineDao.addSong(player.getDetails().getId(),
-                room.getItemManager().getSoundMachine().getId(),
+                room.getItemManager().getSoundMachine().getGameId(),
                 title,
                 calculateSongLength(data),
                 data);
 
-        player.send(new SOUND_PACKAGES(SongMachineDao.getTracks(room.getItemManager().getSoundMachine().getId())));
-        player.send(new SONG_NEW(room.getItemManager().getSoundMachine().getId(), title));
+        player.send(new SOUND_PACKAGES(SongMachineDao.getTracks(room.getItemManager().getSoundMachine().getGameId())));
+        player.send(new SONG_NEW(room.getItemManager().getSoundMachine().getGameId(), title));
     }
 
     public static int calculateSongLength(String Data) {

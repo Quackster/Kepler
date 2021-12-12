@@ -37,7 +37,7 @@ public class SETITEMDATA implements MessageEvent {
             return;
         }
 
-        Item item = room.getItemManager().getById(itemId);
+        Item item = room.getItemManager().getByVirtualId(itemId);
 
         if (item == null) {
             return;

@@ -172,11 +172,11 @@ public class RoomEntityManager {
 
         this.tryInitialiseRoom(player);
 
-        if (player.getRoomUser().getAuthenticateTelporterId() != -1) {
+        if (player.getRoomUser().getAuthenticateTelporterId() != null) {
             Item teleporter = ItemDao.getItem(player.getRoomUser().getAuthenticateTelporterId());
 
             if (teleporter != null) {
-                Item linkedTeleporter = this.room.getItemManager().getById(teleporter.getTeleporterId());
+                Item linkedTeleporter = this.room.getItemManager().getByDatabaseId(teleporter.getTeleporterId());
 
                 if (linkedTeleporter != null) {
                     TeleporterTask teleporterTask = new TeleporterTask(linkedTeleporter, entity, this.room);
@@ -187,7 +187,7 @@ public class RoomEntityManager {
                 }
             }
 
-            player.getRoomUser().setAuthenticateTelporterId(-1);
+            player.getRoomUser().setAuthenticateTelporterId(null);
         }
 
         player.send(new ROOM_URL());

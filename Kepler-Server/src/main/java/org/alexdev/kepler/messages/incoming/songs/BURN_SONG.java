@@ -13,7 +13,6 @@ import org.alexdev.kepler.game.song.Song;
 import org.alexdev.kepler.messages.outgoing.user.currencies.CREDIT_BALANCE;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
-import org.alexdev.kepler.util.config.ServerConfiguration;
 
 import java.util.Calendar;
 
@@ -68,7 +67,7 @@ public class BURN_SONG implements MessageEvent {
         player.getInventory().addItem(item);
         player.getInventory().getView("new");
 
-        JukeboxDao.addDisk(item.getId(), 0, songId);
+        JukeboxDao.addDisk(item.getGameId(), 0, songId);
         JukeboxDao.setBurned(songId, true);
 
         CurrencyDao.decreaseCredits(player.getDetails(), 1);

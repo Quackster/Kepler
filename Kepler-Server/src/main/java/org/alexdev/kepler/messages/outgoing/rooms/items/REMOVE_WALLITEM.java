@@ -13,7 +13,7 @@ public class REMOVE_WALLITEM extends MessageComposer {
 
     @Override
     public void compose(NettyResponse response) {
-        response.write(this.item.getId());
+        response.write(this.item.getGameId());
     }
 
     @Override

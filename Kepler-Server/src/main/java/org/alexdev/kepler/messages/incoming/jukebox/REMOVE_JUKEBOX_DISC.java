@@ -31,7 +31,7 @@ public class REMOVE_JUKEBOX_DISC implements MessageEvent {
         }
 
         int slotId = reader.readInt();
-        BurnedDisk burnedDisk = JukeboxDao.getDisk(room.getItemManager().getSoundMachine().getId(), slotId);
+        BurnedDisk burnedDisk = JukeboxDao.getDisk(room.getItemManager().getSoundMachine().getGameId(), slotId);
 
         if (burnedDisk == null) {
             return;
@@ -40,7 +40,7 @@ public class REMOVE_JUKEBOX_DISC implements MessageEvent {
         Item songDisk = null;
 
         for (Item item : player.getInventory().getItems()) {
-            if ((burnedDisk.getItemId() == item.getId()) && item.isHidden()) {
+            if ((burnedDisk.getItemId() == item.getGameId()) && item.isHidden()) {
                 songDisk = item;
                 break;
             }
@@ -54,13 +54,13 @@ public class REMOVE_JUKEBOX_DISC implements MessageEvent {
         player.getInventory().addItem(songDisk); // Re-add at start.
         songDisk.save();
 
-        SongMachineDao.removePlaylistSong(burnedDisk.getSongId(), room.getItemManager().getSoundMachine().getId());
-        JukeboxDao.editDisk(songDisk.getId(), 0, 0);
+        SongMachineDao.removePlaylistSong(burnedDisk.getSongId(), room.getItemManager().getSoundMachine().getGameId());
+        JukeboxDao.editDisk(songDisk.getGameId(), 0, 0);
 
         player.getInventory().getView("new"); // Refresh hand
         new GET_USER_SONG_DISCS().handle(player, null);
 
-        room.send(new SONG_PLAYLIST(SongMachineDao.getSongPlaylist(room.getItemManager().getSoundMachine().getId())));
-        room.send(new JUKEBOX_DISCS(JukeboxManager.getInstance().getDisks(room.getItemManager().getSoundMachine().getId())));
+        room.send(new SONG_PLAYLIST(SongMachineDao.getSongPlaylist(room.getItemManager().getSoundMachine().getGameId())));
+        room.send(new JUKEBOX_DISCS(JukeboxManager.getInstance().getDisks(room.getItemManager().getSoundMachine().getGameId())));
     }
 }

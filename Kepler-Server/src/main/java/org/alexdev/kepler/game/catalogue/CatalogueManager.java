@@ -120,11 +120,11 @@ public class CatalogueManager {
             ItemDao.newItem(linkedTeleporterItem);
             player.getInventory().addItem(linkedTeleporterItem);
 
-            linkedTeleporterItem.setTeleporterId(item.getId());
-            item.setTeleporterId(linkedTeleporterItem.getId());
+            linkedTeleporterItem.setTeleporterId(item.getDatabaseId());
+            item.setTeleporterId(linkedTeleporterItem.getDatabaseId());
 
-            TeleporterDao.addPair(linkedTeleporterItem.getId(), item.getId());
-            TeleporterDao.addPair(item.getId(), linkedTeleporterItem.getId());
+            TeleporterDao.addPair(linkedTeleporterItem.getDatabaseId(), item.getDatabaseId());
+            TeleporterDao.addPair(item.getDatabaseId(), linkedTeleporterItem.getDatabaseId());
         }
 
         if (def.getInteractionType() == InteractionType.PET_NEST) {
@@ -136,7 +136,7 @@ public class CatalogueManager {
                 String color = StringUtil.filterInput(petData[2], true);
 
                 if (PetManager.getInstance().isValidName(player.getDetails().getName(), name)) {
-                    PetDao.createPet(item.getId(), name, type, race, color);
+                    PetDao.createPet(item.getGameId(), name, type, race, color);
                 }
             }
         }

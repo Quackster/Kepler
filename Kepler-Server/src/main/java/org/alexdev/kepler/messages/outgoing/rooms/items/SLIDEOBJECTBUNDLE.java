@@ -56,12 +56,12 @@ public class SLIDEOBJECTBUNDLE extends MessageComposer {
             response.writeInt(this.rollingItems.size());
 
             for (RollingData item : this.rollingItems) {
-                response.writeInt(item.getItem().getId());
+                response.writeInt(item.getItem().getGameId());
                 response.writeString(StringUtil.format(item.getFromPosition().getZ()));
                 response.writeString(StringUtil.format(item.getNextPosition().getZ()));
             }
 
-            response.writeInt(this.roller.getId());
+            response.writeInt(this.roller.getGameId());
             response.writeInt(this.rollingEntity != null ? 2 : 0);
 
             if (this.rollingEntity != null) {

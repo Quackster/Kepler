@@ -108,7 +108,7 @@ public class Pet extends Entity {
     public boolean isActionAllowed() {
         return (this.petAction == PetAction.NONE || this.petAction == PetAction.SIT || this.petAction == PetAction.LAY) && (this.roomUser.getCurrentItem() == null ||
                 ((!this.roomUser.getCurrentItem().getDefinition().hasBehaviour(ItemBehaviour.CAN_SIT_ON_TOP) && !this.roomUser.getCurrentItem().getDefinition().hasBehaviour(ItemBehaviour.CAN_LAY_ON_TOP)) &&
-                this.roomUser.getCurrentItem().getId() != this.petDetails.getItemId()));
+                !this.roomUser.getCurrentItem().getDatabaseId().equals(this.petDetails.getItemId())));
     }
 
     public boolean hasActionExpired() {

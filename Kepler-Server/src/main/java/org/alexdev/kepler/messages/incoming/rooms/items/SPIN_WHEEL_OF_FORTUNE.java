@@ -35,7 +35,7 @@ public class SPIN_WHEEL_OF_FORTUNE implements MessageEvent {
         }
 
         // Get item by ID
-        Item item = room.getItemManager().getById(itemId);
+        Item item = room.getItemManager().getByVirtualId(itemId);
 
         // Check if item exists and if it is a wheel of fortune
         if (item == null || !item.hasBehaviour(ItemBehaviour.WHEEL_OF_FORTUNE)) {

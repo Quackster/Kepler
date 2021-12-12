@@ -2,7 +2,6 @@ package org.alexdev.kepler.dao.mysql;
 
 import org.alexdev.kepler.dao.Storage;
 import org.alexdev.kepler.game.item.Item;
-import org.alexdev.kepler.game.item.public_items.PublicItemData;
 import org.alexdev.kepler.game.item.base.ItemDefinition;
 import org.alexdev.kepler.game.room.RoomData;
 
@@ -64,7 +63,7 @@ public class ItemDao {
         PreparedStatement preparedStatement = null;
         ResultSet row = null;
 
-        int itemId = 0;
+        String itemId = null;
 
         try {
 
@@ -75,10 +74,17 @@ public class ItemDao {
             preparedStatement.setString(3, item.getCustomData());
             preparedStatement.executeUpdate();
 
-            row = preparedStatement.getGeneratedKeys();
+            row = preparedStatement.getResultSet();
 
             if (row != null && row.next()) {
-                itemId = row.getInt(1);
+                itemId = row.getString(1);
+
+                for (int i = 0; i < 10; i++) {
+                    try {
+                        System.out.println(row.getString(i));
+                    } catch (Exception ex) { }
+                }
+
             }
 
         } catch (SQLException e) {
@@ -90,7 +96,8 @@ public class ItemDao {
             Storage.closeSilently(sqlConnection);
         }
 
-        item.setId(itemId);
+        item.setDatabaseId(itemId);
+        item.assignVirtualId();
     }
 
     /**
@@ -135,7 +142,7 @@ public class ItemDao {
      * @param itemId the id of the item to to get
      * @return the item
      */
-    public static Item getItem(int itemId) {
+    public static Item getItem(String itemId) {
         Item item = null;
 
         Connection sqlConnection = null;
@@ -145,11 +152,12 @@ public class ItemDao {
         try {
             sqlConnection = Storage.getStorage().getConnection();
             preparedStatement = Storage.getStorage().prepare("SELECT * FROM items WHERE id = ?", sqlConnection);
-            preparedStatement.setInt(1, itemId);
+            preparedStatement.setString(1, itemId);
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
                 item = new Item();
+                item.assignVirtualId();
                 fill(item, resultSet);
             }
 
@@ -185,6 +193,7 @@ public class ItemDao {
 
             while (resultSet.next()) {
                 Item item = new Item();
+                item.assignVirtualId();
                 fill(item, resultSet);
                 items.add(item);
             }
@@ -339,7 +348,7 @@ public class ItemDao {
                 preparedStatement.setString(9, item.getCustomData());
                 preparedStatement.setInt(10, item.getOrderId());
                 preparedStatement.setInt(11, item.isHidden() ? 1 : 0);
-                preparedStatement.setLong(12, item.getId());
+                preparedStatement.setString(12, item.getDatabaseId());
                 preparedStatement.addBatch();
             }
 
@@ -362,7 +371,7 @@ public class ItemDao {
      * @throws SQLException an exception if an error happened
      */
     private static void fill(Item item, ResultSet resultSet) throws SQLException {
-        item.fill(resultSet.getInt("id"), resultSet.getInt("order_id"), resultSet.getInt("user_id"), resultSet.getInt("room_id"),
+        item.fill(resultSet.getString("id"), resultSet.getInt("order_id"), resultSet.getInt("user_id"), resultSet.getInt("room_id"),
                 resultSet.getInt("definition_id"), resultSet.getInt("x"), resultSet.getInt("y"),
                 resultSet.getDouble("z"), resultSet.getInt("rotation"), resultSet.getString("wall_position"),
                 resultSet.getString("custom_data"), resultSet.getBoolean("is_hidden"));

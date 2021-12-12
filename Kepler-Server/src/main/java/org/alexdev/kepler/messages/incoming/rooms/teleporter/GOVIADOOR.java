@@ -23,7 +23,7 @@ public class GOVIADOOR implements MessageEvent {
             return;
         }
 
-        if (player.getRoomUser().getAuthenticateTelporterId() == -1) {
+        if (player.getRoomUser().getAuthenticateTelporterId() == null) {
             return;
         }
 
@@ -32,14 +32,19 @@ public class GOVIADOOR implements MessageEvent {
         int roomId = Integer.parseInt(data[0]);
         int itemId = Integer.parseInt(data[1]);
 
-        Item linkedTeleporter = ItemDao.getItem(itemId);
+        var item = player.getRoomUser().getRoom().getItemManager().getByVirtualId(itemId);
+
+        if (item == null) {
+            return;
+        }
+
+
+        Item linkedTeleporter = ItemDao.getItem(item.getDatabaseId());
         Room target = RoomManager.getInstance().getRoomById(roomId);
 
         if (linkedTeleporter != null && target != null) {
-            // if (linkedTeleporter.getRoomId() != room.getId()) {
             player.getRoomUser().setAuthenticateId(roomId);
             player.send(new OPEN_CONNECTION());
-            //} else {
                 /*player.getRoomUser().setPosition(linkedTeleporter.getPosition().copy());
                 room.send(new USER_STATUSES(List.of(player)));
 
@@ -53,9 +58,8 @@ public class GOVIADOOR implements MessageEvent {
                 player.getRoomUser().setAuthenticateTelporterId(-1);
 
                 room.send(new BROADCAST_TELEPORTER(linkedTeleporter, player.getDetails().getName(), false));*/
-            // }
         } else {
-            player.getRoomUser().setAuthenticateTelporterId(-1);
+            player.getRoomUser().setAuthenticateTelporterId(null);
         }
     }
 }

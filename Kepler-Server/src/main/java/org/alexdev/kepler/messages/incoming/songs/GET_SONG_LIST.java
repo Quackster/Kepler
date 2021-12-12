@@ -23,7 +23,7 @@ public class GET_SONG_LIST implements MessageEvent {
             return;
         }
 
-        List<Song> songList = SongMachineDao.getSongList(room.getItemManager().getSoundMachine().getId());
+        List<Song> songList = SongMachineDao.getSongList(room.getItemManager().getSoundMachine().getGameId());
 
         player.send(new SONG_LIST(songList));
     }

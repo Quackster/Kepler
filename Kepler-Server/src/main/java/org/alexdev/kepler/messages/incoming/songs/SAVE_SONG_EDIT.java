@@ -40,7 +40,7 @@ public class SAVE_SONG_EDIT implements MessageEvent {
         SongMachineDao.saveSong(songId, title, calculateSongLength(data), data);
 
         player.send(new SONG_UPDATE());
-        player.send(new SONG_LIST(SongMachineDao.getSongList(room.getItemManager().getSoundMachine().getId())));
-        room.send(new SONG_PLAYLIST(SongMachineDao.getSongPlaylist(room.getItemManager().getSoundMachine().getId())));
+        player.send(new SONG_LIST(SongMachineDao.getSongList(room.getItemManager().getSoundMachine().getGameId())));
+        room.send(new SONG_PLAYLIST(SongMachineDao.getSongPlaylist(room.getItemManager().getSoundMachine().getGameId())));
     }
 }

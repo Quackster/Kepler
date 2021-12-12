@@ -6,8 +6,6 @@ import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.mapping.RoomTile;
-import org.alexdev.kepler.game.room.models.RoomModel;
-import org.alexdev.kepler.messages.outgoing.rooms.items.SLIDEOBJECTBUNDLE;
 import org.alexdev.kepler.util.config.GameConfiguration;
 
 public class ItemRollingAnalysis implements RollingAnalysis<Item> {
@@ -17,7 +15,7 @@ public class ItemRollingAnalysis implements RollingAnalysis<Item> {
             return null;
         }
 
-        if (item.getId() == roller.getId()) {
+        if (item.getGameId() == roller.getGameId()) {
             return null;
         }
 
@@ -104,7 +102,7 @@ public class ItemRollingAnalysis implements RollingAnalysis<Item> {
                         continue;
                     }
 
-                    if (frontItem.getId() == item.getId()) {
+                    if (frontItem.getGameId() == item.getGameId()) {
                         continue;
                     }
 

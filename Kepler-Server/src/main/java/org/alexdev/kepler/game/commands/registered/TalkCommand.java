@@ -39,7 +39,7 @@ public class TalkCommand extends Command {
     public static void createVoiceSpeakMessage(Room room, String text) {
         // 'Speaker'
         Item pItem = new Item();
-        pItem.setId(Integer.MAX_VALUE);
+        pItem.setGameId(Integer.MAX_VALUE);
         pItem.setPosition(new Position(255, 255, -1f));
         pItem.setCustomData("voiceSpeak(\"" + text + "\")");
         pItem.getDefinition().setSprite("spotlight");

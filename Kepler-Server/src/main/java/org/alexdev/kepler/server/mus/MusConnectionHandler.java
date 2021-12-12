@@ -8,21 +8,14 @@ import org.alexdev.kepler.dao.mysql.CurrencyDao;
 import org.alexdev.kepler.dao.mysql.ItemDao;
 import org.alexdev.kepler.dao.mysql.PhotoDao;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
-import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.ItemManager;
 import org.alexdev.kepler.game.item.Photo;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.player.PlayerManager;
-import org.alexdev.kepler.game.room.enums.StatusType;
-import org.alexdev.kepler.game.room.tasks.CameraTask;
-import org.alexdev.kepler.game.room.tasks.WaveTask;
 import org.alexdev.kepler.log.Log;
-import org.alexdev.kepler.messages.outgoing.rooms.user.USER_STATUSES;
-import org.alexdev.kepler.messages.outgoing.user.USER_OBJECT;
 import org.alexdev.kepler.messages.outgoing.user.currencies.FILM;
-import org.alexdev.kepler.messages.types.PlayerMessageComposer;
 import org.alexdev.kepler.server.mus.connection.MusClient;
 import org.alexdev.kepler.server.mus.streams.MusMessage;
 import org.alexdev.kepler.server.mus.streams.MusPropList;
@@ -36,8 +29,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class MusConnectionHandler extends SimpleChannelInboundHandler<MusMessage> {
     final private static AttributeKey<MusClient> MUS_CLIENT_KEY = AttributeKey.valueOf("MusClient");
@@ -168,7 +159,7 @@ public class MusConnectionHandler extends SimpleChannelInboundHandler<MusMessage
                 photo.setCustomData(DateUtil.getDateAsString(timeSeconds) + "\r" + photoText);
                 ItemDao.newItem(photo);
 
-                PhotoDao.addPhoto(photo.getId(), client.getUserId(), DateUtil.getCurrentTimeSeconds(), image, cs);
+                PhotoDao.addPhoto(photo.getGameId(), client.getUserId(), DateUtil.getCurrentTimeSeconds(), image, cs);
 
                 reply = new MusMessage();
                 reply.setSubject("BINDATA_SAVED");

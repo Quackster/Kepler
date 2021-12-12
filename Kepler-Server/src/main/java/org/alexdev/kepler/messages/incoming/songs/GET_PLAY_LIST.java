@@ -23,7 +23,7 @@ public class GET_PLAY_LIST implements MessageEvent {
 
         if (room.getItemManager().getSoundMachine().hasBehaviour(ItemBehaviour.SOUND_MACHINE) ||
                 room.getItemManager().getSoundMachine().hasBehaviour(ItemBehaviour.JUKEBOX)) {
-            player.send(new SONG_PLAYLIST(SongMachineDao.getSongPlaylist(room.getItemManager().getSoundMachine().getId())));
+            player.send(new SONG_PLAYLIST(SongMachineDao.getSongPlaylist(room.getItemManager().getSoundMachine().getGameId())));
         }
     }
 }

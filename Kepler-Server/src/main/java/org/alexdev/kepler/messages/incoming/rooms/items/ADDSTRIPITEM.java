@@ -26,7 +26,7 @@ public class ADDSTRIPITEM implements MessageEvent {
 
         int itemId = Integer.parseInt(data[2]);
 
-        Item item = room.getItemManager().getById(itemId);
+        Item item = room.getItemManager().getByVirtualId(itemId);
 
         if (item == null) {
             return;

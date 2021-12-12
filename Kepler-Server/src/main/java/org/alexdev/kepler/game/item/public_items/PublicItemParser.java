@@ -1,6 +1,5 @@
 package org.alexdev.kepler.game.item.public_items;
 
-import org.alexdev.kepler.dao.mysql.ItemDao;
 import org.alexdev.kepler.dao.mysql.PublicRoomsDao;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.ItemManager;
@@ -65,7 +64,7 @@ public class PublicItemParser {
             }
 
             Item item = new Item();
-            item.setId(itemId++);
+            item.setGameId(itemId++);
             item.setRoomId(roomId);
             item.setCustomData(customId);
             item.getDefinition().setSprite(itemData.getSprite());

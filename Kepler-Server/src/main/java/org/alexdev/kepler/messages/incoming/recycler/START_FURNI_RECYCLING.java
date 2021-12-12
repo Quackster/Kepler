@@ -49,7 +49,7 @@ public class START_FURNI_RECYCLING implements MessageEvent {
             }
 
             player.getInventory().getView("new");
-            var session = RecyclerDao.createSession(player.getDetails().getId(), recyclerReward.getId(), items.stream().map(i -> String.valueOf(i.getId())).collect(Collectors.joining(",")));
+            var session = RecyclerDao.createSession(player.getDetails().getId(), recyclerReward.getId(), items.stream().map(i -> String.valueOf(i.getGameId())).collect(Collectors.joining(",")));
 
             player.send(new RECYCLER_STATUS(
                     RecyclerManager.getInstance().isRecyclerEnabled(),

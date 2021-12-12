@@ -17,7 +17,7 @@ public class STUFFDATAUPDATE extends MessageComposer {
         if (this.item.hasBehaviour(ItemBehaviour.WALL_ITEM)) {
             this.item.serialise(response);
         } else {
-            response.writeString(this.item.getId());
+            response.writeString(this.item.getGameId());
             response.writeString(this.item.getCustomData());
         }
     }

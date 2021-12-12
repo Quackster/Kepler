@@ -15,9 +15,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ItemManager {
     private static ItemManager instance;
+    private static AtomicInteger virtualIdCounter = new AtomicInteger(0);
 
     private Map<Integer, ItemDefinition> itemDefinitionMap;
 
@@ -147,6 +149,15 @@ public class ItemManager {
         }
 
         return null;
+    }
+
+    /**
+     * Get the virtual ID counter for handling more than the 32-bit integer limit of items
+     *
+     * @return the item counter
+     */
+    public AtomicInteger getVirtualIdCounter() {
+        return virtualIdCounter;
     }
 
     /**

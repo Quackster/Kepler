@@ -135,14 +135,14 @@ public class PetManager {
                     return;
                 }
 
-                Item nest = room.getItemManager().getById(pet.getDetails().getItemId());
+                Item nest = room.getItemManager().getByDatabaseId(pet.getDetails().getItemId());
                 pet.getRoomUser().walkTo(nest.getPosition().getX(), nest.getPosition().getY());
 
                 if (pet.getRoomUser().isWalking()) {
                     pet.setAction(PetAction.SLEEP);
                 } else {
                     if (item != null) {
-                        if (item.getId() == pet.getDetails().getItemId()) {
+                        if (item.getDatabaseId().equals(pet.getDetails().getItemId())) {
                             item.getDefinition().getInteractionType().getTrigger().onEntityStop(pet, pet.getRoomUser(), item, false);
                             pet.setAction(PetAction.SLEEP);
                         }

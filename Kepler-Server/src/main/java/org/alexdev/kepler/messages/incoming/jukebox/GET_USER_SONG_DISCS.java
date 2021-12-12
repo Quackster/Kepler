@@ -37,7 +37,7 @@ public class GET_USER_SONG_DISCS implements MessageEvent {
             }
 
             if (item.hasBehaviour(ItemBehaviour.SONG_DISK)) {
-                userDisks.put(item, item.getId());
+                userDisks.put(item, item.getGameId());
             }
         }
 

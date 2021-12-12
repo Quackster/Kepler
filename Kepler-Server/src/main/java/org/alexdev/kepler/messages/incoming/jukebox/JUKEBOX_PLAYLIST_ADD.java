@@ -33,10 +33,10 @@ public class JUKEBOX_PLAYLIST_ADD implements MessageEvent {
         }
 
         int songId = reader.readInt();
-        SongMachineDao.removePlaylistSong(songId, room.getItemManager().getSoundMachine().getId());
+        SongMachineDao.removePlaylistSong(songId, room.getItemManager().getSoundMachine().getGameId());
 
-        var playList = SongMachineDao.getSongPlaylist(room.getItemManager().getSoundMachine().getId());
-        var loadedDiscs = JukeboxManager.getInstance().getDisks(room.getItemManager().getSoundMachine().getId());
+        var playList = SongMachineDao.getSongPlaylist(room.getItemManager().getSoundMachine().getGameId());
+        var loadedDiscs = JukeboxManager.getInstance().getDisks(room.getItemManager().getSoundMachine().getGameId());
 
         // Don't load a song if it's not in the jukebox
         if (loadedDiscs.keySet().stream().noneMatch(disc -> disc.getSongId() == songId)) {
@@ -48,8 +48,8 @@ public class JUKEBOX_PLAYLIST_ADD implements MessageEvent {
 
         int newSlotId = (sortedDisks.size() > 0 ? sortedDisks.get(0).getSlotId() : 0) + 1;
 
-        SongMachineDao.addPlaylist(room.getItemManager().getSoundMachine().getId(), songId, newSlotId);
-        playList.add(new SongPlaylist(room.getItemManager().getSoundMachine().getId(), SongMachineDao.getSong(songId), newSlotId));
+        SongMachineDao.addPlaylist(room.getItemManager().getSoundMachine().getGameId(), songId, newSlotId);
+        playList.add(new SongPlaylist(room.getItemManager().getSoundMachine().getGameId(), SongMachineDao.getSong(songId), newSlotId));
 
         room.send(new SONG_PLAYLIST(playList));
     }

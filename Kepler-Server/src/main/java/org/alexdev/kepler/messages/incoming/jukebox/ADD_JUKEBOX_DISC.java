@@ -3,7 +3,6 @@ package org.alexdev.kepler.messages.incoming.jukebox;
 import org.alexdev.kepler.dao.mysql.JukeboxDao;
 import org.alexdev.kepler.dao.mysql.SongMachineDao;
 import org.alexdev.kepler.game.item.Item;
-import org.alexdev.kepler.game.item.ItemManager;
 import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
@@ -36,7 +35,7 @@ public class ADD_JUKEBOX_DISC implements MessageEvent {
         Item songDisk = null;
 
         for (Item item : player.getInventory().getItems()) {
-            if (item.getId() == itemId && !item.isHidden()) {
+            if (item.getGameId() == itemId && !item.isHidden()) {
                 songDisk = item;
                 break;
             }
@@ -51,7 +50,7 @@ public class ADD_JUKEBOX_DISC implements MessageEvent {
 
         player.getInventory().getView("new"); // Refresh hand
 
-        int songId = JukeboxDao.getSongIdByItem(songDisk.getId());
+        int songId = JukeboxDao.getSongIdByItem(songDisk.getGameId());
         Song song = SongMachineDao.getSong(songId);
 
         if (song == null) {
@@ -62,9 +61,9 @@ public class ADD_JUKEBOX_DISC implements MessageEvent {
             return;
         }
 
-        JukeboxDao.editDisk(songDisk.getId(), room.getItemManager().getSoundMachine().getId(), slotId);
+        JukeboxDao.editDisk(songDisk.getGameId(), room.getItemManager().getSoundMachine().getGameId(), slotId);
 
-        room.send(new JUKEBOX_DISCS(JukeboxManager.getInstance().getDisks(room.getItemManager().getSoundMachine().getId())));
+        room.send(new JUKEBOX_DISCS(JukeboxManager.getInstance().getDisks(room.getItemManager().getSoundMachine().getGameId())));
         new GET_USER_SONG_DISCS().handle(player, null);
     }
 }

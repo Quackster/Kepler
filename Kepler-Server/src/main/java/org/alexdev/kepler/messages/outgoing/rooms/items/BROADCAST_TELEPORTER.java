@@ -17,7 +17,7 @@ public class BROADCAST_TELEPORTER extends MessageComposer {
 
     @Override
     public void compose(NettyResponse response) {
-        response.write(this.item.getId());
+        response.write(this.item.getGameId());
         response.write("/");
         response.write(this.name);
         response.write("/");

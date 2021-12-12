@@ -34,13 +34,13 @@ public class EJECT_SOUND_PACKAGE implements MessageEvent {
         player.getRoomUser().getTimerManager().resetRoomTimer();
 
         int slotId = reader.readInt();
-        Map<Integer, Integer> tracks = SongMachineDao.getTracks(room.getItemManager().getSoundMachine().getId());
+        Map<Integer, Integer> tracks = SongMachineDao.getTracks(room.getItemManager().getSoundMachine().getGameId());
 
         if (!tracks.containsKey(slotId)) {
             return;
         }
 
-        SongMachineDao.removeTrack(room.getItemManager().getSoundMachine().getId(), slotId);
+        SongMachineDao.removeTrack(room.getItemManager().getSoundMachine().getGameId(), slotId);
 
         int songSoundId = tracks.get(slotId);
         Item soundset = null;
@@ -71,7 +71,7 @@ public class EJECT_SOUND_PACKAGE implements MessageEvent {
 
         player.getInventory().getView("new");
 
-        player.send(new SOUND_PACKAGES(SongMachineDao.getTracks(room.getItemManager().getSoundMachine().getId())));
+        player.send(new SOUND_PACKAGES(SongMachineDao.getTracks(room.getItemManager().getSoundMachine().getGameId())));
         player.send(new USER_SOUND_PACKAGES(player.getInventory().getSoundsets()));
     }
 }

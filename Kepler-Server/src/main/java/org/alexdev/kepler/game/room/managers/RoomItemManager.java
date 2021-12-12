@@ -41,12 +41,28 @@ public class RoomItemManager {
     /**
      * Get an item in the room by its item id.
      *
-     * @param itemId the item id to retrieve the item instance.
+     * @param databaseId the id of the furniture in the database
      * @return the new item
      */
-    public Item getById(int itemId) {
+    public Item getByDatabaseId(String databaseId) {
         for (Item item : this.room.getItems()) {
-            if (item.getId() == itemId) {
+            if (item.getDatabaseId().equals(databaseId)) {
+                return item;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Get an item in the room by its virtual id.
+     *
+     * @param virtualId the temporarily assigned virtual id
+     * @return the new item
+     */
+    public Item getByVirtualId(int virtualId) {
+        for (Item item : this.room.getItems()) {
+            if (item.getGameId() == virtualId) {
                 return item;
             }
         }

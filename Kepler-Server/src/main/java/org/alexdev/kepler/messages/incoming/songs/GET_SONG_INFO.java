@@ -25,10 +25,10 @@ public class GET_SONG_INFO implements MessageEvent {
         int songId = -1;
 
         if (player.getVersion() <= 14) {
-            songId = room.getItemManager().getSoundMachine().getId();
+            songId = room.getItemManager().getSoundMachine().getGameId();
 
             player.send(new USER_SOUND_PACKAGES(player.getInventory().getSoundsets()));
-            player.send(new SOUND_PACKAGES(SongMachineDao.getTracks(room.getItemManager().getSoundMachine().getId())));
+            player.send(new SOUND_PACKAGES(SongMachineDao.getTracks(room.getItemManager().getSoundMachine().getGameId())));
         } else {
             try {
                 songId = reader.readInt();

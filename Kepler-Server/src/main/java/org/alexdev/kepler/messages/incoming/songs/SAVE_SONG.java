@@ -30,20 +30,20 @@ public class SAVE_SONG implements MessageEvent {
         // We don't want a user to get kicked when making cool beats
         player.getRoomUser().getTimerManager().resetRoomTimer();
 
-        String title = ("Trax item song " + room.getItemManager().getSoundMachine().getId());
+        String title = ("Trax item song " + room.getItemManager().getSoundMachine().getGameId());
         String data = StringUtil.filterInput(reader.readString(), true);
 
-        SongMachineDao.deleteSong(room.getItemManager().getSoundMachine().getId());
+        SongMachineDao.deleteSong(room.getItemManager().getSoundMachine().getGameId());
         SongMachineDao.addSong(
-                room.getItemManager().getSoundMachine().getId(),
+                room.getItemManager().getSoundMachine().getGameId(),
                 player.getDetails().getId(),
-                room.getItemManager().getSoundMachine().getId(),
+                room.getItemManager().getSoundMachine().getGameId(),
                 "",
                 calculateSongLength(data),
                 data);
 
-        player.send(new SOUND_PACKAGES(SongMachineDao.getTracks(room.getItemManager().getSoundMachine().getId())));
-        player.send(new SONG_NEW(room.getItemManager().getSoundMachine().getId(), title));
+        player.send(new SOUND_PACKAGES(SongMachineDao.getTracks(room.getItemManager().getSoundMachine().getGameId())));
+        player.send(new SONG_NEW(room.getItemManager().getSoundMachine().getGameId(), title));
     }
 
     public static int calculateSongLength(String Data) {

@@ -24,7 +24,7 @@ public class GETDOORFLAT implements MessageEvent {
         }
 
         int itemId = Integer.parseInt(reader.contents());
-        Item item = room.getItemManager().getById(itemId);
+        Item item = room.getItemManager().getByVirtualId(itemId);
 
         if (item == null || !item.hasBehaviour(ItemBehaviour.TELEPORTER)) {
             return;
@@ -51,14 +51,14 @@ public class GETDOORFLAT implements MessageEvent {
         }
 
         player.getRoomUser().setWalkingAllowed(false);
-        player.getRoomUser().setAuthenticateTelporterId(itemId);
+        player.getRoomUser().setAuthenticateTelporterId(item.getDatabaseId());
 
         if (linkedTeleporter.getRoomId() == room.getId()) {
             room.send(new BROADCAST_TELEPORTER(item, player.getDetails().getName(), true));
 
             // Initial warp to the next teleporter
             GameScheduler.getInstance().getService().schedule(() -> {
-                if (player.getRoomUser().getAuthenticateTelporterId() == -1) {
+                if (player.getRoomUser().getAuthenticateTelporterId() == null) {
                     return;
                 }
 
@@ -68,7 +68,7 @@ public class GETDOORFLAT implements MessageEvent {
 
             // Walk out of the teleporter
             GameScheduler.getInstance().getService().schedule(() -> {
-                if (player.getRoomUser().getAuthenticateTelporterId() == -1) {
+                if (player.getRoomUser().getAuthenticateTelporterId() == null) {
                     return;
                 }
 
@@ -80,16 +80,16 @@ public class GETDOORFLAT implements MessageEvent {
 
             // Finally let user walk
             GameScheduler.getInstance().getService().schedule(() -> {
-                if (player.getRoomUser().getAuthenticateTelporterId() == -1) {
+                if (player.getRoomUser().getAuthenticateTelporterId() == null) {
                     return;
                 }
 
                 player.getRoomUser().setWalkingAllowed(true);
-                player.getRoomUser().setAuthenticateTelporterId(-1);
+                player.getRoomUser().setAuthenticateTelporterId(null);
             }, 2500, TimeUnit.MILLISECONDS);
 
         } else {
-            player.send(new TELEPORTER_INIT(linkedTeleporter.getId(), linkedTeleporter.getRoomId()));
+            player.send(new TELEPORTER_INIT(linkedTeleporter.getGameId(), linkedTeleporter.getRoomId()));
         }
     }
 }
