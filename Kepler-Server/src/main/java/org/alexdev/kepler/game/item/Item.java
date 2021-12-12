@@ -227,6 +227,11 @@ public class Item {
         if (this.hasBehaviour(ItemBehaviour.GATE)) {
             return this.isGateOpen();
         }
+
+        // Allow walking from it if stuck inside
+        if (entity != null) {
+            return this.getTile().getEntities().contains(entity);
+        }
         
         return false;
     }

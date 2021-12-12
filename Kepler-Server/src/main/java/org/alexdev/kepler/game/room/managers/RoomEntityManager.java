@@ -176,8 +176,8 @@ public class RoomEntityManager {
 
         this.tryInitialiseRoom(player);
 
-        if (player.getRoomUser().getAuthenticateTelporterId() != null) {
-            Item teleporter = this.room.getItemManager().getByDatabaseId(player.getRoomUser().getAuthenticateTelporterId());
+        if (player.getRoomUser().getAuthenticateTelporterId() != -1) {
+            Item teleporter = this.room.getItemManager().getById(player.getRoomUser().getAuthenticateTelporterId());
 
             if (teleporter != null) {
                 player.getRoomUser().setWalkingAllowed(false);
@@ -185,7 +185,7 @@ public class RoomEntityManager {
 
                 GameScheduler.getInstance().getService().schedule(() -> {
                     room.send(new BROADCAST_TELEPORTER(teleporter, player.getDetails().getName(), false));
-                }, 0, TimeUnit.SECONDS);
+                }, 500, TimeUnit.SECONDS);
 
                 GameScheduler.getInstance().getService().schedule(() -> {
                     teleporter.setCustomData(TeleportInteractor.TELEPORTER_OPEN);
@@ -194,19 +194,19 @@ public class RoomEntityManager {
                     player.getRoomUser().walkTo(
                             teleporter.getPosition().getSquareInFront().getX(),
                             teleporter.getPosition().getSquareInFront().getY());
-                }, 1000, TimeUnit.MILLISECONDS);
+                }, 1500, TimeUnit.MILLISECONDS);
 
                 GameScheduler.getInstance().getService().schedule(() -> {
                     teleporter.setCustomData(TeleportInteractor.TELEPORTER_CLOSE);
                     teleporter.updateStatus();
 
                     player.getRoomUser().setWalkingAllowed(true);
-                }, 1500, TimeUnit.MILLISECONDS);
+                }, 2000, TimeUnit.MILLISECONDS);
 
 
             }
 
-            player.getRoomUser().setAuthenticateTelporterId(null);
+            player.getRoomUser().setAuthenticateTelporterId(-1);
         }
 
         player.send(new ROOM_URL());
@@ -247,25 +247,25 @@ public class RoomEntityManager {
      * Setup the room initially for room entry.
      */
     private void tryInitialiseRoom(Player player) {
-         if (!this.room.isActive()) {
-             if (!this.room.isGameArena()) {
-                 this.room.getItems().clear();
-                 this.room.getRights().clear();
-                 this.room.getVotes().clear();
+        if (!this.room.isActive()) {
+            if (!this.room.isGameArena()) {
+                this.room.getItems().clear();
+                this.room.getRights().clear();
+                this.room.getVotes().clear();
 
-                 if (this.room.isPublicRoom()) {
-                     this.room.getItems().addAll(PublicItemParser.getPublicItems(this.room.getId(), this.room.getModel().getId()));
-                 } else {
-                     this.room.getRights().addAll(RoomRightsDao.getRoomRights(this.room.getData()));
-                     this.room.getVotes().putAll(RoomVoteDao.getRatings(this.room.getId()));
-                 }
+                if (this.room.isPublicRoom()) {
+                    this.room.getItems().addAll(PublicItemParser.getPublicItems(this.room.getId(), this.room.getModel().getId()));
+                } else {
+                    this.room.getRights().addAll(RoomRightsDao.getRoomRights(this.room.getData()));
+                    this.room.getVotes().putAll(RoomVoteDao.getRatings(this.room.getId()));
+                }
 
-                 this.room.getItems().addAll(ItemDao.getRoomItems(this.room.getData()));
-                 this.room.getItemManager().resetItemStates();
-             }
+                this.room.getItems().addAll(ItemDao.getRoomItems(this.room.getData()));
+                this.room.getItemManager().resetItemStates();
+            }
 
-             this.room.getMapping().regenerateCollisionMap();
-             this.room.getTaskManager().startTasks();
+            this.room.getMapping().regenerateCollisionMap();
+            this.room.getTaskManager().startTasks();
         }
     }
 

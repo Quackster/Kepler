@@ -4,6 +4,7 @@ import org.alexdev.kepler.dao.mysql.ItemDao;
 import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
+import org.alexdev.kepler.game.item.interactors.types.TeleportInteractor;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.RoomManager;
@@ -24,13 +25,16 @@ public class GETDOORFLAT implements MessageEvent {
         }
 
         int itemId = Integer.parseInt(reader.contents());
-        Item item = room.getItemManager().getByVirtualId(itemId);
+        Item item = room.getItemManager().getById(itemId);
 
         if (item == null || !item.hasBehaviour(ItemBehaviour.TELEPORTER)) {
             return;
         }
 
-        Item linkedTeleporter = ItemDao.getItem(item.getTeleporterId());
+        var interaction = new TeleportInteractor();
+        interaction.onInteract(player, room, item, 0);
+
+        /*Item linkedTeleporter = ItemDao.getItem(item.getTeleporterId());
 
         if (linkedTeleporter == null) {
             return;
@@ -51,14 +55,14 @@ public class GETDOORFLAT implements MessageEvent {
         }
 
         player.getRoomUser().setWalkingAllowed(false);
-        player.getRoomUser().setAuthenticateTelporterId(item.getDatabaseId());
+        player.getRoomUser().setAuthenticateTelporterId(itemId);
 
         if (linkedTeleporter.getRoomId() == room.getId()) {
             room.send(new BROADCAST_TELEPORTER(item, player.getDetails().getName(), true));
 
             // Initial warp to the next teleporter
             GameScheduler.getInstance().getService().schedule(() -> {
-                if (player.getRoomUser().getAuthenticateTelporterId() == null) {
+                if (player.getRoomUser().getAuthenticateTelporterId() == -1) {
                     return;
                 }
 
@@ -68,7 +72,7 @@ public class GETDOORFLAT implements MessageEvent {
 
             // Walk out of the teleporter
             GameScheduler.getInstance().getService().schedule(() -> {
-                if (player.getRoomUser().getAuthenticateTelporterId() == null) {
+                if (player.getRoomUser().getAuthenticateTelporterId() == -1) {
                     return;
                 }
 
@@ -80,16 +84,16 @@ public class GETDOORFLAT implements MessageEvent {
 
             // Finally let user walk
             GameScheduler.getInstance().getService().schedule(() -> {
-                if (player.getRoomUser().getAuthenticateTelporterId() == null) {
+                if (player.getRoomUser().getAuthenticateTelporterId() == -1) {
                     return;
                 }
 
                 player.getRoomUser().setWalkingAllowed(true);
-                player.getRoomUser().setAuthenticateTelporterId(null);
+                player.getRoomUser().setAuthenticateTelporterId(-1);
             }, 2500, TimeUnit.MILLISECONDS);
 
         } else {
-            player.send(new TELEPORTER_INIT(linkedTeleporter.getGameId(), linkedTeleporter.getRoomId()));
-        }
+            player.send(new TELEPORTER_INIT(linkedTeleporter.getId(), linkedTeleporter.getRoomId()));
+        }*/
     }
 }
