@@ -153,7 +153,8 @@ public class Pathfinder {
         if (!current.equals(room.getModel().getDoorLocation())) {
             if (toItem != null) {
                 if (isFinalMove) {
-                    return toItem.isWalkable(entity);
+                    // Allow walking if item is walkable or trapped inside
+                    return toItem.isWalkable(entity) || AffectedTile.getAffectedTiles(toItem).stream().anyMatch(x -> room.getMapping().getTile(x).containsEntity(entity));
                 } else {
                     return toItem.hasBehaviour(ItemBehaviour.CAN_STAND_ON_TOP) || toItem.isGateOpen();
                 }
