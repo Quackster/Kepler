@@ -176,8 +176,8 @@ public class RoomEntityManager {
 
         this.tryInitialiseRoom(player);
 
-        if (player.getRoomUser().getAuthenticateTelporterId() != -1) {
-            Item teleporter = this.room.getItemManager().getById(player.getRoomUser().getAuthenticateTelporterId());
+        if (player.getRoomUser().getAuthenticateTelporterId() != null) {
+            Item teleporter = this.room.getItemManager().getByDatabaseId(player.getRoomUser().getAuthenticateTelporterId());
 
             if (teleporter != null) {
                 player.getRoomUser().setWalkingAllowed(false);
@@ -206,7 +206,7 @@ public class RoomEntityManager {
 
             }
 
-            player.getRoomUser().setAuthenticateTelporterId(-1);
+            player.getRoomUser().setAuthenticateTelporterId(null);
         }
 
         player.send(new ROOM_URL());
