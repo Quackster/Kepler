@@ -4,12 +4,14 @@ import org.alexdev.kepler.dao.mysql.ItemDao;
 import org.alexdev.kepler.dao.mysql.RoomDao;
 import org.alexdev.kepler.dao.mysql.RoomRightsDao;
 import org.alexdev.kepler.dao.mysql.RoomVoteDao;
+import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.bot.BotManager;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
 import org.alexdev.kepler.game.events.EventsManager;
 import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.item.Item;
+import org.alexdev.kepler.game.item.interactors.types.TeleportInteractor;
 import org.alexdev.kepler.game.item.public_items.PublicItemParser;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.player.Player;
@@ -22,6 +24,7 @@ import org.alexdev.kepler.messages.outgoing.rooms.FLATPROPERTY;
 import org.alexdev.kepler.messages.outgoing.rooms.ROOM_READY;
 import org.alexdev.kepler.messages.outgoing.rooms.ROOM_URL;
 import org.alexdev.kepler.messages.outgoing.rooms.UPDATE_VOTES;
+import org.alexdev.kepler.messages.outgoing.rooms.items.BROADCAST_TELEPORTER;
 import org.alexdev.kepler.messages.outgoing.rooms.user.HOTEL_VIEW;
 import org.alexdev.kepler.messages.outgoing.rooms.user.LOGOUT;
 import org.alexdev.kepler.messages.outgoing.rooms.user.USER_OBJECTS;
@@ -29,6 +32,7 @@ import org.alexdev.kepler.messages.outgoing.rooms.user.USER_OBJECTS;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 
 public class RoomEntityManager {
     private Room room;
@@ -173,18 +177,33 @@ public class RoomEntityManager {
         this.tryInitialiseRoom(player);
 
         if (player.getRoomUser().getAuthenticateTelporterId() != -1) {
-            Item teleporter = ItemDao.getItem(player.getRoomUser().getAuthenticateTelporterId());
+            Item teleporter = this.room.getItemManager().getById(player.getRoomUser().getAuthenticateTelporterId());
 
             if (teleporter != null) {
-                Item linkedTeleporter = this.room.getItemManager().getById(teleporter.getTeleporterId());
+                player.getRoomUser().setWalkingAllowed(false);
+                entity.getRoomUser().setPosition(teleporter.getPosition().copy());
 
-                if (linkedTeleporter != null) {
-                    TeleporterTask teleporterTask = new TeleporterTask(linkedTeleporter, entity, this.room);
-                    teleporterTask.run();
+                GameScheduler.getInstance().getService().schedule(() -> {
+                    room.send(new BROADCAST_TELEPORTER(teleporter, player.getDetails().getName(), false));
+                }, 500, TimeUnit.SECONDS);
+
+                GameScheduler.getInstance().getService().schedule(() -> {
+                    teleporter.setCustomData(TeleportInteractor.TELEPORTER_OPEN);
+                    teleporter.updateStatus();
+
+                    player.getRoomUser().walkTo(
+                            teleporter.getPosition().getSquareInFront().getX(),
+                            teleporter.getPosition().getSquareInFront().getY());
+                }, 1500, TimeUnit.MILLISECONDS);
+
+                GameScheduler.getInstance().getService().schedule(() -> {
+                    teleporter.setCustomData(TeleportInteractor.TELEPORTER_CLOSE);
+                    teleporter.updateStatus();
 
                     player.getRoomUser().setWalkingAllowed(true);
-                    entity.getRoomUser().setPosition(linkedTeleporter.getPosition().copy());
-                }
+                }, 2000, TimeUnit.MILLISECONDS);
+
+
             }
 
             player.getRoomUser().setAuthenticateTelporterId(-1);
@@ -228,25 +247,25 @@ public class RoomEntityManager {
      * Setup the room initially for room entry.
      */
     private void tryInitialiseRoom(Player player) {
-         if (!this.room.isActive()) {
-             if (!this.room.isGameArena()) {
-                 this.room.getItems().clear();
-                 this.room.getRights().clear();
-                 this.room.getVotes().clear();
+        if (!this.room.isActive()) {
+            if (!this.room.isGameArena()) {
+                this.room.getItems().clear();
+                this.room.getRights().clear();
+                this.room.getVotes().clear();
 
-                 if (this.room.isPublicRoom()) {
-                     this.room.getItems().addAll(PublicItemParser.getPublicItems(this.room.getId(), this.room.getModel().getId()));
-                 } else {
-                     this.room.getRights().addAll(RoomRightsDao.getRoomRights(this.room.getData()));
-                     this.room.getVotes().putAll(RoomVoteDao.getRatings(this.room.getId()));
-                 }
+                if (this.room.isPublicRoom()) {
+                    this.room.getItems().addAll(PublicItemParser.getPublicItems(this.room.getId(), this.room.getModel().getId()));
+                } else {
+                    this.room.getRights().addAll(RoomRightsDao.getRoomRights(this.room.getData()));
+                    this.room.getVotes().putAll(RoomVoteDao.getRatings(this.room.getId()));
+                }
 
-                 this.room.getItems().addAll(ItemDao.getRoomItems(this.room.getData()));
-                 this.room.getItemManager().resetItemStates();
-             }
+                this.room.getItems().addAll(ItemDao.getRoomItems(this.room.getData()));
+                this.room.getItemManager().resetItemStates();
+            }
 
-             this.room.getMapping().regenerateCollisionMap();
-             this.room.getTaskManager().startTasks();
+            this.room.getMapping().regenerateCollisionMap();
+            this.room.getTaskManager().startTasks();
         }
     }
 
