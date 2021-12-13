@@ -101,8 +101,8 @@ public class TeleportInteractor extends GenericTrigger {
                     room.send(new BROADCAST_TELEPORTER(pairedTeleporter, player.getDetails().getName(), false));
                 } else {
                     roomUser.setAuthenticateId(pairedTeleporter.getRoom().getId());
-                    //pairedTeleporter.getRoom().getEntityManager().enterRoom(player, null);
-                    pairedTeleporter.getRoom().forward(player, false);
+                    pairedTeleporter.getRoom().getEntityManager().enterRoom(player, null);
+                    //pairedTeleporter.getRoom().forward(player, false);
                     //player.send(new ROOMFORWARD(pairedTeleporter.getRoom().isPublicRoom(), pairedTeleporter.getRoom().getId()));
                 }
             }, 2, TimeUnit.SECONDS);
@@ -160,8 +160,8 @@ public class TeleportInteractor extends GenericTrigger {
 
             if (pairedTeleporter.getRoomId() != item.getRoomId()) {
                 roomUser.setAuthenticateId(pairedTeleporter.getRoom().getId());
-                //pairedTeleporter.getRoom().getEntityManager().enterRoom(player, null);
-                pairedTeleporter.getRoom().forward(player, false);
+                pairedTeleporter.getRoom().getEntityManager().enterRoom(player, null);
+                //pairedTeleporter.getRoom().forward(player, false);
             } else {
                 roomUser.warp(pairedTeleporter.getPosition(), true, true);
             }

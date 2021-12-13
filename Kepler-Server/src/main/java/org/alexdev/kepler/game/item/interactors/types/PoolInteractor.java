@@ -23,13 +23,20 @@ public class PoolInteractor {
         // Only check these below if the user is in a pool room.
         if (room.getModel().getName().startsWith("pool_") ||
                 room.getModel().getName().equals("md_a")) {
+            if (fromItem != null) {
+                // Check if they have swimmers before trying to enter pool
+                if (fromItem.getDefinition().getSprite().equals("poolEnter") ||
+                        fromItem.getDefinition().getSprite().equals("poolExit")) {
+                    return entity.getDetails().getPoolFigure().length() > 0;
+                }
+            }
+
             if (toItem != null) {
                 // Check if they have swimmers before trying to enter pool
                 if (toItem.getDefinition().getSprite().equals("poolEnter") ||
                         toItem.getDefinition().getSprite().equals("poolExit")) {
                     return entity.getDetails().getPoolFigure().length() > 0;
                 }
-
                 // Don't allow to "enter" the pool if they're already swimming
                 if (entity.getRoomUser().containsStatus(StatusType.SWIM) &&
                         toItem.getDefinition().getSprite().equals("poolEnter")) {

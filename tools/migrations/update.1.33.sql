@@ -2,9 +2,9 @@ ALTER TABLE `rooms`
 	ADD COLUMN IF NOT EXISTS `is_hidden` TINYINT(1) NOT NULL DEFAULT 0 AFTER `rating`;
 
 ALTER TABLE `users`
-	ADD COLUMN `recieve_email` TINYINT(1) NOT NULL DEFAULT 0 AFTER `console_motto`,
-	ADD COLUMN `birthday` VARCHAR(50) NOT NULL DEFAULT '01.01.1970' AFTER `recieve_email`
-	ADD COLUMN `email` VARCHAR(256) NOT NULL AFTER `birthday`;
+	ADD COLUMN IF NOT EXISTS `recieve_email` TINYINT(1) NOT NULL DEFAULT 0 AFTER `console_motto`,
+	ADD COLUMN IF NOT EXISTS `birthday` VARCHAR(10) NOT NULL AFTER `recieve_email`,
+	ADD COLUMN IF NOT EXISTS `email` VARCHAR(256) NOT NULL AFTER `birthday`;
 	
 UPDATE rooms SET is_hidden = 1 WHERE model IN ('rooftop_2','old_skool1','malja_bar_b','bar_b','gate_park_2','park_b','pool_b','hallway0','hallway1','hallway3','hallway5','hallway4','hallway8','hallway7','hallway6','hallway10','hallway11','hallA','hallB','hallC','hallD','beauty_salon1');
 	
@@ -91,10 +91,6 @@ CREATE TABLE IF NOT EXISTS `public_items` (
   `swim_to` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3464 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
-
--- Dumping data for table havana.public_items: ~3,529 rows (approximately)
-DELETE FROM `public_items`;
-/*!40000 ALTER TABLE `public_items` DISABLE KEYS */;
 INSERT INTO `public_items` (`id`, `room_model`, `sprite`, `x`, `y`, `z`, `rotation`, `top_height`, `length`, `width`, `behaviour`, `current_program`, `teleport_to`, `swim_to`) VALUES
 	(1, 'picnic', 'picnic_cloth1', 5, 16, 0.001, 0, 0.001, 0, 0, 'can_stand_on_top', '', NULL, NULL),
 	(2, 'newbie_lobby', 'crl_lamp', 16, 0, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
