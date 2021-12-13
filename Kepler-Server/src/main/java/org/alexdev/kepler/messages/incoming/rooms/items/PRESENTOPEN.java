@@ -59,7 +59,8 @@ public class PRESENTOPEN implements MessageEvent {
                 !catalogueItem.getDefinition().hasBehaviour(ItemBehaviour.TELEPORTER) &&
                 !catalogueItem.getDefinition().hasBehaviour(ItemBehaviour.ROOMDIMMER) &&
                 !catalogueItem.getDefinition().hasBehaviour(ItemBehaviour.DECORATION) &&
-                !catalogueItem.getDefinition().hasBehaviour(ItemBehaviour.POST_IT)) {
+                !catalogueItem.getDefinition().hasBehaviour(ItemBehaviour.POST_IT) &&
+                !catalogueItem.getDefinition().getSprite().equalsIgnoreCase("film")) {
             room.getMapping().removeItem(player, item);
 
             item.setDefinitionId(catalogueItem.getDefinition().getId());
