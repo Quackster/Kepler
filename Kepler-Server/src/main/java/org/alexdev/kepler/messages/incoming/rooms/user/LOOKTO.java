@@ -45,6 +45,10 @@ public class LOOKTO implements MessageEvent {
             return;
         }
 
+        if (player.getRoomUser().getPosition().equals(player.getRoomUser().getRoom().getModel().getDoorLocation())) {
+            return;
+        }
+
         if (player.getRoomUser().getRoom().isPublicRoom() && player.getRoomUser().getRoom().getModel().getDoorLocation().equals(player.getRoomUser().getPosition())) {
             return;
         }
