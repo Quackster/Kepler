@@ -24,7 +24,8 @@ public class NettyResponse  {
      * @param obj the object to write
      */
     public void write(Object obj) {
-        this.buffer.writeBytes(obj.toString().getBytes(StringUtil.getCharset()));
+        if (obj != null)
+            this.buffer.writeBytes(obj.toString().getBytes(StringUtil.getCharset()));
     }
 
     /**
@@ -33,7 +34,9 @@ public class NettyResponse  {
      * @param obj the string to write
      */
     public void writeString(Object obj) {
-        this.buffer.writeBytes(obj.toString().getBytes(StringUtil.getCharset()));
+        if (obj != null)
+            this.buffer.writeBytes(obj.toString().getBytes(StringUtil.getCharset()));
+        
         this.buffer.writeByte(2);
     }
 
