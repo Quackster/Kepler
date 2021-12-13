@@ -3,10 +3,12 @@ package org.alexdev.kepler.game.moderation.cfh;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.RoomManager;
+import org.alexdev.kepler.util.DateUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 public class CallForHelp {
     private final int cryId;
@@ -26,6 +28,7 @@ public class CallForHelp {
         this.pickedUpBy = 0;
         this.room = room;
         this.requestTime = System.currentTimeMillis();
+        this.expireTime = DateUtil.getCurrentTimeSeconds() + TimeUnit.MINUTES.toSeconds(30);
     }
 
     public String getMessage() {
@@ -53,7 +56,7 @@ public class CallForHelp {
     }
 
     public boolean isOpen() {
-        return this.pickedUpBy == 0 && !this.isDeleted;
+        return this.pickedUpBy == 0 && !isDeleted;
     }
 
     public String getFormattedRequestTime() {
