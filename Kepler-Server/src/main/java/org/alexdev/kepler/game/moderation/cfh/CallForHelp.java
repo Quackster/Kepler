@@ -14,7 +14,7 @@ public class CallForHelp {
     private final int cryId;
     private final int callerId;
     private final String message;
-    private String pickedUpBy;
+    private int pickedUpBy;
     private final Room room;
     private final long requestTime;
     private int category = 2;
@@ -25,7 +25,7 @@ public class CallForHelp {
         this.cryId = cryId;
         this.callerId = callerId;
         this.message = message;
-        this.pickedUpBy = "N/A";
+        this.pickedUpBy = 0;
         this.room = room;
         this.requestTime = System.currentTimeMillis();
         this.expireTime = DateUtil.getCurrentTimeSeconds() + TimeUnit.MINUTES.toSeconds(30);
@@ -35,7 +35,7 @@ public class CallForHelp {
         return this.message;
     }
 
-    public String getPickedUpBy() {
+    public int getPickedUpBy() {
         return this.pickedUpBy;
     }
 
@@ -70,7 +70,7 @@ public class CallForHelp {
     }
 
     public void setPickedUpBy(Player moderator) {
-        this.pickedUpBy = moderator.getDetails().getName();
+        this.pickedUpBy = moderator.getDetails().getId();
     }
 
     public long getExpireTime() {
