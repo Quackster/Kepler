@@ -19,10 +19,10 @@ public class DELIVER_PRESENT extends MessageComposer {
     public void compose(NettyResponse response) {
         response.writeDelimeter(this.sprite, (char) 13);
 
-        if (this.sprite.equalsIgnoreCase("film")) {
-            response.writeDelimeter("film", (char) 13);
-        } else {
+        if (this.sprite.equalsIgnoreCase("poster")) {
             response.writeDelimeter(this.sprite + " " + this.customData, (char) 13);
+        } else {
+            response.writeDelimeter(this.sprite, (char) 13);
         }
 
         response.write(this.colour);
