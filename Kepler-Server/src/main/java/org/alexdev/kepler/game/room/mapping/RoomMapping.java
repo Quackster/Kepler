@@ -211,6 +211,8 @@ public class RoomMapping {
         if (!item.getDefinition().hasBehaviour(ItemBehaviour.WALL_ITEM)) {
             item.getDefinition().getInteractionType().getTrigger().onItemPlaced(player, this.room, item);
         }
+
+        refreshRoomItems();
     }
 
     /**
@@ -269,6 +271,7 @@ public class RoomMapping {
         item.save();
 
         item.getDefinition().getInteractionType().getTrigger().onItemMoved(player, room, item, isRotation, oldPosition, itemBelow, itemAbove);
+        refreshRoomItems();
     }
 
     /**
