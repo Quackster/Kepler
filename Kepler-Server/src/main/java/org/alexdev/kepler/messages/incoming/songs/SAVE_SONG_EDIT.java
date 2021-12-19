@@ -34,6 +34,16 @@ public class SAVE_SONG_EDIT implements MessageEvent {
         player.getRoomUser().getTimerManager().resetRoomTimer();
 
         int songId = reader.readInt();
+        var song = SongMachineDao.getSong(songId);
+
+        if (song == null) {
+            return;
+        }
+
+        if (song.getUserId() != player.getDetails().getId()) {
+            return;
+        }
+
         String title = StringUtil.filterInput(reader.readString(), true);
         String data = StringUtil.filterInput(reader.readString(), true);
 
