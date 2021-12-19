@@ -543,6 +543,54 @@ public class PlayerDao {
     }
 
     /**
+     * Update newsletter subscription.
+     *
+     * @param details the player details to save
+     */
+    public static void saveReceiveNews(PlayerDetails details) {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("UPDATE users SET receive_email = ? WHERE id = ?", sqlConnection);
+            preparedStatement.setInt(1, details.isReceiveNews() ? 1 : 0);
+            preparedStatement.setInt(2, details.getId());
+            preparedStatement.execute();
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+
+    /**
+     * Update email.
+     *
+     * @param details Update the player email
+     */
+    public static void saveEmail(PlayerDetails details) {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("UPDATE users SET email = ? WHERE id = ?", sqlConnection);
+            preparedStatement.setString(1, details.getEmail());
+            preparedStatement.setInt(2, details.getId());
+            preparedStatement.execute();
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+
+    /**
      * Update details.
      *
      * @param details the player details to save
@@ -591,6 +639,6 @@ public class PlayerDao {
                 row.getBoolean("allow_friend_requests"), row.getBoolean("sound_enabled"),
                 row.getBoolean("tutorial_finished"), row.getInt("battleball_points"),
                 row.getInt("snowstorm_points"),
-                row.getInt("group_id"));
+                row.getInt("group_id"), row.getString("email"),row.getString("birthday"), row.getBoolean("receive_email"));
     }
 }
