@@ -80,6 +80,7 @@ public class REGISTER implements MessageEvent {
         String email = (String) PlayerManager.getInstance().getRegisterValue(registerValues, "email");
         String birthday = (String) PlayerManager.getInstance().getRegisterValue(registerValues, "birthday");
         String password = (String) PlayerManager.getInstance().getRegisterValue(registerValues, "password");
+        Boolean directMail  = (Boolean) PlayerManager.getInstance().getRegisterValue(registerValues, "directMail");
 
         if (username.equals(password)) {
             return;
@@ -98,7 +99,7 @@ public class REGISTER implements MessageEvent {
         if (hashedPassword == null)
             return;
 
-        PlayerDao.register(username, hashedPassword, figure, gender, email, birthday);
+        PlayerDao.register(username, hashedPassword, figure, gender, email, birthday, directMail);
         //System.out.println(name + " / " + figure + " / " + gender + " / " + email + " / " + birthday + " / " + password);
     }
 }
