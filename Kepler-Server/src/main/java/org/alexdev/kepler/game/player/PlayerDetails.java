@@ -25,6 +25,7 @@ public class PlayerDetails {
     private int groupStatus;
     private String motto;
     private String email;
+    private String password;
     private String birthday;
     private String consoleMotto;
     private char sex;
@@ -249,6 +250,10 @@ public class PlayerDetails {
     public void setEmail(String email) {
         this.email = email;
     }
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    public String getPassword() { return this.password; };
 
     public String getConsoleMotto() {
         return consoleMotto;

@@ -2,6 +2,7 @@ package org.alexdev.kepler.messages.incoming.user;
 
 import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.game.player.Player;
+import org.alexdev.kepler.game.player.PlayerManager;
 import org.alexdev.kepler.messages.outgoing.user.LOCALISED_ERROR;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
@@ -15,13 +16,13 @@ public class UPDATE_ACCOUNT implements MessageEvent {
         }
 
         String password = "";
+        String newPassword = "";
         String birthday = "";
         String email = "";
 
         while (reader.remainingBytes().length > 0) {
             var valueId = reader.readBase64();
             String value = reader.readString();
-
             switch(valueId) {
                 case 13:
                     password = value;
@@ -31,6 +32,9 @@ public class UPDATE_ACCOUNT implements MessageEvent {
                     break;
                 case 7:
                     email = value;
+                    break;
+                case 3:
+                    newPassword = value;
                     break;
             }
         }
@@ -46,17 +50,32 @@ public class UPDATE_ACCOUNT implements MessageEvent {
             player.send(new org.alexdev.kepler.messages.outgoing.user.UPDATE_ACCOUNT(1));
         } else {
             if(player.getDetails().getBirthday().length() > 0) {
-                if(player.getDetails().getBirthday() == birthday) {
+                if(newPassword.length() > 0) {
+                    var hashedPassword = PlayerManager.getInstance().createPassword(newPassword);
+                    player.getDetails().setPassword(hashedPassword);
+                    PlayerDao.savePassword(player.getDetails());
+                    player.send(new org.alexdev.kepler.messages.outgoing.user.UPDATE_ACCOUNT(0));
+                } else {
+                    if(player.getDetails().getBirthday() == birthday) {
+                        player.getDetails().setEmail(email);
+                        PlayerDao.saveEmail(player.getDetails());
+                        player.send(new org.alexdev.kepler.messages.outgoing.user.UPDATE_ACCOUNT(0));
+                    } else {
+                        player.send(new org.alexdev.kepler.messages.outgoing.user.UPDATE_ACCOUNT(2));
+                    }
+                }
+
+            } else {
+                if(newPassword.length() > 0) {
+                    var hashedPassword = PlayerManager.getInstance().createPassword(newPassword);
+                    player.getDetails().setPassword(hashedPassword);
+                    PlayerDao.savePassword(player.getDetails());
+                    player.send(new org.alexdev.kepler.messages.outgoing.user.UPDATE_ACCOUNT(0));
+                } else {
                     player.getDetails().setEmail(email);
                     PlayerDao.saveEmail(player.getDetails());
                     player.send(new org.alexdev.kepler.messages.outgoing.user.UPDATE_ACCOUNT(0));
-                } else {
-                    player.send(new org.alexdev.kepler.messages.outgoing.user.UPDATE_ACCOUNT(2));
                 }
-            } else {
-                player.getDetails().setEmail(email);
-                PlayerDao.saveEmail(player.getDetails());
-                player.send(new org.alexdev.kepler.messages.outgoing.user.UPDATE_ACCOUNT(0));
             }
         }
     }

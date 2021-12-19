@@ -395,6 +395,30 @@ public class PlayerDao {
             Storage.closeSilently(conn);
         }
     }
+    /**
+     * Update Password
+     *
+     * @param details the details of the user
+     */
+    public static void savePassword(PlayerDetails details) {
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("UPDATE users SET password = ? WHERE id = ?", sqlConnection);
+            preparedStatement.setString(1, details.getPassword());
+            preparedStatement.setInt(2, details.getId());
+            preparedStatement.execute();
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
 
     /**
      * Update last online.
