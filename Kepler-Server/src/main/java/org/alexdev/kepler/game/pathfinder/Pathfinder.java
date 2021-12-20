@@ -1,18 +1,20 @@
 package org.alexdev.kepler.game.pathfinder;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-
 import org.alexdev.kepler.game.entity.Entity;
-import org.alexdev.kepler.game.item.base.ItemBehaviour;
-import org.alexdev.kepler.game.room.enums.StatusType;
+import org.alexdev.kepler.game.entity.EntityType;
 import org.alexdev.kepler.game.item.Item;
+import org.alexdev.kepler.game.item.base.ItemBehaviour;
+import org.alexdev.kepler.game.item.interactors.types.PoolInteractor;
+import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
+import org.alexdev.kepler.game.room.enums.StatusType;
 import org.alexdev.kepler.game.room.mapping.RoomTile;
 
+import java.util.LinkedList;
+
 public class Pathfinder {
+    public static final double MAX_DROP_HEIGHT = 3.0;
+    public static final double MAX_LIFT_HEIGHT = 1.5;
 
     public static final Position[] DIAGONAL_MOVE_POINTS = new Position[]{
             new Position(0, -1, 0),
@@ -23,6 +25,17 @@ public class Pathfinder {
             new Position(-1, 1, 0),
             new Position(1, 1, 0),
             new Position(-1, -1, 0)
+    };
+
+    public static final Position[] DIAGONAL_MOVE_POINTS2 = new Position[]{
+            new Position(1, 0, 0),//
+            new Position(1, 1, 0),//
+            new Position(0, 1, 0),//
+            new Position(-1, 1, 0),//
+            new Position(-1, 0, 0),//
+            new Position(-1, -1, 0),//
+            new Position(0, -1, 0),
+            new Position(1, -1, 0)
     };
 
     public static final Position[] MOVE_POINTS = new Position[]{
@@ -42,6 +55,10 @@ public class Pathfinder {
      * @return true, if a valid step
      */
     public static boolean isValidStep(Room room, Entity entity, Position current, Position tmp, boolean isFinalMove) {
+        if (entity.getRoomUser().getRoom() == null || entity.getRoomUser().getRoom().getModel() == null) {
+            return false;
+        }
+
         if (!RoomTile.isValidTile(room, entity, new Position(current.getX(), current.getY()))) {
             return false;
         }
@@ -53,93 +70,75 @@ public class Pathfinder {
         RoomTile fromTile = room.getMapping().getTile(current);
         RoomTile toTile = room.getMapping().getTile(tmp);
 
+        if (fromTile == null || toTile == null) {
+            return false;
+        }
+
         double oldHeight = fromTile.getWalkingHeight();
         double newHeight = toTile.getWalkingHeight();
 
         Item fromItem = fromTile.getHighestItem();
         Item toItem = toTile.getHighestItem();
 
-        boolean hasPool = room.getModel().getName().startsWith("pool_") || room.getModel().getName().equals("md_a");
-        boolean isPrivateRoom =  !room.isPublicRoom();
+        // boolean hasPool = room.getModel().getName().startsWith("pool_") || room.getModel().getName().equals("md_a");
+        // boolean isPrivateRoom =  !room.isPublicRoom();
 
-        if (hasPool || isPrivateRoom) {
-            if (hasPool) {
-                if (oldHeight - 3 >= newHeight) {
-                    return fromItem != null && (fromItem.hasBehaviour(ItemBehaviour.TELEPORTER)
-                            || (fromItem.getDefinition().getSprite().equals("wsJoinQueue"))
-                            || (fromItem.getDefinition().getSprite().equals("wsQueueTile"))
-                            || (fromItem.getDefinition().getSprite().equals("poolEnter"))
-                            || (fromItem.getDefinition().getSprite().equals("poolExit")));
-                }
+        boolean fromItemHeightExempt = fromItem != null && (fromItem.hasBehaviour(ItemBehaviour.TELEPORTER)
+                || fromItem.getDefinition().getSprite().equals("wsJoinQueue")
+                || fromItem.getDefinition().getSprite().equals("wsQueueTile")
+                || (fromItem.getDefinition().getSprite().equals("poolEnter") && toItem != null && toItem.getDefinition().getSprite().equals("poolExit")) // No height check when going between pool triggers
+                || (fromItem.getDefinition().getSprite().equals("poolExit") && toItem != null && toItem.getDefinition().getSprite().equals("poolEnter")) // No height check when going between pool triggers
+                || fromItem.getDefinition().getSprite().equals("poolLift")
+                || fromItem.getDefinition().getSprite().equals("queue_tile2"));
 
-            }
+        boolean toItemHeightExempt = toItem != null && (toItem.hasBehaviour(ItemBehaviour.TELEPORTER)
+                || toItem.getDefinition().getSprite().equals("wsJoinQueue")
+                || toItem.getDefinition().getSprite().equals("wsQueueTile")
+                || (toItem.getDefinition().getSprite().equals("poolEnter") && fromItem != null && fromItem.getDefinition().getSprite().equals("poolExit")) // No height check when going between pool triggers
+                || (toItem.getDefinition().getSprite().equals("poolExit") && fromItem != null && fromItem.getDefinition().getSprite().equals("poolEnter")) // No height check when going between pool triggers
+                || toItem.getDefinition().getSprite().equals("poolLift")
+                || toItem.getDefinition().getSprite().equals("queue_tile2"));
 
-            if (oldHeight + 1.5 <= newHeight) {
-                return toItem != null && (toItem.hasBehaviour(ItemBehaviour.TELEPORTER)
-                        || (toItem.getDefinition().getSprite().equals("wsJoinQueue"))
-                        || (toItem.getDefinition().getSprite().equals("poolEnter"))
-                        || (toItem.getDefinition().getSprite().equals("poolExit")));
-            }
-        } else {
-            // Apply this to the rest of public rooms
-            if (oldHeight - 1.5 >= newHeight) {
-                return false;
-            }
-
-            if (oldHeight + 1.5 <= newHeight) {
+        // Pathfinder makes the path from reversed, so we compare the drop reversed (To tile height against From tile height)
+        if (toTile.isHeightUpwards(fromTile) && (!fromItemHeightExempt && !toItemHeightExempt)) {
+            if (Math.abs(newHeight - oldHeight) > MAX_LIFT_HEIGHT) {
                 return false;
             }
         }
 
-        // Only check these below if the user is in a pool room.
-        if (entity.getRoomUser().getRoom().getModel().getName().startsWith("pool_") ||
-            entity.getRoomUser().getRoom().getModel().getName().equals("md_a")) {
-            if (toItem != null) {
-                // Check if they have swimmers before trying to enter pool
-                if (toItem.getDefinition().getSprite().equals("poolEnter") ||
-                    toItem.getDefinition().getSprite().equals("poolLeave")) {
-                    return entity.getDetails().getPoolFigure().length() > 0;
-                }
-
-                // Don't allow to "enter" the pool if they're already swimming
-                if (entity.getRoomUser().containsStatus(StatusType.SWIM) &&
-                    toItem.getDefinition().getSprite().equals("poolEnter")) {
-                    return false;
-                }
-
-                // Don't allow to "leave" the pool if they're not swimming
-                if (!entity.getRoomUser().containsStatus(StatusType.SWIM) &&
-                    toItem.getDefinition().getSprite().equals("poolExit")) {
-                    return false;
-                }
-
-                // Don't allow users to cut people in queue, force them to garound
-                if (toItem.getDefinition().getSprite().equals("queue_tile2")) {
-                    RoomTile tile = room.getMapping().getTile(entity.getRoomUser().getGoal());
-
-                    if (tile.getHighestItem() == null || !tile.getHighestItem().getDefinition().getSprite().equals("queue_tile2")) {
-                        return false;
-                    }
-                }
-
-                // Don't allow people to enter the booth if it's closed, or don't allow
-                // if they attempt to use the pool lift without swimmers
-                if (toItem.getDefinition().getSprite().equals("poolBooth") ||
-                    toItem.getDefinition().getSprite().equals("poolLift")) {
-
-                    if (toItem.getCurrentProgramValue().equals("close")) {
-                        return false;
-                    } else {
-                        return !toItem.getDefinition().getSprite().equals("poolLift") || entity.getDetails().getPoolFigure().length() > 0;
-                    }
-                }
+        if (toTile.isHeightDrop(fromTile) && (!fromItemHeightExempt && !toItemHeightExempt)) {
+            if (Math.abs(oldHeight - newHeight) > MAX_DROP_HEIGHT) {
+                return false;
             }
         }
 
-        // Can't walk diagonal between two non-walkable tiles.
-        if (!entity.getRoomUser().getRoom().getModel().getName().startsWith("sun_terrace")) { // Don't enable diagonal checking for the Sun Terrace
-            if (current.getX() != tmp.getX() &&
-                    current.getY() != tmp.getY()) {
+        if (fromTile.isHeightUpwards(toTile) && (!fromItemHeightExempt && !toItemHeightExempt)) {
+            if (Math.abs(newHeight - oldHeight) > MAX_LIFT_HEIGHT) {
+                return false;
+            }
+        }
+
+        if (fromTile.isHeightDrop(toTile) && (!fromItemHeightExempt && !toItemHeightExempt)) {
+            if (Math.abs(oldHeight - newHeight) > MAX_DROP_HEIGHT) {
+                return false;
+            }
+        }
+
+        if (!PoolInteractor.getTileStatus(room, entity, current, tmp, isFinalMove)) {
+            return false;
+        }
+
+        // Don't enable diagonal checking for the Sun Terrace
+        // Don't allow diagonal for pool triggers
+        boolean canWalkDiagonal = !room.getModel().getName().startsWith("sun_terrace") &&
+                !(fromItem != null && fromItem.getDefinition().getSprite().equals("poolExit")) &&
+                !(fromItem != null && fromItem.getDefinition().getSprite().equals("poolEnter")) &&
+                !(toItem != null && toItem.getDefinition().getSprite().equals("poolExit")) &&
+                !(toItem != null && toItem.getDefinition().getSprite().equals("poolEnter"));
+
+        // Can't walk diagonal between two non-walkable tiles
+        if (canWalkDiagonal) {
+            if (current.getX() != tmp.getX() && current.getY() != tmp.getY()) {
 
                 boolean firstValidTile = RoomTile.isValidDiagonalTile(room, entity, new Position(tmp.getX(), current.getY()));
                 boolean secondValidTile = RoomTile.isValidDiagonalTile(room, entity, new Position(current.getX(), tmp.getY()));
@@ -154,7 +153,8 @@ public class Pathfinder {
         if (!current.equals(room.getModel().getDoorLocation())) {
             if (toItem != null) {
                 if (isFinalMove) {
-                    return toItem.isWalkable(tmp);
+                    // Allow walking if item is walkable or trapped inside
+                    return toItem.isWalkable(entity) || AffectedTile.getAffectedTiles(toItem).stream().anyMatch(x -> room.getMapping().getTile(x).containsEntity(entity));
                 } else {
                     return toItem.hasBehaviour(ItemBehaviour.CAN_STAND_ON_TOP) || toItem.isGateOpen();
                 }
@@ -165,41 +165,23 @@ public class Pathfinder {
     }
 
     /**
-     * Make path.
-     *
-     * @param entity the entity
-     * @return the linked list
-     */
-    public static LinkedList<Position> makePath(Entity entity) {
-        int X = entity.getRoomUser().getGoal().getX();
-        int Y = entity.getRoomUser().getGoal().getY();
-        return makePath(entity, X, Y);
-    }
-
-    /**
      * Make path with specified last coordinates
      *
      * @param entity the entity to move
-     * @param x the xcoord to move from
-     * @param y the y coord to move from
      * @return the linked list
      */
-    private static LinkedList<Position> makePath(Entity entity, int x, int y) {//List<PathfinderSettings> settings) {
-        if (!RoomTile.isValidTile(entity.getRoomUser().getRoom(), entity, new Position(x, y))) {
-            return new LinkedList<>();
-        }
-
+    public static LinkedList<Position> makePath(Entity entity, Position start, Position end) {//List<PathfinderSettings> settings) {
         LinkedList<Position> squares = new LinkedList<>();
-        PathfinderNode nodes = makePathReversed(entity, x, y);
+        PathfinderNode nodes = makePathReversed(entity, end, start);
 
         if (nodes != null) {
             while (nodes.getNextNode() != null) {
-                squares.add(new Position(nodes.getPosition().getX(), nodes.getPosition().getY()));
+                squares.add(nodes.getNextNode().getPosition());
                 nodes = nodes.getNextNode();
             }
         }
 
-        Collections.reverse(squares);
+        //Collections.reverse(squares);
         return squares;
 
     }
@@ -210,7 +192,7 @@ public class Pathfinder {
      * @param entity the entity
      * @return the pathfinder node
      */
-    private static PathfinderNode makePathReversed(Entity entity, int X, int Y) {
+    private static PathfinderNode makePathReversed(Entity entity, Position start, Position end) {
         LinkedList<PathfinderNode> openList = new LinkedList<>();
 
         PathfinderNode[][] map = new PathfinderNode[entity.getRoomUser().getRoom().getModel().getMapSizeX()][entity.getRoomUser().getRoom().getModel().getMapSizeY()];
@@ -220,10 +202,9 @@ public class Pathfinder {
         int cost;
         int diff;
 
-        PathfinderNode current = new PathfinderNode(entity.getRoomUser().getPosition());
+        PathfinderNode current = new PathfinderNode(start);
         current.setCost(0);
 
-        Position end = new Position(X, Y);
         PathfinderNode finish = new PathfinderNode(end);
 
         map[current.getPosition().getX()][current.getPosition().getY()] = current;
@@ -257,14 +238,14 @@ public class Pathfinder {
                             diff += 2; // Reminder: It was 1 up until 29/08/2018
                         }
 
-                        cost = current.getCost() + diff + node.getPosition().getDistance(end);
+                        cost = current.getCost() + diff + node.getPosition().getDistanceSquared(end);
+
+                        if (cost < node.getCost()) {
+                            node.setCost(cost);
+                            node.setNextNode(current);
+                        }
 
                         if (!node.isInOpen()) {
-                            if (cost < node.getCost()) {
-                                node.setCost(cost);
-                                node.setNextNode(current);
-                            }
-
                             if (node.getPosition().getX() == finish.getPosition().getX() && node.getPosition().getY() == finish.getPosition().getY()) {
                                 node.setNextNode(current);
                                 return node;

@@ -1,8 +1,7 @@
 package org.alexdev.kepler.dao.mysql;
 
-import com.goterl.lazycode.lazysodium.LazySodiumJava;
-import com.goterl.lazycode.lazysodium.SodiumJava;
-import com.goterl.lazycode.lazysodium.interfaces.PwHash;
+import at.favre.lib.crypto.bcrypt.BCrypt;
+import com.goterl.lazysodium.interfaces.PwHash;
 import org.alexdev.kepler.Kepler;
 import org.alexdev.kepler.dao.Storage;
 import org.alexdev.kepler.game.player.Player;
@@ -249,6 +248,22 @@ public class PlayerDao {
                     if (success) {
                         fill(player, resultSet);
                     }
+                } else if (useBcrypt) {
+                    var hashedPassword = resultSet.getString("password");
+
+                    BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), hashedPassword);
+                    success = result.verified;
+
+                    if (success) {
+                        fill(player, resultSet);
+
+                    }
+                } else {
+                    success = password.equals(resultSet.getString("password"));
+
+                    if (success) {
+                        fill(player, resultSet);
+                    }
                 }
             }
 
@@ -359,23 +374,50 @@ public class PlayerDao {
     /**
      * Register user
      */
-    public static void register(String username, String password, String figure, String sex){
+    public static void register(String username, String password, String figure, String sex, String email, String birthday, boolean directMail){
         Connection conn = null;
         PreparedStatement stmt = null;
 
         try {
             conn = Storage.getStorage().getConnection();
-            stmt = Storage.getStorage().prepare("INSERT INTO users (username, password, figure, sex, pool_figure, sso_ticket) VALUES (?, ?, ?, ?, '', '')", conn);
+            stmt = Storage.getStorage().prepare("INSERT INTO users (username, password, figure, sex, pool_figure, sso_ticket, email, birthday, receive_email) VALUES (?, ?, ?, ?, '', '', ?, ?, ?)", conn);
             stmt.setString(1, username);
             stmt.setString(2, password);
             stmt.setString(3, figure);
             stmt.setString(4, sex);
+            stmt.setString(5, email);
+            stmt.setString(6, birthday);
+            stmt.setInt(7, directMail ? 1 : 0);
             stmt.execute();
         } catch (SQLException e) {
             Storage.logError(e);
         } finally {
             Storage.closeSilently(stmt);
             Storage.closeSilently(conn);
+        }
+    }
+    /**
+     * Update Password
+     *
+     * @param details the details of the user
+     */
+    public static void savePassword(PlayerDetails details) {
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("UPDATE users SET password = ? WHERE id = ?", sqlConnection);
+            preparedStatement.setString(1, details.getPassword());
+            preparedStatement.setInt(2, details.getId());
+            preparedStatement.execute();
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
         }
     }
 
@@ -526,6 +568,54 @@ public class PlayerDao {
     }
 
     /**
+     * Update newsletter subscription.
+     *
+     * @param details the player details to save
+     */
+    public static void saveReceiveNews(PlayerDetails details) {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("UPDATE users SET receive_email = ? WHERE id = ?", sqlConnection);
+            preparedStatement.setInt(1, details.isReceiveNews() ? 1 : 0);
+            preparedStatement.setInt(2, details.getId());
+            preparedStatement.execute();
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+
+    /**
+     * Update email.
+     *
+     * @param details Update the player email
+     */
+    public static void saveEmail(PlayerDetails details) {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("UPDATE users SET email = ? WHERE id = ?", sqlConnection);
+            preparedStatement.setString(1, details.getEmail());
+            preparedStatement.setInt(2, details.getId());
+            preparedStatement.execute();
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+
+    /**
      * Update details.
      *
      * @param details the player details to save
@@ -574,6 +664,6 @@ public class PlayerDao {
                 row.getBoolean("allow_friend_requests"), row.getBoolean("sound_enabled"),
                 row.getBoolean("tutorial_finished"), row.getInt("battleball_points"),
                 row.getInt("snowstorm_points"),
-                row.getInt("group_id"));
+                row.getInt("group_id"), row.getString("email"),row.getString("birthday"), row.getBoolean("receive_email"));
     }
 }

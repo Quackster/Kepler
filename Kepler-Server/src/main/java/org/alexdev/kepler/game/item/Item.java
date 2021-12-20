@@ -51,6 +51,9 @@ public class Item {
     private RollingData rollingData;
     private boolean isHidden;
 
+    private Position teleportTo;
+    private Position swimTo;
+
     public Item() {
         this.id = 0;
         this.definition = new ItemDefinition();
@@ -151,7 +154,7 @@ public class Item {
         }
 
         for (Entity entity : entitiesToUpdate) {
-            entity.getRoomUser().invokeItem(oldPosition);
+            entity.getRoomUser().invokeItem(oldPosition, true);
         }
     }
 
@@ -172,7 +175,7 @@ public class Item {
      *
      * @return true, if successful.
      */
-    public boolean isWalkable(Position selectedPosition) {
+    public boolean isWalkable(Entity entity) {
         if (this.getDefinition().getSprite().equals("poolLift")) {
             return this.currentProgramValue.equals("open");
         }
@@ -210,11 +213,24 @@ public class Item {
         }
 
         if (this.hasBehaviour(ItemBehaviour.TELEPORTER)) {
+            if (entity instanceof Player) {
+                Player player = (Player) entity;
+
+                if (player.getRoomUser().getAuthenticateTelporterId() == this.id) {
+                    return true;
+                }
+            }
+
             return this.customData.equals("TRUE");
         }
 
         if (this.hasBehaviour(ItemBehaviour.GATE)) {
             return this.isGateOpen();
+        }
+
+        // Allow walking from it if stuck inside
+        if (entity != null) {
+            return this.getTile().getEntities().contains(entity);
         }
         
         return false;
@@ -330,7 +346,7 @@ public class Item {
      * @param rotation the new rotation to check
      * @return true, if successful
      */
-    public boolean isValidMove(Item item, Room room, int x, int y, int rotation) {
+    public boolean isValidMove(Item item, Room room, Entity entity, int x, int y, int rotation) {
         RoomTile tile = room.getMapping().getTile(x, y);
 
         if (tile == null) {
@@ -367,7 +383,7 @@ public class Item {
             }
 
             if (tile.getEntities().size() > 0) {
-                if (!item.isWalkable(new Position(x, y))) {
+                if (!item.isWalkable(entity)) {
                     return false;
                 }
             }
@@ -647,6 +663,22 @@ public class Item {
 
     public void setCurrentRollBlocked(boolean currentRollBlocked) {
         isCurrentRollBlocked = currentRollBlocked;
+    }
+
+    public Position getTeleportTo() {
+        return teleportTo;
+    }
+
+    public void setTeleportTo(Position teleportTo) {
+        this.teleportTo = teleportTo;
+    }
+
+    public Position getSwimTo() {
+        return swimTo;
+    }
+
+    public void setSwimTo(Position swimTo) {
+        this.swimTo = swimTo;
     }
 }
 

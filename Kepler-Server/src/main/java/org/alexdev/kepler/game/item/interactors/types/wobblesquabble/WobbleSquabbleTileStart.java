@@ -57,7 +57,7 @@ public class WobbleSquabbleTileStart extends GenericTrigger {
                 position.setRotation(player.getRoomUser().getPosition().getRotation());
 
                 player.getRoomUser().setStatus(StatusType.SWIM, "");
-                player.getRoomUser().warp(position, true);
+                player.getRoomUser().warp(position, true, false);
 
                 return; // Too poor!
             }

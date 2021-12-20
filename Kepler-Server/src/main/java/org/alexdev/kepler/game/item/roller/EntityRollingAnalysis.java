@@ -25,7 +25,7 @@ public class EntityRollingAnalysis implements RollingAnalysis<Entity> {
             return null; // Don't roll users who aren't on this tile.
         }
 
-        if (!entity.getRoomUser().getTile().hasWalkableFurni()) {
+        if (!entity.getRoomUser().getTile().hasWalkableFurni(entity)) {
             return null; // Don't roll user if they are stuck, let them be unstuck...
         }
 
@@ -36,7 +36,7 @@ public class EntityRollingAnalysis implements RollingAnalysis<Entity> {
             return null;
         }
 
-        if (!frontTile.hasWalkableFurni()) {
+        if (!frontTile.hasWalkableFurni(entity)) {
             return null;
         }
 

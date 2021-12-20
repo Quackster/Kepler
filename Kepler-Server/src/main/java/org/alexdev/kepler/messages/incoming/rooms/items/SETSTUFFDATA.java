@@ -1,15 +1,13 @@
 package org.alexdev.kepler.messages.incoming.rooms.items;
 
-import org.alexdev.kepler.game.games.triggers.GameTrigger;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.fuserights.Fuseright;
-import org.alexdev.kepler.game.item.interactors.InteractionType;
+import org.alexdev.kepler.game.item.interactors.types.TeleportInteractor;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.mapping.RoomTile;
-import org.alexdev.kepler.game.triggers.GenericTrigger;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 import org.apache.commons.lang3.StringUtils;
@@ -47,13 +45,19 @@ public class SETSTUFFDATA implements MessageEvent {
             return; // Prevent dice rigging, scripting trophies, post-its, etc.
         }
 
+        if (item.hasBehaviour(ItemBehaviour.TELEPORTER)) {
+            var interaction = new TeleportInteractor();
+            interaction.onInteract(player, room, item, 0);
+            return;
+        }
+
 
         if (item.hasBehaviour(ItemBehaviour.REQUIRES_RIGHTS_FOR_INTERACTION)
                 && !room.hasRights(player.getDetails().getId())
                 && !player.hasFuse(Fuseright.ANY_ROOM_CONTROLLER)) {
             return;
         }
-        
+
         if (item.hasBehaviour(ItemBehaviour.REQUIRES_TOUCHING_FOR_INTERACTION)) {
             if (!item.getTile().getPosition().touches(player.getRoomUser().getTile().getPosition())) {
                 Position nextPosition = item.getPosition().getSquareInFront();
@@ -133,26 +137,9 @@ public class SETSTUFFDATA implements MessageEvent {
         }
 
         item.setCustomData(newData);
-
-        if(item.hasBehaviour(ItemBehaviour.ELEVATION)) {
-            Position playerPos = player.getRoomUser().getPosition();
-            Position itemPos = item.getPosition();
-
-            item.getTile().resetHighestItem();
-            //item.getTile().setHighestItem(item);
-
-            if(playerPos.getY() == itemPos.getY() && playerPos.getX() == itemPos.getX()) {
-                playerPos.setZ(player.getRoomUser().getTile().getWalkingHeight());
-                player.getRoomUser().updateNewHeight(playerPos);
-                player.getRoomUser().warp(player.getRoomUser().getPosition(), true);
-            }
-
-
-        }
-
         item.updateStatus();
 
-        player.getRoomUser().setLastInteractedItem(item);
+        player.getRoomUser().setLastItemInteraction(item);
 
         if (!item.getDefinition().hasBehaviour(ItemBehaviour.CUSTOM_DATA_TRUE_FALSE)) {
             item.save();

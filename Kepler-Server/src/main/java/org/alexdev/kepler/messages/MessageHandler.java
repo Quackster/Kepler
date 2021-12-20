@@ -155,6 +155,8 @@ public class MessageHandler {
         registerEvent(228, new GET_ACCOUNT_PREFERENCES());
         registerEvent(196, new PONG());
         registerEvent(44, new UPDATE());
+        // (Unknown): 149 / BU@M@Flol123@H@J01.01.1991@C@Iqwerty123
+        registerEvent(149, new UPDATE_ACCOUNT());
         registerEvent(360, new GET_IGNORE_LIST());
         registerEvent(319, new IGNORE_USER());
         registerEvent(322, new UNIGNORE_USER());
@@ -295,10 +297,13 @@ public class MessageHandler {
      * Register room teleporter packets
      */
     public void registerRoomTeleporterPackets() {
+        /*
         registerEvent(81, new INTODOOR());
         registerEvent(28, new GETDOORFLAT());
         registerEvent(82, new DOORGOIN());
         registerEvent(54, new GOVIADOOR());
+        */
+        registerEvent(28, new GETDOORFLAT());
     }
 
     /**

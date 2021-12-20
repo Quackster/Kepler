@@ -16,7 +16,7 @@ public class MESSENGERINIT implements MessageEvent {
         player.send(new MESSENGER_INIT(player, player.getDetails().getConsoleMotto(), messenger));
 
         // Get requests manually
-        if (player.getVersion() <= 15) {
+        if (player.getVersion() <= 14) {
             new MESSENGER_GETREQUESTS().handle(player, null);
         }
     }

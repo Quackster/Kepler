@@ -31,6 +31,15 @@ public class EDIT_SONG implements MessageEvent {
         player.getRoomUser().getTimerManager().resetRoomTimer();
 
         int songId = reader.readInt();
+        var song = SongMachineDao.getSong(songId);
+
+        if (song == null) {
+            return;
+        }
+
+        if (song.getUserId() != player.getDetails().getId()) {
+            return;
+        }
 
         player.send(new SONG_INFO(SongMachineDao.getSong(songId)));
         player.send(new SOUND_PACKAGES(SongMachineDao.getTracks(room.getItemManager().getSoundMachine().getId())));

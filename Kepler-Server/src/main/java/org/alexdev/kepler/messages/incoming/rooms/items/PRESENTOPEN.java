@@ -59,14 +59,15 @@ public class PRESENTOPEN implements MessageEvent {
                 !catalogueItem.getDefinition().hasBehaviour(ItemBehaviour.TELEPORTER) &&
                 !catalogueItem.getDefinition().hasBehaviour(ItemBehaviour.ROOMDIMMER) &&
                 !catalogueItem.getDefinition().hasBehaviour(ItemBehaviour.DECORATION) &&
-                !catalogueItem.getDefinition().hasBehaviour(ItemBehaviour.POST_IT)) {
+                !catalogueItem.getDefinition().hasBehaviour(ItemBehaviour.POST_IT) &&
+                !catalogueItem.getDefinition().getSprite().equalsIgnoreCase("film")) {
             room.getMapping().removeItem(player, item);
 
             item.setDefinitionId(catalogueItem.getDefinition().getId());
             item.setCustomData(extraData);
-            item.delete();
+            item.save();
 
-            player.send(new DELIVER_PRESENT(item));
+            player.send(new DELIVER_PRESENT(catalogueItem.getDefinition().getSprite(), extraData, catalogueItem.getDefinition().getColour()));
 
             player.getInventory().addItem(item);
             player.getInventory().getView("new");
@@ -74,8 +75,15 @@ public class PRESENTOPEN implements MessageEvent {
             List<Item> itemList = CatalogueManager.getInstance().purchase(player, catalogueItem, extraData, receivedFrom, timestamp);
 
             if (!itemList.isEmpty()) {
-                player.send(new DELIVER_PRESENT(itemList.get(0)));
+                var giftedItem = itemList.get(0);
+
+                player.send(new DELIVER_PRESENT(giftedItem.getDefinition().getSprite(), extraData, giftedItem.getDefinition().getColour()));
                 player.getInventory().getView("new");
+            } else {
+                // itemList will be blank if this was film purchased, however, still show film when gift is opened
+                if (catalogueItem.getDefinition().getSprite().equalsIgnoreCase("film")) {
+                    player.send(new DELIVER_PRESENT("film", null, null));
+                }
             }
 
             room.getMapping().removeItem(player, item);

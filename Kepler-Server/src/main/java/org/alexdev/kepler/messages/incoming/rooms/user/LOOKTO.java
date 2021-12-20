@@ -1,11 +1,13 @@
 package org.alexdev.kepler.messages.incoming.rooms.user;
 
 import org.alexdev.kepler.game.item.Item;
+import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.item.interactors.InteractionType;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.pathfinder.Rotation;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.enums.StatusType;
+import org.alexdev.kepler.messages.incoming.navigator.RECOMMENDED_ROOMS;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 
@@ -43,8 +45,18 @@ public class LOOKTO implements MessageEvent {
             return;
         }
 
+        if (player.getRoomUser().getPosition().equals(player.getRoomUser().getRoom().getModel().getDoorLocation())) {
+            return;
+        }
+
         if (player.getRoomUser().getRoom().isPublicRoom() && player.getRoomUser().getRoom().getModel().getDoorLocation().equals(player.getRoomUser().getPosition())) {
             return;
+        }
+
+        if (player.getRoomUser().getCurrentItem() != null) {
+            if (player.getRoomUser().getCurrentItem().hasBehaviour(ItemBehaviour.TELEPORTER)) {
+                return;
+            }
         }
 
         int rotation = Rotation.calculateHumanDirection(

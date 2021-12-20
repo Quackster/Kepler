@@ -52,7 +52,7 @@ public class INTODOOR implements MessageEvent {
         }
 
        // player.getRoomUser().setAuthenticateTelporterId(item.getId());
-        player.getRoomUser().setAuthenticateTelporterId(-1);
+        player.getRoomUser().setAuthenticateTelporterId(item.getId());
         player.getRoomUser().walkTo(item.getPosition().getX(), item.getPosition().getY());
         //player.getRoomUser().setWalkingAllowed(false);
     }

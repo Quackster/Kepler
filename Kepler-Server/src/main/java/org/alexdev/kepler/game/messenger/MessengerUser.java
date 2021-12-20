@@ -15,8 +15,14 @@ public class MessengerUser {
     private char sex;
     private String consoleMotto;
     private long lastOnline;
+    private boolean fromSearch;
 
     public MessengerUser(PlayerDetails details) {
+        this.applyUserDetails(details.getId(), details.getName(), details.getFigure(), details.getConsoleMotto(), String.valueOf(details.getSex()), details.getLastOnline());
+    }
+
+    public MessengerUser(PlayerDetails details, boolean fromSearch) {
+        this.fromSearch = fromSearch;
         this.applyUserDetails(details.getId(), details.getName(), details.getFigure(), details.getConsoleMotto(), String.valueOf(details.getSex()), details.getLastOnline());
     }
 
@@ -78,7 +84,12 @@ public class MessengerUser {
                         response.writeString(room.getData().getPublicName());
                     }
                 } else {
-                    response.writeString("On hotel view");
+                    if(this.fromSearch) {
+                        response.writeString("ENTERPRISESERVER");
+                    } else {
+                        response.writeString("");
+                    }
+
                 }
             } else {
                 response.writeString(DateUtil.getDateAsString(this.lastOnline));

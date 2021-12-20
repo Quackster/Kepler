@@ -6,6 +6,7 @@ import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.ItemManager;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.item.interactors.InteractionType;
+import org.alexdev.kepler.game.pathfinder.Position;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,6 +18,9 @@ public class PublicItemParser {
     public static List<Item> getPublicItems(int roomId, String modelId) {
         List<String> randomPublicId = new ArrayList<>();
         Map<String, InteractionType> itemTriggerMap = new HashMap<>();
+
+        itemTriggerMap.put("poolEnter", InteractionType.POOL_ENTER);
+        itemTriggerMap.put("poolExit", InteractionType.POOL_EXIT);//.POOL_EXIT);
 
         itemTriggerMap.put("poolLift", InteractionType.POOL_LIFT);
         itemTriggerMap.put("poolBooth", InteractionType.POOL_BOOTH);
@@ -42,7 +46,6 @@ public class PublicItemParser {
         itemTriggerMap.put("wsTileStart", InteractionType.WS_TILE_START);
 
         int itemId = 0;
-
 
         List<Item> items = new ArrayList<>();
         List<PublicItemData> publicItemData = PublicRoomsDao.getPublicItemData(modelId);
@@ -75,11 +78,6 @@ public class PublicItemParser {
                 item.getDefinition().setInteractionType(itemTriggerMap.get(itemData.getSprite()));
             }
 
-            item.getPosition().setX(itemData.getX());
-            item.getPosition().setY(itemData.getY());
-            item.getPosition().setZ(itemData.getZ());
-            item.getPosition().setRotation(itemData.getRotation());
-
             if (itemData.getBehaviour().length() > 0) {
                 for (String behaviour : itemData.getBehaviour().split(",")) {
                     item.getDefinition().addBehaviour(ItemBehaviour.valueOf(behaviour.toUpperCase()));
@@ -94,25 +92,52 @@ public class PublicItemParser {
                 }
             }
 
-            item.getDefinition().addBehaviour(ItemBehaviour.PUBLIC_SPACE_OBJECT);
+            item.getPosition().setX(itemData.getX());
+            item.getPosition().setY(itemData.getY());
+            item.getPosition().setZ(itemData.getZ());
+            item.getPosition().setRotation(itemData.getRotation());
 
-            if (item.getDefinition().getSprite().equals("poolLift") ||
-                item.getDefinition().getSprite().equals("poolBooth")) {
-                item.showProgram("open");
+            if (!item.getDefinition().getSprite().contains("queue_tile2")) {
+                item.getDefinition().addBehaviour(ItemBehaviour.PUBLIC_SPACE_OBJECT);
             }
 
             if (item.getDefinition().hasBehaviour(ItemBehaviour.PRIVATE_FURNITURE)) {
                 item.setDefinitionId(ItemManager.getInstance().getDefinitionBySprite(itemData.getSprite()).getId());
             }
 
-            if (item.getDefinition().getSprite().equals("queue_tile2")) {
-                item.getDefinition().removeBehaviour(ItemBehaviour.PUBLIC_SPACE_OBJECT);
+            if (item.getDefinition().getSprite().equals("poolLift") ||
+                    item.getDefinition().getSprite().equals("poolBooth")) {
+                item.showProgram("open");
+            }
+
+            if (itemData.getTeleportTo() != null) {
+                int X = Integer.parseInt(itemData.getTeleportTo()[0]);
+                int Y = Integer.parseInt(itemData.getTeleportTo()[1]);
+                int Z = Integer.parseInt(itemData.getTeleportTo()[2]);
+
+                var position = new Position(X, Y, Z);
+                position.setBodyRotation(Integer.parseInt(itemData.getTeleportTo()[3]));
+                position.setHeadRotation(Integer.parseInt(itemData.getTeleportTo()[3]));
+
+                item.setTeleportTo(position);
+            }
+
+            if (itemData.getSwimTo() != null) {
+                int X = Integer.parseInt(itemData.getSwimTo()[0]);
+                int Y = Integer.parseInt(itemData.getSwimTo()[1]);
+                int Z = Integer.parseInt(itemData.getSwimTo()[2]);
+
+                var position = new Position(X, Y, Z);
+                position.setBodyRotation(Integer.parseInt(itemData.getSwimTo()[3]));
+                position.setHeadRotation(Integer.parseInt(itemData.getSwimTo()[3]));
+
+                item.setSwimTo(position);
             }
 
             items.add(item);
         }
 
-        /*File file = Paths.get("tools", "gamedata", "public_items", modelId + ".dat").toFile();
+        /*File file = Paths.get("tools", "gamedata", "publicrooms", modelId + ".dat").toFile();
 
         if (!file.exists()) {
             return items;
@@ -127,7 +152,7 @@ public class PublicItemParser {
                 String[] data = line.split(" ");
 
                 Item item = new Item();
-                item.setId(id--);
+                item.setVirtualId(id--);
                 item.getDefinition().addBehaviour(ItemBehaviour.PUBLIC_SPACE_OBJECT);
                 item.getDefinition().setSprite(data[1]);
                 item.getDefinition().setTopHeight(ItemDefinition.DEFAULT_TOP_HEIGHT);
@@ -227,7 +252,7 @@ public class PublicItemParser {
 
                 try {
                     sqlConnection = Storage.getStorage().getConnection();
-                    preparedStatement = Storage.getStorage().prepare("INSERT INTO public_items (id, room_model, sprite, x, y, z, rotation, top_height, length, width, behaviour, current_program) " +
+                    preparedStatement = Storage.getStorage().prepare("INSERT INTO publicrooms (id, room_model, sprite, x, y, z, rotation, top_height, length, width, behaviour, current_program) " +
                                     "VALUES (?, ?, ?, ?, ?, ? ,?, ?, ? ,? ,? ,?)", sqlConnection);
                     preparedStatement.setString(1, alphabet.charAt(ThreadLocalRandom.current().nextInt(0, alphabet.length())) + "" + ThreadLocalRandom.current().nextInt(0, 999));
                     preparedStatement.setString(2, modelId);

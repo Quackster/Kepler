@@ -1,8 +1,13 @@
 package org.alexdev.kepler.game.player;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
+import com.goterl.lazysodium.interfaces.PwHash;
+import org.alexdev.kepler.Kepler;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.messenger.Messenger;
+import org.alexdev.kepler.game.player.register.RegisterDataType;
+import org.alexdev.kepler.game.player.register.RegisterValue;
 import org.alexdev.kepler.game.room.enums.StatusType;
 import org.alexdev.kepler.game.texts.TextsManager;
 import org.alexdev.kepler.messages.outgoing.openinghours.INFO_HOTEL_CLOSED;
@@ -10,11 +15,13 @@ import org.alexdev.kepler.messages.outgoing.openinghours.INFO_HOTEL_CLOSING;
 import org.alexdev.kepler.messages.outgoing.user.ALERT;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.util.DateUtil;
+import org.alexdev.kepler.util.config.ServerConfiguration;
 
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ScheduledFuture;
@@ -272,6 +279,70 @@ public class PlayerManager {
         }
 
         return activePlayers;
+    }
+
+    /**
+     * Create password hash
+     *
+     * @param password password to hash
+     * @return hashed password
+     * @throws Exception
+     */
+    public String createPassword(String password) throws Exception {
+        if (ServerConfiguration.getStringOrDefault("password.hashing.library", "argon2").equalsIgnoreCase("argon2")) {
+            byte[] pw = password.getBytes();
+            byte[] outputHash = new byte[PwHash.STR_BYTES];
+            PwHash.Native pwHash = (PwHash.Native) Kepler.getLibSodium();
+            boolean success = pwHash.cryptoPwHashStr(
+                    outputHash,
+                    pw,
+                    pw.length,
+                    PwHash.OPSLIMIT_INTERACTIVE,
+                    PwHash.MEMLIMIT_INTERACTIVE
+            );
+
+            if (!success) {
+                throw new Exception("Password creation was a failure!");
+            }
+
+            return new String(outputHash).replace((char) 0 + "", "");
+        } else if (ServerConfiguration.getStringOrDefault("password.hashing.library", "argon2").equalsIgnoreCase("bcrypt")) {
+            return BCrypt.withDefaults().hashToString(12, password.toCharArray());
+        } else {
+            return password;
+        }
+    }
+
+    /**
+     * Get values for registering.
+     *
+     * @return values
+     */
+    public LinkedHashMap<Integer, RegisterValue> getRegisterValues() {
+        var registerValues = new LinkedHashMap<Integer, RegisterValue>();
+        registerValues.put(1, new RegisterValue("parentagree", 1, RegisterDataType.BOOLEAN));
+        registerValues.put(2, new RegisterValue("name", 2, RegisterDataType.STRING));
+        registerValues.put(3, new RegisterValue("password", 3, RegisterDataType.STRING));
+        registerValues.put(4, new RegisterValue("figure", 4, RegisterDataType.STRING));
+        registerValues.put(5, new RegisterValue("sex", 5, RegisterDataType.STRING));
+        registerValues.put(6, new RegisterValue("customData", 6, RegisterDataType.STRING));
+        registerValues.put(7, new RegisterValue("email", 7, RegisterDataType.STRING));
+        registerValues.put(8, new RegisterValue("birthday", 8, RegisterDataType.STRING));
+        registerValues.put(9, new RegisterValue("directMail", 9, RegisterDataType.BOOLEAN));
+        registerValues.put(10, new RegisterValue("has_read_agreement", 10, RegisterDataType.BOOLEAN));
+        registerValues.put(11, new RegisterValue("isp_id", 11, RegisterDataType.STRING));
+        registerValues.put(12, new RegisterValue("partnersite", 12, RegisterDataType.STRING));
+        registerValues.put(13, new RegisterValue("oldpassword", 13, RegisterDataType.STRING));
+        return registerValues;
+    }
+
+    public Object getRegisterValue(LinkedHashMap<Integer, RegisterValue> values, String label) {
+        for (var value : values.values()) {
+            if (value.getLabel().equals(label))
+                return value.getDataType() == RegisterDataType.STRING ? value.getValue() : value.getFlag();
+        }
+
+        return null;
     }
 
     /**

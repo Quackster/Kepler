@@ -4,6 +4,7 @@ import org.alexdev.kepler.dao.mysql.ItemDao;
 import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
+import org.alexdev.kepler.game.item.interactors.types.TeleportInteractor;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.RoomManager;
@@ -30,7 +31,10 @@ public class GETDOORFLAT implements MessageEvent {
             return;
         }
 
-        Item linkedTeleporter = ItemDao.getItem(item.getTeleporterId());
+        var interaction = new TeleportInteractor();
+        interaction.onInteract(player, room, item, 0);
+
+        /*Item linkedTeleporter = ItemDao.getItem(item.getTeleporterId());
 
         if (linkedTeleporter == null) {
             return;
@@ -62,7 +66,7 @@ public class GETDOORFLAT implements MessageEvent {
                     return;
                 }
 
-                player.getRoomUser().warp(linkedTeleporter.getPosition().copy(), false);
+                player.getRoomUser().warp(linkedTeleporter.getPosition().copy(), false, false);
                 room.send(new BROADCAST_TELEPORTER(linkedTeleporter, player.getDetails().getName(), false));
             }, 1000, TimeUnit.MILLISECONDS);
 
@@ -90,6 +94,6 @@ public class GETDOORFLAT implements MessageEvent {
 
         } else {
             player.send(new TELEPORTER_INIT(linkedTeleporter.getId(), linkedTeleporter.getRoomId()));
-        }
+        }*/
     }
 }

@@ -64,7 +64,7 @@ public class FRIENDS_UPDATE extends PlayerMessageComposer {
                             response.writeString(room.getData().getPublicName());
                         }
                     } else {
-                        response.writeString("On hotel view");
+                        response.writeString("");
                     }
                 } else {
                     response.writeString(DateUtil.getDateAsString(friend.getLastOnline()));

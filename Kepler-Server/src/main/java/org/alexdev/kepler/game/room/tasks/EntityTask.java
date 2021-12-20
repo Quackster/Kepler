@@ -218,12 +218,12 @@ public class EntityTask implements Runnable {
                 }
 
                 // Set up trigger for leaving a current item
-                if (roomEntity.getLastInteractedItem() != null) {
-                    if (roomEntity.getLastInteractedItem().getDefinition().getInteractionType().getTrigger() != null) {
-                        roomEntity.getLastInteractedItem().getDefinition().getInteractionType().getTrigger().onEntityLeave(entity, roomEntity, roomEntity.getCurrentItem());
+                if (roomEntity.getLastItemInteraction() != null) {
+                    if (roomEntity.getLastItemInteraction().getDefinition().getInteractionType().getTrigger() != null) {
+                        roomEntity.getLastItemInteraction().getDefinition().getInteractionType().getTrigger().onEntityLeave(entity, roomEntity, roomEntity.getCurrentItem());
                     }
 
-                    roomEntity.setLastInteractedItem(null);
+                    roomEntity.setLastItemInteraction(null);
                 }
 
                 roomEntity.removeStatus(StatusType.LAY);
@@ -319,7 +319,7 @@ public class EntityTask implements Runnable {
 
                             if (ThreadLocalRandom.current().nextInt(0, 3) == 0) {
                                 List<Player> playerList = this.room.getEntityManager().getEntitiesByClass(Player.class);
-                                playerList.sort(Comparator.comparingInt(p -> p.getRoomUser().getPosition().getDistance(pet.getRoomUser().getPosition())));
+                                playerList.sort(Comparator.comparingInt(p -> p.getRoomUser().getPosition().getDistanceSquared(pet.getRoomUser().getPosition())));
 
                                 if (playerList.size() > 0) {
                                     pet.getRoomUser().getPosition().setRotation(Rotation.calculateWalkDirection(
@@ -343,7 +343,7 @@ public class EntityTask implements Runnable {
 
                             if (ThreadLocalRandom.current().nextInt(0, 5) == 0) {
                                 List<Player> playerList = this.room.getEntityManager().getEntitiesByClass(Player.class);
-                                playerList.sort(Comparator.comparingInt(p -> p.getRoomUser().getPosition().getDistance(pet.getRoomUser().getPosition())));
+                                playerList.sort(Comparator.comparingInt(p -> p.getRoomUser().getPosition().getDistanceSquared(pet.getRoomUser().getPosition())));
 
                                 if (playerList.size() > 0) {
                                     pet.getRoomUser().getPosition().setRotation(Rotation.calculateWalkDirection(
@@ -363,7 +363,7 @@ public class EntityTask implements Runnable {
                 if (ThreadLocalRandom.current().nextInt(0, 8) == 0) {
                     if (!pet.getRoomUser().isWalking()) {
                         List<Player> playerList = this.room.getEntityManager().getEntitiesByClass(Player.class);
-                        playerList.sort(Comparator.comparingInt(p -> p.getRoomUser().getPosition().getDistance(pet.getRoomUser().getPosition())));
+                        playerList.sort(Comparator.comparingInt(p -> p.getRoomUser().getPosition().getDistanceSquared(pet.getRoomUser().getPosition())));
 
                         if (playerList.size() > 0) {
                             pet.getRoomUser().getPosition().setHeadRotation(Rotation.getHeadRotation(

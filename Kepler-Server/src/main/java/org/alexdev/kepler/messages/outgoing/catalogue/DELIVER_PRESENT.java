@@ -1,33 +1,31 @@
 package org.alexdev.kepler.messages.outgoing.catalogue;
 
-import org.alexdev.kepler.game.item.Item;
-import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 
 public class DELIVER_PRESENT extends MessageComposer {
-    private final Item present;
+    private String sprite;
+    private String customData;
+    private String colour;
 
-    public DELIVER_PRESENT(Item present) {
-        this.present = present;
+    public DELIVER_PRESENT(String sprite, String getCustomData, String colour) {
+        this.sprite = sprite;
+        this.customData = getCustomData;
+        this.colour = colour;
     }
+
 
     @Override
     public void compose(NettyResponse response) {
-        response.writeDelimeter(this.present.getDefinition().getSprite(), (char) 13);
-        response.writeDelimeter(this.present.getDefinition().getSprite() + " " + this.present.getCustomData(), (char) 13);
-        response.write(this.present.getDefinition().getColour());
-        /*response.write(this.present.getDefinition().getSprite());
+        response.writeDelimeter(this.sprite, (char) 13);
 
-        if (this.present.getDefinition().hasBehaviour(ItemBehaviour.WALL_ITEM)) {
-            response.write(" ");
-            response.writeString(this.present.getDefinition().getColour());
+        if (this.sprite.equalsIgnoreCase("poster")) {
+            response.writeDelimeter(this.sprite + " " + this.customData, (char) 13);
         } else {
-            response.write((char)13);
-            response.writeDelimeter(this.present.getDefinition().getLength(), (char)30);
-            response.writeDelimeter(this.present.getDefinition().getWidth(), (char)30);
-            response.write(this.present.getDefinition().getColour());
-        }*/
+            response.writeDelimeter(this.sprite, (char) 13);
+        }
+
+        response.write(this.colour);
     }
 
     @Override

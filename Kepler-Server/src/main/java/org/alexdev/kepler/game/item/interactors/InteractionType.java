@@ -25,6 +25,9 @@ public enum InteractionType {
     TOTEM_HEAD(new DefaultInteractor()),
     TOTEM_PLANET(new DefaultInteractor()),
 
+    POOL_ENTER(new PoolLadderInteractor()),
+    POOL_EXIT(new PoolLadderInteractor()),
+
     POOL_BOOTH(new PoolBoothInteractor()),
     POOL_LIFT(new PoolLiftInteractor()),
     POOL_QUEUE(new PoolQueueInteractor()),

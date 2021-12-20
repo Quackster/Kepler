@@ -15,6 +15,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class CallForHelpManager {
     private static CallForHelpManager instance;
@@ -127,7 +129,7 @@ public class CallForHelpManager {
      * @param cfh the cfh to delete
      */
     public void deleteCall(CallForHelp cfh) {
-        cfh.setExpireTime(DateUtil.getCurrentTimeSeconds() + TimeUnit.MINUTES.toSeconds(30));
+        cfh.setDeleted(true);
         sendToModerators(new DELETE_CRY(cfh.getCryId()));
     }
 
@@ -135,7 +137,14 @@ public class CallForHelpManager {
      * Purges expired cfhs, server remembers them for atleast 30 minutes
      */
     public void purgeExpiredCfh() {
-        this.callsForHelp.values().removeIf(cfh -> !cfh.isOpen() && DateUtil.getCurrentTimeSeconds() > cfh.getExpireTime());
+        Predicate<CallForHelp> filter = cfh -> !cfh.isOpen() || DateUtil.getCurrentTimeSeconds() > cfh.getExpireTime();
+
+        this.callsForHelp.values().stream().filter(filter).collect(Collectors.toList()).forEach(x -> {
+            sendToModerators(new DELETE_CRY(x.getCryId()));
+        });
+
+        this.callsForHelp.values().removeIf(filter);
+
     }
 
     /**
@@ -150,6 +159,5 @@ public class CallForHelpManager {
 
         return instance;
     }
-
 
 }

@@ -32,6 +32,7 @@ public class USER_OBJECT extends PlayerMessageComposer {
             response.writeInt(this.details.getTickets());
             response.writeString(this.details.getPoolFigure());
             response.writeInt(this.details.getFilm());
+            response.writeInt(this.details.isReceiveNews() ? 1 : 0);
         }
         //response.writeInt(this.details.getDirectMail()); TODO: figure out what directmail is used for in handleUserObj in hh_entry
     }
