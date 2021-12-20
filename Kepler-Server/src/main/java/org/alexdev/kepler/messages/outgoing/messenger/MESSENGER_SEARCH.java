@@ -34,7 +34,7 @@ public class MESSENGER_SEARCH extends PlayerMessageComposer {
             response.writeString("MESSENGER");
 
             if (this.details != null) {
-                new MessengerUser(this.details).serialise(getPlayer(), response);
+                new MessengerUser(this.details, true).serialise(getPlayer(), response);
             } else {
                 response.writeInt(0);
             }
