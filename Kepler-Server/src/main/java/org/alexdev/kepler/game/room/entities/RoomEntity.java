@@ -12,7 +12,6 @@ import org.alexdev.kepler.game.moderation.ChatManager;
 import org.alexdev.kepler.game.pathfinder.Pathfinder;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.pathfinder.Rotation;
-import org.alexdev.kepler.game.pathfinder.game.AStar;
 import org.alexdev.kepler.game.pets.PetManager;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
@@ -169,51 +168,6 @@ public abstract class RoomEntity {
         //var pathList = aStar.calculateAStarNoTerrain(this.entity, this.position, this.goal);
 
         LinkedList<Position> pathList = Pathfinder.makePath(this.entity, this.position.copy(), this.goal.copy());
-
-        if (pathList == null) {
-            return false;
-        }
-
-        if (pathList.size() > 0) {
-            this.path = pathList;
-            this.isWalking = true;
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Make a user walk to specific coordinates. The goal must be valid and reachable.
-     *
-     * @param X the X coordinates
-     * @param Y the Y coordinate
-     */
-    public boolean bounceTo(int X, int Y) {
-        if (this.room == null) {
-            return false;
-        }
-
-        if (this.nextPosition != null) {
-            this.position.setX(this.nextPosition.getX());
-            this.position.setY(this.nextPosition.getY());
-            this.updateNewHeight(this.position);
-        }
-
-        RoomTile tile = this.room.getMapping().getTile(X, Y);
-
-        if (tile == null) {
-            return false;
-        }
-
-        this.goal = new Position(X, Y);
-
-        if (!RoomTile.isValidTile(this.room, this.entity, this.goal)) {
-            return false;
-        }
-
-        AStar aStar = new AStar(this.room.getModel());
-        var pathList = aStar.calculateAStarNoTerrain(this.entity, this.position, this.goal);
 
         if (pathList == null) {
             return false;

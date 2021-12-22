@@ -42,7 +42,7 @@ public class GAMEEVENT implements MessageEvent {
                 int X = reader.readInt();
                 int Y = reader.readInt();
 
-                player.getRoomUser().bounceTo(X, Y);
+                player.getRoomUser().walkTo(X, Y);
             }
 
             // Use power up request
