@@ -1,24 +1,35 @@
-name: Docker Image CI
+name: ci
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    branches:
+      - 'main'
 
 jobs:
-
-  build:
-
+  docker:
     runs-on: ubuntu-latest
-
-    steps:      
-    - name: Build and publish Docker Image to new GitHub Packages Registry
-      # You may pin to the exact commit or the version.
-      # uses: DrSkunk/gp-docker-action@96d519ce38c92b59319041ad2a8f80f0e3974d82
-      uses: DrSkunk/gp-docker-action@1.1.9
-      with:
-        # GitHub token to push Docker image to GitHub Packages
-        github-token: ${{ secrets.GH_TOKEN }}
-        # Docker Image name
-        image-name: kepler
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Login to GitHub Container Registry
+        uses: docker/login-action@v1 
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GH_TOKEN }}
+      -
+        name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ghcr.io/webbanditten/kepler:latest
