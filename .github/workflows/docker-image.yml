@@ -22,5 +22,3 @@ jobs:
         github-token: ${{ secrets.GH_TOKEN }}
         # Docker Image name
         image-name: kepler
-        # Docker Image tag
-        image-tag: $(date +%s)
