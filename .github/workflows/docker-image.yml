@@ -12,10 +12,7 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v2
-    - name: Pull
-      
+    steps:      
     - name: Build and publish Docker Image to new GitHub Packages Registry
       # You may pin to the exact commit or the version.
       # uses: DrSkunk/gp-docker-action@96d519ce38c92b59319041ad2a8f80f0e3974d82
