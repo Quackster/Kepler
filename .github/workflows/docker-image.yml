@@ -32,4 +32,4 @@ jobs:
           context: .
           platforms: linux/amd64
           push: true
-          tags: ghcr.io/Webbanditten/Kepler:latest
+          tags: ghcr.io/webbanditten/kepler:latest
