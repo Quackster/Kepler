@@ -16,5 +16,7 @@ jobs:
               key: ${{ secrets.KEY }}
               passphrase: ${{ secrets.KEY_PASS }}
               script: |
-                whoami
-                ls -al
+                docker login ghcr.io --username webbanditten --password ${{ secrets.GH_TOKEN }}
+                cd docker/kepler
+                docker pull ghcr.io/webbanditten/kepler:latest
+                docker-compose up -d
