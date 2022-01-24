@@ -1,0 +1,20 @@
+name: deploy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  download-and-deploy-docker: 
+      runs-on: ubuntu-latest
+      steps:
+          - 
+            name: Download the latest
+            uses: appleboy/ssh-action@master
+            with:
+              host: ${{ secrets.HOST }}
+              username: ${{ secrets.USERNAME }}
+              key: ${{ secrets.KEY }}
+              passphrase: ${{ secrets.KEY_PASS }}
+              script: |
+                whoami
+                ls -al
