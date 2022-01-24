@@ -1,10 +1,10 @@
-name: ci
+name: deploy
 
 on:
   workflow_dispatch:
 
 jobs:
-  docker:
+  docker-build-publish:
     runs-on: ubuntu-latest
     steps:
       -
@@ -31,15 +31,18 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: ghcr.io/webbanditten/kepler:latest
-          
-      - 
-        name: Download the latest
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.KEY }}
-          passphrase: ${{ secrets.KEY_PASS }}
-          script: |
-            whoami
-            ls -al
+  
+  download-and-run: 
+      runs-on: ubuntu-latest
+      steps:
+          - 
+            name: Download the latest
+            uses: appleboy/ssh-action@master
+            with:
+              host: ${{ secrets.HOST }}
+              username: ${{ secrets.USERNAME }}
+              key: ${{ secrets.KEY }}
+              passphrase: ${{ secrets.KEY_PASS }}
+              script: |
+                whoami
+                ls -al
