@@ -1,11 +1,13 @@
 package org.alexdev.kepler.game.moderation.actions;
 
 import org.alexdev.kepler.dao.mysql.BanDao;
+import org.alexdev.kepler.dao.mysql.ModerationDao;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.ban.BanType;
 import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.moderation.ModerationAction;
+import org.alexdev.kepler.game.moderation.ModerationActionType;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.player.PlayerManager;
@@ -49,12 +51,14 @@ public class ModeratorBanUserAction implements ModerationAction {
             return;
         }
 
-        long banTime = DateUtil.getCurrentTimeSeconds() + TimeUnit.HOURS.toSeconds(banHours);
-        BanDao.addBan(BanType.USER_ID, String.valueOf(playerDetails.getId()), banTime, alertMessage);
+        ModerationDao.addLog(ModerationActionType.BAN_USER, player.getDetails().getId(), playerDetails.getId(), alertMessage, notes);
 
+        long banTime = DateUtil.getCurrentTimeSeconds() + TimeUnit.HOURS.toSeconds(banHours);
 
         if (banIp) {
-            BanDao.addBan(BanType.IP_ADDRESS, PlayerDao.getLatestIp(playerDetails.getId()), banTime, alertMessage);
+            BanDao.addBan(BanType.IP_ADDRESS, PlayerDao.getLatestIp(playerDetails.getId()), banTime, alertMessage, playerDetails.getId());
+        } else {
+            BanDao.addBan(BanType.USER_ID, String.valueOf(playerDetails.getId()), banTime, alertMessage, playerDetails.getId());
         }
 
         Player target = PlayerManager.getInstance().getPlayerById(playerDetails.getId());

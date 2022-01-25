@@ -48,17 +48,18 @@ public class BanDao {
         return banned;
     }
 
-    public static void addBan(BanType banType, String value, long bannedUntil, String message) {
+    public static void addBan(BanType banType, String value, long bannedUntil, String message, int userId) {
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
 
         try {
             sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("INSERT INTO users_bans (banned_value, ban_type, banned_until, message) VALUES (?, ?, ?, ?)", sqlConnection);
+            preparedStatement = Storage.getStorage().prepare("INSERT INTO users_bans (banned_value, ban_type, banned_until, message, user_id) VALUES (?, ?, ?, ?)", sqlConnection);
             preparedStatement.setString(1, value);
             preparedStatement.setString(2, banType.name());
             preparedStatement.setLong(3, bannedUntil);
             preparedStatement.setString(4, message);
+            preparedStatement.setInt(5, userId);
             preparedStatement.executeQuery();
         } catch (Exception e) {
             Storage.logError(e);
