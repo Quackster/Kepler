@@ -114,4 +114,35 @@ public class PetDao {
 
         return petDetails;
     }
+
+    public static PetDetails getPetDetailsById(int itemId) {
+        PetDetails petDetails = null;
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet row = null;
+
+        try {
+            connection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("SELECT * FROM items_pets WHERE id = ?", connection);
+            preparedStatement.setLong(1, itemId);
+            row = preparedStatement.executeQuery();
+
+            while (row.next()) {
+                petDetails = new PetDetails(row.getInt("id"), row.getInt("item_id"), row.getString("name"),
+                        row.getString("type"), row.getString("race"), row.getString("colour"), row.getInt("nature_positive"),
+                        row.getInt("nature_negative"), row.getFloat("friendship"), row.getLong("born"), row.getLong("last_kip"),
+                        row.getLong("last_eat"), row.getLong("last_drink"), row.getLong("last_playtoy"), row.getLong("last_playuser"),
+                        row.getInt("x"), row.getInt("y"), row.getInt("rotation"));
+            }
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(row);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(connection);
+        }
+
+        return petDetails;
+    }
 }

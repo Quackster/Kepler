@@ -2,11 +2,10 @@ package org.alexdev.kepler.messages.incoming.catalogue;
 
 import org.alexdev.kepler.dao.mysql.CurrencyDao;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
+import org.alexdev.kepler.dao.mysql.PurseDao;
 import org.alexdev.kepler.game.catalogue.CatalogueItem;
 import org.alexdev.kepler.game.catalogue.CatalogueManager;
 import org.alexdev.kepler.game.catalogue.CataloguePage;
-import org.alexdev.kepler.game.catalogue.RareManager;
-import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.ItemManager;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
@@ -43,21 +42,10 @@ public class GRPC implements MessageEvent {
 
         int price = item.getPrice();
 
-        // If the item is not a buyable special rare, then check if they can actually buy it
-        if (RareManager.getInstance().getCurrentRare() != null && item != RareManager.getInstance().getCurrentRare()) {
-            Optional<CataloguePage> pageStream = CatalogueManager.getInstance().getCataloguePages().stream().filter(p -> item.hasPage(p.getId())).findFirst();
+        Optional<CataloguePage> pageStream = CatalogueManager.getInstance().getCataloguePages().stream().filter(p -> item.hasPage(p.getId())).findFirst();
 
-            if (!pageStream.isPresent() || pageStream.get().getMinRole().getRankId() > player.getDetails().getRank().getRankId()) {
-                return;
-            }
-        }
-
-        var currentRare = RareManager.getInstance().getCurrentRare();
-
-        if (currentRare != null && currentRare == item) {
-            if (!player.hasFuse(Fuseright.CREDITS)) {
-                price = RareManager.getInstance().getRareCost().get(currentRare);
-            }
+        if (!pageStream.isPresent() || pageStream.get().getMinRole().getRankId() > player.getDetails().getRank().getRankId()) {
+            return;
         }
 
         if (price > player.getDetails().getCredits()) {
@@ -142,6 +130,7 @@ public class GRPC implements MessageEvent {
         }
 
         CurrencyDao.decreaseCredits(player.getDetails(), price);
+        PurseDao.logCreditSpend("stuff_store", player.getDetails(), -price);
         player.send(new CREDIT_BALANCE(player.getDetails()));
     }
 }

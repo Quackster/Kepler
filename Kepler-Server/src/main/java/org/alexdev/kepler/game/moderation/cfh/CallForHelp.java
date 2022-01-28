@@ -60,7 +60,7 @@ public class CallForHelp {
     }
 
     public String getFormattedRequestTime() {
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm d/MM/YYYY");
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm dd/MM/YYYY");
         Date resultDate = new Date(this.requestTime);
         return sdf.format(resultDate);
     }

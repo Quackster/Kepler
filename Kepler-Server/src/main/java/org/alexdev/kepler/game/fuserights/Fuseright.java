@@ -41,6 +41,8 @@ public enum Fuseright {
     PICK_UP_ANY_FURNI("fuse_pick_up_any_furni", PlayerRank.ADMINISTRATOR),
     SEE_FLAT_IDS("fuse_see_flat_ids", PlayerRank.ADMINISTRATOR),
     CREDITS("fuse_credits", PlayerRank.ADMINISTRATOR),
+    PERFORMANCE("fuse_performance_panel", PlayerRank.ADMINISTRATOR),
+    DEBUG("fuse_debug_window", PlayerRank.ADMINISTRATOR),
 
     // Club fuses, these fuses do not apply to any rank
     PRIORITY_ACCESS("fuse_priority_access", true),
@@ -53,6 +55,7 @@ public enum Fuseright {
     FURNI_LIST_COMMAND("fuse_furni_chooser", true),
     EXTENDED_BUDDYLIST("fuse_extended_buddylist", true),
     ROOM_QUEUE_CLUB("fuse_room_queue_club", true),
+    EDIT_CATALOGUE("fuse_catalog_editor", PlayerRank.ADMINISTRATOR),
 
     // Housekeeping fuses
     HOUSEKEEPING_INTRA("housekeeping_intra", PlayerRank.HOBBA),

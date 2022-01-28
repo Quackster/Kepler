@@ -2,6 +2,7 @@ package org.alexdev.kepler.game.commands.registered;
 
 import org.alexdev.kepler.dao.mysql.CurrencyDao;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
+import org.alexdev.kepler.dao.mysql.PurseDao;
 import org.alexdev.kepler.game.commands.Command;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
@@ -70,6 +71,7 @@ public class GiveCreditsCommand extends Command {
             put(targetDetails, Integer.parseInt(credits));
         }};
 
+        PurseDao.logCreditSpend("gift", player.getDetails(), Integer.parseInt(credits));
         CurrencyDao.increaseCredits(playerDetailsToSave);
 
         targetUser.send(new CREDIT_BALANCE(targetUser.getDetails()));

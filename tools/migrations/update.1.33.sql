@@ -2,8 +2,8 @@ ALTER TABLE `rooms`
 	ADD COLUMN IF NOT EXISTS `is_hidden` TINYINT(1) NOT NULL DEFAULT 0 AFTER `rating`;
 
 ALTER TABLE `users`
-	ADD COLUMN IF NOT EXISTS `recieve_email` TINYINT(1) NOT NULL DEFAULT 0 AFTER `console_motto`,
-	ADD COLUMN IF NOT EXISTS `birthday` VARCHAR(10) NOT NULL AFTER `recieve_email`,
+	ADD COLUMN IF NOT EXISTS `receive_email` TINYINT(1) NOT NULL DEFAULT 0 AFTER `console_motto`,
+	ADD COLUMN IF NOT EXISTS `birthday` VARCHAR(10) NOT NULL AFTER `receive_email`,
 	ADD COLUMN IF NOT EXISTS `email` VARCHAR(256) NOT NULL AFTER `birthday`;
 	
 UPDATE rooms SET is_hidden = 1 WHERE model IN ('rooftop_2','old_skool1','malja_bar_b','bar_b','gate_park_2','park_b','pool_b','hallway0','hallway1','hallway3','hallway5','hallway4','hallway8','hallway7','hallway6','hallway10','hallway11','hallA','hallB','hallC','hallD','beauty_salon1');

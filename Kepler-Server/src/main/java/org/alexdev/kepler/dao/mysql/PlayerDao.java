@@ -6,10 +6,13 @@ import org.alexdev.kepler.Kepler;
 import org.alexdev.kepler.dao.Storage;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerDetails;
+import org.alexdev.kepler.game.tag.Tag;
 import org.alexdev.kepler.util.DateUtil;
 
 import java.nio.charset.StandardCharsets;
 import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PlayerDao {
     /**
@@ -71,6 +74,41 @@ public class PlayerDao {
         return ip;
     }
 
+    /**
+     * Gets the tags for a user by id
+     *
+     * @param userId the user id
+     * @return tags
+     */
+    public static Map<Integer, Tag> getTags(int userId) {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        Map<Integer, Tag> tags = new HashMap<>();
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("SELECT * FROM tags WHERE user_id = ? LIMIT 8", sqlConnection);
+            preparedStatement.setInt(1, userId);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                tags.put(resultSet.getInt("id"), new Tag(
+                        resultSet.getInt("id"), resultSet.getString("tag"), resultSet.getInt("user_id")));
+
+            }
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+
+        return tags;
+    }
 
     /**
      * Gets the details by user id
@@ -336,25 +374,50 @@ public class PlayerDao {
     /**
      * Register user
      */
-    public static void register(String username, String password, String figure, String sex, String email, String birthday){
+    public static void register(String username, String password, String figure, String sex, String email, String birthday, boolean directMail){
         Connection conn = null;
         PreparedStatement stmt = null;
 
         try {
             conn = Storage.getStorage().getConnection();
-            stmt = Storage.getStorage().prepare("INSERT INTO users (username, password, figure, sex, pool_figure, sso_ticket, email, birthday) VALUES (?, ?, ?, ?, '', '', ?, ?)", conn);
+            stmt = Storage.getStorage().prepare("INSERT INTO users (username, password, figure, sex, pool_figure, sso_ticket, email, birthday, receive_email) VALUES (?, ?, ?, ?, '', '', ?, ?, ?)", conn);
             stmt.setString(1, username);
             stmt.setString(2, password);
             stmt.setString(3, figure);
             stmt.setString(4, sex);
             stmt.setString(5, email);
             stmt.setString(6, birthday);
+            stmt.setInt(7, directMail ? 1 : 0);
             stmt.execute();
         } catch (SQLException e) {
             Storage.logError(e);
         } finally {
             Storage.closeSilently(stmt);
             Storage.closeSilently(conn);
+        }
+    }
+    /**
+     * Update Password
+     *
+     * @param details the details of the user
+     */
+    public static void savePassword(PlayerDetails details) {
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("UPDATE users SET password = ? WHERE id = ?", sqlConnection);
+            preparedStatement.setString(1, details.getPassword());
+            preparedStatement.setInt(2, details.getId());
+            preparedStatement.execute();
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
         }
     }
 
@@ -384,6 +447,50 @@ public class PlayerDao {
             Storage.closeSilently(sqlConnection);
         }
     }
+
+    public static void setPlayerOnline(PlayerDetails details) {
+        long currentTime = DateUtil.getCurrentTimeSeconds();
+        details.setLastOnline(currentTime);
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("UPDATE users SET status = 'online' WHERE id = ?", sqlConnection);
+            preparedStatement.setInt(1, details.getId());
+            preparedStatement.execute();
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+
+    public static void setPlayerOffline(PlayerDetails details) {
+        long currentTime = DateUtil.getCurrentTimeSeconds();
+        details.setLastOnline(currentTime);
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("UPDATE users SET status = 'offline' WHERE id = ?", sqlConnection);
+            preparedStatement.setInt(1, details.getId());
+            preparedStatement.execute();
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+
+
 
     /**
      * Update sound setting.
@@ -461,6 +568,54 @@ public class PlayerDao {
     }
 
     /**
+     * Update newsletter subscription.
+     *
+     * @param details the player details to save
+     */
+    public static void saveReceiveNews(PlayerDetails details) {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("UPDATE users SET receive_email = ? WHERE id = ?", sqlConnection);
+            preparedStatement.setInt(1, details.isReceiveNews() ? 1 : 0);
+            preparedStatement.setInt(2, details.getId());
+            preparedStatement.execute();
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+
+    /**
+     * Update email.
+     *
+     * @param details Update the player email
+     */
+    public static void saveEmail(PlayerDetails details) {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("UPDATE users SET email = ? WHERE id = ?", sqlConnection);
+            preparedStatement.setString(1, details.getEmail());
+            preparedStatement.setInt(2, details.getId());
+            preparedStatement.execute();
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+
+    /**
      * Update details.
      *
      * @param details the player details to save
@@ -508,6 +663,7 @@ public class PlayerDao {
                 row.getBoolean("badge_active"), row.getBoolean("allow_stalking"),
                 row.getBoolean("allow_friend_requests"), row.getBoolean("sound_enabled"),
                 row.getBoolean("tutorial_finished"), row.getInt("battleball_points"),
-                row.getInt("snowstorm_points"));
+                row.getInt("snowstorm_points"),
+                row.getInt("group_id"), row.getString("email"),row.getString("birthday"), row.getBoolean("receive_email"));
     }
 }

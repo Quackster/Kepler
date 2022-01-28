@@ -164,6 +164,9 @@ public class Item {
      * @return the total height
      */
     public double getTotalHeight() {
+        if(this.hasBehaviour(ItemBehaviour.ELEVATION))
+            return this.position.getZ() + this.getElevation();
+
         return this.position.getZ() + this.getDefinition().getTopHeight();
     }
 
@@ -359,7 +362,7 @@ public class Item {
                 return false; // Don't allow rotating items when they're rolling
             }
 
-            if (item.getDefinition().getWidth() <= 1 && item.getDefinition().getWidth() <= 1) {
+            if (item.getDefinition().getLength() <= 1 && item.getDefinition().getWidth() <= 1) {
                 return true;
             }
         }
@@ -390,6 +393,12 @@ public class Item {
             if (highestItem != null && highestItem.getId() != item.getId()) {
                 if (!this.canPlaceOnTop(item, highestItem)) {
                     return false;
+                } else {
+                    if(highestItem.getPosition().getZ() == item.getPosition().getZ() && isRotation) {
+                        if(highestItem.getDefinition().hasBehaviour(ItemBehaviour.SOLID)) {
+                           return false;
+                        }
+                    }
                 }
             }
 
@@ -497,6 +506,26 @@ public class Item {
     public void setDefinitionId(int definitionId) {
         this.definition = null;
         this.definitionId = definitionId;
+    }
+
+    public double getElevation() {
+        try {
+            switch(Integer.parseInt(this.customData)) {
+                case 2:
+                    return 0.5;
+                case 3:
+                    return 1;
+                case 4:
+                    return 1.5;
+                case 5:
+                    return 2;
+                default:
+                    return 0;
+            }
+        } catch(Exception e) {
+            return 0;
+        }
+
     }
 
     public int getId() {

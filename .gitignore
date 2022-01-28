@@ -20,8 +20,6 @@ run.bat
 /tools/db/schema.sql
 log4j.properties
 
-Kepler-Server-all.jar
-
 server.log
 error.log
 .env

@@ -37,7 +37,7 @@ public class MESSENGER_SENDMSG implements MessageEvent {
 
                 if (friend != null) {
                     MessengerMessage message = new MessengerMessage(
-                            messageId, userId, player.getDetails().getId(), DateUtil.getCurrentTimeSeconds(), chatMessage);
+                            messageId, userId, player.getDetails().getId(), DateUtil.getCurrentTimeSeconds(), chatMessage, null, null);
 
                     friend.send(new MESSENGER_MSG(message));
                 }
@@ -63,7 +63,7 @@ public class MESSENGER_SENDMSG implements MessageEvent {
             int messageId = MessengerDao.newMessage(player.getDetails().getId(), userId, message);
 
             MessengerMessage msg = new MessengerMessage(
-                    messageId, userId, player.getDetails().getId(), DateUtil.getCurrentTimeSeconds(), message);
+                    messageId, userId, player.getDetails().getId(), DateUtil.getCurrentTimeSeconds(), message, null,null);
 
             friendPlayer.send(new MESSENGER_MSG(msg));
         }

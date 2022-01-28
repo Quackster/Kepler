@@ -6,6 +6,7 @@ import org.alexdev.kepler.game.games.history.GameHistory;
 import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.games.player.GameTeam;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -29,6 +30,12 @@ public class GameFinishTask implements Runnable {
         sortedTeamList.sort(Comparator.comparingInt(GameTeam::getScore).reversed());
 
         for (GamePlayer gamePlayer : this.players) {
+            // Add score to the high score history
+            try {
+                GameDao.addHighscore(gamePlayer.getPlayer().getDetails(), this.gameType, gamePlayer.getScore());
+            } catch (SQLException throwables) {
+                System.out.println("Failed to add " + gamePlayer.getScore() + " points to " + gamePlayer.getPlayer().getDetails().getName());
+            }
             GameDao.increasePoints(gamePlayer.getPlayer().getDetails(), this.gameType, gamePlayer.getScore());
         }
     }

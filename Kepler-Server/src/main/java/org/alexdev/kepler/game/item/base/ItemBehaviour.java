@@ -16,6 +16,7 @@ public enum ItemBehaviour {
     CUSTOM_DATA_NUMERIC_STATE,
     TELEPORTER,
     REQUIRES_RIGHTS_FOR_INTERACTION,
+    SET_RANDOM_STATE,
     GATE,
     PRIZE_TROPHY,
     ROLLER,
@@ -46,6 +47,6 @@ public enum ItemBehaviour {
     PET_CAT_FOOD,
     PET_DOG_FOOD,
     PET_CROC_FOOD,
-
+    PET_TOY,
     PRIVATE_FURNITURE;
 }

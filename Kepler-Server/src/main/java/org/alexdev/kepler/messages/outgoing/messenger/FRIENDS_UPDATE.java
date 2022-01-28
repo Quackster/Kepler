@@ -53,18 +53,18 @@ public class FRIENDS_UPDATE extends PlayerMessageComposer {
 
                 boolean isOnline = (player != null);
                 response.writeBool(isOnline);
-
+                
                 if (isOnline) {
                     if (player.getRoomUser().getRoom() != null) {
                         Room room = player.getRoomUser().getRoom();
 
                         if (room.getData().getOwnerId() > 0) {
-                            response.writeString("Floor1a");
+                            response.writeString(room.getData().getName());
                         } else {
                             response.writeString(room.getData().getPublicName());
                         }
                     } else {
-                        response.writeString("On hotel view");
+                        response.writeString("");
                     }
                 } else {
                     response.writeString(DateUtil.getDateAsString(friend.getLastOnline()));

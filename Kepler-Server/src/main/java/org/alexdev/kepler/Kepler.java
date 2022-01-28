@@ -8,7 +8,6 @@ import org.alexdev.kepler.dao.mysql.SettingsDao;
 import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.bot.BotManager;
 import org.alexdev.kepler.game.catalogue.CatalogueManager;
-import org.alexdev.kepler.game.catalogue.RareManager;
 import org.alexdev.kepler.game.commands.CommandManager;
 import org.alexdev.kepler.game.events.EventsManager;
 import org.alexdev.kepler.game.fuserights.FuserightsManager;
@@ -27,7 +26,6 @@ import org.alexdev.kepler.game.texts.TextsManager;
 import org.alexdev.kepler.messages.MessageHandler;
 import org.alexdev.kepler.server.mus.MusServer;
 import org.alexdev.kepler.server.netty.NettyServer;
-import org.alexdev.kepler.server.rcon.RconServer;
 import org.alexdev.kepler.util.DateUtil;
 import org.alexdev.kepler.util.config.GameConfiguration;
 import org.alexdev.kepler.util.config.LoggingConfiguration;
@@ -57,7 +55,6 @@ public class Kepler {
 
     private static NettyServer server;
     private static MusServer musServer;
-    private static RconServer rconServer;
     private static Logger log;
 
     private static LazySodiumJava LIB_SODIUM;
@@ -86,7 +83,8 @@ public class Kepler {
                     "          |_|                ");
 
             log.info("Kepler - Habbo Hotel Emulation (max version supported: v26)");
-
+            String currentDirectory = System.getProperty("user.dir");
+            log.info("The current working directory is " + currentDirectory);
             if (!Storage.connect()) {
                 return;
             }
@@ -98,7 +96,6 @@ public class Kepler {
             WalkwaysManager.getInstance();
             ItemManager.getInstance();
             CatalogueManager.getInstance();
-            RareManager.getInstance();
             RoomModelManager.getInstance();
             RoomManager.getInstance();
             PlayerManager.getInstance();
@@ -127,42 +124,7 @@ public class Kepler {
             }
 
             setupMus();
-            setupRcon();
             setupServer();
-
-            /*Connection sqlConnection = null;
-            PreparedStatement preparedStatement = null;
-            ResultSet resultSet = null;
-
-            try {
-                sqlConnection = Storage.getStorage().getConnection();
-                preparedStatement = Storage.getStorage().prepare("SELECT * FROM items_definitions WHERE sprite LIKE '%arabian%'", sqlConnection);
-                resultSet = preparedStatement.executeQuery();
-
-                while (resultSet.next()) {
-                    if (resultSet.getString("behaviour").contains("wall_item")) {
-                        System.out.print("wallitem_");
-                    } else {
-                        System.out.println("furni");
-                    }
-
-                    System.out.println("_" + resultSet.getString("sprite") + "_name=" + resultSet.getString("name"));
-
-                    if (resultSet.getString("behaviour").contains("wall_item")) {
-                        System.out.print("wallitem");
-                    } else {
-                        System.out.println("furni");
-                    }
-
-                    System.out.println("_" + resultSet.getString("sprite") + "_desc=" + resultSet.getString("description"));
-                }
-            } catch (Exception e) {
-                Storage.logError(e);
-            } finally {
-                Storage.closeSilently(resultSet);
-                Storage.closeSilently(preparedStatement);
-                Storage.closeSilently(sqlConnection);
-            }*/
 
             Runtime.getRuntime().addShutdownHook(new Thread(Kepler::dispose));
         } catch (Exception e) {
@@ -188,27 +150,6 @@ public class Kepler {
         server = new NettyServer(serverIP, serverPort);
         server.createSocket();
         server.bind();
-    }
-
-    private static void setupRcon() {
-        // Create the RCON instance
-        rconIP = ServerConfiguration.getString("rcon.bind");
-
-        if (rconIP.length() == 0) {
-            log.error("Remote control (RCON) server bind address is not provided");
-            return;
-        }
-
-        rconPort = ServerConfiguration.getInteger("rcon.port");
-
-        if (rconPort == 0) {
-            log.error("Remote control (RCON) server port not provided");
-            return;
-        }
-
-        rconServer = new RconServer(rconIP, rconPort);
-        rconServer.createSocket();
-        rconServer.bind();
     }
 
     private static void setupMus() {

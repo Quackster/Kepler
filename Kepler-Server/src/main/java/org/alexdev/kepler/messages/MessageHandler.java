@@ -33,6 +33,8 @@ import org.alexdev.kepler.messages.incoming.recycler.GET_FURNI_RECYCLER_STATUS;
 import org.alexdev.kepler.messages.incoming.register.*;
 import org.alexdev.kepler.messages.incoming.rooms.*;
 import org.alexdev.kepler.messages.incoming.rooms.badges.GETAVAILABLEBADGES;
+import org.alexdev.kepler.messages.incoming.rooms.badges.GET_GROUP_BADGES;
+import org.alexdev.kepler.messages.incoming.rooms.badges.GET_GROUP_DETAILS;
 import org.alexdev.kepler.messages.incoming.rooms.badges.SETBADGE;
 import org.alexdev.kepler.messages.incoming.rooms.dimmer.MSG_ROOMDIMMER_CHANGE_STATE;
 import org.alexdev.kepler.messages.incoming.rooms.dimmer.MSG_ROOMDIMMER_GET_PRESETS;
@@ -121,6 +123,7 @@ public class MessageHandler {
         registerEvent(202, new GENERATEKEY());
         registerEvent(204, new SSO());
         registerEvent(4, new TRY_LOGIN());
+        registerEvent(756, new TRY_LOGIN());
     }
 
     /**
@@ -153,11 +156,13 @@ public class MessageHandler {
         registerEvent(196, new PONG());
         registerEvent(44, new UPDATE());
         // (Unknown): 149 / BU@M@Flol123@H@J01.01.1991@C@Iqwerty123
+        registerEvent(149, new UPDATE_ACCOUNT());
         registerEvent(360, new GET_IGNORE_LIST());
         registerEvent(319, new IGNORE_USER());
         registerEvent(322, new UNIGNORE_USER());
         registerEvent(228, new GET_SOUND_SETTING());
         registerEvent(9, new GETAVAILABLESETS());
+        registerEvent(263, new GET_USER_TAGS());
         //registerEvent(315, new TEST_LATENCY());
     }
 
@@ -215,6 +220,8 @@ public class MessageHandler {
         registerEvent(98, new LETUSERIN());
         registerEvent(261, new RATEFLAT());
         registerEvent(114, new PTM());
+        registerEvent(230, new GET_GROUP_BADGES());
+        registerEvent(231, new GET_GROUP_DETAILS());
     }
 
     /**
@@ -265,6 +272,7 @@ public class MessageHandler {
      * Register room item packets.
      */
     private void registerRoomItemPackets() {
+        registerEvent(128, new GETPETSTAT());
         registerEvent(90, new PLACESTUFF());
         registerEvent(73, new MOVESTUFF());
         registerEvent(67, new ADDSTRIPITEM());
@@ -378,6 +386,7 @@ public class MessageHandler {
         registerEvent(36, new MESSENGER_ASSIGNPERSMSG());
         registerEvent(40, new MESSENGER_REMOVEBUDDY());
         registerEvent(33, new MESSENGER_SENDMSG());
+        registerEvent(31, new MESSENGER_MARKREAD());
         registerEvent(32, new MESSENGER_MARKREAD());
         registerEvent(262, new FOLLOW_FRIEND());
         registerEvent(15, new FRIENDLIST_UPDATE());

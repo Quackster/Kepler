@@ -1,7 +1,9 @@
 package org.alexdev.kepler.game;
 
 import org.alexdev.kepler.dao.mysql.CurrencyDao;
+import org.alexdev.kepler.dao.mysql.PurseDao;
 import org.alexdev.kepler.game.catalogue.RareManager;
+import org.alexdev.kepler.game.commandqueue.CommandQueueManager;
 import org.alexdev.kepler.game.events.EventsManager;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.ItemManager;
@@ -99,6 +101,7 @@ public class GameScheduler implements Runnable {
                     CurrencyDao.increaseCredits(playerDetailsToSave);
 
                     for (Player p : playersToHandout) {
+                        PurseDao.logCreditSpend("gift", p.getDetails(), amount);
                         p.send(new CREDIT_BALANCE(p.getDetails()));
                     }
                 }
@@ -116,7 +119,12 @@ public class GameScheduler implements Runnable {
                 }
             }
 
-            // Item deletion queue ticker every 1 second
+            // Execute Command Queue every 3 second
+            if (this.tickRate.get() % 3 == 0) {
+                CommandQueueManager.getInstance().executeCommands();
+            }
+
+            // Item deletion queue ticker every 5 second
             if (this.tickRate.get() % 5 == 0) {
                 if (this.itemSavingQueue != null) {
                     this.performItemDeletion();
@@ -133,7 +141,6 @@ public class GameScheduler implements Runnable {
                 ChatManager.getInstance().performChatSaving();
             }
 
-            RareManager.getInstance().performRareManagerJob(this.tickRate);
         } catch (Exception ex) {
             Log.getErrorLogger().error("GameScheduler crashed: ", ex);
         }

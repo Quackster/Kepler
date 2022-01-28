@@ -6625,7 +6625,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `film` int(11) NOT NULL DEFAULT 0,
   `rank` tinyint(1) unsigned NOT NULL DEFAULT 1,
   `console_motto` varchar(100) NOT NULL DEFAULT 'I''m a new user!',
-  `recieve_email` tinyint(1) NOT NULL DEFAULT 0,
+  `receive_email` tinyint(1) NOT NULL DEFAULT 0,
   `birthday` varchar(50) NOT NULL DEFAULT '01.01.1970',
   `email` varchar(256) NOT NULL,
   `last_online` int(11) NOT NULL DEFAULT 0,

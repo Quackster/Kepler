@@ -8,6 +8,10 @@ import org.alexdev.kepler.server.netty.streams.NettyRequest;
 public class GETROOMAD implements MessageEvent {
     @Override
     public void handle(Player player, NettyRequest reader) {
-        player.send(new ROOM_AD());
+        if(player.getRoomUser().getRoom().getId() == 1) {
+            player.send(new ROOM_AD("http://dcr.webbanditten.dk/shared/ads/test", "http://google.com/"));
+        } else {
+            player.send(new ROOM_AD());
+        }
     }
 }

@@ -3,6 +3,7 @@ package org.alexdev.kepler.game.club;
 import org.alexdev.kepler.dao.mysql.ClubGiftDao;
 import org.alexdev.kepler.dao.mysql.CurrencyDao;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
+import org.alexdev.kepler.dao.mysql.PurseDao;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.ItemManager;
 import org.alexdev.kepler.game.player.Player;
@@ -17,28 +18,16 @@ import java.util.concurrent.TimeUnit;
 
 public class ClubSubscription {
     private static String[] giftOrder = new String[]{
-            "hc_tv",
-            "hcamme",
-            "hc_crtn",
+            "hcplastos",
             "mocchamaster",
-            "hc_crpt",
             "edicehc",
-            "hc_wall_lamp",
+            "hcamme",
             "doorD",
-            "deal_hcrollers",
             "hcsohva",
-            "hc_bkshlf",
             "hc_lmp",
-            "hc_trll",
             "hc_tbl",
-            "hc_machine",
             "hc_chr",
-            "hc_rntgn",
-            "hc_dsk",
-            "hc_djset",
-            "hc_lmpst",
-            "hc_frplc",
-            "hc_btlr"
+            "hc_dsk"
     };
 
     /**
@@ -117,6 +106,7 @@ public class ClubSubscription {
         PlayerDao.saveSubscription(player.getDetails());
 
         if (credits > 0) {
+            PurseDao.logCreditSpend("club_habbo", player.getDetails(), -credits);
             CurrencyDao.decreaseCredits(player.getDetails(), credits);
             player.send(new CREDIT_BALANCE(player.getDetails()));
         }

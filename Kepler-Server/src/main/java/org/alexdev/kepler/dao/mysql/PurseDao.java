@@ -2,7 +2,10 @@ package org.alexdev.kepler.dao.mysql;
 
 import org.alexdev.kepler.dao.Storage;
 import org.alexdev.kepler.game.catalogue.CatalogueItem;
+import org.alexdev.kepler.game.player.PlayerDetails;
+import org.alexdev.kepler.game.purse.CreditLog;
 import org.alexdev.kepler.game.purse.Voucher;
+import org.alexdev.kepler.util.DateUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,6 +14,7 @@ import java.sql.Types;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class PurseDao {
 
@@ -132,5 +136,55 @@ public class PurseDao {
             Storage.closeSilently(preparedStatement);
             Storage.closeSilently(sqlConnection);
         }
+    }
+
+    public static void logCreditSpend(String type, PlayerDetails player, int credits) {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("INSERT INTO credit_log (user_id, timestamp, type, credits) VALUES (?, ?, ?, ?)", sqlConnection);
+
+            preparedStatement.setInt(1, player.getId());
+            preparedStatement.setLong(2, DateUtil.getCurrentTimeSeconds());
+            preparedStatement.setString(3, type);
+            preparedStatement.setInt(4, credits);
+            preparedStatement.execute();
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+
+    public static List<CreditLog> getCreditLog(int userId) {
+        List<CreditLog> creditLogs = new CopyOnWriteArrayList<>();
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("SELECT user_id, type, timestamp, credits FROM credit_log WHERE user_id = ?", sqlConnection);
+            preparedStatement.setLong(1, userId);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                creditLogs.add(new CreditLog(
+                        resultSet.getInt("user_id"), resultSet.getLong("timestamp"),
+                        resultSet.getString("type"), resultSet.getInt("credits")));
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+
+        return creditLogs;
     }
 }
