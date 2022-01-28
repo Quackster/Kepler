@@ -5,6 +5,7 @@ import org.alexdev.kepler.Kepler;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.dao.mysql.SettingsDao;
 import org.alexdev.kepler.game.GameScheduler;
+import org.alexdev.kepler.game.ban.BanType;
 import org.alexdev.kepler.game.club.ClubSubscription;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
@@ -84,8 +85,8 @@ public class Player extends Entity {
         // Bye bye!
         var banned = this.getDetails().isBanned();
 
-        if (banned != null) {
-            this.send(new USER_BANNED(banned.getKey()));
+        if (banned != null && banned.getUserId() == this.details.getId()) {
+            this.send(new USER_BANNED(banned.getReason()));
             GameScheduler.getInstance().getService().schedule(this::kickFromServer, 1, TimeUnit.SECONDS);
             return;
         }

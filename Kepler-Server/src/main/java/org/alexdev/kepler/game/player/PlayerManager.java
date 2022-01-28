@@ -61,6 +61,22 @@ public class PlayerManager {
     }
 
     /**
+     * Get players by ip.
+     *
+     * @param ip up of the user
+     * @return the player, else null if not found
+     */
+    public List<Player> getPlayersByIP(String ip) {
+        List<Player> playersWithIp = new ArrayList<>();
+        for (Player player : this.players) {
+            if (PlayerDao.getLatestIp(player.getDetails().getId()).equals(ip)) {
+                playersWithIp.add(player);
+            }
+        }
+
+        return playersWithIp;
+    }
+    /**
      * Get a player by user id.
      *
      * @param userId the user id to get with

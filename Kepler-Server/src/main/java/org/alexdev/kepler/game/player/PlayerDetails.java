@@ -5,6 +5,7 @@ import org.alexdev.kepler.dao.mysql.BanDao;
 import org.alexdev.kepler.dao.mysql.GroupDao;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.game.ban.BanType;
+import org.alexdev.kepler.game.ban.BannedPlayer;
 import org.alexdev.kepler.game.games.enums.GameType;
 import org.alexdev.kepler.util.DateUtil;
 import org.alexdev.kepler.util.StringUtil;
@@ -173,18 +174,11 @@ public class PlayerDetails {
         return false;
     }
 
-    public Pair<String, Long> isBanned() {
-        var userBanCheck = BanDao.hasBan(BanType.USER_ID, this.id);
+    public BannedPlayer isBanned() {
+        var userBanCheck = BanDao.hasBan(PlayerDao.getLatestIp(this.id), this.id);
 
-        if (userBanCheck != null) {
+        if (userBanCheck != null && userBanCheck.getUserId() == this.getId()) {
             return userBanCheck;
-        }
-
-
-        var ipBanCheck = BanDao.hasBan(BanType.IP_ADDRESS, PlayerDao.getLatestIp(this.id));
-
-        if (ipBanCheck != null) {
-            return ipBanCheck;
         }
 
         return null;
