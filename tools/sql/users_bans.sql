@@ -1,11 +1,12 @@
+
 DROP TABLE IF EXISTS `users_bans`;
 CREATE TABLE `users_bans` (
   `ban_type` enum('MACHINE_ID','IP_ADDRESS','USER_ID') NOT NULL,
-  `banned_value` varchar(250) NOT NULL,
   `message` text NOT NULL,
   `banned_until` bigint(11) NOT NULL,
   `user_id` int(11) NOT NULL DEFAULT 0,
-  `id` int(11) NOT NULL
+  `id` int(11) NOT NULL,
+  `ip` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --

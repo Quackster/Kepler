@@ -5,6 +5,7 @@ import org.alexdev.kepler.dao.mysql.ModerationDao;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.ban.BanType;
+import org.alexdev.kepler.game.ban.BannedPlayer;
 import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.moderation.ModerationAction;
 import org.alexdev.kepler.game.moderation.ModerationActionType;
@@ -17,6 +18,7 @@ import org.alexdev.kepler.messages.outgoing.user.ALERT;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 import org.alexdev.kepler.util.DateUtil;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class ModeratorBanUserAction implements ModerationAction {
@@ -47,25 +49,33 @@ public class ModeratorBanUserAction implements ModerationAction {
         }
 
         if (playerDetails.isBanned() != null) {
-            player.send(new ALERT("User is already banned!"));
-            return;
+            if (playerDetails.isBanned().getBanType() == BanType.IP_ADDRESS) {
+                player.send(new ALERT("User is already IP banned!"));
+                return;
+            } else if (!banIp && playerDetails.isBanned().getBanType() == BanType.USER_ID) {
+                player.send(new ALERT("User is already banned!"));
+                return;
+            }
         }
-
-        ModerationDao.addLog(ModerationActionType.BAN_USER, player.getDetails().getId(), playerDetails.getId(), alertMessage, notes);
+        String notePrefix = banIp ? "IP BAN NOTES: " : "USER BAN NOTES: ";
+        ModerationDao.addLog(ModerationActionType.BAN_USER, player.getDetails().getId(), playerDetails.getId(), alertMessage, notePrefix + notes);
 
         long banTime = DateUtil.getCurrentTimeSeconds() + TimeUnit.HOURS.toSeconds(banHours);
 
-        if (banIp) {
-            BanDao.addBan(BanType.IP_ADDRESS, PlayerDao.getLatestIp(playerDetails.getId()), banTime, alertMessage, playerDetails.getId());
+        BanDao.addBan(new BannedPlayer(alertMessage, PlayerDao.getLatestIp(playerDetails.getId()), playerDetails.getId(), banIp ? BanType.IP_ADDRESS : BanType.USER_ID, banTime));
+
+        if(banIp) {
+            List<Player> targets = PlayerManager.getInstance().getPlayersByIP(PlayerDao.getLatestIp(playerDetails.getId()));
+            for(Player target : targets) {
+                target.send(new USER_BANNED(alertMessage));
+                GameScheduler.getInstance().getService().schedule(target::kickFromServer, 1, TimeUnit.SECONDS);
+            };
         } else {
-            BanDao.addBan(BanType.USER_ID, String.valueOf(playerDetails.getId()), banTime, alertMessage, playerDetails.getId());
-        }
-
-        Player target = PlayerManager.getInstance().getPlayerById(playerDetails.getId());
-
-        if (target != null) {
-            target.send(new USER_BANNED(alertMessage));
-            GameScheduler.getInstance().getService().schedule(target::kickFromServer, 1, TimeUnit.SECONDS);
+            Player target = PlayerManager.getInstance().getPlayerById(playerDetails.getId());
+            if (target != null) {
+                target.send(new USER_BANNED(alertMessage));
+                GameScheduler.getInstance().getService().schedule(target::kickFromServer, 1, TimeUnit.SECONDS);
+            }
         }
 
         player.send(new ALERT("The user " + playerDetails.getName() + " has been banned."));

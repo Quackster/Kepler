@@ -10,6 +10,14 @@ public class BannedPlayer {
     private BanType banType;
     private Long bannedUntil;
 
+    public BannedPlayer(String reason, String ip, int userId, BanType banType, Long bannedUntil) {
+        this.banType = banType;
+        this.userId = userId;
+        this.ip = ip;
+        this.reason = reason;
+        this.bannedUntil = bannedUntil;
+    }
+
     public BannedPlayer(int id, String reason, String ip, int userId, BanType banType, Long bannedUntil) {
         this.id = id;
         this.banType = banType;

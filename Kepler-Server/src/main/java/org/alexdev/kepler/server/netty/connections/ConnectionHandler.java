@@ -63,10 +63,10 @@ public class ConnectionHandler extends SimpleChannelInboundHandler<NettyRequest>
         }
 
         // TODO: IP ban checking
-        var ipBanCheck = BanDao.hasBan(BanType.IP_ADDRESS, ipAddress);
+        var ipBanCheck = BanDao.hasBan(ipAddress, 0);
 
-        if (ipBanCheck != null) {
-            player.send(new USER_BANNED(ipBanCheck.getKey()));
+        if (ipBanCheck != null && ipBanCheck.getBanType() == BanType.IP_ADDRESS) {
+            player.send(new USER_BANNED(ipBanCheck.getReason()));
         }
 
         player.send(new HELLO());
