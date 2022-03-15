@@ -1,0 +1,9 @@
+version: "3.3"
+services:
+  server:
+    container_name: kepler_server
+    restart: unless-stopped
+    build: ..
+    volumes:
+      - ./server.ini:/usr/src/app/server.ini
+    network_mode: "host"
