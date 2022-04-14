@@ -23,6 +23,18 @@ public class INTODOOR implements MessageEvent {
         if (room == null) {
             return;
         }
+        String contents = reader.contents();
+
+        if (!StringUtils.isNumeric(contents)) {
+            return;
+        }
+
+        player.getRoomUser().setAuthenticateTelporterId(-1);
+        /*Room room = player.getRoomUser().getRoom();
+
+        if (room == null) {
+            return;
+        }
 
         String contents = reader.contents();
 
@@ -54,6 +66,6 @@ public class INTODOOR implements MessageEvent {
        // player.getRoomUser().setAuthenticateTelporterId(item.getId());
         player.getRoomUser().setAuthenticateTelporterId(item.getId());
         player.getRoomUser().walkTo(item.getPosition().getX(), item.getPosition().getY());
-        //player.getRoomUser().setWalkingAllowed(false);
+        //player.getRoomUser().setWalkingAllowed(false);*/
     }
 }

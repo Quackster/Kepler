@@ -298,11 +298,13 @@ public class MessageHandler {
      */
     public void registerRoomTeleporterPackets() {
         /*
-        registerEvent(81, new INTODOOR());
+
         registerEvent(28, new GETDOORFLAT());
         registerEvent(82, new DOORGOIN());
-        registerEvent(54, new GOVIADOOR());
+
         */
+        registerEvent(81, new INTODOOR());
+        registerEvent(54, new GOVIADOOR());
         registerEvent(28, new GETDOORFLAT());
     }
 

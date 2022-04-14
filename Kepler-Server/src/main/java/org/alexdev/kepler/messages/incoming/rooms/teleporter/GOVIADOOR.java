@@ -19,14 +19,6 @@ public class GOVIADOOR implements MessageEvent {
     public void handle(Player player, NettyRequest reader) {
         Room room = player.getRoomUser().getRoom();
 
-        if (room == null) {
-            return;
-        }
-
-        if (player.getRoomUser().getAuthenticateTelporterId() == -1) {
-            return;
-        }
-
         String[] data = reader.contents().split("/");
 
         int roomId = Integer.parseInt(data[0]);
@@ -36,12 +28,13 @@ public class GOVIADOOR implements MessageEvent {
         Room target = RoomManager.getInstance().getRoomById(roomId);
 
         if (linkedTeleporter != null && target != null) {
-            // if (linkedTeleporter.getRoomId() != room.getId()) {
+            if (linkedTeleporter.getRoomId() != room.getId()) {
             player.getRoomUser().setAuthenticateId(roomId);
             player.send(new OPEN_CONNECTION());
-            //} else {
-                /*player.getRoomUser().setPosition(linkedTeleporter.getPosition().copy());
-                room.send(new USER_STATUSES(List.of(player)));
+            } else {
+                player.getRoomUser().setPosition(linkedTeleporter.getPosition().copy());
+                player.getRoomUser().warp(linkedTeleporter.getPosition().copy(), true, true);
+                //room.send(new USER_STATUSES(List.of(player)));
 
                 linkedTeleporter = room.getItemManager().getById(linkedTeleporter.getId());
                 linkedTeleporter.setCustomData("TRUE");
@@ -52,8 +45,8 @@ public class GOVIADOOR implements MessageEvent {
                 player.getRoomUser().walkTo(front.getX(), front.getY());
                 player.getRoomUser().setAuthenticateTelporterId(-1);
 
-                room.send(new BROADCAST_TELEPORTER(linkedTeleporter, player.getDetails().getName(), false));*/
-            // }
+                room.send(new BROADCAST_TELEPORTER(linkedTeleporter, player.getDetails().getName(), false));
+            }
         } else {
             player.getRoomUser().setAuthenticateTelporterId(-1);
         }

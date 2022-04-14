@@ -47,7 +47,7 @@ public class SETSTUFFDATA implements MessageEvent {
 
         if (item.hasBehaviour(ItemBehaviour.TELEPORTER)) {
             var interaction = new TeleportInteractor();
-            interaction.onInteract(player, room, item, 0);
+            //interaction.onInteract(player, room, item, 0);
             return;
         }
 

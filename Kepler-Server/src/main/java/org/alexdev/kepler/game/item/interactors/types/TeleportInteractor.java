@@ -12,6 +12,7 @@ import org.alexdev.kepler.game.room.entities.RoomPlayer;
 import org.alexdev.kepler.game.room.mapping.RoomTile;
 import org.alexdev.kepler.game.triggers.GenericTrigger;
 import org.alexdev.kepler.messages.outgoing.messenger.ROOMFORWARD;
+import org.alexdev.kepler.messages.outgoing.rooms.DOORFLAT;
 import org.alexdev.kepler.messages.outgoing.rooms.items.BROADCAST_TELEPORTER;
 import org.alexdev.kepler.messages.outgoing.rooms.user.LOGOUT;
 
@@ -22,16 +23,23 @@ public class TeleportInteractor extends GenericTrigger {
     public static final String TELEPORTER_OPEN = "TRUE";
     //public static final String TELEPORTER_EFFECTS = "2";
 
+    private void debugTeleporter(String msg) {
+        //System.out.println(msg);
+    }
+
     public void onInteract(Player player, Room room, Item item, int status) {
+        this.debugTeleporter("INTERACTING WITH TELEPORTER");
         RoomPlayer roomUser = player.getRoomUser();
 
         if (player.getRoomUser().getAuthenticateTelporterId() != -1) {
+            this.debugTeleporter("player.getRoomUser().getAuthenticateTelporterId() is eq: " + player.getRoomUser().getAuthenticateTelporterId());
             return;
         }
 
         Position front = item.getPosition().getSquareInFront();
 
         if (!front.equals(roomUser.getPosition()) && !item.getPosition().equals(roomUser.getPosition())) {
+            this.debugTeleporter("WALK TO IN FRONT OF TELEPORTER 2");
             roomUser.walkTo(front.getX(), front.getY());
             return;
         }
@@ -44,6 +52,7 @@ public class TeleportInteractor extends GenericTrigger {
 
         player.getRoomUser().setLastItemInteraction(item);
 
+        this.debugTeleporter("WALK TO IN FRONT OF TELEPORTER 3");
         roomUser.walkTo(item.getPosition().getX(), item.getPosition().getY());
         roomUser.setWalkingAllowed(false);
 
@@ -74,6 +83,7 @@ public class TeleportInteractor extends GenericTrigger {
 
         // Check if the user is inside the teleporter, if so, walk out. Useful if the user is stuck inside.
         if (item.getPosition().equals(roomUser.getPosition()) && !RoomTile.isValidTile(room, player, item.getPosition().getSquareInFront())) {
+            this.debugTeleporter("CHECK IF USER IS STUCK INSIDE TELEPORTER");
             /*item.setCustomData(TELEPORTER_EFFECTS);
             item.updateStatus();*/
             room.send(new BROADCAST_TELEPORTER(item, player.getDetails().getName(), false));
@@ -86,7 +96,8 @@ public class TeleportInteractor extends GenericTrigger {
                 item.setCustomData(TELEPORTER_CLOSE);
                 item.updateStatus();
 
-                room.send(new LOGOUT(player.getRoomUser().getInstanceId()));
+                //this.debugTeleporter("SEND LOGOUT");
+                //room.send(new LOGOUT(player.getRoomUser().getInstanceId()));
             }, 1, TimeUnit.SECONDS);
 
             GameScheduler.getInstance().getService().schedule(() -> {
@@ -101,7 +112,9 @@ public class TeleportInteractor extends GenericTrigger {
                     room.send(new BROADCAST_TELEPORTER(pairedTeleporter, player.getDetails().getName(), false));
                 } else {
                     roomUser.setAuthenticateId(pairedTeleporter.getRoom().getId());
-                    pairedTeleporter.getRoom().getEntityManager().enterRoom(player, null);
+                    this.debugTeleporter("ENTER ROOM");
+                    player.send(new DOORFLAT(pairedTeleporter.getId(), pairedTeleporter.getRoomId()));
+                    //pairedTeleporter.getRoom().getEntityManager().enterRoom(player, null);
                     //pairedTeleporter.getRoom().forward(player, false);
                     //player.send(new ROOMFORWARD(pairedTeleporter.getRoom().isPublicRoom(), pairedTeleporter.getRoom().getId()));
                 }
@@ -109,6 +122,7 @@ public class TeleportInteractor extends GenericTrigger {
 
             // Handle teleporting in the same room
             if (pairedTeleporter.getRoomId() == item.getRoomId()) {
+                this.debugTeleporter("TELEPORT SAME ROOM");
                 GameScheduler.getInstance().getService().schedule(() -> {
                     if (roomUser.getAuthenticateTelporterId() == -1) {
                         return;
@@ -117,6 +131,7 @@ public class TeleportInteractor extends GenericTrigger {
                     pairedTeleporter.setCustomData(TELEPORTER_OPEN);
                     pairedTeleporter.updateStatus();
 
+                    this.debugTeleporter("WALK TO SQUARE IN FRONT OF TELEPORTER");
                     roomUser.walkTo(
                             pairedTeleporter.getPosition().getSquareInFront().getX(),
                             pairedTeleporter.getPosition().getSquareInFront().getY());
@@ -140,6 +155,7 @@ public class TeleportInteractor extends GenericTrigger {
 
         // Resume normal teleportation
         GameScheduler.getInstance().getService().schedule(() -> {
+            this.debugTeleporter("NORMAL TELEPORT");
             if (roomUser.getAuthenticateTelporterId() == -1) {
                 return;
             }
@@ -154,15 +170,18 @@ public class TeleportInteractor extends GenericTrigger {
                 return;
             }
 
-            room.send(new LOGOUT(player.getRoomUser().getInstanceId()));
+            //room.send(new LOGOUT(player.getRoomUser().getInstanceId()));
             item.setCustomData(TELEPORTER_CLOSE);
             item.updateStatus();
 
             if (pairedTeleporter.getRoomId() != item.getRoomId()) {
                 roomUser.setAuthenticateId(pairedTeleporter.getRoom().getId());
-                pairedTeleporter.getRoom().getEntityManager().enterRoom(player, null);
+                this.debugTeleporter("ENTER ROOM 2");
+                player.send(new DOORFLAT(pairedTeleporter.getId(), pairedTeleporter.getRoomId()));
+                //pairedTeleporter.getRoom().getEntityManager().enterRoom(player, null);
                 //pairedTeleporter.getRoom().forward(player, false);
             } else {
+                this.debugTeleporter("WARP PLAYER SAME ROOM");
                 roomUser.warp(pairedTeleporter.getPosition(), true, true);
             }
 
@@ -186,6 +205,7 @@ public class TeleportInteractor extends GenericTrigger {
                 pairedTeleporter.setCustomData(TELEPORTER_OPEN);
                 pairedTeleporter.updateStatus();
 
+                this.debugTeleporter("WALK TO IN FRONT OF TELEPORTER");
                 roomUser.walkTo(
                         pairedTeleporter.getPosition().getSquareInFront().getX(),
                         pairedTeleporter.getPosition().getSquareInFront().getY());
