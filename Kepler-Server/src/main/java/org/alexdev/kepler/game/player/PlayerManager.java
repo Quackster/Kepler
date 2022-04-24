@@ -1,6 +1,5 @@
 package org.alexdev.kepler.game.player;
 
-import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.goterl.lazysodium.interfaces.PwHash;
 import org.alexdev.kepler.Kepler;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
@@ -306,8 +305,6 @@ public class PlayerManager {
             }
 
             return new String(outputHash).replace((char) 0 + "", "");
-        } else if (ServerConfiguration.getStringOrDefault("password.hashing.library", "argon2").equalsIgnoreCase("bcrypt")) {
-            return BCrypt.withDefaults().hashToString(12, password.toCharArray());
         } else {
             return password;
         }
