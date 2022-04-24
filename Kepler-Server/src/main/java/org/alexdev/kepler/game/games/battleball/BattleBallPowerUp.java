@@ -12,6 +12,7 @@ import org.alexdev.kepler.game.games.battleball.objects.PowerUpUpdateObject;
 import org.alexdev.kepler.game.games.battleball.powerups.*;
 import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.games.player.GameTeam;
+import org.alexdev.kepler.game.games.utils.ScoreReference;
 import org.alexdev.kepler.game.games.utils.TileUtil;
 import org.alexdev.kepler.game.pathfinder.Position;
 
@@ -109,10 +110,11 @@ public class BattleBallPowerUp {
 
             tile.getPointsReferece().clear();
 
-            tile.setColour(BattleBallColourState.getColourById(gamePlayer.getTeamId()));
+            tile.setColour(BattleBallColourState.getColourById(gamePlayer.getTeam().getId()));
             tile.setState(BattleBallTileState.SEALED);
 
-            tile.addSealedPoints(team);
+            //tile.(team);
+            tile.getNewPoints(gamePlayer, BattleBallTileState.SEALED, BattleBallColourState.getColourById(gamePlayer.getTeam().getId()));//.addScore(new ScoreReference(14, team, gamePlayer.getUserId()));
             tile.checkFill(gamePlayer, updateFillTiles);
 
             updateTiles.add(tile);

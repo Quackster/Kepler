@@ -9,8 +9,8 @@ import org.alexdev.kepler.game.games.battleball.enums.BattleBallPowerType;
 import org.alexdev.kepler.game.games.battleball.events.DespawnObjectEvent;
 import org.alexdev.kepler.game.games.battleball.events.PowerUpSpawnEvent;
 import org.alexdev.kepler.game.games.battleball.objects.PlayerObject;
-import org.alexdev.kepler.game.games.enums.GameType;
 import org.alexdev.kepler.game.games.battleball.enums.BattleBallTileState;
+import org.alexdev.kepler.game.games.enums.GameType;
 import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.games.player.GameTeam;
 import org.alexdev.kepler.game.pathfinder.Position;
@@ -58,15 +58,42 @@ public class BattleBallGame extends Game {
     }
 
     @Override
+    public boolean hasEnoughPlayers() {
+        int activeTeamCount = 0;
+
+        for (int i = 0; i < this.getTeamAmount(); i++) {
+            if (this.getTeams().get(i).getActivePlayers().size() > 0) {
+                activeTeamCount++;
+            }
+        }
+
+        return activeTeamCount > 0;
+    }
+
+    @Override
+    public void startGame() {
+        super.startGame();
+
+        this.updateTilesQueue.clear();
+        this.fillTilesQueue.clear();
+
+        this.getEventsQueue().clear();
+        this.getObjectsQueue().clear();
+    }
+
+    @Override
     public void gamePrepare() {
+        super.gamePrepare();
+
         // Despawn all previous powers
         for (BattleBallPowerUp powerUp : this.activePowers) {
             this.getEventsQueue().add(new DespawnObjectEvent(powerUp.getId()));
         }
 
         this.spawnedInitialPowers = false;
-        this.activePowers.clear();
+
         this.storedPowers.clear();
+        this.activePowers.clear();
 
         int ticketCharge = GameConfiguration.getInstance().getInteger("battleball.ticket.charge");
 
@@ -251,7 +278,7 @@ public class BattleBallGame extends Game {
 
                 p.getPlayer().getRoomUser().setWalking(false);
                 p.getPlayer().getRoomUser().setNextPosition(null);
-                p.getPlayer().getRoomUser().setPosition(p.getSpawnPosition().copy());
+                //p.getPlayer().getRoomUser().setPosition(p.getSpawnPosition().copy());
 
                 // Don't allow anyone to spawn on this tile
                 BattleBallTile tile = (BattleBallTile) this.getTile(spawnPosition.getX(), spawnPosition.getY());
@@ -321,18 +348,6 @@ public class BattleBallGame extends Game {
         }
     }
 
-    @Override
-    public boolean hasEnoughPlayers() {
-        int activeTeamCount = 0;
-
-        for (int i = 0; i < this.getTeamAmount(); i++) {
-            if (this.getTeams().get(i).getActivePlayers().size() > 0) {
-                activeTeamCount++;
-            }
-        }
-
-        return activeTeamCount > 0;
-    }
 
     /**
      * Get if the game still has free tiles to use.

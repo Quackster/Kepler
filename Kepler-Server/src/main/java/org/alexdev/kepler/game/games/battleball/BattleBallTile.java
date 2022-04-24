@@ -131,7 +131,7 @@ public class BattleBallTile extends GameTile  {
         GameTeam team = gamePlayer.getTeam();
 
         int newPoints = -1;
-        boolean sealed = false;
+        //boolean sealed = false;
 
         if (newState == BattleBallTileState.TOUCHED) {
             newPoints = 2;
@@ -142,7 +142,7 @@ public class BattleBallTile extends GameTile  {
         } else if (newState == BattleBallTileState.SEALED) {
             if (this.colour == newColour) {
                 newPoints = 14;
-                sealed = true;
+                //sealed = true;
             }
         }
 
@@ -156,15 +156,15 @@ public class BattleBallTile extends GameTile  {
         }
 
         if (newPoints != -1) {
-            if (!sealed) { // Set to sealed
-                if (gamePlayer.getHarlequinPlayer() != null) {
-                    this.pointsReferece.add(new ScoreReference(newPoints, team, gamePlayer.getHarlequinPlayer().getUserId()));
-                } else {
-                    this.pointsReferece.add(new ScoreReference(newPoints, team, gamePlayer.getUserId()));
-                }
+            //if (!sealed) { // Set to sealed
+            if (gamePlayer.getHarlequinPlayer() != null) {
+                this.pointsReferece.add(new ScoreReference(newPoints, team, gamePlayer.getHarlequinPlayer().getUserId()));
             } else {
-                this.addSealedPoints(team);
+                this.pointsReferece.add(new ScoreReference(newPoints, team, gamePlayer.getUserId()));
             }
+            //} else {
+            //    this.pointsReferece.add(team);
+            //}
         }
     }
 
@@ -189,7 +189,7 @@ public class BattleBallTile extends GameTile  {
                         continue;
                     }*/
 
-                    this.addSealedPoints(team);
+                    //this.addSealedPoints(team);
 
                     filledTile.setColour(this.getColour());
                     filledTile.setState(BattleBallTileState.SEALED);
@@ -200,16 +200,14 @@ public class BattleBallTile extends GameTile  {
         }
     }
 
+    /*
     public void addSealedPoints(GameTeam team) {
-        // Clear any history
-        //if (clearHistory) {
-        this.pointsReferece.removeIf(tile -> tile.getGameTeam() != team);
-        //}
+        this.pointsReferece.clear();
 
         for (GamePlayer gamePlayer : team.getPlayers()) {
             this.pointsReferece.add(new ScoreReference(14, team, gamePlayer.getUserId()));
         }
-    }
+    }*/
 
     /**
      * Get the current colour of this tile

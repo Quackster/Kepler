@@ -124,8 +124,8 @@ public class CannonHandle {
             BattleBallTileState newState = BattleBallTileState.SEALED;
             BattleBallColourState newColour = BattleBallColourState.getColourById(gamePlayer.getTeam().getId());
 
-            tile.addSealedPoints(gamePlayer.getTeam());
-            //tile.getNewPoints(gamePlayer, newState, newColour);
+            //tile.addSealedPoints(gamePlayer.getTeam());
+            tile.getNewPoints(gamePlayer, newState, newColour);
 
             tile.setColour(newColour);
             tile.setState(newState);
