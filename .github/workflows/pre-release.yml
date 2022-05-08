@@ -23,12 +23,12 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew fatJar
       - name: Rename files
-        run: cp Kepler-Server/build/libs/Kepler-Server-all.jar Kepler.jar
+        run: cp Kepler-Server/build/libs/Kepler-Server-all.jar Kepler-${{ steps.sha-short.outputs.sha-short }}.jar
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
           prerelease: true
-          title: "Development Build"
+          title: "Development Build ${{ steps.sha-short.outputs.sha-short }}"
           files: |
-            Kepler.jar
+            Kepler-${{ steps.sha-short.outputs.sha-short }}.jar
