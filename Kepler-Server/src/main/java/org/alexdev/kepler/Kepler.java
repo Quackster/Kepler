@@ -119,12 +119,8 @@ public class Kepler {
             // Update players online back to 0
             SettingsDao.updateSetting("players.online", "0");
 
-            if (ServerConfiguration.getStringOrDefault("password.hashing.library", "argon2").equalsIgnoreCase("argon2")) {
-                log.info("Using Argon2 password hashing algorithim");
-                LIB_SODIUM  = new LazySodiumJava(new SodiumJava());
-            } else {
-                log.info("Using BCrypt password hashing algorithim");
-            }
+            log.info("Using Argon2 password hashing algorithm");
+            LIB_SODIUM  = new LazySodiumJava(new SodiumJava());
 
             setupMus();
             setupRcon();
@@ -171,7 +167,7 @@ public class Kepler {
     }
 
     private static void setupServer() {
-        String serverIP = ServerConfiguration.getString("bind");
+        String serverIP = ServerConfiguration.getString("server.bind");
 
         if (serverIP.length() == 0) {
             log.error("Game server bind address is not provided");
@@ -212,7 +208,7 @@ public class Kepler {
     }
 
     private static void setupMus() {
-        musServerIP = ServerConfiguration.getString("bind");
+        musServerIP = ServerConfiguration.getString("mus.bind");
 
         if (musServerIP.length() == 0) {
             log.error("Multi User Server (MUS) bind address is not provided");

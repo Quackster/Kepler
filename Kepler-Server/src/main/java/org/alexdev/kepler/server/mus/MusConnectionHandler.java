@@ -101,10 +101,7 @@ public class MusConnectionHandler extends SimpleChannelInboundHandler<MusMessage
 
                     PlayerDetails playerDetails = new PlayerDetails();
 
-                    if (PlayerDao.login(playerDetails, username, password,
-                            ServerConfiguration.getStringOrDefault("password.hashing.library", "argon2").equalsIgnoreCase("argon2"),
-                            ServerConfiguration.getStringOrDefault("password.hashing.library", "argon2").equalsIgnoreCase("bcrypt")
-                    )) {
+                    if (PlayerDao.login(playerDetails, username, password)) {
                         player =  PlayerManager.getInstance().getPlayerById(playerDetails.getId());
                         userId = playerDetails.getId();
                     } else {
