@@ -1,15 +1,12 @@
 package org.alexdev.kepler.messages.outgoing.user;
 
-import org.alexdev.kepler.dao.mysql.MessengerDao;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
-import org.alexdev.kepler.game.messenger.MessengerMessage;
 import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.tag.Tag;
-import org.alexdev.kepler.messages.outgoing.messenger.CAMPAIGN_MSG;
-import org.alexdev.kepler.messages.types.PlayerMessageComposer;
+import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 
-public class USER_TAGS extends PlayerMessageComposer {
+public class USER_TAGS extends MessageComposer {
     private final PlayerDetails details;
 
     public USER_TAGS(PlayerDetails details) {

@@ -27,7 +27,7 @@ public class DefaultConfigWriter implements ConfigWriter {
         config.put("mysql.username", "kepler");
         config.put("mysql.password", "verysecret");
         config.put("mysql.database", "kepler");
-
+        config.put("v15Trax", "false");
         config.put("debug", "false");
         return config;
     }

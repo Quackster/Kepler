@@ -3,6 +3,7 @@ package org.alexdev.kepler.messages.outgoing.songs;
 import org.alexdev.kepler.game.song.Song;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
+import org.alexdev.kepler.util.config.ServerConfiguration;
 
 public class SONG_INFO extends MessageComposer {
     private final Song song;
@@ -13,11 +14,10 @@ public class SONG_INFO extends MessageComposer {
 
     @Override
     public void compose(NettyResponse response) {
-        // TODO: V15 toggle?
-        // if (getPlayer().getVersion() > 14) {
-         //   response.writeInt(this.song.getId());
-         //   response.writeString(this.song.getTitle());
-        //}
+         if (ServerConfiguration.getBoolean("v15trax") == true) {
+            response.writeInt(this.song.getId());
+            response.writeString(this.song.getTitle());
+        }
 
         response.writeString(this.song.getData());
     }

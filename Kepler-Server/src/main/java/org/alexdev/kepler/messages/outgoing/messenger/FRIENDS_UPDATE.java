@@ -63,9 +63,6 @@ public class FRIENDS_UPDATE extends MessageComposer {
                     } else {
                         response.writeString("");
                     }
-                } else {
-                    response.writeString("On hotel view");
-                }
             } else {
                 response.writeString(DateUtil.getDateAsString(friend.getLastOnline()));
             }

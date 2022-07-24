@@ -30,11 +30,8 @@ public class MESSENGER_SEARCH extends MessageComposer {
     public void compose(NettyResponse response) {
         response.writeString("MESSENGER");
 
-            if (this.details != null) {
-                new MessengerUser(this.details, true).serialise(getPlayer(), response);
-            } else {
-                response.writeInt(0);
-            }
+        if (this.details != null) {
+            new MessengerUser(this.details, true).serialise(response);
         } else {
             response.writeInt(0);
         }
