@@ -39,7 +39,7 @@ The server has many features added, and a lot of configuration settings. Most of
 - Download web browser with Flash/Shockwave built-in [here](http://forum.ragezone.com/f353/portable-browser-flash-shockwave-basilisk-1192727/)
 - Download and install the latest version of MariaDB
 - Download and install Java JDK 12+
-- Habbo Hotel v15 DCR pack [here](https://web.archive.org/web/20220724030154/https://raw.githubusercontent.com/Quackster/Kepler/master/tools/Quackster_v14.zip)
+- Habbo Hotel v14 DCR pack [here](https://web.archive.org/web/20220724030154/https://raw.githubusercontent.com/Quackster/Kepler/master/tools/Quackster_v14.zip)
 
 ## Cloning this repository
 
