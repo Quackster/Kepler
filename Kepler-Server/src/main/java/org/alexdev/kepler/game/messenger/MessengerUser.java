@@ -48,68 +48,43 @@ public class MessengerUser {
      *
      * @param response the response to serialise for
      */
-    public void serialise(Player player, NettyResponse response) {
+    public void serialise(NettyResponse response) {
         Player user = PlayerManager.getInstance().getPlayerById(this.userId);
 
-        if (player.getVersion() < 23) {
-            if (user != null) {
-                this.figure = user.getDetails().getFigure();
-                this.lastOnline = user.getDetails().getLastOnline();
-                this.sex = user.getDetails().getSex();
-                this.consoleMotto = user.getDetails().getConsoleMotto();
-            }
+        if (user != null) {
+            this.figure = user.getDetails().getFigure();
+            this.lastOnline = user.getDetails().getLastOnline();
+            this.sex = user.getDetails().getSex();
+            this.consoleMotto = user.getDetails().getConsoleMotto();
+        }
 
-            response.writeInt(this.userId);
-            response.writeString(this.username);
-            response.writeBool(Character.toLowerCase(this.sex) == 'm');
-            response.writeString(this.consoleMotto);
+        response.writeInt(this.userId);
+        response.writeString(this.username);
+        response.writeBool(Character.toLowerCase(this.sex) == 'm');
+        response.writeString(this.consoleMotto);
 
-            boolean isOnline = (user != null);
+        boolean isOnline = (user != null);
 
-            response.writeBool(isOnline);
+        response.writeBool(isOnline);
 
-            if (isOnline) {
-                if (user.getRoomUser().getRoom() != null) {
-                    Room room = user.getRoomUser().getRoom();
+        if (isOnline) {
+            if (user.getRoomUser().getRoom() != null) {
+                Room room = user.getRoomUser().getRoom();
 
-                    if (room.getData().getOwnerId() > 0) {
-                        response.writeString("Floor1a");
-                    } else {
-                        response.writeString(room.getData().getPublicName());
-                    }
+                if (room.getData().getOwnerId() > 0) {
+                    response.writeString("Floor1a");
                 } else {
-                    response.writeString("On hotel view");
+                    response.writeString(room.getData().getPublicName());
                 }
             } else {
-                response.writeString(DateUtil.getDateAsString(this.lastOnline));
+                response.writeString("On hotel view");
             }
-
-            response.writeString(DateUtil.getDateAsString(this.lastOnline));
-            response.writeString(this.figure);
-
-
         } else {
-            if (user != null) {
-                this.figure = user.getDetails().getFigure();
-                this.lastOnline = user.getDetails().getLastOnline();
-                this.sex = user.getDetails().getSex();
-            }
-
-            boolean isOnline = user != null;
-
-            response.writeInt(this.userId);
-            response.writeString(this.username);
-            response.writeBool(this.sex == 'M');
-
-            response.writeBool(isOnline);
-            response.writeBool(this.canFollowFriend(player));
-
-            response.writeString(isOnline ? this.figure : "");
-            response.writeInt(0);//this.categoryId);
-            response.writeString(this.consoleMotto);
             response.writeString(DateUtil.getDateAsString(this.lastOnline));
         }
 
+        response.writeString(DateUtil.getDateAsString(this.lastOnline));
+        response.writeString(this.figure);
     }
 
     public boolean canFollowFriend(Player friend) {

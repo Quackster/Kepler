@@ -23,12 +23,6 @@ public class NettyChannelInitializer extends ChannelInitializer<SocketChannel> {
     @Override
     protected void initChannel(SocketChannel socketChannel) throws Exception {
         ChannelPipeline pipeline = socketChannel.pipeline();
-
-        if (GameConfiguration.getInstance().getBoolean("server.limit.bandwidth")) {
-            long bandwidthLimit = GameConfiguration.getInstance().getLong("server.limit.bandwidth.amount");
-            pipeline.addLast("trafficShapingHandler", new ChannelTrafficShapingHandler(bandwidthLimit, bandwidthLimit));
-        }
-
         pipeline.addLast("gameEncoder", new NetworkEncoder());
         pipeline.addLast("gameDecoder", new NetworkDecoder());
         pipeline.addLast("handler", new ConnectionHandler(this.nettyServer));

@@ -48,18 +48,6 @@ public class NettyServer  {
         this.bootstrap = new ServerBootstrap();
         this.connectionIds = new AtomicInteger(0);
         this.connectionVersionRuleMap = new HashMap<>();
-
-        for (int i = 0; i < 30; i++) {
-            String key = "v" + i + ".version.port";
-
-            if (ServerConfiguration.exists(key)) {
-                int portNumber = ServerConfiguration.getInteger(key);
-
-                if (portNumber > 0) {
-                    this.connectionVersionRuleMap.put(portNumber, new ConnectionVersionRule(portNumber, i));
-                }
-            }
-        }
     }
 
     /**
@@ -85,17 +73,14 @@ public class NettyServer  {
      * Bind the server to its address that's been specified
      */
     public void bind() {
-
-        for (var connectionRule : this.connectionVersionRuleMap.values()) {
-            this.bootstrap.bind(new InetSocketAddress(this.getIp(), connectionRule.getPort())).addListener(objectFuture -> {
-                if (!objectFuture.isSuccess()) {
-                    Log.getErrorLogger().error("Failed to start server on address: {}:{}", this.getIp(), this.getPort());
-                    Log.getErrorLogger().error("Please double check there's no programs using the same port, and you have set the correct IP address to listen on.", this.getIp(), this.getPort());
-                } else {
-                    log.info("Game server for v{} is listening on {}:{}", connectionRule.getVersion(), this.getIp(), connectionRule.getPort());
-                }
-            });
-        }
+        this.bootstrap.bind(new InetSocketAddress(this.getIp(), this.getPort())).addListener(objectFuture -> {
+            if (!objectFuture.isSuccess()) {
+                Log.getErrorLogger().error("Failed to start game server on address: {}:{}", this.getIp(), this.getPort());
+                Log.getErrorLogger().error("Please double check there's no programs using the same port, and you have set the correct IP address to listen on.", this.getIp(), this.getPort());
+            } else {
+                log.info("Game server is listening on {}:{}", this.getIp(), this.getPort());
+            }
+        });
     }
 
     /**

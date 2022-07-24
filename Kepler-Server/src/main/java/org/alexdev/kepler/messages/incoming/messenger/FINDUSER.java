@@ -16,10 +16,10 @@ public class FINDUSER implements MessageEvent {
     public void handle(Player player, NettyRequest reader) {
         String searchQuery = reader.readString();
 
-        if (player.getVersion() < 23) {
+        // if (player.getVersion() < 23) {
             int userId = MessengerDao.searchUser(searchQuery);
             player.send(new MESSENGER_SEARCH(PlayerManager.getInstance().getPlayerData(userId)));
-        } else {
+        /*} else {
             List<Integer> userList = MessengerDao.search(searchQuery.toLowerCase());
 
             List<PlayerDetails> friends = new ArrayList<>();
@@ -37,6 +37,6 @@ public class FINDUSER implements MessageEvent {
             others.removeIf(playerDetails -> playerDetails.getId() == player.getDetails().getId());
 
             player.send(new MESSENGER_SEARCH(friends, others));
-        }
+        }*/
     }
 }

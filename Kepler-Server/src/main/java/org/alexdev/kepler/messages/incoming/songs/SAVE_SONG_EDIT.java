@@ -11,8 +11,6 @@ import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 import org.alexdev.kepler.util.StringUtil;
 
-import static org.alexdev.kepler.messages.incoming.songs.SAVE_SONG_NEW.calculateSongLength;
-
 public class SAVE_SONG_EDIT implements MessageEvent {
     @Override
     public void handle(Player player, NettyRequest reader) throws Exception {
@@ -47,7 +45,7 @@ public class SAVE_SONG_EDIT implements MessageEvent {
         String title = StringUtil.filterInput(reader.readString(), true);
         String data = StringUtil.filterInput(reader.readString(), true);
 
-        SongMachineDao.saveSong(songId, title, calculateSongLength(data), data);
+        SongMachineDao.saveSong(songId, title, SAVE_SONG.calculateSongLength(data), data);
 
         player.send(new SONG_UPDATE());
         player.send(new SONG_LIST(SongMachineDao.getSongList(room.getItemManager().getSoundMachine().getId())));

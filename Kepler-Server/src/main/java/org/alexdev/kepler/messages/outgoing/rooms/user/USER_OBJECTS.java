@@ -3,7 +3,7 @@ package org.alexdev.kepler.messages.outgoing.rooms.user;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityState;
 import org.alexdev.kepler.game.entity.EntityType;
-import org.alexdev.kepler.messages.types.PlayerMessageComposer;
+import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 import org.alexdev.kepler.util.FigureUtil;
 import org.alexdev.kepler.util.StringUtil;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public class USER_OBJECTS extends PlayerMessageComposer {
+public class USER_OBJECTS extends MessageComposer {
     private List<EntityState> states;
 
     public USER_OBJECTS(ConcurrentLinkedQueue<Entity> entities) {
@@ -57,7 +57,7 @@ public class USER_OBJECTS extends PlayerMessageComposer {
                 response.writeKeyValue("i", states.getInstanceId());
                 response.writeKeyValue("a", states.getEntityId());
                 response.writeKeyValue("n", states.getDetails().getName());
-                response.writeKeyValue("f", FigureUtil.renderFor(states.getDetails().getFigure(), this.getPlayer().getVersion()));
+                response.writeKeyValue("f", FigureUtil.renderFor(states.getDetails().getFigure(), -1));
                 response.writeKeyValue("s", states.getDetails().getSex());
                 response.writeKeyValue("l", states.getPosition().getX() + " " + states.getPosition().getY() + " " + Double.toString(StringUtil.format(states.getPosition().getZ())));
 

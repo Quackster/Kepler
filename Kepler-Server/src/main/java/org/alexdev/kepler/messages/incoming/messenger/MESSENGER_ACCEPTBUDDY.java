@@ -18,18 +18,8 @@ import java.util.List;
 public class MESSENGER_ACCEPTBUDDY implements MessageEvent {
     @Override
     public void handle(Player player, NettyRequest reader) {
-        if (player.getVersion() <= 14) {
-            int userId = reader.readInt();
-            acceptBuddy(player, userId);
-        }
-        else {
-            int amount = reader.readInt();
-
-            for (int i = 0; i < amount; i++) {
-                int userId = reader.readInt();
-                acceptBuddy(player, userId);
-            }
-        }
+        int userId = reader.readInt();
+        acceptBuddy(player, userId);
     }
 
     private void acceptBuddy(Player player, int userId) {

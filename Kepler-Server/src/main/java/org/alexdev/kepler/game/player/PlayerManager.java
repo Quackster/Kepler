@@ -288,26 +288,22 @@ public class PlayerManager {
      * @throws Exception
      */
     public String createPassword(String password) throws Exception {
-        if (ServerConfiguration.getStringOrDefault("password.hashing.library", "argon2").equalsIgnoreCase("argon2")) {
-            byte[] pw = password.getBytes();
-            byte[] outputHash = new byte[PwHash.STR_BYTES];
-            PwHash.Native pwHash = (PwHash.Native) Kepler.getLibSodium();
-            boolean success = pwHash.cryptoPwHashStr(
-                    outputHash,
-                    pw,
-                    pw.length,
-                    PwHash.OPSLIMIT_INTERACTIVE,
-                    PwHash.MEMLIMIT_INTERACTIVE
-            );
+        byte[] pw = password.getBytes();
+        byte[] outputHash = new byte[PwHash.STR_BYTES];
+        PwHash.Native pwHash = (PwHash.Native) Kepler.getLibSodium();
+        boolean success = pwHash.cryptoPwHashStr(
+                outputHash,
+                pw,
+                pw.length,
+                PwHash.OPSLIMIT_INTERACTIVE,
+                PwHash.MEMLIMIT_INTERACTIVE
+        );
 
-            if (!success) {
-                throw new Exception("Password creation was a failure!");
-            }
-
-            return new String(outputHash).replace((char) 0 + "", "");
-        } else {
-            return password;
+        if (!success) {
+            throw new Exception("Password creation was a failure!");
         }
+
+        return new String(outputHash).replace((char) 0 + "", "");
     }
 
     /**

@@ -36,33 +36,10 @@ public class SAVE_SONG_NEW implements MessageEvent {
         SongMachineDao.addSong(player.getDetails().getId(),
                 room.getItemManager().getSoundMachine().getId(),
                 title,
-                calculateSongLength(data),
+                SAVE_SONG.calculateSongLength(data),
                 data);
 
         player.send(new SOUND_PACKAGES(SongMachineDao.getTracks(room.getItemManager().getSoundMachine().getId())));
         player.send(new SONG_NEW(room.getItemManager().getSoundMachine().getId(), title));
-    }
-
-    public static int calculateSongLength(String Data) {
-        int songLength = 0;
-
-        try {
-            String[] Track = Data.split(":");
-
-            for (int i = 1; i < 8; i += 3) {
-                int trackLength = 0;
-                String[] Samples = Track[i].split(";");
-
-                for (String Sample : Samples) {
-                    trackLength += Integer.parseInt(Sample.substring(Sample.indexOf(",") + 1));
-                }
-
-                if (trackLength > songLength) {
-                    songLength = trackLength;
-                }
-            }
-            return songLength;
-        }
-        catch (Exception e) { return -1; }
     }
 }
