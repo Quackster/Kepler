@@ -15,8 +15,8 @@ public class SONG_INFO extends MessageComposer {
     public void compose(NettyResponse response) {
         // TODO: V15 toggle?
         // if (getPlayer().getVersion() > 14) {
-            response.writeInt(this.song.getId());
-            response.writeString(this.song.getTitle());
+         //   response.writeInt(this.song.getId());
+         //   response.writeString(this.song.getTitle());
         //}
 
         response.writeString(this.song.getData());
