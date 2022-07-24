@@ -12,9 +12,6 @@ public class DefaultConfigWriter implements ConfigWriter {
         config.put("server.bind", "127.0.0.1");
         config.put("server.port", "12321");
 
-        config.put("server.limit.bandwidth", "false");//String.valueOf(40*1024));
-        config.put("server.limit.bandwidth.amount", String.valueOf(40*1024));
-
         config.put("mus.bind", "127.0.0.1");
         config.put("mus.port", "12322");
 
@@ -37,13 +34,9 @@ public class DefaultConfigWriter implements ConfigWriter {
 
     @Override
     public void setConfigurationData(Map<String, String> config, PrintWriter writer) {
-        writer.println("[Global]");
+        writer.println("[Server]");
         writer.println("server.bind=" + config.get("server.bind"));
         writer.println("server.port=" + config.get("server.port"));
-        writer.println("");
-        writer.println("[Server]");
-        writer.println("server.limit.bandwidth=" + config.get("server.limit.bandwidth"));
-        writer.println("server.limit.bandwidth.amount=" + config.get("server.limit.bandwidth.amount"));
         writer.println("");
         writer.println("[Rcon]");
         writer.println("rcon.bind=" + config.get("rcon.bind"));
