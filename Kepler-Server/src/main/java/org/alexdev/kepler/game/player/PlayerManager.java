@@ -1,6 +1,5 @@
 package org.alexdev.kepler.game.player;
 
-import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.goterl.lazysodium.interfaces.PwHash;
 import org.alexdev.kepler.Kepler;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
@@ -305,28 +304,22 @@ public class PlayerManager {
      * @throws Exception
      */
     public String createPassword(String password) throws Exception {
-        if (ServerConfiguration.getStringOrDefault("password.hashing.library", "argon2").equalsIgnoreCase("argon2")) {
-            byte[] pw = password.getBytes();
-            byte[] outputHash = new byte[PwHash.STR_BYTES];
-            PwHash.Native pwHash = (PwHash.Native) Kepler.getLibSodium();
-            boolean success = pwHash.cryptoPwHashStr(
-                    outputHash,
-                    pw,
-                    pw.length,
-                    PwHash.OPSLIMIT_INTERACTIVE,
-                    PwHash.MEMLIMIT_INTERACTIVE
-            );
+        byte[] pw = password.getBytes();
+        byte[] outputHash = new byte[PwHash.STR_BYTES];
+        PwHash.Native pwHash = (PwHash.Native) Kepler.getLibSodium();
+        boolean success = pwHash.cryptoPwHashStr(
+                outputHash,
+                pw,
+                pw.length,
+                PwHash.OPSLIMIT_INTERACTIVE,
+                PwHash.MEMLIMIT_INTERACTIVE
+        );
 
-            if (!success) {
-                throw new Exception("Password creation was a failure!");
-            }
-
-            return new String(outputHash).replace((char) 0 + "", "");
-        } else if (ServerConfiguration.getStringOrDefault("password.hashing.library", "argon2").equalsIgnoreCase("bcrypt")) {
-            return BCrypt.withDefaults().hashToString(12, password.toCharArray());
-        } else {
-            return password;
+        if (!success) {
+            throw new Exception("Password creation was a failure!");
         }
+
+        return new String(outputHash).replace((char) 0 + "", "");
     }
 
     /**

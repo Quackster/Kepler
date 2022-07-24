@@ -17,8 +17,8 @@ public class GENERATEKEY implements MessageEvent {
 
         player.send(new SESSION_PARAMETERS(player.getDetails()));
 
-        if (player.getVersion() <= 17) {
-            player.send(new AVAILABLE_SETS("[" + GameConfiguration.getInstance().getString("users.figure.parts.default") + "]"));
-        }
+        //if (player.getVersion() <= 17) {
+        player.send(new AVAILABLE_SETS("[" + GameConfiguration.getInstance().getString("users.figure.parts.default") + "]"));
+        //}
     }
 }

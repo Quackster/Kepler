@@ -4,10 +4,8 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageEncoder;
 import org.alexdev.kepler.game.player.Player;
-import org.alexdev.kepler.game.player.PlayerManager;
 import org.alexdev.kepler.log.Log;
 import org.alexdev.kepler.messages.types.MessageComposer;
-import org.alexdev.kepler.messages.types.PlayerMessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 import org.alexdev.kepler.util.config.ServerConfiguration;
 import org.slf4j.Logger;
@@ -25,13 +23,6 @@ public class NetworkEncoder extends MessageToMessageEncoder<Object> {
         try {
             if (obj instanceof MessageComposer) {
                 MessageComposer msg = (MessageComposer) obj;
-
-                if (obj instanceof PlayerMessageComposer) {
-                    Player player = ctx.channel().attr(Player.PLAYER_KEY).get();
-                    PlayerMessageComposer playerMessageComposer = (PlayerMessageComposer) obj;
-                    playerMessageComposer.setPlayer(player);
-                }
-
                 NettyResponse response = new NettyResponse(msg.getHeader(), buffer);
 
                 try {

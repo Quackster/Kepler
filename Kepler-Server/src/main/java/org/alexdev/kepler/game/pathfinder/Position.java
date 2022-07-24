@@ -321,21 +321,21 @@ public class Position {
      * @return the list of coordinates
      */
     public List<Position> getCircle(int radius) {
-        List<Position> coords = new ArrayList<>();
+        var  sphere = new ArrayList<Position>();
 
-        radius = (radius * 2); // Convert radius to diameter
+        for(int x = -radius; x <= radius; x++) {
+            for(int y = -radius; y <= radius; y++) {
+                //for(int z = -radius; z <= radius; z++) {
+                var b = this.add(new Position(x, y));
 
-        for (int x = this.getX() - radius; x <= this.getX() + radius; x++) {
-            for (int y = this.getY() - radius; y <= this.getY() + radius; y++) {
-                double dist = new Position(x, y).getDistanceSquared(this);
-
-                if (dist <= radius) {
-                    coords.add(new Position(x, y));
+                if (this.getDistanceSquared(b) <= radius) {
+                    sphere.add(b);
                 }
+                //}
+
             }
         }
-
-        return coords;
+        return sphere;
 
         /*      for(int i = 0;i < circumference; i++)
         {

@@ -18,7 +18,7 @@ import java.util.List;
 public class MESSENGER_SENDMSG implements MessageEvent {
     @Override
     public void handle(Player player, NettyRequest reader) {
-        if (player.getVersion() < 23) {
+        // if (player.getVersion() < 23) {
             int amount = reader.readInt();
 
             List<Integer> friends = new ArrayList<>();
@@ -42,7 +42,7 @@ public class MESSENGER_SENDMSG implements MessageEvent {
                     friend.send(new MESSENGER_MSG(message));
                 }
             }
-        } else {
+        /*} else {
             int userId = reader.readInt();
             String message = StringUtil.filterInput(reader.readString(), false);
 
@@ -66,6 +66,6 @@ public class MESSENGER_SENDMSG implements MessageEvent {
                     messageId, userId, player.getDetails().getId(), DateUtil.getCurrentTimeSeconds(), message, null,null);
 
             friendPlayer.send(new MESSENGER_MSG(msg));
-        }
+        }*/
     }
 }

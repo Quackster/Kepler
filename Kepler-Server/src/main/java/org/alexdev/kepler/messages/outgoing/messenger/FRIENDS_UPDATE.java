@@ -3,18 +3,16 @@ package org.alexdev.kepler.messages.outgoing.messenger;
 import org.alexdev.kepler.game.messenger.Messenger;
 import org.alexdev.kepler.game.messenger.MessengerUser;
 import org.alexdev.kepler.game.player.Player;
-import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.player.PlayerManager;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.messages.types.MessageComposer;
-import org.alexdev.kepler.messages.types.PlayerMessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 import org.alexdev.kepler.util.DateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FRIENDS_UPDATE extends PlayerMessageComposer {
+public class FRIENDS_UPDATE extends MessageComposer {
     private final List<MessengerUser> friends;
     private final Messenger messenger;
     private final Player player;
@@ -42,14 +40,13 @@ public class FRIENDS_UPDATE extends PlayerMessageComposer {
 
     @Override
     public void compose(NettyResponse response) {
-        if (getPlayer().getVersion() < 23) {
-            response.writeInt(this.friends.size());
+        response.writeInt(this.friends.size());
 
-            for (MessengerUser friend : this.friends) {
-                response.writeInt(friend.getUserId());
-                response.writeString(friend.getConsoleMotto());
+        for (MessengerUser friend : this.friends) {
+            response.writeInt(friend.getUserId());
+            response.writeString(friend.getConsoleMotto());
 
-                Player player = PlayerManager.getInstance().getPlayerById(friend.getUserId());
+            Player player = PlayerManager.getInstance().getPlayerById(friend.getUserId());
 
                 boolean isOnline = (player != null);
                 response.writeBool(isOnline);
@@ -67,16 +64,10 @@ public class FRIENDS_UPDATE extends PlayerMessageComposer {
                         response.writeString("");
                     }
                 } else {
-                    response.writeString(DateUtil.getDateAsString(friend.getLastOnline()));
+                    response.writeString("On hotel view");
                 }
-            }
-        } else {
-            response.writeInt(0); // categories
-            response.writeInt(this.friendsUpdated. size());
-
-            for (MessengerUser friend : this.friendsUpdated) {
-                response.writeInt(0);
-                friend.serialise(this.player, response);
+            } else {
+                response.writeString(DateUtil.getDateAsString(friend.getLastOnline()));
             }
         }
     }

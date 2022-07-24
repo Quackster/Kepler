@@ -9,12 +9,12 @@ import org.alexdev.kepler.util.config.GameConfiguration;
 public class GETAVAILABLESETS implements MessageEvent {
     @Override
     public void handle(Player player, NettyRequest reader) throws Exception {
-        if (player.getVersion() <= 17) {
+        // if (player.getVersion() <= 17) {
             if (player.getDetails().hasClubSubscription()) {
                 player.send(new AVAILABLE_SETS("[" + GameConfiguration.getInstance().getString("users.figure.parts.club") + "]"));
             } else {
                 player.send(new AVAILABLE_SETS("[" + GameConfiguration.getInstance().getString("users.figure.parts.default") + "]"));
             }
-        }
+        // }
     }
 }

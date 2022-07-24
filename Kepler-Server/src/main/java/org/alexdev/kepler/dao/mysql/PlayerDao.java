@@ -1,6 +1,5 @@
 package org.alexdev.kepler.dao.mysql;
 
-import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.goterl.lazysodium.interfaces.PwHash;
 import org.alexdev.kepler.Kepler;
 import org.alexdev.kepler.dao.Storage;
@@ -224,7 +223,7 @@ public class PlayerDao {
      * @param password password
      * @return true, if successful
      */
-    public static boolean login(PlayerDetails player, String username, String password, boolean useLibSodium, boolean useBcrypt) {
+    public static boolean login(PlayerDetails player, String username, String password) {
         boolean success = false;
 
         Connection sqlConnection = null;
@@ -238,7 +237,6 @@ public class PlayerDao {
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                if (useLibSodium) {
                     byte[] hashedPassword = (resultSet.getString("password") + '\0').getBytes(StandardCharsets.UTF_8);
                     byte[] pass = password.getBytes(StandardCharsets.UTF_8);
 
@@ -248,23 +246,6 @@ public class PlayerDao {
                     if (success) {
                         fill(player, resultSet);
                     }
-                } else if (useBcrypt) {
-                    var hashedPassword = resultSet.getString("password");
-
-                    BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), hashedPassword);
-                    success = result.verified;
-
-                    if (success) {
-                        fill(player, resultSet);
-
-                    }
-                } else {
-                    success = password.equals(resultSet.getString("password"));
-
-                    if (success) {
-                        fill(player, resultSet);
-                    }
-                }
             }
 
         } catch (Exception e) {

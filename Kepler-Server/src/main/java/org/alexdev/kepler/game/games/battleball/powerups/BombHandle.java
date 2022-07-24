@@ -21,7 +21,7 @@ public class BombHandle {
 
         List<GamePlayer> stunnedPlayers = new ArrayList<>();
 
-        for (Position position : gamePlayer.getPlayer().getRoomUser().getPosition().getCircle(7)) {
+        for (Position position : gamePlayer.getPlayer().getRoomUser().getPosition().getCircle(3)) {
             RoomTile tile = game.getRoom().getMapping().getTile(position.getX(), position.getY());
 
             if (tile == null || !RoomTile.isValidTile(gamePlayer.getGame().getRoom(), null, position)) {
@@ -33,7 +33,16 @@ public class BombHandle {
             if (TileUtil.undoTileAttributes(battleballTile, gamePlayer.getGame())) {
                 game.getUpdateTilesQueue().add(battleballTile);
             }
+        }
 
+        for (Position position : gamePlayer.getPlayer().getRoomUser().getPosition().getCircle(7)) {
+            RoomTile tile = game.getRoom().getMapping().getTile(position.getX(), position.getY());
+
+            if (tile == null || !RoomTile.isValidTile(gamePlayer.getGame().getRoom(), null, position)) {
+                continue;
+            }
+
+            BattleBallTile battleballTile = (BattleBallTile) game.getTile(position.getX(), position.getY());
             stunnedPlayers.addAll(battleballTile.getPlayers(gamePlayer.getGame(), position));
         }
 

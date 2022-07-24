@@ -6,7 +6,9 @@ import org.alexdev.kepler.game.entity.EntityType;
 import org.alexdev.kepler.game.games.GameObject;
 import org.alexdev.kepler.game.games.battleball.BattleBallGame;
 import org.alexdev.kepler.game.games.battleball.BattleBallTile;
+import org.alexdev.kepler.game.games.battleball.enums.BattleBallColourState;
 import org.alexdev.kepler.game.games.battleball.enums.BattleBallPlayerState;
+import org.alexdev.kepler.game.games.battleball.enums.BattleBallTileState;
 import org.alexdev.kepler.game.games.battleball.events.DespawnObjectEvent;
 import org.alexdev.kepler.game.games.battleball.events.PinSpawnEvent;
 import org.alexdev.kepler.game.games.battleball.objects.PinObject;
@@ -33,17 +35,27 @@ public class NailBoxHandle {
                 .getSquareInFront()
                 .getSquareInFront()
                 .getSquareInFront()
-                //.getSquareInFront()
                 .getSquareInFront()
+                .getSquareInFront()
+                //.getSquareInFront()
                 .getSquareInFront();
 
-        if (gamePlayer.getPlayer().getRoomUser().isWalking()) {
-            tilePosition = tilePosition.getSquareInFront();
-        }
+        /*
+        var tile2 = (BattleBallTile) game.getTile(tilePosition.getX(), tilePosition.getY());
+        BattleBallTileState state = tile2.getState();
+        BattleBallColourState colour = tile2.getColour();
+
+        BattleBallTileState newState = BattleBallTileState.CLICKED;
+        BattleBallColourState newColour = BattleBallColourState.getColourById(gamePlayer.getTeam().getId());
+
+        tile2.setColour(newColour);
+        tile2.setState(newState);
+
+        game.getUpdateTilesQueue().add(tile2);*/
 
         int maxPins = ThreadLocalRandom.current().nextInt(8, 15 + 1);
         List<Position> selectedPositions = new ArrayList<>();
-        List<Position> circlePositions = tilePosition.getCircle(5);
+        List<Position> circlePositions = tilePosition.getCircle(3);
 
         Collections.shuffle(circlePositions);
 

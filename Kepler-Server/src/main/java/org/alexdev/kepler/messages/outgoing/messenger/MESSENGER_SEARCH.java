@@ -1,18 +1,16 @@
 package org.alexdev.kepler.messages.outgoing.messenger;
 
 import org.alexdev.kepler.game.player.Player;
-import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.game.messenger.MessengerUser;
 import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.player.PlayerManager;
 import org.alexdev.kepler.messages.types.MessageComposer;
-import org.alexdev.kepler.messages.types.PlayerMessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 import org.alexdev.kepler.util.DateUtil;
 
 import java.util.List;
 
-public class MESSENGER_SEARCH extends PlayerMessageComposer {
+public class MESSENGER_SEARCH extends MessageComposer {
     private PlayerDetails details;
 
     private List<PlayerDetails> friends;
@@ -30,8 +28,7 @@ public class MESSENGER_SEARCH extends PlayerMessageComposer {
 
     @Override
     public void compose(NettyResponse response) {
-        if (getPlayer().getVersion() < 23) {
-            response.writeString("MESSENGER");
+        response.writeString("MESSENGER");
 
             if (this.details != null) {
                 new MessengerUser(this.details, true).serialise(getPlayer(), response);
@@ -39,17 +36,7 @@ public class MESSENGER_SEARCH extends PlayerMessageComposer {
                 response.writeInt(0);
             }
         } else {
-            response.writeInt(this.friends.size());
-
-            for (PlayerDetails playerDetails : this.friends) {
-                this.serialiseSearch(response, playerDetails);
-            }
-
-            response.writeInt(this.others.size());
-
-            for (PlayerDetails playerDetails : this.others) {
-                this.serialiseSearch(response, playerDetails);
-            }
+            response.writeInt(0);
         }
     }
 
@@ -72,6 +59,6 @@ public class MESSENGER_SEARCH extends PlayerMessageComposer {
 
     @Override
     public short getHeader() {
-        return getPlayer().getVersion() < 23 ? (short) 128 : (short) 435; // "B@"
+        return 128;
     }
 }

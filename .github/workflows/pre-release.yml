@@ -1,0 +1,37 @@
+name: Create Pre-Release
+
+on:
+  push:
+    branches:
+      - "master"
+
+jobs:
+  pre-release:
+    permissions: write-all
+    
+    name: "Pre Release"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: 11
+          distribution: 'adopt'
+          cache: gradle
+      - name: Build with Gradle
+        run: ./gradlew fatJar
+      - id: sha-short
+        name: Get short SHA
+        run: echo "::set-output name=sha-short::$(git rev-parse --short HEAD)"
+      - name: Rename files
+        run: cp Kepler-Server/build/libs/Kepler-Server-all.jar Kepler-${{ steps.sha-short.outputs.sha-short }}.jar
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: "Development Build ${{ steps.sha-short.outputs.sha-short }}"
+          files: |
+            Kepler-${{ steps.sha-short.outputs.sha-short }}.jar

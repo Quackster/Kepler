@@ -22,6 +22,16 @@ public class GET_SONG_INFO implements MessageEvent {
             return;
         }
 
+        player.send(new USER_SOUND_PACKAGES(player.getInventory().getSoundsets()));
+        player.send(new SOUND_PACKAGES(SongMachineDao.getTracks(room.getItemManager().getSoundMachine().getId())));
+
+        var song = SongMachineDao.getSongList(room.getItemManager().getSoundMachine().getId());
+
+        if (song.size() > 0) {
+            player.send(new SONG_INFO(song.get(0)));
+        }
+
+        /*
         int songId = -1;
 
         if (player.getVersion() <= 14) {
@@ -41,6 +51,6 @@ public class GET_SONG_INFO implements MessageEvent {
 
         if (song != null) {
             player.send(new SONG_INFO(SongMachineDao.getSong(songId)));
-        }
+        }*/
     }
 }
