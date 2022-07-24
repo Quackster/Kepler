@@ -39,13 +39,7 @@ The server has many features added, and a lot of configuration settings. Most of
 - Download web browser with Flash/Shockwave built-in [here](http://forum.ragezone.com/f353/portable-browser-flash-shockwave-basilisk-1192727/)
 - Download and install the latest version of MariaDB
 - Download and install Java JDK 12+
-
-### Prepare the emulator
-
-- Download the latest release of this repo
-- Extract the archive into a folder named **Kepler**
-
-(More steps coming later...)
+- Habbo Hotel v15 DCR pack [here](https://web.archive.org/web/20220724030154/https://raw.githubusercontent.com/Quackster/Kepler/master/tools/Quackster_v14.zip)
 
 ## Cloning this repository
 
