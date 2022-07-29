@@ -92,8 +92,8 @@ public class GameConfigWriter implements ConfigWriter {
 
         config.put("disable.purchase.successful.alert", "false");
 
-        //config.put("recycler.max.time.to.collect.seconds", "1800");
-        //config.put("recycler.session.length.seconds", "3600");
+        config.put("recycler.max.time.to.collect.seconds", "1800");
+        config.put("recycler.session.length.seconds", "3600");
         config.put("recycler.item.quarantine.seconds", "2592000");
 
         config.put("players.online", "0");
