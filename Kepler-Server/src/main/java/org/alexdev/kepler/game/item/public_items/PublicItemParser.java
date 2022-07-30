@@ -1,6 +1,5 @@
 package org.alexdev.kepler.game.item.public_items;
 
-import org.alexdev.kepler.dao.mysql.ItemDao;
 import org.alexdev.kepler.dao.mysql.PublicRoomsDao;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.ItemManager;
@@ -24,8 +23,8 @@ public class PublicItemParser {
 
         itemTriggerMap.put("poolLift", InteractionType.POOL_LIFT);
         itemTriggerMap.put("poolBooth", InteractionType.POOL_BOOTH);
-        itemTriggerMap.put("queue_tile2", InteractionType.POOL_QUEUE);
-        itemTriggerMap.put("s_queue_tile2", InteractionType.POOL_QUEUE);
+        itemTriggerMap.put("queue_tile2", InteractionType.QUEUE_TILE);
+        itemTriggerMap.put("s_queue_tile2", InteractionType.QUEUE_TILE);
         itemTriggerMap.put("gamehall_chair_wood", InteractionType.GAME_TIC_TAC_TOE);
 
         if (modelId.equals("hallC")) {

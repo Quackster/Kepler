@@ -10,7 +10,7 @@ import org.alexdev.kepler.game.room.tasks.StatusTask;
 import org.alexdev.kepler.game.triggers.GenericTrigger;
 import org.alexdev.kepler.messages.outgoing.user.currencies.NO_TICKETS;
 
-public class PoolQueueInteractor extends GenericTrigger {
+public class QueueTileInteractor extends GenericTrigger {
 
     @Override
     public void onEntityStep(Entity entity, RoomEntity roomEntity, Item item, Position oldPosition) {
@@ -20,6 +20,9 @@ public class PoolQueueInteractor extends GenericTrigger {
 
         Player player = (Player)entity;
 
+        if (!roomEntity.getRoom().getData().getModel().equals("pool_b")) {
+            return;
+        }
         if (player.getDetails().getTickets() == 0 || player.getDetails().getPoolFigure().isEmpty()) {
             oldPosition.setRotation(2); // Make user face this way, like the original Lido behaviour
             player.getRoomUser().stopWalking();
@@ -39,8 +42,10 @@ public class PoolQueueInteractor extends GenericTrigger {
 
         Player player = (Player)entity;
 
-        if (player.getDetails().getTickets() == 0 || player.getDetails().getPoolFigure().isEmpty()) {
-            return;
+        if (roomEntity.getRoom().getData().getModel().equals("pool_b")) {
+            if (player.getDetails().getTickets() == 0 || player.getDetails().getPoolFigure().isEmpty()) {
+                return;
+            }
         }
 
         // When they stop walking, check if the player is on a pool lido queue and walk to the next one
