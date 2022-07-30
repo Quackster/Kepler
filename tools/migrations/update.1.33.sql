@@ -6,6 +6,10 @@ ALTER TABLE `users`
 	ADD COLUMN IF NOT EXISTS `birthday` VARCHAR(10) NOT NULL AFTER `receive_email`,
 	ADD COLUMN IF NOT EXISTS `email` VARCHAR(256) NOT NULL AFTER `birthday`;
 	
+REPLACE INTO `rooms` (`id`, `owner_id`, `category`, `name`, `description`, `model`, `ccts`, `wallpaper`, `floor`, `showname`, `superusers`, `accesstype`, `password`, `visitors_now`, `visitors_max`, `rating`, `is_hidden`, `created_at`, `updated_at`) VALUES (68, '0', 5, 'Imperial Palace', 'emperors', 'emperors', 'hh_room_emperors', 0, 0, 0, 0, 0, '', 0, 30, 0, 0, '2018-08-11 07:54:01', '2022-06-20 22:36:50');
+REPLACE INTO `rooms` (`id`, `owner_id`, `category`, `name`, `description`, `model`, `ccts`, `wallpaper`, `floor`, `showname`, `superusers`, `accesstype`, `password`, `visitors_now`, `visitors_max`, `rating`, `is_hidden`, `created_at`, `updated_at`) VALUES (69, '0', 5, 'Beauty Salon II', 'beauty_salon_loreal', 'beauty_salon1', 'hh_room_beauty_salon_general', 0, 0, 0, 0, 0, '', 0, 25, 0, 1, '2018-08-11 07:54:01', '2022-05-25 22:12:01');
+
+  
 UPDATE rooms SET is_hidden = 1 WHERE model IN ('rooftop_2','old_skool1','malja_bar_b','bar_b','gate_park_2','park_b','pool_b','hallway0','hallway1','hallway3','hallway5','hallway4','hallway8','hallway7','hallway6','hallway10','hallway11','hallA','hallB','hallC','hallD','beauty_salon1');
 	
 DROP TABLE IF EXISTS `public_roomwalkways`;
