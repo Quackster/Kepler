@@ -36,12 +36,12 @@ Kepler is a Habbo Hotel emulator that is designed to fully emulate the v14 versi
 
 - Download web browser with Flash/Shockwave built-in [here](http://forum.ragezone.com/f353/portable-browser-flash-shockwave-basilisk-1192727/)
 - Download and install the latest version of MariaDB
-- Download and install Java JDK 12+
+- Download and install Java JDK 11+
 - Habbo Hotel v14 DCR pack [here](https://web.archive.org/web/20220724030154/https://raw.githubusercontent.com/Quackster/Kepler/master/tools/Quackster_v14.zip)
 
 ### Custom Hotel Views
 
-
+For archival purposes, there's a zip folder containing a bunch of iconic custom hotel views in /tools/
 
 ## Cloning this repository
 
