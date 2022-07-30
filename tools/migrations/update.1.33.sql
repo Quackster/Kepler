@@ -5,6 +5,9 @@ ALTER TABLE `users`
 	ADD COLUMN IF NOT EXISTS `receive_email` TINYINT(1) NOT NULL DEFAULT 0 AFTER `console_motto`,
 	ADD COLUMN IF NOT EXISTS `birthday` VARCHAR(10) NOT NULL AFTER `receive_email`,
 	ADD COLUMN IF NOT EXISTS `email` VARCHAR(256) NOT NULL AFTER `birthday`;
+  
+ALTER TABLE `users`
+	CHANGE COLUMN `pool_figure` `pool_figure` VARCHAR(255) NOT NULL DEFAULT '' AFTER `figure`;
 	
 REPLACE INTO `rooms` (`id`, `owner_id`, `category`, `name`, `description`, `model`, `ccts`, `wallpaper`, `floor`, `showname`, `superusers`, `accesstype`, `password`, `visitors_now`, `visitors_max`, `rating`, `is_hidden`, `created_at`, `updated_at`) VALUES (68, '0', 5, 'Imperial Palace', 'emperors', 'emperors', 'hh_room_emperors', 0, 0, 0, 0, 0, '', 0, 30, 0, 0, '2018-08-11 07:54:01', '2022-06-20 22:36:50');
 REPLACE INTO `rooms` (`id`, `owner_id`, `category`, `name`, `description`, `model`, `ccts`, `wallpaper`, `floor`, `showname`, `superusers`, `accesstype`, `password`, `visitors_now`, `visitors_max`, `rating`, `is_hidden`, `created_at`, `updated_at`) VALUES (69, '0', 5, 'Beauty Salon II', 'beauty_salon_loreal', 'beauty_salon1', 'hh_room_beauty_salon_general', 0, 0, 0, 0, 0, '', 0, 25, 0, 1, '2018-08-11 07:54:01', '2022-05-25 22:12:01');
