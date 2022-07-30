@@ -1,5 +1,6 @@
 package org.alexdev.kepler.game.commands.registered;
 
+import org.alexdev.kepler.Kepler;
 import org.alexdev.kepler.game.commands.Command;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
@@ -22,9 +23,9 @@ public class AboutCommand extends Command {
 
         Player player = (Player)entity;
 
-        player.send(new ALERT("Project Kepler - Habbo Hotel v14+ emulation" +
+        player.send(new ALERT("Project Kepler - Habbo Hotel v14 emulation" +
                 "<br>" +
-                "<br>Max version supported: r21_20080417_0343_5110_5527e6590eba8f3fb66348bdf271b5a2" +
+                "<br>Current revision: " + Kepler.SERVER_VERSION +
                 "<br>" +
                 "<br>Contributors:" +
                 "<br> - ThuGie, Webbanditten, Ascii, Sefhriloff, Copyright, Raptosaur, Hoshiko " + // Call for help
