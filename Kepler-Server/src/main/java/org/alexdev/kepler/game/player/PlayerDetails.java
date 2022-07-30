@@ -23,6 +23,7 @@ public class PlayerDetails {
     private String motto;
     private String consoleMotto;
     private char sex;
+    private String birthday;
     private boolean receiveNews;
 
     // Currencies
@@ -80,7 +81,7 @@ public class PlayerDetails {
      * @param battleballPoints the points accumulated when playing battleball
      * @param snowstormPoints the points accumulated when playing snowstorm
      */
-    public void fill(int id, String username, String figure, String poolFigure, int credits, String motto, String consoleMotto, String sex, int tickets, int film, int rank, long lastOnline, long firstClubSubscription, long clubExpiration, long clubGiftDue, String currentBadge, boolean showBadge, boolean allowStalking, boolean allowFriendRequests, boolean soundEnabled,
+    public void fill(int id, String username, String figure, String poolFigure, int credits, String motto, String consoleMotto, String sex, String birthday, int tickets, int film, int rank, long lastOnline, long firstClubSubscription, long clubExpiration, long clubGiftDue, String currentBadge, boolean showBadge, boolean allowStalking, boolean allowFriendRequests, boolean soundEnabled,
                      boolean tutorialFinished, int battleballPoints, int snowstormPoints) {
         this.id = id;
         this.username = StringUtil.filterInput(username, true);
@@ -89,6 +90,7 @@ public class PlayerDetails {
         this.motto = StringUtil.filterInput(motto, true);
         this.consoleMotto = StringUtil.filterInput(consoleMotto, true);
         this.sex = sex.toLowerCase().equals("f") ? 'F' : 'M';
+        this.birthday = birthday;
         this.credits = credits;
         this.tickets = tickets;
         this.film = film;
@@ -213,6 +215,7 @@ public class PlayerDetails {
     public void setMotto(String motto) {
         this.motto = motto;
     }
+
 
     public String getConsoleMotto() {
         return consoleMotto;
@@ -382,5 +385,13 @@ public class PlayerDetails {
 
     public void setReceiveNews(boolean receiveNews) {
         this.receiveNews = receiveNews;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
     }
 }

@@ -53,6 +53,7 @@ import org.alexdev.kepler.messages.incoming.tutorial.SET_TUTORIAL_MODE;
 import org.alexdev.kepler.messages.incoming.user.*;
 import org.alexdev.kepler.messages.incoming.user.settings.GET_ACCOUNT_PREFERENCES;
 import org.alexdev.kepler.messages.incoming.user.settings.GET_SOUND_SETTING;
+import org.alexdev.kepler.messages.incoming.user.settings.UPDATE_ACCOUNT;
 import org.alexdev.kepler.messages.incoming.welcomingparty.ACCEPT_TUTOR_INVITATION;
 import org.alexdev.kepler.messages.incoming.welcomingparty.REJECT_TUTOR_INVITATION;
 import org.alexdev.kepler.messages.incoming.wobblesquabble.PTM;
@@ -158,6 +159,7 @@ public class MessageHandler {
         registerEvent(322, new UNIGNORE_USER());
         registerEvent(228, new GET_SOUND_SETTING());
         registerEvent(9, new GETAVAILABLESETS());
+        registerEvent(149, new UPDATE_ACCOUNT());
         //registerEvent(315, new TEST_LATENCY());
     }
 

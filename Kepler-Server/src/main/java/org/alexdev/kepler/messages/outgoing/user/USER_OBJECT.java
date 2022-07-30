@@ -13,15 +13,15 @@ public class USER_OBJECT extends MessageComposer {
 
     @Override
     public void compose(NettyResponse response) {
-            response.writeString(this.details.getId());
-            response.writeString(this.details.getName());
-            response.writeString(this.details.getFigure());
-            response.writeString(this.details.getSex());
-            response.writeString(this.details.getMotto());
-            response.writeInt(this.details.getTickets());
-            response.writeString(this.details.getPoolFigure());
-            response.writeInt(this.details.getFilm());
-        //response.writeInt(this.details.getDirectMail()); TODO: figure out what directmail is used for in handleUserObj in hh_entry
+        response.writeString(this.details.getId());
+        response.writeString(this.details.getName());
+        response.writeString(this.details.getFigure());
+        response.writeString(this.details.getSex());
+        response.writeString(this.details.getMotto());
+        response.writeInt(this.details.getTickets());
+        response.writeString(this.details.getPoolFigure());
+        response.writeInt(this.details.getFilm());
+        response.writeBool(this.details.isReceiveNews());
     }
 
     @Override

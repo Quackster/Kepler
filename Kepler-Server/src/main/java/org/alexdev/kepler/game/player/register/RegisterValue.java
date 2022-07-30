@@ -1,24 +1,18 @@
 package org.alexdev.kepler.game.player.register;
 
 public class RegisterValue {
-    private int id;
     private String label;
     private RegisterDataType dataType;
     private String value;
     private boolean flag;
 
-    public RegisterValue(String label, int id, RegisterDataType dataType) {
+    public RegisterValue(String label, RegisterDataType dataType) {
         this.label = label;
-        this.id = id;
         this.dataType = dataType;
     }
 
     public RegisterDataType getDataType() {
         return dataType;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public boolean getFlag() {
