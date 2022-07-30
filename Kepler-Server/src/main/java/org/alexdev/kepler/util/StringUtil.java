@@ -15,8 +15,9 @@ public class StringUtil {
      * @param param the param
      * @return true, if is null or empty
      */
-    public static boolean isNullOrEmpty(String param) {
-        return param == null || param.trim().length() == 0;
+    public static boolean isNullOrEmpty(Object param) {
+        String str = param == null ? null : param.toString();
+        return str == null || str.trim().length() == 0;
     }
 
     /**

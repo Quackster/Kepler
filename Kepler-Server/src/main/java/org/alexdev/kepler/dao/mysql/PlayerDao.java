@@ -221,6 +221,38 @@ public class PlayerDao {
         return success;
     }
 
+    public static boolean login(String username, String password) {
+        boolean success = false;
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("SELECT id, password FROM users WHERE username = ? LIMIT 1", sqlConnection);
+            preparedStatement.setString(1, username);
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                byte[] hashedPassword = (resultSet.getString("password") + '\0').getBytes(StandardCharsets.UTF_8);
+                byte[] pass = password.getBytes(StandardCharsets.UTF_8);
+
+                PwHash.Native pwHash = (PwHash.Native) Kepler.getLibSodium();
+                success = pwHash.cryptoPwHashStrVerify(hashedPassword, pass, pass.length);
+            }
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+
+        return success;
+    }
+
     /**
      * Clear SSO ticket
      * Protects against replay attacks
@@ -441,6 +473,86 @@ public class PlayerDao {
         }
     }
 
+    public static void saveReceiveMail(PlayerDetails details) {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("UPDATE users SET receive_email = ? WHERE id = ?", sqlConnection);
+            preparedStatement.setBoolean(1, details.isReceiveNews());
+            preparedStatement.setInt(2, details.getId());
+            preparedStatement.execute();
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+
+    /**
+     * Update details.
+     */
+    public static void savePassword(int userId, String password) {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("UPDATE users SET password = ? WHERE id = ?", sqlConnection);
+            preparedStatement.setString(1, password);
+            preparedStatement.setInt(2, userId);
+            preparedStatement.execute();
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+
+    public static void saveBirthday(int userId, String birthday) {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("UPDATE users SET birthday = ? WHERE id = ?", sqlConnection);
+            preparedStatement.setString(1, birthday);
+            preparedStatement.setInt(2, userId);
+            preparedStatement.execute();
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+
+    public static void saveEmail(int userId, String email) {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("UPDATE users SET email = ? WHERE id = ?", sqlConnection);
+            preparedStatement.setString(1, email);
+            preparedStatement.setInt(2, userId);
+            preparedStatement.execute();
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+
+
     /**
      * Update details.
      *
@@ -482,10 +594,10 @@ public class PlayerDao {
 
         details.fill(row.getInt("id"), row.getString("username"), row.getString("figure"),
                 row.getString("pool_figure"), row.getInt("credits"), row.getString("motto"),
-                row.getString("console_motto"), row.getString("sex"), row.getInt("tickets"),
-                row.getInt("film"), row.getInt("rank"), row.getLong("last_online"),
-                row.getLong("club_subscribed"), row.getLong("club_expiration"), row.getLong("club_gift_due"),
-                row.getString("badge"),
+                row.getString("console_motto"), row.getString("sex"), row.getString("birthday"),
+                row.getInt("tickets"), row.getInt("film"), row.getInt("rank"),
+                row.getLong("last_online"), row.getLong("club_subscribed"), row.getLong("club_expiration"),
+                row.getLong("club_gift_due"), row.getString("badge"),
                 row.getBoolean("badge_active"), row.getBoolean("allow_stalking"),
                 row.getBoolean("allow_friend_requests"), row.getBoolean("sound_enabled"),
                 row.getBoolean("tutorial_finished"), row.getInt("battleball_points"),
