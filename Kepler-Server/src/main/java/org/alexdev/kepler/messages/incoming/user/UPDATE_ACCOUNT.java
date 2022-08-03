@@ -53,7 +53,7 @@ public class UPDATE_ACCOUNT implements MessageEvent {
                     PlayerDao.savePassword(player.getDetails());
                     player.send(new org.alexdev.kepler.messages.outgoing.user.UPDATE_ACCOUNT(0));
                 } else {
-                    if(player.getDetails().getBirthday() == birthday) {
+                    if(player.getDetails().getBirthday().equalsIgnoreCase(birthday)) {
                         player.getDetails().setEmail(email);
                         PlayerDao.saveEmail(player.getDetails());
                         player.send(new org.alexdev.kepler.messages.outgoing.user.UPDATE_ACCOUNT(0));
