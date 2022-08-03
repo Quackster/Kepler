@@ -103,9 +103,11 @@ public class StatusTask implements Runnable {
             return;
         }
 
-        if (player.getRoomUser().getRoom() != null && !player.getRoomUser().getRoom().getModel().getName().equals("pool_b")) {
+        /*
+        if (player.getRoomUser().getRoom() == null && !player.getRoomUser().getRoom().getModel().getName().equals("pool_b")) {
             return;
         }
+         */
 
         if (player.getRoomUser().isWalking()) {
             return;

@@ -30,6 +30,7 @@ public class PlayerDetails {
     private String birthday;
     private String consoleMotto;
     private char sex;
+    private String birthday;
     private boolean receiveNews;
 
     // Currencies
@@ -97,6 +98,7 @@ public class PlayerDetails {
         this.motto = StringUtil.filterInput(motto, true);
         this.consoleMotto = StringUtil.filterInput(consoleMotto, true);
         this.sex = sex.toLowerCase().equals("f") ? 'F' : 'M';
+        this.birthday = birthday;
         this.credits = credits;
         this.tickets = tickets;
         this.birthday = birthday;
@@ -417,5 +419,13 @@ public class PlayerDetails {
 
     public void setReceiveNews(boolean receiveNews) {
         this.receiveNews = receiveNews;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
     }
 }

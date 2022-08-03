@@ -59,6 +59,8 @@ public class Kepler {
 
     private static LazySodiumJava LIB_SODIUM;
 
+    public static final String SERVER_VERSION = "v1.4";
+
     /**
      * Main call of Java application
      * @param args System arguments
@@ -82,9 +84,8 @@ public class Kepler {
                     " |_|\\_\\___| .__/|_|\\___|_|   \n" +
                     "          |_|                ");
 
-            log.info("Kepler - Habbo Hotel Emulation (max version supported: v26)");
-            String currentDirectory = System.getProperty("user.dir");
-            log.info("The current working directory is " + currentDirectory);
+            log.info("Kepler - Habbo Hotel Emulation (revision " + SERVER_VERSION + ")");
+
             if (!Storage.connect()) {
                 return;
             }
