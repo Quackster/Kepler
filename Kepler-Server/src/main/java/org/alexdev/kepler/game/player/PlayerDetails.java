@@ -30,7 +30,6 @@ public class PlayerDetails {
     private String birthday;
     private String consoleMotto;
     private char sex;
-    private String birthday;
     private boolean receiveNews;
 
     // Currencies
@@ -97,8 +96,7 @@ public class PlayerDetails {
         this.poolFigure = StringUtil.filterInput(poolFigure, true); // Format: ch=s02/238,238,238
         this.motto = StringUtil.filterInput(motto, true);
         this.consoleMotto = StringUtil.filterInput(consoleMotto, true);
-        this.sex = sex.toLowerCase().equals("f") ? 'F' : 'M';
-        this.birthday = birthday;
+        this.sex = sex.equalsIgnoreCase("f") ? 'F' : 'M';
         this.credits = credits;
         this.tickets = tickets;
         this.birthday = birthday;
@@ -191,9 +189,6 @@ public class PlayerDetails {
     }
     public String getEmail() {
         return email;
-    }
-    public String getBirthday() {
-        return birthday;
     }
 
     public int getGroup() {

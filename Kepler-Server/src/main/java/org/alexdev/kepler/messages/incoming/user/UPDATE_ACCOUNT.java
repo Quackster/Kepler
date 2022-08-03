@@ -43,7 +43,7 @@ public class UPDATE_ACCOUNT implements MessageEvent {
         // 1 wrong password
         // 2 wrong birthday
         // Handle if the player is created with a birthday - otherwise ignore
-        if (!PlayerDao.login(player.getDetails(), player.getDetails().getName(), password)) {
+        if (!PlayerDao.login(player.getDetails().getName(), password)) {
             player.send(new org.alexdev.kepler.messages.outgoing.user.UPDATE_ACCOUNT(1));
         } else {
             if(player.getDetails().getBirthday().length() > 0) {

@@ -2,9 +2,9 @@ package org.alexdev.kepler.messages.incoming.user;
 
 import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.game.player.Player;
-import org.alexdev.kepler.game.player.PlayerManager;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
+import org.alexdev.kepler.util.StringUtil;
 
 public class UPDATE implements MessageEvent {
     @Override
@@ -13,50 +13,46 @@ public class UPDATE implements MessageEvent {
             return;
         }
 
-        var registerValues = PlayerManager.getInstance().getRegisterValues();
-
         while (reader.remainingBytes().length > 0) {
-            var valueId = reader.readBase64();
+            int updateId = reader.readBase64();
+            System.out.println(updateId);
 
-            if (!registerValues.containsKey(valueId)) {
-                return;
-            }
-
-            var value = registerValues.get(valueId);
-
-            switch (value.getDataType()) {
-                case STRING:
+            switch (updateId) {
+                case 9:
                 {
-                    value.setValue(reader.readString());
+                    boolean receiveNews = reader.readBytes(1)[0] == 'A';
+                    player.getDetails().setReceiveNews(receiveNews);
                     break;
                 }
-                case BOOLEAN:
+                case 4:
                 {
-                    value.setFlag(reader.readBytes(1)[0] == 'A');
+                    String figure = StringUtil.filterInput(reader.readString(), true);
+                    player.getDetails().setFigure(figure);
+                    break;
+                }
+                case 5:
+                {
+                    char sex = StringUtil.filterInput(reader.readString(), true).toCharArray()[0];
+
+                    if (sex != player.getDetails().getSex()) {
+                        player.getDetails().setSex(sex);
+                    }
+
+                    break;
+                }
+                case 6:
+                {
+                    String motto = StringUtil.filterInput(reader.readString(), true);
+                    player.getDetails().setMotto(motto);
+                    break;
+                }
+                default:
+                {
+                    System.out.println("Unknown: " + new String(reader.remainingBytes()));
+                    reader.readBytes(reader.remainingBytes().length);
                     break;
                 }
             }
-        }
-
-        Object directMail = PlayerManager.getInstance().getRegisterValue(registerValues, "directMail");
-        if (directMail != null) {
-            player.getDetails().setReceiveNews((boolean) directMail);
-            PlayerDao.saveReceiveMail(player.getDetails());
-        }
-
-        Object motto = PlayerManager.getInstance().getRegisterValue(registerValues, "customData");
-        if (motto != null) {
-            player.getDetails().setMotto((String) motto);
-        }
-
-        Object figure = PlayerManager.getInstance().getRegisterValue(registerValues, "figure");
-        if (figure != null) {
-            player.getDetails().setFigure((String) figure);
-        }
-
-        Object sex = PlayerManager.getInstance().getRegisterValue(registerValues, "sex");
-        if (sex != null) {
-            player.getDetails().setSex(((String) sex).toCharArray()[0]);
         }
 
         PlayerDao.saveDetails(player.getDetails());
