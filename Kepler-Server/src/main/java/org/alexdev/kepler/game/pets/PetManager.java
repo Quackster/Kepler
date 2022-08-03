@@ -46,6 +46,14 @@ public class PetManager {
         boolean petCommanded = false;
 
         switch (command.toLowerCase()) {
+            case "eat": {
+                pet.getRoomUser().tryEating();
+                break;
+            }
+            case "drink": {
+                pet.getRoomUser().tryDrinking();
+                break;
+            }
             case "speak": {
                 // Bark, meow, etc
                 break;
