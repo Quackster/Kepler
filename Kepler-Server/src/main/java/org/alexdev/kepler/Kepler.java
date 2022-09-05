@@ -6,6 +6,7 @@ import io.netty.util.ResourceLeakDetector;
 import org.alexdev.kepler.dao.Storage;
 import org.alexdev.kepler.dao.mysql.SettingsDao;
 import org.alexdev.kepler.game.GameScheduler;
+import org.alexdev.kepler.game.ads.AdManager;
 import org.alexdev.kepler.game.bot.BotManager;
 import org.alexdev.kepler.game.catalogue.CatalogueManager;
 import org.alexdev.kepler.game.commands.CommandManager;
@@ -94,6 +95,7 @@ public class Kepler {
             //log.info(REGISTER.createPassword("lol"));
 
             GameConfiguration.getInstance(new GameConfigWriter());
+            AdManager.getInstance();
             WalkwaysManager.getInstance();
             ItemManager.getInstance();
             CatalogueManager.getInstance();

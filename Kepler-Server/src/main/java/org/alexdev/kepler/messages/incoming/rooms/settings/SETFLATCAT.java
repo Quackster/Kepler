@@ -6,6 +6,7 @@ import org.alexdev.kepler.game.navigator.NavigatorManager;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.RoomManager;
+import org.alexdev.kepler.messages.outgoing.rooms.TRADING_STATUS_UPDATE;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 
@@ -40,6 +41,9 @@ public class SETFLATCAT implements MessageEvent {
         }
 
         room.getData().setCategoryId(category.getId());
+
+        room.send(new TRADING_STATUS_UPDATE(category.hasAllowTrading() ? 1 : 0));
+
         RoomDao.save(room);
     }
 }

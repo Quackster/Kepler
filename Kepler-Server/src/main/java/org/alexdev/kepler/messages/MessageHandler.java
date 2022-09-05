@@ -283,6 +283,7 @@ public class MessageHandler {
         registerEvent(74, new SETSTUFFDATA());
         registerEvent(183, new CONVERT_FURNI_TO_CREDITS());
         registerEvent(76, new THROW_DICE());
+        registerEvent(314, new SET_RANDOM_STATE());
         registerEvent(77, new DICE_OFF());
         registerEvent(247, new SPIN_WHEEL_OF_FORTUNE());
         registerEvent(341, new MSG_ROOMDIMMER_GET_PRESETS());

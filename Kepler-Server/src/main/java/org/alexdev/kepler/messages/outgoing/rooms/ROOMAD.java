@@ -3,14 +3,14 @@ package org.alexdev.kepler.messages.outgoing.rooms;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 
-public class ROOM_AD extends MessageComposer {
+public class ROOMAD extends MessageComposer {
     private final String img;
     private final String url;
-    public ROOM_AD() {
+    public ROOMAD() {
         this.img = null;
         this.url = null;
     }
-    public ROOM_AD(String img, String url) {
+    public ROOMAD(String img, String url) {
         this.img = img;
         this.url = url;
     }
