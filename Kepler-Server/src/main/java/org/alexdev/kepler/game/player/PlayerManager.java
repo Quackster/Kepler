@@ -1,6 +1,5 @@
 package org.alexdev.kepler.game.player;
 
-import com.goterl.lazysodium.interfaces.PwHash;
 import org.alexdev.kepler.Kepler;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.game.GameScheduler;
@@ -15,6 +14,7 @@ import org.alexdev.kepler.messages.outgoing.user.ALERT;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.util.DateUtil;
 import org.alexdev.kepler.util.config.ServerConfiguration;
+import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 
 import java.time.Duration;
 import java.time.LocalTime;
@@ -287,23 +287,14 @@ public class PlayerManager {
      * @return hashed password
      * @throws Exception
      */
-    public String createPassword(String password) throws Exception {
-        byte[] pw = password.getBytes();
-        byte[] outputHash = new byte[PwHash.STR_BYTES];
-        PwHash.Native pwHash = (PwHash.Native) Kepler.getLibSodium();
-        boolean success = pwHash.cryptoPwHashStr(
-                outputHash,
-                pw,
-                pw.length,
-                PwHash.OPSLIMIT_INTERACTIVE,
-                PwHash.MEMLIMIT_INTERACTIVE
-        );
+    public String createPassword(String password)  {
+        return Kepler.getPasswordEncoder().encode(password);
+    }
 
-        if (!success) {
-            throw new Exception("Password creation was a failure!");
-        }
-
-        return new String(outputHash).replace((char) 0 + "", "");
+    public boolean passwordMatches(String databasePassword, String enteredPassword) {
+        System.out.println("raw = " + enteredPassword);
+        System.out.println("db = " + databasePassword);
+        return Kepler.getPasswordEncoder().matches(enteredPassword, databasePassword);
     }
 
     /**
