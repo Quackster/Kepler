@@ -231,11 +231,12 @@ public class PlayerDao {
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                byte[] hashedPassword = (resultSet.getString("password") + '\0').getBytes(StandardCharsets.UTF_8);
-                byte[] pass = password.getBytes(StandardCharsets.UTF_8);
+                String databasePassword = resultSet.getString("password");
 
+                if (PlayerManager.getInstance().passwordMatches(databasePassword, password)) {
+                    success = true;
+                }
             }
-
         } catch (Exception e) {
             Storage.logError(e);
         } finally {
