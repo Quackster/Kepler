@@ -43,7 +43,6 @@ To be honest, this server doesn't require much. I'd argue that the MariaDB serve
 
 - JDK >= 17
 - MariaDB server
-- libsodium support (this project uses [this library](https://github.com/terl/lazysodium-java))
 
 # Installation
 

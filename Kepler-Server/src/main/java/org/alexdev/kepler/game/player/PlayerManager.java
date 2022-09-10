@@ -292,8 +292,6 @@ public class PlayerManager {
     }
 
     public boolean passwordMatches(String databasePassword, String enteredPassword) {
-        System.out.println("raw = " + enteredPassword);
-        System.out.println("db = " + databasePassword);
         return Kepler.getPasswordEncoder().matches(enteredPassword, databasePassword);
     }
 
