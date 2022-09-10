@@ -1,7 +1,5 @@
 package org.alexdev.kepler;
 
-import com.goterl.lazysodium.LazySodiumJava;
-import com.goterl.lazysodium.SodiumJava;
 import io.netty.util.ResourceLeakDetector;
 import org.alexdev.kepler.dao.Storage;
 import org.alexdev.kepler.dao.mysql.SettingsDao;
@@ -36,9 +34,7 @@ import org.alexdev.kepler.util.config.writer.DefaultConfigWriter;
 import org.alexdev.kepler.util.config.writer.GameConfigWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
-import java.net.UnknownHostException;
+import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 
 public class Kepler {
 
@@ -59,9 +55,6 @@ public class Kepler {
     private static MusServer musServer;
     private static RconServer rconServer;
     private static Logger log;
-
-    private static LazySodiumJava LIB_SODIUM;
-
     public static final String SERVER_VERSION = "v1.4";
 
     /**
@@ -92,7 +85,7 @@ public class Kepler {
             if (!Storage.connect()) {
                 return;
             }
-
+            
             log.info("Setting up game");
             //log.info(REGISTER.createPassword("lol"));
 
@@ -120,9 +113,6 @@ public class Kepler {
 
             // Update players online back to 0
             SettingsDao.updateSetting("players.online", "0");
-
-            log.info("Using Argon2 password hashing algorithm");
-            LIB_SODIUM  = new LazySodiumJava(new SodiumJava());
 
             setupMus();
             setupRcon();
@@ -308,7 +298,13 @@ public class Kepler {
         return isShutdown;
     }
 
-    public static LazySodiumJava getLibSodium() {
-        return LIB_SODIUM;
+    /**
+     * Get the Argon2 password encoder instance.
+     *
+     * @return
+     */
+    public static Argon2PasswordEncoder getPasswordEncoder() {
+        var encoder =new Argon2PasswordEncoder(16, 32, 1, 65536, 2);
+        return encoder;
     }
 }

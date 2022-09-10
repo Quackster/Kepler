@@ -1,10 +1,10 @@
 package org.alexdev.kepler.dao.mysql;
 
-import com.goterl.lazysodium.interfaces.PwHash;
 import org.alexdev.kepler.Kepler;
 import org.alexdev.kepler.dao.Storage;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerDetails;
+import org.alexdev.kepler.game.player.PlayerManager;
 import org.alexdev.kepler.util.DateUtil;
 
 import java.nio.charset.StandardCharsets;
@@ -199,17 +199,13 @@ public class PlayerDao {
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                    byte[] hashedPassword = (resultSet.getString("password") + '\0').getBytes(StandardCharsets.UTF_8);
-                    byte[] pass = password.getBytes(StandardCharsets.UTF_8);
+                String databasePassword = resultSet.getString("password");
 
-                    PwHash.Native pwHash = (PwHash.Native) Kepler.getLibSodium();
-                    success = pwHash.cryptoPwHashStrVerify(hashedPassword, pass, pass.length);
-
-                    if (success) {
-                        fill(player, resultSet);
-                    }
+                if (PlayerManager.getInstance().passwordMatches(databasePassword, password)) {
+                    success = true;
+                    fill(player, resultSet);
+                }
             }
-
         } catch (Exception e) {
             Storage.logError(e);
         } finally {
@@ -238,8 +234,6 @@ public class PlayerDao {
                 byte[] hashedPassword = (resultSet.getString("password") + '\0').getBytes(StandardCharsets.UTF_8);
                 byte[] pass = password.getBytes(StandardCharsets.UTF_8);
 
-                PwHash.Native pwHash = (PwHash.Native) Kepler.getLibSodium();
-                success = pwHash.cryptoPwHashStrVerify(hashedPassword, pass, pass.length);
             }
 
         } catch (Exception e) {
