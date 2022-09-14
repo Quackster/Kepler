@@ -3,7 +3,7 @@ name: Create Pre-Release
 on:
   push:
     branches:
-      - "pre-release"
+      - "master"
 
 jobs:
   pre-release:
@@ -20,13 +20,34 @@ jobs:
           java-version: 17
           distribution: 'adopt'
           cache: gradle
-      - name: Build with Gradle
-        run: ./gradlew fatJar
+      - name: Build distribution with Gradle
+        run: ./gradlew distZip
+        
+      - name: Decompress distribution zip file
+        uses: montudor/action-zip@v1
+        with:
+          args: unzip -qq Kepler-Server/build/distributions/Kepler-Server.zip -d ./release
+          
+      - name: File release preparation
+        run: |
+          sudo rm -rf ./release/Kepler-Server/bin/*
+          sudo rm -rf ./release/Kepler-Server/bin
+          sudo mkdir ./Kepler
+          sudo mkdir ./Kepler/lib
+          sudo mv ./release/Kepler-Server/lib/Kepler-Server.jar ./Kepler/kepler.jar
+          sudo mv ./release/Kepler-Server/lib/* ./Kepler/lib
+          sudo cp tools/scripts/run.bat ./Kepler/
+          sudo cp tools/scripts/run.sh ./Kepler/
+
       - id: sha-short
         name: Get short SHA
         run: echo "::set-output name=sha-short::$(git rev-parse --short HEAD)"
-      - name: Rename files
-        run: cp Kepler-Server/build/libs/Kepler-Server-all.jar Kepler-${{ steps.sha-short.outputs.sha-short }}.jar
+        
+      - name: Compress release files
+        uses: montudor/action-zip@v1
+        with:
+          args: zip -qq -r ./Kepler-${{ steps.sha-short.outputs.sha-short }}.zip ./Kepler
+          
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
@@ -34,4 +55,4 @@ jobs:
           prerelease: true
           title: "Development Build ${{ steps.sha-short.outputs.sha-short }}"
           files: |
-            Kepler-${{ steps.sha-short.outputs.sha-short }}.jar
+            Kepler-${{ steps.sha-short.outputs.sha-short }}.zip

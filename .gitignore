@@ -14,7 +14,6 @@
 *.ini
 
 gradlew.bat
-run.bat
 /tools/db/schema.sql
 log4j.properties
 
