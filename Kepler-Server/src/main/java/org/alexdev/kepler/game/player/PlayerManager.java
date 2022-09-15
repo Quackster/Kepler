@@ -291,6 +291,11 @@ public class PlayerManager {
         return Kepler.getPasswordEncoder().encode(password);
     }
 
+    /**
+     * Get whether the hash matches the entered password.
+     *
+     * @return true, if success
+     */
     public boolean passwordMatches(String databasePassword, String enteredPassword) {
         return Kepler.getPasswordEncoder().matches(enteredPassword, databasePassword);
     }
