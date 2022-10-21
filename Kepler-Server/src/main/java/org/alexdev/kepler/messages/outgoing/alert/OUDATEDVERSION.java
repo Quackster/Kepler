@@ -3,21 +3,21 @@ package org.alexdev.kepler.messages.outgoing.alert;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 
-public class LOCALISED_ERROR extends MessageComposer {
+public class OUDATEDVERSION extends MessageComposer {
 
-    private final String externalTextEntry;
+    private boolean required;
 
-    public LOCALISED_ERROR(String externalTextEntry) {
-        this.externalTextEntry = externalTextEntry;
+    public OUDATEDVERSION(boolean required) {
+        this.required = required;
     }
 
     @Override
     public void compose(NettyResponse response) {
-        response.write(this.externalTextEntry);
+        response.write(this.required ? "required" : "optional");
     }
 
     @Override
     public short getHeader() {
-        return 33; // "@a"
+        return 4;
     }
 }

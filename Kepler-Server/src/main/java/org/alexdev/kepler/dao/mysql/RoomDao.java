@@ -316,10 +316,11 @@ public class RoomDao {
 
         try {
             sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("UPDATE rooms SET wallpaper = ?, floor = ? WHERE id = ?", sqlConnection);
+            preparedStatement = Storage.getStorage().prepare("UPDATE rooms SET wallpaper = ?, floor = ?, landscape = ? WHERE id = ?", sqlConnection);
             preparedStatement.setInt(1, room.getData().getWallpaper());
             preparedStatement.setInt(2, room.getData().getFloor());
-            preparedStatement.setInt(3, room.getId());
+            preparedStatement.setString(3, room.getData().getLandscape());
+            preparedStatement.setInt(4, room.getId());
             preparedStatement.execute();
         } catch (Exception e) {
             Storage.logError(e);
@@ -328,6 +329,7 @@ public class RoomDao {
             Storage.closeSilently(sqlConnection);
         }
     }
+
 
     /**
      * Save all room information.
@@ -424,7 +426,7 @@ public class RoomDao {
         //     String password, int visitorsNow, int visitorsMax, int rating, boolean isHidden) {
         data.fill(row.getInt("id"), row.getInt("owner_id"), ownerName != null ? ownerName : "", row.getInt("category"),
                 row.getString("name"), row.getString("description"), row.getString("model"),
-                row.getString("ccts"), row.getInt("wallpaper"), row.getInt("floor"), row.getBoolean("showname"),
+                row.getString("ccts"), row.getInt("wallpaper"), row.getInt("floor"),row.getString("landscape"), row.getBoolean("showname"),
                 row.getBoolean("superusers"), row.getInt("accesstype"), row.getString("password"),
                 row.getInt("visitors_now"), row.getInt("visitors_max"), row.getInt("rating"), row.getBoolean("is_hidden"));
 

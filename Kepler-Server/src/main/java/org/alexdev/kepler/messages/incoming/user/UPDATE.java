@@ -15,7 +15,6 @@ public class UPDATE implements MessageEvent {
 
         while (reader.remainingBytes().length > 0) {
             int updateId = reader.readBase64();
-            System.out.println(updateId);
 
             switch (updateId) {
                 case 9:

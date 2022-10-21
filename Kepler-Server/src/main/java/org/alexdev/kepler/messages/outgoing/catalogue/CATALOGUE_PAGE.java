@@ -47,7 +47,7 @@ public class CATALOGUE_PAGE extends MessageComposer {
             response.writeKeyValue("s", this.page.getLabelExtra_s());
         }
 
-        for (int labelDataId = 1; labelDataId < 11; labelDataId++) {
+        for (int labelDataId = 1; labelDataId < 12; labelDataId++) {
             String extraDataId = "label_extra_t_" + labelDataId;
 
             if (!this.page.getLabelExtra().containsKey(extraDataId)) {

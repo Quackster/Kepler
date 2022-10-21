@@ -35,6 +35,7 @@ public class RoomData {
     private Game game;
     private int groupId;
     private boolean isHidden;
+    private String landscape;
 
     RoomData(Room room) {
         this.room = room;
@@ -50,7 +51,7 @@ public class RoomData {
         this.ownerName = "";
     }
 
-    public void fill(int id, int ownerId, String ownerName, int category, String name, String description, String model, String ccts, int wallpaper, int floor, boolean showName, boolean superUsers, int accessType, String password, int visitorsNow, int visitorsMax, int rating,
+    public void fill(int id, int ownerId, String ownerName, int category, String name, String description, String model, String ccts, int wallpaper, int floor,String decoration, boolean showName, boolean superUsers, int accessType, String password, int visitorsNow, int visitorsMax, int rating,
                      boolean isHidden) {
         this.id = id;
         this.ownerId = ownerId;
@@ -71,6 +72,7 @@ public class RoomData {
         this.rating = rating;
         this.groupId = groupId;
         this.isHidden = isHidden;
+        this.landscape = decoration;
 
         if (WalkwaysManager.getInstance().getWalkways().stream().anyMatch(walkway -> walkway.getRoomTargetId() == this.room.getId())) {
             WalkwaysManager.getInstance().getWalkways().stream().filter(walkway -> walkway.getRoomTargetId() == this.room.getId()).findFirst().ifPresent(roomData -> this.room.setFollowRedirect(roomData.getRoomId()));
@@ -306,6 +308,14 @@ public class RoomData {
 
     public void setHidden(boolean hidden) {
         isHidden = hidden;
+    }
+
+    public String getLandscape() {
+        return landscape;
+    }
+
+    public void setLandscape(String landscape) {
+        this.landscape = landscape;
     }
 
 }

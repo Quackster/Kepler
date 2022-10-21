@@ -12,10 +12,7 @@ import org.alexdev.kepler.messages.incoming.club.SCR_GIFT_APPROVAL;
 import org.alexdev.kepler.messages.incoming.club.SUBSCRIBE_CLUB;
 import org.alexdev.kepler.messages.incoming.events.*;
 import org.alexdev.kepler.messages.incoming.games.*;
-import org.alexdev.kepler.messages.incoming.handshake.GENERATEKEY;
-import org.alexdev.kepler.messages.incoming.handshake.INIT_CRYPTO;
-import org.alexdev.kepler.messages.incoming.handshake.SSO;
-import org.alexdev.kepler.messages.incoming.handshake.TRY_LOGIN;
+import org.alexdev.kepler.messages.incoming.handshake.*;
 import org.alexdev.kepler.messages.incoming.infobus.CHANGEWORLD;
 import org.alexdev.kepler.messages.incoming.infobus.TRYBUS;
 import org.alexdev.kepler.messages.incoming.infobus.VOTE;
@@ -123,6 +120,7 @@ public class MessageHandler {
         registerEvent(204, new SSO());
         registerEvent(4, new TRY_LOGIN());
         registerEvent(756, new TRY_LOGIN());
+        registerEvent(3, new VERSIONCHECK());
     }
 
     /**

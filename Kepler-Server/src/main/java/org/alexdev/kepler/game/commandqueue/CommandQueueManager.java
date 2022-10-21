@@ -44,7 +44,6 @@ public class CommandQueueManager {
 
         for (int i = 0; i < commandsToExecute.size(); i++) {
             CommandQueue cq = commandsToExecute.get(i);
-            System.out.println(commandsToExecute.get(i).getCommand());
             this.handleCommand(cq);
         }
 
@@ -104,7 +103,6 @@ public class CommandQueueManager {
             var messages = MessengerDao.getUnreadMessages(p.getDetails().getId());
             for (MessengerMessage m : messages.values()) {
                 if(m.getFromId() == 0) {
-                    System.out.println("Yep message");
                     p.send(new CAMPAIGN_MSG(m));
                 }
             }
@@ -140,7 +138,6 @@ public class CommandQueueManager {
     }
 
     public void reduceCredits(CommandTemplate commandArgs) {
-        System.out.println("UserId:" + commandArgs.UserId + " - Amount : " + commandArgs.Credits);
         Player player = PlayerManager.getInstance().getPlayerById(commandArgs.UserId);
 
         if(player != null) {

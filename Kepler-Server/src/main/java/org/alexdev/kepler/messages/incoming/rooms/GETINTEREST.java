@@ -10,6 +10,8 @@ import org.alexdev.kepler.game.ads.AdManager;
 import org.alexdev.kepler.game.ads.Advertisement;
 import org.alexdev.kepler.messages.outgoing.rooms.INTERSITIALDATA;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public class GETINTEREST implements MessageEvent {
     @Override
     public void handle(Player player, NettyRequest reader) throws Exception {
@@ -18,10 +20,10 @@ public class GETINTEREST implements MessageEvent {
             return;
         }
 
-        /*if (ThreadLocalRandom.current().nextInt(5 + 1) != 5) {
+        if (ThreadLocalRandom.current().nextInt(5 + 1) != 5) {
             player.send(new INTERSITIALDATA(null, null));
             return;
-        }*/
+        }
 
         String image = null;
         String url = null;

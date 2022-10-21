@@ -3,7 +3,7 @@ package org.alexdev.kepler.messages.incoming.user;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerManager;
-import org.alexdev.kepler.messages.outgoing.user.LOCALISED_ERROR;
+import org.alexdev.kepler.messages.outgoing.alert.LOCALISED_ERROR;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 import org.alexdev.kepler.util.config.ServerConfiguration;

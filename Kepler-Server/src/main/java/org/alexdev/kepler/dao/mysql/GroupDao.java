@@ -52,7 +52,6 @@ public class GroupDao {
             Storage.closeSilently(preparedStatement);
             Storage.closeSilently(sqlConnection);
         }
-        System.out.println(status);
         return status;
     }
 
