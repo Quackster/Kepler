@@ -52,11 +52,7 @@ Download the latest development build from the [releases page](https://github.co
 
 Install any JDK version that is equal or above >= 17 to run the jar files.
 
-Open Kepler-Server.jar via
-
-```
-java -jar Kepler-Server.jar
-```
+Open run.sh (Linux) or run.bat (Windows) to start Kepler.
 
 Your server should be up and running and accessible via http://localhost/
 
