@@ -123,6 +123,9 @@ public abstract class RoomEntity {
             return false;
         }
 
+        this.getTimerManager().resetRoomTimer();
+
+
         if (SunTerraceHandler.isRedirected(this, X, Y)) {
             return false;
         }
