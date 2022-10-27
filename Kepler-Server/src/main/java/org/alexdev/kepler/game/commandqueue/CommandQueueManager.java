@@ -27,6 +27,10 @@ class CommandTemplate {
     public int DefinitionId;
     public int RoomId;
     public String RoomType;
+    public int RoomAccessType;
+    public String RoomDescription;
+    public String RoomName;
+    public boolean RoomShowOwnerName;
     public String Message;
     public String MessageUrl;
     public String MessageLink;
@@ -66,6 +70,8 @@ public class CommandQueueManager {
                 roomForward(commandArgs);
             } else if (cq.getCommand().equalsIgnoreCase("campaign")) {
                 campaign(commandArgs);
+            } else if (cq.getCommand().equalsIgnoreCase("update_room")) {
+                update_room(commandArgs);
             }
         } catch (Exception e) {
             Log.getErrorLogger().error("Failed to execute command, invalid parameters for " + cq.getCommand() + " using arguments = " + cq.getArguments() + " ERROR: " + e);
@@ -106,6 +112,18 @@ public class CommandQueueManager {
                     p.send(new CAMPAIGN_MSG(m));
                 }
             }
+        }
+    }
+
+    private void update_room(CommandTemplate commandArgs) {
+        var room = RoomDao.getRoomById(commandArgs.RoomId);
+        if(room != null) {
+            room.getData().setName(commandArgs.RoomName);
+            room.getData().setDescription(commandArgs.RoomDescription);
+            room.getData().setShowOwnerName(commandArgs.RoomShowOwnerName);
+            room.getData().setAccessType(commandArgs.RoomAccessType);
+
+            RoomDao.save(room);
         }
     }
 
