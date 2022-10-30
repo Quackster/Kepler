@@ -5,9 +5,9 @@ import org.alexdev.kepler.server.netty.streams.NettyResponse;
 
 public class FLATPROPERTY extends MessageComposer {
     private final String property;
-    private final int value;
+    private final String value;
 
-    public FLATPROPERTY(String property, int value) {
+    public FLATPROPERTY(String property, String value) {
         this.property = property;
         this.value = value;
     }

@@ -30,7 +30,7 @@ public enum InteractionType {
 
     POOL_BOOTH(new PoolBoothInteractor()),
     POOL_LIFT(new PoolLiftInteractor()),
-    POOL_QUEUE(new PoolQueueInteractor()),
+    QUEUE_TILE(new QueueTileInteractor()),
     GAME_TIC_TAC_TOE(new TicTacToeTrigger()),
     GAME_CHESS(new ChessTrigger()),
     GAME_BATTLESHIPS(new BattleShipsTrigger()),

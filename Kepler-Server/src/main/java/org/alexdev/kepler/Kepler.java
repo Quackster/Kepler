@@ -6,6 +6,7 @@ import io.netty.util.ResourceLeakDetector;
 import org.alexdev.kepler.dao.Storage;
 import org.alexdev.kepler.dao.mysql.SettingsDao;
 import org.alexdev.kepler.game.GameScheduler;
+import org.alexdev.kepler.game.ads.AdManager;
 import org.alexdev.kepler.game.bot.BotManager;
 import org.alexdev.kepler.game.catalogue.CatalogueManager;
 import org.alexdev.kepler.game.commands.CommandManager;
@@ -59,6 +60,8 @@ public class Kepler {
 
     private static LazySodiumJava LIB_SODIUM;
 
+    public static final String SERVER_VERSION = "v1.4";
+
     /**
      * Main call of Java application
      * @param args System arguments
@@ -82,9 +85,8 @@ public class Kepler {
                     " |_|\\_\\___| .__/|_|\\___|_|   \n" +
                     "          |_|                ");
 
-            log.info("Kepler - Habbo Hotel Emulation (max version supported: v26)");
-            String currentDirectory = System.getProperty("user.dir");
-            log.info("The current working directory is " + currentDirectory);
+            log.info("Kepler - Habbo Hotel Emulation (revision " + SERVER_VERSION + ")");
+
             if (!Storage.connect()) {
                 return;
             }
@@ -93,6 +95,7 @@ public class Kepler {
             //log.info(REGISTER.createPassword("lol"));
 
             GameConfiguration.getInstance(new GameConfigWriter());
+            AdManager.getInstance();
             WalkwaysManager.getInstance();
             ItemManager.getInstance();
             CatalogueManager.getInstance();

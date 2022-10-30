@@ -100,6 +100,7 @@ public class PLACESTUFF implements MessageEvent {
             }
 
             if (!item.isValidMove(item, room, player, x, y, rotation)) {
+                player.getInventory().getView("update");
                 return;
             }
 
@@ -111,15 +112,16 @@ public class PLACESTUFF implements MessageEvent {
         }
 
         if (room.getItemManager().getSoundMachine() != null && (item.hasBehaviour(ItemBehaviour.SOUND_MACHINE) || item.hasBehaviour(ItemBehaviour.JUKEBOX))) {
+            player.getInventory().getView("update");
             player.send(new ALERT(TextsManager.getInstance().getValue("room_sound_furni_limit")));
             return;
         }
 
         if (room.getItemManager().getMoodlight() != null && (item.hasBehaviour(ItemBehaviour.ROOMDIMMER))) {
+            player.getInventory().getView("update");
             player.send(new ALERT(TextsManager.getInstance().getValue("roomdimmer_furni_limit")));
             return;
         }
-
         room.getMapping().addItem(player, item);
         player.getInventory().getItems().remove(item);
     }

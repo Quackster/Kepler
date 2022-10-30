@@ -5,6 +5,7 @@ import org.alexdev.kepler.game.games.enums.GameType;
 import org.alexdev.kepler.game.games.history.GameHistory;
 import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.games.player.GameTeam;
+import org.alexdev.kepler.log.Log;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class GameFinishTask implements Runnable {
             try {
                 GameDao.addHighscore(gamePlayer.getPlayer().getDetails(), this.gameType, gamePlayer.getScore());
             } catch (SQLException throwables) {
-                System.out.println("Failed to add " + gamePlayer.getScore() + " points to " + gamePlayer.getPlayer().getDetails().getName());
+                Log.getErrorLogger().error("Failed to add " + gamePlayer.getScore() + " points to " + gamePlayer.getPlayer().getDetails().getName());
             }
             GameDao.increasePoints(gamePlayer.getPlayer().getDetails(), this.gameType, gamePlayer.getScore());
         }

@@ -188,7 +188,7 @@ public class PlayerDao {
      */
     public static boolean loginTicket(Player player, String ssoTicket) {
         boolean success = false;
-        
+
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -202,6 +202,38 @@ public class PlayerDao {
             if (resultSet.next()) {
                 fill(player.getDetails(), resultSet);
                 success = true;
+            }
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+
+        return success;
+    }
+
+    public static boolean login(String username, String password) {
+        boolean success = false;
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("SELECT id, password FROM users WHERE username = ? LIMIT 1", sqlConnection);
+            preparedStatement.setString(1, username);
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                byte[] hashedPassword = (resultSet.getString("password") + '\0').getBytes(StandardCharsets.UTF_8);
+                byte[] pass = password.getBytes(StandardCharsets.UTF_8);
+
+                PwHash.Native pwHash = (PwHash.Native) Kepler.getLibSodium();
+                success = pwHash.cryptoPwHashStrVerify(hashedPassword, pass, pass.length);
             }
 
         } catch (Exception e) {
@@ -237,15 +269,15 @@ public class PlayerDao {
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                    byte[] hashedPassword = (resultSet.getString("password") + '\0').getBytes(StandardCharsets.UTF_8);
-                    byte[] pass = password.getBytes(StandardCharsets.UTF_8);
+                byte[] hashedPassword = (resultSet.getString("password") + '\0').getBytes(StandardCharsets.UTF_8);
+                byte[] pass = password.getBytes(StandardCharsets.UTF_8);
 
-                    PwHash.Native pwHash = (PwHash.Native) Kepler.getLibSodium();
-                    success = pwHash.cryptoPwHashStrVerify(hashedPassword, pass, pass.length);
+                PwHash.Native pwHash = (PwHash.Native) Kepler.getLibSodium();
+                success = pwHash.cryptoPwHashStrVerify(hashedPassword, pass, pass.length);
 
-                    if (success) {
-                        fill(player, resultSet);
-                    }
+                if (success) {
+                    fill(player, resultSet);
+                }
             }
 
         } catch (Exception e) {
@@ -292,7 +324,7 @@ public class PlayerDao {
      */
     public static int getId(String username) {
         int id = -1;
-        
+
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -302,7 +334,7 @@ public class PlayerDao {
             preparedStatement = Storage.getStorage().prepare("SELECT id FROM users WHERE LOWER(username) = ? LIMIT 1", sqlConnection);
             preparedStatement.setString(1, username.toLowerCase());
             resultSet = preparedStatement.executeQuery();
-            
+
             if (resultSet.next()) {
                 id = resultSet.getInt("id");
             }
@@ -315,9 +347,9 @@ public class PlayerDao {
             Storage.closeSilently(sqlConnection);
         }
 
-        return id;    
+        return id;
     }
-    
+
     /**
      * Gets the name.
      *
@@ -326,7 +358,7 @@ public class PlayerDao {
      */
     public static String getName(int id) {
         String name = null;
-        
+
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -336,11 +368,11 @@ public class PlayerDao {
             preparedStatement = Storage.getStorage().prepare("SELECT username FROM users WHERE id = ? LIMIT 1", sqlConnection);
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
-            
+
             if (resultSet.next()) {
                 name = resultSet.getString("username");
             }
-            
+
         } catch (Exception e) {
             Storage.logError(e);
         } finally {
@@ -349,7 +381,7 @@ public class PlayerDao {
             Storage.closeSilently(sqlConnection);
         }
 
-        return name;    
+        return name;
     }
 
     /**

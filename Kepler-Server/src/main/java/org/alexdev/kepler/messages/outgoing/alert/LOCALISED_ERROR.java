@@ -1,4 +1,4 @@
-package org.alexdev.kepler.messages.outgoing.user;
+package org.alexdev.kepler.messages.outgoing.alert;
 
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;

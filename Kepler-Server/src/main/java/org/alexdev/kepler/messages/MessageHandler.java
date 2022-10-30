@@ -12,10 +12,7 @@ import org.alexdev.kepler.messages.incoming.club.SCR_GIFT_APPROVAL;
 import org.alexdev.kepler.messages.incoming.club.SUBSCRIBE_CLUB;
 import org.alexdev.kepler.messages.incoming.events.*;
 import org.alexdev.kepler.messages.incoming.games.*;
-import org.alexdev.kepler.messages.incoming.handshake.GENERATEKEY;
-import org.alexdev.kepler.messages.incoming.handshake.INIT_CRYPTO;
-import org.alexdev.kepler.messages.incoming.handshake.SSO;
-import org.alexdev.kepler.messages.incoming.handshake.TRY_LOGIN;
+import org.alexdev.kepler.messages.incoming.handshake.*;
 import org.alexdev.kepler.messages.incoming.infobus.CHANGEWORLD;
 import org.alexdev.kepler.messages.incoming.infobus.TRYBUS;
 import org.alexdev.kepler.messages.incoming.infobus.VOTE;
@@ -43,7 +40,6 @@ import org.alexdev.kepler.messages.incoming.rooms.items.*;
 import org.alexdev.kepler.messages.incoming.rooms.moderation.*;
 import org.alexdev.kepler.messages.incoming.rooms.pool.*;
 import org.alexdev.kepler.messages.incoming.rooms.settings.*;
-import org.alexdev.kepler.messages.incoming.rooms.teleporter.DOORGOIN;
 import org.alexdev.kepler.messages.incoming.rooms.teleporter.GETDOORFLAT;
 import org.alexdev.kepler.messages.incoming.rooms.teleporter.GOVIADOOR;
 import org.alexdev.kepler.messages.incoming.rooms.teleporter.INTODOOR;
@@ -124,6 +120,7 @@ public class MessageHandler {
         registerEvent(204, new SSO());
         registerEvent(4, new TRY_LOGIN());
         registerEvent(756, new TRY_LOGIN());
+        registerEvent(3, new VERSIONCHECK());
     }
 
     /**
@@ -284,6 +281,7 @@ public class MessageHandler {
         registerEvent(74, new SETSTUFFDATA());
         registerEvent(183, new CONVERT_FURNI_TO_CREDITS());
         registerEvent(76, new THROW_DICE());
+        registerEvent(314, new SET_RANDOM_STATE());
         registerEvent(77, new DICE_OFF());
         registerEvent(247, new SPIN_WHEEL_OF_FORTUNE());
         registerEvent(341, new MSG_ROOMDIMMER_GET_PRESETS());
