@@ -3,17 +3,24 @@ package org.alexdev.kepler.game.player;
 import io.netty.util.AttributeKey;
 import org.alexdev.kepler.Kepler;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
+import org.alexdev.kepler.dao.mysql.RewardDao;
 import org.alexdev.kepler.dao.mysql.SettingsDao;
 import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.ban.BanType;
+import org.alexdev.kepler.game.catalogue.CatalogueItem;
+import org.alexdev.kepler.game.catalogue.CatalogueManager;
 import org.alexdev.kepler.game.club.ClubSubscription;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
 import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.fuserights.FuserightsManager;
 import org.alexdev.kepler.game.inventory.Inventory;
+import org.alexdev.kepler.game.item.Item;
+import org.alexdev.kepler.game.item.ItemManager;
+import org.alexdev.kepler.game.item.base.ItemDefinition;
 import org.alexdev.kepler.game.messenger.Messenger;
 import org.alexdev.kepler.game.room.entities.RoomPlayer;
+import org.alexdev.kepler.log.Log;
 import org.alexdev.kepler.messages.outgoing.club.CLUB_GIFT;
 import org.alexdev.kepler.messages.outgoing.handshake.AVAILABLE_SETS;
 import org.alexdev.kepler.messages.outgoing.handshake.LOGIN;
@@ -25,10 +32,13 @@ import org.alexdev.kepler.messages.outgoing.user.HOTEL_LOGOUT;
 import org.alexdev.kepler.messages.outgoing.user.HOTEL_LOGOUT.LogoutReason;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.NettyPlayerNetwork;
+import org.alexdev.kepler.util.StringUtil;
 import org.alexdev.kepler.util.config.GameConfiguration;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -121,6 +131,37 @@ public class Player extends Entity {
 
         this.messenger.sendStatusUpdate();
         ClubSubscription.refreshBadge(this);
+        
+        // Rewards
+        RewardDao.getAvailableRewards(this.getDetails().getId()).forEach(reward -> {
+            List<ItemDefinition> itemDefinitions = new ArrayList<>();
+
+            if (reward.getItemDefinitions().contains(",")) {
+                for (String itemDefinition : reward.getItemDefinitions().split(",")) {
+                    itemDefinitions.add(ItemManager.getInstance().getDefinition(Integer.parseInt(itemDefinition)));
+                }
+            } else {
+                itemDefinitions.add(ItemManager.getInstance().getDefinition(Integer.parseInt(reward.getItemDefinitions())));
+            }
+            if(itemDefinitions.size() == StringUtils.countMatches(reward.getItemDefinitions(), ",") + 1) {
+                try {
+                    Item present = ItemManager.getInstance().createRewardGift(this.details, reward.getItemDefinitions(), StringUtil.filterInput(reward.getDescription(), false));
+                    if(present != null) {
+                        Player receiver = PlayerManager.getInstance().getPlayerById(this.details.getId());
+
+                        if (receiver != null) {
+                            receiver.getInventory().addItem(present);
+                            receiver.getInventory().getView("last");
+
+                            RewardDao.redeemReward(reward.getId(), this.details.getId());
+                        }
+                    }
+                } catch (Exception e) {
+                    Log.getErrorLogger().error("Error while creating reward gift", e);
+                }
+            }
+           
+        });
     }
 
     /**

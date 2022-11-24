@@ -29,8 +29,8 @@ public class RewardDao {
                 Reward reward = new Reward(
                         resultSet.getInt("id"),
                         resultSet.getString("description"),
-                        resultSet.getLong("available_from"),
-                        resultSet.getLong("available_to"),
+                        resultSet.getDate("available_from"),
+                        resultSet.getDate("available_to"),
                         resultSet.getString("salecodes")
                 );
                 rewards.add(reward);
@@ -47,4 +47,21 @@ public class RewardDao {
         return rewards;
     }
 
+    public static void redeemReward(int id, int user_id) {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("INSERT INTO rewards_redeemed (user_id, reward_id) VALUES (?, ?)", sqlConnection);
+            preparedStatement.setInt(1, id);
+            preparedStatement.setInt(2, user_id);
+            preparedStatement.execute();
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
 }
