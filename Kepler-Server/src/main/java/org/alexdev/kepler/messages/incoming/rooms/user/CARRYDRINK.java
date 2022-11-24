@@ -32,16 +32,14 @@ public class CARRYDRINK implements MessageEvent {
                 player.getRoomUser().carryItem(-1, contents);
             }
         } else {
+            RoomTile roomTile = player.getRoomUser().getRoom().getMapping().getTile(player.getRoomUser().getPosition().getSquareInFront());
+
+            if (roomTile.getItems().stream().anyMatch(item -> item.getDefinition().getInteractionType() == InteractionType.VENDING_MACHINE)) {
+                player.getRoomUser().setLastItemInteraction(roomTile.getItems().stream().filter(item -> item.getDefinition().getInteractionType() == InteractionType.VENDING_MACHINE).findFirst().orElse(null));
+            }
+
             if (player.getRoomUser().getLastItemInteraction() == null) {
-                RoomTile roomTile = player.getRoomUser().getRoom().getMapping().getTile(player.getRoomUser().getPosition().getSquareInFront());
-
-                if (roomTile.getItems().stream().anyMatch(item -> item.getDefinition().getInteractionType() == InteractionType.VENDING_MACHINE)) {
-                    player.getRoomUser().setLastItemInteraction(roomTile.getItems().stream().filter(item -> item.getDefinition().getInteractionType() == InteractionType.VENDING_MACHINE).findFirst().orElse(null));
-                }
-
-                if (player.getRoomUser().getLastItemInteraction() == null) {
-                    return;
-                }
+                return;
             }
 
             Item item = player.getRoomUser().getLastItemInteraction();

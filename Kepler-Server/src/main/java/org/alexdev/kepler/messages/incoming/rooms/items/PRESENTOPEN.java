@@ -1,10 +1,12 @@
 package org.alexdev.kepler.messages.incoming.rooms.items;
 
+import org.alexdev.kepler.dao.mysql.ItemDao;
 import org.alexdev.kepler.game.catalogue.CatalogueItem;
 import org.alexdev.kepler.game.catalogue.CatalogueManager;
 import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
+import org.alexdev.kepler.game.item.base.ItemDefinition;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.messages.outgoing.catalogue.DELIVER_PRESENT;
@@ -12,6 +14,7 @@ import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -47,13 +50,36 @@ public class PRESENTOPEN implements MessageEvent {
         //System.out.println(receivedFrom);
 
         CatalogueItem catalogueItem = null;
-
+        boolean isListOfItemDefinitions = false;
         if (StringUtils.isNumeric(saleCode)) {
             catalogueItem = CatalogueManager.getInstance().getCatalogueItems().stream().filter(shopItem -> shopItem.getId() == Integer.parseInt(saleCode)).findFirst().orElse(null);
+        } else if(saleCode.startsWith("_")) {
+            isListOfItemDefinitions = true;
         } else {
             catalogueItem = CatalogueManager.getInstance().getCatalogueItem(saleCode);
         }
+        if(catalogueItem == null && isListOfItemDefinitions) {
+            String[] itemDefinitionIds = saleCode.replace("_", "").split(",");
+            // gifted items
+            List<ItemDefinition> itemDefinitions = new ArrayList<>();
+            for(String itemDefinitionId : itemDefinitionIds) {
+                ItemDefinition itemDefinition = ItemDao.getItemDefinition(Integer.parseInt(itemDefinitionId));
+                if(itemDefinition != null) {
+                    catalogueItem = CatalogueManager.getInstance().getCatalogueItems().stream().filter(shopItem -> shopItem.getDefinition().getId() == itemDefinition.getId()).findFirst().orElse(null);
+                    if (catalogueItem != null) {
+                        itemDefinitions.add(catalogueItem.getDefinition());
+                        CatalogueManager.getInstance().purchase(player, catalogueItem, extraData, receivedFrom, timestamp);
+                    }
+                }
+            }
+            var giftedItem = itemDefinitions.get(0);
 
+            player.send(new DELIVER_PRESENT(giftedItem.getSprite(), extraData, giftedItem.getColour()));
+            player.getInventory().getView("new");
+            room.getMapping().removeItem(player, item);
+            item.delete();
+            return;
+        }
         // Don't create a new item instance, reuse if the item isn't a trophy or teleporter, etc
         if (!catalogueItem.isPackage() && !catalogueItem.getDefinition().hasBehaviour(ItemBehaviour.PRIZE_TROPHY) &&
                 !catalogueItem.getDefinition().hasBehaviour(ItemBehaviour.TELEPORTER) &&

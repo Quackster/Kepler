@@ -18,6 +18,6 @@ public class OUDATEDVERSION extends MessageComposer {
 
     @Override
     public short getHeader() {
-        return 4;
+        return 1003;
     }
 }
