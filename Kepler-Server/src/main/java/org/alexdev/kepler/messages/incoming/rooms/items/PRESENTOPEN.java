@@ -1,5 +1,6 @@
 package org.alexdev.kepler.messages.incoming.rooms.items;
 
+import org.alexdev.kepler.dao.mysql.CatalogueDao;
 import org.alexdev.kepler.dao.mysql.ItemDao;
 import org.alexdev.kepler.game.catalogue.CatalogueItem;
 import org.alexdev.kepler.game.catalogue.CatalogueManager;
@@ -65,7 +66,7 @@ public class PRESENTOPEN implements MessageEvent {
             for(String itemDefinitionId : itemDefinitionIds) {
                 ItemDefinition itemDefinition = ItemDao.getItemDefinition(Integer.parseInt(itemDefinitionId));
                 if(itemDefinition != null) {
-                    catalogueItem = CatalogueManager.getInstance().getCatalogueItems().stream().filter(shopItem -> shopItem.getDefinition().getId() == itemDefinition.getId()).findFirst().orElse(null);
+                    catalogueItem = CatalogueDao.getCatalogueItemByItemDefinition(itemDefinition.getId());
                     if (catalogueItem != null) {
                         itemDefinitions.add(catalogueItem.getDefinition());
                         CatalogueManager.getInstance().purchase(player, catalogueItem, extraData, receivedFrom, timestamp);

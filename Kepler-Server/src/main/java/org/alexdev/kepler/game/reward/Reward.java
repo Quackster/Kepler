@@ -9,12 +9,12 @@ public class Reward {
     private Date availableTo;
     private String itemDefinitions;
 
-    public Reward(int id, String description, Date availableFrom, Date availableTo, String saleCodes) {
+    public Reward(int id, String description, Date availableFrom, Date availableTo, String itemDefinitions) {
         this.id = id;
         this.description = description;
         this.availableFrom = availableFrom;
         this.availableTo = availableTo;
-        this.itemDefinitions = saleCodes;
+        this.itemDefinitions = itemDefinitions;
     }
 
     public int getId() {

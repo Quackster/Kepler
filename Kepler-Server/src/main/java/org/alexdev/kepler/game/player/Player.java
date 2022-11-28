@@ -151,7 +151,7 @@ public class Player extends Entity {
 
                         if (receiver != null) {
                             receiver.getInventory().addItem(present);
-                            receiver.getInventory().getView("last");
+                            receiver.getInventory().getView("new");
 
                             RewardDao.redeemReward(reward.getId(), this.details.getId());
                         }
