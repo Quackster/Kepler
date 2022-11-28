@@ -52,6 +52,43 @@ public class ItemDao {
         return definitions;
     }
 
+    /**
+     * Get the item definition.
+     *
+     * @return the item definition
+     */
+    public static ItemDefinition getItemDefinition(int id) {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        ItemDefinition definition = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("SELECT * FROM items_definitions where id = ?", sqlConnection);
+            preparedStatement.setInt(1, id);
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                definition = new ItemDefinition(resultSet.getInt("id"), resultSet.getString("sprite"),
+                        resultSet.getString("name"), resultSet.getString("description"),
+                        resultSet.getString("behaviour"), resultSet.getString("interactor"), resultSet.getDouble("top_height"),
+                        resultSet.getInt("length"), resultSet.getInt("width"), resultSet.getString("colour"), resultSet.getString("drink_ids"),
+                        resultSet.getBoolean("is_recyclable"));
+            }
+
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+
+        return definition;
+    }
+
 
     /**
      * Create new item entry with the definition id, user id and custom data. It will

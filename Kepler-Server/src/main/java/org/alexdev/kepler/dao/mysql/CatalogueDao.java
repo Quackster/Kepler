@@ -51,6 +51,47 @@ public class CatalogueDao {
         return pages;
     }
 
+
+    /**
+     * Get the catalogue item by item definition id.
+     *
+     * @return the list of catalogue items
+     */
+    public static CatalogueItem getCatalogueItemByItemDefinition(int itemDefinitionId) {
+        CatalogueItem catalogueItem = null;
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("SELECT cait.id, cait.page_id, cait.order_id, cait.price, cait.is_hidden, cait.amount, cait.definition_id,cait.item_specialspriteid,cait.is_package,cait.package_name,cait.package_description,cait.sale_code, IF(cait.is_package OR cait.item_specialspriteid, cait.name, (SELECT name FROM items_definitions WHERE id = cait.definition_id)) AS name,IF(cait.is_package OR cait.item_specialspriteid, cait.description, (SELECT description FROM items_definitions WHERE id = cait.definition_id)) AS description FROM catalogue_items AS cait where cait.definition_id = ?", sqlConnection);
+            preparedStatement.setInt(1, itemDefinitionId);
+            resultSet = preparedStatement.executeQuery();
+
+            if(resultSet.next()) {
+                CatalogueItem item = new CatalogueItem(resultSet.getInt("id"), resultSet.getString("sale_code"), resultSet.getString("page_id"),
+                        resultSet.getInt("order_id"),  resultSet.getInt("price"), resultSet.getBoolean("is_hidden"),
+                        resultSet.getInt("definition_id"),  resultSet.getInt("item_specialspriteid"),
+                        resultSet.getString("name"), resultSet.getString("description"),
+                        resultSet.getBoolean("is_package"), resultSet.getString("package_name"),
+                        resultSet.getString("package_description"));
+
+                catalogueItem = item;
+            }
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+
+        return catalogueItem;
+    }
+
     /**
      * Get the catalogue items.
      *

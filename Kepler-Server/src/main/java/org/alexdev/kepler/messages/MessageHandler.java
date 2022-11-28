@@ -120,7 +120,7 @@ public class MessageHandler {
         registerEvent(204, new SSO());
         registerEvent(4, new TRY_LOGIN());
         registerEvent(756, new TRY_LOGIN());
-        registerEvent(3, new VERSIONCHECK());
+        registerEvent(1003, new VERSIONCHECK());
     }
 
     /**

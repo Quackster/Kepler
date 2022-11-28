@@ -64,6 +64,40 @@ public class ItemManager {
     }
 
     /**
+     * Quick and easy method for creating reward gifts.
+     *
+     * @param toPlayer the user to give the gift to
+     * @param saleCode the sprite to give
+     * @return the item as gift
+     */
+    public Item createRewardGift(PlayerDetails toPlayer, String itemDefinitions, String presentLabel) throws Exception {
+        String sprite = "present_gen" + ThreadLocalRandom.current().nextInt(1, 7);
+        ItemDefinition itemDef = ItemManager.getInstance().getDefinitionBySprite(sprite);
+
+        if (itemDef == null) {
+            throw new Exception("Could not create gift, the definition for sprite " + sprite + " doesn't exist");
+        }
+
+        Item item = new Item();
+        item.setDefinitionId(itemDef.getId());
+        item.setOwnerId(toPlayer.getId());
+        item.setCustomData("_" + itemDefinitions +
+                Item.PRESENT_DELIMETER + toPlayer.getName() +
+                Item.PRESENT_DELIMETER + presentLabel.replace(Item.PRESENT_DELIMETER, "") + //From Habbo" +
+                Item.PRESENT_DELIMETER + "-".replace(Item.PRESENT_DELIMETER, "") +
+                Item.PRESENT_DELIMETER + DateUtil.getCurrentTimeSeconds());
+
+        try {
+            ItemDao.newItem(item);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return item;
+    }
+
+    /**
      * Get the saved jukebox tracks.
      *
      * @param itemId the jukebox item id
