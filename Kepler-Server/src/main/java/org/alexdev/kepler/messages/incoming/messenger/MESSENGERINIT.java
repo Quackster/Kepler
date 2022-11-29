@@ -17,7 +17,7 @@ public class MESSENGERINIT implements MessageEvent {
 
         // Get requests manually
         // if (player.getVersion() <= 14) {
-            new MESSENGER_GETREQUESTS().handle(player, null);
+            //new MESSENGER_GETREQUESTS().handle(player, null);
         // }
     }
 }

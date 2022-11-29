@@ -15,6 +15,7 @@ public class FRIEND_REQUEST extends MessageComposer {
     public void compose(NettyResponse response) {
         response.writeInt(this.requester.getUserId());
         response.writeString(this.requester.getUsername());
+        response.writeString(this.requester.getUserId());
     }
 
     @Override

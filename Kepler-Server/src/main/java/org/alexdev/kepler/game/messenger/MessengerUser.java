@@ -88,7 +88,7 @@ public class MessengerUser {
 
                 }
             } else {
-                response.writeString("On hotel view");
+                response.writeString("Ikke i et rum.");
             }
         } else {
             response.writeString(DateUtil.getDateAsString(this.lastOnline));
