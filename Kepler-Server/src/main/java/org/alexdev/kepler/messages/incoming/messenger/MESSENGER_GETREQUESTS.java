@@ -17,12 +17,12 @@ public class MESSENGER_GETREQUESTS implements MessageEvent {
         for (MessengerUser requester : player.getMessenger().getRequests()) {
             player.send(new FRIEND_REQUEST(requester));
         }
-        for (MessengerMessage offlineMessage : player.getMessenger().getOfflineMessages().values()) {
+        /*for (MessengerMessage offlineMessage : player.getMessenger().getOfflineMessages().values()) {
             if(offlineMessage.getFromId() == 0) {
                 player.send(new CAMPAIGN_MSG(offlineMessage));
             } else {
                 player.send(new MESSENGER_MSG(offlineMessage));
             }
-        }
+        }*/
     }
 }

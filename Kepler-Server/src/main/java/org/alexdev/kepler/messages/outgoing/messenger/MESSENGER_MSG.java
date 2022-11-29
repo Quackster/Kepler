@@ -17,7 +17,7 @@ public class MESSENGER_MSG extends MessageComposer {
         /*
           if (getPlayer().getVersion() < 23) {   */
             //if (getPlayer().getVersion() <= 14) {
-                response.writeInt(1);
+                //response.writeInt(1);
             //}//
 
 
