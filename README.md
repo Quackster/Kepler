@@ -1,16 +1,18 @@
-# Kepler
+# Odin
 
-Kepler is a Habbo Hotel emulator that is designed to fully emulate the v14 version from 2007 era. The server is written in Java and using various libraries, such as Netty, an asynchronous networking library, Log4j and the Apache commons libraries.
+Odin is fork of (https://github.com/quackster/kepler) a Habbo Hotel emulator that is designed to fully emulate a <strike>v14</strike> custom version from the 2006 era. The server is written in Java and using various libraries, such as Netty, an asynchronous networking library, Log4j and the Apache commons libraries.
+
+The server is as mentioned designed to run a custom version of Habbo Hotel client. At the time of writing it supports: 
+
+* Messenger > v14 (Go to same room, multiple friend requests). It does not support lower versions of the Messenger.
+* Windows and Landscapes
+* Valentines Love "roulette" Sofa 
 
 # Screenshots
 
 (Hotel view)
 
 ![https://i.imgur.com/8eFvtdA.png](https://i.imgur.com/8eFvtdA.png)
-
-(Automatic rare cycler)
-
-![https://i.imgur.com/8RTFFqD.png](https://i.imgur.com/8RTFFqD.png)
 
 (Camera)
 
@@ -37,7 +39,7 @@ Kepler is a Habbo Hotel emulator that is designed to fully emulate the v14 versi
 - Download web browser with Flash/Shockwave built-in [here](http://forum.ragezone.com/f353/portable-browser-flash-shockwave-basilisk-1192727/)
 - Download and install the latest version of MariaDB
 - Download and install Java JDK 11+
-- Habbo Hotel v14 DCR pack [here](https://web.archive.org/web/20220724030154/https://raw.githubusercontent.com/Quackster/Kepler/master/tools/Quackster_v14.zip)
+- <strike>Habbo Hotel v14 DCR pack [here](https://web.archive.org/web/20220724030154/https://raw.githubusercontent.com/Quackster/Kepler/master/tools/Quackster_v14.zip)</strike> TBA
 
 ### Custom Hotel Views
 
@@ -68,6 +70,7 @@ Use gradle wrapper config and Java 12.0.
 
 # Thanks to
 
+* Quackster 
 * Hoshiko
 * ThuGie
 * Ascii
