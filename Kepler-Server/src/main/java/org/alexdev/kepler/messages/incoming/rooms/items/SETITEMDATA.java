@@ -2,6 +2,7 @@ package org.alexdev.kepler.messages.incoming.rooms.items;
 
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.fuserights.Fuseright;
+import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.messages.types.MessageEvent;
@@ -39,9 +40,9 @@ public class SETITEMDATA implements MessageEvent {
 
         Item item = room.getItemManager().getById(itemId);
 
-        if (item == null) {
-            return;
-        }
+        if (item == null) return;
+
+        if(!item.hasBehaviour(ItemBehaviour.POST_IT)) return; // Prevent from editing other furnis.
 
         String oldText = "";
 

@@ -26,15 +26,15 @@ public class SETITEMSTATE implements MessageEvent {
         int itemId = Integer.parseInt(itemIdString);
         Item item = room.getItemManager().getById(itemId);
 
-        if (item == null) {
-            return;
-        }
+        if (item == null) return;
+        if (item.getDefinition().getSprite().equals("poster") ) return; // Stop poster scripting no more bus posters.
 
         if (item.hasBehaviour(ItemBehaviour.ROOMDIMMER)
                 || item.hasBehaviour(ItemBehaviour.DICE)
                 || item.hasBehaviour(ItemBehaviour.PRIZE_TROPHY)
                 || item.hasBehaviour(ItemBehaviour.POST_IT)
                 || item.hasBehaviour(ItemBehaviour.WHEEL_OF_FORTUNE)
+                || item.hasBehaviour(ItemBehaviour.PHOTO)
                 || item.hasBehaviour(ItemBehaviour.SOUND_MACHINE_SAMPLE_SET)) {
             return; // Prevent dice rigging, scripting trophies, post-its, etc.
         }
