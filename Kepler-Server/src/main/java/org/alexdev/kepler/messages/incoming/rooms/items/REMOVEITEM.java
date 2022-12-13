@@ -1,5 +1,6 @@
 package org.alexdev.kepler.messages.incoming.rooms.items;
 
+import org.alexdev.kepler.game.fuserights.Fuse;
 import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
@@ -19,7 +20,7 @@ public class REMOVEITEM implements MessageEvent {
             return;
         }
 
-        if (!room.isOwner(player.getDetails().getId()) && !player.hasFuse(Fuseright.ANY_ROOM_CONTROLLER)) {
+        if (!room.isOwner(player.getDetails().getId()) && !player.hasFuse(Fuse.ANY_ROOM_CONTROLLER)) {
             return;
         }
 
@@ -31,8 +32,8 @@ public class REMOVEITEM implements MessageEvent {
         }
 
         if (!room.isOwner(player.getDetails().getId()) &&
-                !(item.hasBehaviour(ItemBehaviour.PHOTO) && !player.hasFuse(Fuseright.REMOVE_PHOTOS)) &&
-                !(item.hasBehaviour(ItemBehaviour.POST_IT) && !player.hasFuse(Fuseright.REMOVE_STICKIES))) {
+                !(item.hasBehaviour(ItemBehaviour.PHOTO) && !player.hasFuse(Fuse.REMOVE_PHOTOS)) &&
+                !(item.hasBehaviour(ItemBehaviour.POST_IT) && !player.hasFuse(Fuse.REMOVE_STICKIES))) {
             return;
         }
 

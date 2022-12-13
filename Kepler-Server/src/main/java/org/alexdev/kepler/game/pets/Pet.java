@@ -3,6 +3,7 @@ package org.alexdev.kepler.game.pets;
 import org.alexdev.kepler.dao.mysql.PetDao;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
+import org.alexdev.kepler.game.fuserights.Fuse;
 import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.room.entities.RoomPet;
@@ -69,7 +70,7 @@ public class Pet extends Entity {
 
 
     @Override
-    public boolean hasFuse(Fuseright permission) {
+    public boolean hasFuse(Fuse permission) {
         return false;
     }
 

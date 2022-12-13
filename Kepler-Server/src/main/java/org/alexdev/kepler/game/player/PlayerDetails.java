@@ -6,6 +6,7 @@ import org.alexdev.kepler.dao.mysql.GroupDao;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.game.ban.BanType;
 import org.alexdev.kepler.game.ban.BannedPlayer;
+import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.games.enums.GameType;
 import org.alexdev.kepler.util.DateUtil;
 import org.alexdev.kepler.util.StringUtil;
@@ -35,7 +36,7 @@ public class PlayerDetails {
     // Currencies
     private int tickets;
     private int film;
-    private PlayerRank rank;
+    private List<Fuseright> fuserights;
 
     // Club
     private long firstClubSubscription;
@@ -103,7 +104,7 @@ public class PlayerDetails {
         this.email = email;
         this.receiveNews = receiveNews;
         this.film = film;
-        this.rank = PlayerRank.getRankForId(rank);
+        this.fuserights = null;
         this.lastOnline = lastOnline;
         this.firstClubSubscription = firstClubSubscription;
         this.clubExpiration = clubExpiration;
@@ -278,12 +279,14 @@ public class PlayerDetails {
         this.film = film;
     }
 
-    public PlayerRank getRank() {
-        return this.rank;
+    public List<Fuseright> getFuseRights() {
+        return this.fuserights;
     }
 
-    public void setRank(PlayerRank rank) {
-        this.rank = rank;
+    public List<Fuseright> refreshFuseRights() {
+        List<Fuseright> newFuses = PlayerDao.getFusesForPlayer(this.id, this.hasClubSubscription());
+        this.fuserights = newFuses;
+        return newFuses;
     }
 
     public long getLastOnline() {

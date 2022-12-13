@@ -1,6 +1,7 @@
 package org.alexdev.kepler.game.moderation.actions;
 
 import org.alexdev.kepler.dao.mysql.ModerationDao;
+import org.alexdev.kepler.game.fuserights.Fuse;
 import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.moderation.ModerationAction;
 import org.alexdev.kepler.game.moderation.ModerationActionType;
@@ -16,7 +17,7 @@ import org.alexdev.kepler.server.netty.streams.NettyRequest;
 public class ModeratorKickUserAction implements ModerationAction {
     @Override
     public void performAction(Player player, Room room, String alertMessage, String notes, NettyRequest reader) {
-        if (!player.hasFuse(Fuseright.KICK)) {
+        if (!player.hasFuse(Fuse.KICK)) {
             return;
         }
 
@@ -28,7 +29,7 @@ public class ModeratorKickUserAction implements ModerationAction {
                 return; // Can't kick yourself!
             }
 
-            if (target.hasFuse(Fuseright.KICK)) {
+            if (target.hasFuse(Fuse.KICK)) {
                 player.send(new ALERT(TextsManager.getInstance().getValue("modtool_rankerror")));
                 return;
             }

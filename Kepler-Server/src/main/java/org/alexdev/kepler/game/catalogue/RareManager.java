@@ -69,9 +69,10 @@ public class RareManager {
 
         for (CataloguePage cataloguePage : CatalogueManager.getInstance().getCataloguePages()) {
             // Skip pages where normal users can access
-            if (!(cataloguePage.getMinRole().getRankId() > 1)) {
+            //TODO FIX IF I WANT RARE LIST TO WORK AGAIN
+            /*if (!(cataloguePage.getMinRole().getRankId() > 1)) {
                 continue;
-            }
+            }*/
 
             // Search in rares pages only
             if (!cataloguePage.getLayout().equals("ctlg_layout2") || !cataloguePage.getImageHeadline().equals("catalog_rares_headline1")) {

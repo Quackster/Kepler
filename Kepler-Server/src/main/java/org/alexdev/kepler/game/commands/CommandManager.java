@@ -6,6 +6,7 @@ import org.alexdev.kepler.game.commands.clientside.FurniCommand;
 import org.alexdev.kepler.game.commands.registered.UfosCommand;
 import org.alexdev.kepler.game.commands.registered.*;
 import org.alexdev.kepler.game.entity.Entity;
+import org.alexdev.kepler.game.fuserights.Fuse;
 import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.texts.TextsManager;
@@ -110,7 +111,7 @@ public class CommandManager {
      */
     public boolean hasCommandPermission(Entity entity, Command cmd) {
         if (cmd.getPermissions().size() > 0) {
-            for (Fuseright permission : cmd.getPermissions()) {
+            for (Fuse permission : cmd.getPermissions()) {
                 if (entity.hasFuse(permission)) {
                     return true;
                 }

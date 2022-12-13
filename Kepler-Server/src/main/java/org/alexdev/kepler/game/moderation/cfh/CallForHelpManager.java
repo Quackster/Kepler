@@ -1,5 +1,6 @@
 package org.alexdev.kepler.game.moderation.cfh;
 
+import org.alexdev.kepler.game.fuserights.Fuse;
 import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerManager;
@@ -89,7 +90,7 @@ public class CallForHelpManager {
      */
     private void sendToModerators(MessageComposer message) {
         for (Player p : PlayerManager.getInstance().getPlayers()) {
-            if (p.hasFuse(Fuseright.RECEIVE_CALLS_FOR_HELP)) {
+            if (p.hasFuse(Fuse.RECEIVE_CALLS_FOR_HELP)) {
                 p.send(message);
             }
         }

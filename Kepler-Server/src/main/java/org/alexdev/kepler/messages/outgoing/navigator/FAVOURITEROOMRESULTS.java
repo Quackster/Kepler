@@ -1,5 +1,6 @@
 package org.alexdev.kepler.messages.outgoing.navigator;
 
+import org.alexdev.kepler.game.fuserights.Fuse;
 import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
@@ -43,7 +44,7 @@ public class FAVOURITEROOMRESULTS extends MessageComposer {
                 response.writeInt(room.getId());
                 response.writeString(room.getData().getName());
 
-                if (room.isOwner(this.viewer.getDetails().getId())|| room.getData().showOwnerName() || this.viewer.hasFuse(Fuseright.SEE_ALL_ROOMOWNERS)) {
+                if (room.isOwner(this.viewer.getDetails().getId())|| room.getData().showOwnerName() || this.viewer.hasFuse(Fuse.SEE_ALL_ROOMOWNERS)) {
                     response.writeString(room.getData().getOwnerName());
                 } else {
                     response.writeString("-");

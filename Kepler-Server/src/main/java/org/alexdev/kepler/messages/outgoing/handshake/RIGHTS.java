@@ -16,7 +16,7 @@ public class RIGHTS extends MessageComposer {
     @Override
     public void compose(NettyResponse response) {
         for (Fuseright fuseright : this.avaliableFuserights) {
-            response.writeString(fuseright.getFuseright());
+            response.writeString(fuseright.getFuse());
         }
     }
 

@@ -1,6 +1,6 @@
 package org.alexdev.kepler.game.entity;
 
-import org.alexdev.kepler.game.fuserights.Fuseright;
+import org.alexdev.kepler.game.fuserights.Fuse;
 import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.room.entities.RoomEntity;
 
@@ -12,7 +12,7 @@ public abstract class Entity {
      * @param permission the permission
      * @return true, if successful
      */
-    public abstract boolean hasFuse(Fuseright permission);
+    public abstract boolean hasFuse(Fuse fuse);
     
     /**
      * Gets the details.

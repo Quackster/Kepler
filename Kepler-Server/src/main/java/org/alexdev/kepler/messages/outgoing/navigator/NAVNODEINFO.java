@@ -1,5 +1,6 @@
 package org.alexdev.kepler.messages.outgoing.navigator;
 
+import org.alexdev.kepler.game.fuserights.Fuse;
 import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.navigator.NavigatorCategory;
 import org.alexdev.kepler.game.player.Player;
@@ -18,9 +19,9 @@ public class NAVNODEINFO extends MessageComposer {
     private List<NavigatorCategory> subCategories;
     private int categoryCurrentVisitors;
     private int categoryMaxVisitors;
-    private int rank;
+    private List<Fuseright> userFuses;
 
-    public NAVNODEINFO(Player viewer, NavigatorCategory parentCategory, List<Room> rooms, boolean hideFull, List<NavigatorCategory> subCategories, int categoryCurrentVisitors, int categoryMaxVisitors, int rank) {
+    public NAVNODEINFO(Player viewer, NavigatorCategory parentCategory, List<Room> rooms, boolean hideFull, List<NavigatorCategory> subCategories, int categoryCurrentVisitors, int categoryMaxVisitors, List<Fuseright> userFuses) {
         this.viewer = viewer;
         this.parentCategory = parentCategory;
         this.rooms = rooms;
@@ -28,7 +29,7 @@ public class NAVNODEINFO extends MessageComposer {
         this.subCategories = subCategories;
         this.categoryCurrentVisitors = categoryCurrentVisitors;
         this.categoryMaxVisitors = categoryMaxVisitors;
-        this.rank = rank;
+        this.userFuses = userFuses;
     }
 
     @Override
@@ -72,7 +73,7 @@ public class NAVNODEINFO extends MessageComposer {
                 response.writeInt(room.getId());
                 response.writeString(room.getData().getName());
 
-                if (room.isOwner(this.viewer.getDetails().getId())|| room.getData().showOwnerName() || this.viewer.hasFuse(Fuseright.SEE_ALL_ROOMOWNERS)) {
+                if (room.isOwner(this.viewer.getDetails().getId())|| room.getData().showOwnerName() || this.viewer.hasFuse(Fuse.SEE_ALL_ROOMOWNERS)) {
                     response.writeString(room.getData().getOwnerName());
                 } else {
                     response.writeString("-");
@@ -86,7 +87,7 @@ public class NAVNODEINFO extends MessageComposer {
         }
 
         for (NavigatorCategory subCategory : this.subCategories) {
-            if (subCategory.getMinimumRoleAccess().getRankId() > this.rank) {
+            if (subCategory.getFuseAccess().equalsIgnoreCase(this.userFuses)) {
                 continue;
             }
             response.writeInt(subCategory.getId());

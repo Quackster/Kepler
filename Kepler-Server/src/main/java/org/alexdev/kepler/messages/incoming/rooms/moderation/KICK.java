@@ -1,5 +1,6 @@
 package org.alexdev.kepler.messages.incoming.rooms.moderation;
 
+import org.alexdev.kepler.game.fuserights.Fuse;
 import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerManager;
@@ -27,18 +28,18 @@ public class KICK implements MessageEvent {
         }
 
         // Don't allow kicking room owners if you aren't a moderator
-        if (room.isOwner(target.getDetails().getId()) && !player.hasFuse(Fuseright.KICK)) {
+        if (room.isOwner(target.getDetails().getId()) && !player.hasFuse(Fuse.KICK)) {
             return;
         }
 
         // Don't allow kicking if they have permissions to kick too
-        if (target.hasFuse(Fuseright.KICK)) {
+        if (target.hasFuse(Fuse.KICK)) {
             player.send(new ALERT(TextsManager.getInstance().getValue("modtool_rankerror")));
             return;
         }
 
         // Don't allow kicking if you don't have room rights and don't have fuse rights
-        if (!room.hasRights(player.getDetails().getId()) && !player.hasFuse(Fuseright.KICK)) {
+        if (!room.hasRights(player.getDetails().getId()) && !player.hasFuse(Fuse.KICK)) {
             player.send(new ALERT(TextsManager.getInstance().getValue("modtool_rankerror")));
             return;
         }

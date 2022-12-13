@@ -3,6 +3,7 @@ package org.alexdev.kepler.game.commands.registered;
 import org.alexdev.kepler.game.commands.Command;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
+import org.alexdev.kepler.game.fuserights.Fuse;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.pathfinder.Position;
@@ -16,7 +17,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class UfosCommand extends Command {
     @Override
     public void addPermissions() {
-        this.permissions.add(Fuseright.ADMINISTRATOR_ACCESS);
+        this.permissions.add(Fuse.ADMINISTRATOR_ACCESS);
     }
 
     @Override
@@ -33,7 +34,7 @@ public class UfosCommand extends Command {
 
         Room room = player.getRoomUser().getRoom();
 
-        if (!room.isOwner(player.getDetails().getId()) && !player.hasFuse(Fuseright.ANY_ROOM_CONTROLLER)) {
+        if (!room.isOwner(player.getDetails().getId()) && !player.hasFuse(Fuse.ANY_ROOM_CONTROLLER)) {
             return;
         }
 

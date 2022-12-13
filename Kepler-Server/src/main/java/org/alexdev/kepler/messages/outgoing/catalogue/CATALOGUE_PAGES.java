@@ -1,7 +1,6 @@
 package org.alexdev.kepler.messages.outgoing.catalogue;
 
 import org.alexdev.kepler.game.catalogue.CataloguePage;
-import org.alexdev.kepler.game.player.PlayerRank;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 

@@ -4,6 +4,7 @@ import org.alexdev.kepler.dao.mysql.SettingsDao;
 import org.alexdev.kepler.game.commands.Command;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
+import org.alexdev.kepler.game.fuserights.Fuse;
 import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.messages.outgoing.user.ALERT;
@@ -13,7 +14,7 @@ import org.alexdev.kepler.util.config.writer.GameConfigWriter;
 public class SetConfigCommand extends Command {
     @Override
     public void addPermissions() {
-        this.permissions.add(Fuseright.ADMINISTRATOR_ACCESS);
+        this.permissions.add(Fuse.ADMINISTRATOR_ACCESS);
     }
 
     @Override
