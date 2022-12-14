@@ -87,7 +87,7 @@ public class NAVNODEINFO extends MessageComposer {
         }
 
         for (NavigatorCategory subCategory : this.subCategories) {
-            if (subCategory.getFuseAccess().equalsIgnoreCase(this.userFuses)) {
+            if (this.userFuses.contains(new Fuseright(subCategory.getFuseAccess().toLowerCase()))) {
                 continue;
             }
             response.writeInt(subCategory.getId());
