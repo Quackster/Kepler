@@ -16,8 +16,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static javax.swing.UIManager.put;
-
 public class PlayerDao {
     /**
      * Logs the IP address for a given user
@@ -375,7 +373,7 @@ public class PlayerDao {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                fuses.add(new Fuseright(resultSet.getString("fuse")));
+                fuses.add(new Fuseright(resultSet.getString("fuse").toLowerCase()));
 
             }
 
@@ -405,7 +403,7 @@ public class PlayerDao {
         String habboClubQuery = (hasClub) ? " OR user_group = 'HABBO_CLUB'" : "";
         try {
             sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("(SELECT fuse FROM rank_rights where rank_id = (SELECT rank from users where id = ?) UNION SELECT fuse FROM fuses where user_group = 'ANYONE'" + habboClubQuery, sqlConnection);
+            preparedStatement = Storage.getStorage().prepare("SELECT fuse FROM rank_rights where rank_id = (SELECT rank from users where id = ?) UNION SELECT fuse FROM fuses where user_group = 'ANYONE'" + habboClubQuery, sqlConnection);
             preparedStatement.setInt(1, userId);
             resultSet = preparedStatement.executeQuery();
 

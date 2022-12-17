@@ -245,7 +245,8 @@ public class CatalogueManager {
                 continue;
             }
 
-            if (fuses.contains(new Fuseright(page.getFuse()))) {
+            boolean hasFuse = fuses.stream().anyMatch(r -> r.getFuse().equalsIgnoreCase(page.getFuse()));
+            if (hasFuse) {
                 cataloguePagesForRank.add(page);
             }
         }

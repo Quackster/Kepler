@@ -184,7 +184,6 @@ public class Player extends Entity {
     public void refreshFuserights() {
         List<Fuseright> fuserights = this.details.refreshFuseRights();
 
-        fuserights.removeIf(fuse -> !fuse.getFuse().startsWith("fuse_"));
         this.send(new RIGHTS(fuserights));
     }
 

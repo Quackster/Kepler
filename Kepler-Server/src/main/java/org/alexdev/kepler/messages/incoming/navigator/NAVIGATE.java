@@ -43,7 +43,8 @@ public class NAVIGATE implements MessageEvent {
             return;
         }
 
-        if (!player.getDetails().getFuseRights().contains(new Fuseright(category.getFuseAccess().toLowerCase()))) {
+        boolean hasFuse = player.getDetails().getFuseRights().stream().anyMatch(r -> r.getFuse().equalsIgnoreCase(category.getFuseAccess()));
+        if (!hasFuse) {
             return;
         }
 
@@ -88,7 +89,7 @@ public class NAVIGATE implements MessageEvent {
         RoomManager.getInstance().sortRooms(rooms);
         RoomManager.getInstance().ratingSantiyCheck(rooms);
 
-        player.send(new NAVNODEINFO(player, category, rooms, hideFull, subCategories, categoryCurrentVisitors, categoryMaxVisitors, player.getDetails().getRank().getRankId()));
+        player.send(new NAVNODEINFO(player, category, rooms, hideFull, subCategories, categoryCurrentVisitors, categoryMaxVisitors, player.getDetails().getFuseRights()));
 
         if (wasFollow && player.getMessenger().getFollowed() != null) {
             player.getMessenger().getFollowed().forward(player, false);

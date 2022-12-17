@@ -31,7 +31,7 @@ public class CatalogueDao {
             row = stmt.executeQuery();
 
             while (row.next()) {
-                CataloguePage page = new CataloguePage(row.getInt("id"), row.getString("fuses"), row.getBoolean("index_visible"),
+                CataloguePage page = new CataloguePage(row.getInt("id"), row.getString("fuse"), row.getBoolean("index_visible"),
                         row.getBoolean("is_club_only"), row.getString("name_index"), row.getString("link_list"), row.getString("name"),
                         row.getString("layout"), row.getString("image_headline"), row.getString("image_teasers"), row.getString("body"),
                         row.getString("label_pick"), row.getString("label_extra_s"), row.getString("label_extra_t"));
