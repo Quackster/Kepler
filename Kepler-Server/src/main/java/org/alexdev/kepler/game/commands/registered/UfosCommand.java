@@ -17,7 +17,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class UfosCommand extends Command {
     @Override
     public void addPermissions() {
-        this.permissions.add(Fuse.ADMINISTRATOR_ACCESS);
+        this.permissions.add(Fuse.DEBUG);
     }
 
     @Override

@@ -14,7 +14,7 @@ import org.alexdev.kepler.util.config.writer.GameConfigWriter;
 public class SetConfigCommand extends Command {
     @Override
     public void addPermissions() {
-        this.permissions.add(Fuse.ADMINISTRATOR_ACCESS);
+        this.permissions.add(Fuse.DEBUG);
     }
 
     @Override

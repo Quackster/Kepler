@@ -91,7 +91,6 @@ public class Kepler {
             }
 
             log.info("Setting up game");
-            //log.info(REGISTER.createPassword("lol"));
 
             GameConfiguration.getInstance(new GameConfigWriter());
             AdManager.getInstance();

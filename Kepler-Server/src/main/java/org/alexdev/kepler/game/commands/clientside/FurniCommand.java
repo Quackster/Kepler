@@ -8,7 +8,7 @@ import org.alexdev.kepler.game.fuserights.Fuseright;
 public class FurniCommand extends Command {
     @Override
     public void addPermissions() {
-        this.permissions.add(Fuse.DEFAULT);
+        this.permissions.add(Fuse.FURNI_LIST_COMMAND);
     }
 
     @Override

@@ -4,13 +4,15 @@ import org.alexdev.kepler.game.commands.Command;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
 import org.alexdev.kepler.game.fuserights.Fuse;
-import org.alexdev.kepler.game.fuserights.Fuseright;
+import org.alexdev.kepler.game.navigator.NavigatorManager;
 import org.alexdev.kepler.game.player.Player;
+import org.alexdev.kepler.game.room.RoomManager;
+import org.alexdev.kepler.messages.outgoing.rooms.FLATPROPERTY;
 
-public class RollDiceCommand extends Command {
+public class RefreshPublicRoomsCommand extends Command {
     @Override
     public void addPermissions() {
-        this.permissions.add(Fuse.DEFAULT);
+        this.permissions.add(Fuse.ADMINISTRATOR_ACCESS);
     }
 
     @Override
@@ -25,11 +27,11 @@ public class RollDiceCommand extends Command {
             return;
         }
 
-        player.getRoomUser().refreshAppearance();
+        NavigatorManager.getInstance().resetCategoryMap();
     }
 
     @Override
     public String getDescription() {
-        return "Refresh your figure and motto";
+        return "Resets room cache.";
     }
 }

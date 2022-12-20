@@ -21,7 +21,7 @@ public class GETUSERFLATCATS implements MessageEvent {
                 continue;
             }
 
-            boolean hasFuse = player.getDetails().getFuseRights().stream().anyMatch(r -> r.getFuse().equalsIgnoreCase(category.getFuseAccess()));
+            boolean hasFuse = player.getDetails().getFuseRights().stream().anyMatch(r -> r.getFuse().equalsIgnoreCase(category.getFuseSetFlat()));
             if (!hasFuse) {
                 continue;
             }

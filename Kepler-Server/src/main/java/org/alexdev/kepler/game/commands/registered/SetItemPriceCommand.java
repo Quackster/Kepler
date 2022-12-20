@@ -15,7 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 public class SetItemPriceCommand extends Command {
     @Override
     public void addPermissions() {
-        this.permissions.add(Fuse.ADMINISTRATOR_ACCESS);
+        this.permissions.add(Fuse.DEBUG);
     }
 
     @Override

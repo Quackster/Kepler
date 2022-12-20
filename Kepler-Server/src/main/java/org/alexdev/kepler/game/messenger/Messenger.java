@@ -2,6 +2,8 @@ package org.alexdev.kepler.game.messenger;
 
 import org.alexdev.kepler.dao.mysql.MessengerDao;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
+import org.alexdev.kepler.game.fuserights.Fuse;
+import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.player.PlayerManager;
@@ -44,7 +46,7 @@ public class Messenger {
         this.friendsAdded = new LinkedBlockingQueue<>();
         this.friendsRemoved = new LinkedBlockingQueue<>();
 
-        if (details.hasClubSubscription()) {
+        if (details.hasClubSubscription() || details.getFuseRights().contains(new Fuseright(Fuse.EXTENDED_BUDDYLIST.getFuseName()))) {
             this.friendsLimit = GameConfiguration.getInstance().getInteger("messenger.max.friends.club");
         } else {
             this.friendsLimit = GameConfiguration.getInstance().getInteger("messenger.max.friends.nonclub");

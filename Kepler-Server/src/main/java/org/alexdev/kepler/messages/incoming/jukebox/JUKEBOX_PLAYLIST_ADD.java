@@ -29,9 +29,9 @@ public class JUKEBOX_PLAYLIST_ADD implements MessageEvent {
             return;
         }
 
-        if (!room.hasRights(player.getDetails().getId()) && !player.hasFuse(Fuse.MOD)) {
+        //*if (!room.hasRights(player.getDetails().getId()) && !player.hasFuse(Fuse.MOD)) {
             //return;
-        }
+        //}
 
         int songId = reader.readInt();
         SongMachineDao.removePlaylistSong(songId, room.getItemManager().getSoundMachine().getId());

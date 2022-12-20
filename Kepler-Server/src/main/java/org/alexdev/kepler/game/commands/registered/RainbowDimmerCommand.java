@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 public class RainbowDimmerCommand extends Command {
     @Override
     public void addPermissions() {
-        this.permissions.add(Fuse.DEFAULT);
+        this.permissions.add(Fuse.DEBUG);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class RainbowDimmerCommand extends Command {
 
         Room room = player.getRoomUser().getRoom();
 
-        if (!player.getRoomUser().getRoom().isOwner(player.getDetails().getId()) && !player.hasFuse(Fuse.ANY_ROOM_CONTROLLER)) {
+        if (!player.getRoomUser().getRoom().isOwner(player.getDetails().getId())) {
             return;
         }
 

@@ -58,6 +58,7 @@ public class CommandManager {
         this.commands.put(new String[] { "chooser" }, new ChooserCommand());
         this.commands.put(new String[] { "furni" }, new FurniCommand());
         this.commands.put(new String[] { "events" }, new EventsCommand());
+        this.commands.put(new String[] { "refreshpublicrooms" }, new RefreshPublicRoomsCommand());
 
         log.info("Loaded {} commands", commands.size());
     }

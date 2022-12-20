@@ -39,7 +39,7 @@ public class SET_RANDOM_STATE implements MessageEvent {
 
         if (item.hasBehaviour(ItemBehaviour.REQUIRES_RIGHTS_FOR_INTERACTION)
                 && !room.hasRights(player.getDetails().getId())
-                && !player.hasFuse(Fuse.MOD)) {
+                && !player.hasFuse(Fuse.ANY_ROOM_CONTROLLER)) {
             return;
         }
 

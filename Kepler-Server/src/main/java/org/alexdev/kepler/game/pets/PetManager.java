@@ -31,7 +31,7 @@ public class PetManager {
         if (data.length < 2)
             return;
 
-        if (!room.hasRights(player.getDetails().getId()) && !player.hasFuse(Fuse.MOD)) {
+        if (!room.hasRights(player.getDetails().getId()) && !player.hasFuse(Fuse.ANY_ROOM_CONTROLLER)) {
             return;
         }
 

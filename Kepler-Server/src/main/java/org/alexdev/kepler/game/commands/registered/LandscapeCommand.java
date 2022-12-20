@@ -11,7 +11,7 @@ import org.alexdev.kepler.messages.outgoing.rooms.FLATPROPERTY;
 public class LandscapeCommand extends Command {
     @Override
     public void addPermissions() {
-        this.permissions.add(Fuse.ADMINISTRATOR_ACCESS);
+        this.permissions.add(Fuse.DEBUG);
     }
 
     @Override

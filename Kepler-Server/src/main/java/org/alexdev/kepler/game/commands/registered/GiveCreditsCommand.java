@@ -24,7 +24,7 @@ import java.util.Map;
 public class GiveCreditsCommand extends Command {
     @Override
     public void addPermissions() {
-        this.permissions.add(Fuse.ADMINISTRATOR_ACCESS);
+        this.permissions.add(Fuse.GIVE_CREDITS);
     }
 
     @Override
