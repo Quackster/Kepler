@@ -54,7 +54,8 @@ public enum Fuse {
         EXTENDED_BUDDYLIST("fuse_extended_buddylist"),
         //ROOM_QUEUE_CLUB("fuse_room_queue_club"), // Not used
         //EDIT_CATALOGUE("fuse_catalog_editor"), // Not used
-        GIVE_CREDITS("fuse_give_credits");
+        GIVE_CREDITS("fuse_give_credits"),
+        BADGES("fuse_badges");
 
         private final String fuseName;
 

@@ -23,7 +23,7 @@ import java.util.List;
 public class GiveBadgeCommand extends Command {
     @Override
     public void addPermissions() {
-        this.permissions.add(Fuse.ADMINISTRATOR_ACCESS);
+        this.permissions.add(Fuse.BADGES);
     }
 
     @Override
