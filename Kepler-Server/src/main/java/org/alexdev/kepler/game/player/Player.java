@@ -89,8 +89,6 @@ public class Player extends Entity {
 
         SettingsDao.updateSetting("players.online", String.valueOf(PlayerManager.getInstance().getPlayers().size()));
 
-        this.messenger = new Messenger(this.details);
-        this.inventory = new Inventory(this);
 
         // Bye bye!
         var banned = this.getDetails().isBanned();
@@ -108,11 +106,16 @@ public class Player extends Entity {
             PlayerDao.logIpAddress(this.getDetails().getId(), ipAddress);
         }
         PlayerDao.setPlayerOnline(this.getDetails());
+
+        this.refreshFuserights();
+
         this.details.loadBadges();
         this.details.resetNextHandout();
 
+        this.messenger = new Messenger(this.details);
+        this.inventory = new Inventory(this);
+
         this.send(new LOGIN());
-        this.refreshFuserights();
 
         if (GameConfiguration.getInstance().getBoolean("welcome.message.enabled")) {
             String alertMessage = GameConfiguration.getInstance().getString("welcome.message.content");
