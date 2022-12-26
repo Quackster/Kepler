@@ -1,6 +1,7 @@
 package org.alexdev.kepler.messages.incoming.songs;
 
 import org.alexdev.kepler.dao.mysql.SongMachineDao;
+import org.alexdev.kepler.game.fuserights.Fuse;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.fuserights.Fuseright;
@@ -22,7 +23,7 @@ public class EJECT_SOUND_PACKAGE implements MessageEvent {
 
         Room room = player.getRoomUser().getRoom();
 
-        if (!room.isOwner(player.getDetails().getId()) && !player.hasFuse(Fuseright.ANY_ROOM_CONTROLLER)) {
+        if (!room.isOwner(player.getDetails().getId()) && !player.hasFuse(Fuse.ANY_ROOM_CONTROLLER)) {
             return;
         }
 

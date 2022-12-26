@@ -5,6 +5,7 @@ import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.game.commands.Command;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
+import org.alexdev.kepler.game.fuserights.Fuse;
 import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerDetails;
@@ -22,7 +23,7 @@ import java.util.List;
 public class GiveBadgeCommand extends Command {
     @Override
     public void addPermissions() {
-        this.permissions.add(Fuseright.ADMINISTRATOR_ACCESS);
+        this.permissions.add(Fuse.BADGES);
     }
 
     @Override

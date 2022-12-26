@@ -1,6 +1,7 @@
 package org.alexdev.kepler.messages.incoming.rooms.settings;
 
 import org.alexdev.kepler.dao.mysql.RoomDao;
+import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.navigator.NavigatorCategory;
 import org.alexdev.kepler.game.navigator.NavigatorManager;
 import org.alexdev.kepler.game.player.Player;
@@ -22,7 +23,9 @@ public class SETFLATCAT implements MessageEvent {
             return;
         }
 
-        if (category.getMinimumRoleSetFlat().getRankId() > player.getDetails().getRank().getRankId()) {
+        NavigatorCategory finalCategory = category;
+        boolean hasFuse = player.getDetails().getFuseRights().stream().anyMatch(r -> r.getFuse().equalsIgnoreCase(finalCategory.getFuseSetFlat()));
+        if (!hasFuse) {
             return;
         }
 

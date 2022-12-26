@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.alexdev.kepler.game.entity.Entity;
+import org.alexdev.kepler.game.fuserights.Fuse;
 import org.alexdev.kepler.game.fuserights.Fuseright;
 
 public abstract class Command {
    
-    protected List<Fuseright> permissions;
+    protected List<Fuse> permissions;
     protected List<String> arguments;
     
     public Command() {
@@ -48,7 +49,7 @@ public abstract class Command {
      *
      * @return the permissions
      */
-    public List<Fuseright> getPermissions() {
+    public List<Fuse> getPermissions() {
         return this.permissions;
     }
 

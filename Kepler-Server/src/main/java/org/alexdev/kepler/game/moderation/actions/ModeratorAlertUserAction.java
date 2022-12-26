@@ -1,6 +1,7 @@
 package org.alexdev.kepler.game.moderation.actions;
 
 import org.alexdev.kepler.dao.mysql.ModerationDao;
+import org.alexdev.kepler.game.fuserights.Fuse;
 import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.moderation.ModerationActionType;
 import org.alexdev.kepler.game.player.Player;
@@ -14,7 +15,7 @@ import org.alexdev.kepler.server.netty.streams.NettyRequest;
 public class ModeratorAlertUserAction implements ModerationAction {
     @Override
     public void performAction(Player player, Room room, String alertMessage, String notes, NettyRequest reader) {
-        if (!player.hasFuse(Fuseright.ROOM_ALERT)) {
+        if (!player.hasFuse(Fuse.ROOM_ALERT)) {
             return;
         }
 

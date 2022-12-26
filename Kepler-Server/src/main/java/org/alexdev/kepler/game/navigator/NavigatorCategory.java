@@ -1,6 +1,5 @@
 package org.alexdev.kepler.game.navigator;
 
-import org.alexdev.kepler.game.player.PlayerRank;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.RoomManager;
 
@@ -10,18 +9,18 @@ public class NavigatorCategory {
     private String name;
     private boolean publicSpaces;
     private boolean allowTrading;
-    private PlayerRank minimumRoleAccess;
-    private PlayerRank minimumRoleSetFlat;
+    private String fuseAccess;
+    private String fuseSetFlat;
     private boolean isNode;
 
-    public NavigatorCategory(int id, int parentId, String name, boolean publicSpaces, boolean allowTrading, PlayerRank minimumRoleAccess, PlayerRank minimumRoleSetFlat, boolean isNode) {
+    public NavigatorCategory(int id, int parentId, String name, boolean publicSpaces, boolean allowTrading, String fuseAccess, String fuseSetFlat, boolean isNode) {
         this.id = id;
         this.parentId = parentId;
         this.name = name;
         this.publicSpaces = publicSpaces;
         this.allowTrading = allowTrading;
-        this.minimumRoleAccess = minimumRoleAccess;
-        this.minimumRoleSetFlat = minimumRoleSetFlat;
+        this.fuseAccess = fuseAccess;
+        this.fuseSetFlat = fuseSetFlat;
         this.isNode = isNode;
     }
 
@@ -69,12 +68,12 @@ public class NavigatorCategory {
         return allowTrading;
     }
 
-    public PlayerRank getMinimumRoleAccess() {
-        return minimumRoleAccess;
+    public String getFuseSetFlat() {
+        return fuseSetFlat;
     }
 
-    public PlayerRank getMinimumRoleSetFlat() {
-        return minimumRoleSetFlat;
+    public String getFuseAccess() {
+        return fuseAccess;
     }
 
     public boolean isNode() {

@@ -3,6 +3,7 @@ package org.alexdev.kepler.dao.mysql;
 import com.goterl.lazysodium.interfaces.PwHash;
 import org.alexdev.kepler.Kepler;
 import org.alexdev.kepler.dao.Storage;
+import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.tag.Tag;
@@ -10,7 +11,9 @@ import org.alexdev.kepler.util.DateUtil;
 
 import java.nio.charset.StandardCharsets;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class PlayerDao {
@@ -348,6 +351,76 @@ public class PlayerDao {
         }
 
         return id;
+    }
+
+    /**
+     * Gets the fuses for the users rank.
+     *
+     * @param rankId the rank id
+     * @return the name
+     */
+    public static List<Fuseright> getFusesForRank (int rankId, boolean hasClub) {
+        List<Fuseright> fuses = new ArrayList<>();
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        String habboClubQuery = (hasClub) ? " OR user_group = 'HABBO_CLUB'" : "";
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("SELECT fuse FROM rank_rights where rank_id = ? UNION SELECT fuse FROM fuses where user_group = 'ANYONE'" + habboClubQuery, sqlConnection);
+            preparedStatement.setInt(1, rankId);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                fuses.add(new Fuseright(resultSet.getString("fuse").toLowerCase()));
+
+            }
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+
+        return fuses;
+    }
+
+    /**
+     * Gets the fuses for a specific user.
+     *
+     * @param userId user id of user
+     * @return the name
+     */
+    public static List<Fuseright> getFusesForPlayer (int userId, boolean hasClub) {
+        List<Fuseright> fuses = new ArrayList<>();
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        String habboClubQuery = (hasClub) ? " OR user_group = 'HABBO_CLUB'" : "";
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("SELECT fuse FROM rank_rights where rank_id = (SELECT rank from users where id = ?) UNION SELECT fuse FROM fuses where user_group = 'ANYONE'" + habboClubQuery, sqlConnection);
+            preparedStatement.setInt(1, userId);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                fuses.add(new Fuseright(resultSet.getString("fuse")));
+
+            }
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+
+        return fuses;
     }
 
     /**

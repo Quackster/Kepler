@@ -14,7 +14,7 @@ public class GCIX implements MessageEvent {
     @Override
     public void handle(Player player, NettyRequest reader) {
         player.send(new CATALOGUE_PAGES(
-                CatalogueManager.getInstance().getPagesForRank(player.getDetails().getRank(), player.getDetails().hasClubSubscription())
+                CatalogueManager.getInstance().getPagesForRank(player.getDetails().getFuseRights(), player.getDetails().hasClubSubscription())
         ));
     }
 }

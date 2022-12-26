@@ -1,5 +1,6 @@
 package org.alexdev.kepler.messages.incoming.navigator;
 
+import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.navigator.NavigatorCategory;
 import org.alexdev.kepler.game.navigator.NavigatorManager;
 import org.alexdev.kepler.game.player.Player;
@@ -20,7 +21,8 @@ public class GETUSERFLATCATS implements MessageEvent {
                 continue;
             }
 
-            if (category.getMinimumRoleAccess().getRankId() > player.getDetails().getRank().getRankId()) {
+            boolean hasFuse = player.getDetails().getFuseRights().stream().anyMatch(r -> r.getFuse().equalsIgnoreCase(category.getFuseSetFlat()));
+            if (!hasFuse) {
                 continue;
             }
 

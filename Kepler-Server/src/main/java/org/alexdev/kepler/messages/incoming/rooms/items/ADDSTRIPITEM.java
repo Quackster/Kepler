@@ -1,5 +1,6 @@
 package org.alexdev.kepler.messages.incoming.rooms.items;
 
+import org.alexdev.kepler.game.fuserights.Fuse;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.fuserights.Fuseright;
@@ -17,7 +18,7 @@ public class ADDSTRIPITEM implements MessageEvent {
             return;
         }
 
-        if (!room.isOwner(player.getDetails().getId()) && !player.hasFuse(Fuseright.ANY_ROOM_CONTROLLER)) {
+        if (!room.isOwner(player.getDetails().getId()) && !player.hasFuse(Fuse.PICK_UP_ANY_FURNI)) {
             return;
         }
 

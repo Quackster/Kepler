@@ -1,6 +1,7 @@
 package org.alexdev.kepler.messages.incoming.rooms.items;
 
 import org.alexdev.kepler.game.GameScheduler;
+import org.alexdev.kepler.game.fuserights.Fuse;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.fuserights.Fuseright;
@@ -24,7 +25,7 @@ public class SPIN_WHEEL_OF_FORTUNE implements MessageEvent {
             return;
         }
 
-        if (!room.hasRights(player.getDetails().getId()) && !player.hasFuse(Fuseright.ANY_ROOM_CONTROLLER)) {
+        if (!room.hasRights(player.getDetails().getId()) && !player.hasFuse(Fuse.ANY_ROOM_CONTROLLER)) {
             return;
         }
 

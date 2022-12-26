@@ -5,6 +5,7 @@ import org.alexdev.kepler.dao.mysql.RoomDao;
 import org.alexdev.kepler.dao.mysql.RoomVoteDao;
 import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.entity.Entity;
+import org.alexdev.kepler.game.fuserights.Fuse;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.navigator.NavigatorCategory;
@@ -185,14 +186,14 @@ public class Room {
 
         String rightsValue = "";
 
-        if (isOwner(player.getDetails().getId()) || player.hasFuse(Fuseright.ANY_ROOM_CONTROLLER)) {
+        if (isOwner(player.getDetails().getId()) || player.hasFuse(Fuse.ANY_ROOM_CONTROLLER)) {
             player.send(new YOUAROWNER());
             rightsValue = "useradmin";
         }
 
         player.getRoomUser().removeStatus(StatusType.FLAT_CONTROL);
 
-        if (hasRights(player.getDetails().getId()) || isOwner(player.getDetails().getId()) || player.hasFuse(Fuseright.ANY_ROOM_CONTROLLER)) {
+        if (hasRights(player.getDetails().getId()) || isOwner(player.getDetails().getId()) || player.hasFuse(Fuse.ANY_ROOM_CONTROLLER)) {
             player.getRoomUser().setStatus(StatusType.FLAT_CONTROL, rightsValue);
         }
 

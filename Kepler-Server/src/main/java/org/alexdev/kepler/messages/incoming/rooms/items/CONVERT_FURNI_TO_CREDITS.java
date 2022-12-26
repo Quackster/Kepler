@@ -1,6 +1,7 @@
 package org.alexdev.kepler.messages.incoming.rooms.items;
 
 import org.alexdev.kepler.dao.mysql.ItemDao;
+import org.alexdev.kepler.game.fuserights.Fuse;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.fuserights.Fuseright;
@@ -20,7 +21,7 @@ public class CONVERT_FURNI_TO_CREDITS implements MessageEvent {
             return;
         }
 
-        if (!room.isOwner(player.getDetails().getId()) && !player.hasFuse(Fuseright.ANY_ROOM_CONTROLLER)) {
+        if (!room.isOwner(player.getDetails().getId()) && !player.hasFuse(Fuse.ANY_ROOM_CONTROLLER)) {
             return;
         }
 

@@ -12,8 +12,8 @@ import org.alexdev.kepler.game.catalogue.CatalogueManager;
 import org.alexdev.kepler.game.club.ClubSubscription;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
+import org.alexdev.kepler.game.fuserights.Fuse;
 import org.alexdev.kepler.game.fuserights.Fuseright;
-import org.alexdev.kepler.game.fuserights.FuserightsManager;
 import org.alexdev.kepler.game.inventory.Inventory;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.ItemManager;
@@ -182,13 +182,8 @@ public class Player extends Entity {
      * Send fuseright permissions for player.
      */
     public void refreshFuserights() {
-        List<Fuseright> fuserights = FuserightsManager.getInstance().getFuserightsForRank(this.details.getRank());
+        List<Fuseright> fuserights = this.details.refreshFuseRights();
 
-        if (this.getDetails().hasClubSubscription()) {
-            fuserights.addAll(FuserightsManager.getInstance().getClubFuserights());
-        }
-
-        fuserights.removeIf(fuse -> !fuse.getFuseright().startsWith("fuse_"));
         this.send(new RIGHTS(fuserights));
     }
 
@@ -199,8 +194,13 @@ public class Player extends Entity {
      * @return true, if successful
      */
     @Override
-    public boolean hasFuse(Fuseright fuse) {
-        return FuserightsManager.getInstance().hasFuseright(fuse, this.details);
+    public boolean hasFuse(Fuse fuse) {
+        for (Fuseright fuseright : this.getDetails().getFuseRights()) {
+            if(fuseright.getFuse().equalsIgnoreCase(fuse.getFuseName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

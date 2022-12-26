@@ -6,6 +6,7 @@ import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.ban.BanType;
 import org.alexdev.kepler.game.ban.BannedPlayer;
+import org.alexdev.kepler.game.fuserights.Fuse;
 import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.moderation.ModerationAction;
 import org.alexdev.kepler.game.moderation.ModerationActionType;
@@ -24,7 +25,7 @@ import java.util.concurrent.TimeUnit;
 public class ModeratorBanUserAction implements ModerationAction {
     @Override
     public void performAction(Player player, Room room, String alertMessage, String notes, NettyRequest reader) {
-        if (!player.hasFuse(Fuseright.BAN)) {
+        if (!player.hasFuse(Fuse.BAN)) {
             return;
         }
 

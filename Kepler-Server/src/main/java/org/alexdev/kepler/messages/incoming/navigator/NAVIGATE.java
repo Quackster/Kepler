@@ -2,6 +2,7 @@ package org.alexdev.kepler.messages.incoming.navigator;
 
 import org.alexdev.kepler.dao.mysql.NavigatorDao;
 import org.alexdev.kepler.dao.mysql.RoomDao;
+import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.navigator.NavigatorCategory;
 import org.alexdev.kepler.game.navigator.NavigatorManager;
 import org.alexdev.kepler.game.player.Player;
@@ -42,7 +43,8 @@ public class NAVIGATE implements MessageEvent {
             return;
         }
 
-        if (category.getMinimumRoleAccess().getRankId() > player.getDetails().getRank().getRankId()) {
+        boolean hasFuse = player.getDetails().getFuseRights().stream().anyMatch(r -> r.getFuse().equalsIgnoreCase(category.getFuseAccess()));
+        if (!hasFuse) {
             return;
         }
 
@@ -87,7 +89,7 @@ public class NAVIGATE implements MessageEvent {
         RoomManager.getInstance().sortRooms(rooms);
         RoomManager.getInstance().ratingSantiyCheck(rooms);
 
-        player.send(new NAVNODEINFO(player, category, rooms, hideFull, subCategories, categoryCurrentVisitors, categoryMaxVisitors, player.getDetails().getRank().getRankId()));
+        player.send(new NAVNODEINFO(player, category, rooms, hideFull, subCategories, categoryCurrentVisitors, categoryMaxVisitors, player.getDetails().getFuseRights()));
 
         if (wasFollow && player.getMessenger().getFollowed() != null) {
             player.getMessenger().getFollowed().forward(player, false);

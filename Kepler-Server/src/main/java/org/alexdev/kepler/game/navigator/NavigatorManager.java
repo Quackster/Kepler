@@ -5,12 +5,17 @@ import org.alexdev.kepler.dao.mysql.NavigatorDao;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class NavigatorManager {
     private static NavigatorManager instance;
-    private final HashMap<Integer, NavigatorCategory> categoryMap;
+    private HashMap<Integer, NavigatorCategory> categoryMap;
 
     private NavigatorManager() {
+        this.categoryMap = NavigatorDao.getCategories();
+    }
+
+    public void resetCategoryMap() {
         this.categoryMap = NavigatorDao.getCategories();
     }
 

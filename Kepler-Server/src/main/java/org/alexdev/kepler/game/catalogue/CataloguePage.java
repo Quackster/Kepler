@@ -1,6 +1,5 @@
 package org.alexdev.kepler.game.catalogue;
 
-import org.alexdev.kepler.game.player.PlayerRank;
 import org.alexdev.kepler.util.StringUtil;
 
 import java.util.HashMap;
@@ -8,7 +7,7 @@ import java.util.Map;
 
 public class CataloguePage {
     private int id;
-    private PlayerRank minRole;
+    private String fuse;
     private boolean indexVisible;
     private boolean isClubOnly;
     private String nameIndex;
@@ -22,9 +21,9 @@ public class CataloguePage {
     private String labelExtra_s;
     private Map<String, String> labelExtra;
 
-    public CataloguePage(int id, PlayerRank minRole, boolean indexVisible, boolean isClubOnly, String nameIndex, String linkedList, String name, String layout, String imageHeadline, String imageTeasers, String body, String labelPick, String labelExtra_s, String labelExtra_t) {
+    public CataloguePage(int id, String fuse, boolean indexVisible, boolean isClubOnly, String nameIndex, String linkedList, String name, String layout, String imageHeadline, String imageTeasers, String body, String labelPick, String labelExtra_s, String labelExtra_t) {
         this.id = id;
-        this.minRole = minRole;
+        this.fuse = fuse;
         this.indexVisible = indexVisible;
         this.isClubOnly = isClubOnly;
         this.nameIndex = nameIndex;
@@ -60,8 +59,8 @@ public class CataloguePage {
         this.id = id;
     }
 
-    public PlayerRank getMinRole() {
-        return minRole;
+    public String getFuse() {
+        return fuse;
     }
 
     public boolean isIndexVisible() {

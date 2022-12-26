@@ -2,6 +2,7 @@ package org.alexdev.kepler.game.bot;
 
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
+import org.alexdev.kepler.game.fuserights.Fuse;
 import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.room.entities.RoomBot;
@@ -26,7 +27,7 @@ public class Bot extends Entity {
     }
 
     @Override
-    public boolean hasFuse(Fuseright permission) {
+    public boolean hasFuse(Fuse permission) {
         return false;
     }
 

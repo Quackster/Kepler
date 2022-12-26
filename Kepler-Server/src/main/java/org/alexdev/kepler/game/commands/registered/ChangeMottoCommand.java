@@ -4,6 +4,7 @@ import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.game.commands.Command;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
+import org.alexdev.kepler.game.fuserights.Fuse;
 import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.messages.outgoing.rooms.user.FIGURE_CHANGE;
@@ -12,7 +13,7 @@ import org.alexdev.kepler.util.StringUtil;
 public class ChangeMottoCommand extends Command {
     @Override
     public void addPermissions() {
-        this.permissions.add(Fuseright.DEFAULT);
+        this.permissions.add(Fuse.DEFAULT);
     }
 
     @Override

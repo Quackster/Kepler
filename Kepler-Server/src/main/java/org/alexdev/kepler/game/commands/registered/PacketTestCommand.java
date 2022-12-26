@@ -3,13 +3,14 @@ package org.alexdev.kepler.game.commands.registered;
 import org.alexdev.kepler.game.commands.Command;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
+import org.alexdev.kepler.game.fuserights.Fuse;
 import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.player.Player;
 
 public class PacketTestCommand extends Command {
     @Override
     public void addPermissions() {
-        this.permissions.add(Fuseright.ADMINISTRATOR_ACCESS);
+        this.permissions.add(Fuse.DEBUG);
     }
 
     @Override

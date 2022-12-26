@@ -1,6 +1,7 @@
 package org.alexdev.kepler.messages.incoming.rooms.dimmer;
 
 import org.alexdev.kepler.dao.mysql.MoodlightDao;
+import org.alexdev.kepler.game.fuserights.Fuse;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.player.Player;
@@ -25,7 +26,7 @@ public class MSG_ROOMDIMMER_SET_PRESET implements MessageEvent {
 
         Room room = player.getRoomUser().getRoom();
 
-        if (!room.isOwner(player.getDetails().getId()) && !player.hasFuse(Fuseright.ANY_ROOM_CONTROLLER)) {
+        if (!room.isOwner(player.getDetails().getId()) && !player.hasFuse(Fuse.ANY_ROOM_CONTROLLER)) {
             return;
         }
 

@@ -2,7 +2,6 @@ package org.alexdev.kepler.dao.mysql;
 
 import org.alexdev.kepler.dao.Storage;
 import org.alexdev.kepler.game.navigator.NavigatorCategory;
-import org.alexdev.kepler.game.player.PlayerRank;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.util.DateUtil;
 
@@ -37,8 +36,8 @@ public class NavigatorDao {
                 NavigatorCategory category = new NavigatorCategory(
                         row.getInt("id"), row.getInt("parent_id"), row.getString("name"),
                         row.getBoolean("public_spaces"), row.getBoolean("allow_trading"),
-                        PlayerRank.getRankForId(row.getInt("minrole_access")),
-                        PlayerRank.getRankForId(row.getInt("minrole_setflatcat")),
+                        row.getString("fuse_access"),
+                        row.getString("fuse_setflatcat"),
                         row.getBoolean("isnode")
                 );
 

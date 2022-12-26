@@ -1,5 +1,6 @@
 package org.alexdev.kepler.messages.incoming.moderation;
 
+import org.alexdev.kepler.game.fuserights.Fuse;
 import org.alexdev.kepler.game.moderation.cfh.CallForHelp;
 import org.alexdev.kepler.game.moderation.cfh.CallForHelpManager;
 import org.alexdev.kepler.game.fuserights.Fuseright;
@@ -10,7 +11,7 @@ import org.alexdev.kepler.server.netty.streams.NettyRequest;
 public class PICK_CALLFORHELP implements MessageEvent {
     @Override
     public void handle(Player player, NettyRequest reader) throws Exception {
-        if (!player.hasFuse(Fuseright.RECEIVE_CALLS_FOR_HELP)) {
+        if (!player.hasFuse(Fuse.RECEIVE_CALLS_FOR_HELP)) {
             return;
         }
 
