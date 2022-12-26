@@ -48,9 +48,6 @@ public class Kepler {
     private static String musServerIP;
     private static int musServerPort;
 
-    private static String rconIP;
-    private static int rconPort;
-
     private static boolean isShutdown;
 
     private static NettyServer server;
@@ -59,7 +56,7 @@ public class Kepler {
 
     private static LazySodiumJava LIB_SODIUM;
 
-    public static final String SERVER_VERSION = "v1.4";
+    public static final String SERVER_VERSION = "v2";
 
     /**
      * Main call of Java application
@@ -77,14 +74,15 @@ public class Kepler {
             log = LoggerFactory.getLogger(Kepler.class);
             ResourceLeakDetector.setLevel(ResourceLeakDetector.Level.ADVANCED);
 
-            System.out.println("  _  __          _           \n" +
-                    " | |/ /___ _ __ | | ___ _ __ \n" +
-                    " | ' // _ \\ '_ \\| |/ _ \\ '__|\n" +
-                    " | . \\  __/ |_) | |  __/ |   \n" +
-                    " |_|\\_\\___| .__/|_|\\___|_|   \n" +
-                    "          |_|                ");
+            System.out.println("   ___   ______   _____  ____  _____  \n" +
+                    " .'   `.|_   _ `.|_   _||_   \\|_   _| \n" +
+                    "/  .-.  \\ | | `. \\ | |    |   \\ | |   \n" +
+                    "| |   | | | |  | | | |    | |\\ \\| |   \n" +
+                    "\\  `-'  /_| |_.' /_| |_  _| |_\\   |_  \n" +
+                    " `.___.'|______.'|_____||_____|\\____| \n" +
+                    "                                      ");
 
-            log.info("Kepler - Habbo Hotel Emulation (revision " + SERVER_VERSION + ")");
+            log.info("Odin - Habbo Hotel Emulation (revision " + SERVER_VERSION + ")");
 
             if (!Storage.connect()) {
                 return;
@@ -213,21 +211,6 @@ public class Kepler {
         return serverPort;
     }
 
-    /**
-     * Gets the rcon IPv4 IP address it is currently (or attempting to) listen on
-     * @return IP as string
-     */
-    public static String getRconIP() {
-        return rconIP;
-    }
-
-    /**
-     * Gets the rcon port it is currently (or attempting to) listen on
-     * @return string of IP
-     */
-    public static int getRconPort() {
-        return rconPort;
-    }
 
     /**
      * Gets the startup time.
