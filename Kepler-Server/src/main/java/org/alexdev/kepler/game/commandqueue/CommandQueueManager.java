@@ -17,8 +17,10 @@ import org.alexdev.kepler.messages.outgoing.messenger.MESSENGER_INIT;
 import org.alexdev.kepler.messages.outgoing.messenger.ROOMFORWARD;
 import org.alexdev.kepler.messages.outgoing.rooms.user.HOTEL_VIEW;
 import org.alexdev.kepler.messages.outgoing.user.ALERT;
+import org.alexdev.kepler.messages.outgoing.user.MODERATOR_ALERT;
 import org.alexdev.kepler.messages.outgoing.user.currencies.CREDIT_BALANCE;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 class CommandTemplate {
@@ -36,6 +38,8 @@ class CommandTemplate {
     public String MessageLink;
     public int FriendRequestTo;
     public boolean OnlineOnly;
+    public ArrayList<String> Users;
+    public int BanLength;
 }
 public class CommandQueueManager {
     private static CommandQueueManager instance;
@@ -72,11 +76,40 @@ public class CommandQueueManager {
                 campaign(commandArgs);
             } else if (cq.getCommand().equalsIgnoreCase("update_room")) {
                 update_room(commandArgs);
+            } else if (cq.getCommand().equalsIgnoreCase("remote_alert")) {
+                remote_alert(commandArgs);
             }
         } catch (Exception e) {
             Log.getErrorLogger().error("Failed to execute command, invalid parameters for " + cq.getCommand() + " using arguments = " + cq.getArguments() + " ERROR: " + e);
         }
 
+    }
+
+    private void remote_alert(CommandTemplate commandArgs) {
+        var onlinePlayers = PlayerManager.getInstance().getPlayers();
+        for (Player p : onlinePlayers) {
+            if(commandArgs.Users.stream().anyMatch(x -> x.equalsIgnoreCase(p.getDetails().getName()))) {
+                p.send(new MODERATOR_ALERT(commandArgs.Message));
+            }
+        }
+    }
+
+    private void remote_ban(CommandTemplate commandArgs) {
+        var onlinePlayers = PlayerManager.getInstance().getPlayers();
+        for (Player p : onlinePlayers) {
+            if(commandArgs.Users.stream().anyMatch(x -> x.equalsIgnoreCase(p.getDetails().getName()))) {
+                p.send(new MODERATOR_ALERT(commandArgs.Message));
+            }
+        }
+    }
+
+    private void remote_kick(CommandTemplate commandArgs) {
+        var onlinePlayers = PlayerManager.getInstance().getPlayers();
+        for (Player p : onlinePlayers) {
+            if(commandArgs.Users.stream().anyMatch(x -> x.equalsIgnoreCase(p.getDetails().getName()))) {
+
+            }
+        }
     }
 
     private void roomForward(CommandTemplate commandArgs) {
