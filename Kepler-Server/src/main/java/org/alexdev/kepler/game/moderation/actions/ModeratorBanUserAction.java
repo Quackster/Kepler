@@ -25,14 +25,17 @@ import java.util.concurrent.TimeUnit;
 public class ModeratorBanUserAction implements ModerationAction {
     @Override
     public void performAction(Player player, Room room, String alertMessage, String notes, NettyRequest reader) {
-        if (!player.hasFuse(Fuse.BAN)) {
-            return;
-        }
-
         String name = reader.readString();
         int banHours = reader.readInt();
         boolean banMachineId = reader.readBoolean();
         boolean banIp = reader.readBoolean();
+
+        doBan(player, name, banHours, banMachineId, banIp, alertMessage, notes);
+    }
+    public void doBan(Player player, String name, int banHours, boolean banMachineId, boolean banIp, String alertMessage, String notes) {
+        if (player != null && !player.hasFuse(Fuse.BAN)) {
+            return;
+        }
 
         if (banHours > 100000) {
             banHours = 100000;
@@ -45,16 +48,16 @@ public class ModeratorBanUserAction implements ModerationAction {
         PlayerDetails playerDetails = PlayerManager.getInstance().getPlayerData(name);
 
         if (playerDetails == null) {
-            player.send(new ALERT("Could not find user: " + name));
+            if(player != null) { player.send(new ALERT("Could not find user: " + name)); }
             return;
         }
 
         if (playerDetails.isBanned() != null) {
             if (playerDetails.isBanned().getBanType() == BanType.IP_ADDRESS) {
-                player.send(new ALERT("User is already IP banned!"));
+                if(player != null) { player.send(new ALERT("User is already IP banned!")); }
                 return;
             } else if (!banIp && playerDetails.isBanned().getBanType() == BanType.USER_ID) {
-                player.send(new ALERT("User is already banned!"));
+                if(player != null) { player.send(new ALERT("User is already banned!")); }
                 return;
             }
         }
@@ -79,6 +82,6 @@ public class ModeratorBanUserAction implements ModerationAction {
             }
         }
 
-        player.send(new ALERT("The user " + playerDetails.getName() + " has been banned."));
+        if(player != null) { player.send(new ALERT("The user " + playerDetails.getName() + " has been banned.")); }
     }
 }

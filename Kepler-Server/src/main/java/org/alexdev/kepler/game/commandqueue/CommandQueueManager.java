@@ -5,6 +5,7 @@ import org.alexdev.kepler.dao.mysql.*;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.messenger.Messenger;
 import org.alexdev.kepler.game.messenger.MessengerMessage;
+import org.alexdev.kepler.game.moderation.actions.ModeratorBanUserAction;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerManager;
 import org.alexdev.kepler.game.room.Room;
@@ -40,6 +41,9 @@ class CommandTemplate {
     public boolean OnlineOnly;
     public ArrayList<String> Users;
     public int BanLength;
+    public String ExtraInfo;
+    public Boolean BanIp;
+    public Boolean BanMachine;
 }
 public class CommandQueueManager {
     private static CommandQueueManager instance;
@@ -98,16 +102,11 @@ public class CommandQueueManager {
         var onlinePlayers = PlayerManager.getInstance().getPlayers();
         for (Player p : onlinePlayers) {
             if(commandArgs.Users.stream().anyMatch(x -> x.equalsIgnoreCase(p.getDetails().getName()))) {
-                p.send(new MODERATOR_ALERT(commandArgs.Message));
-            }
-        }
-    }
-
-    private void remote_kick(CommandTemplate commandArgs) {
-        var onlinePlayers = PlayerManager.getInstance().getPlayers();
-        for (Player p : onlinePlayers) {
-            if(commandArgs.Users.stream().anyMatch(x -> x.equalsIgnoreCase(p.getDetails().getName()))) {
-
+                ModeratorBanUserAction banAction = new ModeratorBanUserAction();
+                String user = commandArgs.Users.get(commandArgs.Users.size()-1);
+                if(!toString().isEmpty()) {
+                    banAction.doBan(null, commandArgs.Users.get(commandArgs.Users.size()-1), commandArgs.BanLength, true, true, commandArgs.Message, commandArgs.ExtraInfo);
+                }
             }
         }
     }

@@ -18,6 +18,66 @@ import java.util.Map;
 
 public class PlayerDao {
     /**
+     * Logs the machine id for a given user
+     *
+     * @param userId the user id to edit
+     * @param machineId the machine id
+     */
+    public static void logMachineId(int userId, String machineId) {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("INSERT INTO users_machineid_logs (user_id, machine_id) VALUES (?, ?)", sqlConnection);
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setString(2, machineId);
+            preparedStatement.execute();
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+
+
+    /**
+     * Gets the machine for a given user
+     *
+     * @param userId the user id to edit
+     */
+    public static String getLatestMachineId(int userId) {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        String ip = "-";
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("SELECT machine_id FROM users_machineid_logs WHERE user_id = ? ORDER BY created_at DESC", sqlConnection);
+            preparedStatement.setInt(1, userId);
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                ip = resultSet.getString("ip_address");
+            }
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+
+        return ip;
+    }
+
+
+    /**
      * Logs the IP address for a given user
      *
      * @param userId the user id to edit
@@ -292,6 +352,54 @@ public class PlayerDao {
         }
 
         return success;
+    }
+
+    /**
+     * Increments the online time for the player
+     *
+     * @param userId ID of user
+     * @param seconds Seconds to add
+     */
+    public static void incrementOnlineTime(int userId, long seconds) {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("UPDATE users SET online_time_seconds = online_time_seconds + ? WHERE id = ?", sqlConnection);
+            preparedStatement.setLong(1, seconds);
+            preparedStatement.setInt(2, userId);
+            preparedStatement.execute();
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+
+    /**
+     * Increments the times a player has logged in
+     *
+     * @param userId ID of user
+     */
+    public static void incrementLoginCounter(int userId) {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("UPDATE users SET times_logged_in = times_logged_in + 1 WHERE id = ?", sqlConnection);
+            preparedStatement.setInt(1, userId);
+            preparedStatement.execute();
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
     }
 
     /**

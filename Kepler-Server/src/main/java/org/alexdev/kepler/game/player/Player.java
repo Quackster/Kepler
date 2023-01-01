@@ -32,6 +32,7 @@ import org.alexdev.kepler.messages.outgoing.user.HOTEL_LOGOUT;
 import org.alexdev.kepler.messages.outgoing.user.HOTEL_LOGOUT.LogoutReason;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.NettyPlayerNetwork;
+import org.alexdev.kepler.util.DateUtil;
 import org.alexdev.kepler.util.StringUtil;
 import org.alexdev.kepler.util.config.GameConfiguration;
 import org.apache.commons.lang.StringUtils;
@@ -60,6 +61,7 @@ public class Player extends Entity {
     private boolean loggedIn;
     private boolean disconnected;
     private boolean pingOK;
+    private long lastPing;
 
     public Player(NettyPlayerNetwork nettyPlayerNetwork) {
         this.network = nettyPlayerNetwork;
@@ -78,6 +80,7 @@ public class Player extends Entity {
         this.log = LoggerFactory.getLogger("Player " + this.details.getName()); // Update logger to show name
         this.loggedIn = true;
         this.pingOK = true;
+        this.lastPing = DateUtil.getCurrentTimeSeconds();
 
         PlayerManager.getInstance().disconnectSession(this.details.getId()); // Kill other sessions with same id
         PlayerManager.getInstance().addPlayer(this); // Add new connection
@@ -134,6 +137,8 @@ public class Player extends Entity {
 
         this.messenger.sendStatusUpdate();
         ClubSubscription.refreshBadge(this);
+
+        PlayerDao.incrementLoginCounter(this.details.getId());
         
         // Rewards
         RewardDao.getAvailableRewards(this.getDetails().getId()).forEach(reward -> {
@@ -352,6 +357,7 @@ public class Player extends Entity {
 
                 PlayerDao.saveLastOnline(this.getDetails());
                 PlayerDao.setPlayerOffline(this.getDetails());
+                PlayerDao.incrementOnlineTime(this.details.getId(), DateUtil.getCurrentTimeSeconds() - this.lastPing);
                 SettingsDao.updateSetting("players.online", String.valueOf(PlayerManager.getInstance().getPlayers().size()));
 
                 if (this.messenger != null)
@@ -367,6 +373,14 @@ public class Player extends Entity {
 
     public Set<String> getIgnoredList() {
         return ignoredList;
+    }
+
+    public void setLastPing(long currentTimeMillis) {
+        this.lastPing = currentTimeMillis;
+    }
+
+    public long getLastPing() {
+        return this.lastPing;
     }
 
     /*public int getVersion() {
