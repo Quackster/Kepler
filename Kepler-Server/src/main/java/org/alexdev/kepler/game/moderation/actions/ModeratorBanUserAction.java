@@ -30,9 +30,9 @@ public class ModeratorBanUserAction implements ModerationAction {
         boolean banMachineId = reader.readBoolean();
         boolean banIp = reader.readBoolean();
 
-        doBan(player, name, banHours, banMachineId, banIp, alertMessage, notes);
+        doAction(player, name, banHours, banMachineId, banIp, alertMessage, notes, player.getDetails().getId());
     }
-    public void doBan(Player player, String name, int banHours, boolean banMachineId, boolean banIp, String alertMessage, String notes) {
+    public void doAction(Player player, String badguy, int banHours, boolean banMachineId, boolean banIp, String alertMessage, String notes, int adminUserId) {
         if (player != null && !player.hasFuse(Fuse.BAN)) {
             return;
         }
@@ -45,24 +45,24 @@ public class ModeratorBanUserAction implements ModerationAction {
             banHours = 2;
         }
 
-        PlayerDetails playerDetails = PlayerManager.getInstance().getPlayerData(name);
+        PlayerDetails playerDetails = PlayerManager.getInstance().getPlayerData(badguy);
 
         if (playerDetails == null) {
-            if(player != null) { player.send(new ALERT("Could not find user: " + name)); }
+            if(player != null) player.send(new ALERT("Could not find user: " + badguy));
             return;
         }
 
         if (playerDetails.isBanned() != null) {
             if (playerDetails.isBanned().getBanType() == BanType.IP_ADDRESS) {
-                if(player != null) { player.send(new ALERT("User is already IP banned!")); }
+                if(player != null) player.send(new ALERT("User is already IP banned!"));
                 return;
             } else if (!banIp && playerDetails.isBanned().getBanType() == BanType.USER_ID) {
-                if(player != null) { player.send(new ALERT("User is already banned!")); }
+            if(player != null) player.send(new ALERT("User is already banned!"));
                 return;
             }
         }
         String notePrefix = banIp ? "IP BAN NOTES: " : "USER BAN NOTES: ";
-        ModerationDao.addLog(ModerationActionType.BAN_USER, player.getDetails().getId(), playerDetails.getId(), alertMessage, notePrefix + notes);
+        ModerationDao.addLog(ModerationActionType.BAN_USER, adminUserId, playerDetails.getId(), alertMessage, notePrefix + notes);
 
         long banTime = DateUtil.getCurrentTimeSeconds() + TimeUnit.HOURS.toSeconds(banHours);
 
@@ -82,6 +82,6 @@ public class ModeratorBanUserAction implements ModerationAction {
             }
         }
 
-        if(player != null) { player.send(new ALERT("The user " + playerDetails.getName() + " has been banned.")); }
+        if(player != null) player.send(new ALERT("The user " + playerDetails.getName() + " has been banned."));
     }
 }

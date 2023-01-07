@@ -14,10 +14,8 @@ public class SONG_INFO extends MessageComposer {
 
     @Override
     public void compose(NettyResponse response) {
-         if (ServerConfiguration.getBoolean("v15trax") == true) {
-            response.writeInt(this.song.getId());
-            response.writeString(this.song.getTitle());
-        }
+        response.writeInt(this.song.getId());
+        response.writeString(this.song.getTitle());
 
         response.writeString(this.song.getData());
     }

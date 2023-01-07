@@ -62,7 +62,7 @@ public class PlayerDao {
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                ip = resultSet.getString("ip_address");
+                ip = resultSet.getString("machine_id");
             }
 
         } catch (Exception e) {
