@@ -39,9 +39,9 @@ public class SETITEMDATA implements MessageEvent {
 
         Item item = room.getItemManager().getById(itemId);
 
-        if (item == null) {
-            return;
-        }
+        if (item == null) return;
+
+        if(!item.hasBehaviour(ItemBehaviour.POST_IT)) return; // Prevent from editing other furnis.
 
         String oldText = "";
 
