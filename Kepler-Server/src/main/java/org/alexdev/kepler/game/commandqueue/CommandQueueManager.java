@@ -3,21 +3,17 @@ package org.alexdev.kepler.game.commandqueue;
 import com.google.gson.Gson;
 import org.alexdev.kepler.dao.mysql.*;
 import org.alexdev.kepler.game.item.Item;
-import org.alexdev.kepler.game.messenger.Messenger;
 import org.alexdev.kepler.game.messenger.MessengerMessage;
 import org.alexdev.kepler.game.moderation.actions.ModeratorBanUserAction;
+import org.alexdev.kepler.game.moderation.actions.ModeratorKickUserAction;
 import org.alexdev.kepler.game.player.Player;
+import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.player.PlayerManager;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.RoomManager;
 import org.alexdev.kepler.log.Log;
-import org.alexdev.kepler.messages.incoming.messenger.MESSENGER_GETREQUESTS;
-import org.alexdev.kepler.messages.incoming.user.GET_INFO;
 import org.alexdev.kepler.messages.outgoing.messenger.CAMPAIGN_MSG;
-import org.alexdev.kepler.messages.outgoing.messenger.MESSENGER_INIT;
 import org.alexdev.kepler.messages.outgoing.messenger.ROOMFORWARD;
-import org.alexdev.kepler.messages.outgoing.rooms.user.HOTEL_VIEW;
-import org.alexdev.kepler.messages.outgoing.user.ALERT;
 import org.alexdev.kepler.messages.outgoing.user.MODERATOR_ALERT;
 import org.alexdev.kepler.messages.outgoing.user.currencies.CREDIT_BALANCE;
 
@@ -82,6 +78,10 @@ public class CommandQueueManager {
                 update_room(commandArgs);
             } else if (cq.getCommand().equalsIgnoreCase("remote_alert")) {
                 remote_alert(commandArgs);
+            } else if (cq.getCommand().equalsIgnoreCase("remote_kick")) {
+                remote_kick(commandArgs);
+            } else if (cq.getCommand().equalsIgnoreCase("remote_ban")) {
+                remote_ban(commandArgs);
             }
         } catch (Exception e) {
             Log.getErrorLogger().error("Failed to execute command, invalid parameters for " + cq.getCommand() + " using arguments = " + cq.getArguments() + " ERROR: " + e);
@@ -99,13 +99,33 @@ public class CommandQueueManager {
     }
 
     private void remote_ban(CommandTemplate commandArgs) {
-        var onlinePlayers = PlayerManager.getInstance().getPlayers();
-        for (Player p : onlinePlayers) {
-            if(commandArgs.Users.stream().anyMatch(x -> x.equalsIgnoreCase(p.getDetails().getName()))) {
+        for (String username : commandArgs.Users) {
+            PlayerDetails details = PlayerDao.getDetails(username);
+            if(details != null) {
                 ModeratorBanUserAction banAction = new ModeratorBanUserAction();
                 String user = commandArgs.Users.get(commandArgs.Users.size()-1);
-                if(!toString().isEmpty()) {
-                    banAction.doBan(null, commandArgs.Users.get(commandArgs.Users.size()-1), commandArgs.BanLength, true, true, commandArgs.Message, commandArgs.ExtraInfo);
+                if(user != null) {
+                    PlayerDetails player = PlayerDao.getDetails(user.toLowerCase());
+                    if(player == null) return;
+
+                    banAction.doAction(null, player.getName(), commandArgs.BanLength, commandArgs.BanMachine, commandArgs.BanIp, commandArgs.Message, commandArgs.ExtraInfo, commandArgs.UserId);
+                }
+            }
+        }
+
+    }
+
+    private void remote_kick(CommandTemplate commandArgs) {
+        for (String username : commandArgs.Users) {
+            PlayerDetails details = PlayerDao.getDetails(username);
+            if(details != null) {
+                ModeratorKickUserAction kickAction = new ModeratorKickUserAction();
+                String user = commandArgs.Users.get(commandArgs.Users.size()-1);
+                if(user != null) {
+                    PlayerDetails player = PlayerDao.getDetails(user.toLowerCase());
+                    if(player == null) return;
+
+                    kickAction.doAction(player.getName(), null, null, commandArgs.Message, commandArgs.ExtraInfo, commandArgs.UserId);
                 }
             }
         }

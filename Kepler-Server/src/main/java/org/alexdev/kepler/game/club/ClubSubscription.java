@@ -18,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 public class ClubSubscription {
     private static String[] giftOrder = new String[]{
+            "club_sofa",
             "hcplastos",
             "mocchamaster",
             "edicehc",
@@ -27,7 +28,20 @@ public class ClubSubscription {
             "hc_lmp",
             "hc_tbl",
             "hc_chr",
-            "hc_dsk"
+            "hc_dsk",
+            "hc_tv",
+            "hc_crtn",
+            "hc_crpt",
+            "hc_wall_lamp",
+            "deal_hcrollers",
+            "hc_bkshlf",
+            "hc_trll",
+            "hc_machine",
+            "hc_rntgn",
+            "hc_djset",
+            "hc_lmpst",
+            "hc_frplc",
+            "hc_btlr"
     };
 
     /**
@@ -85,7 +99,7 @@ public class ClubSubscription {
         if (player.getDetails().getFirstClubSubscription() == 0) {
             player.getDetails().setFirstClubSubscription(now);
 
-            Item item = ItemManager.getInstance().createGift(player.getDetails(), player.getDetails(), "club_sofa", GameConfiguration.getInstance().getString("club.gift.present.label"), "");
+            Item item = ItemManager.getInstance().createGift(player.getDetails(), player.getDetails(), giftOrder[0], GameConfiguration.getInstance().getString("club.gift.present.label"), "");
 
             player.getDetails().setClubGiftDue(DateUtil.getCurrentTimeSeconds() + getClubGiftSeconds());
             ClubGiftDao.saveNextGiftDate(player.getDetails());
@@ -137,7 +151,7 @@ public class ClubSubscription {
 
         if (player.getDetails().getFirstClubSubscription() == 0) {
             player.getDetails().setFirstClubSubscription(DateUtil.getCurrentTimeSeconds());
-            item = ItemManager.getInstance().createGift(player.getDetails(), player.getDetails(), "club_sofa", GameConfiguration.getInstance().getString("club.gift.present.label"), "");
+            item = ItemManager.getInstance().createGift(player.getDetails(), player.getDetails(), giftOrder[0], GameConfiguration.getInstance().getString("club.gift.present.label"), "");
 
             PlayerDao.saveSubscription(player.getDetails());
         } else {
