@@ -372,7 +372,7 @@ public class RoomTile {
 
         if (this.highestItem != null) {
             if (this.highestItem.hasBehaviour(ItemBehaviour.CAN_SIT_ON_TOP) || this.highestItem.hasBehaviour(ItemBehaviour.CAN_LAY_ON_TOP)) {
-                height -= this.highestItem.getDefinition().getTopHeight();
+                height -= this.highestItem.getDefinition().getPositiveTopHeight();
             }
         }
 
