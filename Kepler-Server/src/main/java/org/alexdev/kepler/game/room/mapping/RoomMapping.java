@@ -429,11 +429,11 @@ public class RoomMapping {
                 if (highestItem.getItemBelow() != null && highestItem.getItemBelow().hasBehaviour(ItemBehaviour.ROLLER)) {
                     // If the difference between the roller, and the next item up is more than 0.5, then set the item below the floating item
                     if (Math.abs(highestItem.getPosition().getZ() - roller.getPosition().getZ()) >= 0.5) {
-                        item.getPosition().setZ(roller.getPosition().getZ() + roller.getDefinition().getTopHeight());
+                        item.getPosition().setZ(roller.getPosition().getZ() + roller.getDefinition().getPositiveTopHeight());
                     }
                 }
 
-                item.getPosition().setZ(roller.getPosition().getZ() + roller.getDefinition().getTopHeight());
+                item.getPosition().setZ(roller.getPosition().getZ() + roller.getDefinition().getPositiveTopHeight());
 
                 /*if (!highestItem.hasBehaviour(ItemBehaviour.CAN_STACK_ON_TOP)) {
                     item.getPosition().setZ(roller.getPosition().getZ() + roller.getDefinition().getTopHeight());

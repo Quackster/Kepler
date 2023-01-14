@@ -164,7 +164,11 @@ public class Item {
      * @return the total height
      */
     public double getTotalHeight() {
-        return this.position.getZ() + this.getDefinition().getTopHeight();
+        if (this.getDefinition().getTopHeight() < 0) {
+            return this.position.getZ() + ItemDefinition.DEFAULT_TOP_HEIGHT;
+        } else {
+            return this.position.getZ() + this.getDefinition().getTopHeight();
+        }
     }
 
     /**
@@ -375,7 +379,7 @@ public class Item {
                 return false;
             }
 
-            if ((tile.getWalkingHeight() + item.getDefinition().getTopHeight()) > GameConfiguration.getInstance().getInteger("stack.height.limit")) {
+            if ((tile.getWalkingHeight() + item.getDefinition().getPositiveTopHeight()) > GameConfiguration.getInstance().getInteger("stack.height.limit")) {
                 return false;
             }
 
