@@ -25,6 +25,6 @@ public class ModeratorRoomAlertAction implements ModerationAction {
             target.send(new MODERATOR_ALERT(alertMessage));
         }
 
-        ModerationDao.addLog(ModerationActionType.ROOM_ALERT, player.getDetails().getId(), -1, alertMessage, notes);
+        ModerationDao.addLog(ModerationActionType.ROOM_ALERT, player.getDetails().getId(), 0, alertMessage, notes, 0);
     }
 }

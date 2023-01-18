@@ -24,7 +24,7 @@ public class ModeratorAlertUserAction implements ModerationAction {
 
         if (target != null) {
             target.send(new MODERATOR_ALERT(alertMessage));
-            ModerationDao.addLog(ModerationActionType.ALERT_USER, player.getDetails().getId(), target.getDetails().getId(), alertMessage, notes);
+            ModerationDao.addLog(ModerationActionType.ALERT_USER, player.getDetails().getId(), target.getDetails().getId(), alertMessage, notes, 0);
         } else {
             player.send(new ALERT("Target user is not online."));
         }

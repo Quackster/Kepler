@@ -35,6 +35,6 @@ public class ModeratorRoomKickAction implements ModerationAction {
         }
 
 
-        ModerationDao.addLog(ModerationActionType.ROOM_KICK, player.getDetails().getId(), -1, alertMessage, notes);
+        ModerationDao.addLog(ModerationActionType.ROOM_KICK, player.getDetails().getId(), 0, alertMessage, notes, player.getRoomUser().getRoom().getId());
     }
 }

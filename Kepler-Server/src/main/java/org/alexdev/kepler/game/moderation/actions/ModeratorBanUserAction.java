@@ -61,12 +61,13 @@ public class ModeratorBanUserAction implements ModerationAction {
                 return;
             }
         }
-        String notePrefix = banIp ? "IP BAN NOTES: " : "USER BAN NOTES: ";
-        ModerationDao.addLog(ModerationActionType.BAN_USER, adminUserId, playerDetails.getId(), alertMessage, notePrefix + notes);
 
         long banTime = DateUtil.getCurrentTimeSeconds() + TimeUnit.HOURS.toSeconds(banHours);
 
-        BanDao.addBan(new BannedPlayer(alertMessage, PlayerDao.getLatestIp(playerDetails.getId()), playerDetails.getId(), banIp ? BanType.IP_ADDRESS : BanType.USER_ID, banTime));
+        var banId = BanDao.addBan(new BannedPlayer(alertMessage, PlayerDao.getLatestIp(playerDetails.getId()), playerDetails.getId(), banIp ? BanType.IP_ADDRESS : BanType.USER_ID, banTime));
+
+        String notePrefix = banIp ? "IP BAN NOTES: " : "USER BAN NOTES: ";
+        ModerationDao.addLog(ModerationActionType.BAN_USER, adminUserId, playerDetails.getId(), alertMessage, notePrefix + notes, banId);
 
         if(banIp) {
             List<Player> targets = PlayerManager.getInstance().getPlayersByIP(PlayerDao.getLatestIp(playerDetails.getId()));

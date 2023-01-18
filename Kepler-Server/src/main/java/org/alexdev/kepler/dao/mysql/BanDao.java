@@ -50,10 +50,11 @@ public class BanDao {
         return banned;
     }
 
-    public static void addBan(BannedPlayer bannedPlayer) {
+    public static int addBan(BannedPlayer bannedPlayer) {
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
 
+        int banId = 0;
         try {
             sqlConnection = Storage.getStorage().getConnection();
             preparedStatement = Storage.getStorage().prepare("INSERT INTO users_bans (ip, ban_type, banned_until, message, user_id) VALUES (?, ?, ?, ?, ?)", sqlConnection);
@@ -63,11 +64,20 @@ public class BanDao {
             preparedStatement.setString(4, bannedPlayer.getReason());
             preparedStatement.setInt(5, bannedPlayer.getUserId());
             preparedStatement.executeQuery();
+
+            ResultSet row = preparedStatement.getGeneratedKeys();
+
+            if (row != null && row.next()) {
+                banId = row.getInt(1);
+            }
+
+
         } catch (Exception e) {
             Storage.logError(e);
         } finally {
             Storage.closeSilently(sqlConnection);
             Storage.closeSilently(preparedStatement);
         }
+        return banId;
     }
 }

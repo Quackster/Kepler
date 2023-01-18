@@ -42,7 +42,7 @@ public class ModeratorKickUserAction implements ModerationAction {
             target.send(new HOTEL_VIEW());
             target.send(new MODERATOR_ALERT(alertMessage));
 
-            ModerationDao.addLog(ModerationActionType.KICK_USER, adminUserId, target.getDetails().getId(), alertMessage, notes);
+            ModerationDao.addLog(ModerationActionType.KICK_USER, adminUserId, target.getDetails().getId(), alertMessage, notes, 0);
         } else {
             if(player != null) player.send(new ALERT("Target user is not online."));
         }
