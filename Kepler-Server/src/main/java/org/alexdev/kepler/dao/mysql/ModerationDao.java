@@ -1,13 +1,13 @@
 package org.alexdev.kepler.dao.mysql;
 
 import org.alexdev.kepler.dao.Storage;
-import org.alexdev.kepler.game.moderation.ModerationActionType;
+import org.alexdev.kepler.game.moderation.AuditLogType;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 public class ModerationDao {
-   public static void addLog(ModerationActionType type, int userId, int targetId, String message, String extraNotes, int dataId) {
+   public static void addLog(AuditLogType type, int userId, int targetId, String message, String extraNotes, int dataId) {
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
 

@@ -3,6 +3,7 @@ package org.alexdev.kepler.game.moderation.actions;
 import org.alexdev.kepler.dao.mysql.ModerationDao;
 import org.alexdev.kepler.game.fuserights.Fuse;
 import org.alexdev.kepler.game.fuserights.Fuseright;
+import org.alexdev.kepler.game.moderation.AuditLogType;
 import org.alexdev.kepler.game.moderation.ModerationActionType;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.moderation.ModerationAction;
@@ -24,7 +25,7 @@ public class ModeratorAlertUserAction implements ModerationAction {
 
         if (target != null) {
             target.send(new MODERATOR_ALERT(alertMessage));
-            ModerationDao.addLog(ModerationActionType.ALERT_USER, player.getDetails().getId(), target.getDetails().getId(), alertMessage, notes, 0);
+            ModerationDao.addLog(AuditLogType.ALERT_USER, player.getDetails().getId(), target.getDetails().getId(), alertMessage, notes, 0);
         } else {
             player.send(new ALERT("Target user is not online."));
         }

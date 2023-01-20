@@ -16,7 +16,6 @@ import org.alexdev.kepler.messages.outgoing.rooms.badges.USER_BADGE;
 import org.alexdev.kepler.messages.outgoing.rooms.user.CHAT_MESSAGE;
 import org.alexdev.kepler.messages.outgoing.rooms.user.CHAT_MESSAGE.ChatMessageType;
 import org.alexdev.kepler.messages.outgoing.rooms.user.FIGURE_CHANGE;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
@@ -67,7 +66,7 @@ public class GiveBadgeCommand extends Command {
         }
 
         // Badge should be alphanumeric
-        if (!StringUtils.isAlphanumeric(badge)) {
+        if (!badge.matches("^[a-zA-Z0-9]*$")) {
             player.send(new CHAT_MESSAGE(ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), "Badge code provided not alphanumeric."));
             return;
         }
