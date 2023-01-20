@@ -2,6 +2,7 @@ package org.alexdev.kepler.game.commandqueue;
 
 import com.google.gson.Gson;
 import org.alexdev.kepler.dao.mysql.*;
+import org.alexdev.kepler.game.commandqueue.commands.*;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.messenger.MessengerMessage;
 import org.alexdev.kepler.game.moderation.actions.ModeratorBanUserAction;
@@ -17,30 +18,8 @@ import org.alexdev.kepler.messages.outgoing.messenger.ROOMFORWARD;
 import org.alexdev.kepler.messages.outgoing.user.MODERATOR_ALERT;
 import org.alexdev.kepler.messages.outgoing.user.currencies.CREDIT_BALANCE;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-class CommandTemplate {
-    public int UserId;
-    public int Credits;
-    public int DefinitionId;
-    public int RoomId;
-    public String RoomType;
-    public int RoomAccessType;
-    public String RoomDescription;
-    public String RoomName;
-    public boolean RoomShowOwnerName;
-    public String Message;
-    public String MessageUrl;
-    public String MessageLink;
-    public int FriendRequestTo;
-    public boolean OnlineOnly;
-    public ArrayList<String> Users;
-    public int BanLength;
-    public String ExtraInfo;
-    public Boolean BanIp;
-    public Boolean BanMachine;
-}
+
 public class CommandQueueManager {
     private static CommandQueueManager instance;
 
@@ -62,168 +41,48 @@ public class CommandQueueManager {
         CommandQueueDao.setExecuted(cq);
         try {
             CommandTemplate commandArgs = new Gson().fromJson(cq.getArguments(), CommandTemplate.class);
-            if (cq.getCommand().equalsIgnoreCase("refresh_appearance")) {
-                refreshAppearanceCommand(commandArgs);
-            } else if (cq.getCommand().equalsIgnoreCase("update_credits")) {
-                updateCredits(commandArgs);
-            } else if (cq.getCommand().equalsIgnoreCase("reduce_credits")) {
-                reduceCredits(commandArgs);
-            } else if (cq.getCommand().equalsIgnoreCase("purchase_furni")) {
-                purchaseFurni(commandArgs);
-            } else if (cq.getCommand().equalsIgnoreCase("roomForward")) {
-                roomForward(commandArgs);
-            } else if (cq.getCommand().equalsIgnoreCase("campaign")) {
-                campaign(commandArgs);
-            } else if (cq.getCommand().equalsIgnoreCase("update_room")) {
-                update_room(commandArgs);
-            } else if (cq.getCommand().equalsIgnoreCase("remote_alert")) {
-                remote_alert(commandArgs);
-            } else if (cq.getCommand().equalsIgnoreCase("remote_kick")) {
-                remote_kick(commandArgs);
-            } else if (cq.getCommand().equalsIgnoreCase("remote_ban")) {
-                remote_ban(commandArgs);
+            Command command = null;
+            switch (cq.getCommand().toLowerCase()) {
+                case "refresh_appearance":
+                    command = new RefreshAppearanceCommand();
+                    break;
+                case "update_credits":
+                    command = new UpdateCreditsCommand();
+                    break;
+                case "reduce_credits":
+                    command = new ReduceCreditsCommand();
+                    break;
+                case "purchase_furni":
+                    command = new PurchaseFurniCommand();
+                    break;
+                case "roomForward":
+                    command = new RoomForwardCommand();
+                    break;
+                case "campaign":
+                    command = new CampaignCommand();
+                    break;
+                case "update_room":
+                    command = new RoomUpdateCommand();
+                    break;
+                case "remote_alert":
+                    command = new RemoteAlertCommand();
+                    break;
+                case "remote_kick":
+                    command = new RemoteKickCommand();
+                    break;
+                case "remote_ban":
+                    command = new RemoteBanCommand();
+                    break;
+                default:
+                    break;
+            }
+            if(command != null) {
+                command.executeCommand(commandArgs);
             }
         } catch (Exception e) {
             Log.getErrorLogger().error("Failed to execute command, invalid parameters for " + cq.getCommand() + " using arguments = " + cq.getArguments() + " ERROR: " + e);
         }
 
-    }
-
-    private void remote_alert(CommandTemplate commandArgs) {
-        var onlinePlayers = PlayerManager.getInstance().getPlayers();
-        for (Player p : onlinePlayers) {
-            if(commandArgs.Users.stream().anyMatch(x -> x.equalsIgnoreCase(p.getDetails().getName()))) {
-                p.send(new MODERATOR_ALERT(commandArgs.Message));
-            }
-        }
-    }
-
-    private void remote_ban(CommandTemplate commandArgs) {
-        for (String username : commandArgs.Users) {
-            PlayerDetails details = PlayerDao.getDetails(username);
-            if(details != null) {
-                ModeratorBanUserAction banAction = new ModeratorBanUserAction();
-                String user = commandArgs.Users.get(commandArgs.Users.size()-1);
-                if(user != null) {
-                    PlayerDetails player = PlayerDao.getDetails(user.toLowerCase());
-                    if(player == null) return;
-
-                    banAction.doAction(null, player.getName(), commandArgs.BanLength, commandArgs.BanMachine, commandArgs.BanIp, commandArgs.Message, commandArgs.ExtraInfo, commandArgs.UserId);
-                }
-            }
-        }
-
-    }
-
-    private void remote_kick(CommandTemplate commandArgs) {
-        for (String username : commandArgs.Users) {
-            PlayerDetails details = PlayerDao.getDetails(username);
-            if(details != null) {
-                ModeratorKickUserAction kickAction = new ModeratorKickUserAction();
-                String user = commandArgs.Users.get(commandArgs.Users.size()-1);
-                if(user != null) {
-                    PlayerDetails player = PlayerDao.getDetails(user.toLowerCase());
-                    if(player == null) return;
-
-                    kickAction.doAction(player.getName(), null, null, commandArgs.Message, commandArgs.ExtraInfo, commandArgs.UserId);
-                }
-            }
-        }
-    }
-
-    private void roomForward(CommandTemplate commandArgs) {
-        boolean publicRoom = commandArgs.RoomType.equalsIgnoreCase("public");
-        int roomId = commandArgs.RoomId;
-        Player player = PlayerManager.getInstance().getPlayerById(commandArgs.UserId);
-        if(player == null) return;
-
-        // Because public rooms sucks right!?
-        if(publicRoom) {
-            roomId = roomId - RoomManager.PUBLIC_ROOM_OFFSET;
-        }
-
-        Room room = RoomManager.getInstance().getRoomById(roomId);
-        if(room == null) return;
-        player.send(new ROOMFORWARD(publicRoom, roomId));
-    }
-
-    private void campaign(CommandTemplate commandArgs) {
-        var onlinePlayers = PlayerManager.getInstance().getPlayers();
-        if(commandArgs.OnlineOnly) {
-            for (Player p : onlinePlayers) {
-                MessengerDao.newCampaignMessage(p.getDetails().getId(), commandArgs.Message, commandArgs.MessageLink, commandArgs.MessageUrl);
-            }
-        } else {
-            MessengerDao.newCampaignMessage(commandArgs.Message, commandArgs.MessageLink, commandArgs.MessageUrl);
-        }
-
-        for (Player p : onlinePlayers) {
-            var messages = MessengerDao.getUnreadMessages(p.getDetails().getId());
-            for (MessengerMessage m : messages.values()) {
-                if(m.getFromId() == 0) {
-                    p.send(new CAMPAIGN_MSG(m));
-                }
-            }
-        }
-    }
-
-    private void update_room(CommandTemplate commandArgs) {
-        var room = RoomDao.getRoomById(commandArgs.RoomId);
-        if(room != null) {
-            room.getData().setName(commandArgs.RoomName);
-            room.getData().setDescription(commandArgs.RoomDescription);
-            room.getData().setShowOwnerName(commandArgs.RoomShowOwnerName);
-            room.getData().setAccessType(commandArgs.RoomAccessType);
-
-            RoomDao.save(room);
-        }
-    }
-
-
-    public void purchaseFurni(CommandTemplate commandArgs) {
-        Player player = PlayerManager.getInstance().getPlayerById(commandArgs.UserId);
-        if(player == null) return;
-        Item item = new Item();
-        item.setOwnerId(player.getDetails().getId());
-        item.setDefinitionId(commandArgs.DefinitionId);
-
-        try {
-            ItemDao.newItem(item);
-        } catch(Exception e) {
-            Log.getErrorLogger().error("Couldnt add furni");
-        }
-        player.getInventory().addItem(item);
-    }
-
-    public void updateCredits(CommandTemplate commandArgs) {
-        Player player = PlayerManager.getInstance().getPlayerById(commandArgs.UserId);
-        if(player == null) return;
-
-        if (commandArgs.Credits > 0) {
-            player.getDetails().setCredits(player.getDetails().getCredits() + commandArgs.Credits);
-            player.send(new CREDIT_BALANCE(player.getDetails()));
-        }
-
-        player.send(new CREDIT_BALANCE(player.getDetails()));
-    }
-
-    public void reduceCredits(CommandTemplate commandArgs) {
-        Player player = PlayerManager.getInstance().getPlayerById(commandArgs.UserId);
-
-        if(player != null) {
-            if (commandArgs.Credits > 0) {
-                player.getDetails().setCredits(player.getDetails().getCredits() - commandArgs.Credits);
-                player.send(new CREDIT_BALANCE(player.getDetails()));
-            }
-            player.send(new CREDIT_BALANCE(player.getDetails()));
-        }
-    }
-
-    public void refreshAppearanceCommand(CommandTemplate commandArgs) {
-        Player player = PlayerManager.getInstance().getPlayerById(commandArgs.UserId);
-        if(player == null) return;
-
-        player.getRoomUser().refreshAppearance();
     }
 
     /**

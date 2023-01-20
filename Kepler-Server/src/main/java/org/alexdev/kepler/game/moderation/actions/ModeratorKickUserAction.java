@@ -3,6 +3,7 @@ package org.alexdev.kepler.game.moderation.actions;
 import org.alexdev.kepler.dao.mysql.ModerationDao;
 import org.alexdev.kepler.game.fuserights.Fuse;
 import org.alexdev.kepler.game.fuserights.Fuseright;
+import org.alexdev.kepler.game.moderation.AuditLogType;
 import org.alexdev.kepler.game.moderation.ModerationAction;
 import org.alexdev.kepler.game.moderation.ModerationActionType;
 import org.alexdev.kepler.game.player.Player;
@@ -42,7 +43,7 @@ public class ModeratorKickUserAction implements ModerationAction {
             target.send(new HOTEL_VIEW());
             target.send(new MODERATOR_ALERT(alertMessage));
 
-            ModerationDao.addLog(ModerationActionType.KICK_USER, adminUserId, target.getDetails().getId(), alertMessage, notes);
+            ModerationDao.addLog(AuditLogType.KICK_USER, adminUserId, target.getDetails().getId(), alertMessage, notes, 0);
         } else {
             if(player != null) player.send(new ALERT("Target user is not online."));
         }

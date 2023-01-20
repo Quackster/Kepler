@@ -3,6 +3,7 @@ package org.alexdev.kepler.game.moderation.actions;
 import org.alexdev.kepler.dao.mysql.ModerationDao;
 import org.alexdev.kepler.game.fuserights.Fuse;
 import org.alexdev.kepler.game.fuserights.Fuseright;
+import org.alexdev.kepler.game.moderation.AuditLogType;
 import org.alexdev.kepler.game.moderation.ModerationAction;
 import org.alexdev.kepler.game.moderation.ModerationActionType;
 import org.alexdev.kepler.game.player.Player;
@@ -35,6 +36,6 @@ public class ModeratorRoomKickAction implements ModerationAction {
         }
 
 
-        ModerationDao.addLog(ModerationActionType.ROOM_KICK, player.getDetails().getId(), -1, alertMessage, notes);
+        ModerationDao.addLog(AuditLogType.ROOM_KICK, player.getDetails().getId(), 0, alertMessage, notes, player.getRoomUser().getRoom().getId());
     }
 }

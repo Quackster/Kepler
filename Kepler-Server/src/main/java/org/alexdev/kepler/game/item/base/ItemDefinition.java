@@ -182,6 +182,14 @@ public class ItemDefinition {
         return topHeight;
     }
 
+    public double getPositiveTopHeight() {
+        if (this.topHeight < 0) {
+            return DEFAULT_TOP_HEIGHT;
+        }
+
+        return topHeight;
+    }
+
     public int getLength() {
         return length;
     }

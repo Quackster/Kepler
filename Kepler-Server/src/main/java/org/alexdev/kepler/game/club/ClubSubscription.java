@@ -159,9 +159,9 @@ public class ClubSubscription {
             String nextSpriteGift;
 
             if (giftData == null) {
-                nextSpriteGift = giftOrder[0];
+                nextSpriteGift = giftOrder[1];
             } else {
-                int position = 0;
+                int position = 1;
 
                 for (String nextGift : giftOrder) {
                     position++;
