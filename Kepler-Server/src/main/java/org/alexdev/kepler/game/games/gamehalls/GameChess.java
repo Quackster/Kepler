@@ -152,6 +152,11 @@ public class GameChess extends GamehallGame {
                 var moveList = MoveGenerator.generateLegalMoves(this.board);
                 isLegalMove = moveList.contains(move);
 
+                // Add pawn -> promotion
+                if (!isLegalMove && Board.isPromoRank(this.board.getSideToMove(), move)) { // if the move is not legal, check if pawn promotion is legal
+                    move = new Move(fromSquare, toSquare, Piece.make(this.board.getSideToMove(), PieceType.QUEEN));
+                    isLegalMove = moveList.contains(move);
+                }
             } catch (MoveGeneratorException e) { }
 
             if (isLegalMove) {
