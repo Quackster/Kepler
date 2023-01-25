@@ -83,7 +83,8 @@ public class Pathfinder {
         // boolean hasPool = room.getModel().getName().startsWith("pool_") || room.getModel().getName().equals("md_a");
         // boolean isPrivateRoom =  !room.isPublicRoom();
 
-        boolean fromItemHeightExempt = fromItem != null && (fromItem.hasBehaviour(ItemBehaviour.TELEPORTER)
+        boolean fromItemHeightExempt = fromItem != null && (fromItem.hasBehaviour(ItemBehaviour.TELEPORTER) ||fromItem.getDefinition().hasBehaviour(ItemBehaviour.CAN_STAND_ON_TOP)
+                || fromItem.getDefinition().hasBehaviour(ItemBehaviour.CAN_SIT_ON_TOP)
                 || fromItem.getDefinition().getSprite().equals("wsJoinQueue")
                 || fromItem.getDefinition().getSprite().equals("wsQueueTile")
                 || (fromItem.getDefinition().getSprite().equals("poolEnter") && toItem != null && toItem.getDefinition().getSprite().equals("poolExit")) // No height check when going between pool triggers
