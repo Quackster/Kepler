@@ -73,6 +73,9 @@ public class CommandQueueManager {
                 case "remote_ban":
                     command = new RemoteBanCommand();
                     break;
+                case "test_packet":
+                    command = new TestPacket();
+                    break;
                 default:
                     break;
             }

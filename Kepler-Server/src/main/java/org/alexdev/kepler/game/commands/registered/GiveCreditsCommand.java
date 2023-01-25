@@ -1,6 +1,7 @@
 package org.alexdev.kepler.game.commands.registered;
 
 import org.alexdev.kepler.dao.mysql.CurrencyDao;
+import org.alexdev.kepler.dao.mysql.ModerationDao;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.dao.mysql.PurseDao;
 import org.alexdev.kepler.game.commands.Command;
@@ -8,6 +9,7 @@ import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
 import org.alexdev.kepler.game.fuserights.Fuse;
 import org.alexdev.kepler.game.fuserights.Fuseright;
+import org.alexdev.kepler.game.moderation.AuditLogType;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.player.PlayerManager;
@@ -76,7 +78,7 @@ public class GiveCreditsCommand extends Command {
         CurrencyDao.increaseCredits(playerDetailsToSave);
 
         targetUser.send(new CREDIT_BALANCE(targetUser.getDetails()));
-
+        ModerationDao.addLog(AuditLogType.GIVE_CREDITS, player.getDetails().getId(), targetUser.getDetails().getId(), "Gave " + credits, "", 0);
         player.send(new CHAT_MESSAGE(ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), credits + " has been added to user " + targetDetails.getName()));
     }
 
