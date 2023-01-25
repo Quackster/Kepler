@@ -118,10 +118,6 @@ public class RoomTile {
             } else {
                 return entity == null || tile.containsEntity(entity);
             }*/
-
-            if(tile.hasWalkableFurni(entity)) {
-                return true;
-            }
             return entity == null || tile.containsEntity(entity);
         }
 
