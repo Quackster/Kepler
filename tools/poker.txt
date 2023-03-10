@@ -1,0 +1,50 @@
+-- "[Connection info] : --> 145
+3	Poker	"
+-- "[Connection info] : <-- IIM (Au) 3 OPEN"
+-- "[Connection info] : --> 144
+3
+OPPONENTS
+squidwizard 0
+"
+-- "[Connection info] : --> 34
+
+0 2,8,1.0,4,4/mod null/sit 1.0"
+-- "[Connection info] : --> 34
+
+0 2,8,1.0,4,4/sit 1.0"
+-- "[Connection info] : <-- IIM (Au) 3 STARTOVER"
+-- "[Connection info] : --> 144
+3
+YOURCARDS 0/0,0/joker/c7/s1/c3/h4"
+-- "[Connection info] : --> 144
+3
+OPPONENTS
+squidwizard 0
+"
+-- "[Connection info] : <-- IIM (Au) 3 CHANGE  2 1"
+-- "[Connection info] : --> 144
+3
+CHANGED
+squidwizard/1 2"
+-- "[Connection info] : --> 144
+3
+YOURCARDS 0/1,2/joker/d2/d12/c3/h4"
+-- "[Connection info] : --> 144
+3
+REVEALCARDS
+squidwizard/1,2/joker/d2/d12/c3/h4
+"
+-- "[Connection info] : --> 25
+HWon with one pair"
+-- "[Connection info] : <-- IIM (Au) 3 STARTOVER"
+-- "[Connection info] : --> 144
+3
+YOURCARDS 0/0,0/d8/s6/joker/d2/h3"
+-- "[Connection info] : --> 144
+3
+OPPONENTS
+squidwizard 0
+"
+-- "[Connection info] : --> 50
+"
+-- "[Connection info] : <-- PONG (CD) "
