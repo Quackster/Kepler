@@ -13,8 +13,8 @@ import org.alexdev.kepler.game.room.mapping.RoomTile;
 import java.util.LinkedList;
 
 public class Pathfinder {
-    public static final double MAX_DROP_HEIGHT = 3.0;
-    public static final double MAX_LIFT_HEIGHT = 1.5;
+    public static final double MAX_DROP_HEIGHT = 100.0; // Previously 3.0
+    public static final double MAX_LIFT_HEIGHT = 1.5; // Previously 1.5
 
     public static final Position[] DIAGONAL_MOVE_POINTS = new Position[]{
             new Position(0, -1, 0),
@@ -82,9 +82,15 @@ public class Pathfinder {
 
         // boolean hasPool = room.getModel().getName().startsWith("pool_") || room.getModel().getName().equals("md_a");
         // boolean isPrivateRoom =  !room.isPublicRoom();
+        boolean newHeightHigher = (newHeight > oldHeight);
 
-        boolean fromItemHeightExempt = fromItem != null && (fromItem.hasBehaviour(ItemBehaviour.TELEPORTER) ||fromItem.getDefinition().hasBehaviour(ItemBehaviour.CAN_STAND_ON_TOP)
-                || fromItem.getDefinition().hasBehaviour(ItemBehaviour.CAN_SIT_ON_TOP)
+        if (newHeightHigher && (newHeight - oldHeight > MAX_LIFT_HEIGHT)) {
+            System.out.println("newHeightHigher");
+        } else if (!newHeightHigher && (oldHeight - newHeight > MAX_DROP_HEIGHT)) {
+            System.out.println("newHeightHigher2");
+        }
+
+        boolean fromItemHeightExempt = fromItem != null && (fromItem.hasBehaviour(ItemBehaviour.TELEPORTER)
                 || fromItem.getDefinition().getSprite().equals("wsJoinQueue")
                 || fromItem.getDefinition().getSprite().equals("wsQueueTile")
                 || (fromItem.getDefinition().getSprite().equals("poolEnter") && toItem != null && toItem.getDefinition().getSprite().equals("poolExit")) // No height check when going between pool triggers
@@ -114,13 +120,13 @@ public class Pathfinder {
         }
 
         if (fromTile.isHeightUpwards(toTile) && (!fromItemHeightExempt && !toItemHeightExempt)) {
-            if (Math.abs(newHeight - oldHeight) > MAX_LIFT_HEIGHT) {
+            if (Math.abs(newHeight - oldHeight) > MAX_DROP_HEIGHT) {
                 return false;
             }
         }
 
         if (fromTile.isHeightDrop(toTile) && (!fromItemHeightExempt && !toItemHeightExempt)) {
-            if (Math.abs(oldHeight - newHeight) > MAX_DROP_HEIGHT) {
+            if (Math.abs(oldHeight - newHeight) > MAX_LIFT_HEIGHT) {
                 return false;
             }
         }

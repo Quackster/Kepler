@@ -12,6 +12,7 @@ import org.alexdev.kepler.game.player.PlayerManager;
 import org.alexdev.kepler.game.room.models.RoomModelManager;
 import org.alexdev.kepler.game.texts.TextsManager;
 import org.alexdev.kepler.messages.outgoing.catalogue.CATALOGUE_PAGES;
+import org.alexdev.kepler.messages.outgoing.catalogue.REFRESH_CATALOGUE;
 import org.alexdev.kepler.messages.outgoing.user.ALERT;
 import org.alexdev.kepler.util.config.GameConfiguration;
 import org.alexdev.kepler.util.config.writer.GameConfigWriter;
@@ -56,7 +57,10 @@ public class ReloadCommand extends Command {
                 p.send(new CATALOGUE_PAGES(
                         CatalogueManager.getInstance().getPagesForRank(p.getDetails().getFuseRights(), p.getDetails().hasClubSubscription())
                 ));
+                p.send(new REFRESH_CATALOGUE());
             }
+
+
 
             componentName = "Catalogue and item definitions";
         }

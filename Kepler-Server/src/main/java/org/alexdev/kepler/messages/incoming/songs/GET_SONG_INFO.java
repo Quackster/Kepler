@@ -38,7 +38,7 @@ public class GET_SONG_INFO implements MessageEvent {
         try {
             songId = reader.readInt();
         } catch (Exception ex){
-            throw new Exception("Replace your fucking CCTs with the ones in /tools/v15_ccts.zip if you're running this on v15 port");
+            throw new Exception("Wups");
         }
 
         var song = SongMachineDao.getSong(songId);

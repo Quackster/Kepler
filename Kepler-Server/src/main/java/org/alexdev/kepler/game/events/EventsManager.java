@@ -131,7 +131,7 @@ public class EventsManager {
      * @return true, if successful
      */
     public boolean isHostingEvent(int userId) {
-        var optional = this.eventList.stream().filter(event -> event.getUserId() == userId).findFirst();
+        var optional = this.eventList.stream().filter(event -> event.getUserId() == userId && !event.isExpired()).findFirst();
         return optional.isPresent();
 
     }
