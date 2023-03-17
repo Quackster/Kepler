@@ -1,0 +1,116 @@
+1 1,8,1.0,4,4/mv 1,9,1.0"
+-- "[Connection info] : --> 144
+3
+OPPONENTS
+Quackster 0
+squidwizard 0
+"
+-- "[Connection info] : --> 34
+
+1 1,9,1.0,2,2/mod null/sit 1.0"
+-- "[Connection info] : --> 145
+3	Poker	"
+-- "[Connection info] : <-- IIM (Au) 3 OPEN"
+-- "[Connection info] : --> 144
+3
+OPPONENTS
+Quackster 0
+squidwizard 0
+"
+-- "[Connection info] : --> 34
+
+1 1,9,1.0,2,2/mod null/sit 1.0"
+-- "[Connection info] : --> 34
+
+1 1,9,1.0,2,2/sit 1.0"
+-- "[Connection info] : --> 34
+
+1 1,9,1.0,2,2/sit 1.0"
+-- "[Connection info] : <-- IIM (Au) 3 STARTOVER"
+-- "[Connection info] : --> 144
+3
+OPPONENTS
+Quackster 0
+squidwizard 0
+"
+-- "[Connection info] : --> 144
+3
+YOURCARDS 3/0,0/d2/d6/c3/h3/c7"
+-- "[Connection info] : --> 144
+3
+OPPONENTS
+Quackster 0
+squidwizard 0
+"
+-- "[Connection info] : <-- IIM (Au) 3 STARTOVER"
+-- "[Connection info] : --> 144
+3
+YOURCARDS 0/0,0/h1/s2/d10/s11/c13"
+-- "[Connection info] : --> 144
+3
+OPPONENTS
+Quackster 0
+squidwizard 0
+"
+-- "[Connection info] : --> 144
+3
+OPPONENTS
+Quackster 0
+squidwizard 0
+"
+-- "[Connection info] : --> 50
+"
+-- "[Connection info] : <-- PONG (CD) "
+-- "[Connection info] : --> 50
+"
+-- "[Connection info] : <-- PONG (CD) "
+-- "[Connection info] : <-- IIM (Au) 3 CHANGE  0 2"
+-- "[Connection info] : --> 144
+3
+CHANGED
+Quackster/0 2"
+-- "[Connection info] : --> 144
+3
+CHANGED
+Quackster/0 2"
+-- "[Connection info] : <-- IIM (Au) 3 CHANGE  1 3"
+-- "[Connection info] : --> 144
+3
+CHANGED
+squidwizard/1 3"
+-- "[Connection info] : --> 144
+3
+YOURCARDS 3/1,2/d2/joker/c3/s5/c7"
+-- "[Connection info] : --> 144
+3
+REVEALCARDS
+Quackster/1,2/h12/s2/d4/s11/c13
+squidwizard/1,2/d2/joker/c3/s5/c7
+"
+-- "[Connection info] : --> 25
+IWon with one pair"
+-- "[Connection info] : --> 25
+HLost with high card"
+-- "[Connection info] : --> 144
+3
+CHANGED
+squidwizard/1 3"
+-- "[Connection info] : --> 144
+3
+YOURCARDS 0/1,2/h12/s2/d4/s11/c13"
+-- "[Connection info] : --> 144
+3
+REVEALCARDS
+Quackster/1,2/h12/s2/d4/s11/c13
+squidwizard/1,2/d2/joker/c3/s5/c7
+"
+-- "[Connection info] : --> 25
+IWon with one pair"
+-- "[Connection info] : --> 25
+HLost with high card"
+-- "[Connection info] : --> 50
+"
+-- "[Connection info] : <-- PONG (CD) "
+-- "[Connection info] : --> 50
+"
+-- "[Connection info] : <-- PONG (CD) "

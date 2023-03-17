@@ -12,9 +12,10 @@ public class ITEMMSG extends MessageComposer {
 
     @Override
     public void compose(NettyResponse response) {
-        for (String value : this.commands) {
-            response.writeDelimeter(value, '\r');
-        }
+        //for (String value : this.commands) {
+        //    response.writeDelimeter(value, '\r');
+        //}
+        response.write(String.join("\r", this.commands));
     }
 
     @Override
