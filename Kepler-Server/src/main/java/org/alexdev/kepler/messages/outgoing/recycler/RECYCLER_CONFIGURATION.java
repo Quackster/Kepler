@@ -34,22 +34,26 @@ public class RECYCLER_CONFIGURATION extends MessageComposer {
 
         for (RecyclerReward recyclerReward : this.recyclerRewards) {
             response.writeInt(recyclerReward.getItemCost());
-
-            var definition = recyclerReward.getCatalogueItem().getDefinition();
-
-            response.writeBool(definition.hasBehaviour(ItemBehaviour.WALL_ITEM));
-            response.writeString(recyclerReward.getCatalogueItem().getDefinition().getSprite());
-
-            if (definition.hasBehaviour(ItemBehaviour.WALL_ITEM)) {
-                if (recyclerReward.getCatalogueItem().getItemSpecialId() > 0) {
-                    response.writeString(" ");
-                    response.writeString(recyclerReward.getCatalogueItem().getItemSpecialId());
-                }
+            if(recyclerReward.getSaleCode().equalsIgnoreCase("tickets")) {
+                response.writeInt(2);
+                response.writeString("20 Billetter");
             } else {
-                response.writeInt(0); // Default direction
-                response.writeInt(definition.getLength());
-                response.writeInt(definition.getWidth());
-                response.writeString(definition.getColour());
+                var definition = recyclerReward.getCatalogueItem().getDefinition();
+
+                response.writeBool(definition.hasBehaviour(ItemBehaviour.WALL_ITEM));
+                response.writeString(recyclerReward.getCatalogueItem().getDefinition().getSprite());
+
+                if (definition.hasBehaviour(ItemBehaviour.WALL_ITEM)) {
+                    if (recyclerReward.getCatalogueItem().getItemSpecialId() > 0) {
+                        response.writeString(" ");
+                        response.writeString(recyclerReward.getCatalogueItem().getItemSpecialId());
+                    }
+                } else {
+                    response.writeInt(0); // Default direction
+                    response.writeInt(definition.getLength());
+                    response.writeInt(definition.getWidth());
+                    response.writeString(definition.getColour());
+                }
             }
         }
     }

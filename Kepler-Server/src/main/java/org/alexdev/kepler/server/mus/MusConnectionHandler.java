@@ -154,6 +154,7 @@ public class MusConnectionHandler extends SimpleChannelInboundHandler<MusMessage
                 photo.setOwnerId(client.getUserId());
                 photo.setDefinitionId(ItemManager.getInstance().getDefinitionBySprite("photo").getId());
                 photo.setCustomData(DateUtil.getDateAsString(timeSeconds) + "\r" + photoText);
+                photo.setOwnedSince(DateUtil.getCurrentTimeSeconds());
                 ItemDao.newItem(photo);
 
                 PhotoDao.addPhoto(photo.getId(), client.getUserId(), DateUtil.getCurrentTimeSeconds(), image, cs);

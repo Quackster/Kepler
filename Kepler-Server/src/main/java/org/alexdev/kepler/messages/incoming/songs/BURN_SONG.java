@@ -11,6 +11,7 @@ import org.alexdev.kepler.game.song.Song;
 import org.alexdev.kepler.messages.outgoing.user.currencies.CREDIT_BALANCE;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
+import org.alexdev.kepler.util.DateUtil;
 import org.alexdev.kepler.util.config.ServerConfiguration;
 
 import java.util.Calendar;
@@ -60,7 +61,7 @@ public class BURN_SONG implements MessageEvent {
                 cal.get(Calendar.YEAR) + (char)10 +
                 song.getLength() + (char)10 +
                 song.getTitle());
-
+        item.setOwnedSince(DateUtil.getCurrentTimeSeconds());
         ItemDao.newItem(item);
 
         player.getInventory().addItem(item);

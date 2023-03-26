@@ -6,7 +6,9 @@ import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.messages.outgoing.inventory.INVENTORY;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
+import org.alexdev.kepler.util.DateUtil;
 import org.alexdev.kepler.util.StringUtil;
+import org.alexdev.kepler.util.config.GameConfiguration;
 
 import java.util.*;
 
@@ -168,7 +170,19 @@ public class Inventory {
             response.writeDelimeter(item.getDefinition().getWidth(), (char) 30);
             response.writeDelimeter(item.getCustomData(), (char) 30);
             response.writeDelimeter(item.getDefinition().getColour(), (char) 30);
-            response.writeDelimeter(item.getDefinition().isRecyclable() ? 1 : 1, (char) 30);
+
+            String test = item.getDefinition().getSprite();
+            long today = DateUtil.getCurrentTimeSeconds();
+            long ownedSince = item.getOwnedSince();
+            long quarantineSeconds = GameConfiguration.getInstance().getInteger("recycler.item.quarantine.seconds");
+            if(today - ownedSince > quarantineSeconds && item.getDefinition().isRecyclable()) {
+                response.writeDelimeter(1, (char) 30);
+            } else {
+                response.writeDelimeter("0", (char) 30);
+            }
+
+
+
             response.writeDelimeter(item.getDefinition().getSprite(), (char) 30);
         }
 

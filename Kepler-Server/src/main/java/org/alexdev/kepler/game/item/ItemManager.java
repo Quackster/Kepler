@@ -52,6 +52,7 @@ public class ItemManager {
                 Item.PRESENT_DELIMETER + presentLabel.replace(Item.PRESENT_DELIMETER, "") + //From Habbo" +
                 Item.PRESENT_DELIMETER + extraData.replace(Item.PRESENT_DELIMETER, "") +
                 Item.PRESENT_DELIMETER + DateUtil.getCurrentTimeSeconds());
+        item.setOwnedSince(DateUtil.getCurrentTimeSeconds());
 
         try {
             ItemDao.newItem(item);
@@ -86,6 +87,7 @@ public class ItemManager {
                 Item.PRESENT_DELIMETER + presentLabel.replace(Item.PRESENT_DELIMETER, "") + //From Habbo" +
                 Item.PRESENT_DELIMETER + "-".replace(Item.PRESENT_DELIMETER, "") +
                 Item.PRESENT_DELIMETER + DateUtil.getCurrentTimeSeconds());
+        item.setOwnedSince(DateUtil.getCurrentTimeSeconds());
 
         try {
             ItemDao.newItem(item);

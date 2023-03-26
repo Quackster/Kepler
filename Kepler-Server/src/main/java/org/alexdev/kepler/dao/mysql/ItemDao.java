@@ -5,6 +5,7 @@ import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.public_items.PublicItemData;
 import org.alexdev.kepler.game.item.base.ItemDefinition;
 import org.alexdev.kepler.game.room.RoomData;
+import org.alexdev.kepler.util.DateUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -106,10 +107,11 @@ public class ItemDao {
         try {
 
             sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("INSERT INTO items (user_id, definition_id, custom_data) VALUES (?,?,?)", sqlConnection);
+            preparedStatement = Storage.getStorage().prepare("INSERT INTO items (user_id, definition_id, custom_data, owned_since) VALUES (?,?,?,?)", sqlConnection);
             preparedStatement.setInt(1, item.getOwnerId());
             preparedStatement.setInt(2, item.getDefinition().getId());
             preparedStatement.setString(3, item.getCustomData());
+            preparedStatement.setLong(4, item.getOwnedSince());
             preparedStatement.executeUpdate();
 
             row = preparedStatement.getGeneratedKeys();
@@ -361,7 +363,7 @@ public class ItemDao {
 
         try {
             sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("UPDATE items SET user_id = ?, room_id = ?, definition_id = ?, x = ?, y = ?, z = ?, rotation = ?, wall_position = ?, custom_data = ?, order_id = ?, is_hidden = ? WHERE id = ?", sqlConnection);
+            preparedStatement = Storage.getStorage().prepare("UPDATE items SET user_id = ?, room_id = ?, definition_id = ?, x = ?, y = ?, z = ?, rotation = ?, wall_position = ?, custom_data = ?, order_id = ?, is_hidden = ?, owned_since = ? WHERE id = ?", sqlConnection);
             sqlConnection.setAutoCommit(false);
 
             for (Item item : items) {
@@ -377,6 +379,7 @@ public class ItemDao {
                 preparedStatement.setInt(10, item.getOrderId());
                 preparedStatement.setInt(11, item.isHidden() ? 1 : 0);
                 preparedStatement.setLong(12, item.getId());
+                preparedStatement.setLong(13, item.getOwnedSince());
                 preparedStatement.addBatch();
             }
 
@@ -402,6 +405,6 @@ public class ItemDao {
         item.fill(resultSet.getInt("id"), resultSet.getInt("order_id"), resultSet.getInt("user_id"), resultSet.getInt("room_id"),
                 resultSet.getInt("definition_id"), resultSet.getInt("x"), resultSet.getInt("y"),
                 resultSet.getDouble("z"), resultSet.getInt("rotation"), resultSet.getString("wall_position"),
-                resultSet.getString("custom_data"), resultSet.getBoolean("is_hidden"));
+                resultSet.getString("custom_data"), resultSet.getBoolean("is_hidden"), resultSet.getLong("owned_since"));
     }
 }

@@ -31,7 +31,8 @@ public class RecyclerManager {
         this.recyclerEnabled = true;
         this.recyclerRewards = RecyclerDao.getRewards();
         this.recyclerRewards.forEach(recyclerReward -> {
-            if (recyclerReward.getCatalogueItem() == null) {
+            String saleCode = recyclerReward.getSaleCode();
+            if (recyclerReward.getCatalogueItem() == null && !saleCode.equalsIgnoreCase("tickets")) {
                 this.log.error("Could not locate catalogue item with sale code: " + recyclerReward.getSaleCode());
                 this.recyclerEnabled = false;
             }

@@ -1,11 +1,14 @@
 package org.alexdev.kepler.messages.incoming.recycler;
 
+import org.alexdev.kepler.dao.mysql.CurrencyDao;
 import org.alexdev.kepler.dao.mysql.RecyclerDao;
 import org.alexdev.kepler.game.catalogue.CatalogueManager;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.recycler.RecyclerSession;
 import org.alexdev.kepler.messages.outgoing.recycler.START_RECYCLING_RESULT;
+import org.alexdev.kepler.messages.outgoing.user.currencies.FILM;
+import org.alexdev.kepler.messages.outgoing.user.currencies.TICKET_BALANCE;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 import org.alexdev.kepler.util.DateUtil;
@@ -49,11 +52,17 @@ public class CONFIRM_FURNI_RECYCLING implements MessageEvent {
 
         RecyclerDao.deleteSession(player.getDetails().getId());
         if (!isCancel) {
-            List<Item> itemList = CatalogueManager.getInstance().purchase(player, recyclerSession.getRecyclerReward().getCatalogueItem(), null, null, DateUtil.getCurrentTimeSeconds());
+            if(recyclerSession.getRecyclerReward().getSaleCode().equalsIgnoreCase("tickets")) {
+                CurrencyDao.increaseTickets(player.getDetails(), 20);
+                player.send(new TICKET_BALANCE(player.getDetails().getTickets()));
+            } else {
+                List<Item> itemList = CatalogueManager.getInstance().purchase(player, recyclerSession.getRecyclerReward().getCatalogueItem(), null, null, DateUtil.getCurrentTimeSeconds());
 
-            if (!itemList.isEmpty()) {
-                player.getInventory().getView("new");
+                if (!itemList.isEmpty()) {
+                    player.getInventory().getView("new");
+                }
             }
+
 
         }
         player.send(new START_RECYCLING_RESULT(true));

@@ -7,6 +7,7 @@ import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerManager;
 import org.alexdev.kepler.log.Log;
+import org.alexdev.kepler.util.DateUtil;
 
 public class PurchaseFurniCommand implements Command {
     public void executeCommand(CommandTemplate commandArgs) {
@@ -15,6 +16,7 @@ public class PurchaseFurniCommand implements Command {
         Item item = new Item();
         item.setOwnerId(player.getDetails().getId());
         item.setDefinitionId(commandArgs.DefinitionId);
+        item.setOwnedSince(DateUtil.getCurrentTimeSeconds());
 
         try {
             ItemDao.newItem(item);

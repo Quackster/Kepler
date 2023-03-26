@@ -101,7 +101,7 @@ public class CatalogueManager {
         }
 
         item.setCustomData(customData);
-
+        item.setOwnedSince(DateUtil.getCurrentTimeSeconds());
         ItemDao.newItem(item);
         player.getInventory().addItem(item);
 
@@ -116,7 +116,7 @@ public class CatalogueManager {
             linkedTeleporterItem.setOwnerId(player.getDetails().getId());
             linkedTeleporterItem.setDefinitionId(def.getId());
             linkedTeleporterItem.setCustomData(customData);
-
+            linkedTeleporterItem.setOwnedSince(DateUtil.getCurrentTimeSeconds());
             ItemDao.newItem(linkedTeleporterItem);
             player.getInventory().addItem(linkedTeleporterItem);
 
