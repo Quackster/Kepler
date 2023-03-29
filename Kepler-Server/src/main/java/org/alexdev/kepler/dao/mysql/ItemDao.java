@@ -378,8 +378,8 @@ public class ItemDao {
                 preparedStatement.setString(9, item.getCustomData());
                 preparedStatement.setInt(10, item.getOrderId());
                 preparedStatement.setInt(11, item.isHidden() ? 1 : 0);
-                preparedStatement.setLong(12, item.getId());
-                preparedStatement.setLong(13, item.getOwnedSince());
+                preparedStatement.setLong(12, item.getOwnedSince());
+                preparedStatement.setLong(13, item.getId());
                 preparedStatement.addBatch();
             }
 
