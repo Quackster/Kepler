@@ -34,9 +34,12 @@ import org.alexdev.kepler.util.config.writer.DefaultConfigWriter;
 import org.alexdev.kepler.util.config.writer.GameConfigWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.DeliverCallback;
 
-import java.io.IOException;
-import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
 
 public class Kepler {
 
@@ -119,11 +122,41 @@ public class Kepler {
 
             setupMus();
             setupServer();
+            setupRabbitMQ();
 
             Runtime.getRuntime().addShutdownHook(new Thread(Kepler::dispose));
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private static void setupRabbitMQ() {
+        try {
+            String queueName = "commands";
+            String rabbitMQServer = ServerConfiguration.getString("rabbitmq.hostname");
+
+            int rabbitMQPort = ServerConfiguration.getInteger("rabbitmq.port");
+            if(rabbitMQServer.length() == 0 || rabbitMQPort == 0) {
+                log.error("RabbitMQ hostname or port not provided");
+                return;
+            }
+            ConnectionFactory factory = new ConnectionFactory();
+            factory.setHost(rabbitMQServer);
+            Connection connection = factory.newConnection();
+            Channel channel = connection.createChannel();
+
+            channel.queueDeclare(queueName, false, false, false, null);
+            log.info("[RabbitMQ] Waiting for messages");
+
+            DeliverCallback deliverCallback = (consumerTag, delivery) -> {
+                String message = new String(delivery.getBody(), StandardCharsets.UTF_8);
+                log.info("[RabbitMQ] Received '" + message + "'");
+            };
+            channel.basicConsume(queueName, true, deliverCallback, consumerTag -> { });
+        } catch(Exception e) {
+            log.error("Failed to setup RabbitMQ", e);
+        }
+
     }
 
     private static void setupServer() {
