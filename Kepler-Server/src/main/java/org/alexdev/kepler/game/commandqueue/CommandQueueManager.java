@@ -2,6 +2,7 @@ package org.alexdev.kepler.game.commandqueue;
 
 import com.google.gson.Gson;
 import org.alexdev.kepler.dao.mysql.*;
+import org.alexdev.kepler.game.commandqueue.CommandType;
 import org.alexdev.kepler.game.commandqueue.commands.*;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.messenger.MessengerMessage;
@@ -23,57 +24,48 @@ import java.util.List;
 public class CommandQueueManager {
     private static CommandQueueManager instance;
 
-    /**
-     * Execute new commands
-     */
-    public void executeCommands() {
-        List<CommandQueue> commandsToExecute = CommandQueueDao.getNotYetExecutedCommands();
-
-        for (int i = 0; i < commandsToExecute.size(); i++) {
-            CommandQueue cq = commandsToExecute.get(i);
-            this.handleCommand(cq);
-        }
-
-    }
-
     public void handleCommand(CommandQueue cq) {
-        // Mark command as executed
-        CommandQueueDao.setExecuted(cq);
         try {
             CommandTemplate commandArgs = new Gson().fromJson(cq.getArguments(), CommandTemplate.class);
             Command command = null;
-            switch (cq.getCommand().toLowerCase()) {
-                case "refresh_appearance":
+            CommandType commandType = CommandType.findCommandType(cq.getCommand().toLowerCase());
+            if(commandType == null) {
+                Log.getErrorLogger().error("Failed to execute command, invalid command name " + cq.getCommand() + " using arguments = " + cq.getArguments());
+                return;
+            }
+
+            switch (commandType) {
+                case REFRESH_APPEARANCE:
                     command = new RefreshAppearanceCommand();
                     break;
-                case "update_credits":
+                case UPDATE_CREDITS:
                     command = new UpdateCreditsCommand();
                     break;
-                case "reduce_credits":
+                case REDUCE_CREDITS:
                     command = new ReduceCreditsCommand();
                     break;
-                case "purchase_furni":
+                case PURCHASE_FURNI:
                     command = new PurchaseFurniCommand();
                     break;
-                case "roomForward":
+                case ROOM_FORWARD:
                     command = new RoomForwardCommand();
                     break;
-                case "campaign":
+                case CAMPAIGN:
                     command = new CampaignCommand();
                     break;
-                case "update_room":
+                case UPDATE_ROOM:
                     command = new RoomUpdateCommand();
                     break;
-                case "remote_alert":
+                case REMOTE_ALERT:
                     command = new RemoteAlertCommand();
                     break;
-                case "remote_kick":
+                case REMOTE_KICK:
                     command = new RemoteKickCommand();
                     break;
-                case "remote_ban":
+                case REMOTE_BAN:
                     command = new RemoteBanCommand();
                     break;
-                case "test_packet":
+                case TEST_PACKET:
                     command = new TestPacket();
                     break;
                 default:

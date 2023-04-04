@@ -9,6 +9,9 @@ import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.ads.AdManager;
 import org.alexdev.kepler.game.bot.BotManager;
 import org.alexdev.kepler.game.catalogue.CatalogueManager;
+import org.alexdev.kepler.game.commandqueue.CommandQueue;
+import org.alexdev.kepler.game.commandqueue.CommandQueueManager;
+import org.alexdev.kepler.game.commandqueue.CommandType;
 import org.alexdev.kepler.game.commands.CommandManager;
 import org.alexdev.kepler.game.events.EventsManager;
 import org.alexdev.kepler.game.games.GameManager;
@@ -132,7 +135,7 @@ public class Kepler {
 
     private static void setupRabbitMQ() {
         try {
-            String queueName = "commands";
+            String exchangeName = "commands";
             String rabbitMQServer = ServerConfiguration.getString("rabbitmq.hostname");
 
             int rabbitMQPort = ServerConfiguration.getInteger("rabbitmq.port");
@@ -144,14 +147,20 @@ public class Kepler {
             factory.setHost(rabbitMQServer);
             Connection connection = factory.newConnection();
             Channel channel = connection.createChannel();
-
-            channel.queueDeclare(queueName, false, false, false, null);
+            channel.exchangeDeclare(exchangeName, "direct", true);
+            String queueName = channel.queueDeclare("command_queue", false, false, false, null).getQueue();
             log.info("[RabbitMQ] Waiting for messages");
+
+            for (CommandType commandType: CommandType.values()) {
+                channel.queueBind(queueName, "commands", commandType.getCommandName());
+            }
 
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
                 String message = new String(delivery.getBody(), StandardCharsets.UTF_8);
                 log.info("[RabbitMQ] Received '" + message + "'");
+                CommandQueueManager.getInstance().handleCommand(new CommandQueue (delivery.getEnvelope().getRoutingKey(), message));
             };
+
             channel.basicConsume(queueName, true, deliverCallback, consumerTag -> { });
         } catch(Exception e) {
             log.error("Failed to setup RabbitMQ", e);
