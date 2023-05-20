@@ -139,7 +139,19 @@ public class Player extends Entity {
         ClubSubscription.refreshBadge(this);
 
         PlayerDao.incrementLoginCounter(this.details.getId());
-        
+
+        // Login streak incrementer
+        long currentTime = DateUtil.getCurrentTimeSeconds();
+        long timeSinceLastStreak = currentTime - this.details.getLastStreak();
+
+        if (timeSinceLastStreak > 172800) {
+            // Reset the streak if it's been more than 48 hours
+            PlayerDao.resetLoginStreak(this.details.getId());
+        } else if (timeSinceLastStreak > 86400) {
+            // Increment the streak if it's been more than 24 hours but less than 48 hours
+            PlayerDao.incrementLoginStreak(this.details.getId());
+        }
+
         // Rewards
         RewardDao.getAvailableRewards(this.getDetails().getId()).forEach(reward -> {
             List<ItemDefinition> itemDefinitions = new ArrayList<>();

@@ -62,6 +62,10 @@ public class PlayerDetails {
     private int snowstormPoints;
     private int battleballPoints;
 
+    // Streaks
+    private int lastStreak;
+    private int loginStreak;
+
     public PlayerDetails() {
     }
 
@@ -90,7 +94,7 @@ public class PlayerDetails {
      * @param group group
      */
     public void fill(int id, String username, String figure, String poolFigure, int credits, String motto, String consoleMotto, String sex, int tickets, int film, int rank, long lastOnline, long firstClubSubscription, long clubExpiration, long clubGiftDue, String currentBadge, boolean showBadge, boolean allowStalking, boolean allowFriendRequests, boolean soundEnabled,
-                     boolean tutorialFinished, int battleballPoints, int snowstormPoints, int group, String email, String birthday, boolean receiveNews) {
+                     boolean tutorialFinished, int battleballPoints, int snowstormPoints, int group, String email, String birthday, boolean receiveNews, int lastStreak, int loginStreak) {
         this.id = id;
         this.username = StringUtil.filterInput(username, true);
         this.figure = StringUtil.filterInput(figure, true); // Format: hd-180-1.ch-255-70.lg-285-77.sh-295-74.fa-1205-91.hr-125-31.ha-1016-
@@ -117,6 +121,8 @@ public class PlayerDetails {
         this.tutorialFinished = tutorialFinished;
         this.battleballPoints = battleballPoints;
         this.snowstormPoints = snowstormPoints;
+        this.lastStreak = lastStreak;
+        this.loginStreak = loginStreak;
         this.group = group;
         if(group > 0) {
             this.groupStatus = GroupDao.getMemberStatus(group, id);
@@ -183,6 +189,22 @@ public class PlayerDetails {
         }
 
         return null;
+    }
+
+    public int getLoginStreak() {
+        return loginStreak;
+    }
+
+    public int getLastStreak() {
+        return lastStreak;
+    }
+
+    public void setLoginStreak(int loginStreak) {
+        this.loginStreak = loginStreak;
+    }
+
+    public void setLastStreak(int lastStreak) {
+        this.lastStreak = lastStreak;
     }
 
     public int getId() {

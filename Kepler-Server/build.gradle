@@ -17,6 +17,7 @@ repositories {
 }
 
 dependencies {
+    implementation 'com.rabbitmq:amqp-client:5.17.0'
     implementation group: 'com.google.code.gson', name: 'gson', version: '2.8.5'
     implementation 'com.maxmind.geoip2:geoip2:2.12.0'
 

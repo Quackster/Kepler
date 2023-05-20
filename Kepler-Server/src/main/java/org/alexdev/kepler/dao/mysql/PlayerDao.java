@@ -17,6 +17,53 @@ import java.util.List;
 import java.util.Map;
 
 public class PlayerDao {
+
+
+    /**
+     * Resets the login streak for a given user
+     * @param userId
+     */
+    public static void resetLoginStreak(int userId) {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("UPDATE users SET login_streak = 0, last_streak = ? WHERE id = ?", sqlConnection);
+            preparedStatement.setInt(1, DateUtil.getCurrentTimeSeconds());
+            preparedStatement.setInt(2, userId);
+            preparedStatement.execute();
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+
+    /**
+     * Increments the login streak for a given user
+     * @param userId
+     */
+    public static void incrementLoginStreak(int userId) {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("UPDATE users SET login_streak = login_streak + 1, last_streak = ? WHERE id = ?", sqlConnection);
+            preparedStatement.setInt(1, DateUtil.getCurrentTimeSeconds());
+            preparedStatement.setInt(2, userId);
+            preparedStatement.execute();
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
     /**
      * Logs the machine id for a given user
      *
@@ -858,6 +905,6 @@ public class PlayerDao {
                 row.getBoolean("allow_friend_requests"), row.getBoolean("sound_enabled"),
                 row.getBoolean("tutorial_finished"), row.getInt("battleball_points"),
                 row.getInt("snowstorm_points"),
-                row.getInt("group_id"), row.getString("email"),row.getString("birthday"), row.getBoolean("receive_email"));
+                row.getInt("group_id"), row.getString("email"),row.getString("birthday"), row.getBoolean("receive_email"), row.getInt("last_streak"), row.getInt("login_streak"));
     }
 }

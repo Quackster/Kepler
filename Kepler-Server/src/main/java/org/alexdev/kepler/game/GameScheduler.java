@@ -119,11 +119,6 @@ public class GameScheduler implements Runnable {
                 }
             }
 
-            // Execute Command Queue every 3 second
-            if (this.tickRate.get() % 3 == 0) {
-                CommandQueueManager.getInstance().executeCommands();
-            }
-
             // Item deletion queue ticker every 5 second
             if (this.tickRate.get() % 5 == 0) {
                 if (this.itemSavingQueue != null) {
