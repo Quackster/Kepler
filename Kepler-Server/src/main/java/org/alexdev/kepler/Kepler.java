@@ -137,14 +137,20 @@ public class Kepler {
         try {
             String exchangeName = "commands";
             String rabbitMQServer = ServerConfiguration.getString("rabbitmq.hostname");
-
             int rabbitMQPort = ServerConfiguration.getInteger("rabbitmq.port");
-            if(rabbitMQServer.length() == 0 || rabbitMQPort == 0) {
-                log.error("RabbitMQ hostname or port not provided");
+            String rabbitMQUsername = ServerConfiguration.getString("rabbitmq.username");
+            String rabbitMQPassword = ServerConfiguration.getString("rabbitmq.password");
+
+            if(rabbitMQServer.length() == 0 || rabbitMQPort == 0 || rabbitMQUsername.length() == 0 || rabbitMQPassword.length() == 0) {
+                log.error("RabbitMQ hostname, port, username or password not provided");
                 return;
             }
             ConnectionFactory factory = new ConnectionFactory();
             factory.setHost(rabbitMQServer);
+            factory.setPort(rabbitMQPort);
+            factory.setUsername(rabbitMQUsername);
+            factory.setPassword(rabbitMQPassword);
+
             Connection connection = factory.newConnection();
             Channel channel = connection.createChannel();
             channel.exchangeDeclare(exchangeName, "direct", true);
@@ -216,7 +222,7 @@ public class Kepler {
 
             // TODO: all the managers
             ChatManager.getInstance().performChatSaving();
-            
+
             GameScheduler.getInstance().performItemSaving();
             GameScheduler.getInstance().performItemDeletion();
 
@@ -230,7 +236,7 @@ public class Kepler {
 
     /**
      * Returns the interface to the server handler
-     * 
+     *
      * @return {@link NettyServer} interface
      */
     public static NettyServer getServer() {
