@@ -9,7 +9,7 @@ import org.alexdev.kepler.game.infobus.InfobusManager;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.messages.outgoing.rooms.user.CHAT_MESSAGE;
-import org.alexdev.kepler.messages.outgoing.user.ALERT;
+import org.alexdev.kepler.messages.outgoing.alert.ALERT;
 import org.alexdev.kepler.util.StringUtil;
 import org.apache.commons.lang3.math.NumberUtils;
 

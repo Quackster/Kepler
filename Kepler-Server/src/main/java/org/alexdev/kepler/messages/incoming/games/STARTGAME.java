@@ -10,7 +10,7 @@ import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.triggers.GameLobbyTrigger;
 import org.alexdev.kepler.messages.outgoing.games.CREATEFAILED;
 import org.alexdev.kepler.messages.outgoing.games.STARTFAILED;
-import org.alexdev.kepler.messages.outgoing.user.ALERT;
+import org.alexdev.kepler.messages.outgoing.alert.ALERT;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 

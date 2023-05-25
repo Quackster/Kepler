@@ -9,7 +9,7 @@ import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.player.PlayerManager;
 import org.alexdev.kepler.messages.outgoing.catalogue.NO_CREDITS;
-import org.alexdev.kepler.messages.outgoing.user.ALERT;
+import org.alexdev.kepler.messages.outgoing.alert.ALERT;
 import org.alexdev.kepler.messages.outgoing.user.NO_USER_FOUND;
 import org.alexdev.kepler.messages.outgoing.user.currencies.CREDIT_BALANCE;
 import org.alexdev.kepler.messages.outgoing.user.currencies.TICKET_BALANCE;

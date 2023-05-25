@@ -7,7 +7,7 @@ import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
-import org.alexdev.kepler.messages.outgoing.user.ALERT;
+import org.alexdev.kepler.messages.outgoing.alert.ALERT;
 import org.alexdev.kepler.messages.outgoing.user.currencies.CREDIT_BALANCE;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;

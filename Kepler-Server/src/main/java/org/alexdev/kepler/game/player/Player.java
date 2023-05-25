@@ -27,7 +27,7 @@ import org.alexdev.kepler.messages.outgoing.handshake.LOGIN;
 import org.alexdev.kepler.messages.outgoing.handshake.RIGHTS;
 import org.alexdev.kepler.messages.outgoing.moderation.USER_BANNED;
 import org.alexdev.kepler.messages.outgoing.openinghours.INFO_HOTEL_CLOSING;
-import org.alexdev.kepler.messages.outgoing.user.ALERT;
+import org.alexdev.kepler.messages.outgoing.alert.ALERT;
 import org.alexdev.kepler.messages.outgoing.user.HOTEL_LOGOUT;
 import org.alexdev.kepler.messages.outgoing.user.HOTEL_LOGOUT.LogoutReason;
 import org.alexdev.kepler.messages.types.MessageComposer;

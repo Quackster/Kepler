@@ -12,7 +12,7 @@ import org.alexdev.kepler.game.room.enums.StatusType;
 import org.alexdev.kepler.game.texts.TextsManager;
 import org.alexdev.kepler.messages.outgoing.rooms.user.CHAT_MESSAGE;
 import org.alexdev.kepler.messages.outgoing.rooms.user.CHAT_MESSAGE.ChatMessageType;
-import org.alexdev.kepler.messages.outgoing.user.ALERT;
+import org.alexdev.kepler.messages.outgoing.alert.ALERT;
 
 public class GiveDrinkCommand extends Command {
 

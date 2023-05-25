@@ -11,7 +11,7 @@ import org.alexdev.kepler.game.room.enums.StatusType;
 import org.alexdev.kepler.game.texts.TextsManager;
 import org.alexdev.kepler.messages.outgoing.openinghours.INFO_HOTEL_CLOSED;
 import org.alexdev.kepler.messages.outgoing.openinghours.INFO_HOTEL_CLOSING;
-import org.alexdev.kepler.messages.outgoing.user.ALERT;
+import org.alexdev.kepler.messages.outgoing.alert.ALERT;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.util.DateUtil;
 import org.alexdev.kepler.util.config.ServerConfiguration;

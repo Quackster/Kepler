@@ -16,7 +16,7 @@ import org.alexdev.kepler.game.player.PlayerManager;
 import org.alexdev.kepler.game.texts.TextsManager;
 import org.alexdev.kepler.messages.outgoing.catalogue.NO_CREDITS;
 import org.alexdev.kepler.messages.outgoing.rooms.items.ITEM_DELIVERED;
-import org.alexdev.kepler.messages.outgoing.user.ALERT;
+import org.alexdev.kepler.messages.outgoing.alert.ALERT;
 import org.alexdev.kepler.messages.outgoing.user.NO_USER_FOUND;
 import org.alexdev.kepler.messages.outgoing.user.currencies.CREDIT_BALANCE;
 import org.alexdev.kepler.messages.types.MessageEvent;

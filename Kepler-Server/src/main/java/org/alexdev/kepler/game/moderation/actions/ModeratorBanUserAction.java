@@ -16,7 +16,7 @@ import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.player.PlayerManager;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.messages.outgoing.moderation.USER_BANNED;
-import org.alexdev.kepler.messages.outgoing.user.ALERT;
+import org.alexdev.kepler.messages.outgoing.alert.ALERT;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 import org.alexdev.kepler.util.DateUtil;
 

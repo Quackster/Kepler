@@ -14,7 +14,8 @@ import java.util.LinkedList;
 
 public class Pathfinder {
     public static final double MAX_DROP_HEIGHT = 100.0; // Previously 3.0
-    public static final double MAX_LIFT_HEIGHT = 1.5; // Previously 1.5
+    public static final double MAX_DROP_PUBLIC_ROOMS = 3;
+    public static final double MAX_LIFT_HEIGHT = 1.5;
 
     public static final Position[] DIAGONAL_MOVE_POINTS = new Position[]{
             new Position(0, -1, 0),
@@ -55,6 +56,10 @@ public class Pathfinder {
      * @return true, if a valid step
      */
     public static boolean isValidStep(Room room, Entity entity, Position current, Position tmp, boolean isFinalMove) {
+        boolean hasPool = room.getModel().getName().startsWith("pool_") || room.getModel().getName().equals("md_a");
+        boolean isPublicRoom =  room.isPublicRoom();
+        double maxDropHeight = isPublicRoom && hasPool ? MAX_DROP_PUBLIC_ROOMS : MAX_DROP_HEIGHT;
+
         if (entity.getRoomUser().getRoom() == null || entity.getRoomUser().getRoom().getModel() == null) {
             return false;
         }
@@ -80,15 +85,14 @@ public class Pathfinder {
         Item fromItem = fromTile.getHighestItem();
         Item toItem = toTile.getHighestItem();
 
-        // boolean hasPool = room.getModel().getName().startsWith("pool_") || room.getModel().getName().equals("md_a");
-        // boolean isPrivateRoom =  !room.isPublicRoom();
-        boolean newHeightHigher = (newHeight > oldHeight);
 
-        if (newHeightHigher && (newHeight - oldHeight > MAX_LIFT_HEIGHT)) {
+        //boolean newHeightHigher = (newHeight > oldHeight);
+
+        /*if (newHeightHigher && (newHeight - oldHeight > MAX_LIFT_HEIGHT)) {
             System.out.println("newHeightHigher");
         } else if (!newHeightHigher && (oldHeight - newHeight > MAX_DROP_HEIGHT)) {
             System.out.println("newHeightHigher2");
-        }
+        }*/
 
         boolean fromItemHeightExempt = fromItem != null && (fromItem.hasBehaviour(ItemBehaviour.TELEPORTER)
                 || fromItem.getDefinition().getSprite().equals("wsJoinQueue")
@@ -114,13 +118,13 @@ public class Pathfinder {
         }
 
         if (toTile.isHeightDrop(fromTile) && (!fromItemHeightExempt && !toItemHeightExempt)) {
-            if (Math.abs(oldHeight - newHeight) > MAX_DROP_HEIGHT) {
+            if (Math.abs(oldHeight - newHeight) > maxDropHeight) {
                 return false;
             }
         }
 
         if (fromTile.isHeightUpwards(toTile) && (!fromItemHeightExempt && !toItemHeightExempt)) {
-            if (Math.abs(newHeight - oldHeight) > MAX_DROP_HEIGHT) {
+            if (Math.abs(newHeight - oldHeight) > maxDropHeight) {
                 return false;
             }
         }

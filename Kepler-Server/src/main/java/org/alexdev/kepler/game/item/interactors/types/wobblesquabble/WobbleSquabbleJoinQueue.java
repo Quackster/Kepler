@@ -11,7 +11,7 @@ import org.alexdev.kepler.game.room.entities.RoomEntity;
 import org.alexdev.kepler.game.room.enums.StatusType;
 import org.alexdev.kepler.game.room.mapping.RoomTile;
 import org.alexdev.kepler.game.triggers.GenericTrigger;
-import org.alexdev.kepler.messages.outgoing.user.ALERT;
+import org.alexdev.kepler.messages.outgoing.alert.ALERT;
 import org.alexdev.kepler.messages.outgoing.user.currencies.NO_TICKETS;
 
 public class WobbleSquabbleJoinQueue extends GenericTrigger {
