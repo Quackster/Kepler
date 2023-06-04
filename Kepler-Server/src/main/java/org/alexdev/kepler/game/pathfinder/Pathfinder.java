@@ -14,7 +14,7 @@ import java.util.LinkedList;
 
 public class Pathfinder {
     public static final double MAX_DROP_HEIGHT = 100.0; // Previously 3.0
-    public static final double MAX_DROP_PUBLIC_ROOMS = 3;
+    public static final double MAX_DROP_PUBLIC_ROOMS = 2.9;
     public static final double MAX_LIFT_HEIGHT = 1.5;
 
     public static final Position[] DIAGONAL_MOVE_POINTS = new Position[]{

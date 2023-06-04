@@ -84,10 +84,10 @@ public class SETSTUFFDATA implements MessageEvent {
         String newData = null;
 
         if (item.hasBehaviour(ItemBehaviour.GATE)) {
-            if (itemData.equals("O") || itemData.equals("C")) {
+            if (itemData.equals("O") || itemData.equals("C") || itemData.equals("2") || itemData.equals("1") || itemData.equals("0")) {
                 newData = itemData;
 
-                if (itemData.equals("C")) {
+                if (itemData.equals("C") || itemData.equals("1")) {
                     RoomTile tile = item.getTile();
 
                     // Make all entities walk out of gate when it's closed

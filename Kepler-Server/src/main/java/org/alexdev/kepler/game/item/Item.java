@@ -259,7 +259,7 @@ public class Item {
 
     public boolean isGateOpen() {
         if (this.hasBehaviour(ItemBehaviour.GATE)) {
-            return this.customData.equals("O");
+            return this.customData.equals("O") || this.customData.equals("2");
         }
 
         return false;
