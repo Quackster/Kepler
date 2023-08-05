@@ -26,7 +26,7 @@ public class GameFinishTask implements Runnable {
     @Override
     public void run() {
         var sortedTeamList = new ArrayList<>(this.teams.values());
-        sortedTeamList.sort(Comparator.comparingInt(GameTeam::getScore).reversed());
+        sortedTeamList.sort(Comparator.comparingInt(GameTeam::getPoints).reversed());
 
         for (GamePlayer gamePlayer : this.players) {
             GameDao.increasePoints(gamePlayer.getPlayer().getDetails(), this.gameType, gamePlayer.getScore());
