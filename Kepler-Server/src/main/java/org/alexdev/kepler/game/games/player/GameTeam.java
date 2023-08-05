@@ -7,19 +7,22 @@ import org.alexdev.kepler.game.games.utils.ScoreReference;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class GameTeam {
     private int id;
     private Game game;
     private List<GamePlayer> playerList;
-    private int score;
+
+    public AtomicInteger points;
+    public AtomicInteger snowstormPoints;
 
     public GameTeam(int id, Game game) {
         this.id = id;
         this.game = game;
         this.playerList = new CopyOnWriteArrayList<>();
-        this.score = 0;
+        this.points = new AtomicInteger(0);
     }
 
     public int getId() {
@@ -30,10 +33,10 @@ public class GameTeam {
         return playerList;
     }
 
-    public int getScore() {
-        if (this.game instanceof BattleBallGame) {
-            this.score = 0;
+    public void calculateScore() {
+        this.points.set(0);
 
+        if (this.game instanceof BattleBallGame) {
             BattleBallGame battleBallGame = (BattleBallGame) this.game;
 
             for (BattleBallTile battleBallTile : battleBallGame.getTiles()) {
@@ -42,17 +45,26 @@ public class GameTeam {
                         continue;
                     }
 
-                    this.score += scoreReference.getScore();
+                    this.points.addAndGet(scoreReference.getScore());
                 }
             }
         }
+        else {
+            this.points.set(0);
 
-        return this.score;
+            int totalScore = this.playerList.stream()
+                    .mapToInt(player -> player.getScore())
+                    .sum();
+
+            this.points.addAndGet(totalScore);
+        }
     }
 
-    public void setScore(int score) {
-        this.score = score;
+    public int getPoints() {
+        return points.get();
     }
+
+
 
     public List<GamePlayer> getActivePlayers() {
         return playerList.stream().filter(GamePlayer::isInGame).collect(Collectors.toList());
