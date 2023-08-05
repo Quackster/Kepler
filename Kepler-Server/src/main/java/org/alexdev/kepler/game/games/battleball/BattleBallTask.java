@@ -10,6 +10,7 @@ import org.alexdev.kepler.game.games.battleball.objects.PlayerUpdateObject;
 import org.alexdev.kepler.game.games.battleball.objects.PowerUpUpdateObject;
 import org.alexdev.kepler.game.games.enums.GameState;
 import org.alexdev.kepler.game.games.player.GamePlayer;
+import org.alexdev.kepler.game.games.player.GameTeam;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.pathfinder.Rotation;
 import org.alexdev.kepler.game.player.Player;
@@ -50,6 +51,7 @@ public class BattleBallTask implements Runnable {
             this.game.getObjectsQueue().drainTo(objects);
             this.game.getUpdateTilesQueue().drainTo(updateTiles);
             this.game.getFillTilesQueue().drainTo(fillTiles);
+            this.game.getTeams().values().forEach(GameTeam::calculateScore);
 
             for (GamePlayer gamePlayer : this.game.getActivePlayers()) {
                 Player player = gamePlayer.getPlayer();
