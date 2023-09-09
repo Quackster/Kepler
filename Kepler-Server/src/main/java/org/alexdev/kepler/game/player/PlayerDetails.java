@@ -144,6 +144,8 @@ public class PlayerDetails {
             // TODO: log warning
             this.film = 0;
         }
+
+        refreshFuseRights();
     }
 
     public void fill(int id, String username, String figure, String motto, String sex) {
