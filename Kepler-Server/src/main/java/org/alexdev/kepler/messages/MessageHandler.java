@@ -3,6 +3,7 @@ package org.alexdev.kepler.messages;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.RoomManager;
 import org.alexdev.kepler.log.Log;
+import org.alexdev.kepler.messages.incoming.pets.GETPETSTAT;
 import org.alexdev.kepler.messages.incoming.catalogue.GCAP;
 import org.alexdev.kepler.messages.incoming.catalogue.GCIX;
 import org.alexdev.kepler.messages.incoming.catalogue.GET_ALIAS_LIST;
@@ -41,8 +42,6 @@ import org.alexdev.kepler.messages.incoming.rooms.moderation.*;
 import org.alexdev.kepler.messages.incoming.rooms.pool.*;
 import org.alexdev.kepler.messages.incoming.rooms.settings.*;
 import org.alexdev.kepler.messages.incoming.rooms.teleporter.GETDOORFLAT;
-import org.alexdev.kepler.messages.incoming.rooms.teleporter.GOVIADOOR;
-import org.alexdev.kepler.messages.incoming.rooms.teleporter.INTODOOR;
 import org.alexdev.kepler.messages.incoming.rooms.user.*;
 import org.alexdev.kepler.messages.incoming.songs.*;
 import org.alexdev.kepler.messages.incoming.trade.*;
@@ -81,6 +80,7 @@ public class MessageHandler {
         registerNavigatorPackets();
         registerRoomPackets();
         registerRoomUserPackets();
+        registerPetPackets();
         registerRoomBadgesPackets();
         registerRoomPoolPackets();
         registerRoomSettingsPackets();
@@ -245,6 +245,12 @@ public class MessageHandler {
         registerEvent(117, new IIM());
     }
 
+    /**
+     * Register pet packets.
+     */
+    private void registerPetPackets() {
+        registerEvent(128, new GETPETSTAT());
+    }
 
     /**
      * Register room badges packets;
