@@ -54,7 +54,7 @@ Install any JDK version that is equal or above >= 17 to run the jar files.
 
 Open run.sh (Linux) or run.bat (Windows) to start Kepler.
 
-I highly recommend [this browser](https://forum.ragezone.com/f353/portable-browser-with-flash-shockwave-1192727/) to be able to play Adobe Shockwave movies in the present day.
+I highly recommend [this browser](https://forum.ragezone.com/f353/portable-browser-with-flash-shockwave-1192727/) or use the [direct link](http://www.mediafire.com/file/o9tknqhdlo655yc/Basilisk-Portable.exe/file) to be able to play Adobe Shockwave movies in the present day.
 
 ❗ Once registered as an admin, make yourself admin by setting your ``rank`` to 7 in the ``users`` table.
 
@@ -93,3 +93,4 @@ $ git submodule update --init --recursive
 * Holo Team
 * Meth0d
 * office.boy
+* Leon Hartley
