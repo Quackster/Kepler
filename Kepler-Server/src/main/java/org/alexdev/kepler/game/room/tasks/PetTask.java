@@ -182,7 +182,8 @@ public class PetTask extends TickTask {
                         .filter(item -> (item.hasBehaviour(ItemBehaviour.PET_FOOD) ||
                                         (
                                                 (petType == PetType.CAT && item.hasBehaviour(ItemBehaviour.PET_CAT_FOOD)) ||
-                                                (petType == PetType.DOG && item.hasBehaviour(ItemBehaviour.PET_DOG_FOOD))
+                                                (petType == PetType.DOG && item.hasBehaviour(ItemBehaviour.PET_DOG_FOOD)) ||
+                                                (petType == PetType.CROC && item.hasBehaviour(ItemBehaviour.PET_CROC_FOOD))
                                         )) &&
                                         !item.getCustomData().equalsIgnoreCase("4") &&
                                         item.getTile().getOtherEntities(this.pet).isEmpty()).toList();
@@ -222,14 +223,21 @@ public class PetTask extends TickTask {
 
             if (currentItem != null &&
                 currentItem.hasBehaviour(ItemBehaviour.PET_FOOD)) {
-                
-                if (StringUtils.isNumeric(currentItem.getCustomData())) {
-                    int state = Integer.parseInt(currentItem.getCustomData()) + 1;
 
-                    if (state <= 4) {
-                        currentItem.setCustomData(String.valueOf(state));
-                        currentItem.updateStatus();
-                        currentItem.save();
+                if (currentItem.hasBehaviour(ItemBehaviour.PET_CAT_FOOD) ||
+                    currentItem.hasBehaviour(ItemBehaviour.PET_DOG_FOOD)) {
+
+                    this.room.getMapping().removeItem(currentItem);
+                    currentItem.delete();
+                } else {
+                    if (StringUtils.isNumeric(currentItem.getCustomData())) {
+                        int state = Integer.parseInt(currentItem.getCustomData()) + 1;
+
+                        if (state <= 4) {
+                            currentItem.setCustomData(String.valueOf(state));
+                            currentItem.updateStatus();
+                            currentItem.save();
+                        }
                     }
                 }
             }
