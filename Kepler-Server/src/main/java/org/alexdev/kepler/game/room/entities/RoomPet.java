@@ -10,7 +10,9 @@ import org.alexdev.kepler.game.pets.Pet;
 import org.alexdev.kepler.game.pets.PetAction;
 import org.alexdev.kepler.game.pets.PetManager;
 import org.alexdev.kepler.game.pets.PetType;
+import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.enums.StatusType;
+import org.alexdev.kepler.game.room.tasks.PetTask;
 import org.alexdev.kepler.util.DateUtil;
 
 import java.util.Collections;
@@ -22,6 +24,7 @@ import java.util.stream.Collectors;
 public class RoomPet extends RoomEntity {
     private Pet pet;
     private Item item;
+    private PetTask task;
 
     public RoomPet(Entity entity) {
         super(entity);
@@ -35,7 +38,6 @@ public class RoomPet extends RoomEntity {
     @Override
     public void invokeItem(Position oldPosition, boolean instantUpdate) {
         super.invokeItem(oldPosition, instantUpdate);
-        this.pet.setWalkBeforeSitLay(false);
     }
 
 
@@ -65,8 +67,6 @@ public class RoomPet extends RoomEntity {
             return;
         }
 
-        this.pet.setAction(PetAction.DRINK);
-        this.pet.setActionDuration(ThreadLocalRandom.current().nextInt(30));
         this.item = item;
     }
 
@@ -109,8 +109,6 @@ public class RoomPet extends RoomEntity {
             return;
         }
 
-        this.pet.setAction(PetAction.EAT);
-        this.pet.setActionDuration(ThreadLocalRandom.current().nextInt(30));
         this.item = item;
     }
 
@@ -118,7 +116,7 @@ public class RoomPet extends RoomEntity {
     public void stopWalking() {
         super.stopWalking();
 
-        if (this.pet.getAction() == PetAction.DRINK) {
+        /*if (this.pet.getAction() == PetAction.DRINK) {
             if (this.item.getRoom() != null) {
                 this.getPosition().setRotation(this.item.getPosition().getRotation());
 
@@ -148,37 +146,14 @@ public class RoomPet extends RoomEntity {
                 this.pet.setAction(PetAction.NONE);
                 this.pet.setActionDuration(0);
             }
-        }
+        }*/
     }
 
-    private void emptyPetBowl(final Pet pet) {
-        GameScheduler.getInstance().getService().schedule(()-> {
-            if (item.getRoom() != null) {
-                item.setCustomData("0");
-                item.updateStatus();
-                item.save();
-            }
-
-            pet.setAction(PetAction.NONE);
-            pet.setActionDuration(0);
-
-            removeStatus(StatusType.EAT);
-            setNeedsUpdate(true);
-        }, 5, TimeUnit.SECONDS);
+    public PetTask getTask() {
+        return task;
     }
 
-    private void removeFoodItem(final Pet pet) {
-        GameScheduler.getInstance().getService().schedule(()-> {
-            if (item.getRoom() != null) {
-                getRoom().getMapping().removeItem(null, item);
-                item.delete();
-            }
-
-            pet.setAction(PetAction.NONE);
-            pet.setActionDuration(0);
-
-            removeStatus(StatusType.EAT);
-            setNeedsUpdate(true);
-        }, 5, TimeUnit.SECONDS);
+    public void createTask(Room room) {
+        this.task = new PetTask(this.pet, room);
     }
 }

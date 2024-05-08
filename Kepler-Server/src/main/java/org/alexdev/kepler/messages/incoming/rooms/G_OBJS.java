@@ -1,6 +1,7 @@
 package org.alexdev.kepler.messages.incoming.rooms;
 
 import org.alexdev.kepler.game.item.Item;
+import org.alexdev.kepler.game.item.interactors.InteractionType;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.messages.outgoing.rooms.ACTIVE_OBJECTS;
@@ -21,7 +22,11 @@ public class G_OBJS implements MessageEvent {
         Room room = player.getRoomUser().getRoom();
 
         player.sendQueued(new OBJECTS_WORLD(room.getItemManager().getPublicItems()));
-        player.sendQueued(new ACTIVE_OBJECTS(room));
+
+        // Weird behaviour, can't interact upon load, see FlatTrigger as workaround
+        player.sendQueued(new ACTIVE_OBJECTS(room.getItemManager().getFloorItems().stream()
+                .filter(x -> x.getDefinition().getInteractionType() != InteractionType.PET_WATER_BOWL).toList()));
+
         player.flush();
 
         player.getMessenger().sendStatusUpdate();

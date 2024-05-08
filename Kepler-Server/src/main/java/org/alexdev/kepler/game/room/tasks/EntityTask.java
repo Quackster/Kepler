@@ -57,15 +57,8 @@ public class EntityTask implements Runnable {
                         && entity.getRoomUser().getRoom() != null
                         && entity.getRoomUser().getRoom() == this.room) {
 
-                    if (entity.getType() == EntityType.PET) {
-                        this.processPet((Pet)entity);
-                    }
-
-                    if (entity.getType() == EntityType.PLAYER) {
-                        ((Player)entity).getRoomUser().handleSpamTicks();
-                    }
-
                     this.processEntity(entity);
+
                     RoomEntity roomEntity = entity.getRoomUser();
 
                     if (roomEntity.isNeedsUpdate()) {
@@ -77,24 +70,6 @@ public class EntityTask implements Runnable {
 
             if (entitiesToUpdate.size() > 0) {
                 this.room.send(new USER_STATUSES(entitiesToUpdate));
-            }
-
-            this.handleMessageQueue();
-        } catch (Exception ex) {
-            Log.getErrorLogger().error("EntityTask crashed: ", ex);
-        }
-    }
-
-    /**
-     * Handles messages to be queued after the main room loop was sent
-     */
-    private void handleMessageQueue() {
-        try {
-            List<MessageComposer> queueSending = new ArrayList<>();
-            this.queueAfterLoop.drainTo(queueSending);
-
-            for (MessageComposer messageComposer : queueSending) {
-                this.room.send(messageComposer);
             }
         } catch (Exception ex) {
             Log.getErrorLogger().error("EntityTask crashed: ", ex);
@@ -245,155 +220,5 @@ public class EntityTask implements Runnable {
             // If we're walking, make sure to tell the server
             roomEntity.setNeedsUpdate(true);
         }
-    }
-
-    /**
-     * Process pet actions.
-     *
-     * @param pet the pet to process
-     */
-    private void processPet(Pet pet) {
-        if (pet.hasActionExpired() && pet.getAction() != PetAction.NONE) {
-            if (pet.getAction() == PetAction.SLEEP) {
-                pet.awake();
-            }
-
-            pet.getRoomUser().getStatuses().clear();
-            pet.getRoomUser().setNeedsUpdate(true);
-            pet.setAction(PetAction.NONE);
-        } else {
-            switch (ThreadLocalRandom.current().nextInt(0, 6)) {
-                case 1: {
-                    pet.getRoomUser().removeStatus(StatusType.SIT);
-                    pet.getRoomUser().removeStatus(StatusType.LAY);
-                    pet.getRoomUser().removeStatus(StatusType.PET_SLEEP);
-
-                    if (pet.getRoomUser().containsStatus(StatusType.EAT) ||
-                            pet.getRoomUser().containsStatus(StatusType.DEAD) ||
-                            pet.getRoomUser().containsStatus(StatusType.JUMP)) {
-                        return;
-                    }
-
-                    if (pet.isDoingAction()) {
-                        return;
-                    }
-
-                    switch (ThreadLocalRandom.current().nextInt(0, 8)) {
-                        case 0: {
-                            if (pet.isThirsty()) {
-                                pet.getRoomUser().tryDrinking();
-                                return;
-                            }
-                            break;
-                        }
-                        case 1: {
-                            if (pet.isHungry()) {
-                                pet.getRoomUser().tryEating();
-                                return;
-                            }
-                            break;
-                        }
-                    }
-
-
-                    Position availableTile = this.room.getMapping().getRandomWalkableBound(pet, false);
-
-                    if (availableTile != null) {
-                        pet.getRoomUser().walkTo(availableTile.getX(), availableTile.getY());
-                    }
-
-                    break;
-                }
-            }
-
-            if (!pet.isWalkBeforeSitLay() && pet.isActionAllowed()) {
-                switch (ThreadLocalRandom.current().nextInt(0, 15)) {
-                    case 1: {
-                        if (!pet.getRoomUser().isWalking() && pet.getAction() == PetAction.NONE) {
-                            pet.getRoomUser().getPosition().setRotation(pet.getRoomUser().getPosition().getBodyRotation());
-                            pet.getRoomUser().setStatus(StatusType.SIT, StringUtil.format(pet.getRoomUser().getPosition().getZ()));
-                            pet.setWalkBeforeSitLay(true);
-
-                            pet.setAction(PetAction.SIT);
-                            pet.setActionDuration(ThreadLocalRandom.current().nextInt(15, 30));
-
-                            if (ThreadLocalRandom.current().nextInt(0, 3) == 0) {
-                                List<Player> playerList = this.room.getEntityManager().getEntitiesByClass(Player.class);
-                                playerList.sort(Comparator.comparingInt(p -> p.getRoomUser().getPosition().getDistanceSquared(pet.getRoomUser().getPosition())));
-
-                                if (playerList.size() > 0) {
-                                    pet.getRoomUser().getPosition().setRotation(Rotation.calculateWalkDirection(
-                                            pet.getRoomUser().getPosition(),
-                                            playerList.get(0).getRoomUser().getPosition()));
-                                }
-                            }
-
-                            pet.getRoomUser().setNeedsUpdate(true);
-                        }
-                        break;
-                    }
-                    case 2: {
-                        if (!pet.getRoomUser().isWalking() && pet.getAction() == PetAction.NONE) {
-                            pet.getRoomUser().getPosition().setRotation(pet.getRoomUser().getPosition().getBodyRotation());
-                            pet.getRoomUser().setStatus(StatusType.LAY, StringUtil.format(pet.getRoomUser().getPosition().getZ()) + " null");
-                            pet.setWalkBeforeSitLay(true);
-
-                            pet.setAction(PetAction.LAY);
-                            pet.setActionDuration(ThreadLocalRandom.current().nextInt(15, 30));
-
-                            if (ThreadLocalRandom.current().nextInt(0, 5) == 0) {
-                                List<Player> playerList = this.room.getEntityManager().getEntitiesByClass(Player.class);
-                                playerList.sort(Comparator.comparingInt(p -> p.getRoomUser().getPosition().getDistanceSquared(pet.getRoomUser().getPosition())));
-
-                                if (playerList.size() > 0) {
-                                    pet.getRoomUser().getPosition().setRotation(Rotation.calculateWalkDirection(
-                                            pet.getRoomUser().getPosition(),
-                                            playerList.get(0).getRoomUser().getPosition()));
-                                }
-                            }
-
-                            pet.getRoomUser().setNeedsUpdate(true);
-                        }
-                        break;
-                    }
-                }
-            }
-
-            if (pet.getAction() == PetAction.SIT || pet.getAction() == PetAction.LAY || pet.getAction() == PetAction.NONE) {
-                if (ThreadLocalRandom.current().nextInt(0, 8) == 0) {
-                    if (!pet.getRoomUser().isWalking()) {
-                        List<Player> playerList = this.room.getEntityManager().getEntitiesByClass(Player.class);
-                        playerList.sort(Comparator.comparingInt(p -> p.getRoomUser().getPosition().getDistanceSquared(pet.getRoomUser().getPosition())));
-
-                        if (playerList.size() > 0) {
-                            pet.getRoomUser().getPosition().setHeadRotation(Rotation.getHeadRotation(
-                                    pet.getRoomUser().getPosition().getRotation(),
-                                    pet.getRoomUser().getPosition(),
-                                    playerList.get(0).getRoomUser().getPosition()));
-                            pet.getRoomUser().setNeedsUpdate(true);
-                        }
-                    }
-                }
-            }
-        }
-
-        switch (ThreadLocalRandom.current().nextInt(0, 30)) {
-            case 2: {
-                if (ThreadLocalRandom.current().nextInt(0, 8) == 0) {
-                    pet.getRoomUser().talk(PetManager.getInstance().getRandomSpeech(pet.getDetails().getType()), CHAT_MESSAGE.ChatMessageType.CHAT);
-                }
-                break;
-            }
-        }
-    }
-
-
-    /**
-     * Used for sending packets after the loop has completed.
-     *
-     * @return the queue to add composers into
-     */
-    public BlockingQueue<MessageComposer> getQueueAfterLoop() {
-        return queueAfterLoop;
     }
 }
