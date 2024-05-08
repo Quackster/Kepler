@@ -21,6 +21,9 @@ public enum InteractionType {
     FORTUNE(new DefaultInteractor()),
     PET_NEST(new PetNestInteractor()),
 
+    PET_FOOD(new PetFoodInteractor()),
+    PET_WATER_BOWL(new PetWaterBowlInteractor()),
+    PET_TOY(new PetToyInteractor()),
     TOTEM_LEG(new DefaultInteractor()),
     TOTEM_HEAD(new DefaultInteractor()),
     TOTEM_PLANET(new DefaultInteractor()),

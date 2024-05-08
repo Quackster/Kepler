@@ -37,7 +37,9 @@ public class PetManager {
 
         for (Pet pet : room.getEntityManager().getEntitiesByClass(Pet.class)) {
             if (pet.getDetails().getName().toLowerCase().equals(data[0].toLowerCase())) {
-                petCommand(player, room, pet, speech.replace(data[0] + " ", ""));
+                if (pet.getRoomUser().getTask().canMove()) {
+                    petCommand(player, room, pet, speech.replace(data[0] + " ", ""));
+                }
             }
         }
     }
@@ -55,6 +57,69 @@ public class PetManager {
                 pet.getRoomUser().tryDrinking();
                 break;
             }
+            case "speak": {
+                pet.getRoomUser().getTask().talk();
+                pet.getRoomUser().getTask().setInteractionTimer(5);
+                break;
+            }
+            case "beg": {
+                // Beg for reward
+                break;
+            }
+            case "go":
+            case "go away": {
+                pet.getRoomUser().getTask().walk();
+                pet.getRoomUser().getTask().setInteractionTimer(10);
+                break;
+            }
+            case "come over":
+            case "come here":
+            case "come":
+            case "heel": {
+                pet.getRoomUser().walkTo(player.getRoomUser().getPosition().getSquareInFront().getX(), player.getRoomUser().getPosition().getSquareInFront().getY());
+                pet.getRoomUser().getTask().setInteractionTimer(10);
+                break;
+            }
+            case "play dead":
+            case "dead": {
+                int length = ThreadLocalRandom.current().nextInt(4, 11);
+                pet.getRoomUser().getTask().playDead(length);
+                break;
+            }
+            case "sit": {
+                int length = ThreadLocalRandom.current().nextInt(10, 30);
+                pet.getRoomUser().getTask().sit(length);
+                break;
+            }
+            case "lie down":
+            case "lay": {
+                if (pet.getRoomUser().isWalking()) {
+                    pet.getRoomUser().stopWalking();
+                }
+
+                int length = ThreadLocalRandom.current().nextInt(10, 30);
+                pet.getRoomUser().getTask().lay(length);
+                break;
+            }
+            case "jump": {
+                if (pet.getRoomUser().isWalking()) {
+                    pet.getRoomUser().stopWalking();
+                }
+
+                int length = ThreadLocalRandom.current().nextInt(2, 4);
+                pet.getRoomUser().getTask().jump(length);
+                break;
+            }
+
+        }
+    }
+
+    /*
+    private void petCommand(Player player, Room room, Pet pet, String command) {
+        var item = pet.getRoomUser().getCurrentItem();
+        boolean petCommanded = false;
+
+        switch (command.toLowerCase()) {
             case "speak": {
                 // Bark, meow, etc
                 break;
@@ -91,7 +156,7 @@ public class PetManager {
                 pet.getRoomUser().setStatus(StatusType.DEAD, StatusType.DEAD.getStatusCode(), length, null, -1, -1);
                 pet.getRoomUser().setNeedsUpdate(true);
 
-                pet.setAction(PetAction.DEAD);
+                pet}.setAction(PetAction.DEAD);
                 pet.setActionDuration(length);
                 petCommanded = true;
                 break;
@@ -181,6 +246,7 @@ public class PetManager {
             }
         }
     }
+     */
 
     /**
      * Get the pet stats when given the last time and stat type.

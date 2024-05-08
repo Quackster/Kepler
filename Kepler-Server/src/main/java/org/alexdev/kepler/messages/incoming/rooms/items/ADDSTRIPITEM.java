@@ -38,7 +38,7 @@ public class ADDSTRIPITEM implements MessageEvent {
         }
 
         item.setOwnerId(player.getDetails().getId());
-        room.getMapping().removeItem(player, item);
+        room.getMapping().pickupItem(player, item);
 
         player.getInventory().addItem(item);
         player.getInventory().getView("new");

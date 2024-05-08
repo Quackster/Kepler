@@ -22,7 +22,9 @@ public enum StatusType {
     DEAD("ded"),
     JUMP("jmp"),
     PET_SLEEP("slp"),
-    EAT("eat");
+    EAT("eat"),
+    SMILE("sml"),
+    PLAY("pla");
 
     private String statusCode;
 
