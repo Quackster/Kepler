@@ -8,6 +8,7 @@ import org.alexdev.kepler.game.games.snowstorm.SnowStormGame;
 import org.alexdev.kepler.game.games.snowstorm.tasks.SnowStormGameTask;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.tasks.EntityTask;
+import org.alexdev.kepler.game.room.tasks.PetTask;
 import org.alexdev.kepler.game.room.tasks.RollerTask;
 import org.alexdev.kepler.game.room.tasks.StatusTask;
 import org.alexdev.kepler.util.config.GameConfiguration;
@@ -42,11 +43,13 @@ public class RoomTaskManager {
         this.scheduleTask("EntityTask", new EntityTask(this.room), 0, 500, TimeUnit.MILLISECONDS);
         this.scheduleTask("StatusTask", new StatusTask(this.room), 0, 1, TimeUnit.SECONDS);
 
-        // Only allow roller tasks to be created for private rooms
-        if (!this.room.isPublicRoom()) {
-            int rollerMillisTask = GameConfiguration.getInstance().getInteger("roller.tick.default");
-            this.scheduleTask("RollerTask", new RollerTask(this.room), 250, rollerMillisTask, TimeUnit.MILLISECONDS);
+        if (this.room.isPublicRoom()) {
+            return;
         }
+
+        // Only allow roller tasks to be created for private rooms
+        int rollerMillisTask = GameConfiguration.getInstance().getInteger("roller.tick.default");
+        this.scheduleTask("RollerTask", new RollerTask(this.room), 250, rollerMillisTask, TimeUnit.MILLISECONDS);
     }
 
     private void loadGameTasks() {

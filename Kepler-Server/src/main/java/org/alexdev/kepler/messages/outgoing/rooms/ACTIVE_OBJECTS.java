@@ -10,8 +10,8 @@ import java.util.List;
 public class ACTIVE_OBJECTS extends MessageComposer {
     private final List<Item> items;
 
-    public ACTIVE_OBJECTS(Room room) {
-        this.items = room.getItemManager().getFloorItems();
+    public ACTIVE_OBJECTS(List<Item> items) {
+        this.items = items;
     }
 
     @Override

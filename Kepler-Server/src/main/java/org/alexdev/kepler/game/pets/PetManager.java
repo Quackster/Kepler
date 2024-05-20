@@ -9,13 +9,16 @@ import org.alexdev.kepler.game.room.enums.StatusType;
 import org.alexdev.kepler.util.DateUtil;
 import org.alexdev.kepler.util.StringUtil;
 
+import java.util.List;
+import java.util.Locale;
+
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 public class PetManager {
     private static PetManager instance;
 
-    private String[] dogSpeech = new String[] { "Woooff... wooofff...", "Woooooooooooooooffff... wooff", "Nomnomnomnom..", "Grrrr....", "Grrrr.. grrrrr.." };
+    private String[] dogSpeech = new String[] { "Vuuf... vuuuufff...", "Wuuuuuuuuuuuuuuuuuffff... vov", "Nomnomnomnom..", "Grrrr....", "Grrrr.. grrrrr.." };
     private String[] catSpeech = new String[] { "Prrrrrrr... prrrrrr", "Prrrrrrrrrrrrrrrr...... prrrr..", "Meowwwww... meowwww..", "Meowwww!" };
     private String[] crocSpeech = new String[] { "Gnawwwwwwww... gnaw..", "Gnawwwwwwwwwwwwwwwwwwwww.... gnawwwwwwww.....", "Gnaw! Gnaw!" };
 
@@ -37,24 +40,80 @@ public class PetManager {
 
         for (Pet pet : room.getEntityManager().getEntitiesByClass(Pet.class)) {
             if (pet.getDetails().getName().toLowerCase().equals(data[0].toLowerCase())) {
-                petCommand(player, room, pet, speech.replace(data[0] + " ", ""));
+                if (pet.getRoomUser().getTask().canMove()) {
+                    petCommand(player, room, pet, speech.replace(data[0] + " ", ""));
+                }
             }
         }
     }
 
     private void petCommand(Player player, Room room, Pet pet, String command) {
         var item = pet.getRoomUser().getCurrentItem();
+        String petCommand = command.toLowerCase();
+
+        List<String> eatCommands = List.of("spis", "eat");
+        List<String> drinkCommands = List.of("drik", "drink");
+        List<String> speakCommands = List.of("giv lyd", "lyd", "tal", "speak");
+        List<String> begCommands = List.of("tig", "beg");
+        List<String> goCommands = List.of("gå", "gå væk", "go", "go away");
+        List<String> comeCommands = List.of("kom", "kom her", "på plads", "come over", "come here", "come", "heel");
+        List<String> deadCommands = List.of("død", "spil død", "play dead", "dead");
+        List<String> sitCommands = List.of("sit");
+        List<String> layCommands = List.of("lig ned", "lig", "dæk", "lie down", "lay");
+        List<String> jumpCommands = List.of("hop", "jump");
+
+        if(eatCommands.contains(petCommand))
+            pet.getRoomUser().tryEating();
+        else if(drinkCommands.contains(petCommand))
+            pet.getRoomUser().tryDrinking();
+        else if(speakCommands.contains(petCommand)) {
+            pet.getRoomUser().getTask().talk();
+            pet.getRoomUser().getTask().setInteractionTimer(5);
+        }
+        else if(begCommands.contains(petCommand)) {
+            // Beg for reward
+        }
+        else if(goCommands.contains(petCommand)) {
+            pet.getRoomUser().getTask().walk();
+            pet.getRoomUser().getTask().setInteractionTimer(10);
+        }
+        else if(comeCommands.contains(petCommand)) {
+            pet.getRoomUser().walkTo(player.getRoomUser().getPosition().getSquareInFront().getX(), player.getRoomUser().getPosition().getSquareInFront().getY());
+            pet.getRoomUser().getTask().setInteractionTimer(10);
+        }
+        else if(deadCommands.contains(petCommand)) {
+            int length = ThreadLocalRandom.current().nextInt(4, 11);
+            pet.getRoomUser().getTask().playDead(length);
+        }
+        else if(sitCommands.contains(petCommand)) {
+            int length = ThreadLocalRandom.current().nextInt(10, 30);
+            pet.getRoomUser().getTask().sit(length);
+        }
+        else if(layCommands.contains(petCommand)) {
+            if (pet.getRoomUser().isWalking()) {
+                pet.getRoomUser().stopWalking();
+            }
+
+            int length = ThreadLocalRandom.current().nextInt(10, 30);
+            pet.getRoomUser().getTask().lay(length);
+        }
+        else if(jumpCommands.contains(petCommand)) {
+            if (pet.getRoomUser().isWalking()) {
+                pet.getRoomUser().stopWalking();
+            }
+
+            int length = ThreadLocalRandom.current().nextInt(2, 4);
+            pet.getRoomUser().getTask().jump(length);
+        }
+
+    }
+
+    /*
+    private void petCommand(Player player, Room room, Pet pet, String command) {
+        var item = pet.getRoomUser().getCurrentItem();
         boolean petCommanded = false;
 
         switch (command.toLowerCase()) {
-            case "eat": {
-                pet.getRoomUser().tryEating();
-                break;
-            }
-            case "drink": {
-                pet.getRoomUser().tryDrinking();
-                break;
-            }
             case "speak": {
                 // Bark, meow, etc
                 break;
@@ -91,7 +150,7 @@ public class PetManager {
                 pet.getRoomUser().setStatus(StatusType.DEAD, StatusType.DEAD.getStatusCode(), length, null, -1, -1);
                 pet.getRoomUser().setNeedsUpdate(true);
 
-                pet.setAction(PetAction.DEAD);
+                pet}.setAction(PetAction.DEAD);
                 pet.setActionDuration(length);
                 petCommanded = true;
                 break;
@@ -181,6 +240,7 @@ public class PetManager {
             }
         }
     }
+     */
 
     /**
      * Get the pet stats when given the last time and stat type.

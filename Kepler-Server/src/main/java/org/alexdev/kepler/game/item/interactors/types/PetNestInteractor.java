@@ -59,6 +59,8 @@ public class PetNestInteractor extends GenericTrigger {
         room.getEntityManager().enterRoom(pet, position);
         room.getMapping().getTile(position).addEntity(pet);
 
+        pet.getRoomUser().createTask(room);
+
         /*GameScheduler.getInstance().getService().scheduleAtFixedRate(()-> {
             pet.getRoomUser().walkTo(room.getModel().getRandomBound(0), room.getModel().getRandomBound(0));
         }, 0, 5, TimeUnit.SECONDS);*/

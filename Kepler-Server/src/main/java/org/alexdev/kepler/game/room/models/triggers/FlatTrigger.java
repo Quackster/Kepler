@@ -12,7 +12,9 @@ import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.enums.StatusType;
 import org.alexdev.kepler.game.triggers.GenericTrigger;
+import org.alexdev.kepler.messages.outgoing.rooms.items.PLACE_FLOORITEM;
 import org.alexdev.kepler.messages.outgoing.rooms.items.SHOWPROGRAM;
+import org.alexdev.kepler.messages.outgoing.rooms.items.STUFFDATAUPDATE;
 
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -51,6 +53,13 @@ public class FlatTrigger extends GenericTrigger {
                     interactor.addPet(room, petDetails, position);
                 }
             }
+        }
+
+        // Fix showing water amount, doesn't show on initial load
+        // Also can't interact with waterbowl until it's been placed again so this is a workaround
+        for (Item item : room.getItemManager().getFloorItems().stream().filter(item -> item.getDefinition().getInteractionType() == InteractionType.PET_WATER_BOWL).collect(Collectors.toList())) {
+            player.send(new PLACE_FLOORITEM(item));
+            player.send(new STUFFDATAUPDATE(item));
         }
     }
 

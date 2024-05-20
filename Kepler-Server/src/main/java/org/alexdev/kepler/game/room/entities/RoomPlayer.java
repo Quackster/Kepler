@@ -52,10 +52,9 @@ public class RoomPlayer extends RoomEntity {
     public void handleSpamTicks() {
         if (this.chatSpamTicks >= 0) {
             this.chatSpamTicks--;
-
-            if (this.chatSpamTicks == -1) {
-                this.chatSpamCount = 0;
-            }
+        }
+        if (this.chatSpamTicks == -1) {
+            this.chatSpamCount = 0;
         }
     }
 
