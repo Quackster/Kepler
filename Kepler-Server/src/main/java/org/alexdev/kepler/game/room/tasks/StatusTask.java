@@ -3,6 +3,7 @@ package org.alexdev.kepler.game.room.tasks;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
 import org.alexdev.kepler.game.pathfinder.Position;
+import org.alexdev.kepler.game.pets.Pet;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.RoomUserStatus;
@@ -28,7 +29,8 @@ public class StatusTask implements Runnable {
 
         for (Entity entity : this.room.getEntities()) {
             if (entity != null) {
-                if (entity.getRoomUser().getRoom() != null && entity.getRoomUser().getRoom() == this.room) {
+                if (entity.getRoomUser().getRoom() != null &&
+                    entity.getRoomUser().getRoom() == this.room) {
                     this.processEntity(entity);
                 }
             }
@@ -45,10 +47,18 @@ public class StatusTask implements Runnable {
 
         if (entity.getType() == EntityType.PLAYER) {
             Player player = (Player) entity;
+            player.getRoomUser().handleSpamTicks();
 
             processHeadRotation(player);
             processChatBubble(player);
             processPoolQueue(player);
+        }
+
+        if (entity.getType() == EntityType.PET) {
+            Pet pet = (Pet) entity;
+
+            if (pet.getRoomUser().getTask() != null)
+                pet.getRoomUser().getTask().tick();
         }
 
         for (var kvp : entity.getRoomUser().getStatuses().entrySet()) {
