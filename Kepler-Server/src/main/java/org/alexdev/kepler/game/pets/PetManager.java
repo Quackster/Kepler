@@ -9,13 +9,16 @@ import org.alexdev.kepler.game.room.enums.StatusType;
 import org.alexdev.kepler.util.DateUtil;
 import org.alexdev.kepler.util.StringUtil;
 
+import java.util.List;
+import java.util.Locale;
+
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 public class PetManager {
     private static PetManager instance;
 
-    private String[] dogSpeech = new String[] { "Woooff... wooofff...", "Woooooooooooooooffff... wooff", "Nomnomnomnom..", "Grrrr....", "Grrrr.. grrrrr.." };
+    private String[] dogSpeech = new String[] { "Vuuf... vuuuufff...", "Wuuuuuuuuuuuuuuuuuffff... vov", "Nomnomnomnom..", "Grrrr....", "Grrrr.. grrrrr.." };
     private String[] catSpeech = new String[] { "Prrrrrrr... prrrrrr", "Prrrrrrrrrrrrrrrr...... prrrr..", "Meowwwww... meowwww..", "Meowwww!" };
     private String[] crocSpeech = new String[] { "Gnawwwwwwww... gnaw..", "Gnawwwwwwwwwwwwwwwwwwwww.... gnawwwwwwww.....", "Gnaw! Gnaw!" };
 
@@ -46,89 +49,63 @@ public class PetManager {
 
     private void petCommand(Player player, Room room, Pet pet, String command) {
         var item = pet.getRoomUser().getCurrentItem();
-        boolean petCommanded = false;
+        String petCommand = command.toLowerCase();
 
-        switch (command.toLowerCase()) {
-            case "spis":
-            case "eat": {
-                pet.getRoomUser().tryEating();
-                break;
-            }
-            case "drik":
-            case "drink": {
-                pet.getRoomUser().tryDrinking();
-                break;
-            }
-            case "giv lyd":
-            case "lyd":
-            case "tal":
-            case "speak": {
-                pet.getRoomUser().getTask().talk();
-                pet.getRoomUser().getTask().setInteractionTimer(5);
-                break;
-            }
-            case "tig":
-            case "beg": {
-                // Beg for reward
-                break;
-            }
-            case "gå":
-            case "gå væk":
-            case "go":
-            case "go away": {
-                pet.getRoomUser().getTask().walk();
-                pet.getRoomUser().getTask().setInteractionTimer(10);
-                break;
-            }
-            case "kom":
-            case "kom her":
-            case "på plads":
-            case "come over":
-            case "come here":
-            case "come":
-            case "heel": {
-                pet.getRoomUser().walkTo(player.getRoomUser().getPosition().getSquareInFront().getX(), player.getRoomUser().getPosition().getSquareInFront().getY());
-                pet.getRoomUser().getTask().setInteractionTimer(10);
-                break;
-            }
-            case "død":
-            case "spil død":
-            case "play dead":
-            case "dead": {
-                int length = ThreadLocalRandom.current().nextInt(4, 11);
-                pet.getRoomUser().getTask().playDead(length);
-                break;
-            }
-            case "sit": {
-                int length = ThreadLocalRandom.current().nextInt(10, 30);
-                pet.getRoomUser().getTask().sit(length);
-                break;
-            }
-            case "lig ned":
-            case "lig":
-            case "dæk":
-            case "lie down":
-            case "lay": {
-                if (pet.getRoomUser().isWalking()) {
-                    pet.getRoomUser().stopWalking();
-                }
+        List<String> eatCommands = List.of("spis", "eat");
+        List<String> drinkCommands = List.of("drik", "drink");
+        List<String> speakCommands = List.of("giv lyd", "lyd", "tal", "speak");
+        List<String> begCommands = List.of("tig", "beg");
+        List<String> goCommands = List.of("gå", "gå væk", "go", "go away");
+        List<String> comeCommands = List.of("kom", "kom her", "på plads", "come over", "come here", "come", "heel");
+        List<String> deadCommands = List.of("død", "spil død", "play dead", "dead");
+        List<String> sitCommands = List.of("sit");
+        List<String> layCommands = List.of("lig ned", "lig", "dæk", "lie down", "lay");
+        List<String> jumpCommands = List.of("hop", "jump");
 
-                int length = ThreadLocalRandom.current().nextInt(10, 30);
-                pet.getRoomUser().getTask().lay(length);
-                break;
-            }
-            case "hop":
-            case "jump": {
-                if (pet.getRoomUser().isWalking()) {
-                    pet.getRoomUser().stopWalking();
-                }
-
-                int length = ThreadLocalRandom.current().nextInt(2, 4);
-                pet.getRoomUser().getTask().jump(length);
-                break;
-            }
-
+        if(eatCommands.contains(petCommand))
+            pet.getRoomUser().tryEating();
+        else if(drinkCommands.contains(petCommand))
+            pet.getRoomUser().tryDrinking();
+        else if(speakCommands.contains(petCommand)) {
+            pet.getRoomUser().getTask().talk();
+            pet.getRoomUser().getTask().setInteractionTimer(5);
         }
+        else if(begCommands.contains(petCommand)) {
+            // Beg for reward
+        }
+        else if(goCommands.contains(petCommand)) {
+            pet.getRoomUser().getTask().walk();
+            pet.getRoomUser().getTask().setInteractionTimer(10);
+        }
+        else if(comeCommands.contains(petCommand)) {
+            pet.getRoomUser().walkTo(player.getRoomUser().getPosition().getSquareInFront().getX(), player.getRoomUser().getPosition().getSquareInFront().getY());
+            pet.getRoomUser().getTask().setInteractionTimer(10);
+        }
+        else if(deadCommands.contains(petCommand)) {
+            int length = ThreadLocalRandom.current().nextInt(4, 11);
+            pet.getRoomUser().getTask().playDead(length);
+        }
+        else if(sitCommands.contains(petCommand)) {
+            int length = ThreadLocalRandom.current().nextInt(10, 30);
+            pet.getRoomUser().getTask().sit(length);
+        }
+        else if(layCommands.contains(petCommand)) {
+            if (pet.getRoomUser().isWalking()) {
+                pet.getRoomUser().stopWalking();
+            }
+
+            int length = ThreadLocalRandom.current().nextInt(10, 30);
+            pet.getRoomUser().getTask().lay(length);
+        }
+        else if(jumpCommands.contains(petCommand)) {
+            if (pet.getRoomUser().isWalking()) {
+                pet.getRoomUser().stopWalking();
+            }
+
+            int length = ThreadLocalRandom.current().nextInt(2, 4);
+            pet.getRoomUser().getTask().jump(length);
+        }
+
     }
 
     /*
