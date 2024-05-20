@@ -489,10 +489,7 @@ public class RoomMapping {
         return this.roomMap[x][y];
     }
 
-    public Position getRandomWalkableBound(Entity entity) {
-        Position position = null;
-
-        boolean isWalkable = false;
+    public Position getRandomWalkableBound(Entity entity, boolean allowDoorBound) {
         int attempts = 0;
         int maxAttempts = 10;
 
@@ -501,7 +498,12 @@ public class RoomMapping {
 
             int randomX = this.room.getModel().getRandomBound(0);
             int randomY = this.room.getModel().getRandomBound(1);
-            position = new Position(randomX, randomY);
+            var position = new Position(randomX, randomY);
+
+            if (!allowDoorBound) {
+                if (position.equals(this.room.getModel().getDoorLocation()))
+                    continue;
+            }
 
             if (RoomTile.isValidTile(this.room, entity, position)) {
                 return position;
