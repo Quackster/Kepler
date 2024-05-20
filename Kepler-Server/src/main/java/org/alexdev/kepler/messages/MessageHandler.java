@@ -121,6 +121,7 @@ public class MessageHandler {
         registerEvent(4, new TRY_LOGIN());
         registerEvent(756, new TRY_LOGIN());
         registerEvent(1003, new VERSIONCHECK());
+        registerEvent(58, new LANGCHECK());
         registerEvent(6, new MACHINEID());
     }
 
