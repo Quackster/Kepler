@@ -12,6 +12,8 @@ import org.alexdev.kepler.messages.incoming.club.GET_CLUB;
 import org.alexdev.kepler.messages.incoming.club.SCR_GIFT_APPROVAL;
 import org.alexdev.kepler.messages.incoming.club.SUBSCRIBE_CLUB;
 import org.alexdev.kepler.messages.incoming.events.*;
+import org.alexdev.kepler.messages.incoming.rooms.teleporter.GOVIADOOR;
+import org.alexdev.kepler.messages.incoming.rooms.teleporter.INTODOOR;
 import org.alexdev.kepler.messages.incoming.games.*;
 import org.alexdev.kepler.messages.incoming.handshake.*;
 import org.alexdev.kepler.messages.incoming.infobus.CHANGEWORLD;
@@ -277,7 +279,6 @@ public class MessageHandler {
      * Register room item packets.
      */
     private void registerRoomItemPackets() {
-        registerEvent(128, new GETPETSTAT());
         registerEvent(90, new PLACESTUFF());
         registerEvent(73, new MOVESTUFF());
         registerEvent(67, new ADDSTRIPITEM());

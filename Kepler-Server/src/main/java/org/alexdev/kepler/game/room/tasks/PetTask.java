@@ -13,6 +13,9 @@ import org.apache.commons.lang.StringUtils;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 public class PetTask extends TickTask {
     private final Pet pet;
@@ -186,7 +189,7 @@ public class PetTask extends TickTask {
                                                 (petType == PetType.CROC && item.hasBehaviour(ItemBehaviour.PET_CROC_FOOD))
                                         )) &&
                                         !item.getCustomData().equalsIgnoreCase("4") &&
-                                        item.getTile().getOtherEntities(this.pet).isEmpty()).toList();
+                                        item.getTile().getOtherEntities(this.pet).isEmpty()).collect(Collectors.toList());
 
 
 
@@ -265,7 +268,7 @@ public class PetTask extends TickTask {
                 this.room.getItemManager().getFloorItems().stream()
                         .filter(item -> item.hasBehaviour(ItemBehaviour.PET_WATER_BOWL) &&
                                 !item.getCustomData().equalsIgnoreCase("0") &&
-                                item.getTile().getOtherEntities(this.pet).isEmpty()).toList();
+                                item.getTile().getOtherEntities(this.pet).isEmpty()).collect(Collectors.toList());
 
         if (drinkInRoom.isEmpty()) {
             return false;
@@ -323,7 +326,7 @@ public class PetTask extends TickTask {
         List<Item> foodInRoom =
                 this.room.getItemManager().getFloorItems().stream()
                         .filter(item -> item.hasBehaviour(ItemBehaviour.PET_TOY) &&
-                                        item.getTile().getOtherEntities(this.pet).isEmpty()).toList();
+                                        item.getTile().getOtherEntities(this.pet).isEmpty()).collect(Collectors.toList());
 
 
 

@@ -41,7 +41,7 @@ public class FlatTrigger extends GenericTrigger {
         });*/
 
         if (firstEntry) {
-            for (Item item : room.getItemManager().getFloorItems().stream().filter(item -> item.getDefinition().getInteractionType() == InteractionType.PET_NEST).toList()) {
+            for (Item item : room.getItemManager().getFloorItems().stream().filter(item -> item.getDefinition().getInteractionType() == InteractionType.PET_NEST).collect(Collectors.toList())) {
                 PetNestInteractor interactor = (PetNestInteractor) InteractionType.PET_NEST.getTrigger();
 
                 PetDetails petDetails = PetDao.getPetDetails(item.getId());
@@ -57,7 +57,7 @@ public class FlatTrigger extends GenericTrigger {
 
         // Fix showing water amount, doesn't show on initial load
         // Also can't interact with waterbowl until it's been placed again so this is a workaround
-        for (Item item : room.getItemManager().getFloorItems().stream().filter(item -> item.getDefinition().getInteractionType() == InteractionType.PET_WATER_BOWL).toList()) {
+        for (Item item : room.getItemManager().getFloorItems().stream().filter(item -> item.getDefinition().getInteractionType() == InteractionType.PET_WATER_BOWL).collect(Collectors.toList())) {
             player.send(new PLACE_FLOORITEM(item));
             player.send(new STUFFDATAUPDATE(item));
         }

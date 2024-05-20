@@ -12,6 +12,8 @@ import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 
+import java.util.stream.Collectors;
+
 public class G_OBJS implements MessageEvent {
     @Override
     public void handle(Player player, NettyRequest reader) {
@@ -25,7 +27,7 @@ public class G_OBJS implements MessageEvent {
 
         // Weird behaviour, can't interact upon load, see FlatTrigger as workaround
         player.sendQueued(new ACTIVE_OBJECTS(room.getItemManager().getFloorItems().stream()
-                .filter(x -> x.getDefinition().getInteractionType() != InteractionType.PET_WATER_BOWL).toList()));
+                .filter(x -> x.getDefinition().getInteractionType() != InteractionType.PET_WATER_BOWL).collect(Collectors.toList())));
 
         player.flush();
 

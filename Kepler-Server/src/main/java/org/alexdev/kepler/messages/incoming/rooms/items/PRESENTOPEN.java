@@ -78,7 +78,7 @@ public class PRESENTOPEN implements MessageEvent {
 
             player.send(new DELIVER_PRESENT(giftedItem.getSprite(), extraData, giftedItem.getColour()));
             player.getInventory().getView("new");
-            room.getMapping().removeItem(player, item);
+            room.getMapping().removeItem(item);
             item.delete();
             return;
         }

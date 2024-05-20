@@ -49,29 +49,40 @@ public class PetManager {
         boolean petCommanded = false;
 
         switch (command.toLowerCase()) {
+            case "spis":
             case "eat": {
                 pet.getRoomUser().tryEating();
                 break;
             }
+            case "drik":
             case "drink": {
                 pet.getRoomUser().tryDrinking();
                 break;
             }
+            case "giv lyd":
+            case "lyd":
+            case "tal":
             case "speak": {
                 pet.getRoomUser().getTask().talk();
                 pet.getRoomUser().getTask().setInteractionTimer(5);
                 break;
             }
+            case "tig":
             case "beg": {
                 // Beg for reward
                 break;
             }
+            case "gå":
+            case "gå væk":
             case "go":
             case "go away": {
                 pet.getRoomUser().getTask().walk();
                 pet.getRoomUser().getTask().setInteractionTimer(10);
                 break;
             }
+            case "kom":
+            case "kom her":
+            case "på plads":
             case "come over":
             case "come here":
             case "come":
@@ -80,6 +91,8 @@ public class PetManager {
                 pet.getRoomUser().getTask().setInteractionTimer(10);
                 break;
             }
+            case "død":
+            case "spil død":
             case "play dead":
             case "dead": {
                 int length = ThreadLocalRandom.current().nextInt(4, 11);
@@ -91,6 +104,9 @@ public class PetManager {
                 pet.getRoomUser().getTask().sit(length);
                 break;
             }
+            case "lig ned":
+            case "lig":
+            case "dæk":
             case "lie down":
             case "lay": {
                 if (pet.getRoomUser().isWalking()) {
@@ -101,6 +117,7 @@ public class PetManager {
                 pet.getRoomUser().getTask().lay(length);
                 break;
             }
+            case "hop":
             case "jump": {
                 if (pet.getRoomUser().isWalking()) {
                     pet.getRoomUser().stopWalking();
