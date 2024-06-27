@@ -57,6 +57,34 @@ public class GameConfigWriter implements ConfigWriter {
         config.put("snowstorm.ticket.charge", "2");
         config.put("snowstorm.increase.points", "true");
 
+        config.put("poker.entry.price", "0");
+        config.put("poker.entry.price.only.in.rooms", "");
+
+        config.put("poker.entry.price.redistribute", "true");
+        config.put("poker.entry.price.redistribute.on.tie", "true");
+        config.put("poker.entry.price.redistribute.only.in.rooms", "");
+
+        config.put("poker.reward.min.player", "2");
+        config.put("poker.reward.min.player.only.in.rooms", "");
+
+        config.put("poker.reward.credits.bonus", "0");
+        config.put("poker.reward.credits.bonus.on.tie", "false");
+        config.put("poker.reward.credits.bonus.only.in.rooms", "");
+
+        config.put("poker.reward.rares", "");
+        config.put("poker.reward.rares.only.in.rooms", "");
+        config.put("poker.reward.rares.quantity", "1");
+        config.put("poker.reward.rares.on.tie", "false");
+
+        config.put("poker.reward.tickets", "0");
+        config.put("poker.reward.tickets.on.tie", "false");
+        config.put("poker.reward.tickets.only.in.rooms", "");
+
+        config.put("poker.announce.winner", "false");
+        config.put("poker.announce.winner.only.in.rooms", "0");
+        config.put("poker.announce.rewards", "false");
+        config.put("poker.announce.rewards.only.in.rooms", "");
+
         config.put("tutorial.enabled", "true");
         config.put("profile.editing", "true");
         config.put("vouchers.enabled", "true");
