@@ -54,13 +54,13 @@ Install any JDK version that is equal or above >= 17 to run the jar files.
 
 Open run.sh (Linux) or run.bat (Windows) to start Kepler.
 
-Your server should be up and running and accessible via http://localhost/
-
-I highly recommend [this browser](https://forum.ragezone.com/f353/portable-browser-with-flash-shockwave-1192727/) to be able to play Adobe Shockwave movies in the present day.
+I highly recommend [this browser](https://forum.oldskooler.org/threads/portable-browser-with-flash-shockwave-basilisk.70/) to be able to play Adobe Shockwave movies in the present day.
 
 ❗ Once registered as an admin, make yourself admin by setting your ``rank`` to 7 in the ``users`` table.
 
 As for the client, you can find version 14 DCRs [here](https://web.archive.org/web/20220724030154/https://raw.githubusercontent.com/Quackster/Kepler/master/tools/Quackster_v14.zip).
+
+Setup the loader files on a web server, and once Kepler is started, ensure the loader is connecting to the correct IP and ports for both the standard connection and MUS connection. The MUS connection is used for the camera.
 
 ## License
 
@@ -93,3 +93,6 @@ $ git submodule update --init --recursive
 * Holo Team
 * Meth0d
 * office.boy
+* Leon Hartley
+* Alito
+* wackfx

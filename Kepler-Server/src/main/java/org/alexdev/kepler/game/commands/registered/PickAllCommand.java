@@ -51,7 +51,7 @@ public class PickAllCommand extends Command {
         for (Item item : itemsToPickup) {
             item.setOwnerId(player.getDetails().getId());
 
-            player.getRoomUser().getRoom().getMapping().removeItem(player, item);
+            player.getRoomUser().getRoom().getMapping().pickupItem(player, item);
             player.getInventory().addItem(item);
         }
 

@@ -30,6 +30,7 @@ public class AboutCommand extends Command {
                 "<br>Contributors:" +
                 "<br> - ThuGie, Webbanditten, Ascii, Sefhriloff, Copyright, Raptosaur, Hoshiko " + // Call for help
                 "<br>   Romuald, Glaceon, Nillus, Holo Team, Meth0d, office.boy, killerloader" +
+                "<br>   Alito, wackfx" +
                 "<br>" +
                 "<br>" +
                 "Made by Quackster from RaGEZONE"));

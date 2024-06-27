@@ -61,7 +61,7 @@ public class PRESENTOPEN implements MessageEvent {
                 !catalogueItem.getDefinition().hasBehaviour(ItemBehaviour.DECORATION) &&
                 !catalogueItem.getDefinition().hasBehaviour(ItemBehaviour.POST_IT) &&
                 !catalogueItem.getDefinition().getSprite().equalsIgnoreCase("film")) {
-            room.getMapping().removeItem(player, item);
+            room.getMapping().removeItem(item);
 
             item.setDefinitionId(catalogueItem.getDefinition().getId());
             item.setCustomData(extraData);
@@ -86,7 +86,7 @@ public class PRESENTOPEN implements MessageEvent {
                 }
             }
 
-            room.getMapping().removeItem(player, item);
+            room.getMapping().removeItem(item);
             item.delete();
         }
 }
