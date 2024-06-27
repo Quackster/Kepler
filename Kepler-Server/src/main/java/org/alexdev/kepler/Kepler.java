@@ -55,7 +55,7 @@ public class Kepler {
     private static MusServer musServer;
     private static RconServer rconServer;
     private static Logger log;
-    public static final String SERVER_VERSION = "v1.4";
+    public static final String SERVER_VERSION = "v1.5";
 
     /**
      * Main call of Java application
