@@ -94,3 +94,5 @@ $ git submodule update --init --recursive
 * Meth0d
 * office.boy
 * Leon Hartley
+* Alito
+* wackfx

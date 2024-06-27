@@ -973,7 +973,9 @@ INSERT INTO `catalogue_items` (`id`, `sale_code`, `page_id`, `order_id`, `price`
 	(1345, 'sound_set_70', '88', 9, 3, 0, 1, 1409, 0, 'Squad Synth', 'Football Sounds 3', 0, NULL, NULL),
 	(1348, 'rclr_chair', '92', 9, 1, 0, 1, 1414, 0, 'Palm Chair', 'Watch out for coconuts', 0, NULL, NULL),
 	(1349, 'rclr_garden', '92', 9, 1, 0, 1, 1415, 0, 'Water Garden', 'Self watering', 0, NULL, NULL),
-	(1350, 'rclr_sofa', '92', 9, 1, 0, 1, 1416, 0, 'Polar Sofa', 'Snuggle up together', 0, NULL, NULL);
+	(1350, 'rclr_sofa', '92', 9, 1, 0, 1, 1416, 0, 'Polar Sofa', 'Snuggle up together', 0, NULL, NULL),
+	(1351, 'army_plasto', '44', 1, 25, 0, 1, 489, 0, 'Chair', 'Hip plastic furniture', 0, NULL, NULL);
+
 /*!40000 ALTER TABLE `catalogue_items` ENABLE KEYS */;
 
 -- Dumping structure for table kepler.catalogue_packages
@@ -1941,6 +1943,7 @@ INSERT INTO `items_definitions` (`id`, `sprite`, `sprite_id`, `name`, `descripti
 	(486, 'table_plasto_round*4', 396, 'Square Dining Table', 'Hip plastic furniture', '#FFFFFF,#CCDDFF', 2, 2, 1, '2', 'solid,can_stack_on_top,requires_rights_for_interaction', 'default', 1, 1, ''),
 	(487, 'table_plasto_square', 383, 'Occasional Table', 'Hip plastic furniture', '0,0,0', 1, 1, 1, '2', 'solid,can_stack_on_top,requires_rights_for_interaction', 'default', 1, 1, ''),
 	(488, 'chair_plasto*8', 372, 'Chair', 'Hip plastic furniture', '#FFFFFF,#C38D1A,#FFFFFF,#C38D1A', 1, 1, 1, '1', 'can_sit_on_top', 'chair', 1, 1, ''),
+	(489, 'chair_plasto*17', 372, 'Chair', 'Hip plastic furniture', '#FFFFFF,#8b8b00,#FFFFFF,#8b8b00', 1, 1, 1, '1', 'can_sit_on_top', 'chair', 1, 1, ''),
 	(494, 'table_plasto_4leg*7', 423, 'Occasional table', 'Hip plastic furniture', '#FFFFFF,#FF6D00', 2, 2, 1, '2', 'solid,can_stack_on_top,requires_rights_for_interaction', 'default', 1, 1, ''),
 	(495, 'table_plasto_bigsquare*5', 410, 'Square Dining Table', 'Hip plastic furniture', '#FFFFFF,#54CA00', 2, 2, 1, '2', 'solid,can_stack_on_top,requires_rights_for_interaction', 'default', 1, 1, ''),
 	(496, 'table_plasto_round*5', 401, 'Round Dining Table', 'Hip plastic furniture', '#FFFFFF,#54CA00', 2, 2, 1, '2', 'solid,can_stack_on_top,requires_rights_for_interaction', 'default', 1, 1, ''),
