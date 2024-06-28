@@ -73,7 +73,7 @@ public class GameConfigWriter implements ConfigWriter {
 
         config.put("poker.reward.rares", "");
         config.put("poker.reward.rares.only.in.rooms", "");
-        config.put("poker.reward.rares.quantity", "1");
+        config.put("poker.reward.rares.quantity", "0");
         config.put("poker.reward.rares.on.tie", "false");
 
         config.put("poker.reward.tickets", "0");
@@ -81,7 +81,7 @@ public class GameConfigWriter implements ConfigWriter {
         config.put("poker.reward.tickets.only.in.rooms", "");
 
         config.put("poker.announce.winner", "false");
-        config.put("poker.announce.winner.only.in.rooms", "0");
+        config.put("poker.announce.winner.only.in.rooms", "");
         config.put("poker.announce.rewards", "false");
         config.put("poker.announce.rewards.only.in.rooms", "");
 
