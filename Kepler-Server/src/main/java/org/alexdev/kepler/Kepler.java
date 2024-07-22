@@ -43,6 +43,8 @@ import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
 
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Kepler {
 
@@ -150,6 +152,10 @@ public class Kepler {
             factory.setPort(rabbitMQPort);
             factory.setUsername(rabbitMQUsername);
             factory.setPassword(rabbitMQPassword);
+
+            Map<String, Object> clientProperties = new HashMap<>();
+            clientProperties.put("connection_name", "KeplerServerMain");
+            factory.setClientProperties(clientProperties);
 
             Connection connection = factory.newConnection();
             Channel channel = connection.createChannel();
