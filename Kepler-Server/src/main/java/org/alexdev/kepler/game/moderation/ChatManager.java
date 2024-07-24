@@ -21,7 +21,9 @@ import org.slf4j.LoggerFactory;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -59,8 +61,15 @@ public class ChatManager {
 
     public void performChatQueuePublish(Player player, Room room, String message, CHAT_MESSAGE.ChatMessageType chatMessageType) {
         try {
+            Map<String, Object> msg = new HashMap<>();
+            msg.put("playerId", player.getDetails().getId());
+            msg.put("message", message);
+            msg.put("chatMessageType", chatMessageType);
+            msg.put("roomId", room.getId());
+            msg.put("sentTime", DateUtil.getCurrentTimeSeconds());
+            msg.put("username", player.getDetails().getName());
             // Using gson to convert the object to a json string
-            String messageJson = new Gson().toJson(new ChatMessage(player.getDetails().getId(), message, chatMessageType, room.getId(), DateUtil.getCurrentTimeSeconds()));
+            String messageJson = new Gson().toJson(msg);
             HabboActivityQueueSingleton.getInstance().publishMessage("chat", messageJson);
         } catch(Exception e) {
             log.error("Failed to setup RabbitMQ", e);
