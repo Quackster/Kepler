@@ -10,6 +10,9 @@ RUN apk add unzip=6.0-r14
 
 COPY . .
 
+# Convert CRLF to LF (failing build for Windows without this)
+RUN sed -i 's/\r$//' ./gradlew
+
 RUN ./gradlew distZip
 
 RUN unzip -qq ./Kepler-Server/build/distributions/Kepler-Server.zip -d ./release
@@ -27,6 +30,10 @@ FROM base AS production
 
 COPY --from=build /kepler/Kepler .
 COPY --from=build /kepler/entrypoint.sh .
+
+# Convert CRLF to LF (failing build for Windows without this)
+RUN sed -i 's/\r$//' entrypoint.sh
+RUN sed -i 's/\r$//' run.sh
 
 RUN chmod +x entrypoint.sh
 RUN chmod +x run.sh
