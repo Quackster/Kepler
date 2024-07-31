@@ -62,6 +62,58 @@ As for the client, you can find version 14 DCRs [here](https://web.archive.org/w
 
 Setup the loader files on a web server, and once Kepler is started, ensure the loader is connecting to the correct IP and ports for both the standard connection and MUS connection. The MUS connection is used for the camera.
 
+# Docker installation
+
+Install [Docker](https://docs.docker.com/engine/install/) and [git](https://git-scm.com/downloads) (optional) on your device.
+
+### 1. Clone repository
+
+```shell
+git clone https://github.com/Quackster/Kepler.git
+```
+
+_You can also [download](https://github.com/Quackster/Kepler/archive/refs/heads/master.zip) this repository and unzip it._
+
+### 2. Configure variables
+
+Copy `.env.example` file to `.env` :
+
+```shell
+cp .env.example .env
+```
+
+You can now configure all variables in `.env` file with values needed.
+
+_Don't change `MYSQL_HOST` except if you change the name of the service `mariadb` in Docker compose file._
+
+_You neither should change `MYSQL_PORT`._
+
+### 3. Start Kepler
+
+You just need to run Docker compose inside of Kepler directory :
+
+```shell
+docker compose up -d
+```
+
+To stop Kepler :
+
+```shell
+docker compose down
+```
+
+### Docker FAQ
+
+#### Reset MariaDB database
+
+You need to first stop Kepler, then remove MariaDB volume :
+
+```shell
+docker compose down && docker volume rm kepler-mariadb
+```
+
+You can now start Kepler again, database will be wiped out !
+
 ## License
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
