@@ -23,7 +23,6 @@ RUN rm -rf ./release/Kepler-Server/bin/* && \
     mkdir ./Kepler/lib && \
     mv ./release/Kepler-Server/lib/Kepler-Server.jar ./Kepler/kepler.jar && \
     mv ./release/Kepler-Server/lib/* ./Kepler/lib && \
-    cp tools/scripts/run.bat ./Kepler/ && \
     cp tools/scripts/run.sh ./Kepler/
 
 FROM base AS production
