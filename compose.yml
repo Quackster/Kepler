@@ -13,16 +13,21 @@ services:
       - "${RCON_PORT}:${RCON_PORT}"
       - "${MUS_PORT}:${MUS_PORT}"
   mariadb:
-    container_name: mariadb
     image: mariadb:11.4
+    container_name: kepler-mariadb
     restart: unless-stopped
-    volumes:
-      - ./tools/kepler.sql:/docker-entrypoint-initdb.d/kepler.sql
     env_file:
-        - .env
+      - .env
+    volumes:
+      - mariadb:/var/lib/mysql
+      - ./tools/kepler.sql:/docker-entrypoint-initdb.d/kepler.sql
     healthcheck:
       test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
       start_period: 10s
       interval: 10s
       timeout: 5s
       retries: 3
+
+volumes:
+  mariadb:
+    name: kepler-mariadb
