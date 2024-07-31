@@ -1,0 +1,10 @@
+.env
+.env.example
+.gitattributes
+.gitignore
+compose.yml
+Dockerfile
+LICENSE.txt
+README.md
+.github
+.vscode
