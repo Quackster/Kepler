@@ -1,0 +1,33 @@
+services:
+  kepler:
+    build: .
+    container_name: kepler
+    restart: unless-stopped
+    env_file:
+      - .env
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    ports:
+      - "${SERVER_PORT}:${SERVER_PORT}"
+      - "${RCON_PORT}:${RCON_PORT}"
+      - "${MUS_PORT}:${MUS_PORT}"
+  mariadb:
+    image: mariadb:11.4
+    container_name: kepler-mariadb
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - mariadb:/var/lib/mysql
+      - ./tools/kepler.sql:/docker-entrypoint-initdb.d/kepler.sql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  mariadb:
+    name: kepler-mariadb

@@ -24,3 +24,5 @@ error.log
 .env
 Kepler-Server/src/main/java/META-INF/MANIFEST.MF
 *.log
+.env
+.vscode
