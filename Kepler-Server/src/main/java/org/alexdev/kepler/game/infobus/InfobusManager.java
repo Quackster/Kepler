@@ -1,6 +1,7 @@
 package org.alexdev.kepler.game.infobus;
 
 
+import com.google.gson.Gson;
 import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.player.PlayerManager;
 import org.alexdev.kepler.game.room.Room;
@@ -8,10 +9,14 @@ import org.alexdev.kepler.log.Log;
 import org.alexdev.kepler.messages.outgoing.rooms.infobus.VOTE_QUESTION;
 import org.alexdev.kepler.messages.outgoing.rooms.infobus.VOTE_RESULTS;
 import org.alexdev.kepler.messages.outgoing.rooms.items.SHOWPROGRAM;
+import org.alexdev.kepler.server.rabbitmq.HabboActivityQueueSingleton;
+import org.alexdev.kepler.util.DateUtil;
 import org.alexdev.kepler.util.schedule.FutureRunnable;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -56,6 +61,7 @@ public class InfobusManager {
                         this.cancelFuture();
                         pollEnded();
                     }
+                    SendStatusToQueue();
                 } catch (Exception ex) {
                     Log.getErrorLogger().error("Error occurred in infobus runnable: ", ex);
                 }
@@ -69,6 +75,7 @@ public class InfobusManager {
         for (int playerId : this.getPlayers()) {
             PlayerManager.getInstance().getPlayerById(playerId).send(new VOTE_QUESTION(constructVoteQuestion()));
         }
+        SendStatusToQueue();
     }
 
     // Constructs the string shown in the status modal
@@ -106,28 +113,38 @@ public class InfobusManager {
 
     public void setQuestion(String question) {
         this.question = question;
+        SendStatusToQueue();
     }
 
     public void addOption(String option) {
         this.options.add(option);
+        SendStatusToQueue();
     }
 
     public void removeOption(int option) {
         // minus one, so it makes sense when using status
-        if(this.options.indexOf(this.options.get(option-1)) != -1) {
-            this.options.remove(this.options.get(option-1));
+        if(this.options.indexOf(this.options.get(option)) != -1) {
+            this.options.remove(this.options.get(option));
         }
+        SendStatusToQueue();
+    }
+
+    public void editOption(int option, String newOption) {
+        this.options.set(option, newOption);
+        SendStatusToQueue();
     }
 
     public void addVote(int option) {
         this.votes.add(option-1);
+        SendStatusToQueue();
     }
 
 
     public void reset() {
-        this.question = null;
+        //this.question = null;
         this.votes.clear();
-        this.options.clear();
+        //this.options.clear();
+        SendStatusToQueue();
     }
 
     public void pollEnded() {
@@ -157,11 +174,13 @@ public class InfobusManager {
     public void openDoor(Room room) {
         this.isDoorOpen = true;
         room.send(new SHOWPROGRAM(new String[] { "bus", "open" }));
+        SendStatusToQueue();
     }
 
     public void closeDoor(Room room) {
         this.isDoorOpen = false;
         room.send(new SHOWPROGRAM(new String[] { "bus", "close" }));
+        SendStatusToQueue();
     }
 
     public int getDoorX() {
@@ -174,12 +193,28 @@ public class InfobusManager {
 
     public void addPlayer(int player) {
         this.playersInBus.add(player);
+        SendStatusToQueue();
     }
 
     public void removePlayer(int player) {
         if(this.playersInBus.indexOf(player) != -1) {
             this.playersInBus.remove(this.playersInBus.indexOf(player));
         }
+        SendStatusToQueue();
+    }
+
+    public void SendStatusToQueue() {
+
+        Map<String, Object> msg = new HashMap<>();
+        msg.put("players", this.playersInBus);
+        msg.put("time", pollTimeLeft);
+        msg.put("question", this.question);
+        msg.put("options", this.options);
+        msg.put("votes", this.votes);
+        msg.put("door", this.isDoorOpen);
+        // Using gson to convert the object to a json string
+        String messageJson = new Gson().toJson(msg);
+        HabboActivityQueueSingleton.getInstance().publishMessage("infobus", messageJson);
     }
 
 }
