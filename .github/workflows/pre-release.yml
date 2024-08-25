@@ -51,6 +51,6 @@ jobs:
           platforms: linux/amd64
           push: true
           # Both latest and sha
-          tags:
-              - ghcr.io/webbanditten/kepler:latest
-              - ghcr.io/webbanditten/kepler:${{ steps.sha-short.outputs.sha-short }}
+          tags: |
+            ghcr.io/webbanditten/kepler:latest
+            ghcr.io/webbanditten/kepler:${{ steps.sha-short.outputs.sha-short }}
