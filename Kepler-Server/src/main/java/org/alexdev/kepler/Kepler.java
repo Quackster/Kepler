@@ -64,7 +64,7 @@ public class Kepler {
 
     private static LazySodiumJava LIB_SODIUM;
 
-    public static final String SERVER_VERSION = "v2";
+    public static final String SERVER_VERSION = "1.0.4";
 
     /**
      * Main call of Java application
@@ -128,10 +128,37 @@ public class Kepler {
             setupMus();
             setupServer();
             setupRabbitMQ();
+            setupSentry();
 
             Runtime.getRuntime().addShutdownHook(new Thread(Kepler::dispose));
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private static void setupSentry() {
+        String sentryDSN = ServerConfiguration.getString("sentry.dsn");
+
+        if (sentryDSN.length() == 0) {
+            log.error("Sentry DSN not provided");
+            return;
+        }
+
+        log.info("Setting up Sentry");
+
+        try {
+            io.sentry.Sentry.init(options -> {
+                options.setDsn(sentryDSN);
+                options.setRelease(SERVER_VERSION);
+                if (ServerConfiguration.getBoolean("sentry.debug")) {
+                    options.setDebug(true);
+                }
+                if (ServerConfiguration.getString("sentry.environment") != null) {
+                    options.setEnvironment(ServerConfiguration.getString("sentry.environment"));
+                }
+            });
+        } catch (Exception e) {
+            log.error("Failed to setup Sentry", e);
         }
     }
 

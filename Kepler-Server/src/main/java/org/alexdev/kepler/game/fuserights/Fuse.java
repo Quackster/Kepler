@@ -12,6 +12,7 @@ public enum Fuse {
         // Hobba fuses
         //MUTE("fuse_mute"), // NOT USED
         KICK("fuse_kick"),
+        INFOBUS("fuse_infobus"),
         RECEIVE_CALLS_FOR_HELP("fuse_receive_calls_for_help"),
 
         // Superhobba fuses

@@ -12,7 +12,8 @@ public enum CommandType {
     REMOTE_ALERT("remote_alert"),
     REMOTE_KICK("remote_kick"),
     REMOTE_BAN("remote_ban"),
-    TEST_PACKET("test_packet");
+    TEST_PACKET("test_packet"),
+    UPDATE_INFOBUS("update_infobus");
 
     private final String commandName;
 

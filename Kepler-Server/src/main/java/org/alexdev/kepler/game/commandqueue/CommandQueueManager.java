@@ -68,6 +68,9 @@ public class CommandQueueManager {
                 case TEST_PACKET:
                     command = new TestPacket();
                     break;
+                case UPDATE_INFOBUS:
+                    command = new UpdateInfobusCommand();
+                    break;
                 default:
                     break;
             }

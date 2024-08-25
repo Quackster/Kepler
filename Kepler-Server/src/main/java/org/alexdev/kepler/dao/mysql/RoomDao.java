@@ -75,7 +75,7 @@ public class RoomDao {
             for (ChatMessage chatMessage : chatMessageList) {
                 preparedStatement.setInt(1, chatMessage.getPlayerId());
                 preparedStatement.setInt(2, chatMessage.getRoomId());
-                preparedStatement.setLong(3, DateUtil.getCurrentTimeSeconds());
+                preparedStatement.setLong(3, chatMessage.getSentTime());
 
                 switch (chatMessage.getChatMessageType()) {
                     case CHAT:

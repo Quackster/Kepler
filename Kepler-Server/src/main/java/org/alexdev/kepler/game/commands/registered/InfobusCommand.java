@@ -18,7 +18,7 @@ import java.util.stream.IntStream;
 public class InfobusCommand extends Command {
     @Override
     public void addPermissions() {
-        this.permissions.add(Fuse.ADMINISTRATOR_ACCESS);
+        this.permissions.add(Fuse.INFOBUS);
     }
 
     @Override
@@ -101,7 +101,9 @@ public class InfobusCommand extends Command {
             if(!NumberUtils.isCreatable(args[2])) {
                 player.send(new CHAT_MESSAGE(CHAT_MESSAGE.ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), "To remove a question you need to the number found in :infobus status."));
             } else {
-                 bus.removeOption(Integer.parseInt(args[2]));
+                // minus one, so it makes sense when using status (1 based)
+                int option = Integer.parseInt(args[2])-1;
+                bus.removeOption(option);
                 player.send(new CHAT_MESSAGE(CHAT_MESSAGE.ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), "Removed option from the question, see the status by executing :infobus status"));
             }
 

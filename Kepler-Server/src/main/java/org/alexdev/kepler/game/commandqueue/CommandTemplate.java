@@ -3,6 +3,7 @@ package org.alexdev.kepler.game.commandqueue;
 import java.util.ArrayList;
 
 public class CommandTemplate {
+    public String Type;
     public int UserId;
     public int Credits;
     public int DefinitionId;
