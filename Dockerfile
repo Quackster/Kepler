@@ -5,7 +5,7 @@
 FROM alpine:3.20 AS base
 
 # Add OpenJDK17
-RUN apk add openjdk17=17.0.12_p7-r0
+RUN apk add --no-cache openjdk17=17.0.12_p7-r0
 
 # Uses /kepler directory
 WORKDIR /kepler
@@ -17,7 +17,7 @@ WORKDIR /kepler
 FROM base AS build
 
 # Add unzip
-RUN apk add unzip=6.0-r14
+RUN apk add --no-cache unzip=6.0-r14
 
 # Copy every files/folders that are not in .dockerignore
 COPY . .
