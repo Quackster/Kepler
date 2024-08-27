@@ -66,7 +66,7 @@ public class Storage {
 
         storage = new Storage(ServerConfiguration.getString("mysql.hostname"),
                 ServerConfiguration.getInteger("mysql.port"),
-                ServerConfiguration.getString("mysql.username"),
+                ServerConfiguration.getString("mysql.user"),
                 ServerConfiguration.getString("mysql.password"),
                 ServerConfiguration.getString("mysql.database"));
 
