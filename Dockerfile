@@ -23,10 +23,10 @@ RUN apk add unzip=6.0-r14
 COPY . .
 
 # Convert CRLF to LF executable files (failing build for Windows without this)
-RUN sed -i 's/\r$//' gradlew tools/scripts/run.sh entrypoint.sh
+RUN sed -i 's/\r$//' gradlew tools/scripts/run.sh
 
-# Make gradlew, entrypoint.sh and run.sh executable
-RUN chmod +x gradlew entrypoint.sh tools/scripts/run.sh
+# Make gradlew and run.sh executable
+RUN chmod +x gradlew tools/scripts/run.sh
 
 # Run gradle build
 RUN ./gradlew distZip
@@ -39,7 +39,6 @@ RUN rm -rf ./release/Kepler-Server/bin && \
     mkdir -p ./build/lib && \
     mv ./release/Kepler-Server/lib/Kepler-Server.jar ./build/kepler.jar && \
     mv ./release/Kepler-Server/lib/* ./build/lib && \
-    mv ./entrypoint.sh ./build/entrypoint.sh && \
     cp tools/scripts/run.sh ./build/
 
 ####################
@@ -50,7 +49,5 @@ FROM base AS production
 
 # Copy builded Kepler server
 COPY --from=build /kepler/build ./
-
-ENTRYPOINT [ "sh", "entrypoint.sh" ]
 
 CMD [ "sh", "run.sh" ]
