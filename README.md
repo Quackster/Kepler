@@ -54,8 +54,6 @@ Install any JDK version that is equal or above >= 17 to run the jar files.
 
 Open run.sh (Linux) or run.bat (Windows) to start Kepler.
 
-I highly recommend [this browser](https://forum.oldskooler.org/threads/portable-browser-with-flash-shockwave-basilisk.70/) to be able to play Adobe Shockwave movies in the present day.
-
 ❗ Once registered as an admin, make yourself admin by setting your ``rank`` to 7 in the ``users`` table.
 
 As for the client, you can find version 14 DCRs [here](https://web.archive.org/web/20220724030154/https://raw.githubusercontent.com/Quackster/Kepler/master/tools/Quackster_v14.zip).
