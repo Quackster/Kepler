@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class BotData {
+    private int id;
     private String name;
     private String mission;
     private Position startPosition;
@@ -20,8 +21,9 @@ public class BotData {
     private List<BotSpeech> unrecognisedSpeech;
     private List<String> drinks;
 
-    public BotData(String name, String mission, int x, int y, int headRotation, int bodyRotation, String figure, String walkspaceData,
+    public BotData(int id, String name, String mission, int x, int y, int headRotation, int bodyRotation, String figure, String walkspaceData,
                    String speech, String responses, String unrecognisedResponses, String drinks) {
+        this.id = id;
         this.name = name;
         this.mission = mission;
         this.startPosition = new Position(x, y, 0, headRotation, bodyRotation);
@@ -40,7 +42,7 @@ public class BotData {
         this.speeches = this.parseSpeech(speech);
         this.responses = this.parseSpeech(responses);
         this.unrecognisedSpeech = this.parseSpeech(unrecognisedResponses);
-        this.drinks = this.drinks = drinks.length() > 0 ? Arrays.asList(drinks.split(",")) : new ArrayList<>();
+        this.drinks = drinks.length() > 0 ? Arrays.asList(drinks.split(",")) : new ArrayList<>();
     }
 
     private List<BotSpeech> parseSpeech(String responses) {
@@ -56,6 +58,10 @@ public class BotData {
         }
 
         return botSpeech;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {

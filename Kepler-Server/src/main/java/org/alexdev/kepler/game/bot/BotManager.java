@@ -4,7 +4,10 @@ import org.alexdev.kepler.dao.mysql.BotDao;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
+import org.alexdev.kepler.game.room.RoomManager;
+import org.alexdev.kepler.game.room.enums.StatusType;
 import org.alexdev.kepler.game.room.tasks.BotTask;
+import org.alexdev.kepler.messages.outgoing.rooms.user.CHAT_MESSAGE;
 import org.alexdev.kepler.util.config.GameConfiguration;
 
 import java.util.ArrayList;
@@ -33,7 +36,7 @@ public class BotManager {
 
         for (BotData botData : botDataList) {
             Bot bot = new Bot(botData);
-            bot.getDetails().fill(0, botData.getName(), botData.getFigure(), botData.getMission(), "M");
+            bot.getDetails().fill(botData.getId(), botData.getName(), botData.getFigure(), botData.getMission(), "M");
 
             Position startPosition = botData.getStartPosition();
             startPosition.setZ(room.getMapping().getTile(botData.getStartPosition().getX(), botData.getStartPosition().getY()).getWalkingHeight());
@@ -43,6 +46,65 @@ public class BotManager {
 
         if (botDataList.size() > 0) {
             room.getTaskManager().scheduleTask("BotCommandTask", new BotTask(room), 0, 1, TimeUnit.SECONDS);
+        }
+    }
+
+
+    public void removeBots(Room room) {
+        List<Bot> bots = new ArrayList<>(room.getEntityManager().getEntitiesByClass(Bot.class));
+
+        for (Bot bot : bots) {
+            room.getEntityManager().leaveRoom(bot, false);
+        }
+
+        room.getTaskManager().cancelTask("BotCommandTask");
+
+    }
+
+    public void setBotStatus(String botName, Room room, StatusType statusType, Object value) {
+        for (Bot bot : room.getEntityManager().getEntitiesByClass(Bot.class)) {
+            if (bot.getDetails().getName().contains(botName)) {
+                bot.getRoomUser().setStatus(statusType, value);
+            }
+        }
+    }
+
+    public void setBotStatus(Room room, StatusType statusType, Object value) {
+        for (Bot bot : room.getEntityManager().getEntitiesByClass(Bot.class)) {
+            bot.getRoomUser().setStatus(statusType, value);
+        }
+    }
+
+    public void removeBotStatus(Room room, StatusType statusType) {
+        for (Bot bot : room.getEntityManager().getEntitiesByClass(Bot.class)) {
+            bot.getRoomUser().removeStatus(statusType);
+        }
+    }
+
+    public void removeBotStatus(String botName, Room room, StatusType statusType) {
+        for (Bot bot : room.getEntityManager().getEntitiesByClass(Bot.class)) {
+            if (bot.getDetails().getName().contains(botName)) {
+                bot.getRoomUser().removeStatus(statusType);
+            }
+        }
+    }
+
+    public void resetBots(Room room) {
+        this.removeBots(room);
+        this.addBots(room);
+    }
+
+    public void talk(int roomId, int botId, String message, CHAT_MESSAGE.ChatMessageType type) {
+        Room room = RoomManager.getInstance().getRoomById(roomId);
+
+        if (room == null) {
+            return;
+        }
+
+        for (Bot bot : room.getEntityManager().getEntitiesByClass(Bot.class)) {
+            if (bot.getDetails().getId() == botId) {
+                bot.getRoomUser().talk(message, type);
+            }
         }
     }
 

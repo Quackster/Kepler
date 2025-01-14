@@ -1,25 +1,8 @@
 package org.alexdev.kepler.game.commandqueue;
 
 import com.google.gson.Gson;
-import org.alexdev.kepler.dao.mysql.*;
-import org.alexdev.kepler.game.commandqueue.CommandType;
 import org.alexdev.kepler.game.commandqueue.commands.*;
-import org.alexdev.kepler.game.item.Item;
-import org.alexdev.kepler.game.messenger.MessengerMessage;
-import org.alexdev.kepler.game.moderation.actions.ModeratorBanUserAction;
-import org.alexdev.kepler.game.moderation.actions.ModeratorKickUserAction;
-import org.alexdev.kepler.game.player.Player;
-import org.alexdev.kepler.game.player.PlayerDetails;
-import org.alexdev.kepler.game.player.PlayerManager;
-import org.alexdev.kepler.game.room.Room;
-import org.alexdev.kepler.game.room.RoomManager;
 import org.alexdev.kepler.log.Log;
-import org.alexdev.kepler.messages.outgoing.messenger.CAMPAIGN_MSG;
-import org.alexdev.kepler.messages.outgoing.messenger.ROOMFORWARD;
-import org.alexdev.kepler.messages.outgoing.user.MODERATOR_ALERT;
-import org.alexdev.kepler.messages.outgoing.user.currencies.CREDIT_BALANCE;
-
-import java.util.List;
 
 public class CommandQueueManager {
     private static CommandQueueManager instance;
@@ -70,6 +53,12 @@ public class CommandQueueManager {
                     break;
                 case UPDATE_INFOBUS:
                     command = new UpdateInfobusCommand();
+                    break;
+                case RESET_BOTS:
+                    command = new ResetBotCommand();
+                    break;
+                case BOT_TALK:
+                    command = new BotTalkCommand();
                     break;
                 default:
                     break;

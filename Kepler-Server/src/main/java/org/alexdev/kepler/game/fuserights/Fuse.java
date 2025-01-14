@@ -56,7 +56,8 @@ public enum Fuse {
         //ROOM_QUEUE_CLUB("fuse_room_queue_club"), // Not used
         //EDIT_CATALOGUE("fuse_catalog_editor"), // Not used
         GIVE_CREDITS("fuse_give_credits"),
-        BADGES("fuse_badges");
+        BADGES("fuse_badges"),
+        BOTS("fuse_bots");
 
         private final String fuseName;
 

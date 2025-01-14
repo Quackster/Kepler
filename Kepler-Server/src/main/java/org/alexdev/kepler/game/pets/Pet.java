@@ -29,6 +29,10 @@ public class Pet extends Entity {
         PetDao.saveDetails(this.petDetails.getId(), this.petDetails);
     }
 
+    public String getName() {
+        return this.petDetails.getName();
+    }
+
     public int getAge() {
         return (int) TimeUnit.SECONDS.toDays(DateUtil.getCurrentTimeSeconds() - this.petDetails.getBorn());
     }

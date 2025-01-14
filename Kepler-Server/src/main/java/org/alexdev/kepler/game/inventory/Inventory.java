@@ -40,6 +40,12 @@ public class Inventory {
         }
     }
 
+    public void delete() {
+        ItemDao.deleteAllNotInRoom(this.player.getDetails().getId());
+        this.items = ItemDao.getInventory(this.player.getDetails().getId());
+        this.refreshPagination();
+    }
+
     /**
      * Refreshes the pagination by making the most recently bought items appear first.
      */
@@ -116,6 +122,11 @@ public class Inventory {
     private void changeView(String stripView) {
         if (stripView.equals("new")) {
             this.handStripPageIndex = 0;
+        }
+
+        if (stripView.equals("delete")) {
+            this.handStripPageIndex = 0;
+            player.getInventory().delete();
         }
 
         if (stripView.equals("next")) {

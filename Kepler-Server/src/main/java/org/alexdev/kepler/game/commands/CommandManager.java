@@ -60,6 +60,9 @@ public class CommandManager {
         this.commands.put(new String[] { "furni" }, new FurniCommand());
         this.commands.put(new String[] { "events" }, new EventsCommand());
         this.commands.put(new String[] { "refreshpublicrooms" }, new RefreshPublicRoomsCommand());
+        this.commands.put(new String[] { "bots" }, new BotsCommand());
+        this.commands.put(new String[] { "botstatus" }, new BotsStatusCommand());
+        this.commands.put(new String[] { "botsreset" }, new BotsReset());
 
         log.info("Loaded {} commands", commands.size());
     }

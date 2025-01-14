@@ -279,7 +279,6 @@ public class RoomEntityManager {
      */
     public void tryRoomEntry(Player player) {
         boolean isRoomActive = this.room.isActive();
-
         if (!this.room.isActive()) {
             this.room.setActive(true);
         };

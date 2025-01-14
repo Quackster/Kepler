@@ -26,6 +26,7 @@ public class BotDao {
             while (resultSet.next()) {
                 //a(String name, String mission, int x, int y, String headRotation, String bodyRotation, String figure, String walkspace) {
                 botData.add(new BotData(
+                        resultSet.getInt("id"),
                         resultSet.getString("name"),
                         resultSet.getString("mission"),
                         resultSet.getInt("x"),

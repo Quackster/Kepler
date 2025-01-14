@@ -12,6 +12,7 @@ import org.alexdev.kepler.messages.incoming.club.GET_CLUB;
 import org.alexdev.kepler.messages.incoming.club.SCR_GIFT_APPROVAL;
 import org.alexdev.kepler.messages.incoming.club.SUBSCRIBE_CLUB;
 import org.alexdev.kepler.messages.incoming.events.*;
+import org.alexdev.kepler.messages.incoming.pets.PET_CONTROL;
 import org.alexdev.kepler.messages.incoming.rooms.teleporter.GOVIADOOR;
 import org.alexdev.kepler.messages.incoming.rooms.teleporter.INTODOOR;
 import org.alexdev.kepler.messages.incoming.games.*;
@@ -252,6 +253,7 @@ public class MessageHandler {
      */
     private void registerPetPackets() {
         registerEvent(128, new GETPETSTAT());
+        registerEvent(901, new PET_CONTROL());
     }
 
     /**

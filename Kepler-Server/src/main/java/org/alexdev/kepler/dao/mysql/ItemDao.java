@@ -168,6 +168,27 @@ public class ItemDao {
         return items;
     }
 
+    public static void deleteAllNotInRoom(int userId) {
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("DELETE FROM items WHERE user_id = ? AND room_id = 0", sqlConnection);
+            preparedStatement.setInt(1, userId);
+            preparedStatement.executeUpdate();
+
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+
     /**
      * Get the item by item id
      *
