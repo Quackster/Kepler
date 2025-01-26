@@ -8,13 +8,15 @@ public class Reward {
     private Date availableFrom;
     private Date availableTo;
     private String itemDefinitions;
+    private String badge;
 
-    public Reward(int id, String description, Date availableFrom, Date availableTo, String itemDefinitions) {
+    public Reward(int id, String description, Date availableFrom, Date availableTo, String itemDefinitions, String badge) {
         this.id = id;
         this.description = description;
         this.availableFrom = availableFrom;
         this.availableTo = availableTo;
         this.itemDefinitions = itemDefinitions;
+        this.badge = badge;
     }
 
     public int getId() {
@@ -35,5 +37,8 @@ public class Reward {
 
     public String getDescription() {
         return description;
+    }
+    public String getBadge() {
+        return badge;
     }
 }

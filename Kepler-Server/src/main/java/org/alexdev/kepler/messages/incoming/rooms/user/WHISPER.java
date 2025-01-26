@@ -35,7 +35,9 @@ public class WHISPER implements MessageEvent {
 
         if (whisperUser != null) {
             if (!whisperUser.getIgnoredList().contains(player.getDetails().getName())) {
-                receieveMessages.add(whisperUser);
+                if(!receieveMessages.contains(whisperUser)) {
+                    receieveMessages.add(whisperUser);
+                }
             }
         }
 
