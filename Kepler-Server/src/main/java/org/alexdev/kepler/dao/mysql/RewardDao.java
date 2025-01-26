@@ -26,7 +26,8 @@ public class RewardDao {
                     "    t1.item_definitions,\n" +
                     "    t1.available_from, \n" +
                     "    t1.available_to, \n" +
-                    "    t1.description\n" +
+                    "    t1.description, \n" +
+                    "    t1.badge\n" +
                     "FROM `rewards` as t1\n" +
                     "WHERE NOT EXISTS \n" +
                     "    (SELECT t2.reward_id, t2.user_id \n" +
@@ -41,7 +42,8 @@ public class RewardDao {
                         resultSet.getString("description"),
                         resultSet.getDate("available_from"),
                         resultSet.getDate("available_to"),
-                        resultSet.getString("item_definitions")
+                        resultSet.getString("item_definitions"),
+                        resultSet.getString("badge")
                 );
                 rewards.add(reward);
             }

@@ -2,6 +2,7 @@ package org.alexdev.kepler.game.player;
 
 import io.netty.util.AttributeKey;
 import org.alexdev.kepler.Kepler;
+import org.alexdev.kepler.dao.mysql.BadgeDao;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.dao.mysql.RewardDao;
 import org.alexdev.kepler.dao.mysql.SettingsDao;
@@ -28,6 +29,7 @@ import org.alexdev.kepler.messages.outgoing.handshake.RIGHTS;
 import org.alexdev.kepler.messages.outgoing.moderation.USER_BANNED;
 import org.alexdev.kepler.messages.outgoing.openinghours.INFO_HOTEL_CLOSING;
 import org.alexdev.kepler.messages.outgoing.alert.ALERT;
+import org.alexdev.kepler.messages.outgoing.rooms.badges.AVAILABLE_BADGES;
 import org.alexdev.kepler.messages.outgoing.user.HOTEL_LOGOUT;
 import org.alexdev.kepler.messages.outgoing.user.HOTEL_LOGOUT.LogoutReason;
 import org.alexdev.kepler.messages.types.MessageComposer;
@@ -155,23 +157,43 @@ public class Player extends Entity {
         // Rewards
         RewardDao.getAvailableRewards(this.getDetails().getId()).forEach(reward -> {
             List<ItemDefinition> itemDefinitions = new ArrayList<>();
+            if(!reward.getBadge().isEmpty()) {
+                List<String> badges = this.getDetails().getBadges();
+                if (!badges.contains(reward.getBadge())) {
 
-            if (reward.getItemDefinitions().contains(",")) {
-                for (String itemDefinition : reward.getItemDefinitions().split(",")) {
-                    itemDefinitions.add(ItemManager.getInstance().getDefinition(Integer.parseInt(itemDefinition)));
+                    badges.add(reward.getBadge());
+                    this.getDetails().setBadges(badges);
+
+                    BadgeDao.saveCurrentBadge(this.getDetails());
+                    BadgeDao.addBadge(this.getDetails().getId(), reward.getBadge());
+
+                    if(this.getDetails().getCurrentBadge().isEmpty()) {
+                        this.getDetails().setCurrentBadge(reward.getBadge());
+                        this.getDetails().setShowBadge(true);
+                    }
+
+                    this.send(new AVAILABLE_BADGES(this.getDetails()));
+                    this.send(new ALERT(reward.getDescription()));
                 }
-            } else {
-                itemDefinitions.add(ItemManager.getInstance().getDefinition(Integer.parseInt(reward.getItemDefinitions())));
+            }
+            if(!reward.getItemDefinitions().isEmpty()) {
+                if (reward.getItemDefinitions().contains(",")) {
+                    for (String itemDefinition : reward.getItemDefinitions().split(",")) {
+                        itemDefinitions.add(ItemManager.getInstance().getDefinition(Integer.parseInt(itemDefinition)));
+                    }
+                } else {
+                    itemDefinitions.add(ItemManager.getInstance().getDefinition(Integer.parseInt(reward.getItemDefinitions())));
+                }
             }
             if(itemDefinitions.size() == StringUtils.countMatches(reward.getItemDefinitions(), ",") + 1) {
                 try {
                     Item present = ItemManager.getInstance().createRewardGift(this.details, reward.getItemDefinitions(), StringUtil.filterInput(reward.getDescription(), false));
                     if(present != null) {
-                        Player receiver = PlayerManager.getInstance().getPlayerById(this.details.getId());
 
-                        if (receiver != null) {
-                            receiver.getInventory().addItem(present);
-                            receiver.getInventory().getView("new");
+
+                        if (this != null) {
+                            this.getInventory().addItem(present);
+                            this.getInventory().getView("new");
 
                             RewardDao.redeemReward(reward.getId(), this.details.getId());
                         }
