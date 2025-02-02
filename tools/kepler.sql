@@ -6591,7 +6591,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `figure` varchar(255) NOT NULL DEFAULT '1000118001270012900121001',
   `pool_figure` varchar(255) NOT NULL DEFAULT '',
   `sex` char(1) NOT NULL DEFAULT 'M',
-  `motto` varchar(100) NOT NULL DEFAULT 'de kepler whey',
+  `motto` varchar(100) NOT NULL DEFAULT 'i love habbo hotel',
   `credits` int(11) NOT NULL DEFAULT 200,
   `tickets` int(11) NOT NULL DEFAULT 0,
   `film` int(11) NOT NULL DEFAULT 0,
