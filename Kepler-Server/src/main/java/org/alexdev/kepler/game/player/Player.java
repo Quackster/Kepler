@@ -155,9 +155,10 @@ public class Player extends Entity {
         }
 
         // Rewards
-        RewardDao.getAvailableRewards(this.getDetails().getId()).forEach(reward -> {
+        var rewards = RewardDao.getAvailableRewards(this.getDetails().getId());
+        rewards.forEach(reward -> {
             List<ItemDefinition> itemDefinitions = new ArrayList<>();
-            if(!reward.getBadge().isEmpty()) {
+            if(reward.getBadge() != null && !reward.getBadge().isEmpty()) {
                 List<String> badges = this.getDetails().getBadges();
                 if (!badges.contains(reward.getBadge())) {
 
