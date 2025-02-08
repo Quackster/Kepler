@@ -39,6 +39,6 @@ public class Reward {
         return description;
     }
     public String getBadge() {
-        return badge;
+        return (badge != null) ? badge : "";
     }
 }
