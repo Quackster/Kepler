@@ -66,10 +66,10 @@ public class NettyRequest {
     }
 
     public String contents() {
-        byte[] remiainingBytes = this.remainingBytes();
+        byte[] remainingBytes = this.remainingBytes();
 
-        if (remiainingBytes != null) {
-            return new String(remiainingBytes, StringUtil.getCharset());
+        if (remainingBytes != null) {
+            return new String(remainingBytes, StringUtil.getCharset());
         }
 
         return null;
