@@ -141,6 +141,7 @@ $ git submodule update --init --recursive
 * Glaceon
 * Nillus
 * Holo Team
+* wackfx
 * Meth0d
 * office.boy
 * Leon Hartley
