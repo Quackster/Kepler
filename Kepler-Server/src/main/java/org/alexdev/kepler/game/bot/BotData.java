@@ -48,6 +48,10 @@ public class BotData {
     private List<BotSpeech> parseSpeech(String responses) {
         var botSpeech = new ArrayList<BotSpeech>();
 
+        if (responses.contains("_AI_")) {
+            return botSpeech;
+        }
+
         for (String sentence : responses.split(Pattern.quote("|"))) {
             String text = StringUtil.filterInput(sentence, true);
 
