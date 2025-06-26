@@ -24,6 +24,10 @@ public class GETUSERFLATCATS implements MessageEvent {
                 continue;
             }
 
+            if (category.isNode()) {
+                continue;
+            }
+            
             categoryList.add(category);
         }
 
