@@ -1,10 +1,10 @@
 package org.alexdev.kepler.game.player;
 
-import org.alexdev.kepler.dao.mysql.BadgeDao;
-import org.alexdev.kepler.dao.mysql.BanDao;
-import org.alexdev.kepler.dao.mysql.PlayerDao;
+import org.alexdev.kepler.dao.mysql.*;
 import org.alexdev.kepler.game.ban.BanType;
 import org.alexdev.kepler.game.games.enums.GameType;
+import org.alexdev.kepler.game.groups.Group;
+import org.alexdev.kepler.game.groups.GroupMember;
 import org.alexdev.kepler.util.DateUtil;
 import org.alexdev.kepler.util.StringUtil;
 import org.alexdev.kepler.util.config.GameConfiguration;
@@ -55,6 +55,10 @@ public class PlayerDetails {
     private int snowstormPoints;
     private int battleballPoints;
 
+    // Group
+    private int favouriteGroupId;
+    private GroupMember groupMember;
+
     public PlayerDetails() {
     }
 
@@ -80,9 +84,10 @@ public class PlayerDetails {
      * @param soundEnabled allow playing sound from client
      * @param battleballPoints the points accumulated when playing battleball
      * @param snowstormPoints the points accumulated when playing snowstorm
+     * @param favoriteGroupId the favourite group id
      */
     public void fill(int id, String username, String figure, String poolFigure, int credits, String motto, String consoleMotto, String sex, String birthday, int tickets, int film, int rank, long lastOnline, long firstClubSubscription, long clubExpiration, long clubGiftDue, String currentBadge, boolean showBadge, boolean allowStalking, boolean allowFriendRequests, boolean soundEnabled,
-                     boolean tutorialFinished, int battleballPoints, int snowstormPoints) {
+                     boolean tutorialFinished, int battleballPoints, int snowstormPoints, int favoriteGroupId) {
         this.id = id;
         this.username = StringUtil.filterInput(username, true);
         this.figure = StringUtil.filterInput(figure, true); // Format: hd-180-1.ch-255-70.lg-285-77.sh-295-74.fa-1205-91.hr-125-31.ha-1016-
@@ -107,6 +112,7 @@ public class PlayerDetails {
         this.tutorialFinished = tutorialFinished;
         this.battleballPoints = battleballPoints;
         this.snowstormPoints = snowstormPoints;
+        this.favouriteGroupId = favoriteGroupId;
 
         if (this.credits < 0) {
             // TODO: log warning
@@ -393,5 +399,34 @@ public class PlayerDetails {
 
     public void setBirthday(String birthday) {
         this.birthday = birthday;
+    }
+
+    public int getFavouriteGroupId() { return favouriteGroupId; }
+
+    public void setFavouriteGroupId(int groupId) { this.favouriteGroupId = groupId; }
+
+    public GroupMember getGroupMember() {
+        Group group;
+
+        if (this.getFavouriteGroupId() > 0) {
+            var player = PlayerManager.getInstance().getPlayerById(this.id);
+            if (player == null) {
+                group = GroupDao.getGroup(this.favouriteGroupId);
+            }
+            else {
+                group = player.getJoinedGroups().stream().filter(x -> x.getId() == this.favouriteGroupId).findFirst().orElse(null);
+            }
+
+            if (group == null) {
+                this.favouriteGroupId = 0;
+                PlayerDao.saveFavouriteGroup(this.id, 0);
+            } else if (group.getOwnerId() == this.id) {
+                return new GroupMember(this.id, this.favouriteGroupId, false, 3);
+            }
+
+            this.groupMember = GroupMemberDao.getMember(this.favouriteGroupId, this.id);
+        }
+
+        return this.groupMember;
     }
 }

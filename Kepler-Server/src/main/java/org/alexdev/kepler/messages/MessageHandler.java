@@ -38,6 +38,8 @@ import org.alexdev.kepler.messages.incoming.rooms.badges.SETBADGE;
 import org.alexdev.kepler.messages.incoming.rooms.dimmer.MSG_ROOMDIMMER_CHANGE_STATE;
 import org.alexdev.kepler.messages.incoming.rooms.dimmer.MSG_ROOMDIMMER_GET_PRESETS;
 import org.alexdev.kepler.messages.incoming.rooms.dimmer.MSG_ROOMDIMMER_SET_PRESET;
+import org.alexdev.kepler.messages.incoming.rooms.groups.GET_GROUP_BADGES;
+import org.alexdev.kepler.messages.incoming.rooms.groups.GET_GROUP_DETAILS;
 import org.alexdev.kepler.messages.incoming.rooms.items.*;
 import org.alexdev.kepler.messages.incoming.rooms.moderation.*;
 import org.alexdev.kepler.messages.incoming.rooms.pool.*;
@@ -100,6 +102,16 @@ public class MessageHandler {
         registerGamePackets();
         registerJukeboxPackets();
         registerEcotronPackets();
+        registerGroupPackets();
+    }
+
+    /**
+     * Register Groups packets.
+     */
+    private void registerGroupPackets()
+    {
+        registerEvent(230, new GET_GROUP_BADGES());
+        registerEvent(231, new GET_GROUP_DETAILS());
     }
 
     /**

@@ -188,6 +188,24 @@ public class RoomPlayer extends RoomEntity {
         }
     }
 
+    public void refreshFavouriteGroup()
+    {
+        var newDetails = PlayerDao.getDetails(this.player.getDetails().getId());
+
+        // Send refresh to user
+        this.player.send(new USER_OBJECT(this.player.getDetails()));
+
+        // Send refresh to room if inside room
+        if (this.getRoom() != null) {
+            this.getRoom().send(new FIGURE_CHANGE(this.getInstanceId(), this.player.getDetails()));
+
+            if (this.getRoom().getModel().getRoomTrigger() instanceof GameLobbyTrigger) {
+                GameLobbyTrigger gameLobbyTrigger = (GameLobbyTrigger) getRoom().getModel().getRoomTrigger();
+                gameLobbyTrigger.showPoints(this.player, this.getRoom());
+            }
+        }
+    }
+
     public int getAuthenticateId() {
         return authenticateId;
     }

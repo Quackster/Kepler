@@ -5,10 +5,14 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import org.alexdev.kepler.Kepler;
 import org.alexdev.kepler.dao.mysql.CurrencyDao;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
+import org.alexdev.kepler.game.groups.GroupMember;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.player.PlayerManager;
+import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.log.Log;
+import org.alexdev.kepler.messages.outgoing.rooms.groups.GROUP_BADGES;
+import org.alexdev.kepler.messages.outgoing.rooms.groups.GROUP_MEMBERSHIP_UPDATE;
 import org.alexdev.kepler.messages.outgoing.user.ALERT;
 import org.alexdev.kepler.messages.outgoing.user.currencies.CREDIT_BALANCE;
 import org.alexdev.kepler.server.rcon.messages.RconMessage;
@@ -16,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 public class RconConnectionHandler extends ChannelInboundHandlerAdapter {
     final private static Logger log = LoggerFactory.getLogger(RconConnectionHandler.class);
@@ -110,6 +115,36 @@ public class RconConnectionHandler extends ChannelInboundHandlerAdapter {
                     if (online != null) {
                         online.getDetails().setCredits(CurrencyDao.getCredits(online.getDetails().getId()));
                         online.send(new CREDIT_BALANCE(online.getDetails()));
+                    }
+
+                    break;
+                case REFRESH_GROUP_PERMS:
+                    online = PlayerManager.getInstance().getPlayerById(Integer.parseInt(message.getValues().get("userId")));
+
+                    if (online != null) {
+                        online.refreshJoinedGroups();
+
+                        PlayerDetails newDetails = PlayerDao.getDetails(online.getDetails().getId());
+                        online.getDetails().setFavouriteGroupId(newDetails.getFavouriteGroupId());
+
+                        int newGroup = newDetails.getFavouriteGroupId();
+
+                        if (online.getRoomUser().getRoom() != null) {
+                            GroupMember groupMember = null;
+
+                            if (online.getDetails().getFavouriteGroupId() > 0) {
+                                groupMember = online.getDetails().getGroupMember();
+                            }
+
+                            if (groupMember != null) {
+                                online.getRoomUser().getRoom().send(new GROUP_BADGES(new HashMap<>() {{
+                                    put(newGroup, online.getJoinedGroup(newGroup).getBadge());
+                                }}));
+
+                            }
+
+                            online.getRoomUser().getRoom().send(new GROUP_MEMBERSHIP_UPDATE(online.getRoomUser().getInstanceId(), groupMember == null ? -1 : groupMember.getGroupId(), groupMember == null ? -1 : groupMember.getMemberRank().getClientRank()));
+                        }
                     }
 
                     break;

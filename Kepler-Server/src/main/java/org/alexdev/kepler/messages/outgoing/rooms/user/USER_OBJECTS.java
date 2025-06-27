@@ -69,6 +69,11 @@ public class USER_OBJECTS extends MessageComposer {
                     response.writeKeyValue("b", states.getDetails().getCurrentBadge());
                 }
 
+                if(states.getDetails().getGroupMember() != null) {
+                    response.writeKeyValue("g", states.getDetails().getGroupMember().getGroupId()); // Group id
+                    response.writeKeyValue("t", states.getDetails().getGroupMember().getMemberRank().getClientRank()); // Group status
+                }
+
                 if (states.getRoom().getModel().getName().startsWith("pool_") ||
                         states.getRoom().getModel().getName().equals("md_a")) {
 
