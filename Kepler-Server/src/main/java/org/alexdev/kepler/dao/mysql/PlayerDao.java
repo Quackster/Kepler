@@ -574,6 +574,29 @@ public class PlayerDao {
     }
 
     /**
+     * Save favourite group
+     *
+     * @param userId the id of the user to save to
+     * @param groupId the favourite group id
+     */
+    public static void saveFavouriteGroup(int userId, int groupId) {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("UPDATE users SET favourite_group = ? WHERE id = ?", sqlConnection);
+            preparedStatement.setInt(1, groupId);
+            preparedStatement.setInt(2, userId);
+            preparedStatement.execute();
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+
+    /**
      * Fill player data
      *
      * @param details the details
@@ -596,6 +619,6 @@ public class PlayerDao {
                 row.getBoolean("badge_active"), row.getBoolean("allow_stalking"),
                 row.getBoolean("allow_friend_requests"), row.getBoolean("sound_enabled"),
                 row.getBoolean("tutorial_finished"), row.getInt("battleball_points"),
-                row.getInt("snowstorm_points"));
+                row.getInt("snowstorm_points"), row.getInt("favourite_group"));
     }
 }

@@ -2,6 +2,7 @@ package org.alexdev.kepler.game.player;
 
 import io.netty.util.AttributeKey;
 import org.alexdev.kepler.Kepler;
+import org.alexdev.kepler.dao.mysql.GroupDao;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.dao.mysql.SettingsDao;
 import org.alexdev.kepler.game.GameScheduler;
@@ -10,6 +11,7 @@ import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
 import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.fuserights.FuserightsManager;
+import org.alexdev.kepler.game.groups.Group;
 import org.alexdev.kepler.game.inventory.Inventory;
 import org.alexdev.kepler.game.messenger.Messenger;
 import org.alexdev.kepler.game.room.entities.RoomPlayer;
@@ -45,6 +47,7 @@ public class Player extends Entity {
     private Logger log;
     private Messenger messenger;
     private Inventory inventory;
+    private List<Group> joinedGroups;
 
     private boolean loggedIn;
     private boolean disconnected;
@@ -99,6 +102,7 @@ public class Player extends Entity {
 
         this.details.loadBadges();
         this.details.resetNextHandout();
+        this.refreshJoinedGroups();
 
         this.send(new LOGIN());
         this.refreshFuserights();
@@ -326,4 +330,29 @@ public class Player extends Entity {
     /*public int getVersion() {
         return Kepler.getServer().getConnectionRule(this.network.getPort()).getVersion();
     }*/
+
+    /**
+     * Refresh the groups the user has joined
+     */
+    public void refreshJoinedGroups() {
+        this.joinedGroups = GroupDao.getJoinedGroups(this.details.getId());
+    }
+
+    /**
+     * Get the list of groups the user has joined.
+     *
+     * @return the list of groups
+     */
+    public List<Group> getJoinedGroups() {
+        return joinedGroups;
+    }
+
+    /**
+     * Get the joined group
+     * @param joinedGroupId the joined group id
+     * @return the group
+     */
+    public Group getJoinedGroup(int joinedGroupId) {
+        return joinedGroups.stream().filter(x -> x.getId() == joinedGroupId).findFirst().orElse(null);
+    }
 }
