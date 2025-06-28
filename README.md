@@ -33,6 +33,11 @@ It is quite possibly the most complete v14 Habbo Hotel released to date, and has
 
 ![https://i.imgur.com/tTG5SVE.png](https://i.imgur.com/tTG5SVE.png)
 
+(Groups)
+
+![image](https://github.com/user-attachments/assets/bb623986-99c5-4ca3-89a9-44f571d3b0a7)
+
+
 # Download
 
 Download the latest development build from the [releases page](https://github.com/Quackster/Kepler/releases).
