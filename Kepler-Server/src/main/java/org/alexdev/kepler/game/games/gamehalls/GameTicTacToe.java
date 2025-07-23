@@ -201,143 +201,81 @@ public class GameTicTacToe extends GamehallGame {
     /**
      * Check for the winner.
      *
-     * @return a variable containing the character who won, and the coords of the winning tiles
+     * @return a pair containing the winning character and coordinates of winning tiles, or null if no winner
      */
     private Pair<Character, List<int[]>> hasGameFinished() {
-        List<int[]> winningCoordinates = new ArrayList<>();
-
-        // Check rows across
-        for (int i = 0; i < MAX_WIDTH; i++) {
-            for (int j = 0; j < MAX_LENGTH; j++) {
-                char letter = this.gameMap[i][j];
-                winningCoordinates.clear();
-
-                if (letter == '0') {
+        // Direction vectors: horizontal, vertical, diagonal (\), diagonal (/)
+        int[][] directions = {
+            {0, 1},   // horizontal
+            {1, 0},   // vertical  
+            {1, 1},   // diagonal \
+            {-1, 1}   // diagonal /
+        };
+        
+        for (int row = 0; row < MAX_WIDTH; row++) {
+            for (int col = 0; col < MAX_LENGTH; col++) {
+                char startChar = gameMap[row][col];
+                
+                if (startChar == '0') {
                     continue;
                 }
-
-                for (int k = 0; k < NUM_IN_ROW; k++) {
-                    if ((j + k) >= MAX_LENGTH) {
-                        continue;
-                    }
-
-                    char newLetter = this.gameMap[i][j + k];
-
-                    if (newLetter != '0' && newLetter == letter) {
-                        winningCoordinates.add(new int[]{i, j + k});
-                        letter = newLetter;
-
-                        if (winningCoordinates.size() >= NUM_IN_ROW) {
-                            return Pair.of(letter, winningCoordinates);
-                        }
-                    } else {
-                        winningCoordinates.clear();
+                
+                // Check each direction from this starting position
+                for (int[] direction : directions) {
+                    List<int[]> winningCoords = checkDirection(row, col, direction[0], direction[1], startChar);
+                    
+                    if (winningCoords != null && winningCoords.size() >= NUM_IN_ROW) {
+                        return Pair.of(startChar, winningCoords);
                     }
                 }
             }
         }
-
-        // Check rows down
-        for (int i = 0; i < MAX_WIDTH; i++) {
-            for (int j = 0; j < MAX_LENGTH; j++) {
-                char letter = this.gameMap[i][j];
-                winningCoordinates.clear();
-
-                if (letter == '0') {
-                    continue;
-                }
-
-                for (int k = 0; k < NUM_IN_ROW; k++) {
-                    if ((i + k) >= MAX_WIDTH) {
-                        continue;
-                    }
-
-                    char newLetter = this.gameMap[i + k][j];
-
-                    if (newLetter != '0' && newLetter == letter) {
-                        winningCoordinates.add(new int[]{i + k, j});
-                        letter = newLetter;
-
-                        if (winningCoordinates.size() >= NUM_IN_ROW) {
-                            return Pair.of(letter, winningCoordinates);
-                        }
-                    } else {
-                        winningCoordinates.clear();
-                    }
-                }
-            }
-        }
-
-        // Check top left to bottom right
-        for (int i = 0; i < MAX_WIDTH; i++) {
-            for (int j = 0; j < MAX_LENGTH; j++) {
-                char letter = this.gameMap[i][j];
-                winningCoordinates.clear();
-
-                if (letter == '0') {
-                    continue;
-                }
-
-                for (int k = 0; k < NUM_IN_ROW; k++) {
-                    if ((i + k) >= MAX_WIDTH || (j + k) >= MAX_WIDTH) {
-                        continue;
-                    }
-
-                    char newLetter = this.gameMap[i + k][j + k];
-
-                    if (newLetter != '0' && newLetter == letter) {
-                        winningCoordinates.add(new int[]{i + k, j + k});
-                        letter = newLetter;
-
-                        if (winningCoordinates.size() >= NUM_IN_ROW) {
-                            return Pair.of(letter, winningCoordinates);
-                        }
-                    } else {
-                        winningCoordinates.clear();
-                    }
-                }
-            }
-        }
-
-        // Check top right to bottom left
-        for (int i = 0; i < MAX_WIDTH; i++) {
-            for (int j = 0; j < MAX_LENGTH; j++) {
-                char letter = this.gameMap[i][j];
-                winningCoordinates.clear();
-
-                if (letter == '0') {
-                    continue;
-                }
-
-                for (int k = 0; k < NUM_IN_ROW; k++) {
-                    int newX = i - k;
-                    int newY = j + k;
-
-                    if (newX < 0) {
-                        continue;
-                    }
-
-                    if (newX >= MAX_WIDTH || newY >= MAX_WIDTH) {
-                        continue;
-                    }
-
-                    char newLetter = this.gameMap[newX][newY];
-
-                    if (newLetter != '0' && newLetter == letter) {
-                        winningCoordinates.add(new int[]{newX, newY});
-                        letter = newLetter;
-
-                        if (winningCoordinates.size() >= NUM_IN_ROW) {
-                            return Pair.of(letter, winningCoordinates);
-                        }
-                    } else {
-                        winningCoordinates.clear();
-                    }
-                }
-            }
-        }
-
+        
         return null;
+    }
+    
+    /**
+     * Check for consecutive matching characters in a specific direction.
+     *
+     * @param startRow starting row position
+     * @param startCol starting column position  
+     * @param deltaRow row direction increment
+     * @param deltaCol column direction increment
+     * @param targetChar character to match
+     * @return list of winning coordinates if found, null otherwise
+     */
+    private List<int[]> checkDirection(int startRow, int startCol, int deltaRow, int deltaCol, char targetChar) {
+        List<int[]> coordinates = new ArrayList<>();
+        
+        for (int step = 0; step < NUM_IN_ROW; step++) {
+            int currentRow = startRow + (step * deltaRow);
+            int currentCol = startCol + (step * deltaCol);
+            
+            if (!isValidPosition(currentRow, currentCol)) {
+                return null;
+            }
+            
+            char currentChar = gameMap[currentRow][currentCol];
+            
+            if (currentChar != targetChar) {
+                return null;
+            }
+            
+            coordinates.add(new int[]{currentRow, currentCol});
+        }
+        
+        return coordinates;
+    }
+    
+    /**
+     * Check if the given position is within board bounds.
+     *
+     * @param row row position
+     * @param col column position
+     * @return true if position is valid, false otherwise
+     */
+    private boolean isValidPosition(int row, int col) {
+        return row >= 0 && row < MAX_WIDTH && col >= 0 && col < MAX_LENGTH;
     }
 
     /**
