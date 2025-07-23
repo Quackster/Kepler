@@ -2,8 +2,8 @@ name: Create Pre-Release
 
 on:
   push:
-    branches:
-      - "master"
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+"
 
 jobs:
   pre-release:
@@ -23,7 +23,7 @@ jobs:
       - name: Build distribution with Gradle
         run: ./gradlew distZip
         
-      - name: Decompress distribution zip file
+      - name: Decompress server distribution file
         uses: montudor/action-zip@v1
         with:
           args: unzip -qq Kepler-Server/build/distributions/Kepler-Server.zip -d ./release
@@ -39,20 +39,20 @@ jobs:
           sudo cp tools/scripts/run.bat ./Kepler/
           sudo cp tools/scripts/run.sh ./Kepler/
 
-      - id: sha-short
-        name: Get short SHA
-        run: echo "::set-output name=sha-short::$(git rev-parse --short HEAD)"
-        
+      - id: get-tag
+        name: Get tag version
+        run: echo "tag=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
+
       - name: Compress release files
         uses: montudor/action-zip@v1
         with:
-          args: zip -qq -r ./Kepler-${{ steps.sha-short.outputs.sha-short }}.zip ./Kepler
+          args: zip -qq -r ./Kepler-${{ steps.get-tag.outputs.tag }}.zip ./Kepler
           
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "latest"
+          automatic_release_tag: "${{ steps.get-tag.outputs.tag }}"
           prerelease: true
-          title: "Development Build ${{ steps.sha-short.outputs.sha-short }}"
+          title: "Pre-release ${{ steps.get-tag.outputs.tag }}"
           files: |
-            Kepler-${{ steps.sha-short.outputs.sha-short }}.zip
+            Kepler-${{ steps.get-tag.outputs.tag }}.zip
