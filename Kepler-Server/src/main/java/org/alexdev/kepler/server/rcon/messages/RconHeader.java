@@ -5,7 +5,8 @@ public enum RconHeader {
     HOTEL_ALERT("hotel_alert"),
     REFRESH_CLUB("refresh_club"),
     REFRESH_HAND("refresh_hand"),
-    REFRESH_CREDITS("refresh_credits");
+    REFRESH_CREDITS("refresh_credits"),
+    REFRESH_GROUP_PERMS("refresh_group_perms");
 
     private final String rawHeader;
 
