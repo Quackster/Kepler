@@ -47,7 +47,7 @@ public class BadgeManager {
      * Refresh badges, will also try and see if it can progress any achievements.
      */
     public void refreshBadges() {
-        this.player.send(new AVAILABLE_BADGES(this.getBadges(), this.getEquippedBadges()));
+        this.player.send(new AVAILABLE_BADGES(this.player));
     }
 
     /**
@@ -99,6 +99,12 @@ public class BadgeManager {
         badge.setSlotId(slotId);
 
         this.badgesToSave.add(badge);
+    }
+
+    public void unequipAllBadges() {
+        for (var badge : this.badges) {
+
+        }
     }
 
     /**
