@@ -102,6 +102,7 @@ public class GiveBadgeCommand extends Command {
 
             // Add badge
             targetUser.getBadgeManager().tryAddBadge(badge, null, 0);
+            targetUser.getBadgeManager().refreshBadges();
 
             Room targetRoom = targetUser.getRoomUser().getRoom();
 
