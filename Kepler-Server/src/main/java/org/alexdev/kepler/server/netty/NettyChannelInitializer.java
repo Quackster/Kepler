@@ -4,12 +4,10 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.timeout.IdleStateHandler;
-import io.netty.handler.traffic.ChannelTrafficShapingHandler;
 import org.alexdev.kepler.server.netty.codec.NetworkDecoder;
 import org.alexdev.kepler.server.netty.codec.NetworkEncoder;
 import org.alexdev.kepler.server.netty.connections.ConnectionHandler;
 import org.alexdev.kepler.server.netty.connections.IdleConnectionHandler;
-import org.alexdev.kepler.util.config.GameConfiguration;
 
 public class NettyChannelInitializer extends ChannelInitializer<SocketChannel> {
     private final NettyServer nettyServer;

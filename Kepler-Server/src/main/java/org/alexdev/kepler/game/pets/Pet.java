@@ -4,7 +4,6 @@ import org.alexdev.kepler.dao.mysql.PetDao;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
 import org.alexdev.kepler.game.fuserights.Fuseright;
-import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.room.entities.RoomPet;
 import org.alexdev.kepler.game.room.enums.StatusType;
 import org.alexdev.kepler.util.DateUtil;

@@ -70,7 +70,7 @@ public class SESSION_PARAMETERS extends MessageComposer {
         parameters.put(SessionParamType.PARTNER_INTEGRATION_ENABLED, "0");  // conf_partner_integration. Value is either 1 or 0 (enabled or disabled)
         parameters.put(SessionParamType.ALLOW_PROFILE_EDITING, GameConfiguration.getInstance().getBoolean("profile.editing") ? "1" : "0"); // allow_profile_editing. Enables the client (in-game) profile editor
         parameters.put(SessionParamType.TRACKING_HEADER, ""); // tracking_header. Value is unknown
-        parameters.put(SessionParamType.TUTORIAL_ENABLED, this.details.isTutorialFinished() ? "0" : "1"); // tutorial_enabled. Value is either 1 or 0 (enabled or disabled)
+        parameters.put(SessionParamType.TUTORIAL_ENABLED, isTutorialEnabled() ? "1" : "0");//GameConfiguration.getInstance().getBoolean("tutorial.enabled") ? "1" : "0"); // tutorial_enabled. Value is either 1 or 0 (enabled or disabled)
 
         response.writeInt(parameters.size());
 
@@ -86,6 +86,14 @@ public class SESSION_PARAMETERS extends MessageComposer {
                 response.writeString(value);
             }
         }
+    }
+
+    private boolean isTutorialEnabled() {
+        if (!GameConfiguration.getInstance().getBoolean("tutorial.enabled")) {
+            return false;
+        }
+
+        return true;
     }
 
     @Override

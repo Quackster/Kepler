@@ -1,12 +1,11 @@
 package org.alexdev.kepler.messages.incoming.rooms.dimmer;
 
 import org.alexdev.kepler.dao.mysql.MoodlightDao;
-import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.fuserights.Fuseright;
+import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.messages.outgoing.rooms.user.CHAT_MESSAGE;
-import org.alexdev.kepler.messages.outgoing.rooms.user.CHAT_MESSAGE.ChatMessageType;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 import org.apache.commons.lang3.tuple.Pair;
@@ -39,7 +38,7 @@ public class MSG_ROOMDIMMER_CHANGE_STATE implements MessageEvent {
         // Cancel RainbowTask because the operator decided to use their own moodlight settings.
         if (room.getTaskManager().hasTask("RainbowTask")) {
             room.getTaskManager().cancelTask("RainbowTask");
-            player.send(new CHAT_MESSAGE(ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), "Rainbow room dimmer cycle has stopped"));
+            player.send(new CHAT_MESSAGE(CHAT_MESSAGE.ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), "Rainbow room dimmer cycle has stopped"));
         }
 
         Pair<Integer, ArrayList<String>> presetData = MoodlightDao.getPresets(item.getId());

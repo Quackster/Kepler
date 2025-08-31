@@ -1,32 +1,161 @@
 package org.alexdev.kepler.game.infobus;
-
-
+import org.alexdev.kepler.dao.mysql.InfobusDao;
 import org.alexdev.kepler.game.GameScheduler;
-import org.alexdev.kepler.game.player.PlayerManager;
-import org.alexdev.kepler.game.room.Room;
+import org.alexdev.kepler.game.player.Player;
+import org.alexdev.kepler.game.room.RoomManager;
 import org.alexdev.kepler.log.Log;
-import org.alexdev.kepler.messages.outgoing.rooms.infobus.VOTE_QUESTION;
-import org.alexdev.kepler.messages.outgoing.rooms.infobus.VOTE_RESULTS;
-import org.alexdev.kepler.messages.outgoing.rooms.items.SHOWPROGRAM;
-import org.alexdev.kepler.util.schedule.FutureRunnable;
+import org.alexdev.kepler.messages.outgoing.infobus.BUS_DOOR;
+import org.alexdev.kepler.messages.outgoing.infobus.CANNOT_ENTER_BUS;
+import org.alexdev.kepler.messages.outgoing.infobus.POLL_QUESTION;
+import org.alexdev.kepler.messages.outgoing.infobus.VOTE_RESULTS;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class InfobusManager {
     private static InfobusManager instance;
+    private boolean canUpdateResults;
     private boolean isDoorOpen;
-    private List<Integer> playersInBus;
-    private FutureRunnable gameTimerRunnable;
-    private AtomicInteger pollTimeLeft;
-    private String question;
-    private List<String> options;
-    private List<Integer> votes;
+    private boolean isEventActive;
+    private InfobusPoll currentPoll;
 
+    public InfobusManager() {
+    }
 
+    public void stopEvent() {
+        var room = RoomManager.getInstance().getRoomByModel("park_b");
+
+        if (room != null) {
+            for (Player player : room.getEntityManager().getPlayers()) {
+                var composer = new CANNOT_ENTER_BUS("The Infobus event has now ended. Please check the site for updates in future.");
+
+                player.send(composer);
+                //player.getRoomUser().getPacketQueueAfterRoomLeave().add(composer);
+
+                player.getRoomUser().kick(true);
+                //player.getRoomUser().setBeingKicked(false);
+            }
+        }
+
+        this.updateDoorStatus(false);
+        this.currentPoll = null;
+    }
+
+    public void updateDoorStatus(boolean doorStatus) {
+        this.isDoorOpen = doorStatus;
+
+        var park = RoomManager.getInstance().getRoomByModel("park_a");
+
+        if (park != null) {
+            park.send(new BUS_DOOR(this.isDoorOpen));
+        }
+    }
+
+    /**
+     * Initiate polling to collect poll data.
+     */
+    public void startPolling(int pollId) {
+        this.canUpdateResults = false;
+        this.currentPoll = InfobusDao.get(pollId);
+
+        if (currentPoll == null) {
+            return;
+        }
+
+        var room = RoomManager.getInstance().getRoomByModel("park_b");
+
+        if (room == null) {
+            return;
+        }
+
+        for (Player player : room.getEntityManager().getPlayers()) {
+            //if (player.getNetwork().isFlashConnected()) {
+            //    player.send(new ALERT("Polling has started, unfortunately, flash clients can't vote as it is unsupported by the client."));
+            //    continue;
+            //}
+
+            if (!InfobusDao.hasAnswer(currentPoll.getId(), player.getDetails().getId())) {
+                player.send(new POLL_QUESTION(currentPoll.getPollData().getQuestion(), currentPoll.getPollData().getAnswers()));
+            }
+
+        }
+
+        // Polling timer
+        /*this.pollRunnable = new FutureRunnable() {
+            public void run() {
+                try {
+                    if (!getDoorStatus() || (currentPoll != null && currentPoll.getPollData().getAnswers().isEmpty())) {
+                        cancelFuture();
+                        return;
+                    }
+
+                    if (pollSeconds.getAndDecrement() == 0) {
+                        canUpdateResults = true;
+                        showPollResults();
+                        cancelFuture();
+                    }
+
+                } catch (Exception ex) {
+                    Log.getErrorLogger().error("Error occurred in polling: ", ex);
+                }
+            }
+        };
+
+        var future = GameScheduler.getInstance().getService().scheduleAtFixedRate(this.pollRunnable, 0, 1, TimeUnit.SECONDS);
+        this.pollRunnable.setFuture(future);*/
+
+        GameScheduler.getInstance().getService().schedule(() -> {
+            try {
+                showPollResults(currentPoll.getId());
+            } catch (Exception ex) {
+                Log.getErrorLogger().error("Error occurred in polling: ", ex);
+            }
+        }, 30, TimeUnit.SECONDS);
+    }
+
+    public void showPollResults(int pollId) {
+        var currentPoll = InfobusDao.get(pollId);
+
+        if (currentPoll == null) {
+            return;
+        }
+
+        this.canUpdateResults = true;
+
+        var room = RoomManager.getInstance().getRoomByModel("park_b");
+
+        if (room != null) {
+            var answerResults = InfobusDao.getAnswers(currentPoll.getId());
+            int totalAnswers = answerResults.values().stream().mapToInt(Integer::intValue).sum();
+
+            room.send(new VOTE_RESULTS(currentPoll.getPollData().getQuestion(), currentPoll.getPollData().getAnswers(), answerResults, totalAnswers));
+        }
+    }
+
+    public boolean isDoorOpen() {
+        return isDoorOpen;
+    }
+
+    public void setDoorOpen(boolean doorOpen) {
+        isDoorOpen = doorOpen;
+    }
+
+    public boolean isEventActive() {
+        return isEventActive;
+    }
+
+    public void setEventActive(boolean eventActive) {
+        isEventActive = eventActive;
+    }
+
+    public InfobusPoll getCurrentPoll() {
+        return currentPoll;
+    }
+
+    /**
+     * Get the infobus manager instance.
+     *
+     * @return the infobus manager
+     */
     public static InfobusManager getInstance() {
         if (instance == null) {
             instance = new InfobusManager();
@@ -35,133 +164,8 @@ public class InfobusManager {
         return instance;
     }
 
-    InfobusManager() {
-        this.question = null;
-        this.playersInBus = new CopyOnWriteArrayList<>();
-        this.options = new CopyOnWriteArrayList<>();
-        this.votes = new CopyOnWriteArrayList<>();
-    }
-
-    private int getVotes(int optionIndex)
-    {
-        return Collections.frequency(this.votes, optionIndex);
-    }
-
-    public void startPoll() {
-        this.pollTimeLeft = new AtomicInteger(30);
-        this.gameTimerRunnable = new FutureRunnable() {
-            public void run() {
-                try {
-                    if (pollTimeLeft.getAndDecrement() == 0) {
-                        this.cancelFuture();
-                        pollEnded();
-                    }
-                } catch (Exception ex) {
-                    Log.getErrorLogger().error("Error occurred in infobus runnable: ", ex);
-                }
-            }
-        };
-
-        var future = GameScheduler.getInstance().getService().scheduleAtFixedRate(this.gameTimerRunnable, 0, 1, TimeUnit.SECONDS);
-        this.gameTimerRunnable.setFuture(future);
-
-        // Send question to players in infobus
-        for (int playerId : this.getPlayers()) {
-            PlayerManager.getInstance().getPlayerById(playerId).send(new VOTE_QUESTION(constructVoteQuestion()));
-        }
-    }
-
-    // Constructs the string shown in the status modal
-    public String constructStatus() {
-        StringBuilder msg = new StringBuilder().append("Users in bus: " + this.playersInBus + "\r");
-
-        msg.append("\r Question: " + this.question);
-        msg.append("\r Options: \r");
-        for(int i=0; i < options.size(); i++){
-            int optionNumber = i + 1;
-            msg.append("\r" + optionNumber + ":" + options.get(i));
-        }
-        return msg.toString();
-    }
-
-    // Constructs the message sent to the client
-    public String constructVoteQuestion() {
-        StringBuilder msg = new StringBuilder().append(this.question);
-        for(int i=0; i < options.size(); i++){
-            int optionNumber = i + 1;
-            msg.append("\r" + optionNumber + ":" + options.get(i));
-        }
-        return msg.toString();
-    }
-
-    // Construct vote result
-    public String constructVoteResult() {
-        StringBuilder msg = new StringBuilder().append("/" + this.votes.size());
-        for(int i=0; i < options.size(); i++){
-            msg.append("/" + getVotes(i));
-        }
-
-        return msg.toString();
-    }
-
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
-    public void addOption(String option) {
-        this.options.add(option);
-    }
-
-    public void removeOption(int option) {
-        // minus one, so it makes sense when using status
-        if(this.options.indexOf(this.options.get(option-1)) != -1) {
-            this.options.remove(this.options.get(option-1));
-        }
-    }
-
-    public void addVote(int option) {
-        this.votes.add(option-1);
-    }
-
-
-    public void reset() {
-        this.question = null;
-        this.votes.clear();
-        this.options.clear();
-    }
-
-    public void pollEnded() {
-        for (int playerId : this.getPlayers()) {
-            PlayerManager.getInstance().getPlayerById(playerId).send(new VOTE_RESULTS(constructVoteResult()));
-        }
-
-        this.reset();
-    }
-
-    public String getQuestion() {
-        return this.question;
-    }
-
-    public List<String> getOptions() {
-        return this.options;
-    }
-
-    public List<Integer> getPlayers() {
-        return this.playersInBus;
-    }
-
-    public boolean isDoorOpen() {
-        return this.isDoorOpen;
-    }
-
-    public void openDoor(Room room) {
-        this.isDoorOpen = true;
-        room.send(new SHOWPROGRAM(new String[] { "bus", "open" }));
-    }
-
-    public void closeDoor(Room room) {
-        this.isDoorOpen = false;
-        room.send(new SHOWPROGRAM(new String[] { "bus", "close" }));
+    public boolean canUpdateResults() {
+        return canUpdateResults;
     }
 
     public int getDoorX() {
@@ -170,16 +174,6 @@ public class InfobusManager {
 
     public int getDoorY() {
         return 4;
-    }
-
-    public void addPlayer(int player) {
-        this.playersInBus.add(player);
-    }
-
-    public void removePlayer(int player) {
-        if(this.playersInBus.indexOf(player) != -1) {
-            this.playersInBus.remove(this.playersInBus.indexOf(player));
-        }
     }
 
 }

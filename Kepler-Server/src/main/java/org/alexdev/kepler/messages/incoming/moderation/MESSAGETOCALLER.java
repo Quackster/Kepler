@@ -1,8 +1,8 @@
 package org.alexdev.kepler.messages.incoming.moderation;
 
+import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.moderation.cfh.CallForHelp;
 import org.alexdev.kepler.game.moderation.cfh.CallForHelpManager;
-import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerManager;
 import org.alexdev.kepler.messages.outgoing.moderation.CRY_REPLY;

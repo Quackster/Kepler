@@ -1,32 +1,36 @@
 package org.alexdev.kepler.game.player;
 
-import org.alexdev.kepler.dao.mysql.BadgeDao;
 import org.alexdev.kepler.dao.mysql.BanDao;
+import org.alexdev.kepler.dao.mysql.GroupDao;
+import org.alexdev.kepler.dao.mysql.GroupMemberDao;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.game.ban.BanType;
-import org.alexdev.kepler.game.games.enums.GameType;
+import org.alexdev.kepler.game.groups.Group;
+import org.alexdev.kepler.game.groups.GroupMember;
+import org.alexdev.kepler.game.wordfilter.WordfilterManager;
 import org.alexdev.kepler.util.DateUtil;
 import org.alexdev.kepler.util.StringUtil;
 import org.alexdev.kepler.util.config.GameConfiguration;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class PlayerDetails {
     // Basic info
     private int id;
     private String username;
+    private String email;
     private String figure;
     private String poolFigure;
-    private int credits;
     private String motto;
-    private String consoleMotto;
-    private char sex;
-    private String birthday;
-    private boolean receiveNews;
+    private String sex;
+    private String ssoTicket;
+    private String machineId;
 
     // Currencies
+    private int credits;
+    private int pixels;
+    private long lastPixelsTime;
     private int tickets;
     private int film;
     private PlayerRank rank;
@@ -34,29 +38,34 @@ public class PlayerDetails {
     // Club
     private long firstClubSubscription;
     private long clubExpiration;
-    private long clubGiftDue;
-
-    // Badges
-    private String currentBadge;
-    private boolean showBadge;
-    private List<String> badges;
 
     // Settings
     private boolean allowStalking;
+    private int selectedRoomId;
     private boolean allowFriendRequests;
+    private boolean onlineStatusVisible;
+    private boolean profileVisible;
+    private boolean wordFilterEnabled;
+    private boolean tradeEnabled;
     private boolean soundEnabled;
-    private boolean tutorialFinished;
 
     // Timestamps
     private long nextHandout;
     private long lastOnline;
+    private long joinDate;
 
-    // Game points
-    private int snowstormPoints;
-    private int battleballPoints;
+    private boolean isOnline;
+    private String createdAt;
+    private int favouriteGroupId;
+    private boolean receiveNews;
+    private long tradeBanExpiration;
+    private String birthday;
+    private GroupMember groupMember;
+    private String consoleMotto;
 
     public PlayerDetails() {
     }
+
 
     /**
      * Fill the player data for the entity.
@@ -66,7 +75,6 @@ public class PlayerDetails {
      * @param poolFigure the pool figure
      * @param credits the credits
      * @param motto the motto
-     * @param consoleMotto the console motto
      * @param sex the sex
      * @param tickets the tickets
      * @param film the film
@@ -74,52 +82,58 @@ public class PlayerDetails {
      * @param lastOnline the last time they were online in a unix timestamp
      * @param firstClubSubscription the club subscribed date in a unix timestamp
      * @param clubExpiration the club expiration date in a unix timestamp
-     * @param currentBadge the current badge
-     * @param showBadge whether the badge is shown or not
      * @param allowStalking allow stalking/following
      * @param soundEnabled allow playing sound from client
-     * @param battleballPoints the points accumulated when playing battleball
-     * @param snowstormPoints the points accumulated when playing snowstorm
      */
-    public void fill(int id, String username, String figure, String poolFigure, int credits, String motto, String consoleMotto, String sex, String birthday, int tickets, int film, int rank, long lastOnline, long firstClubSubscription, long clubExpiration, long clubGiftDue, String currentBadge, boolean showBadge, boolean allowStalking, boolean allowFriendRequests, boolean soundEnabled,
-                     boolean tutorialFinished, int battleballPoints, int snowstormPoints) {
+    public void fill(int id, String username, String figure, String poolFigure, int credits, String email, String motto, String consoleMotto,
+                     String sex, String ssoTicket, int tickets, int film, int rank, long lastOnline, long joinDate,
+                     String machineId, long firstClubSubscription,
+                     long clubExpiration, boolean allowStalking, int selectedRoom, boolean allowFriendRequests, boolean onlineStatusVisible,
+                     boolean profileVisible, boolean wordFilterEnabled, boolean tradeEnabled, boolean soundEnabled, long tradeBanExpiration,
+                     boolean receiveNews, boolean isOnline, int favouriteGroupId, String createdAt) {
         this.id = id;
         this.username = StringUtil.filterInput(username, true);
         this.figure = StringUtil.filterInput(figure, true); // Format: hd-180-1.ch-255-70.lg-285-77.sh-295-74.fa-1205-91.hr-125-31.ha-1016-
         this.poolFigure = StringUtil.filterInput(poolFigure, true); // Format: ch=s02/238,238,238
-        this.motto = StringUtil.filterInput(motto, true);
-        this.consoleMotto = StringUtil.filterInput(consoleMotto, true);
-        this.sex = sex.toLowerCase().equals("f") ? 'F' : 'M';
-        this.birthday = birthday;
+        this.motto = WordfilterManager.filterSentence(StringUtil.filterInput(motto, true));
+        this.consoleMotto = consoleMotto;
+        //this.consoleMotto = StringUtil.filterInput(consoleMotto, true);
+        this.email = email;
+        this.sex = sex.toLowerCase().equals("f") ? "F" : "M";
+        this.ssoTicket = ssoTicket;
+        this.lastPixelsTime = DateUtil.getCurrentTimeSeconds() + TimeUnit.MINUTES.toSeconds(15);
         this.credits = credits;
         this.tickets = tickets;
         this.film = film;
         this.rank = PlayerRank.getRankForId(rank);
         this.lastOnline = lastOnline;
+        this.joinDate = joinDate;
+        this.machineId = machineId;
         this.firstClubSubscription = firstClubSubscription;
         this.clubExpiration = clubExpiration;
-        this.clubGiftDue = clubGiftDue;
-        this.currentBadge = currentBadge;
-        this.showBadge = showBadge;
         this.allowStalking = allowStalking;
+        this.selectedRoomId = selectedRoom;
         this.allowFriendRequests = allowFriendRequests;
+        this.onlineStatusVisible = onlineStatusVisible;
+        this.profileVisible = profileVisible;
+        this.wordFilterEnabled = wordFilterEnabled;
+        this.tradeEnabled = tradeEnabled;
         this.soundEnabled = soundEnabled;
-        this.tutorialFinished = tutorialFinished;
-        this.battleballPoints = battleballPoints;
-        this.snowstormPoints = snowstormPoints;
+        this.tradeBanExpiration = tradeBanExpiration;
+        this.isOnline = isOnline;
+        this.favouriteGroupId = favouriteGroupId;
+        this.receiveNews = receiveNews;
+        this.createdAt = createdAt;
 
         if (this.credits < 0) {
-            // TODO: log warning
             this.credits = 0;
         }
 
         if (this.tickets < 0) {
-            // TODO: log warning
             this.tickets = 0;
         }
 
         if (this.film < 0) {
-            // TODO: log warning
             this.film = 0;
         }
     }
@@ -128,17 +142,13 @@ public class PlayerDetails {
         this.id = id;
         this.username = username;
         this.figure = figure;
-        this.poolFigure = "";
         this.motto = motto;
-        this.sex = sex.toLowerCase().equals("f") ? 'F' : 'M';
-    }
-
-    public void loadBadges() {
-        this.badges = BadgeDao.getBadges(this.id);
+        this.sex = sex;
+        this.createdAt = "";
     }
 
     public boolean hasClubSubscription() {
-        if (this.clubExpiration > 0) {
+        if (this.clubExpiration != 0) {
             if (DateUtil.getCurrentTimeSeconds() < this.clubExpiration) {
                 return true;
             }
@@ -147,25 +157,18 @@ public class PlayerDetails {
         return false;
     }
 
-    public boolean hasGoldClubSubscription() {
-        if (this.hasClubSubscription()) {
-            int sinceMonths = (int) (DateUtil.getCurrentTimeSeconds() - this.firstClubSubscription) / 60 / 60 / 24 / 31;
-
-            // We are deemed a 'Gold' Club member if the user has been a club subscriber for a year
-            // According to the HabboX wiki the badge is to be received on the first day of the 13th subscribed month
-            return this.hasClubSubscription() && sinceMonths > 12;
-        }
-
-        return false;
-    }
-
     public Pair<String, Long> isBanned() {
-        var userBanCheck = BanDao.hasBan(BanType.USER_ID, this.id);
+        var userBanCheck = BanDao.hasBan(BanType.USER_ID, String.valueOf(this.id));
 
         if (userBanCheck != null) {
             return userBanCheck;
         }
 
+        var machineBanCheck = BanDao.hasBan(BanType.MACHINE_ID, this.machineId);
+
+        if (machineBanCheck != null) {
+            return machineBanCheck;
+        }
 
         var ipBanCheck = BanDao.hasBan(BanType.IP_ADDRESS, PlayerDao.getLatestIp(this.id));
 
@@ -174,6 +177,16 @@ public class PlayerDetails {
         }
 
         return null;
+    }
+
+
+    public void resetNextHandout() {
+        if (GameConfiguration.getInstance().getInteger("daily.credits.amount") > 0) {
+            this.nextHandout = 0;//DateUtil.getCurrentTimeSeconds() + GameConfiguration.getInstance().getInteger("daily.credits.wait.time");
+        } else {
+            TimeUnit unit = TimeUnit.valueOf(GameConfiguration.getInstance().getString("credits.scheduler.timeunit"));
+            this.nextHandout = DateUtil.getCurrentTimeSeconds() + unit.toSeconds(GameConfiguration.getInstance().getInteger("credits.scheduler.interval"));
+        }
     }
 
     public int getId() {
@@ -216,20 +229,11 @@ public class PlayerDetails {
         this.motto = motto;
     }
 
-
-    public String getConsoleMotto() {
-        return consoleMotto;
-    }
-
-    public void setConsoleMotto(String consoleMotto) {
-        this.consoleMotto = consoleMotto;
-    }
-
-    public char getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(char sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 
@@ -281,30 +285,6 @@ public class PlayerDetails {
         this.clubExpiration = clubExpiration;
     }
 
-    public String getCurrentBadge() {
-        return currentBadge;
-    }
-
-    public void setCurrentBadge(String badge) {
-        this.currentBadge = badge;
-    }
-
-    public boolean getShowBadge() {
-        return showBadge;
-    }
-
-    public void setShowBadge(boolean badgeActive) {
-        this.showBadge = badgeActive;
-    }
-
-    public List<String> getBadges() {
-        return this.badges;
-    }
-
-    public void setBadges(List<String> badges) {
-        this.badges = badges;
-    }
-
     public boolean doesAllowStalking() {
         return allowStalking;
     }
@@ -325,58 +305,161 @@ public class PlayerDetails {
         return nextHandout;
     }
 
-    public void resetNextHandout() {
-        TimeUnit unit = TimeUnit.valueOf(GameConfiguration.getInstance().getString("credits.scheduler.timeunit"));
-        this.nextHandout = DateUtil.getCurrentTimeSeconds()
-                + unit.toSeconds(GameConfiguration.getInstance().getInteger("credits.scheduler.interval"));
-    }
-
-    public boolean isTutorialFinished() {
-        return tutorialFinished;
-    }
-
-    public void setTutorialFinished(boolean tutorialFinished) {
-        this.tutorialFinished = tutorialFinished;
-    }
-
-    public int getSnowStormPoints() {
-        return snowstormPoints;
-    }
-
-    public void setSnowStormPoints(int snowstormPoints) {
-        this.snowstormPoints = snowstormPoints;
-    }
-
-    public int getBattleballPoints() {
-        return battleballPoints;
-    }
-
-    public void setBattleballPoints(int battleballPoints) {
-        this.battleballPoints = battleballPoints;
-    }
-
-    public int getGamePoints(GameType type) {
-        if (type == GameType.BATTLEBALL) {
-            return this.battleballPoints;
-        }
-
-        if (type == GameType.SNOWSTORM) {
-            return this.snowstormPoints;
-        }
-
-        return -1;
+    public void setNextHandout(long nextHandout) {
+        this.nextHandout = nextHandout;
     }
 
     public boolean isAllowFriendRequests() {
         return allowFriendRequests;
     }
 
-    public long getClubGiftDue() {
-        return clubGiftDue;
+    public String getSsoTicket() {
+        return ssoTicket;
     }
 
-    public void setClubGiftDue(long clubGiftDue) {
-        this.clubGiftDue = clubGiftDue;
+    public void setSsoTicket(String ssoTicket) {
+        this.ssoTicket = ssoTicket;
+    }
+
+    public String getMachineId() {
+        return machineId;
+    }
+
+    public void setMachineId(String machineId) {
+        this.machineId = machineId;
+    }
+
+    public boolean canSelectRoom() {
+        return this.selectedRoomId == 0;
+    }
+
+    public boolean hasSelectedRoom() {
+        return this.selectedRoomId > 0;
+    }
+
+    public int getSelectedRoomId() {
+        return selectedRoomId;
+    }
+
+    public void setSelectedRoomId(int selectedRoomId) {
+        this.selectedRoomId = selectedRoomId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public boolean isOnline() {
+        if (this.isOnlineStatusVisible()) {
+            return isOnline;
+        }
+
+        return false;
+    }
+
+    public String getFormattedLastOnline() {
+        return DateUtil.getDate(this.lastOnline, DateUtil.SHORT_DATE);
+    }
+
+    public String formatLastOnline(String format) {
+        return DateUtil.getDate(this.lastOnline, format);
+    }
+
+    public String formatJoinDate(String format) {
+        return DateUtil.getDate(this.joinDate, format);
+    }
+
+    public String getCreatedAt() {
+        return createdAt.split(" ")[0];
+    }
+
+    public long getJoinDate() {
+        return joinDate;
+    }
+
+    public boolean isOnlineStatusVisible() {
+        return onlineStatusVisible;
+    }
+
+    public void setOnlineStatusVisible(boolean onlineStatusVisible) {
+        this.onlineStatusVisible = onlineStatusVisible;
+    }
+
+    public boolean isProfileVisible() {
+        return profileVisible;
+    }
+
+    public boolean isWordFilterEnabled() {
+        return wordFilterEnabled;
+    }
+
+    public boolean isTradeEnabled() {
+        return tradeEnabled;
+    }
+
+    public void setTradeEnabled(boolean tradeEnabled) {
+        this.tradeEnabled = tradeEnabled;
+    }
+
+    public long getTradeBanExpiration() {
+        return tradeBanExpiration;
+    }
+
+    public void setTradeBanExpiration(long tradeBanExpiration) {
+        this.tradeBanExpiration = tradeBanExpiration;
+    }
+
+    public boolean isTradeBanned() {
+        if (this.tradeBanExpiration > 0) {
+            return this.tradeBanExpiration > DateUtil.getCurrentTimeSeconds();
+        }
+
+        return false;
+    }
+
+    public int getFavouriteGroupId() {
+        return favouriteGroupId;
+    }
+
+    public void setFavouriteGroupId(int favouriteGroupId) {
+        this.favouriteGroupId = favouriteGroupId;
+    }
+
+
+    public GroupMember getGroupMember() {
+        Group group;
+
+        if (this.groupMember == null) {
+            if (this.getFavouriteGroupId() > 0) {
+                var player = PlayerManager.getInstance().getPlayerById(this.id);
+
+                if (player == null) {
+                    group = GroupDao.getGroup(this.favouriteGroupId);
+                }
+                else {
+                    group = player.getJoinedGroups().stream().filter(x -> x.getId() == this.favouriteGroupId).findFirst().orElse(null);
+                }
+
+                if (group == null) {
+                    this.favouriteGroupId = 0;
+                    PlayerDao.saveFavouriteGroup(this.id, 0);
+                } else if (group.getOwnerId() == this.id) {
+                    return new GroupMember(this.id, this.favouriteGroupId, false, 3);
+                }
+
+                this.groupMember = GroupMemberDao.getMember(this.favouriteGroupId, this.id);
+            }
+        }
+
+        return this.groupMember;
+    }
+
+    public String getIpAddress() {
+        return PlayerDao.getLatestIp(this.getId());
     }
 
     public boolean isReceiveNews() {
@@ -393,5 +476,13 @@ public class PlayerDetails {
 
     public void setBirthday(String birthday) {
         this.birthday = birthday;
+    }
+
+    public String getConsoleMotto() {
+        return consoleMotto;
+    }
+
+    public void setConsoleMotto(String consoleMotto) {
+        this.consoleMotto = consoleMotto;
     }
 }

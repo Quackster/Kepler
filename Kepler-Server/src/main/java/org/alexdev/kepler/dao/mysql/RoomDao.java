@@ -2,7 +2,6 @@ package org.alexdev.kepler.dao.mysql;
 
 import org.alexdev.kepler.dao.Storage;
 import org.alexdev.kepler.game.moderation.ChatMessage;
-import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.RoomData;
 import org.alexdev.kepler.messages.outgoing.rooms.user.CHAT_MESSAGE;
@@ -14,8 +13,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class RoomDao {
 
@@ -134,36 +131,33 @@ public class RoomDao {
      * @param limit the limit of rooms
      * @return the list of rooms
      */
-    public static List<Room> getRecommendedRooms(int limit, boolean allowStarterRooms) {
-        List<Room> rooms = new ArrayList<>();
+    public static List<Room> getRecommendedRooms(int limit, int offset) {
+        List<Room> roomList = new ArrayList<>();
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
-        //SELECT * FROM rooms LEFT JOIN users ON rooms.owner_id = users.id WHERE owner_id = 0
-
         try {
             sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("SELECT * FROM rooms LEFT JOIN users ON rooms.owner_id = users.id WHERE owner_id > 0 AND accesstype = 0" + (allowStarterRooms ? "" : " AND model <> 'model_s'") + " ORDER BY rating DESC,visitors_now DESC LIMIT ?", sqlConnection);
-            preparedStatement.setInt(1, limit);
+            preparedStatement = Storage.getStorage().prepare("SELECT * FROM rooms LEFT JOIN users ON rooms.owner_id = users.id WHERE owner_id > 0 AND accesstype = 0 ORDER BY visitors_now DESC, rating DESC LIMIT " + limit + " OFFSET " + offset, sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 Room room = new Room();
-                fill(room.getData(), resultSet);
-                rooms.add(room);
+                RoomDao.fill(room.getData(), resultSet);
+                roomList.add(room);
             }
 
         } catch (Exception e) {
             Storage.logError(e);
         } finally {
-            Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
             Storage.closeSilently(sqlConnection);
+            Storage.closeSilently(resultSet);
         }
 
-        return rooms;
+        return roomList;
     }
 
     /**
@@ -172,24 +166,21 @@ public class RoomDao {
      * @param limit the limit of rooms
      * @return the list of rooms
      */
-    public static List<Room> getHighestRatedRooms(int limit, boolean allowStarterRooms) {
+    public static List<Room> getHighestRatedRooms(int limit, int offset) {
         List<Room> rooms = new ArrayList<>();
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
-        //SELECT * FROM rooms LEFT JOIN users ON rooms.owner_id = users.id WHERE owner_id = 0
-
         try {
             sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("SELECT * FROM rooms LEFT JOIN users ON rooms.owner_id = users.id WHERE owner_id > 0 AND accesstype = 0" + (allowStarterRooms ? "" : " AND model <> 'model_s'") + " ORDER BY rating DESC LIMIT ?", sqlConnection);
-            preparedStatement.setInt(1, limit);
+            preparedStatement = Storage.getStorage().prepare("SELECT * FROM rooms LEFT JOIN users ON rooms.owner_id = users.id WHERE owner_id > 0 ORDER BY rating DESC LIMIT " + limit + " OFFSET " + offset, sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 Room room = new Room();
-                fill(room.getData(), resultSet);
+                RoomDao.fill(room.getData(), resultSet);
                 rooms.add(room);
             }
 
@@ -316,10 +307,11 @@ public class RoomDao {
 
         try {
             sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("UPDATE rooms SET wallpaper = ?, floor = ? WHERE id = ?", sqlConnection);
+            preparedStatement = Storage.getStorage().prepare("UPDATE rooms SET wallpaper = ?, floor = ?, landscape = ? WHERE id = ?", sqlConnection);
             preparedStatement.setInt(1, room.getData().getWallpaper());
             preparedStatement.setInt(2, room.getData().getFloor());
-            preparedStatement.setInt(3, room.getId());
+            preparedStatement.setString(3, room.getData().getLandscape());
+            preparedStatement.setInt(4, room.getId());
             preparedStatement.execute();
         } catch (Exception e) {
             Storage.logError(e);
@@ -407,6 +399,78 @@ public class RoomDao {
     }
 
     /**
+     * Search query for when people use the navigator search, will search either by username or room name similarities.
+     *
+     * @param searchQuery the query to use
+     * @return the list of possible room matches
+     */
+    public static List<Room> searchRooms(String searchQuery, int roomOwner, int limit) {
+        List<Room> rooms = new ArrayList<>();
+
+        if (searchQuery.isBlank() && roomOwner == -1) {
+            return rooms;
+        }
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("SELECT * FROM rooms INNER JOIN users ON rooms.owner_id = users.id WHERE" + (roomOwner > 0 ? (" owner_id = " + roomOwner + " AND") : " LOWER(users.username) LIKE ? OR") + " LOWER(rooms.name) LIKE ? ORDER BY visitors_now DESC, rating DESC LIMIT ? ", sqlConnection);
+
+            if (roomOwner > 0) {
+                preparedStatement.setString(1, "%" + searchQuery + "%");
+                preparedStatement.setInt(2, limit);
+            } else {
+                preparedStatement.setString(1, "%" + searchQuery + "%");
+                preparedStatement.setString(2, "%" + searchQuery + "%");
+                preparedStatement.setInt(3, limit);
+            }
+
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Room room = new Room();
+                fill(room.getData(), resultSet);
+                rooms.add(room);
+            }
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+
+        return rooms;
+    }
+
+    /**
+     * Save visitor count of rooms
+     *
+     * @param roomId the room to save
+     */
+    public static void saveGroupId(int roomId, int groupId) {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("UPDATE rooms SET group_id = ? WHERE id = ?", sqlConnection);
+            preparedStatement.setInt(1, roomId);
+            preparedStatement.setInt(2, groupId);
+            preparedStatement.execute();
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+
+    /**
      * Fill room data
      *
      * @param data the room data instance
@@ -424,9 +488,10 @@ public class RoomDao {
         //     String password, int visitorsNow, int visitorsMax, int rating, boolean isHidden) {
         data.fill(row.getInt("id"), row.getInt("owner_id"), ownerName != null ? ownerName : "", row.getInt("category"),
                 row.getString("name"), row.getString("description"), row.getString("model"),
-                row.getString("ccts"), row.getInt("wallpaper"), row.getInt("floor"), row.getBoolean("showname"),
+                row.getString("ccts"), row.getInt("wallpaper"), row.getInt("floor"), row.getString("landscape"), row.getBoolean("showname"),
                 row.getBoolean("superusers"), row.getInt("accesstype"), row.getString("password"),
-                row.getInt("visitors_now"), row.getInt("visitors_max"), row.getInt("rating"), row.getBoolean("is_hidden"));
+                row.getInt("visitors_now"), row.getInt("visitors_max"), row.getInt("rating"),
+                row.getInt("group_id"), row.getBoolean("is_hidden"));
 
     }
 }

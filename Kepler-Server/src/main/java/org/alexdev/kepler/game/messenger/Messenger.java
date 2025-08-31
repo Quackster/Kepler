@@ -18,6 +18,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class Messenger {
+    private List<MessengerCategory> messengerCategories;
     private Map<Integer, MessengerUser> friends;
     private Map<Integer, MessengerUser> requests;
     private Map<Integer, MessengerMessage> offlineMessages;
@@ -39,6 +40,7 @@ public class Messenger {
         this.requests = MessengerDao.getRequests(details.getId());
         this.offlineMessages = MessengerDao.getUnreadMessages(details.getId());
         this.allowsFriendRequests = details.isAllowFriendRequests();
+        this.messengerCategories = MessengerDao.getCategories(details.getId());
 
         this.friendsUpdate = new LinkedBlockingQueue<>();
         this.friendsAdded = new LinkedBlockingQueue<>();
@@ -92,15 +94,15 @@ public class Messenger {
     }
 
     public void addFriend(MessengerUser friend) {
-        MessengerDao.removeRequest(friend, this.user);
-        MessengerDao.newFriend(friend, this.user);
+        MessengerDao.removeRequest(friend.getUserId(), this.user.getUserId());
+        MessengerDao.newFriend(friend.getUserId(), this.user.getUserId());
 
         this.requests.remove(friend.getUserId());
         this.friends.put(friend.getUserId(), friend);
     }
 
     public void addRequest(MessengerUser requester) {
-        MessengerDao.newRequest(requester, this.user);
+        MessengerDao.newRequest(requester.getUserId(), this.user.getUserId());
         this.requests.put(requester.getUserId(), requester);
 
         Player requested = PlayerManager.getInstance().getPlayerById(this.user.getUserId());
@@ -111,12 +113,12 @@ public class Messenger {
     }
 
     public void declineRequest(MessengerUser requester) {
-        MessengerDao.removeRequest(requester, this.user);
+        MessengerDao.removeRequest(requester.getUserId(), this.user.getUserId());
         this.requests.remove(requester);
     }
 
     public void declineAllRequests() {
-        MessengerDao.removeAllRequests(this.user);
+        MessengerDao.removeAllRequests(this.user.getUserId());
         this.requests.clear();
     }
 
@@ -144,7 +146,7 @@ public class Messenger {
             player.send(new CONSOLE_MOTTO(persistentMessage));
         }
 
-        PlayerDao.saveMotto(player.getDetails());
+        PlayerDao.saveMotto(player.getDetails().getId(), persistentMessage);
     }
 
     public String getPersistentMessage() {
@@ -253,5 +255,9 @@ public class Messenger {
 
     public Room getFollowed() {
         return followed;
+    }
+
+    public List<MessengerCategory> getCategories() {
+        return messengerCategories;
     }
 }

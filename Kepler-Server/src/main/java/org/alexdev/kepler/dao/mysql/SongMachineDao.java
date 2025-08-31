@@ -343,4 +343,34 @@ public class SongMachineDao {
             Storage.closeSilently(sqlConnection);
         }
     }
+
+    public static List<Song> getSongUserList(int userId) {
+        List<Song> songs = new ArrayList<>();
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("SELECT * FROM soundmachine_songs WHERE user_id = ?", sqlConnection);
+            preparedStatement.setLong(1, userId);
+            resultSet = preparedStatement.executeQuery();
+
+            // (int id, String title, int itemId, int length, String data, boolean isBurnt)
+            while (resultSet.next()) {
+                songs.add(new Song(resultSet.getInt("id"), resultSet.getString("title"), resultSet.getInt("item_id"), resultSet.getInt("user_id"),
+                        resultSet.getInt("length"), resultSet.getString("data"), resultSet.getBoolean("burnt")));
+            }
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+
+        return songs;
+    }
 }

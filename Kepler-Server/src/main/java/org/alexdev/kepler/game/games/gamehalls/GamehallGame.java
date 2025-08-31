@@ -22,6 +22,7 @@ public abstract class GamehallGame {
     private List<int[]> chairCoordinates;
     private List<Player> players;
     private int roomId;
+    private MessageComposer lastMessage;
 
     public GamehallGame(List<int[]> chairCoordinateList) {
         this.chairCoordinates = chairCoordinateList;
@@ -47,6 +48,18 @@ public abstract class GamehallGame {
      * @param args the arguments
      */
     public abstract void handleCommand(Player player, Room room, Item item, String command, String[] args);
+
+    /**
+     * Join game handler for player
+     * @param player the player that join
+     */
+    public abstract void joinGame(Player player);
+
+    /**
+     * Leave game handler for player
+     * @param player the player that leaves
+     */
+    public abstract void leaveGame(Player player);
 
     /**
      * Gets the unique game ID instance for this pair. Will
@@ -120,6 +133,8 @@ public abstract class GamehallGame {
      * @param messageComposer the packet to send
      */
     public void sendToEveryone(MessageComposer messageComposer) {
+        this.lastMessage = messageComposer;
+
         for (Player p : this.players) {
             p.send(messageComposer);
         }
@@ -284,5 +299,14 @@ public abstract class GamehallGame {
      */
     public List<int[]> getChairCoordinates() {
         return chairCoordinates;
+    }
+
+    /**
+     * Get the last message sent.
+     *
+     * @return the last message sent
+     */
+    public MessageComposer getLastMessage() {
+        return lastMessage;
     }
 }

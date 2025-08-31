@@ -2,7 +2,6 @@ package org.alexdev.kepler.game.room.models.triggers;
 
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
-import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.tasks.SpaceCafeTask;
 import org.alexdev.kepler.game.triggers.GenericTrigger;

@@ -1,6 +1,7 @@
 package org.alexdev.kepler.game.room.managers;
 
 import org.alexdev.kepler.dao.mysql.ItemDao;
+import org.alexdev.kepler.dao.mysql.TransactionDao;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.entities.RoomPlayer;
@@ -89,6 +90,20 @@ public class RoomTradeManager {
 
             item.setOwnerId(player.getDetails().getId());
             itemsToUpdate.add(item);
+
+            try {
+                TransactionDao.createTransaction(player.getDetails().getId(),
+                        String.valueOf(item.getId()), String.valueOf(item.getDefinition().getId()), 1,
+                        "Traded " + item.getDefinition().getName() + " from " + tradePartner.getDetails().getName(),
+                        0, tradePartner.getDetails().getId(), false);
+
+                TransactionDao.createTransaction(tradePartner.getDetails().getId(),
+                        String.valueOf(item.getId()), String.valueOf(item.getDefinition().getId()), 1,
+                        "Traded " + item.getDefinition().getName() + " to " + player.getDetails().getName(),
+                        0, player.getDetails().getId(), false);
+            } catch (Exception ex) {
+
+            }
         }
 
         ItemDao.updateItems(itemsToUpdate);

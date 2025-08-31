@@ -4,7 +4,6 @@ import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 
 import java.time.Duration;
-import java.time.LocalDateTime;
 
 public class INFO_HOTEL_CLOSING extends MessageComposer {
     private Duration minutesUntil;

@@ -2,16 +2,15 @@ package org.alexdev.kepler.game.games.gamehalls.utils;
 
 import org.alexdev.kepler.game.games.gamehalls.GameBattleShip;
 import org.alexdev.kepler.game.pathfinder.Position;
-import org.alexdev.kepler.game.player.Player;
 
 public class GameShip {
     private final GameBattleShip game;
     private final GameShipType shipType;
     private final Position position;
-    private final Player player;
+    private final int player;
     private final boolean isHorizontal;
 
-    public GameShip(GameBattleShip game, GameShipType shipType, Position position, Player player, boolean isHorizontal) {
+    public GameShip(GameBattleShip game, GameShipType shipType, Position position, int player, boolean isHorizontal) {
         this.game = game;
         this.shipType = shipType;
         this.position = position;
@@ -28,7 +27,7 @@ public class GameShip {
         return position;
     }
 
-    public final Player getPlayer() {
+    public final int getPlayer() {
         return player;
     }
 
@@ -39,7 +38,7 @@ public class GameShip {
             int shipX = this.position.getX() + (isHorizontal ? i : 0);
             int shipY = this.position.getY() + (isHorizontal ? 0 : i);
 
-            GameShipMove shipMove = this.game.getPlayerListMap().get(this.game.getOppositePlayer(this.player)).stream()
+            GameShipMove shipMove = this.game.getPlayerListMap().get(this.game.getOppositePlayerNum(this.player)).stream()
                     .filter(move ->
                             move.getX() == shipX &&
                                     move.getY() == shipY)

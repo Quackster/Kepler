@@ -5,18 +5,18 @@ import org.alexdev.kepler.game.games.battleball.BattleBallGame;
 import org.alexdev.kepler.game.games.battleball.events.PlayerMoveEvent;
 import org.alexdev.kepler.game.games.enums.GameState;
 import org.alexdev.kepler.game.games.enums.GameType;
+import org.alexdev.kepler.game.games.history.GameHistory;
 import org.alexdev.kepler.game.games.history.GameHistoryData;
 import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.games.player.GameTeam;
-import org.alexdev.kepler.game.games.history.GameHistory;
 import org.alexdev.kepler.game.games.snowstorm.SnowStormGame;
+import org.alexdev.kepler.game.games.tasks.GameFinishTask;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.RoomManager;
 import org.alexdev.kepler.game.room.models.RoomModel;
 import org.alexdev.kepler.log.Log;
 import org.alexdev.kepler.messages.outgoing.games.*;
-import org.alexdev.kepler.messages.outgoing.messenger.ROOMFORWARD;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.util.config.GameConfiguration;
 import org.alexdev.kepler.util.schedule.FutureRunnable;
@@ -202,6 +202,7 @@ public abstract class Game {
         // Stop all players from walking when game starts if they selected a tile
         for (GamePlayer p : this.getActivePlayers()) {
             p.getPlayer().getRoomUser().setWalkingAllowed(true);
+            // p.getPlayer().getRoomUser().setTeleporting(false);
         }
 
         // Send game seconds
@@ -249,9 +250,15 @@ public abstract class Game {
         this.gameFinished = true;
         this.gameState = GameState.ENDED;
 
+        // Stop all players from walking when game starts if they selected a tile
+        for (GamePlayer p : this.getActivePlayers()) {
+            //System.out.println(p.getPlayer().getDetails().getName() + " = " + p.getScore());
+            p.getPlayer().getRoomUser().setWalkingAllowed(false);
+            // p.getPlayer().getRoomUser().setTeleporting(false);
+        }
+
         var gameHistoryData = new GameHistoryData();
         var gameHistory = new GameHistory(gameHistoryData);
-        gameHistory.setGameCreator(this.gameCreatorName);
 
         this.teams.values().forEach(GameTeam::calculateScore);
 
@@ -282,17 +289,10 @@ public abstract class Game {
                 gameHistory.setExtraData(String.valueOf(((SnowStormGame) this).getGameLengthChoice()));
             }
 
-            GameManager.getInstance().getLastPlayedGames(this.gameType).add(gameHistory);
-            GameManager.getInstance().refreshPlayedGames();
-        }
-
-        // Stop all players from walking when game starts if they selected a tile
-        for (GamePlayer p : this.getActivePlayers()) {
-            p.getPlayer().getRoomUser().setWalkingAllowed(false);
-        }
-
-        if (this.canIncreasePoints()) {
-            CompletableFuture.runAsync(new GameFinishTask(this.gameType, gameHistory, this.getActivePlayers(), this.getTeams()));
+            if (this.canIncreasePoints()) {
+                var gameFinishTask = new GameFinishTask(this, gameHistory, this.gameType, sortedTeamList, this.getActivePlayers());
+                gameFinishTask.run();
+            }
         }
 
         // Send scores to everybody
@@ -388,17 +388,22 @@ public abstract class Game {
         for (var gamePlayer : players) {
             this.movePlayer(gamePlayer, -1, gamePlayer.getTeamId());
             gamePlayer.getPlayer().getRoomUser().setWalkingAllowed(false); // Don't allow them to walk, for next game
+            // gamePlayer.getPlayer().getRoomUser().setTeleporting(false);
         }
 
+        this.reassignGameId();
         this.initialise();
         this.assignSpawnPoints();
 
         for (GamePlayer gamePlayer : this.getActivePlayers()) {
+            gamePlayer.setGameId(this.getId());
+            gamePlayer.getPlayer().getRoomUser().setInstanceId(gamePlayer.getObjectId());
             gamePlayer.getPlayer().getRoomUser().setPosition(gamePlayer.getSpawnPosition());
         }
 
-        this.send(new GAMERESET(GameManager.getInstance().getPreparingSeconds(this.gameType), players));
+        this.send(new GAMERESET(GameManager.getInstance().getPreparingSeconds(this.gameType), players, this));
         this.send(new FULLGAMESTATUS(this));  // Show users back at spawn positions
+
         this.sendObservers(new GAMEDELETED(this.id));
 
         // Preparing game seconds countdown
@@ -547,7 +552,7 @@ public abstract class Game {
      *
      * @param gamePlayer the player to move
      * @param fromTeamId the team to move from, -1 if just to add to team
-     * @param toTeamId   the team to move to, -1 if just removing user from team
+     * @param toTeamId the team to move to, -1 if just removing user from team
      */
     public void movePlayer(GamePlayer gamePlayer, int fromTeamId, int toTeamId) {
         if (fromTeamId != -1) {
@@ -684,7 +689,6 @@ public abstract class Game {
 
     /**
      * Get the game player instance by id
-     *
      * @param userId the id to get the player by
      * @return the game player instance, else if null
      */
@@ -732,7 +736,7 @@ public abstract class Game {
     }
 
     public void addPlayerMove(PlayerMoveEvent event) {
-        this.eventsQueue.removeIf(e -> e instanceof PlayerMoveEvent && ((PlayerMoveEvent) e).getGamePlayer() == event.getGamePlayer());
+        this.eventsQueue.removeIf(e -> e instanceof PlayerMoveEvent && ((PlayerMoveEvent)e).getGamePlayer() == event.getGamePlayer());
         this.eventsQueue.add(event);
     }
 
@@ -768,32 +772,30 @@ public abstract class Game {
      * Method called when the game initially began
      */
     public void gamePrepare() {
-        //for (GameTeam gameTeam : this.getTeams().values()) {
-        //    gameTeam.setScore(0);
-        //}
+//        for (GameTeam gameTeam : this.getTeams().values()) {
+//            gameTeam.setScore(0);
+//        }
 
         for (GamePlayer gamePlayer : this.getActivePlayers()) {
+            gamePlayer.setXp(0);
             gamePlayer.setScore(0);
         }
-    }
+     }
 
     /**
      * Method called for the tick in game beginning
      */
-    public void gamePrepareTick() {
-    }
+    public void gamePrepareTick() { }
 
     /**
      * Method called when the game initially started
      */
-    public void gameStarted() {
-    }
+    public void gameStarted() { }
 
     /**
      * Method called when the game ends, when the scoreboard shows
      */
-    public void gameEnded() {
-    }
+    public void gameEnded() { }
 
     public List<GamePlayer> getActivePlayers() {
         List<GamePlayer> gamePlayers = new ArrayList<>();
@@ -844,6 +846,7 @@ public abstract class Game {
     }
 
     /**
+     *
      * @return
      */
     public List<Player> getObservers() {

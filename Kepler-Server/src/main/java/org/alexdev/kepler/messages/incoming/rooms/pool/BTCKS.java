@@ -7,9 +7,9 @@ import org.alexdev.kepler.game.item.interactors.InteractionType;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.player.PlayerManager;
+import org.alexdev.kepler.messages.outgoing.alert.ALERT;
+import org.alexdev.kepler.messages.outgoing.alert.NO_USER_FOUND;
 import org.alexdev.kepler.messages.outgoing.catalogue.NO_CREDITS;
-import org.alexdev.kepler.messages.outgoing.user.ALERT;
-import org.alexdev.kepler.messages.outgoing.user.NO_USER_FOUND;
 import org.alexdev.kepler.messages.outgoing.user.currencies.CREDIT_BALANCE;
 import org.alexdev.kepler.messages.outgoing.user.currencies.TICKET_BALANCE;
 import org.alexdev.kepler.messages.types.MessageEvent;
@@ -64,7 +64,7 @@ public class BTCKS implements MessageEvent {
         player.getRoomUser().getTimerManager().resetRoomTimer();
 
         CurrencyDao.decreaseCredits(player.getDetails(), costCredits);
-        player.send(new CREDIT_BALANCE(player.getDetails()));
+        player.send(new CREDIT_BALANCE(player.getDetails().getCredits()));
 
         // Join queue after buying ticket
         if (player.getRoomUser().getRoom().getModel().getName().equals("md_a")) {

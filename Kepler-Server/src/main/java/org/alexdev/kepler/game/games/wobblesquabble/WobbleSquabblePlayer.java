@@ -1,6 +1,5 @@
 package org.alexdev.kepler.game.games.wobblesquabble;
 
-
 import org.alexdev.kepler.game.player.Player;
 
 public class WobbleSquabblePlayer {
@@ -19,6 +18,7 @@ public class WobbleSquabblePlayer {
         this.wsGame = wsGame;
         this.move = WobbleSquabbleMove.NONE;
         this.order = order;
+        this.balance = 0;
     }
 
     /**
@@ -28,6 +28,17 @@ public class WobbleSquabblePlayer {
      */
     public boolean isBalancing() {
         return (this.balance > -100 && this.balance < 100);
+    }
+
+    public int getScore() {
+        if (this.isBalancing()) {
+            if (balance > 0 || balance == 0)
+                return 100 - balance;
+            else
+                return 100 + balance;
+        } else {
+            return 0;
+        }
     }
 
     /**

@@ -1,7 +1,5 @@
 package org.alexdev.kepler.game.games.history;
 
-import org.alexdev.kepler.game.games.enums.GameType;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

@@ -1,14 +1,9 @@
 package org.alexdev.kepler.game.room;
 
 import org.alexdev.kepler.game.games.Game;
-import org.alexdev.kepler.game.games.GameManager;
-import org.alexdev.kepler.game.games.enums.GameType;
 import org.alexdev.kepler.game.room.handlers.walkways.WalkwaysManager;
-import org.alexdev.kepler.game.room.models.RoomModelTriggerType;
 import org.alexdev.kepler.util.StringUtil;
 import org.alexdev.kepler.util.config.GameConfiguration;
-
-import java.util.List;
 
 public class RoomData {
     //private static final int SECONDS_UNTIL_UPDATE = 60;
@@ -23,6 +18,7 @@ public class RoomData {
     private String ccts;
     private int wallpaper;
     private int floor;
+    private String  landscape;
     private boolean showOwnerName;
     private boolean superUsers;
     private boolean isGameArena;
@@ -50,8 +46,8 @@ public class RoomData {
         this.ownerName = "";
     }
 
-    public void fill(int id, int ownerId, String ownerName, int category, String name, String description, String model, String ccts, int wallpaper, int floor, boolean showName, boolean superUsers, int accessType, String password, int visitorsNow, int visitorsMax, int rating,
-                     boolean isHidden) {
+    public void fill(int id, int ownerId, String ownerName, int category, String name, String description, String model, String ccts, int wallpaper, int floor, String landscape, boolean showName, boolean superUsers, int accessType, String password, int visitorsNow, int visitorsMax, int rating,
+                     int groupId, boolean isHidden) {
         this.id = id;
         this.ownerId = ownerId;
         this.ownerName = StringUtil.filterInput(ownerName, true);;
@@ -62,6 +58,7 @@ public class RoomData {
         this.ccts = ccts;
         this.wallpaper = wallpaper;
         this.floor = floor;
+        this.landscape = landscape;
         this.showOwnerName = showName;
         this.superUsers = superUsers;
         this.accessType = accessType;
@@ -205,6 +202,14 @@ public class RoomData {
         this.floor = floor;
     }
 
+    public String getLandscape() {
+        return landscape;
+    }
+
+    public void setLandscape(String landscape) {
+        this.landscape = landscape;
+    }
+
     public boolean showOwnerName() {
         return showOwnerName;
     }
@@ -308,4 +313,11 @@ public class RoomData {
         isHidden = hidden;
     }
 
+    public int getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(int groupId) {
+        this.groupId = groupId;
+    }
 }

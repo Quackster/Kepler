@@ -1,13 +1,10 @@
 package org.alexdev.kepler.game.pathfinder;
 
 import org.alexdev.kepler.game.entity.Entity;
-import org.alexdev.kepler.game.entity.EntityType;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.item.interactors.types.PoolInteractor;
-import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
-import org.alexdev.kepler.game.room.enums.StatusType;
 import org.alexdev.kepler.game.room.mapping.RoomTile;
 
 import java.util.LinkedList;

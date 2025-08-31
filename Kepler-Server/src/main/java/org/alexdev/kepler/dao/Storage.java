@@ -1,18 +1,13 @@
 package org.alexdev.kepler.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.alexdev.kepler.log.Log;
 import org.alexdev.kepler.util.config.ServerConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
+import java.sql.*;
 
 public class Storage {
     private HikariDataSource ds;
@@ -66,7 +61,7 @@ public class Storage {
 
         storage = new Storage(ServerConfiguration.getString("mysql.hostname"),
                 ServerConfiguration.getInteger("mysql.port"),
-                ServerConfiguration.getString("mysql.user"),
+                ServerConfiguration.getString("mysql.username"),
                 ServerConfiguration.getString("mysql.password"),
                 ServerConfiguration.getString("mysql.database"));
 

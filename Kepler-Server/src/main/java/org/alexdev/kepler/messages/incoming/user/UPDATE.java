@@ -56,11 +56,18 @@ public class UPDATE implements MessageEvent {
 
         Object sex = PlayerManager.getInstance().getRegisterValue(registerValues, "sex");
         if (sex != null) {
-            player.getDetails().setSex(((String) sex).toCharArray()[0]);
+            player.getDetails().setSex((String) sex);
         }
 
-        PlayerDao.saveDetails(player.getDetails());
-        PlayerDao.saveMotto(player.getDetails());
+        PlayerDao.saveDetails(
+                player.getDetails().getId(),
+                player.getDetails().getFigure(),
+                player.getDetails().getPoolFigure(),
+                player.getDetails().getSex());
+
+        //PlayerDao.saveDetails(player.getDetails());
+
+        PlayerDao.saveMotto(player.getDetails().getId(), player.getDetails().getMotto());
 
         new GET_INFO().handle(player, null);
 

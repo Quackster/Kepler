@@ -72,7 +72,7 @@ public class PRESENTOPEN implements MessageEvent {
             player.getInventory().addItem(item);
             player.getInventory().getView("new");
         } else {
-            List<Item> itemList = CatalogueManager.getInstance().purchase(player, catalogueItem, extraData, receivedFrom, timestamp);
+            List<Item> itemList = CatalogueManager.getInstance().purchase(player.getDetails(), catalogueItem, extraData, receivedFrom, timestamp);
 
             if (!itemList.isEmpty()) {
                 var giftedItem = itemList.get(0);

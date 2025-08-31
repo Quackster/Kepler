@@ -1,11 +1,7 @@
 package org.alexdev.kepler.game.room.models;
 
-import org.alexdev.kepler.dao.mysql.RoomDao;
 import org.alexdev.kepler.dao.mysql.RoomModelDao;
-import org.alexdev.kepler.game.room.Room;
-import org.alexdev.kepler.game.room.RoomManager;
 
-import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class RoomModelManager {

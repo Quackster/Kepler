@@ -6,7 +6,6 @@ import io.netty.handler.codec.ByteToMessageDecoder;
 import org.alexdev.kepler.server.rcon.messages.RconMessage;
 import org.alexdev.kepler.util.StringUtil;
 
-import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.List;
 

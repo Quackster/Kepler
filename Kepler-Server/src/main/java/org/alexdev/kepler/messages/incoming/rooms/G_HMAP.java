@@ -9,8 +9,6 @@ import org.alexdev.kepler.messages.outgoing.rooms.OBJECTS_WORLD;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 
-import java.util.List;
-
 public class G_HMAP implements MessageEvent {
     @Override
     public void handle(Player player, NettyRequest reader) throws Exception {

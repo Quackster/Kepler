@@ -2,22 +2,22 @@ package org.alexdev.kepler.messages.incoming.catalogue;
 
 import org.alexdev.kepler.dao.mysql.CurrencyDao;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
-import org.alexdev.kepler.game.catalogue.CatalogueItem;
-import org.alexdev.kepler.game.catalogue.CatalogueManager;
-import org.alexdev.kepler.game.catalogue.CataloguePage;
-import org.alexdev.kepler.game.catalogue.RareManager;
+import org.alexdev.kepler.dao.mysql.TransactionDao;
+import org.alexdev.kepler.game.catalogue.*;
+import org.alexdev.kepler.game.catalogue.collectables.CollectablesManager;
 import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.ItemManager;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
+import org.alexdev.kepler.game.item.base.ItemDefinition;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.player.PlayerManager;
 import org.alexdev.kepler.game.texts.TextsManager;
+import org.alexdev.kepler.messages.outgoing.alert.ALERT;
+import org.alexdev.kepler.messages.outgoing.alert.NO_USER_FOUND;
 import org.alexdev.kepler.messages.outgoing.catalogue.NO_CREDITS;
 import org.alexdev.kepler.messages.outgoing.rooms.items.ITEM_DELIVERED;
-import org.alexdev.kepler.messages.outgoing.user.ALERT;
-import org.alexdev.kepler.messages.outgoing.user.NO_USER_FOUND;
 import org.alexdev.kepler.messages.outgoing.user.currencies.CREDIT_BALANCE;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
@@ -25,7 +25,10 @@ import org.alexdev.kepler.util.DateUtil;
 import org.alexdev.kepler.util.StringUtil;
 import org.alexdev.kepler.util.config.GameConfiguration;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class GRPC implements MessageEvent {
     @Override
@@ -95,7 +98,7 @@ public class GRPC implements MessageEvent {
                 extraData = String.valueOf(item.getItemSpecialId());
             }
 
-            Item present = ItemManager.getInstance().createGift(receivingUserDetails, player.getDetails(), item.getSaleCode(), StringUtil.filterInput(presentNote, false), extraData);//new Item();
+            Item present = ItemManager.getInstance().createGift(receivingUserDetails.getId(), player.getDetails().getName(), item.getSaleCode(), StringUtil.filterInput(presentNote, false), extraData);//new Item();
             /*present.setOwnerId(receivingUserDetails.getId());
             present.setDefinitionId(ItemManager.getInstance().getDefinitionBySprite("present_gen" + ThreadLocalRandom.current().nextInt(1, 7)).getId());
             present.setCustomData(saleCode +
@@ -105,6 +108,22 @@ public class GRPC implements MessageEvent {
                     Item.PRESENT_DELIMETER + DateUtil.getCurrentTimeSeconds());
 
             ItemDao.newItem(present);*/
+
+            String transactionDscription = getTransactionDescription(item);
+
+            if (transactionDscription != null && receivingUserDetails != null) {
+                TransactionDao.createTransaction(receivingUserDetails.getId(),
+                        present.getId() + "",
+                        item.getId() + "",
+                        1/*item.getAmount()*/,
+                        "Gift purchase from " + player.getDetails().getName() + " for " + receivingUserDetails.getName() + " - " + transactionDscription, item.getPrice(), 0/*pricePixels*/, true);
+
+                TransactionDao.createTransaction(player.getDetails().getId(),
+                        present.getId() + "",
+                        item.getId() + "",
+                        1/*item.getAmount()*/,
+                        "Gift purchase from " + player.getDetails().getName() + " for " + receivingUserDetails.getName() + " - " + transactionDscription, item.getPrice(), 0/*pricePixels*/, true);
+            }
 
             Player receiver = PlayerManager.getInstance().getPlayerById(receivingUserDetails.getId());
 
@@ -123,9 +142,30 @@ public class GRPC implements MessageEvent {
                 extraData = data[4];
             }
 
-            if (CatalogueManager.getInstance().purchase(player, item, extraData, null, DateUtil.getCurrentTimeSeconds()).size() > 0) {
+            var items = CatalogueManager.getInstance().purchase(player.getDetails(), item, extraData, null, DateUtil.getCurrentTimeSeconds());
+
+            if (items.size() > 0)
                 player.getInventory().getView("new");
+
+
+        String transactionDscription = getTransactionDescription(item);
+
+        if (transactionDscription != null) {
+            boolean isCollectable = CollectablesManager.getInstance().isCollectable(item);
+
+            if (isCollectable) {
+                TransactionDao.createTransaction(player.getDetails().getId(),
+                        items.stream().map(e -> String.valueOf(e.getId())).collect(Collectors.joining(",")),
+                        item.getId() + "",
+                        1/*item.getAmount()*/,
+                        "Collectible - " + transactionDscription, item.getPrice(), 0/*pricePixels*/, true);
+            } else {
+                TransactionDao.createTransaction(player.getDetails().getId(),
+                        items.stream().map(e -> String.valueOf(e.getId())).collect(Collectors.joining(",")),
+                        item.getId() + "",
+                        1/*item.getAmount()*/, transactionDscription, item.getPrice(), 0/*pricePixels*/, true);
             }
+        }
 
             boolean showItemDelivered = true;
 
@@ -141,7 +181,43 @@ public class GRPC implements MessageEvent {
             }
         }
 
+
         CurrencyDao.decreaseCredits(player.getDetails(), price);
-        player.send(new CREDIT_BALANCE(player.getDetails()));
+        player.send(new CREDIT_BALANCE(player.getDetails().getCredits()));
+    }
+
+    public static String getTransactionDescription(CatalogueItem item) {
+        if (!item.isPackage()) {
+            return getItemDescription(item.getDefinition(), 1/*item.getAmount()*/);
+        } else {
+            List<String> descriptions = new ArrayList<>();
+
+            for (CataloguePackage cataloguePackage : item.getPackages()) {
+                var description = getItemDescription(cataloguePackage.getDefinition(), 1);
+
+                if (description != null) {
+                    descriptions.add(description);
+                }
+            }
+
+            return "Package purchase (" + String.join(", ", descriptions) + ")";
+        }
+    }
+
+    private static String getItemDescription(ItemDefinition definition, int amount) {
+        if (definition == null) {
+            return null;
+        }
+
+        /*
+        if (definition.hasBehaviour(ItemBehaviour.EFFECT)) {
+            return "Effect " + definition.getSprite().replace("avatar_effect", "") + " purchase";
+        }*/
+
+        if (definition.getSprite().equals("film")) {
+            return "Film purchase";
+        }
+
+        return definition.getName() + " purchase";
     }
 }

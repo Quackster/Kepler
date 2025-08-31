@@ -3,7 +3,6 @@ package org.alexdev.kepler.game.item.interactors.types;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
 import org.alexdev.kepler.game.item.Item;
-import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.pets.Pet;
 import org.alexdev.kepler.game.player.Player;

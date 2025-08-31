@@ -1,8 +1,6 @@
 package org.alexdev.kepler.dao.mysql;
 
 import org.alexdev.kepler.dao.Storage;
-import org.alexdev.kepler.game.player.PlayerDetails;
-import org.alexdev.kepler.game.room.RoomData;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

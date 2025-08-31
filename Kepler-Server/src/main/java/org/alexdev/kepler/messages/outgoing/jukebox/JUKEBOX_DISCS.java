@@ -7,7 +7,6 @@ import org.alexdev.kepler.game.song.jukebox.BurnedDisk;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 
-import java.util.List;
 import java.util.Map;
 
 public class JUKEBOX_DISCS extends MessageComposer {

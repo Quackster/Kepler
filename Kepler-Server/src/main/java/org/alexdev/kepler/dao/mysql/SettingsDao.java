@@ -1,18 +1,39 @@
 package org.alexdev.kepler.dao.mysql;
 
 import org.alexdev.kepler.dao.Storage;
-import org.alexdev.kepler.game.room.Room;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class SettingsDao {
+    public static void updateSettings(Set<Map.Entry<String, String>> entrySet) {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("UPDATE settings SET value = ? WHERE setting = ?", sqlConnection);
+            sqlConnection.setAutoCommit(false);
+
+            for (var kvp : entrySet) {
+                preparedStatement.setString(1, kvp.getValue());
+                preparedStatement.setString(2, kvp.getKey());
+                preparedStatement.addBatch();
+            }
+
+            preparedStatement.executeBatch();
+            sqlConnection.setAutoCommit(true);
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
 
     /**
      * Update setting in the database.

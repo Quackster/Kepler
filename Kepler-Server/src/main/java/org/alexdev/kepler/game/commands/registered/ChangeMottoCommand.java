@@ -41,7 +41,7 @@ public class ChangeMottoCommand extends Command {
 
         // Update motto
         player.getDetails().setMotto(motto);
-        PlayerDao.saveMotto(player.getDetails());
+        PlayerDao.saveMotto(player.getDetails().getId(), motto);
 
         // Notify room of changed motto
         player.getRoomUser().getRoom().send(new FIGURE_CHANGE(player.getRoomUser().getInstanceId(), player.getDetails()));

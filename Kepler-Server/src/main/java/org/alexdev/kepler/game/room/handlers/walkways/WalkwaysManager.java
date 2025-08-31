@@ -3,12 +3,9 @@ package org.alexdev.kepler.game.room.handlers.walkways;
 import org.alexdev.kepler.dao.mysql.PublicRoomsDao;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.room.Room;
-import org.alexdev.kepler.game.room.RoomManager;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 public class WalkwaysManager {
     private static WalkwaysManager instance;

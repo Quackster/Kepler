@@ -2,16 +2,9 @@ package org.alexdev.kepler.game.room.tasks;
 
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.item.Item;
-import org.alexdev.kepler.game.item.base.ItemBehaviour;
-import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.room.Room;
-import org.alexdev.kepler.game.room.enums.StatusType;
-import org.alexdev.kepler.messages.outgoing.rooms.items.MOVE_FLOORITEM;
-import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Collection;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public class RollerCompleteTask implements Runnable {

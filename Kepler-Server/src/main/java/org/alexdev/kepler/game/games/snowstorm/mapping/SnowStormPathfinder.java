@@ -1,11 +1,11 @@
 package org.alexdev.kepler.game.games.snowstorm.mapping;
 
 import org.alexdev.kepler.game.games.player.GamePlayer;
-import org.alexdev.kepler.game.pathfinder.Pathfinder;
-import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.games.snowstorm.SnowStormGame;
 import org.alexdev.kepler.game.games.snowstorm.objects.SnowballObject;
 import org.alexdev.kepler.game.games.snowstorm.util.SnowStormActivityState;
+import org.alexdev.kepler.game.pathfinder.Pathfinder;
+import org.alexdev.kepler.game.pathfinder.Position;
 
 import java.util.ArrayList;
 import java.util.Comparator;

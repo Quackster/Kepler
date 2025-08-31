@@ -1,12 +1,9 @@
 package org.alexdev.kepler.game.item.interactors.types;
 
-import org.alexdev.kepler.game.entity.EntityType;
-import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.entity.Entity;
+import org.alexdev.kepler.game.entity.EntityType;
 import org.alexdev.kepler.game.item.Item;
-import org.alexdev.kepler.game.item.interactors.InteractionType;
 import org.alexdev.kepler.game.pathfinder.Position;
-import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.entities.RoomEntity;
 import org.alexdev.kepler.game.room.enums.StatusType;
 import org.alexdev.kepler.game.room.mapping.RoomTile;

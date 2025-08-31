@@ -12,7 +12,6 @@ import org.alexdev.kepler.game.games.triggers.GameTrigger;
 import org.alexdev.kepler.messages.outgoing.rooms.games.ITEMMSG;
 import org.alexdev.kepler.messages.outgoing.rooms.user.CHAT_MESSAGE;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -34,27 +33,32 @@ public class GameChess extends GamehallGame {
     private Board board;
     private GameToken[] gameTokens;
     private Player nextTurn;
-    private Position[] positions;
-
-    private List<Player> playersInGame;
     private HashMap<Player, GameToken> playerSides;
 
     public GameChess(List<int[]> chairs) {
         super(chairs);
     }
 
+
+
     @Override
     public void gameStart() {
-        this.playersInGame = new ArrayList<>();
         this.playerSides = new HashMap<>();
         this.restartMap();
     }
 
     @Override
     public void gameStop() {
-        this.playersInGame.clear();
         this.playerSides.clear();
         this.board = null;
+    }
+
+    @Override
+    public void joinGame(Player player) { }
+
+    @Override
+    public void leaveGame(Player player) {
+        this.playerSides.remove(player);
     }
 
     @Override
@@ -86,8 +90,6 @@ public class GameChess extends GamehallGame {
             player.send(new ITEMMSG(new String[]{this.getGameId(), "SELECTTYPE " + String.valueOf(sideChosen)}));
 
             GameToken token = this.getToken(sideChosen);
-
-            this.playersInGame.add(player);
             this.playerSides.put(player, token);
 
             // Select the other side for the player
@@ -104,7 +106,6 @@ public class GameChess extends GamehallGame {
                 for (Player otherPlayer : this.getPlayers()) {
                     if (otherPlayer != player) {
                         otherPlayer.send(new ITEMMSG(new String[]{this.getGameId(), "SELECTTYPE " + String.valueOf(otherToken.getToken())}));
-                        this.playersInGame.add(otherPlayer);
                         this.playerSides.put(otherPlayer, otherToken);
                         break;
                     }
@@ -128,7 +129,7 @@ public class GameChess extends GamehallGame {
                 return;
             }
 
-            if (this.playersInGame.size() < this.getMinimumPeopleRequired()) {
+            if (this.getPlayers().size() < this.getMinimumPeopleRequired()) {
                 this.broadcastMap();
                 return; // Can't place objects until other player has joined.
             }
@@ -165,14 +166,17 @@ public class GameChess extends GamehallGame {
                 if (this.board.isDraw()) {
                     this.gameFinished = true;
                     this.showChat("The chess game has ended in a draw");
+                    this.broadcastMap();
                     return;
                 } else if (this.board.isStaleMate()) {
                     this.gameFinished = true;
                     this.showChat("The chess game has encountered a stalemate");
+                    this.broadcastMap();
                     return;
                 } else if (this.board.isMated()) {
                     this.gameFinished = true;
                     this.showChat(player.getDetails().getName() + " has won the chess game");
+                    this.broadcastMap();
                     return;
                 }
 
@@ -213,7 +217,7 @@ public class GameChess extends GamehallGame {
             boardData.append(side);
             boardData.append(chessPiece);
             boardData.append(square.value().toLowerCase());
-            boardData.append("\r");
+            boardData.append((char)32);
 
         }
 
@@ -272,7 +276,7 @@ public class GameChess extends GamehallGame {
     }
 
     private void showChat(String chat) {
-        for (Player p : this.playersInGame) {
+        for (Player p : this.getPlayers()) {
             p.send(new CHAT_MESSAGE(CHAT_MESSAGE.ChatMessageType.CHAT, p.getRoomUser().getInstanceId(), chat));
         }
     }
@@ -286,7 +290,7 @@ public class GameChess extends GamehallGame {
         Player nextPlayer = null;
 
         if (this.nextTurn == player) {
-            for (Player p :  this.playersInGame) {
+            for (Player p :  this.getPlayers()) {
                 if (p != player) {
                     nextPlayer = p;
                 }
@@ -305,7 +309,7 @@ public class GameChess extends GamehallGame {
                 new GameToken('b')
         };
 
-        if (this.playersInGame.size() > 0) {
+        if (this.getPlayers().size() > 0) {
             this.nextTurn = this.getPlayerBySide('w'); // White always goes first, according to chess rules.
         }
 

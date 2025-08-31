@@ -1,9 +1,9 @@
 package org.alexdev.kepler.messages.incoming.games;
 
-import org.alexdev.kepler.game.games.history.GameHistory;
 import org.alexdev.kepler.game.games.Game;
 import org.alexdev.kepler.game.games.GameManager;
 import org.alexdev.kepler.game.games.enums.GameState;
+import org.alexdev.kepler.game.games.history.GameHistory;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.triggers.GameLobbyTrigger;

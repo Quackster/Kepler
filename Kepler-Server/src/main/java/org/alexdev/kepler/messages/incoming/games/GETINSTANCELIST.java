@@ -1,15 +1,11 @@
 package org.alexdev.kepler.messages.incoming.games;
 
-import org.alexdev.kepler.game.games.GameManager;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.triggers.GameLobbyTrigger;
-import org.alexdev.kepler.messages.outgoing.games.INSTANCELIST;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 import org.alexdev.kepler.util.config.GameConfiguration;
-
-import java.util.stream.Collectors;
 
 public class GETINSTANCELIST implements MessageEvent {
     @Override

@@ -1,7 +1,7 @@
 package org.alexdev.kepler.game.catalogue;
 
-import org.alexdev.kepler.game.item.base.ItemDefinition;
 import org.alexdev.kepler.game.item.ItemManager;
+import org.alexdev.kepler.game.item.base.ItemDefinition;
 
 public class CataloguePackage {
     private String saleCode;

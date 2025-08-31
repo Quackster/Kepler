@@ -1,7 +1,5 @@
 package org.alexdev.kepler.game.games.wobblesquabble;
 
-import org.alexdev.kepler.game.games.wobblesquabble.WobbleSquabbleMove;
-
 public class WobbleSquabbleStatus {
     private int position;
     private int balance;

@@ -1,19 +1,19 @@
 package org.alexdev.kepler.dao.mysql;
 
+import org.alexdev.kepler.Kepler;
 import org.alexdev.kepler.dao.Storage;
 import org.alexdev.kepler.game.games.GameSpawn;
 import org.alexdev.kepler.game.games.enums.GameType;
 import org.alexdev.kepler.game.games.battleball.BattleBallMap;
+import org.alexdev.kepler.game.games.history.GameHistory;
+import org.alexdev.kepler.game.games.history.GameHistoryData;
 import org.alexdev.kepler.game.games.player.GameRank;
-import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.room.models.RoomModel;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class GameDao {
     public static List<GameRank> getRanks() {
@@ -136,72 +136,146 @@ public class GameDao {
         return spawns;
     }
 
-    /**
-     * Atomically increase tickets.
-     *
-     * @param details the player details
-     */
-    public static void increasePoints(PlayerDetails details, GameType type, int amount) {
-        String column = type.name().toLowerCase() + "_points";
+    /*public static List<GameHistory> getTopTeams() {
+        List<GameHistory> teams = new ArrayList<>();
 
-        Connection conn = null;
-        PreparedStatement updateQuery = null;
-        PreparedStatement fetchQuery = null;
-        ResultSet row = null;
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
         try {
-            conn = Storage.getStorage().getConnection();
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("SELECT * FROM games_played_history ORDER BY team_points DESC LIMIT 3", sqlConnection);
+            resultSet = preparedStatement.executeQuery();
 
-            // We disable autocommit to make sure the following queries share the same atomic transaction
-            conn.setAutoCommit(false);
+            while (resultSet.next()) {
+                String json = resultSet.getString("player_scores");
 
-            // Increase credits
-            updateQuery = Storage.getStorage().prepare("UPDATE users SET " + column + " = " + column + " + ? WHERE id = ?", conn);
-            updateQuery.setInt(1, amount);
-            updateQuery.setInt(2, details.getId());
-            updateQuery.execute();
+                try {
+                    GameHistoryData gamePlayedHistory = Havana.getGson().fromJson(json, GameHistoryData.class);
+                    teams.add(new GameHistory(resultSet.getInt("team_type"), gamePlayedHistory));
+                } catch (Exception ex) {
 
-            // Fetch increased amount
-            fetchQuery = Storage.getStorage().prepare("SELECT " + column + " FROM users WHERE id = ?", conn);
-            fetchQuery.setInt(1, details.getId());
-            row = fetchQuery.executeQuery();
-
-            // Commit these queries
-            conn.commit();
-
-            // Set amount
-            if (row != null && row.next()) {
-                int updatedAmount = row.getInt(column);
-
-                if (type == GameType.BATTLEBALL) {
-                    details.setBattleballPoints(updatedAmount);
-                }
-
-                if (type == GameType.SNOWSTORM) {
-                    details.setSnowStormPoints(updatedAmount);
                 }
             }
 
         } catch (Exception e) {
-            try {
-                // Rollback these queries
-                conn.rollback();
-            } catch(SQLException re) {
-                Storage.logError(re);
-            }
-
             Storage.logError(e);
         } finally {
-            try {
-                conn.setAutoCommit(true);
-            } catch (SQLException ce) {
-                Storage.logError(ce);
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+
+
+        return teams;
+    }
+
+    public static HashMap<String, Integer> getTopPlayers() {
+        LinkedHashMap<String, Integer> players = new LinkedHashMap<>();
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("SELECT *,(battleball_points + snowstorm_points) AS game_points FROM users INNER JOIN users_statistics ON users_statistics.user_id = users.id ORDER BY (battleball_points + snowstorm_points) DESC LIMIT 5", sqlConnection);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                players.put(resultSet.getString("username"), resultSet.getInt("game_points"));
             }
 
-            Storage.closeSilently(row);
-            Storage.closeSilently(updateQuery);
-            Storage.closeSilently(fetchQuery);
-            Storage.closeSilently(conn);
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
         }
+
+        return players;
+    }*/
+
+
+    public static void resetMonthlyXp() {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("UPDATE users_statistics SET battleball_score_month = 0, snowstorm_score_month = 0, wobble_squabble_score_month = 0, xp_earned_month = 0 " +
+                    "WHERE (battleball_score_month > 0) OR (snowstorm_score_month > 0) OR (wobble_squabble_score_month > 0) OR (xp_earned_month > 0)", sqlConnection);
+            preparedStatement.execute();
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+
+    public static void saveTeamHistory(String uniqueId, String gameName, int mapCreator, int mapId, int winningTeam, int winningTeamScore, String extraData, GameType gameType, String gameHistoryData) {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("INSERT INTO games_played_history (id, game_name, game_creator, game_type, map_id, winning_team, winning_team_score, extra_data, team_data) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", sqlConnection);
+            preparedStatement.setString(1, uniqueId);
+            preparedStatement.setString(2, gameName);
+            preparedStatement.setInt(3, mapCreator);
+            preparedStatement.setString(4, gameType.name());
+            preparedStatement.setInt(5, mapId);
+            preparedStatement.setInt(6, winningTeam);
+            preparedStatement.setInt(7, winningTeamScore);
+            preparedStatement.setString(8, extraData);
+            preparedStatement.setString(9, gameHistoryData);
+            preparedStatement.execute();
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+
+    public static List<GameHistory> getLastPlayedGames(GameType gameType) {
+        List<GameHistory> games = new ArrayList<>();
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("SELECT games_played_history.*, users.username AS game_creator_name FROM games_played_history INNER JOIN users ON users.id = games_played_history.game_creator WHERE game_type = ? ORDER BY played_at DESC LIMIT 15", sqlConnection);
+            preparedStatement.setString(1, gameType.name());
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                var gameHistory = new GameHistory(Kepler.getGson().fromJson(resultSet.getString("team_data"), GameHistoryData.class));
+
+                gameHistory.setName(resultSet.getString("game_name"));
+                gameHistory.setGameCreator(resultSet.getString("game_creator_name"));
+                gameHistory.setMapId(resultSet.getInt("map_id"));
+                gameHistory.setGameType(GameType.valueOf(resultSet.getString("game_type")));
+                gameHistory.setWinningTeam(resultSet.getInt("winning_team"));
+                gameHistory.setWinningTeamScore(resultSet.getInt("winning_team_score"));
+                gameHistory.setExtraData(resultSet.getString("extra_data"));
+
+                games.add(gameHistory);
+            }
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+
+        return games;
     }
 }

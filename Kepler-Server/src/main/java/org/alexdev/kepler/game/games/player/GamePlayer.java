@@ -1,15 +1,15 @@
 package org.alexdev.kepler.game.games.player;
 
-import org.alexdev.kepler.game.games.Game;
-import org.alexdev.kepler.game.games.GameManager;
-import org.alexdev.kepler.game.games.GameObject;
 import org.alexdev.kepler.game.games.battleball.BattleBallGame;
 import org.alexdev.kepler.game.games.battleball.BattleBallTile;
 import org.alexdev.kepler.game.games.battleball.enums.BattleBallPlayerState;
-import org.alexdev.kepler.game.games.snowstorm.util.SnowStormAttributes;
+import org.alexdev.kepler.game.games.Game;
+import org.alexdev.kepler.game.games.GameManager;
+import org.alexdev.kepler.game.games.GameObject;
 import org.alexdev.kepler.game.games.utils.ScoreReference;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.player.Player;
+import org.alexdev.kepler.game.games.snowstorm.util.SnowStormAttributes;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

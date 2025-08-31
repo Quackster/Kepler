@@ -1,6 +1,8 @@
 package org.alexdev.kepler.game.catalogue;
 
 import org.alexdev.kepler.dao.mysql.*;
+import org.alexdev.kepler.game.catalogue.collectables.CollectableData;
+import org.alexdev.kepler.game.catalogue.collectables.CollectablesManager;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.ItemManager;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
@@ -8,13 +10,17 @@ import org.alexdev.kepler.game.item.base.ItemDefinition;
 import org.alexdev.kepler.game.item.interactors.InteractionType;
 import org.alexdev.kepler.game.pets.PetManager;
 import org.alexdev.kepler.game.player.Player;
+import org.alexdev.kepler.game.player.PlayerDetails;
+import org.alexdev.kepler.game.player.PlayerManager;
 import org.alexdev.kepler.game.player.PlayerRank;
 import org.alexdev.kepler.messages.outgoing.user.currencies.FILM;
 import org.alexdev.kepler.util.DateUtil;
 import org.alexdev.kepler.util.StringUtil;
+import org.alexdev.kepler.util.config.GameConfiguration;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class CatalogueManager {
@@ -31,20 +37,36 @@ public class CatalogueManager {
         this.loadPackages();
     }
 
-    public List<Item> purchase(Player player, CatalogueItem item, String extraData, String overrideName, long timestamp) throws SQLException {
+    /**
+     * Purchase handler for player details.
+     *
+     * @param playerDetails the details for player
+     * @param item the item the user is buying
+     * @param extraData the extra data attached to item
+     * @param overrideName the override name (used for trophies)
+     * @param timestamp the time of purchase
+     * @return the list of items bought
+     * @throws SQLException the sql exception
+     */
+    public List<Item> purchase(PlayerDetails playerDetails, CatalogueItem item, String extraData, String overrideName, long timestamp) throws SQLException {
         List<Item> itemsBought = new ArrayList<>();
 
         if (!item.isPackage()) {
-            Item newItem = purchase(player, item.getDefinition(), extraData, item.getItemSpecialId(), overrideName, timestamp);
+            //for (int i = 0; i < item.getAmount(); i++) {
+                Item newItem = purchase(playerDetails, item.getDefinition(), extraData, item.getItemSpecialId(), overrideName, timestamp);
 
-            if (newItem != null) {
-                itemsBought.add(newItem);
-            }
+                if (newItem != null) {
+                    itemsBought.add(newItem);
+                }
+            //}
         } else {
             for (CataloguePackage cataloguePackage : item.getPackages()) {
                 for (int i = 0; i < cataloguePackage.getAmount(); i++) {
-                    Item newItem = purchase(player, cataloguePackage.getDefinition(), null, cataloguePackage.getSpecialSpriteId(), overrideName, timestamp);
-                    itemsBought.add(newItem);
+                    Item newItem = purchase(playerDetails, cataloguePackage.getDefinition(), null, cataloguePackage.getSpecialSpriteId(), overrideName, timestamp);
+
+                    if (newItem != null) {
+                        itemsBought.add(newItem);
+                    }
                 }
             }
         }
@@ -52,7 +74,21 @@ public class CatalogueManager {
         return itemsBought;
     }
 
-    private Item purchase(Player player, ItemDefinition def, String extraData, int specialSpriteId, String overrideName, long timestamp) throws SQLException {
+    /**
+     * The player purchase handler but purchase single item.
+     *
+     * @param playerDetails the details of the player
+     * @param def the definition of the item
+     * @param extraData the extra data attached to the item
+     * @param specialSpriteId the special sprite id used for posters
+     * @param overrideName the override name - used for trophies
+     * @param timestamp the time of purchase
+     * @return the item bought
+     * @throws SQLException the sql exception
+     */
+    public Item purchase(PlayerDetails playerDetails, ItemDefinition def, String extraData, int specialSpriteId, String overrideName, long timestamp) throws SQLException {
+        Player player = PlayerManager.getInstance().getPlayerById(playerDetails.getId());
+
         // If the item is film, just give the user film
         if (def.getSprite().equals("film")) {
             CurrencyDao.increaseFilm(player.getDetails(), 5);
@@ -203,8 +239,29 @@ public class CatalogueManager {
      * @param pageId the id of the page to get the items for
      * @return the list of items
      */
-    public List<CatalogueItem> getCataloguePageItems(int pageId) {
+    public List<CatalogueItem> getCataloguePageItems(int pageId, boolean rawItems) {
         List<CatalogueItem> items = new ArrayList<>();
+
+        // Ignore any game logic checks when requesting catalogue pages
+        if (!rawItems) {
+            /*
+            if (pageId == GameConfiguration.getInstance().getInteger("rare.cycle.page.id")) {
+                var itemList = getSeasonalItems();
+
+                if (itemList.size() > 0) {
+                    return itemList;
+                }
+            }
+             */
+
+            // Do collectables
+            CollectableData collectableData = CollectablesManager.getInstance().getCollectableDataByPage(pageId);
+
+            if (collectableData != null) {
+                CatalogueItem catalogueItem = collectableData.getActiveItem();
+                return List.of(catalogueItem);
+            }
+        }
 
         for (CatalogueItem catalogueItem : this.catalogueItemList) {
             if (catalogueItem.isHidden()) {
@@ -216,6 +273,7 @@ public class CatalogueManager {
             }
         }
 
+        // items.sort(Comparator.comparingInt(CatalogueItem::getOrderId));
         return items;
     }
 

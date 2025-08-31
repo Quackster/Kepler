@@ -1,11 +1,11 @@
 package org.alexdev.kepler.messages.incoming.rooms.user;
 
 import org.alexdev.kepler.game.games.gamehalls.GamehallGame;
+import org.alexdev.kepler.game.games.triggers.GameTrigger;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.entities.RoomEntity;
-import org.alexdev.kepler.game.games.triggers.GameTrigger;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 

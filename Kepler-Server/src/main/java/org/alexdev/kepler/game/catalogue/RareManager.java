@@ -34,7 +34,7 @@ public class RareManager {
             int hoursRequired = Integer.parseInt(numbers.split(",")[1]);
 
             if (hoursRequired > 0) {
-                for (CatalogueItem item : CatalogueManager.getInstance().getCataloguePageItems(cataloguePage)) {
+                for (CatalogueItem item : CatalogueManager.getInstance().getCataloguePageItems(cataloguePage, true)) {
                     this.rareCost.put(item, getHandoutAmountInHours(hoursRequired));
                 }
             }
@@ -78,7 +78,7 @@ public class RareManager {
                 continue;
             }
 
-            this.rareList.addAll(CatalogueManager.getInstance().getCataloguePageItems(cataloguePage.getId()));
+            this.rareList.addAll(CatalogueManager.getInstance().getCataloguePageItems(cataloguePage.getId(), true));
         }
 
         Collections.shuffle(this.rareList);

@@ -1,14 +1,11 @@
 package org.alexdev.kepler.game.catalogue;
 
+import org.alexdev.kepler.game.item.ItemManager;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.item.base.ItemDefinition;
-import org.alexdev.kepler.game.item.ItemManager;
-import org.alexdev.kepler.game.texts.TextsManager;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ServiceLoader;
 
 public class CatalogueItem {
     private String saleCode;

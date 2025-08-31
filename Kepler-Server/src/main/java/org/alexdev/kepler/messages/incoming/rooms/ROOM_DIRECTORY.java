@@ -5,9 +5,7 @@ import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.RoomManager;
-import org.alexdev.kepler.messages.outgoing.games.FULLGAMESTATUS;
 import org.alexdev.kepler.messages.outgoing.navigator.CANTCONNECT;
-import org.alexdev.kepler.messages.outgoing.navigator.CANTCONNECT.QueueError;
 import org.alexdev.kepler.messages.outgoing.rooms.OPEN_CONNECTION;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
@@ -40,12 +38,12 @@ public class ROOM_DIRECTORY implements MessageEvent {
             }
 
             if (room.isClubOnly() && !player.getDetails().hasClubSubscription()) {
-                player.send(new CANTCONNECT(QueueError.CLUB_ONLY));
+                player.send(new CANTCONNECT(CANTCONNECT.QueueError.CLUB_ONLY));
                 return;
             }
 
             if (room.getData().getTotalVisitorsNow() >= room.getData().getTotalVisitorsMax() && !player.hasFuse(Fuseright.ENTER_FULL_ROOMS)) {
-                player.send(new CANTCONNECT(QueueError.FULL));
+                player.send(new CANTCONNECT(CANTCONNECT.QueueError.FULL));
                 return;
             }
 

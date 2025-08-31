@@ -21,7 +21,7 @@ public class USER_OBJECT extends MessageComposer {
         response.writeInt(this.details.getTickets());
         response.writeString(this.details.getPoolFigure());
         response.writeInt(this.details.getFilm());
-        response.writeBool(this.details.isReceiveNews());
+        response.writeBool(false); // directMail
     }
 
     @Override

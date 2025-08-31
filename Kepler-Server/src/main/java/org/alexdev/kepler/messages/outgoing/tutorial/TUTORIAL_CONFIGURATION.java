@@ -1,6 +1,5 @@
 package org.alexdev.kepler.messages.outgoing.tutorial;
 
-import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.tutorial.TutorialTopic;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;

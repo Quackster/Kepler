@@ -3,15 +3,14 @@ package org.alexdev.kepler.game.commands.registered;
 import org.alexdev.kepler.game.commands.Command;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
-import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.fuserights.Fuseright;
+import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerManager;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.tasks.RainbowTask;
+import org.alexdev.kepler.messages.outgoing.alert.ALERT;
 import org.alexdev.kepler.messages.outgoing.rooms.user.CHAT_MESSAGE;
-import org.alexdev.kepler.messages.outgoing.rooms.user.CHAT_MESSAGE.ChatMessageType;
-import org.alexdev.kepler.messages.outgoing.user.ALERT;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.concurrent.TimeUnit;
@@ -83,11 +82,11 @@ public class RainbowDimmerCommand extends Command {
             statusMessage = "Rainbow room dimmer cycle has started";
         }
 
-        player.send(new CHAT_MESSAGE(ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), statusMessage));
+        player.send(new CHAT_MESSAGE(CHAT_MESSAGE.ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), statusMessage));
 
         // Send status of room task to roomowner
         if (ownerInRoom) {
-            roomOwner.send(new CHAT_MESSAGE(ChatMessageType.WHISPER, roomOwner.getRoomUser().getInstanceId(), statusMessage));
+            roomOwner.send(new CHAT_MESSAGE(CHAT_MESSAGE.ChatMessageType.WHISPER, roomOwner.getRoomUser().getInstanceId(), statusMessage));
         }
     }
 

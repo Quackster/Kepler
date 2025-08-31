@@ -2,7 +2,6 @@ package org.alexdev.kepler.messages.outgoing.rooms.user;
 
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityState;
-import org.alexdev.kepler.game.room.enums.StatusType;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 import org.alexdev.kepler.util.StringUtil;

@@ -14,8 +14,6 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.util.concurrent.GlobalEventExecutor;
 import org.alexdev.kepler.log.Log;
 import org.alexdev.kepler.server.netty.connections.ConnectionVersionRule;
-import org.alexdev.kepler.util.config.GameConfiguration;
-import org.alexdev.kepler.util.config.ServerConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

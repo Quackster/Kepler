@@ -1,10 +1,8 @@
 package org.alexdev.kepler.messages.outgoing.songs;
 
-import org.alexdev.kepler.game.item.base.ItemDefinition;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 
-import java.util.List;
 import java.util.Map;
 
 public class SOUND_PACKAGES extends MessageComposer {

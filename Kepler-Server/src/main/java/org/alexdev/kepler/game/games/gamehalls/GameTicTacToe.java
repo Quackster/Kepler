@@ -1,10 +1,11 @@
 package org.alexdev.kepler.game.games.gamehalls;
 
 import org.alexdev.kepler.game.games.gamehalls.utils.GameToken;
+import org.alexdev.kepler.game.games.triggers.GameTrigger;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
-import org.alexdev.kepler.game.games.triggers.GameTrigger;
+import org.alexdev.kepler.messages.outgoing.rooms.games.CLOSEGAMEBOARD;
 import org.alexdev.kepler.messages.outgoing.rooms.games.ITEMMSG;
 import org.alexdev.kepler.messages.outgoing.rooms.user.CHAT_MESSAGE;
 import org.alexdev.kepler.messages.outgoing.rooms.user.CHAT_MESSAGE.ChatMessageType;
@@ -21,8 +22,6 @@ public class GameTicTacToe extends GamehallGame {
     private static final int MAX_LENGTH = 24;
 
     private GameToken[] gameTokens;
-
-    private List<Player> playersInGame;
     private Map<Player, Character> playerSides;
 
     private boolean gameFinished;
@@ -35,16 +34,22 @@ public class GameTicTacToe extends GamehallGame {
 
     @Override
     public void gameStart() {
-        this.playersInGame = new ArrayList<>();
         this.playerSides = new HashMap<>();
         this.restartMap();
     }
 
     @Override
     public void gameStop() {
-        this.playersInGame.clear();
         this.playerSides.clear();
         this.gameMap = null;
+    }
+
+    @Override
+    public void joinGame(Player p) { }
+
+    @Override
+    public void leaveGame(Player player) {
+        this.playerSides.remove(player);
     }
 
     @Override
@@ -69,7 +74,6 @@ public class GameTicTacToe extends GamehallGame {
             }
 
             this.playerSides.put(player, sideChosen);
-            this.playersInGame.add(player);
 
             player.send(new ITEMMSG(new String[]{this.getGameId(), "SELECTTYPE " + String.valueOf(sideChosen)}));
 
@@ -87,7 +91,6 @@ public class GameTicTacToe extends GamehallGame {
                 for (Player otherPlayer : this.getPlayers()) {
                     if (otherPlayer != player) {
                         otherPlayer.send(new ITEMMSG(new String[]{this.getGameId(), "SELECTTYPE " + String.valueOf(otherToken.getToken())}));
-                        this.playersInGame.add(otherPlayer);
                         this.playerSides.put(otherPlayer, otherToken.getToken());
                         break;
                     }
@@ -95,7 +98,15 @@ public class GameTicTacToe extends GamehallGame {
             }
 
             String[] playerNames = this.getCurrentlyPlaying();
-            this.sendToEveryone(new ITEMMSG(new String[]{this.getGameId(), "OPPONENTS", playerNames[0], playerNames[1]}));
+
+            if (playerNames != null) {
+                this.sendToEveryone(new ITEMMSG(new String[]{this.getGameId(), "OPPONENTS", playerNames[0], playerNames[1]}));
+            } else {
+                player.send(new CLOSEGAMEBOARD(this.getGameId(), this.getGameFuseType()));
+                this.getPlayers().remove(player);
+                this.resetGameId();
+                this.gameStop();
+            }
         }
 
         if (command.equals("RESTART")) {
@@ -105,7 +116,7 @@ public class GameTicTacToe extends GamehallGame {
         }
 
         if (command.equals("SETSECTOR")) {
-            if (this.playersInGame.size() < this.getMinimumPeopleRequired()) {
+            if (this.getPlayers().size() < this.getMinimumPeopleRequired()) {
                 return; // Can't place objects until other player has joined.
             }
 
@@ -132,7 +143,7 @@ public class GameTicTacToe extends GamehallGame {
             int Y = Integer.parseInt(args[1]);
             int X = Integer.parseInt(args[2]);
 
-            if (X >= MAX_WIDTH || Y >= MAX_LENGTH) {
+            if (X >= MAX_WIDTH || Y >= MAX_LENGTH || X < 0 || Y < 0) {
                 return;
             }
 
@@ -192,90 +203,157 @@ public class GameTicTacToe extends GamehallGame {
                 return;
             }
 
-            for (Player player : this.playersInGame) {
+            for (Player player : this.getPlayers()) {
                 player.send(new CHAT_MESSAGE(ChatMessageType.CHAT, player.getRoomUser().getInstanceId(), winner.getDetails().getName() + " has won the game in " + token.getMoves() + " moves"));
             }
+
+            /*(for (Player p : playerSides.keySet()) {
+                GameManager.getInstance().giveRandomCredits(p, winner == p);
+            }*/
+
         }
     }
 
     /**
      * Check for the winner.
      *
-     * @return a pair containing the winning character and coordinates of winning tiles, or null if no winner
+     * @return a variable containing the character who won, and the coords of the winning tiles
      */
     private Pair<Character, List<int[]>> hasGameFinished() {
-        // Direction vectors: horizontal, vertical, diagonal (\), diagonal (/)
-        int[][] directions = {
-            {0, 1},   // horizontal
-            {1, 0},   // vertical  
-            {1, 1},   // diagonal \
-            {-1, 1}   // diagonal /
-        };
-        
-        for (int row = 0; row < MAX_WIDTH; row++) {
-            for (int col = 0; col < MAX_LENGTH; col++) {
-                char startChar = gameMap[row][col];
-                
-                if (startChar == '0') {
+        List<int[]> winningCoordinates = new ArrayList<>();
+
+        // Check rows across
+        for (int i = 0; i < MAX_WIDTH; i++) {
+            for (int j = 0; j < MAX_LENGTH; j++) {
+                char letter = this.gameMap[i][j];
+                winningCoordinates.clear();
+
+                if (letter == '0') {
                     continue;
                 }
-                
-                // Check each direction from this starting position
-                for (int[] direction : directions) {
-                    List<int[]> winningCoords = checkDirection(row, col, direction[0], direction[1], startChar);
-                    
-                    if (winningCoords != null && winningCoords.size() >= NUM_IN_ROW) {
-                        return Pair.of(startChar, winningCoords);
+
+                for (int k = 0; k < NUM_IN_ROW; k++) {
+                    if ((j + k) >= MAX_LENGTH) {
+                        continue;
+                    }
+
+                    char newLetter = this.gameMap[i][j + k];
+
+                    if (newLetter != '0' && newLetter == letter) {
+                        winningCoordinates.add(new int[]{i, j + k});
+                        letter = newLetter;
+
+                        if (winningCoordinates.size() >= NUM_IN_ROW) {
+                            return Pair.of(letter, winningCoordinates);
+                        }
+                    } else {
+                        winningCoordinates.clear();
                     }
                 }
             }
         }
-        
-        return null;
-    }
-    
-    /**
-     * Check for consecutive matching characters in a specific direction.
-     *
-     * @param startRow starting row position
-     * @param startCol starting column position  
-     * @param deltaRow row direction increment
-     * @param deltaCol column direction increment
-     * @param targetChar character to match
-     * @return list of winning coordinates if found, null otherwise
-     */
-    private List<int[]> checkDirection(int startRow, int startCol, int deltaRow, int deltaCol, char targetChar) {
-        List<int[]> coordinates = new ArrayList<>();
-        
-        for (int step = 0; step < NUM_IN_ROW; step++) {
-            int currentRow = startRow + (step * deltaRow);
-            int currentCol = startCol + (step * deltaCol);
-            
-            if (!isValidPosition(currentRow, currentCol)) {
-                return null;
+
+        // Check rows down
+        for (int i = 0; i < MAX_WIDTH; i++) {
+            for (int j = 0; j < MAX_LENGTH; j++) {
+                char letter = this.gameMap[i][j];
+                winningCoordinates.clear();
+
+                if (letter == '0') {
+                    continue;
+                }
+
+                for (int k = 0; k < NUM_IN_ROW; k++) {
+                    if ((i + k) >= MAX_WIDTH) {
+                        continue;
+                    }
+
+                    char newLetter = this.gameMap[i + k][j];
+
+                    if (newLetter != '0' && newLetter == letter) {
+                        winningCoordinates.add(new int[]{i + k, j});
+                        letter = newLetter;
+
+                        if (winningCoordinates.size() >= NUM_IN_ROW) {
+                            return Pair.of(letter, winningCoordinates);
+                        }
+                    } else {
+                        winningCoordinates.clear();
+                    }
+                }
             }
-            
-            char currentChar = gameMap[currentRow][currentCol];
-            
-            if (currentChar != targetChar) {
-                return null;
-            }
-            
-            coordinates.add(new int[]{currentRow, currentCol});
         }
-        
-        return coordinates;
-    }
-    
-    /**
-     * Check if the given position is within board bounds.
-     *
-     * @param row row position
-     * @param col column position
-     * @return true if position is valid, false otherwise
-     */
-    private boolean isValidPosition(int row, int col) {
-        return row >= 0 && row < MAX_WIDTH && col >= 0 && col < MAX_LENGTH;
+
+        // Check top left to bottom right
+        for (int i = 0; i < MAX_WIDTH; i++) {
+            for (int j = 0; j < MAX_LENGTH; j++) {
+                char letter = this.gameMap[i][j];
+                winningCoordinates.clear();
+
+                if (letter == '0') {
+                    continue;
+                }
+
+                for (int k = 0; k < NUM_IN_ROW; k++) {
+                    if ((i + k) >= MAX_WIDTH || (j + k) >= MAX_WIDTH) {
+                        continue;
+                    }
+
+                    char newLetter = this.gameMap[i + k][j + k];
+
+                    if (newLetter != '0' && newLetter == letter) {
+                        winningCoordinates.add(new int[]{i + k, j + k});
+                        letter = newLetter;
+
+                        if (winningCoordinates.size() >= NUM_IN_ROW) {
+                            return Pair.of(letter, winningCoordinates);
+                        }
+                    } else {
+                        winningCoordinates.clear();
+                    }
+                }
+            }
+        }
+
+        // Check top right to bottom left
+        for (int i = 0; i < MAX_WIDTH; i++) {
+            for (int j = 0; j < MAX_LENGTH; j++) {
+                char letter = this.gameMap[i][j];
+                winningCoordinates.clear();
+
+                if (letter == '0') {
+                    continue;
+                }
+
+                for (int k = 0; k < NUM_IN_ROW; k++) {
+                    int newX = i - k;
+                    int newY = j + k;
+
+                    if (newX < 0) {
+                        continue;
+                    }
+
+                    if (newX >= MAX_WIDTH || newY >= MAX_WIDTH) {
+                        continue;
+                    }
+
+                    char newLetter = this.gameMap[newX][newY];
+
+                    if (newLetter != '0' && newLetter == letter) {
+                        winningCoordinates.add(new int[]{newX, newY});
+                        letter = newLetter;
+
+                        if (winningCoordinates.size() >= NUM_IN_ROW) {
+                            return Pair.of(letter, winningCoordinates);
+                        }
+                    } else {
+                        winningCoordinates.clear();
+                    }
+                }
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -287,7 +365,7 @@ public class GameTicTacToe extends GamehallGame {
         Player nextPlayer = null;
 
         if (this.nextTurn == player) {
-            for (Player p :  this.playersInGame) {
+            for (Player p :  this.getPlayers()) {
                 if (p != player) {
                     nextPlayer = p;
                 }
@@ -306,8 +384,8 @@ public class GameTicTacToe extends GamehallGame {
                 new GameToken('X', '+')
         };
 
-        if (this.playersInGame.size() > 0) {
-            this.nextTurn = this.playersInGame.get(0);
+        if (this.getPlayers().size() > 0) {
+            this.nextTurn = this.getPlayers().get(0);
         }
 
         this.gameFinished = false;
@@ -328,14 +406,17 @@ public class GameTicTacToe extends GamehallGame {
 
         for (char[] mapData : this.gameMap) {
             for (char mapLetter : mapData) {
-                boardData.append(mapLetter == '0' ? (char)32 : mapLetter);
+                boardData.append(mapLetter == '0' ? (char) 32 : mapLetter);
             }
 
-            boardData.append((char)32);
+            boardData.append((char) 32);
         }
 
         String[] playerNames = this.getCurrentlyPlaying();
-        this.sendToEveryone(new ITEMMSG(new String[]{this.getGameId(), "BOARDDATA", playerNames[0], playerNames[1], boardData.toString()}));
+
+        if (playerNames.length > 0) {
+            this.sendToEveryone(new ITEMMSG(new String[]{this.getGameId(), "BOARDDATA", playerNames[0], "", boardData.toString()}));
+        }
     }
 
     /**
@@ -344,18 +425,23 @@ public class GameTicTacToe extends GamehallGame {
      * @return the array with player name
      */
     private String[] getCurrentlyPlaying() {
-        String[] playerNames = new String[]{"", ""};
-
+        try {
+            String[] playerNames = new String[]{"", ""};
         /*for (int i = 0; i < this.playersInGame.size(); i++) {
             Player player = this.playersInGame.get(i);
             playerNames[i] = Character.toUpperCase(this.playerSides.get(player).getToken()) + " " + player.getDetails().getName();
         }*/
 
-        if (this.nextTurn != null) {
-            playerNames[0] = Character.toUpperCase(this.playerSides.get(this.nextTurn)) + " " + this.nextTurn.getDetails().getName();
+            if (this.nextTurn != null) {
+                playerNames[0] = Character.toUpperCase(this.playerSides.get(this.nextTurn)) + " " + this.nextTurn.getDetails().getName();
+            }
+
+            return playerNames;
+        } catch (Exception ex) {
+
         }
 
-        return playerNames;
+        return new String[0];
     }
 
     /**
@@ -400,7 +486,7 @@ public class GameTicTacToe extends GamehallGame {
 
     @Override
     public int getMinimumPeopleRequired() {
-        return 2;
+        return 1;
     }
 
     @Override

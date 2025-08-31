@@ -3,6 +3,7 @@ package org.alexdev.kepler.messages.outgoing.games;
 import org.alexdev.kepler.game.games.GameManager;
 import org.alexdev.kepler.game.games.enums.GameType;
 import org.alexdev.kepler.game.player.Player;
+import org.alexdev.kepler.game.player.statistics.PlayerStatistic;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 
@@ -24,7 +25,15 @@ public class GAMEPLAYERINFO extends MessageComposer {
 
         for (Player player : this.players) {
             response.writeInt(player.getRoomUser().getInstanceId());
-            response.writeString(player.getDetails().getGamePoints(this.type));
+
+            if (this.type == GameType.BATTLEBALL) {
+                response.writeString(player.getStatisticManager().getIntValue(PlayerStatistic.BATTLEBALL_POINTS_ALL_TIME));
+            }
+
+            if (this.type == GameType.SNOWSTORM) {
+                response.writeString(player.getStatisticManager().getIntValue(PlayerStatistic.SNOWSTORM_POINTS_ALL_TIME));
+            }
+
             response.writeString(GameManager.getInstance().getRankByPoints(this.type, player).getTitle());
         }
     }

@@ -2,12 +2,10 @@ package org.alexdev.kepler.game.moderation.cfh;
 
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
-import org.alexdev.kepler.game.room.RoomManager;
 import org.alexdev.kepler.util.DateUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 public class CallForHelp {

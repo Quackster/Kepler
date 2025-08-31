@@ -1,9 +1,7 @@
 package org.alexdev.kepler.dao.mysql;
 
 import org.alexdev.kepler.dao.Storage;
-import org.alexdev.kepler.game.navigator.NavigatorCategory;
 import org.alexdev.kepler.game.player.PlayerDetails;
-import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.RoomData;
 
 import java.sql.Connection;
@@ -11,7 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class RoomRightsDao {

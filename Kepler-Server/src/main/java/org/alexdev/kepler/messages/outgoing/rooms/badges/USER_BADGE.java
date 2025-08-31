@@ -11,8 +11,8 @@ public class USER_BADGE extends MessageComposer {
 
     public USER_BADGE(int instanceId, PlayerDetails playerDetails) {
         this.instanceId = instanceId;
-        this.currentBadge = playerDetails.getCurrentBadge();
-        this.showBadge = playerDetails.getShowBadge();
+        this.currentBadge = null; //playerDetails.getCurrentBadge();
+        this.showBadge = false;//playerDetails.getShowBadge();
     }
 
     @Override

@@ -1,9 +1,9 @@
 package org.alexdev.kepler.messages;
 
 import org.alexdev.kepler.game.player.Player;
+import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.RoomManager;
 import org.alexdev.kepler.log.Log;
-import org.alexdev.kepler.messages.incoming.pets.GETPETSTAT;
 import org.alexdev.kepler.messages.incoming.catalogue.GCAP;
 import org.alexdev.kepler.messages.incoming.catalogue.GCIX;
 import org.alexdev.kepler.messages.incoming.catalogue.GET_ALIAS_LIST;
@@ -25,15 +25,15 @@ import org.alexdev.kepler.messages.incoming.jukebox.*;
 import org.alexdev.kepler.messages.incoming.messenger.*;
 import org.alexdev.kepler.messages.incoming.moderation.*;
 import org.alexdev.kepler.messages.incoming.navigator.*;
+import org.alexdev.kepler.messages.incoming.pets.GETPETSTAT;
 import org.alexdev.kepler.messages.incoming.purse.GETUSERCREDITLOG;
 import org.alexdev.kepler.messages.incoming.purse.REDEEM_VOUCHER;
 import org.alexdev.kepler.messages.incoming.recycler.CONFIRM_FURNI_RECYCLING;
-import org.alexdev.kepler.messages.incoming.recycler.START_FURNI_RECYCLING;
 import org.alexdev.kepler.messages.incoming.recycler.GET_FURNI_RECYCLER_CONFIGURATION;
 import org.alexdev.kepler.messages.incoming.recycler.GET_FURNI_RECYCLER_STATUS;
+import org.alexdev.kepler.messages.incoming.recycler.START_FURNI_RECYCLING;
 import org.alexdev.kepler.messages.incoming.register.*;
 import org.alexdev.kepler.messages.incoming.rooms.*;
-import org.alexdev.kepler.messages.incoming.rooms.badges.GETAVAILABLEBADGES;
 import org.alexdev.kepler.messages.incoming.rooms.badges.SETBADGE;
 import org.alexdev.kepler.messages.incoming.rooms.dimmer.MSG_ROOMDIMMER_CHANGE_STATE;
 import org.alexdev.kepler.messages.incoming.rooms.dimmer.MSG_ROOMDIMMER_GET_PRESETS;
@@ -46,21 +46,25 @@ import org.alexdev.kepler.messages.incoming.rooms.teleporter.GETDOORFLAT;
 import org.alexdev.kepler.messages.incoming.rooms.user.*;
 import org.alexdev.kepler.messages.incoming.songs.*;
 import org.alexdev.kepler.messages.incoming.trade.*;
-import org.alexdev.kepler.messages.incoming.tutorial.GET_TUTORIAL_CONFIGURATION;
-import org.alexdev.kepler.messages.incoming.tutorial.SET_TUTORIAL_MODE;
+import org.alexdev.kepler.messages.incoming.tutorial.*;
 import org.alexdev.kepler.messages.incoming.user.*;
+import org.alexdev.kepler.messages.incoming.user.badges.GETAVAILABLEBADGES;
+import org.alexdev.kepler.messages.incoming.user.badges.GETSELECTEDBADGES;
 import org.alexdev.kepler.messages.incoming.user.settings.GET_ACCOUNT_PREFERENCES;
 import org.alexdev.kepler.messages.incoming.user.settings.GET_SOUND_SETTING;
 import org.alexdev.kepler.messages.incoming.user.settings.UPDATE_ACCOUNT;
 import org.alexdev.kepler.messages.incoming.welcomingparty.ACCEPT_TUTOR_INVITATION;
 import org.alexdev.kepler.messages.incoming.welcomingparty.REJECT_TUTOR_INVITATION;
 import org.alexdev.kepler.messages.incoming.wobblesquabble.PTM;
+import org.alexdev.kepler.messages.outgoing.rooms.groups.GROUP_BADGES;
+import org.alexdev.kepler.messages.outgoing.rooms.groups.GROUP_INFO;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 import org.alexdev.kepler.util.config.ServerConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class MessageHandler {
@@ -78,7 +82,6 @@ public class MessageHandler {
         registerUserPackets();
         registerClubPackets();
         registerWelcomingPartyPackets();
-        registerTutorialPackets();
         registerNavigatorPackets();
         registerRoomPackets();
         registerRoomUserPackets();
@@ -100,6 +103,55 @@ public class MessageHandler {
         registerGamePackets();
         registerJukeboxPackets();
         registerEcotronPackets();
+        registerTutorPackets();
+
+        registerEvent(230, (player, reader) -> {
+            if (player.getRoomUser().getRoom() == null) {
+                return;
+            }
+
+            Room room = player.getRoomUser().getRoom();
+            HashMap<Integer, String> groupBadges = new HashMap<>();
+
+            for (Player p : room.getEntityManager().getPlayers()) {
+                if (p.getDetails().getFavouriteGroupId() > 0) {
+                    if (groupBadges.containsKey(p.getDetails().getFavouriteGroupId())) {
+                        continue;
+                    }
+
+                    var group = player.getJoinedGroup(p.getDetails().getFavouriteGroupId());
+
+                    if (group == null) {
+                        continue;
+                    }
+
+                    groupBadges.put(group.getId(), group.getBadge());
+                }
+            }
+
+            player.send(new GROUP_BADGES(groupBadges));
+        });
+
+        registerEvent(231, (player, reader) -> {
+            if (player.getRoomUser().getRoom() == null) {
+                return;
+            }
+
+            int groupId = reader.readInt();
+
+            Room room = player.getRoomUser().getRoom();
+
+            for (Player p : room.getEntityManager().getPlayers()) {
+                var group = p.getJoinedGroup(groupId);
+
+                if (group == null) {
+                    continue;
+                }
+
+                player.send(new GROUP_INFO(group));
+                break;
+            }
+        });
     }
 
     /**
@@ -152,6 +204,7 @@ public class MessageHandler {
         registerEvent(228, new GET_ACCOUNT_PREFERENCES());
         registerEvent(196, new PONG());
         registerEvent(44, new UPDATE());
+        registerEvent(370, new GET_POSSIBLE_ACHIEVEMENTS());
         // (Unknown): 149 / BU@M@Flol123@H@J01.01.1991@C@Iqwerty123
         registerEvent(360, new GET_IGNORE_LIST());
         registerEvent(319, new IGNORE_USER());
@@ -174,14 +227,6 @@ public class MessageHandler {
     private void registerWelcomingPartyPackets() {
         registerEvent(357, new ACCEPT_TUTOR_INVITATION());
         registerEvent(358, new REJECT_TUTOR_INVITATION());
-    }
-
-    /**
-     * Register tutorial packets
-     */
-    private void registerTutorialPackets() {
-        registerEvent(250, new GET_TUTORIAL_CONFIGURATION());
-        registerEvent(249, new SET_TUTORIAL_MODE());
     }
 
     /**
@@ -238,6 +283,7 @@ public class MessageHandler {
         registerEvent(88, new STOP());
         registerEvent(229, new SET_SOUND_SETTING());
         registerEvent(117, new IIM());
+        registerEvent(263, new GET_USER_TAGS());
     }
 
     /**
@@ -253,6 +299,7 @@ public class MessageHandler {
     private void registerRoomBadgesPackets() {
         registerEvent(157, new GETAVAILABLEBADGES());
         registerEvent(158, new SETBADGE());
+        registerEvent(159, new GETSELECTEDBADGES());
     }
 
     /**
@@ -381,13 +428,14 @@ public class MessageHandler {
         registerEvent(38, new MESSENGER_DECLINEBUDDY());
         registerEvent(37, new MESSENGER_ACCEPTBUDDY());
         registerEvent(233, new MESSENGER_GETREQUESTS());
-        registerEvent(191, new MESSENGER_GETMESSAGES());
-        registerEvent(36, new MESSENGER_ASSIGNPERSMSG());
+        //registerEvent(191, new MESSENGER_GETMESSAGES());
+        //registerEvent(36, new MESSENGER_ASSIGNPERSMSG());
         registerEvent(40, new MESSENGER_REMOVEBUDDY());
         registerEvent(33, new MESSENGER_SENDMSG());
         registerEvent(32, new MESSENGER_MARKREAD());
         registerEvent(262, new FOLLOW_FRIEND());
         registerEvent(15, new FRIENDLIST_UPDATE());
+        registerEvent(34, new INVITE_FRIEND());
     }
 
     /**
@@ -458,6 +506,21 @@ public class MessageHandler {
 
             player.send(new SNOWSTORM_GAMESTATUS((SnowStormGame) game, List.of(), gamePlayer));//.compose(response);
         });*/
+    }
+
+    /**
+     * Register tutor packets.
+     */
+    private void registerTutorPackets() {
+        registerEvent(356, new MSG_INVITE_TUTORS());
+        registerEvent(355, new MSG_GET_TUTORS_AVAILABLE());
+        registerEvent(362, new MSG_WAIT_FOR_TUTOR_INVITATIONS());
+        registerEvent(363, new MSG_CANCEL_WAIT_FOR_TUTOR_INVITATIONS());
+        registerEvent(313, new MSG_REMOVE_ACCOUNT_HELP_TEXT());
+        registerEvent(357, new MSG_ACCEPT_TUTOR_INVITATION());
+        registerEvent(358, new MSG_REJECT_TUTOR_INVITATION());
+        registerEvent(359, new MSG_CANCEL_TUTOR_INVITATIONS());
+        registerEvent(249, new RESET_TUTORIAL());
     }
 
     /**

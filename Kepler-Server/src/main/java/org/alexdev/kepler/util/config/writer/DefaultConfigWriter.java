@@ -24,9 +24,9 @@ public class DefaultConfigWriter implements ConfigWriter {
 
         config.put("mysql.hostname", "127.0.0.1");
         config.put("mysql.port", "3306");
-        config.put("mysql.user", "kepler");
+        config.put("mysql.username", "lisbon");
         config.put("mysql.password", "verysecret");
-        config.put("mysql.database", "kepler");
+        config.put("mysql.database", "lisbon");
 
         config.put("debug", "false");
         return config;
@@ -49,7 +49,7 @@ public class DefaultConfigWriter implements ConfigWriter {
         writer.println("[Database]");
         writer.println("mysql.hostname=" + config.get("mysql.hostname"));
         writer.println("mysql.port=" + config.get("mysql.port"));
-        writer.println("mysql.user=" + config.get("mysql.user"));
+        writer.println("mysql.username=" + config.get("mysql.username"));
         writer.println("mysql.password=" + config.get("mysql.password"));
         writer.println("mysql.database=" + config.get("mysql.database"));
         writer.println("");

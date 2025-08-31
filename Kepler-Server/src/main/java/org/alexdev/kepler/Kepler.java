@@ -1,5 +1,6 @@
 package org.alexdev.kepler;
 
+import com.google.gson.Gson;
 import io.netty.util.ResourceLeakDetector;
 import org.alexdev.kepler.dao.Storage;
 import org.alexdev.kepler.dao.mysql.SettingsDao;
@@ -54,8 +55,8 @@ public class Kepler {
     private static NettyServer server;
     private static MusServer musServer;
     private static RconServer rconServer;
-    private static Logger log;
     public static final String SERVER_VERSION = "v1.6";
+    private static Logger log;
 
     /**
      * Main call of Java application
@@ -306,5 +307,13 @@ public class Kepler {
     public static Argon2PasswordEncoder getPasswordEncoder() {
         var encoder =new Argon2PasswordEncoder(16, 32, 1, 65536, 2);
         return encoder;
+    }
+
+    public static Gson getGson() {
+        return new Gson();
+    }
+
+    public static boolean isHappyHour() {
+        return false;
     }
 }

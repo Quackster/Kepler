@@ -1,10 +1,10 @@
 package org.alexdev.kepler.game.item.interactors.types;
 
-import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.dao.mysql.CurrencyDao;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
 import org.alexdev.kepler.game.item.Item;
+import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.entities.RoomEntity;
 import org.alexdev.kepler.game.triggers.GenericTrigger;
 import org.alexdev.kepler.messages.outgoing.rooms.pool.JUMPINGPLACE_OK;

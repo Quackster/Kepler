@@ -76,4 +76,3 @@ public class FULLGAMESTATUS extends MessageComposer {
         return 243; // "Cs"
     }
 }
-

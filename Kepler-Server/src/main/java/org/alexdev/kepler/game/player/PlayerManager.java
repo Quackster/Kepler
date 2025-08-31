@@ -8,13 +8,11 @@ import org.alexdev.kepler.game.player.register.RegisterDataType;
 import org.alexdev.kepler.game.player.register.RegisterValue;
 import org.alexdev.kepler.game.room.enums.StatusType;
 import org.alexdev.kepler.game.texts.TextsManager;
+import org.alexdev.kepler.messages.outgoing.alert.ALERT;
 import org.alexdev.kepler.messages.outgoing.openinghours.INFO_HOTEL_CLOSED;
 import org.alexdev.kepler.messages.outgoing.openinghours.INFO_HOTEL_CLOSING;
-import org.alexdev.kepler.messages.outgoing.user.ALERT;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.util.DateUtil;
-import org.alexdev.kepler.util.config.ServerConfiguration;
-import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 
 import java.time.Duration;
 import java.time.LocalTime;
@@ -321,6 +319,28 @@ public class PlayerManager {
         registerValues.put(12, new RegisterValue("partnersite", RegisterDataType.STRING));
         registerValues.put(13, new RegisterValue("oldpassword", RegisterDataType.STRING));
         return registerValues;
+    }
+
+    /**
+     * Get if the player is online.
+     *
+     * @param userId the id of the user to check
+     * @return true, if successful
+     */
+    public boolean isPlayerOnline(int userId) {
+        for (Player player : this.players) {
+            if (player.getDetails().getId() != userId) {
+                continue;
+            }
+
+            if (!player.getDetails().isOnlineStatusVisible()) {
+                return false;
+            }
+
+            return true;
+        }
+
+        return false;
     }
 
     public Object getRegisterValue(LinkedHashMap<Integer, RegisterValue> values, String label) {

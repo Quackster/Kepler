@@ -1,12 +1,11 @@
 package org.alexdev.kepler.game.commands.registered;
 
-import org.alexdev.kepler.Kepler;
 import org.alexdev.kepler.game.commands.Command;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
 import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.player.Player;
-import org.alexdev.kepler.messages.outgoing.user.ALERT;
+import org.alexdev.kepler.messages.outgoing.alert.ALERT;
 
 public class AboutCommand extends Command {
 
@@ -23,14 +22,11 @@ public class AboutCommand extends Command {
 
         Player player = (Player)entity;
 
-        player.send(new ALERT("Project Kepler - Habbo Hotel v14 emulation" +
+        player.send(new ALERT("Project Kepler - Habbo Hotel v26 emulation" +
                 "<br>" +
-                "<br>Current revision: " + Kepler.SERVER_VERSION +
+                "<br>Max version supported: r26_20080915_0408_7984_61ccb5f8b8797a3aba62c1fa2ca80169" +
                 "<br>" +
-                "<br>Contributors:" +
-                "<br> - ThuGie, Webbanditten, Ascii, Sefhriloff, Copyright, Raptosaur, Hoshiko " + // Call for help
-                "<br>   Romuald, Glaceon, Nillus, Holo Team, Meth0d, office.boy, killerloader" +
-                "<br>   Alito, wackfx" +
+                "<br>Originally based off Kepler" +
                 "<br>" +
                 "<br>" +
                 "Made by Quackster from RaGEZONE"));

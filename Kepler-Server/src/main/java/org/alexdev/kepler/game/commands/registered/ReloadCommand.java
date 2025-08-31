@@ -1,17 +1,22 @@
 package org.alexdev.kepler.game.commands.registered;
 
+import org.alexdev.kepler.game.achievements.AchievementManager;
+import org.alexdev.kepler.game.ads.AdManager;
 import org.alexdev.kepler.game.catalogue.CatalogueManager;
+import org.alexdev.kepler.game.catalogue.collectables.CollectablesManager;
 import org.alexdev.kepler.game.commands.Command;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
+import org.alexdev.kepler.game.events.EventsManager;
 import org.alexdev.kepler.game.fuserights.Fuseright;
+import org.alexdev.kepler.game.games.GameManager;
+import org.alexdev.kepler.game.games.snowstorm.SnowStormMapsManager;
 import org.alexdev.kepler.game.item.ItemManager;
 import org.alexdev.kepler.game.player.Player;
-import org.alexdev.kepler.game.player.PlayerManager;
 import org.alexdev.kepler.game.room.models.RoomModelManager;
 import org.alexdev.kepler.game.texts.TextsManager;
-import org.alexdev.kepler.messages.outgoing.catalogue.CATALOGUE_PAGES;
-import org.alexdev.kepler.messages.outgoing.user.ALERT;
+import org.alexdev.kepler.game.wordfilter.WordfilterManager;
+import org.alexdev.kepler.messages.outgoing.alert.ALERT;
 import org.alexdev.kepler.util.config.GameConfiguration;
 import org.alexdev.kepler.util.config.writer.GameConfigWriter;
 
@@ -50,24 +55,79 @@ public class ReloadCommand extends Command {
             // Regenerate collision map with proper height differences (if they changed).
             player.getRoomUser().getRoom().getMapping().regenerateCollisionMap();
 
-            // Resend the catalogue index every 15 minutes to clear page cache
-            for (Player p : PlayerManager.getInstance().getPlayers()) {
-                p.send(new CATALOGUE_PAGES(
-                        CatalogueManager.getInstance().getPagesForRank(p.getDetails().getRank(), p.getDetails().hasClubSubscription())
-                ));
-            }
+                /*
+                player.getRoomUser().getRoom().getMapping().sendMap();
+
+                for (Player p : PlayerManager.getInstance().getPlayers()) {
+                    new GET_CATALOG_INDEX().handle(p, null);
+                }*/
 
             componentName = "Catalogue and item definitions";
         }
+
+        if (component.equalsIgnoreCase("wordfilter")) {
+            WordfilterManager.reset();
+            componentName = "Wordfilter";
+        }
+
+            /*
+            if (component.equalsIgnoreCase("commands")) {
+                CommandManager.reset();
+                componentName = "Commands";
+            }*/
+
+            /*
+            if (component.equalsIgnoreCase("badgebuy")) {
+                CatalogueManager.getInstance().reloadBadgeRewards();
+                componentName = "Badge sale rewards";
+            }*/
+
+        if (component.equalsIgnoreCase("ads")) {
+            AdManager.getInstance().reset();
+            componentName = "Advertisements";
+        }
+
+            /*
+            if (component.equalsIgnoreCase("navigator")) {
+                NavigatorManager.reset();
+                componentName = "Navigator";
+            }*/
 
         if (component.equalsIgnoreCase("texts")) {
             TextsManager.reset();
             componentName = "Texts";
         }
 
+        if (component.equalsIgnoreCase("games")) {
+            GameManager.reset();
+            componentName = "Games";
+        }
+
+        if (component.equalsIgnoreCase("events")) {
+            EventsManager.reset();
+            componentName = "Events";
+        }
+
+        if (component.equalsIgnoreCase("gamemaps")) {
+            SnowStormMapsManager.reset();
+            componentName = "game maps";
+        }
+
+
+        if (component.equalsIgnoreCase("achievements") ||
+                component.equalsIgnoreCase("ach")) {
+            AchievementManager.reset();
+            componentName = "Achievements";
+        }
+
         if (component.equalsIgnoreCase("models")) {
             RoomModelManager.reset();
             componentName = "Room models";
+        }
+
+        if (component.equalsIgnoreCase("collectables")) {
+            CollectablesManager.reset();
+            componentName = "Collectables";
         }
 
         if (component.equalsIgnoreCase("settings") ||
@@ -77,10 +137,19 @@ public class ReloadCommand extends Command {
             componentName = "Game settings";
         }
 
+        /*
+        if (component.equalsIgnoreCase("versions")) {
+            ItemVersionManager.reset();
+            componentName = "Furni settings";
+        }*/
+
         if (componentName != null) {
-            player.send(new ALERT(componentName + " has been reloaded."));
+            player.send(new ALERT(componentName + " have been reloaded."));
         } else {
-            player.send(new ALERT("You did not specify which component to reload!<br>You may reload either the catalogue/shop/items, models, texts or game settings."));
+            player.send(new ALERT("You did not specify which component to reload!" +
+                    "<br>You may reload either the catalogue/shop/items, advertisements, events, commands," +
+                    "<br>navigator, collectables, models, texts, plugins, wordfitler, games, badgebuy," +
+                    "<br>rewards, versions or settings."));
         }
     }
 

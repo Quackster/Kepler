@@ -1,6 +1,5 @@
 package org.alexdev.kepler.messages.incoming.pets;
 
-import org.alexdev.kepler.game.entity.EntityType;
 import org.alexdev.kepler.game.pets.Pet;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;

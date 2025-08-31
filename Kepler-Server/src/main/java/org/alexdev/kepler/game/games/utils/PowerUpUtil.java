@@ -11,8 +11,9 @@ import java.util.concurrent.TimeUnit;
 
 public class PowerUpUtil {
     public static void stunPlayer(Game game, GamePlayer gamePlayer, BattleBallPlayerState state) {
-        gamePlayer.getPlayer().getRoomUser().setWalkingAllowed(false);
         gamePlayer.getPlayer().getRoomUser().stopWalking();
+        gamePlayer.getPlayer().getRoomUser().setWalkingAllowed(false);
+        game.getRoom().getMapping().regenerateCollisionMap();
 
         gamePlayer.setPlayerState(state);
         game.addObjectToQueue(new PlayerUpdateObject(gamePlayer));

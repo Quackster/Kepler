@@ -5,6 +5,7 @@ import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
+import org.alexdev.kepler.game.room.RoomManager;
 import org.alexdev.kepler.messages.outgoing.games.GAMESTART;
 import org.alexdev.kepler.messages.outgoing.rooms.items.DICE_VALUE;
 import org.alexdev.kepler.messages.outgoing.rooms.items.SHOWPROGRAM;
@@ -50,6 +51,12 @@ public class G_STAT implements MessageEvent {
         player.send(new USER_OBJECTS(room.getEntities()));
 
         room.getEntityManager().tryRoomEntry(player);
+
+        if (RoomManager.getInstance().getRoomEntryBadges().containsKey(room.getId())) {
+            for (String badge : RoomManager.getInstance().getRoomEntryBadges().get(room.getId())) {
+                player.getBadgeManager().tryAddBadge(badge, null);
+            }
+        }
 
         player.send(new USER_STATUSES(room.getEntities()));
         player.getRoomUser().setNeedsUpdate(true);

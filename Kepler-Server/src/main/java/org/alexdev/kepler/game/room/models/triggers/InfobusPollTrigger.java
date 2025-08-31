@@ -1,9 +1,9 @@
 package org.alexdev.kepler.game.room.models.triggers;
 
-import org.alexdev.kepler.game.infobus.InfobusManager;
-import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
+import org.alexdev.kepler.game.infobus.InfobusManager;
+import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.triggers.GenericTrigger;
 
@@ -15,7 +15,7 @@ public class InfobusPollTrigger extends GenericTrigger {
         }
 
         Player player = (Player) entity;
-        InfobusManager.getInstance().addPlayer(player.getDetails().getId());
+        //InfobusManager.getInstance().addPlayer(player.getDetails().getId());
     }
 
     @Override
@@ -25,6 +25,6 @@ public class InfobusPollTrigger extends GenericTrigger {
         }
 
         Player player = (Player) entity;
-        InfobusManager.getInstance().removePlayer(player.getDetails().getId());
+        //InfobusManager.getInstance().removePlayer(player.getDetails().getId());
     }
 }

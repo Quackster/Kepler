@@ -3,9 +3,6 @@ package org.alexdev.kepler.server.netty;
 import io.netty.channel.Channel;
 import org.alexdev.kepler.messages.types.MessageComposer;
 
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
-
 public class NettyPlayerNetwork {
     private int port;
     private Channel channel;

@@ -1,7 +1,5 @@
 package org.alexdev.kepler.util.encoding;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 public class VL64Encoding {
     public static byte NEGATIVE = 72;
     public static byte POSITIVE = 73;

@@ -2,7 +2,6 @@ package org.alexdev.kepler.server.mus.codec;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.ByteToMessageDecoder;
 import io.netty.handler.codec.bytes.ByteArrayDecoder;
 import org.alexdev.kepler.server.mus.MusUtil;
 import org.alexdev.kepler.server.mus.streams.MusMessage;

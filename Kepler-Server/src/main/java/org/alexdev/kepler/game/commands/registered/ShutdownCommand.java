@@ -7,7 +7,6 @@ import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerManager;
 import org.alexdev.kepler.messages.outgoing.rooms.user.CHAT_MESSAGE;
-import org.alexdev.kepler.messages.outgoing.rooms.user.CHAT_MESSAGE.ChatMessageType;
 import org.alexdev.kepler.util.config.GameConfiguration;
 
 import java.time.Duration;
@@ -35,7 +34,7 @@ public class ShutdownCommand extends Command {
         if (args.length > 0) {
             if (args[0].equalsIgnoreCase("cancel") || args[0].equalsIgnoreCase("off") || args[0].equalsIgnoreCase("stop")) {
                 PlayerManager.getInstance().cancelMaintenance();
-                player.send(new CHAT_MESSAGE(ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), "Cancelled shutdown"));
+                player.send(new CHAT_MESSAGE(CHAT_MESSAGE.ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), "Cancelled shutdown"));
                 return;
             }
         }
@@ -51,14 +50,14 @@ public class ShutdownCommand extends Command {
             }
         } catch (NumberFormatException e) {
             minutes = GameConfiguration.getInstance().getLong("shutdown.minutes");
-            player.send(new CHAT_MESSAGE(ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), "Failed to parse minutes provided to shutdown command, defaulting to " + minutes + " minute(s)"));
+            player.send(new CHAT_MESSAGE(CHAT_MESSAGE.ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), "Failed to parse minutes provided to shutdown command, defaulting to " + minutes + " minute(s)"));
         }
 
         // Enqueue maintenance shutdown
         PlayerManager.getInstance().planMaintenance(Duration.ofMinutes(minutes));
 
         // Let callee know Kepler is shutting down in X minutes
-        player.send(new CHAT_MESSAGE(ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), "Shutting down in " + minutes + " minute(s)"));
+        player.send(new CHAT_MESSAGE(CHAT_MESSAGE.ChatMessageType.WHISPER, player.getRoomUser().getInstanceId(), "Shutting down in " + minutes + " minute(s)"));
     }
 
     @Override

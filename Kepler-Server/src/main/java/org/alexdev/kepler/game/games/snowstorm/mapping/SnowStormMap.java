@@ -1,7 +1,7 @@
 package org.alexdev.kepler.game.games.snowstorm.mapping;
 
-import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.games.snowstorm.util.SnowStormSpawn;
+import org.alexdev.kepler.game.pathfinder.Position;
 
 import java.util.ArrayList;
 import java.util.regex.Pattern;

@@ -9,6 +9,6 @@ public class GETUSERCREDITLOG implements MessageEvent {
 
     @Override
     public void handle(Player player, NettyRequest reader) {
-        player.send(new CREDIT_BALANCE(player.getDetails()));
+        player.send(new CREDIT_BALANCE(player.getDetails().getCredits()));
     }
 }

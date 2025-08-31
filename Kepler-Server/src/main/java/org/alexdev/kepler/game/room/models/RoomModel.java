@@ -2,7 +2,6 @@ package org.alexdev.kepler.game.room.models;
 
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.room.mapping.RoomTileState;
-import org.alexdev.kepler.game.room.models.RoomModelTriggerType;
 import org.alexdev.kepler.game.triggers.GenericTrigger;
 import org.alexdev.kepler.util.StringUtil;
 import org.apache.commons.lang3.StringUtils;

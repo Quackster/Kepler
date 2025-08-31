@@ -23,7 +23,6 @@ import org.alexdev.kepler.server.mus.streams.MusTypes;
 import org.alexdev.kepler.server.netty.NettyPlayerNetwork;
 import org.alexdev.kepler.util.DateUtil;
 import org.alexdev.kepler.util.StringUtil;
-import org.alexdev.kepler.util.config.ServerConfiguration;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

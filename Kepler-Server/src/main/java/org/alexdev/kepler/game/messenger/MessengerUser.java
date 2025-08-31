@@ -12,35 +12,46 @@ public class MessengerUser {
     private int userId;
     private String username;
     private String figure;
-    private char sex;
+    private String sex;
     private String consoleMotto;
     private long lastOnline;
+    private boolean allowStalking;
+    private boolean toRemove;
+    private boolean toAdd;
+    private int categoryId;
+    private boolean onlineStatusVisible;
+    private boolean isOnline;
 
     public MessengerUser(PlayerDetails details) {
-        this.applyUserDetails(details.getId(), details.getName(), details.getFigure(), details.getConsoleMotto(), String.valueOf(details.getSex()), details.getLastOnline());
+        this.applyUserDetails(details.getId(), details.getName(), details.getFigure(), details.getConsoleMotto(), String.valueOf(details.getSex()), details.getLastOnline(), details.doesAllowStalking(), 0, details.isOnline(), details.isOnlineStatusVisible());
     }
 
-    public MessengerUser(int userId, String username, String figure, String sex, String consoleMotto, long lastOnline) {
-        this.applyUserDetails(userId, username, figure, consoleMotto, sex, lastOnline);
+    public MessengerUser(int userId, String username, String figure, String sex, String consoleMotto, long lastOnline, boolean allowStalking, int categoryId, boolean isOnline, boolean onlineStatusVisible) {
+        this.applyUserDetails(userId, username, figure, consoleMotto, sex, lastOnline, allowStalking, categoryId, isOnline, onlineStatusVisible);
     }
 
     /**
      * Geneic method for applying details, used from both constructors.
      *
-     * @param userId       the id of the user
-     * @param username     the name of the user
-     * @param figure       the figure of the user
+     * @param userId the id of the user
+     * @param username the name of the user
+     * @param figure the figure of the user
      * @param consoleMotto the console motto of the user
-     * @param sex          the sex of the user
-     * @param lastOnline   the last time the user was online in Unix time
+     * @param sex the sex of the user
+     * @param lastOnline the last time the user was online in Unix time
      */
-    private void applyUserDetails(int userId, String username, String figure, String consoleMotto, String sex, long lastOnline) {
+    private void applyUserDetails(int userId, String username, String figure, String consoleMotto, String sex, long lastOnline, boolean allowStalking, int categoryId, boolean isOnline, boolean onlineStatusVisible) {
+        this.toRemove = false;
         this.userId = userId;
         this.username = StringUtil.filterInput(username, true);
         this.figure = StringUtil.filterInput(figure, true);
-        this.sex = sex.toLowerCase().equals("f") ? 'F' : 'M';
+        this.sex = sex;
         this.lastOnline = lastOnline;
         this.consoleMotto = StringUtil.filterInput(consoleMotto, true);
+        this.allowStalking = allowStalking;
+        this.categoryId = categoryId;
+        this.onlineStatusVisible = onlineStatusVisible;
+        this.isOnline = isOnline;
     }
 
     /**
@@ -60,7 +71,7 @@ public class MessengerUser {
 
         response.writeInt(this.userId);
         response.writeString(this.username);
-        response.writeBool(Character.toLowerCase(this.sex) == 'm');
+        response.writeBool(this.sex.equalsIgnoreCase("m"));
         response.writeString(this.consoleMotto);
 
         boolean isOnline = (user != null);
@@ -123,11 +134,11 @@ public class MessengerUser {
         this.figure = figure;
     }
 
-    public char getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(char sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 
@@ -150,5 +161,13 @@ public class MessengerUser {
     @Override
     public String toString() {
         return "[" + username + "," + consoleMotto + "," + figure + "," + sex + "," + lastOnline + "]";
+    }
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 }

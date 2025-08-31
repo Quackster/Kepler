@@ -1,19 +1,22 @@
 package org.alexdev.kepler.messages.incoming.rooms.items;
 
 import org.alexdev.kepler.dao.mysql.ItemDao;
+import org.alexdev.kepler.dao.mysql.TransactionDao;
+import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
-import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
-import org.alexdev.kepler.messages.outgoing.user.ALERT;
+import org.alexdev.kepler.messages.outgoing.alert.ALERT;
 import org.alexdev.kepler.messages.outgoing.user.currencies.CREDIT_BALANCE;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 
+import java.sql.SQLException;
+
 public class CONVERT_FURNI_TO_CREDITS implements MessageEvent {
     @Override
-    public void handle(Player player, NettyRequest reader) {
+    public void handle(Player player, NettyRequest reader) throws SQLException {
         Room room = player.getRoomUser().getRoom();
 
         if (room == null) {
@@ -53,7 +56,12 @@ public class CONVERT_FURNI_TO_CREDITS implements MessageEvent {
         room.getMapping().removeItem(item);
         player.getDetails().setCredits(currentAmount);
 
+        TransactionDao.createTransaction(player.getDetails().getId(),
+                String.valueOf(item.getId()), "", 1,
+                "Exchanged " + item.getDefinition().getName() + " into " + amount + " credits",
+                amount, 0, false);
+
         // Send new credit amount
-        player.send(new CREDIT_BALANCE(player.getDetails()));
+        player.send(new CREDIT_BALANCE(player.getDetails().getCredits()));
     }
 }

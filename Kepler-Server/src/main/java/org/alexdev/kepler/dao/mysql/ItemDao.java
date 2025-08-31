@@ -2,7 +2,6 @@ package org.alexdev.kepler.dao.mysql;
 
 import org.alexdev.kepler.dao.Storage;
 import org.alexdev.kepler.game.item.Item;
-import org.alexdev.kepler.game.item.public_items.PublicItemData;
 import org.alexdev.kepler.game.item.base.ItemDefinition;
 import org.alexdev.kepler.game.room.RoomData;
 
@@ -13,7 +12,24 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class ItemDao {
-    
+    public static void deleteHandItems(int userId) {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("DELETE FROM items WHERE is_hidden = 0 AND is_trading = 0 AND room_id = 0 AND user_id = ?", sqlConnection);
+            preparedStatement.setInt(1, userId);
+            preparedStatement.execute();
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+
     /**
      * Get the item definitions.
      *
@@ -304,6 +320,25 @@ public class ItemDao {
         return updatedAmount;
     }
 
+    public static void saveTradeBanExpire(int userId, long tradeBanExpiration) {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("UPDATE users SET trade_ban_expiration = ? WHERE id = ?", sqlConnection);
+            preparedStatement.setLong(1, tradeBanExpiration);
+            preparedStatement.setInt(2, userId);
+            preparedStatement.execute();
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+
     /**
      * Update item by item instance.
      *
@@ -352,6 +387,42 @@ public class ItemDao {
             Storage.closeSilently(preparedStatement);
             Storage.closeSilently(sqlConnection);
         }
+    }
+
+    /**
+     * Get the room list of items.
+     *
+     * @return the list of items
+     */
+    public static List<Item> getUserItemsByDefinition(int userId, ItemDefinition definition) {
+        List<Item> items = new ArrayList<>();
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("SELECT * FROM items WHERE user_id = ? AND definition_id = ?", sqlConnection);
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setInt(2, definition.getId());
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Item item = new Item();
+                fill(item, resultSet);
+                items.add(item);
+            }
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+
+        return items;
     }
 
     /**

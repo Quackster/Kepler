@@ -3,18 +3,23 @@ package org.alexdev.kepler.game.commands;
 import org.alexdev.kepler.game.commands.clientside.ChooserCommand;
 import org.alexdev.kepler.game.commands.clientside.EventsCommand;
 import org.alexdev.kepler.game.commands.clientside.FurniCommand;
-import org.alexdev.kepler.game.commands.registered.UfosCommand;
 import org.alexdev.kepler.game.commands.registered.*;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.fuserights.Fuseright;
+import org.alexdev.kepler.game.fuserights.FuserightsManager;
 import org.alexdev.kepler.game.player.Player;
+import org.alexdev.kepler.game.player.PlayerDetails;
+import org.alexdev.kepler.game.player.PlayerManager;
 import org.alexdev.kepler.game.texts.TextsManager;
-import org.alexdev.kepler.messages.outgoing.user.ALERT;
+import org.alexdev.kepler.messages.outgoing.alert.ALERT;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 public class CommandManager {
@@ -48,7 +53,6 @@ public class CommandManager {
         this.commands.put(new String[] { "hotelalert" }, new HotelAlertCommand());
         this.commands.put(new String[] { "ufos" }, new UfosCommand());
         this.commands.put(new String[] { "talk" }, new TalkCommand());
-        this.commands.put(new String[] { "infobus", "bus" }, new InfobusCommand());
 		this.commands.put(new String[] { "givecredits" }, new GiveCreditsCommand());
 
         // Add client-side commands to list
@@ -121,6 +125,37 @@ public class CommandManager {
     }
 
     /**
+     * Checks for command permission.
+     *
+     * @param playerDetails the player details
+     * @param commandName the command
+     * @return true, if successful
+     */
+    public boolean hasPermission(PlayerDetails playerDetails, String commandName) {
+        var cmd = getCommand(commandName);
+
+        if (cmd == null)
+            return false;
+
+        boolean hasRank = cmd.getPermissions().stream().anyMatch(x -> FuserightsManager.getInstance().getFuserightsForRank(playerDetails.getRank()).contains(x));
+
+        if (hasRank)
+            return true;
+
+        /*
+        var player = PlayerManager.getInstance().getPlayerById(playerDetails.getId());
+
+        if (player != null) {
+            for (int groupId : cmd.getGroupPermission()) {
+                if (player.getJoinedGroup(groupId) != null)
+                    return true;
+            }
+        }*/
+
+        return false;
+    }
+
+    /**
      * Invoke command.
      *
      * @param entity the player
@@ -178,4 +213,5 @@ public class CommandManager {
 
         return instance;
     }
+
 }

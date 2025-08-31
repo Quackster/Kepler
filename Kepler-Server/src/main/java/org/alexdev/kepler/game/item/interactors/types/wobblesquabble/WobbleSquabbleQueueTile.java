@@ -4,7 +4,6 @@ import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
 import org.alexdev.kepler.game.games.wobblesquabble.WobbleSquabbleManager;
 import org.alexdev.kepler.game.item.Item;
-import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.room.entities.RoomEntity;
 import org.alexdev.kepler.game.triggers.GenericTrigger;
 

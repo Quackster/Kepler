@@ -1,16 +1,21 @@
 package org.alexdev.kepler.game.games.wobblesquabble;
 
 import org.alexdev.kepler.dao.mysql.CurrencyDao;
+import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.interactors.InteractionType;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.player.Player;
+import org.alexdev.kepler.game.player.statistics.PlayerStatistic;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.enums.StatusType;
+import org.alexdev.kepler.game.room.managers.RoomTradeManager;
+import org.alexdev.kepler.log.Log;
 import org.alexdev.kepler.messages.outgoing.user.currencies.TICKET_BALANCE;
 import org.alexdev.kepler.messages.outgoing.wobblesquabble.*;
 import org.alexdev.kepler.messages.types.MessageComposer;
+import org.alexdev.kepler.server.netty.NettyPlayerNetwork;
 import org.alexdev.kepler.util.DateUtil;
 
 import java.util.List;
@@ -56,60 +61,63 @@ public class WobbleSquabbleGame implements Runnable {
 
     @Override
     public void run() {
-        if (this.hasGameEnded) {
-            return;
-        }
+        try {
+            if (this.hasGameEnded) {
+                return;
+            }
 
-        WobbleSquabblePlayer wsPlayer1 = this.getPlayer(0);
-        WobbleSquabblePlayer wsPlayer2 = this.getPlayer(1);
+            WobbleSquabblePlayer wsPlayer1 = this.getPlayer(0);
+            WobbleSquabblePlayer wsPlayer2 = this.getPlayer(1);
 
-        if (!this.hasGameStarted) {
-            this.hasGameStarted = true;
-            this.gameStarted = DateUtil.getCurrentTimeSeconds();
-            this.send(new PT_START(wsPlayer1, wsPlayer2));
+            if (!this.hasGameStarted) {
+                this.hasGameStarted = true;
+                this.gameStarted = DateUtil.getCurrentTimeSeconds();
+                this.send(new PT_START(wsPlayer1, wsPlayer2));
 
-            // Set positions
-            wsPlayer1.setPosition(-3);
-            wsPlayer2.setPosition(4);
-            return;
-        }
+                // Set positions
+                wsPlayer1.setPosition(-3);
+                wsPlayer2.setPosition(4);
+                return;
+            }
 
-        // If either requires a status update, send the update
-        if (wsPlayer1.isRequiresUpdate() || wsPlayer2.isRequiresUpdate()) {
-            this.updatePlayer(0);
-            this.updatePlayer(1);
+            // If either requires a status update, send the update
+            if (wsPlayer1.isRequiresUpdate() || wsPlayer2.isRequiresUpdate()) {
+                this.updatePlayer(0);
+                this.updatePlayer(1);
 
-            this.send(new PT_STATUS(wsPlayer1, wsPlayer2));
+                this.send(new PT_STATUS(wsPlayer1, wsPlayer2));
 
-            wsPlayer1.resetActions();
-            wsPlayer2.resetActions();
-        }
+                wsPlayer1.resetActions();
+                wsPlayer2.resetActions();
+            }
 
-        // If the game has timed out, too bad!
-        if (DateUtil.getCurrentTimeSeconds() > this.gameStarted + WobbleSquabbleManager.WS_GAME_TIMEOUT_SECS) {
-            this.send(new PT_BOTHLOSE());
-            this.endGame(-1); // Tied!
-            return;
-        }
+            // If the game has timed out, too bad!
+            if (DateUtil.getCurrentTimeSeconds() > this.gameStarted + WobbleSquabbleManager.WS_GAME_TIMEOUT_SECS) {
+                this.send(new PT_BOTHLOSE());
+                this.endGame(-1); // Tied!
+                return;
+            }
 
-        int loser = -1;
-        int winner = -1;
+            int loser = -1;
+            int winner = -1;
 
-        // If one of us gets a bit tipsy and off-balance, end the game!
-        if (!wsPlayer1.isBalancing()) {
-            winner = wsPlayer2.getOrder();
-            loser = wsPlayer1.getOrder();
-        }
+            // If one of us gets a bit tipsy and off-balance, end the game!
+            if (!wsPlayer1.isBalancing()) {
+                loser = wsPlayer1.getOrder();
+                winner = wsPlayer2.getOrder();
+            }
 
-        if (!wsPlayer2.isBalancing()) {
-            winner = wsPlayer1.getOrder();
-            loser = wsPlayer2.getOrder();
-        }
+            if (!wsPlayer2.isBalancing()) {
+                loser = wsPlayer2.getOrder();
+                winner = wsPlayer1.getOrder();
+            }
 
-        // If we have a loser and a winner, end the game!
-        if (loser != -1 && winner != -1) {
-            this.endGame(winner);
-            return;
+            // If we have a loser and a winner, end the game!
+            if (loser != -1 && winner != -1) {
+                this.endGame(winner);
+            }
+        } catch (Exception ex) {
+            Log.getErrorLogger().error("Wobble Squabble task crashed: ", ex);
         }
     }
 
@@ -214,13 +222,37 @@ public class WobbleSquabbleGame implements Runnable {
         this.hasGameEnded = true;
         int loser = winner == 1 ? 0 : 1;
 
-        WobbleSquabblePlayer winnerPlayer = this.getPlayer(winner);
-        WobbleSquabblePlayer loserPlayer = this.getPlayer(loser);
+        String firstIp = NettyPlayerNetwork.getIpAddress(this.getPlayer(0).getPlayer().getNetwork().getChannel());
+        String secondIp = NettyPlayerNetwork.getIpAddress(this.getPlayer(1).getPlayer().getNetwork().getChannel());
+
+        if (!firstIp.equals(secondIp)/*
+                && !PlayerDao.getIpAddresses(this.getPlayer(0).getPlayer().getDetails().getId(), RoomTradeManager.TRADE_BAN_IP_HISTORY_LIMIT).contains(secondIp)
+                && !PlayerDao.getIpAddresses(this.getPlayer(1).getPlayer().getDetails().getId(), RoomTradeManager.TRADE_BAN_IP_HISTORY_LIMIT).contains(firstIp)*/) {
+
+            WobbleSquabblePlayer winningWsPlayer = this.getPlayer(winner);
+
+            if (winner != -1) {
+                // Game didn't tie!
+                winningWsPlayer.getPlayer().getStatisticManager().incrementValue(PlayerStatistic.WOBBLE_SQUABBLE_GAMES_WON, 1);
+            } else {
+                // Game tied!
+                this.getPlayer(0).getPlayer().getStatisticManager().incrementValue(PlayerStatistic.WOBBLE_SQUABBLE_GAMES_WON, 1);
+                this.getPlayer(1).getPlayer().getStatisticManager().incrementValue(PlayerStatistic.WOBBLE_SQUABBLE_GAMES_WON, 1);
+            }
+
+            if (this.getPlayer(0).getScore() > 0) {
+                this.getPlayer(0).getPlayer().getStatisticManager().incrementValue(PlayerStatistic.WOBBLE_SQUABBLE_MONTHLY_SCORES, this.getPlayer(0).getScore());
+                this.getPlayer(0).getPlayer().getStatisticManager().incrementValue(PlayerStatistic.WOBBLE_SQUABBLE_POINTS_ALL_TIME, this.getPlayer(0).getScore());
+            }
+
+            if (this.getPlayer(1).getScore() > 0) {
+                this.getPlayer(1).getPlayer().getStatisticManager().incrementValue(PlayerStatistic.WOBBLE_SQUABBLE_MONTHLY_SCORES, this.getPlayer(1).getScore());
+                this.getPlayer(1).getPlayer().getStatisticManager().incrementValue(PlayerStatistic.WOBBLE_SQUABBLE_POINTS_ALL_TIME, this.getPlayer(1).getScore());
+            }
+        }
 
         // Send end game
-        if (winner != -1) {
-            this.send(new PT_WIN(winner));
-        }
+        this.send(new PT_WIN(winner));
 
         // Do updates after the players have fallen
         GameScheduler.getInstance().getService().schedule(()-> {
@@ -231,6 +263,9 @@ public class WobbleSquabbleGame implements Runnable {
                 this.removePlayer(0, true);
                 this.removePlayer(1, true);
             } else {
+                //GameManager.getInstance().giveRandomCredits(getPlayer(winner).getPlayer(), true);
+                //GameManager.getInstance().giveRandomCredits(getPlayer(loser).getPlayer(), false);
+
                 this.removePlayer(winner, false);
                 this.removePlayer(loser, true);
             }
@@ -291,7 +326,6 @@ public class WobbleSquabbleGame implements Runnable {
         player.send(new TICKET_BALANCE(player.getDetails().getTickets()));
 
         if (isThrown) {
-            //System.out.println("player thrown: " + player.getDetails().getName());
             player.getRoomUser().setStatus(StatusType.SWIM, "");
 
             int newX = player.getRoomUser().getPosition().getX() + ((wsPlayer.getBalance() < 0 ? -1 : 1));

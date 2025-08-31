@@ -2,6 +2,7 @@ package org.alexdev.kepler.game;
 
 import org.alexdev.kepler.dao.mysql.CurrencyDao;
 import org.alexdev.kepler.game.catalogue.RareManager;
+import org.alexdev.kepler.game.catalogue.collectables.CollectablesManager;
 import org.alexdev.kepler.game.events.EventsManager;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.ItemManager;
@@ -16,10 +17,7 @@ import org.alexdev.kepler.messages.outgoing.user.currencies.CREDIT_BALANCE;
 import org.alexdev.kepler.util.DateUtil;
 import org.alexdev.kepler.util.config.GameConfiguration;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -29,7 +27,7 @@ public class GameScheduler implements Runnable {
     private ScheduledExecutorService schedulerService;
     private ScheduledFuture<?> gameScheduler;
 
-    private BlockingQueue<Player> creditsHandoutQueue;
+    private BlockingQueue<Map.Entry<Player, Integer>> creditsHandoutQueue;
     private BlockingQueue<Item> itemSavingQueue;
     private BlockingQueue<Integer> itemDeletionQueue;
 
@@ -72,7 +70,8 @@ public class GameScheduler implements Runnable {
                     if (GameConfiguration.getInstance().getBoolean("credits.scheduler.enabled")) {
                         if (DateUtil.getCurrentTimeSeconds() > player.getDetails().getNextHandout()) {
                             if (!player.getRoomUser().containsStatus(StatusType.AVATAR_SLEEP)) {
-                                this.creditsHandoutQueue.put(player);
+                                var amount = GameConfiguration.getInstance().getInteger("credits.scheduler.amount");
+                                this.queuePlayerCredits(player, amount);
                             }
 
                             player.getDetails().resetNextHandout();
@@ -84,22 +83,22 @@ public class GameScheduler implements Runnable {
             if (GameConfiguration.getInstance().getBoolean("credits.scheduler.enabled") &&
                     this.tickRate.get() % 30 == 0) { // Save every 30 seconds
 
-                List<Player> playersToHandout = new ArrayList<>();
-                this.creditsHandoutQueue.drainTo(playersToHandout);
+                List<Map.Entry<Player, Integer>> creditsHandout = new ArrayList<>();
+                this.creditsHandoutQueue.drainTo(creditsHandout);
 
-                if (playersToHandout.size() > 0) {
+                if (creditsHandout.size() > 0) {
                     Map<PlayerDetails, Integer> playerDetailsToSave = new LinkedHashMap<>();
-                    Integer amount = GameConfiguration.getInstance().getInteger("credits.scheduler.amount");
+                    // Integer amount = GameConfiguration.getInstance().getInteger("credits.scheduler.amount");
 
-                    for (Player p : playersToHandout) {
-                        var details = p.getDetails();
-                        playerDetailsToSave.put(details, amount);
+                    for (var p : creditsHandout) {
+                        // var details = p.getKey().getDetails();
+                        playerDetailsToSave.put(p.getKey().getDetails(), p.getValue());
                     }
 
                     CurrencyDao.increaseCredits(playerDetailsToSave);
 
-                    for (Player p : playersToHandout) {
-                        p.send(new CREDIT_BALANCE(p.getDetails()));
+                    for (var p : creditsHandout) {
+                        p.getKey().send(new CREDIT_BALANCE(p.getKey().getDetails().getCredits()));
                     }
                 }
             }
@@ -133,12 +132,25 @@ public class GameScheduler implements Runnable {
                 ChatManager.getInstance().performChatSaving();
             }
 
+            CollectablesManager.getInstance().checkExpiries();
+
             RareManager.getInstance().performRareManagerJob(this.tickRate);
         } catch (Exception ex) {
             Log.getErrorLogger().error("GameScheduler crashed: ", ex);
         }
 
         this.tickRate.incrementAndGet();
+    }
+
+
+    /**
+     * Add player to queue to give credits to.
+     *
+     * @param player the player to modify
+     * @param credits the credits
+     */
+    public void queuePlayerCredits(Player player, int credits) {
+        this.creditsHandoutQueue.add(new AbstractMap.SimpleEntry<>(player, credits));
     }
 
     /**

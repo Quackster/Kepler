@@ -1,12 +1,10 @@
 package org.alexdev.kepler.messages.outgoing.purse;
 
 import org.alexdev.kepler.game.catalogue.CatalogueItem;
-import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class VOUCHER_REDEEM_OK extends MessageComposer {

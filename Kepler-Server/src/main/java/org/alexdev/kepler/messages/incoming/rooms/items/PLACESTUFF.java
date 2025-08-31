@@ -1,13 +1,14 @@
 package org.alexdev.kepler.messages.incoming.rooms.items;
 
 import org.alexdev.kepler.dao.mysql.ItemDao;
+import org.alexdev.kepler.dao.mysql.TransactionDao;
+import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.base.ItemBehaviour;
-import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.texts.TextsManager;
-import org.alexdev.kepler.messages.outgoing.user.ALERT;
+import org.alexdev.kepler.messages.outgoing.alert.ALERT;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 import org.apache.commons.lang3.StringUtils;
@@ -85,7 +86,9 @@ public class PLACESTUFF implements MessageEvent {
         } else {
             int x = Integer.parseInt(data[1]);
             int y = Integer.parseInt(data[2]);
-            int rotation = rotation = Integer.parseInt(data[5]);
+
+            // skip 3 and 4 as they're dimensions, we don't need 'em since it's server-side variables, never trust the client!
+            int rotation = Integer.parseInt(data[3]);
 
             if (item.hasBehaviour(ItemBehaviour.REDIRECT_ROTATION_0)) {
                 rotation = 0;
@@ -118,6 +121,13 @@ public class PLACESTUFF implements MessageEvent {
         if (room.getItemManager().getMoodlight() != null && (item.hasBehaviour(ItemBehaviour.ROOMDIMMER))) {
             player.send(new ALERT(TextsManager.getInstance().getValue("roomdimmer_furni_limit")));
             return;
+        }
+
+        if (room.getData().getOwnerId() != player.getDetails().getId()) {
+            TransactionDao.createTransaction(player.getDetails().getId(),
+                    String.valueOf(item.getId()), String.valueOf(item.getDefinition().getId()), 1,
+                    "Placed item " + item.getDefinition().getName() + " into " + room.getData().getOwnerName() + "'s room: " + room.getData().getId(),
+                    room.getId(), room.getData().getOwnerId(), false);
         }
 
         room.getMapping().addItem(player, item);

@@ -1,6 +1,5 @@
 package org.alexdev.kepler.messages.outgoing.songs;
 
-import org.alexdev.kepler.messages.incoming.navigator.RECOMMENDED_ROOMS;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 

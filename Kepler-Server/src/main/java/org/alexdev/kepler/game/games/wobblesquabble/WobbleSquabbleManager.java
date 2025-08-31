@@ -1,6 +1,5 @@
 package org.alexdev.kepler.game.games.wobblesquabble;
 
-
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 
@@ -11,7 +10,7 @@ public class WobbleSquabbleManager {
     public static int WS_BALANCE_POINTS = 35;
     public static int WS_HIT_POINTS = 13;
     public static int WS_HIT_BALANCE_POINTS = 10;
-    public static int WS_GAME_TIMEOUT_SECS = 30;
+    public static int WS_GAME_TIMEOUT_SECS = 60;
 
     /**
      * Returns true or false if the user is in a game of wobble squabble.
@@ -54,9 +53,7 @@ public class WobbleSquabbleManager {
         }
 
         WobbleSquabbleGame wsGame = (WobbleSquabbleGame) room.getTaskManager().getTask(this.getName());
-        WobbleSquabblePlayer wsPlayer = wsGame.getPlayerById(player.getDetails().getId());
-
-        return wsPlayer;
+        return wsGame.getPlayerById(player.getDetails().getId());
     }
 
     /**

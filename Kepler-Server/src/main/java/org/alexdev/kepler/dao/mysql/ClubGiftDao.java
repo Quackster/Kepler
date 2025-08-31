@@ -1,8 +1,6 @@
 package org.alexdev.kepler.dao.mysql;
 
 import org.alexdev.kepler.dao.Storage;
-import org.alexdev.kepler.game.player.PlayerDetails;
-import org.alexdev.kepler.util.DateUtil;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.sql.Connection;
@@ -25,7 +23,7 @@ public class ClubGiftDao {
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                giftData = Pair.of(resultSet.getLong("date_received"), resultSet.getString("sprite"));
+                giftData = Pair.of(resultSet.getTime("date_received").getTime(), resultSet.getString("sprite"));
             }
 
         } catch (Exception e) {
@@ -39,15 +37,13 @@ public class ClubGiftDao {
         return giftData;
     }
 
-    public static void saveNextGiftDate(PlayerDetails playerDetails) {
+    public static void incrementGiftData(long nextGiftDate) {
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
 
         try {
             sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("UPDATE users SET club_gift_due = ? WHERE id = ?", sqlConnection);
-            preparedStatement.setLong(1, playerDetails.getClubGiftDue());
-            preparedStatement.setInt(2, playerDetails.getId());
+            preparedStatement = Storage.getStorage().prepare("UPDATE users_statistics SET gifts_due = gifts_due + 1, club_gift_due = FROM_UNIXTIME(UNIX_TIMESTAMP() + " + nextGiftDate + ")  WHERE CURRENT_TIMESTAMP() > club_gift_due;", sqlConnection);
             preparedStatement.execute();
         } catch (Exception e) {
             Storage.logError(e);
@@ -63,10 +59,9 @@ public class ClubGiftDao {
 
         try {
             sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("INSERT INTO users_club_gifts (user_id, date_received, sprite) VALUES (?, ?, ?)", sqlConnection);
+            preparedStatement = Storage.getStorage().prepare("INSERT INTO users_club_gifts (user_id, sprite) VALUES (?, ?)", sqlConnection);
             preparedStatement.setInt(1, userId);
-            preparedStatement.setLong(2, DateUtil.getCurrentTimeSeconds());
-            preparedStatement.setString(3, sprite);
+            preparedStatement.setString(2, sprite);
             preparedStatement.execute();
         } catch (Exception e) {
             Storage.logError(e);

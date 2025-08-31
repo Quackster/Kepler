@@ -36,19 +36,21 @@ public class ItemManager {
      * @param saleCode the sprite to give
      * @return the item as gift
      */
-    public Item createGift(PlayerDetails toPlayer, PlayerDetails fromPlayer, String saleCode, String presentLabel, String extraData) throws Exception {
-        String sprite = "present_gen" + ThreadLocalRandom.current().nextInt(1, 7);
-        ItemDefinition itemDef = ItemManager.getInstance().getDefinitionBySprite(sprite);
+    public Item createGift(int ownerId, String receivedFrom, String saleCode, String presentLabel, String extraData) {
+        int presentId = ThreadLocalRandom.current().nextInt(0, 7);
+        String sprite = "present_gen";
 
-        if (itemDef == null) {
-            throw new Exception("Could not create gift, the definition for sprite " + sprite + " doesn't exist");
+        if (presentId > 0) {
+            sprite += presentId;
         }
+
+        ItemDefinition itemDef = ItemManager.getInstance().getDefinitionBySprite(sprite);
 
         Item item = new Item();
         item.setDefinitionId(itemDef.getId());
-        item.setOwnerId(toPlayer.getId());
+        item.setOwnerId(ownerId);
         item.setCustomData(CatalogueManager.getInstance().getCatalogueItem(saleCode).getId() +
-                Item.PRESENT_DELIMETER + fromPlayer.getName() +
+                Item.PRESENT_DELIMETER + receivedFrom +
                 Item.PRESENT_DELIMETER + presentLabel.replace(Item.PRESENT_DELIMETER, "") + //From Habbo" +
                 Item.PRESENT_DELIMETER + extraData.replace(Item.PRESENT_DELIMETER, "") +
                 Item.PRESENT_DELIMETER + DateUtil.getCurrentTimeSeconds());

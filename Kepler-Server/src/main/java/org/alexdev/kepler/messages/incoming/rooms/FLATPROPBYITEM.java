@@ -35,20 +35,24 @@ public class FLATPROPBYITEM implements MessageEvent {
             return;
         }
 
-        int value = Integer.parseInt(item.getCustomData());
+        //int value = Integer.parseInt(item.getCustomData());
 
         if (property.equals("wallpaper")) {
-            room.getData().setWallpaper(value);
+            room.getData().setWallpaper(Integer.parseInt(item.getCustomData()));
         }
 
         if (property.equals("floor")) {
-            room.getData().setFloor(value);
+            room.getData().setFloor(Integer.parseInt(item.getCustomData()));
+        }
+
+        if (property.equals("landscape")) {
+            room.getData().setLandscape(item.getCustomData());
         }
 
         item.delete();
         RoomDao.saveDecorations(room);
 
-        room.send(new FLATPROPERTY(property, value));
+        room.send(new FLATPROPERTY(property, item.getCustomData()));
         player.getInventory().getItems().remove(item);
     }
 }

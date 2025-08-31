@@ -14,7 +14,7 @@ public class ACCOUNT_PREFERENCES extends MessageComposer {
     @Override
     public void compose(NettyResponse response) {
         response.writeBool(this.details.getSoundSetting());
-        response.writeBool(!this.details.isTutorialFinished());
+        response.writeBool(false); //!this.details.isTutorialFinished());
     }
 
     @Override

@@ -3,7 +3,9 @@ package org.alexdev.kepler.game.fuserights;
 import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.player.PlayerRank;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class FuserightsManager {
     private static FuserightsManager instance;

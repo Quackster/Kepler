@@ -1,9 +1,5 @@
 package org.alexdev.kepler.server.netty.streams;
 
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import io.netty.buffer.ByteBuf;
 import org.alexdev.kepler.util.StringUtil;
 import org.alexdev.kepler.util.encoding.Base64Encoding;
@@ -66,10 +62,10 @@ public class NettyRequest {
     }
 
     public String contents() {
-        byte[] remainingBytes = this.remainingBytes();
+        byte[] remiainingBytes = this.remainingBytes();
 
-        if (remainingBytes != null) {
-            return new String(remainingBytes, StringUtil.getCharset());
+        if (remiainingBytes != null) {
+            return new String(remiainingBytes, StringUtil.getCharset());
         }
 
         return null;

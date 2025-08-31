@@ -1,6 +1,5 @@
 package org.alexdev.kepler.messages.incoming.rooms.settings;
 
-import org.alexdev.kepler.dao.mysql.RoomDao;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.RoomManager;

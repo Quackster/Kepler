@@ -17,7 +17,7 @@ public class FINDUSER implements MessageEvent {
         String searchQuery = reader.readString();
 
         // if (player.getVersion() < 23) {
-            int userId = MessengerDao.searchUser(searchQuery);
+            int userId = MessengerDao.search(searchQuery).stream().findFirst().orElse(0);
             player.send(new MESSENGER_SEARCH(PlayerManager.getInstance().getPlayerData(userId)));
         /*} else {
             List<Integer> userList = MessengerDao.search(searchQuery.toLowerCase());

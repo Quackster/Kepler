@@ -26,7 +26,7 @@ public class GCAP implements MessageEvent {
         }
 
         if (player.getDetails().getRank().getRankId() >= cataloguePage.getMinRole().getRankId()) {
-            List<CatalogueItem> catalogueItemList = CatalogueManager.getInstance().getCataloguePageItems(cataloguePage.getId());
+            List<CatalogueItem> catalogueItemList = CatalogueManager.getInstance().getCataloguePageItems(cataloguePage.getId(), false);
 
             if (RareManager.getInstance().getCurrentRare() != null &&
                     cataloguePage.getId() == GameConfiguration.getInstance().getInteger("rare.cycle.page.id")) {

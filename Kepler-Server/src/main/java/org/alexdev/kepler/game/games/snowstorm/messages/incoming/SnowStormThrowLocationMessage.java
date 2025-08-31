@@ -12,7 +12,7 @@ import org.alexdev.kepler.server.netty.streams.NettyRequest;
 
 public class SnowStormThrowLocationMessage implements SnowStormMessage {
     @Override
-    public void handle(NettyRequest reader, SnowStormGame snowStormGame, GamePlayer gamePlayer) {
+    public void handle(NettyRequest reader, SnowStormGame snowStormGame, GamePlayer gamePlayer){
         if (!gamePlayer.getSnowStormAttributes().isWalkable()) {
             return;
         }

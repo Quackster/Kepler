@@ -3,7 +3,6 @@ package org.alexdev.kepler.messages.incoming.register;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerManager;
-import org.alexdev.kepler.game.player.register.RegisterDataType;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 

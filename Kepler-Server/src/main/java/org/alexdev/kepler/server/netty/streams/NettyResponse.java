@@ -5,8 +5,6 @@ import org.alexdev.kepler.util.StringUtil;
 import org.alexdev.kepler.util.encoding.Base64Encoding;
 import org.alexdev.kepler.util.encoding.VL64Encoding;
 
-import java.nio.charset.Charset;
-
 public class NettyResponse  {
     private short id;
     private ByteBuf buffer;

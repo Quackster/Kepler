@@ -11,6 +11,6 @@ public class SET_SOUND_SETTING implements MessageEvent {
         boolean enabled = reader.readBoolean();
         player.getDetails().setSoundSetting(enabled);
 
-        PlayerDao.saveSoundSetting(player.getDetails());
+        PlayerDao.saveSoundSetting(player.getDetails().getId(), enabled);
     }
 }

@@ -1,10 +1,10 @@
 package org.alexdev.kepler.game.commands;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.fuserights.Fuseright;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Command {
    

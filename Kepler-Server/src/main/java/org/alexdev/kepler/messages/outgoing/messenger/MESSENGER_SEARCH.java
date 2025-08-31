@@ -49,7 +49,7 @@ public class MESSENGER_SEARCH extends MessageComposer {
         response.writeBool(isOnline && player.getRoomUser().getRoom() != null);
         response.writeString((isOnline && player.getRoomUser().getRoom() != null) ? player.getRoomUser().getRoom().getData().getName() : "");
 
-        response.writeBool(playerDetails.getSex() == 'M');
+        response.writeBool(playerDetails.getSex().equalsIgnoreCase("M"));
         response.writeString(isOnline ? playerDetails.getFigure() : "");
         response.writeString(DateUtil.getDateAsString(playerDetails.getLastOnline()));
     }

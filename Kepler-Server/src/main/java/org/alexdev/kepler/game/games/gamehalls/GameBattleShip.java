@@ -12,19 +12,17 @@ import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.messages.outgoing.rooms.games.ITEMMSG;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-public class GameBattleShip extends org.alexdev.kepler.game.games.gamehalls.GamehallGame {
-    private Map<GameShip, Player> shipsPlaced;
-    private Map<Player, List<GameShipMove>> playerListMap;
+public class GameBattleShip extends GamehallGame {
+    private Map<GameShip, Integer> shipsPlaced;
+    private Map<Integer, List<GameShipMove>> playerListMap;
     private Player[] players;
-    private Player nextTurn;
+    private int nextTurn;
     private boolean isTurnUsed;
+    private boolean gameStarted;
     private boolean gameEnded;
 
     public GameBattleShip(List<int[]> kvp) {
@@ -36,19 +34,73 @@ public class GameBattleShip extends org.alexdev.kepler.game.games.gamehalls.Game
         this.shipsPlaced = new HashMap<>();
         this.playerListMap = new HashMap<>();
         this.players = new Player[2];
-        this.nextTurn = null;
+        this.nextTurn = 0;
         this.isTurnUsed = false;
+        this.gameStarted = false;
         this.gameEnded = false;
     }
 
     @Override
-    public void gameStop() { }
+    public void gameStop() {
+        this.shipsPlaced = new HashMap<>();
+        this.playerListMap = new HashMap<>();
+        this.players = new Player[2];
+        this.nextTurn = 0;
+        this.isTurnUsed = false;
+        this.gameStarted = false;
+        this.gameEnded = false;
+    }
+
+    @Override
+    public void joinGame(Player player) {
+        if (!this.gameStarted) {
+            return;
+        }
+
+        if (this.getPlayerNum(player) == -1) {
+            if (this.players[0] == null) {
+                this.players[0] = player;
+            } else {
+                if (this.players[1] == null) {
+                    this.players[1] = player;
+                }
+            }
+        }
+
+        String[] opponentData = new String[2];
+
+        int i = 0;
+        for (Player p : this.players) {
+            opponentData[i] = this.getPlayerNum(p) + " " + this.players[i].getDetails().getName();
+            i++;
+        }
+
+        this.sendToEveryone(new ITEMMSG(new String[]{this.getGameId(), "OPPONENTS", String.join(Character.toString((char) 13), opponentData)}));
+        this.sendMarkedMap();
+    }
+
+    @Override
+    public void leaveGame(Player player) {
+        if (this.nextTurn == getPlayerNum(player)) {
+            rotateTurn();
+        }
+
+        for (int i = 0; i < this.players.length; i++) {
+            if (this.players[i] == player) {
+                this.players[i] = null;
+            }
+        }
+    }
 
     @Override
     public void handleCommand(Player player, Room room, Item item, String command, String[] args) {
         GameTrigger trigger = (GameTrigger) item.getDefinition().getInteractionType().getTrigger();
 
         if (command.equals("PLACESHIP")) {
+            if (this.gameStarted) {
+                return;
+            }
+
             int shipId = Integer.parseInt(args[0]);
             int startX = Integer.parseInt(args[1]);
             int startY = Integer.parseInt(args[2]);
@@ -62,10 +114,6 @@ public class GameBattleShip extends org.alexdev.kepler.game.games.gamehalls.Game
                 return;
             }
 
-            if (this.countShips(shipType, player) >= shipType.getMaxAllowed()) {
-                return;
-            }
-
             if (this.getPlayerNum(player) == -1) {
                 if (this.players[0] == null) {
                     this.players[0] = player;
@@ -76,16 +124,17 @@ public class GameBattleShip extends org.alexdev.kepler.game.games.gamehalls.Game
                 }
             }
 
-            if (!this.playerListMap.containsKey(player)) {
-                this.playerListMap.put(player, new ArrayList<>());
+            if (this.countShips(shipType, getPlayerNum(player)) >= shipType.getMaxAllowed()) {
+                return;
+            }
+
+            if (!this.playerListMap.containsKey(getPlayerNum(player))) {
+                this.playerListMap.put(getPlayerNum(player), new ArrayList<>());
             }
 
             boolean isHorizontal = (startY == endY);
 
-            int shipX = startX;
-            int shipY = startY;
-
-            this.shipsPlaced.put(new GameShip(this, shipType, new Position(shipX, shipY), player, isHorizontal), player);
+            this.shipsPlaced.put(new GameShip(this, shipType, new Position(startX, startY), getPlayerNum(player), isHorizontal), getPlayerNum(player));
             boolean isEveryoneFinsihed = this.hasEveryoneFinished();
 
             if (isEveryoneFinsihed) {
@@ -99,11 +148,12 @@ public class GameBattleShip extends org.alexdev.kepler.game.games.gamehalls.Game
 
                 this.sendToEveryone(new ITEMMSG(new String[]{this.getGameId(), "OPPONENTS", String.join(Character.toString((char) 13), opponentData)}));
                 this.rotateTurn();
+                this.gameStarted = true;
             }
         }
 
         if (command.equals("SHOOT")) {
-            if (this.nextTurn != player) {
+            if (this.nextTurn != getPlayerNum(player)) {
                 return;
             }
 
@@ -116,7 +166,7 @@ public class GameBattleShip extends org.alexdev.kepler.game.games.gamehalls.Game
 
             GameShipMoveResult moveResult = GameShipMoveResult.MISS;
 
-            if (this.isHit(x, y, player)) {
+            if (this.isHit(x, y, getPlayerNum(player))) {
                 moveResult = GameShipMoveResult.HIT;
             }
 
@@ -126,8 +176,9 @@ public class GameBattleShip extends org.alexdev.kepler.game.games.gamehalls.Game
                 return;
             }
 
-            GameShip gameShip = this.getShipPlaced(x, y, player);
-            this.playerListMap.get(player).add(new GameShipMove(player, x, y, moveResult, gameShip));
+            GameShip gameShip = this.getShipPlaced(x, y, getPlayerNum(player));
+            this.playerListMap.get(getPlayerNum(player)).add(new GameShipMove(player, x, y, moveResult, gameShip));
+
             this.sendMarkedMap();
 
             if (gameShip != null) {
@@ -151,7 +202,7 @@ public class GameBattleShip extends org.alexdev.kepler.game.games.gamehalls.Game
                 GameScheduler.getInstance().getService().schedule(this::rotateTurn, 2, TimeUnit.SECONDS);
             } else {
                 this.isTurnUsed = false;
-                this.sendToEveryone(new ITEMMSG(new String[]{this.getGameId(), "TURN", String.valueOf(this.getPlayerNum(this.nextTurn))}));
+                this.sendToEveryone(new ITEMMSG(new String[]{this.getGameId(), "TURN", String.valueOf(this.nextTurn)}));
             }
             //}, 5, TimeUnit.SECONDS);
 
@@ -160,9 +211,12 @@ public class GameBattleShip extends org.alexdev.kepler.game.games.gamehalls.Game
                 this.sendToEveryone(new ITEMMSG(new String[]{this.getGameId(), "GAMEEND", player.getDetails().getName()}));
                 this.sendToEveryone(new ITEMMSG(new String[]{this.getGameId(), "GAMEOVER"}));
                 this.isTurnUsed = true;
+                //GameManager.getInstance().giveRandomCredits(player, true);
+                //GameManager.getInstance().giveRandomCredits(this.getOppositePlayer(player), false);
 
             }
 
+            player.getRoomUser().getTimerManager().resetRoomTimer();
             //GameScheduler.getInstance().getService().schedule(this::rotateTurn, 5, TimeUnit.SECONDS);
             //GameScheduler.getInstance().getService().schedule(this::sendMarkedMap, 5, TimeUnit.SECONDS);
 
@@ -175,17 +229,8 @@ public class GameBattleShip extends org.alexdev.kepler.game.games.gamehalls.Game
     }
 
     private void rotateTurn() {
-        if (this.nextTurn == null) {
-            this.nextTurn = this.players[0];
-        } else {
-            if (this.nextTurn == this.players[0]) {
-                this.nextTurn = this.players[1];
-            } else {
-                this.nextTurn = this.players[0];
-            }
-        }
-
-        this.sendToEveryone(new ITEMMSG(new String[]{this.getGameId(), "TURN", String.valueOf(this.getPlayerNum(this.nextTurn)) }));
+        this.nextTurn = getOppositePlayerNum(this.nextTurn);
+        this.sendToEveryone(new ITEMMSG(new String[]{this.getGameId(), "TURN", String.valueOf(this.nextTurn) }));
         this.isTurnUsed = false;
     }
 
@@ -199,27 +244,27 @@ public class GameBattleShip extends org.alexdev.kepler.game.games.gamehalls.Game
 
             if (getPlayerNum(p) == 0) {
                 p.send(new ITEMMSG(new String[]{this.getGameId(), "SITUATION",
-                        "", generateHitGrid(p),
-                        "", generateHitGrid(opponent),
+                        "", generateHitGrid(getPlayerNum(p)),
+                        "", generateHitGrid(getPlayerNum(opponent)),
                 }));
             } else {
                 p.send(new ITEMMSG(new String[]{this.getGameId(), "SITUATION",
-                        "", generateHitGrid(opponent),
-                        "", generateHitGrid(p)
+                        "", generateHitGrid(getPlayerNum(opponent)),
+                        "", generateHitGrid(getPlayerNum(p)),
                 }));
             }
         }
     }
 
 
-    private String generateHitGrid(Player player) {
+    private String generateHitGrid(int player) {
         StringBuilder map = new StringBuilder();
 
         for (int y = 0; y < 12; y++) {
             for (int x = 0; x < 13; x++) {
                 Position position = new Position(x, y);
 
-                GameShipMove shipMove = this.playerListMap.get(this.getOppositePlayer(player)).stream().filter(move -> move.getX() == position.getX() && move.getY() == position.getY()).findFirst().orElse(null);
+                GameShipMove shipMove = this.playerListMap.get(this.getOppositePlayerNum(player)).stream().filter(move -> move.getX() == position.getX() && move.getY() == position.getY()).findFirst().orElse(null);
 
                 if (shipMove == null) {
                     map.append("-");
@@ -236,13 +281,12 @@ public class GameBattleShip extends org.alexdev.kepler.game.games.gamehalls.Game
         return map.toString();
     }
 
-    private boolean isHit(int selectX, int selectY, Player player) {
+    private boolean isHit(int selectX, int selectY, int player) {
         return getShipPlaced(selectX, selectY, player) != null;
     }
 
-    private GameShip getShipPlaced(int x, int y, Player player) {
-        Player oppositePlayer = (this.players[0] == player) ? this.players[1] : this.players[0];
-        List<GameShip> opponentShips = this.shipsPlaced.keySet().stream().filter(ship -> ship.getPlayer() == oppositePlayer).collect(Collectors.toList());
+    private GameShip getShipPlaced(int x, int y, int player) {
+        List<GameShip> opponentShips = this.shipsPlaced.keySet().stream().filter(ship -> ship.getPlayer() == getOppositePlayerNum(player)).collect(Collectors.toList());
 
         for (GameShip gameShip : opponentShips) {
             for (int i = 0; i < gameShip.getShipType().getLength(); i++) {
@@ -264,22 +308,14 @@ public class GameBattleShip extends org.alexdev.kepler.game.games.gamehalls.Game
      * @param player the player number
      * @return the number
      */
-    private int getPlayerNum(Player player) {
-        int i = 0;
-        for (Player p : this.players) {
-            if (p == player) {
-                return i;
-            } else {
-                i++;
-            }
-        }
-
-        return -1;
+    public int getPlayerNum(Player player) {
+        var playerList = Arrays.asList(this.players);
+        return playerList.contains(player) ? playerList.indexOf(player) : - 1;
     }
 
     private boolean isGameOver(Player player) {
         for (var kvp : this.shipsPlaced.entrySet()) {
-            if (kvp.getValue() != player) {
+            if (kvp.getValue() != getPlayerNum(player)) {
                 continue;
             }
 
@@ -307,20 +343,23 @@ public class GameBattleShip extends org.alexdev.kepler.game.games.gamehalls.Game
         return null;
     }
 
+
+    public Integer getOppositePlayerNum(int player) {
+        return player == 0 ? 1 : 0;
+    }
+
     /**
      * Gets if both players have finished placing their pieces.
      *
      * @return true, if successful
      */
     private boolean hasEveryoneFinished() {
-        for (Player player : this.players) {
-            if (player == null) {
-                return false;
-            }
+        if (this.countShips(null, 0) != 10) {
+            return false;
+        }
 
-            if (this.countShips(null, player) != 10) {
-                return false;
-            }
+        if (this.countShips(null, 1) != 10) {
+            return false;
         }
 
         return true;
@@ -333,24 +372,24 @@ public class GameBattleShip extends org.alexdev.kepler.game.games.gamehalls.Game
      * @param player the player (optional)
      * @return the count of the ships
      */
-    private int countShips(GameShipType shipType, Player player) {
-        List<GameShip> gameShipType = null;
+    private int countShips(GameShipType shipType, int player) {
+        List<GameShip> gameShipTypes = null;
 
         if (shipType != null) {
-            if (player != null) {
-                gameShipType = this.shipsPlaced.keySet().stream().filter(ship -> ship.getShipType() == shipType && ship.getPlayer() == player).collect(Collectors.toList());
+            if (player != -1) {
+                gameShipTypes = this.shipsPlaced.keySet().stream().filter(ship -> ship.getShipType() == shipType && ship.getPlayer() == player).collect(Collectors.toList());
             } else {
-                gameShipType = this.shipsPlaced.keySet().stream().filter(ship -> ship.getShipType() == shipType).collect(Collectors.toList());
+                gameShipTypes = this.shipsPlaced.keySet().stream().filter(ship -> ship.getShipType() == shipType).collect(Collectors.toList());
             }
         } else {
-            if (player != null) {
-                gameShipType = this.shipsPlaced.keySet().stream().filter(ship -> ship.getPlayer() == player).collect(Collectors.toList());
+            if (player != -1) {
+                gameShipTypes = this.shipsPlaced.keySet().stream().filter(ship -> ship.getPlayer() == player).collect(Collectors.toList());
             } else {
-                gameShipType = new ArrayList<>(this.shipsPlaced.keySet());
+                gameShipTypes = new ArrayList<>(this.shipsPlaced.keySet());
             }
         }
 
-        return gameShipType.size();
+        return gameShipTypes.size();
     }
 
     @Override
@@ -360,7 +399,7 @@ public class GameBattleShip extends org.alexdev.kepler.game.games.gamehalls.Game
 
     @Override
     public int getMinimumPeopleRequired() {
-        return 2;
+        return 1;
     }
 
     @Override
@@ -368,11 +407,7 @@ public class GameBattleShip extends org.alexdev.kepler.game.games.gamehalls.Game
         return "BattleShip";
     }
 
-    public Map<GameShip, Player> getShipsPlaced() {
-        return shipsPlaced;
-    }
-
-    public Map<Player, List<GameShipMove>> getPlayerListMap() {
+    public Map<Integer, List<GameShipMove>> getPlayerListMap() {
         return playerListMap;
     }
 }

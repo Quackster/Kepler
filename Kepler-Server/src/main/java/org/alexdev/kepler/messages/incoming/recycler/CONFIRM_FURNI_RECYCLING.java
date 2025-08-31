@@ -49,7 +49,7 @@ public class CONFIRM_FURNI_RECYCLING implements MessageEvent {
 
         RecyclerDao.deleteSession(player.getDetails().getId());
         if (!isCancel) {
-            List<Item> itemList = CatalogueManager.getInstance().purchase(player, recyclerSession.getRecyclerReward().getCatalogueItem(), null, null, DateUtil.getCurrentTimeSeconds());
+            List<Item> itemList = CatalogueManager.getInstance().purchase(player.getDetails(), recyclerSession.getRecyclerReward().getCatalogueItem(), null, null, DateUtil.getCurrentTimeSeconds());
 
             if (!itemList.isEmpty()) {
                 player.getInventory().getView("new");
