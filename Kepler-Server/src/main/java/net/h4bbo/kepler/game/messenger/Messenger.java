@@ -260,4 +260,20 @@ public class Messenger {
     public List<MessengerCategory> getCategories() {
         return messengerCategories;
     }
+
+    public void setFriendsLimit(int friendsLimit) {
+        this.friendsLimit = friendsLimit;
+    }
+
+    public void setAllowsFriendRequests(boolean allowsFriendRequests) {
+        this.allowsFriendRequests = allowsFriendRequests;
+    }
+
+    public MessengerUser getUser() {
+        return user;
+    }
+
+    public void setUser(MessengerUser user) {
+        this.user = user;
+    }
 }

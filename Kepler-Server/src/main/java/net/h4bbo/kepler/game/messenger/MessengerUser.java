@@ -170,4 +170,8 @@ public class MessengerUser {
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
     }
+
+    public boolean isOnline() {
+        return PlayerManager.getInstance().getPlayerById(this.userId) != null;
+    }
 }
