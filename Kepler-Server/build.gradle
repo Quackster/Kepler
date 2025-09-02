@@ -6,7 +6,7 @@ java {
     targetCompatibility = JavaVersion.toVersion("1.17")
 }
 
-mainClassName = 'org.alexdev.kepler.Kepler'
+mainClassName = 'net.h4bbo.kepler.Kepler'
 
 repositories {
     maven { url 'https://jitpack.io' }
