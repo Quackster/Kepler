@@ -66,7 +66,7 @@ public class Messenger {
 
             if (friend != null && friend.getMessenger() != null) {
                 friend.getMessenger().queueFriendUpdate(this.user);
-                //new FRIENDLIST_UPDATE().handle(friend, null);
+                new FRIENDLIST_UPDATE().handle(friend, null);
             }
         }
     }
