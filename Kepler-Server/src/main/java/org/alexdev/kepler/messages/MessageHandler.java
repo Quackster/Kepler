@@ -3,6 +3,12 @@ package org.alexdev.kepler.messages;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.RoomManager;
 import org.alexdev.kepler.log.Log;
+import org.alexdev.kepler.messages.incoming.challenges.CLAIM_COMMUNITY_GOAL_REWARD;
+import org.alexdev.kepler.messages.incoming.bulletin.GET_ARTICLE;
+import org.alexdev.kepler.messages.incoming.bulletin.GET_CALENDAR_EVENTS;
+import org.alexdev.kepler.messages.incoming.bulletin.GET_PAGE_ARTICLES;
+import org.alexdev.kepler.messages.incoming.challenges.GET_COMMUNITY_CHALLENGE_PROGRESS;
+import org.alexdev.kepler.messages.incoming.challenges.GET_DAILY_TASKS;
 import org.alexdev.kepler.messages.incoming.handshake.GET_SESSION_PARAMETERS;
 import org.alexdev.kepler.messages.incoming.handshake.UNIQUEID;
 import org.alexdev.kepler.messages.incoming.handshake.VERSIONCHECK;
@@ -82,6 +88,8 @@ public class MessageHandler {
         registerRegisterPackets();
         registerPursePackets();
         registerUserPackets();
+        registerBulletin();
+        registerChallenges();
         registerClubPackets();
         registerWelcomingPartyPackets();
         registerTutorialPackets();
@@ -172,8 +180,21 @@ public class MessageHandler {
         registerEvent(216, new GET_CUSTOM_FILTER_LIST());
         registerEvent(217, new ADD_TO_CUSTOM_FILTER());
         registerEvent(218, new REMOVE_FROM_CUSTOM_FILTER());
+        registerEvent(370, new GET_ACHIEVEMENTS());
 
         //registerEvent(315, new TEST_LATENCY());
+    }
+
+    private void registerBulletin() {
+        registerEvent(680, new GET_PAGE_ARTICLES());
+        registerEvent(681, new GET_ARTICLE());
+        registerEvent(682, new GET_CALENDAR_EVENTS());
+    }
+
+    private void registerChallenges() {
+        registerEvent(1200, new GET_DAILY_TASKS());
+        registerEvent(520, new GET_COMMUNITY_CHALLENGE_PROGRESS());
+        registerEvent(521, new CLAIM_COMMUNITY_GOAL_REWARD());
     }
 
     private void registerClubPackets() {
@@ -381,6 +402,7 @@ public class MessageHandler {
         registerEvent(199, new MESSAGETOCALLER());
         registerEvent(198, new CHANGECALLCATEGORY());
         registerEvent(238, new DELETE_CRY());
+        registerEvent(550, new GET_CFH_CATEGORIES());
     }
 
     /**

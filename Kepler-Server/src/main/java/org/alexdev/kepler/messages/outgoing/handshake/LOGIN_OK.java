@@ -6,7 +6,8 @@ import org.alexdev.kepler.server.netty.streams.NettyResponse;
 public class LOGIN_OK extends MessageComposer {
     @Override
     public void compose(NettyResponse response) {
-
+        response.writeBool(true); // showBulletin
+        response.writeBool(false); // showLinkSteamAccount
     }
 
     @Override
