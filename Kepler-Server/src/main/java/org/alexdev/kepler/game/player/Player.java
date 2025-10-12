@@ -46,6 +46,7 @@ public class Player extends Entity {
     private final RoomPlayer roomEntity;
 
     private Set<String> ignoredList;
+    private Set<String> ignoredPhrases;
 
     private Logger log;
     private Messenger messenger;
@@ -63,6 +64,7 @@ public class Player extends Entity {
         this.diffieHellman = new DiffieHellman();
         this.roomEntity = new RoomPlayer(this);
         this.ignoredList = new HashSet<>();
+        this.ignoredPhrases = new HashSet<>();
         this.log = LoggerFactory.getLogger("Connection " + this.network.getConnectionId());
         this.pingOK = true;
         this.disconnected = false;
@@ -362,7 +364,7 @@ public class Player extends Entity {
         return ignoredList;
     }
 
-    /*public int getVersion() {
-        return Kepler.getServer().getConnectionRule(this.network.getPort()).getVersion();
-    }*/
+    public Set<String> getIgnoredPhrases() {
+        return ignoredPhrases;
+    }
 }

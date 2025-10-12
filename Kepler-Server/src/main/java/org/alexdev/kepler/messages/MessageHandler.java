@@ -163,13 +163,16 @@ public class MessageHandler {
         registerEvent(228, new GET_ACCOUNT_PREFERENCES());
         registerEvent(196, new PONG());
         registerEvent(44, new UPDATE());
-        // (Unknown): 149 / BU@M@Flol123@H@J01.01.1991@C@Iqwerty123
         registerEvent(321, new GET_IGNORE_LIST());
         registerEvent(319, new IGNORE_USER());
         registerEvent(322, new UNIGNORE_USER());
         registerEvent(228, new GET_SOUND_SETTING());
         registerEvent(9, new GETAVAILABLESETS());
         registerEvent(149, new UPDATE_ACCOUNT());
+        registerEvent(216, new GET_CUSTOM_FILTER_LIST());
+        registerEvent(217, new ADD_TO_CUSTOM_FILTER());
+        registerEvent(218, new REMOVE_FROM_CUSTOM_FILTER());
+
         //registerEvent(315, new TEST_LATENCY());
     }
 
@@ -405,6 +408,7 @@ public class MessageHandler {
         registerEvent(36, new MESSENGER_ASSIGNPERSMSG());
         registerEvent(40, new MESSENGER_REMOVEBUDDY());
         registerEvent(33, new MESSENGER_SENDMSG());
+        registerEvent(31, new MESSENGER_C_READ());
         registerEvent(32, new MESSENGER_MARKREAD());
         registerEvent(262, new FOLLOW_FRIEND());
         registerEvent(15, new FRIENDLIST_UPDATE());
@@ -444,7 +448,7 @@ public class MessageHandler {
         registerEvent(248, new DELETE_SONG());
         registerEvent(241, new EDIT_SONG());
         registerEvent(242, new SAVE_SONG_EDIT());
-        registerEvent(218, new SAVE_SONG());
+        registerEvent(240, new SAVE_SONG());
         registerEvent(254, new BURN_SONG());
     }
 

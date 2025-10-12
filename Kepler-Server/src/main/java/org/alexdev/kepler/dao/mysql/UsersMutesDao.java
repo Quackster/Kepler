@@ -74,4 +74,67 @@ public class UsersMutesDao {
             Storage.closeSilently(sqlConnection);
         }
     }
+
+    public static List<String> getPhrases(int userId) {
+        List<String> phrases = new ArrayList<>();
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("SELECT phrase FROM users_mutes_custom WHERE user_id = ?", sqlConnection);
+            preparedStatement.setInt(1, userId);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                phrases.add(resultSet.getString("phrase"));
+            }
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+
+        return phrases;
+    }
+
+    public static void addPhrase(int userId, String phrase) {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("INSERT INTO users_mutes_custom (user_id, phrase) VALUES (?, ?)", sqlConnection);
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setString(2, phrase);
+            preparedStatement.execute();
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+
+    public static void removePhrase(int userId, String phrase) {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sqlConnection = Storage.getStorage().getConnection();
+            preparedStatement = Storage.getStorage().prepare("DELETE FROM users_mutes_custom WHERE user_id = ? AND phrase = ?", sqlConnection);
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setString(2, phrase);
+            preparedStatement.execute();
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
 }
