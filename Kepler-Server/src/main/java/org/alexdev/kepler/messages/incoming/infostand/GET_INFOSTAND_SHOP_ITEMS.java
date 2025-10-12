@@ -9,6 +9,6 @@ import org.alexdev.kepler.server.netty.streams.NettyRequest;
 public class GET_INFOSTAND_SHOP_ITEMS implements MessageEvent {
     @Override
     public void handle(Player player, NettyRequest reader) throws Exception {
-        player.send(new INFO_STAND_SHOP(player.getInfoStand(), InfoStandManager.getInstance().getShop()));
+        player.send(new INFO_STAND_SHOP(InfoStandManager.getInstance().getShop()));
     }
 }

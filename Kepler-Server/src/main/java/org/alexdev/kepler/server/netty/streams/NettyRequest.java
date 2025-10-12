@@ -20,6 +20,10 @@ public class NettyRequest {
         this.headerId = Base64Encoding.decode(header.getBytes());
     }
 
+    public int readableBytes() {
+        return this.buffer.readableBytes();
+    }
+
     public Integer readInt() {
         byte[] remaining = this.remainingBytes();
 

@@ -17,8 +17,8 @@ public class TRY_LOGIN implements MessageEvent {
         
         String username = StringUtil.filterInput(reader.readString(), true);
         String password = StringUtil.filterInput(reader.readString(), true);
-        String oneTimePassword = StringUtil.filterInput(reader.readString(), true);
-        String steamId = StringUtil.filterInput(reader.readString(), true);
+        String oneTimePassword = reader.readableBytes() != 0 ? StringUtil.filterInput(reader.readString(), true) : null;
+        String steamId = reader.readableBytes() != 0 ? StringUtil.filterInput(reader.readString(), true) : null;
 
         if (!PlayerDao.login(player.getDetails(), username, password)) {
             player.send(new LOCALISED_ERROR("Login incorrect"));

@@ -10,7 +10,6 @@ import org.alexdev.kepler.messages.outgoing.messenger.ADD_FRIEND;
 import org.alexdev.kepler.messages.outgoing.messenger.BUDDY_REQUEST_RESULT;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
-import org.alexdev.kepler.util.config.ServerConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +17,11 @@ import java.util.List;
 public class MESSENGER_ACCEPTBUDDY implements MessageEvent {
     @Override
     public void handle(Player player, NettyRequest reader) {
-        int userId = reader.readInt();
-        acceptBuddy(player, userId);
+        int size = reader.readInt();
+        for (int i = 0; i < size; i++) {
+            int userId = reader.readInt();
+            acceptBuddy(player, userId);
+        }
     }
 
     private void acceptBuddy(Player player, int userId) {

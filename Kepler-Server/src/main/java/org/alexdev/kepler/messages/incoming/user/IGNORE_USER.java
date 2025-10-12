@@ -17,6 +17,11 @@ public class IGNORE_USER implements MessageEvent {
         }
 
         int userId = PlayerDao.getId(username);
+        if (userId == -1 || userId == player.getDetails().getId()) {
+            player.send(new IGNORE_USER_RESULT(0));
+            return;
+        }
+
         UsersMutesDao.addMuted(player.getDetails().getId(), userId);
 
         player.getIgnoredList().add(username);

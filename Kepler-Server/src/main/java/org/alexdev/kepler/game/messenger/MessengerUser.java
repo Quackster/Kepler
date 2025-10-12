@@ -67,24 +67,18 @@ public class MessengerUser {
 
         response.writeBool(isOnline);
 
-        if (isOnline) {
-            if (user.getRoomUser().getRoom() != null) {
-                Room room = user.getRoomUser().getRoom();
-
-                if (room.getData().getOwnerId() > 0) {
-                    response.writeString("Floor1a");
-                } else {
-                    response.writeString(room.getData().getPublicName());
-                }
-            } else {
-                response.writeString("On hotel view");
-            }
+        Room room = user != null ? user.getRoomUser().getRoom() : null;
+        if (isOnline && room != null) {
+            response.writeBool(true); // canFollow
+            response.writeString(room.getData().getPublicName()); // location
         } else {
-            response.writeString(DateUtil.getDateAsString(this.lastOnline));
+            response.writeBool(false);
+            response.writeString("Hotel view");
         }
 
         response.writeString(DateUtil.getDateAsString(this.lastOnline));
         response.writeString(this.figure);
+        response.writeInt(0); // category id
     }
 
     public boolean canFollowFriend(Player friend) {

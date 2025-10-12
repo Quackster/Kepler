@@ -194,8 +194,9 @@ public class PlayerDao {
 
         try {
             sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("SELECT * FROM users WHERE username = ? LIMIT 1", sqlConnection);
+            preparedStatement = Storage.getStorage().prepare("SELECT * FROM users WHERE username = ? OR email = ? LIMIT 1", sqlConnection);
             preparedStatement.setString(1, username);
+            preparedStatement.setString(2, username);
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {

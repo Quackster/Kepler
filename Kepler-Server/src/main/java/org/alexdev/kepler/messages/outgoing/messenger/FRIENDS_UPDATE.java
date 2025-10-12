@@ -43,29 +43,30 @@ public class FRIENDS_UPDATE extends MessageComposer {
         response.writeInt(this.friends.size());
 
         for (MessengerUser friend : this.friends) {
-            response.writeInt(friend.getUserId());
-            response.writeString(friend.getConsoleMotto());
-
-            Player player = PlayerManager.getInstance().getPlayerById(friend.getUserId());
-
-            boolean isOnline = (player != null);
-            response.writeBool(isOnline);
-
-            if (isOnline) {
-                if (player.getRoomUser().getRoom() != null) {
-                    Room room = player.getRoomUser().getRoom();
-
-                    if (room.getData().getOwnerId() > 0) {
-                        response.writeString("Floor1a");
-                    } else {
-                        response.writeString(room.getData().getPublicName());
-                    }
-                } else {
-                    response.writeString("On hotel view");
-                }
-            } else {
-                response.writeString(DateUtil.getDateAsString(friend.getLastOnline()));
-            }
+            friend.serialise(response);
+            //response.writeInt(friend.getUserId());
+            //response.writeString(friend.getConsoleMotto());
+            //
+            //Player player = PlayerManager.getInstance().getPlayerById(friend.getUserId());
+            //
+            //boolean isOnline = (player != null);
+            //response.writeBool(isOnline);
+            //
+            //if (isOnline) {
+            //    if (player.getRoomUser().getRoom() != null) {
+            //        Room room = player.getRoomUser().getRoom();
+            //
+            //        if (room.getData().getOwnerId() > 0) {
+            //            response.writeString("Floor1a");
+            //        } else {
+            //            response.writeString(room.getData().getPublicName());
+            //        }
+            //    } else {
+            //        response.writeString("On hotel view");
+            //    }
+            //} else {
+            //    response.writeString(DateUtil.getDateAsString(friend.getLastOnline()));
+            //}
         }
     }
 

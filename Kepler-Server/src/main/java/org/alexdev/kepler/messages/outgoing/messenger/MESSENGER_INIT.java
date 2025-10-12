@@ -32,11 +32,25 @@ public class MESSENGER_INIT extends MessageComposer {
         response.writeInt(normalFriendsLimit);
         response.writeInt(clubFriendsLimit);
 
+        // buddyData
         response.writeInt(this.friends.size());
 
         for (MessengerUser friend : this.friends) {
             friend.serialise(response);
         }
+
+        // limits
+        response.writeInt(100); // requestLimit
+        response.writeInt(this.player.getMessenger().getRequests().size()); // requestCount
+        response.writeInt(100); // messageLimit
+        response.writeInt(this.player.getMessenger().getOfflineMessages().size()); // messageCount
+
+        // campaignMessage
+        response.writeInt(0); // count
+        // response.writeString("1234"); // id
+        // response.writeString("https://google.com"); // url
+        // response.writeString("test"); // link
+        // response.writeString("Hello123"); // text
     }
 
     @Override
