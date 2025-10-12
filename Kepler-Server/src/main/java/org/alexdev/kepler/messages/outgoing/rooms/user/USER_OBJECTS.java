@@ -2,10 +2,11 @@ package org.alexdev.kepler.messages.outgoing.rooms.user;
 
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityState;
-import org.alexdev.kepler.game.entity.EntityType;
+import org.alexdev.kepler.game.infostand.InfoStand;
+import org.alexdev.kepler.game.infostand.InfoStandActive;
+import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
-import org.alexdev.kepler.util.FigureUtil;
 import org.alexdev.kepler.util.StringUtil;
 
 import java.util.ArrayList;
@@ -31,54 +32,61 @@ public class USER_OBJECTS extends MessageComposer {
         this.states = new ArrayList<>();
 
         for (Entity user : entities) {
-            this.states.add(new EntityState(
-                    user.getDetails().getId(),
-                    user.getRoomUser().getInstanceId(),
-                    user.getDetails(),
-                    user.getType(),
-                    user.getRoomUser().getRoom(),
-                    user.getRoomUser().getPosition().copy(),
-                    user.getRoomUser().getStatuses()));
+            this.states.add(EntityState.createFromEntity(user));
         }
     }
 
     @Override
     public void compose(NettyResponse response) {
+        response.writeInt(this.states.size());
+
         for (EntityState states : states) {
-            response.write("\r");
+            response.writeInt(states.getInstanceId());
+            response.writeInt(states.getEntityId());
+            response.writeString(states.getDetails().getName());
+            response.writeString(states.getDetails().getFigure());
+            response.writeString(states.getDetails().getSex());
+            response.writeString("");
+            response.writeInt(states.getPosition().getX());
+            response.writeInt(states.getPosition().getY());
+            response.writeString(Double.toString(StringUtil.format(states.getPosition().getZ())));
 
-            if (states.getEntityType() == EntityType.PET) {
-                response.writeKeyValue("i", states.getInstanceId());
-                response.writeKeyValue("n", states.getInstanceId() + Character.toString((char)4) + states.getDetails().getName());
-                response.writeKeyValue("f", states.getDetails().getFigure());
-                response.writeKeyValue("l", states.getPosition().getX() + " " + states.getPosition().getY() + " " + (int)states.getPosition().getZ());
-                response.writeKeyValue("c", "");
+            if ((states.getRoom().getModel().getName().startsWith("pool_") || states.getRoom().getModel().getName().equals("md_a")) &&
+                    !states.getDetails().getPoolFigure().isEmpty()) {
+                response.writeString(states.getDetails().getPoolFigure());
             } else {
-                response.writeKeyValue("i", states.getInstanceId());
-                response.writeKeyValue("a", states.getEntityId());
-                response.writeKeyValue("n", states.getDetails().getName());
-                response.writeKeyValue("f", FigureUtil.renderFor(states.getDetails().getFigure(), -1));
-                response.writeKeyValue("s", states.getDetails().getSex());
-                response.writeKeyValue("l", states.getPosition().getX() + " " + states.getPosition().getY() + " " + Double.toString(StringUtil.format(states.getPosition().getZ())));
+                response.writeString("");
+            }
 
-                if (states.getDetails().getMotto().length() > 0) {
-                    response.writeKeyValue("c", states.getDetails().getMotto());
-                }
+            response.writeString(states.getDetails().getCurrentBadge());
 
-                if (states.getDetails().getShowBadge()) {
-                    response.writeKeyValue("b", states.getDetails().getCurrentBadge());
-                }
+            switch (states.getEntityType()) {
+                case PLAYER: {
+                    response.writeInt(1);
 
-                if (states.getRoom().getModel().getName().startsWith("pool_") ||
-                        states.getRoom().getModel().getName().equals("md_a")) {
-
-                    if (states.getDetails().getPoolFigure().length() > 0) {
-                        response.writeKeyValue("p", states.getDetails().getPoolFigure());
+                    final InfoStandActive infoStand = states.getActiveInfoStand();
+                    if (infoStand != null) {
+                        response.writeString(infoStand.getExpression());
+                        response.writeString(infoStand.getAction());
+                        response.writeInt(infoStand.getDirection());
+                        response.writeInt(infoStand.getFurni());
+                        response.writeInt(infoStand.getPlate());
+                    } else {
+                        response.writeString(InfoStand.DEFAULT_EXPRESSION);
+                        response.writeString(InfoStand.DEFAULT_ACTION);
+                        response.writeInt(InfoStand.DEFAULT_DIRECTION);
+                        response.writeInt(InfoStand.DEFAULT_FURNI);
+                        response.writeInt(InfoStand.DEFAULT_PLATE);
                     }
+                    break;
                 }
-
-                if (states.getEntityType() == EntityType.BOT) {
-                    response.writeDelimeter("[bot]", (char) 13);
+                case PET: {
+                    response.writeInt(2);
+                    break;
+                }
+                case BOT: {
+                    response.writeInt(3);
+                    response.writeInt(0); // TODO: interactionID
                 }
             }
         }

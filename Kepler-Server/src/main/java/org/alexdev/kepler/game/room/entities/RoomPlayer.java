@@ -13,7 +13,7 @@ import org.alexdev.kepler.game.room.managers.RoomTradeManager;
 import org.alexdev.kepler.game.triggers.GameLobbyTrigger;
 import org.alexdev.kepler.messages.outgoing.rooms.user.CHAT_MESSAGE;
 import org.alexdev.kepler.messages.outgoing.rooms.user.FIGURE_CHANGE;
-import org.alexdev.kepler.messages.outgoing.user.USER_OBJECT;
+import org.alexdev.kepler.messages.outgoing.user.USER_OBJ;
 import org.alexdev.kepler.util.DateUtil;
 
 import java.util.ArrayList;
@@ -175,7 +175,7 @@ public class RoomPlayer extends RoomEntity {
         this.player.getDetails().setMotto(newDetails.getMotto());
 
         // Send refresh to user
-        this.player.send(new USER_OBJECT(this.player.getDetails()));
+        this.player.send(new USER_OBJ(this.player.getDetails()));
 
         // Send refresh to room if inside room
         if (this.getRoom() != null) {

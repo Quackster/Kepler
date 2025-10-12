@@ -2,9 +2,9 @@ package org.alexdev.kepler.server.netty;
 
 import io.netty.channel.Channel;
 import org.alexdev.kepler.messages.types.MessageComposer;
+import org.alexdev.kepler.server.netty.codec.EncryptionDecoder;
 
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.math.BigInteger;
 
 public class NettyPlayerNetwork {
     private int port;
@@ -19,6 +19,10 @@ public class NettyPlayerNetwork {
 
     public Channel getChannel() {
         return this.channel;
+    }
+
+    public void registerEncryptionHandler(BigInteger sharedKey) {
+        this.channel.pipeline().addBefore("gameDecoder", "encryptionDecoder", new EncryptionDecoder(sharedKey));
     }
 
     public int getPort() {
@@ -48,6 +52,4 @@ public class NettyPlayerNetwork {
     public static String getIpAddress(Channel channel) {
         return channel.remoteAddress().toString().replace("/", "").split(":")[0];
     }
-
-
 }

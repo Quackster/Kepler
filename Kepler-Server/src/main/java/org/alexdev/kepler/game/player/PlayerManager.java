@@ -320,6 +320,15 @@ public class PlayerManager {
         registerValues.put(11, new RegisterValue("isp_id", RegisterDataType.STRING));
         registerValues.put(12, new RegisterValue("partnersite", RegisterDataType.STRING));
         registerValues.put(13, new RegisterValue("oldpassword", RegisterDataType.STRING));
+        registerValues.put(14, new RegisterValue("onlineStatus", RegisterDataType.BOOLEAN));
+        registerValues.put(15, new RegisterValue("publicProfileEnabled", RegisterDataType.BOOLEAN));
+        registerValues.put(16, new RegisterValue("friendRequestsEnabled", RegisterDataType.BOOLEAN));
+        registerValues.put(17, new RegisterValue("offlineMessagingEnabled", RegisterDataType.BOOLEAN));
+        registerValues.put(18, new RegisterValue("totpCode", RegisterDataType.STRING));
+        registerValues.put(19, new RegisterValue("followMeEnabled", RegisterDataType.BOOLEAN));
+        registerValues.put(20, new RegisterValue("steamId", RegisterDataType.STRING));
+        registerValues.put(21, new RegisterValue("steamAuthenticationToken", RegisterDataType.STRING));
+        registerValues.put(22, new RegisterValue("steamClientTicket", RegisterDataType.STRING));
         return registerValues;
     }
 

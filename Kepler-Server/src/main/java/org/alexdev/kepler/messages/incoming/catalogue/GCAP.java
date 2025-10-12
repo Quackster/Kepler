@@ -17,9 +17,11 @@ import java.util.concurrent.TimeUnit;
 public class GCAP implements MessageEvent {
     @Override
     public void handle(Player player, NettyRequest reader) {
-        String pageName = reader.contents().split("/")[1];
+        final String editmode = reader.readString();
+        final String pageId = reader.readString();
+        final String language = reader.readString();
 
-        CataloguePage cataloguePage = CatalogueManager.getInstance().getCataloguePage(pageName);
+        CataloguePage cataloguePage = CatalogueManager.getInstance().getCataloguePage(pageId);
 
         if (cataloguePage == null) {
             return;

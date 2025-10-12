@@ -29,6 +29,7 @@ public class PlayerDetails {
     // Currencies
     private int tickets;
     private int film;
+    private int stamps;
     private PlayerRank rank;
 
     // Club
@@ -81,7 +82,7 @@ public class PlayerDetails {
      * @param battleballPoints the points accumulated when playing battleball
      * @param snowstormPoints the points accumulated when playing snowstorm
      */
-    public void fill(int id, String username, String figure, String poolFigure, int credits, String motto, String consoleMotto, String sex, String birthday, int tickets, int film, int rank, long lastOnline, long firstClubSubscription, long clubExpiration, long clubGiftDue, String currentBadge, boolean showBadge, boolean allowStalking, boolean allowFriendRequests, boolean soundEnabled,
+    public void fill(int id, String username, String figure, String poolFigure, int credits, String motto, String consoleMotto, String sex, String birthday, int tickets, int film, int stamps, int rank, long lastOnline, long firstClubSubscription, long clubExpiration, long clubGiftDue, String currentBadge, boolean showBadge, boolean allowStalking, boolean allowFriendRequests, boolean soundEnabled,
                      boolean tutorialFinished, int battleballPoints, int snowstormPoints) {
         this.id = id;
         this.username = StringUtil.filterInput(username, true);
@@ -94,6 +95,7 @@ public class PlayerDetails {
         this.credits = credits;
         this.tickets = tickets;
         this.film = film;
+        this.stamps = stamps;
         this.rank = PlayerRank.getRankForId(rank);
         this.lastOnline = lastOnline;
         this.firstClubSubscription = firstClubSubscription;
@@ -247,6 +249,14 @@ public class PlayerDetails {
 
     public void setFilm(int film) {
         this.film = film;
+    }
+
+    public int getStamps() {
+        return stamps;
+    }
+
+    public void setStamps(int stamps) {
+        this.stamps = stamps;
     }
 
     public PlayerRank getRank() {

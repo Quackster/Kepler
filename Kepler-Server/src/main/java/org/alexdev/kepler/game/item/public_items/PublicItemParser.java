@@ -52,10 +52,10 @@ public class PublicItemParser {
         for (PublicItemData itemData : publicItemData) {
             String customId = null;
 
-            String alphabet = "abcdefghijlmnopqrstuvwyz";
+            String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
             while (customId == null) {
-                String temp = alphabet.charAt(ThreadLocalRandom.current().nextInt(0, alphabet.length())) + "" + ThreadLocalRandom.current().nextInt(0, 999);
+                String temp = alphabet.charAt(ThreadLocalRandom.current().nextInt(0, alphabet.length())) + "" + ThreadLocalRandom.current().nextInt(0, 999999);
 
                 if (!randomPublicId.contains(temp)) {
                     randomPublicId.add(temp);

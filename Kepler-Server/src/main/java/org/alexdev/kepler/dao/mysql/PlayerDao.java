@@ -590,7 +590,7 @@ public class PlayerDao {
         details.fill(row.getInt("id"), row.getString("username"), row.getString("figure"),
                 row.getString("pool_figure"), row.getInt("credits"), row.getString("motto"),
                 row.getString("console_motto"), row.getString("sex"), row.getString("birthday"),
-                row.getInt("tickets"), row.getInt("film"), row.getInt("rank"),
+                row.getInt("tickets"), row.getInt("film"), row.getInt("stamps"), row.getInt("rank"),
                 row.getLong("last_online"), row.getLong("club_subscribed"), row.getLong("club_expiration"),
                 row.getLong("club_gift_due"), row.getString("badge"),
                 row.getBoolean("badge_active"), row.getBoolean("allow_stalking"),

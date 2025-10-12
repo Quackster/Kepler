@@ -23,10 +23,11 @@ public class MOVESTUFF implements MessageEvent {
             return;
         }
 
-        String content = reader.contents();
-        String[] data = content.split(" ");
+        final int itemId = reader.readInt();
+        final int x = reader.readInt();
+        final int y = reader.readInt();
+        final int rotation = reader.readInt();
 
-        int itemId = Integer.parseInt(data[0]);
         Item item = room.getItemManager().getById(itemId);
 
         if (item == null) {
@@ -36,10 +37,6 @@ public class MOVESTUFF implements MessageEvent {
         if (item.hasBehaviour(ItemBehaviour.WALL_ITEM)) {
             return;
         }
-
-        int x = (int) Double.parseDouble(data[1]);
-        int y = (int) Double.parseDouble(data[2]);
-        int rotation = (int) Double.parseDouble(data[3]);
 
         Position oldPosition = item.getPosition().copy();
 

@@ -12,7 +12,7 @@ public class SECRET_KEY extends MessageComposer {
 
     @Override
     public void compose(NettyResponse response) {
-        response.write(this.key);
+        response.writeString(this.key);
     }
 
     @Override

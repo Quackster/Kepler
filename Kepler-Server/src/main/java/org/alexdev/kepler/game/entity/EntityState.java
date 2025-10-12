@@ -1,6 +1,9 @@
 package org.alexdev.kepler.game.entity;
 
+import org.alexdev.kepler.game.infostand.InfoStand;
+import org.alexdev.kepler.game.infostand.InfoStandActive;
 import org.alexdev.kepler.game.pathfinder.Position;
+import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.player.PlayerDetails;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.RoomUserStatus;
@@ -16,8 +19,9 @@ public class EntityState {
     private Room room;
     private Position position;
     private Map<String, RoomUserStatus> statuses;
+    private InfoStandActive infoStand;
 
-    public EntityState(int entityId, int instanceId, PlayerDetails details, EntityType entityType, Room room, Position position, Map<String, RoomUserStatus> statuses) {
+    private EntityState(int entityId, int instanceId, PlayerDetails details, EntityType entityType, Room room, Position position, Map<String, RoomUserStatus> statuses) {
         this.entityId = entityId;
         this.instanceId = instanceId;
         this.details = details;
@@ -25,6 +29,23 @@ public class EntityState {
         this.room = room;
         this.position = position;
         this.statuses = new ConcurrentHashMap<>(statuses);
+    }
+
+    public static EntityState createFromEntity(Entity entity) {
+        final EntityState result = new EntityState(
+                entity.getDetails().getId(),
+                entity.getRoomUser().getInstanceId(),
+                entity.getDetails(),
+                entity.getType(),
+                entity.getRoomUser().getRoom(),
+                entity.getRoomUser().getPosition().copy(),
+                entity.getRoomUser().getStatuses());
+
+        if (entity instanceof Player player) {
+            result.infoStand = player.getInfoStand().getActive();
+        }
+
+        return result;
     }
 
     public int getInstanceId() {
@@ -53,5 +74,9 @@ public class EntityState {
 
     public Room getRoom() {
         return room;
+    }
+
+    public InfoStandActive getActiveInfoStand() {
+        return infoStand;
     }
 }

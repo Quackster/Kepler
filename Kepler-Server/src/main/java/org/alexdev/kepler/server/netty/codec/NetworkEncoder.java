@@ -46,7 +46,7 @@ public class NetworkEncoder extends MessageToMessageEncoder<Object> {
                 }
 
                 if (ServerConfiguration.getBoolean("log.sent.packets")) {
-                    log.info("SENT: {} / {}", msg.getHeader(), response.getBodyString());
+                    log.info("SENT: {} ({}) / {}", msg.getHeader(), msg.getClass().getSimpleName(), response.getBodyString());
                 }
             }
 

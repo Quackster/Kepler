@@ -15,15 +15,15 @@ import org.alexdev.kepler.server.netty.streams.NettyRequest;
 public class ROOM_DIRECTORY implements MessageEvent {
     @Override
     public void handle(Player player, NettyRequest reader) {
-        char is_public = reader.contents().charAt(0);
+        final boolean isPublic = reader.readBoolean();
+        final int roomId = reader.readInt();
+        final int doorId = reader.readInt();
 
-        if (is_public != 'A') {
-            player.send(new OPEN_CONNECTION());
-            return;
-        }
-
-        reader.readBytes(1); // strip 'A'
-        int roomId = reader.readInt();
+        // TODO: Uncommenting breaks public rooms
+        //if (isPublic) {
+        //    player.send(new OPEN_CONNECTION());
+        //    return;
+        //}
 
         Room room = null;
 

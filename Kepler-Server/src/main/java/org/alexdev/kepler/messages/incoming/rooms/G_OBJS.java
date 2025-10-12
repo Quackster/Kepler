@@ -2,15 +2,19 @@ package org.alexdev.kepler.messages.incoming.rooms;
 
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.interactors.InteractionType;
+import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.messages.outgoing.rooms.ACTIVE_OBJECTS;
 import org.alexdev.kepler.messages.outgoing.rooms.OBJECTS_WORLD;
+import org.alexdev.kepler.messages.outgoing.rooms.items.PLACE_FLOORITEM;
 import org.alexdev.kepler.messages.outgoing.rooms.items.SHOWPROGRAM;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
+
+import java.util.concurrent.ThreadLocalRandom;
 
 public class G_OBJS implements MessageEvent {
     @Override
@@ -26,6 +30,22 @@ public class G_OBJS implements MessageEvent {
         // Weird behaviour, can't interact upon load, see FlatTrigger as workaround
         player.sendQueued(new ACTIVE_OBJECTS(room.getItemManager().getFloorItems().stream()
                 .filter(x -> x.getDefinition().getInteractionType() != InteractionType.PET_WATER_BOWL).toList()));
+
+        //for (int i = 0; i < 100; i++) {
+        //    final Item fishingArea = new Item();
+        //
+        //    fishingArea.setId(1002 + i);
+        //    fishingArea.setPosition(new Position(
+        //            ThreadLocalRandom.current().nextInt(0, 45),
+        //            ThreadLocalRandom.current().nextInt(0, 45),
+        //            ThreadLocalRandom.current().nextInt(-3, 10)));
+        //
+        //    fishingArea.getDefinition().setSprite("fish_area");
+        //    fishingArea.getDefinition().setLength(1);
+        //    fishingArea.getDefinition().setWidth(1);
+        //
+        //    player.sendQueued(new PLACE_FLOORITEM(fishingArea));
+        //}
 
         player.flush();
 

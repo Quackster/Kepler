@@ -3,6 +3,12 @@ package org.alexdev.kepler.messages;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.RoomManager;
 import org.alexdev.kepler.log.Log;
+import org.alexdev.kepler.messages.incoming.handshake.GET_SESSION_PARAMETERS;
+import org.alexdev.kepler.messages.incoming.handshake.UNIQUEID;
+import org.alexdev.kepler.messages.incoming.handshake.VERSIONCHECK;
+import org.alexdev.kepler.messages.incoming.infostand.GET_INFOSTAND_SHOP_ITEMS;
+import org.alexdev.kepler.messages.incoming.infostand.PURCHASE_INFOSTAND_CUSTOMIZATION;
+import org.alexdev.kepler.messages.incoming.infostand.UPDATE_INFO_STAND;
 import org.alexdev.kepler.messages.incoming.pets.GETPETSTAT;
 import org.alexdev.kepler.messages.incoming.catalogue.GCAP;
 import org.alexdev.kepler.messages.incoming.catalogue.GCIX;
@@ -90,6 +96,7 @@ public class MessageHandler {
         registerRoomTeleporterPackets();
         registerRoomModerationPackets();
         registerInfobusPackets();
+        registerInfostandPackets();
         registerRoomEventPackets();
         registerGameModerationPackets();
         registerMessengerPackets();
@@ -121,6 +128,9 @@ public class MessageHandler {
         registerEvent(202, new GENERATEKEY());
         registerEvent(204, new SSO());
         registerEvent(4, new TRY_LOGIN());
+        registerEvent(181, new GET_SESSION_PARAMETERS());
+        registerEvent(5, new VERSIONCHECK());
+        registerEvent(6, new UNIQUEID());
     }
 
     /**
@@ -133,6 +143,7 @@ public class MessageHandler {
         registerEvent(203, new APPROVE_PASSWORD());
         registerEvent(197, new APPROVEEMAIL());
         registerEvent(43, new REGISTER());
+        registerEvent(1575, new TOTP_EMAIL_REQUIRED());
     }
 
     /**
@@ -148,12 +159,12 @@ public class MessageHandler {
      * Register general purpose user packets.
      */
     private void registerUserPackets() {
-        registerEvent(7, new GET_INFO());
+        registerEvent(7, new INFORETRIEVE());
         registerEvent(228, new GET_ACCOUNT_PREFERENCES());
         registerEvent(196, new PONG());
         registerEvent(44, new UPDATE());
         // (Unknown): 149 / BU@M@Flol123@H@J01.01.1991@C@Iqwerty123
-        registerEvent(360, new GET_IGNORE_LIST());
+        registerEvent(321, new GET_IGNORE_LIST());
         registerEvent(319, new IGNORE_USER());
         registerEvent(322, new UNIGNORE_USER());
         registerEvent(228, new GET_SOUND_SETTING());
@@ -333,6 +344,15 @@ public class MessageHandler {
         registerEvent(111, new CHANGEWORLD());
         registerEvent(112, new VOTE());
         registerEvent(113, new TRYBUS());
+    }
+
+    /**
+     * Register infostand packets
+     */
+    private void registerInfostandPackets() {
+        registerEvent(142, new UPDATE_INFO_STAND());
+        registerEvent(143, new PURCHASE_INFOSTAND_CUSTOMIZATION());
+        registerEvent(147, new GET_INFOSTAND_SHOP_ITEMS());
     }
 
     /**

@@ -147,32 +147,30 @@ public class Inventory {
      * @param stripSlotId the slot in the hand
      */
     public static void serialise(NettyResponse response, Item item, int stripSlotId) {
-        response.writeDelimeter("SI", (char) 30);
-        response.writeDelimeter(item.getId(), (char) 30);
-        response.writeDelimeter(stripSlotId, (char) 30);
+        response.writeInt(item.getId()); // stripId
+
+        response.writeInt(0); // tTotalItems
+        //response.writeInt(other ids); // tItemsID
+
+        response.writeInt(stripSlotId); // objectPos
 
         if (item.hasBehaviour(ItemBehaviour.WALL_ITEM)) {
-            response.writeDelimeter("I", (char) 30);
+            response.writeString("I");
         } else {
-            response.writeDelimeter("S", (char) 30);
+            response.writeString("S");
         }
 
-        response.writeDelimeter(item.getId(), (char) 30);
-        response.writeDelimeter(item.getDefinition().getSprite(), (char) 30);
+        response.writeInt(item.getId());
+        response.writeInt(0); // shortStay
+        response.writeString(item.getDefinition().getSprite());
 
         if (item.hasBehaviour(ItemBehaviour.WALL_ITEM)) {
-            response.writeDelimeter(item.getCustomData(), (char) 30);
-            response.writeDelimeter("0", (char) 30);
+            response.writeString(item.getCustomData()); // TODO: props
         } else {
-            response.writeDelimeter(item.getDefinition().getLength(), (char) 30);
-            response.writeDelimeter(item.getDefinition().getWidth(), (char) 30);
-            response.writeDelimeter(item.getCustomData(), (char) 30);
-            response.writeDelimeter(item.getDefinition().getColour(), (char) 30);
-            response.writeDelimeter(item.getDefinition().isRecyclable() ? 1 : 1, (char) 30);
-            response.writeDelimeter(item.getDefinition().getSprite(), (char) 30);
+            response.writeInt(item.getDefinition().getWidth());
+            response.writeInt(item.getDefinition().getLength());
+            response.writeString(item.getDefinition().getColour());
         }
-
-        response.write("/");
     }
 
     /**

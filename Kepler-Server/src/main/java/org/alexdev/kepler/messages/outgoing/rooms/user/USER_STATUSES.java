@@ -2,7 +2,6 @@ package org.alexdev.kepler.messages.outgoing.rooms.user;
 
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityState;
-import org.alexdev.kepler.game.room.enums.StatusType;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 import org.alexdev.kepler.util.StringUtil;
@@ -21,39 +20,40 @@ public class USER_STATUSES extends MessageComposer {
         this.states = new ArrayList<>();
 
         for (Entity user : entities) {
-            this.states.add(new EntityState(
-                    user.getDetails().getId(),
-                    user.getRoomUser().getInstanceId(),
-                    user.getDetails(),
-                    user.getType(),
-                    user.getRoomUser().getRoom(),
-                    user.getRoomUser().getPosition().copy(),
-                    user.getRoomUser().getStatuses()));
+            this.states.add(EntityState.createFromEntity(user));
         }
     }
 
     @Override
     public void compose(NettyResponse response) {
+        response.writeInt(this.states.size());
+
         for (EntityState states : states) {
-            response.writeDelimeter(states.getInstanceId(), ' ');
-            response.writeDelimeter(states.getPosition().getX(), ',');
-            response.writeDelimeter(states.getPosition().getY(), ',');
-            response.writeDelimeter(Double.toString(StringUtil.format(states.getPosition().getZ())), ',');
-            response.writeDelimeter(states.getPosition().getHeadRotation(), ',');
-            response.writeDelimeter(states.getPosition().getBodyRotation(), '/');
+            response.writeInt(states.getInstanceId());
+            response.writeInt(states.getPosition().getX());
+            response.writeInt(states.getPosition().getY());
+            response.writeString(Double.toString(StringUtil.format(states.getPosition().getZ())));
+            response.writeInt(states.getPosition().getHeadRotation());
+            response.writeInt(states.getPosition().getBodyRotation());
+
+            final StringBuilder action = new StringBuilder();
+
+            action.append("/");
 
             for (var status : states.getStatuses().values()) {
-                response.write(status.getKey().getStatusCode());
+                action.append(status.getKey().getStatusCode());
 
-                if (status.getValue().length() > 0) {
-                    response.write(" ");
-                    response.write(status.getValue());
+                if (!status.getValue().isEmpty()) {
+                    action.append(" ");
+                    action.append(status.getValue());
                 }
 
-                response.write("/");
+                action.append("/");
             }
 
-            response.write(Character.toString((char) 13));
+            final String actionString = action.toString();
+
+            response.writeString(actionString);
         }
     }
 

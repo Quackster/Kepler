@@ -1,7 +1,6 @@
 package org.alexdev.kepler.game.player;
 
 import io.netty.util.AttributeKey;
-import org.alexdev.kepler.Kepler;
 import org.alexdev.kepler.dao.mysql.PlayerDao;
 import org.alexdev.kepler.dao.mysql.SettingsDao;
 import org.alexdev.kepler.game.GameScheduler;
@@ -10,24 +9,29 @@ import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
 import org.alexdev.kepler.game.fuserights.Fuseright;
 import org.alexdev.kepler.game.fuserights.FuserightsManager;
+import org.alexdev.kepler.game.infostand.InfoStand;
 import org.alexdev.kepler.game.inventory.Inventory;
 import org.alexdev.kepler.game.messenger.Messenger;
 import org.alexdev.kepler.game.room.entities.RoomPlayer;
 import org.alexdev.kepler.messages.outgoing.club.CLUB_GIFT;
 import org.alexdev.kepler.messages.outgoing.handshake.AVAILABLE_SETS;
-import org.alexdev.kepler.messages.outgoing.handshake.LOGIN;
+import org.alexdev.kepler.messages.outgoing.handshake.LOGIN_OK;
 import org.alexdev.kepler.messages.outgoing.handshake.RIGHTS;
+import org.alexdev.kepler.messages.outgoing.infostand.AVAILABLE_INFO_PROPS;
 import org.alexdev.kepler.messages.outgoing.moderation.USER_BANNED;
 import org.alexdev.kepler.messages.outgoing.openinghours.INFO_HOTEL_CLOSING;
 import org.alexdev.kepler.messages.outgoing.user.ALERT;
 import org.alexdev.kepler.messages.outgoing.user.HOTEL_LOGOUT;
 import org.alexdev.kepler.messages.outgoing.user.HOTEL_LOGOUT.LogoutReason;
+import org.alexdev.kepler.messages.outgoing.user.currencies.STAMP_BALANCE;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.NettyPlayerNetwork;
+import org.alexdev.kepler.server.netty.encryption.DiffieHellman;
 import org.alexdev.kepler.util.config.GameConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.math.BigInteger;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -38,6 +42,7 @@ public class Player extends Entity {
 
     private final NettyPlayerNetwork network;
     private final PlayerDetails details;
+    private final DiffieHellman diffieHellman;
     private final RoomPlayer roomEntity;
 
     private Set<String> ignoredList;
@@ -45,14 +50,17 @@ public class Player extends Entity {
     private Logger log;
     private Messenger messenger;
     private Inventory inventory;
+    private InfoStand infoStand;
 
     private boolean loggedIn;
     private boolean disconnected;
     private boolean pingOK;
+    private boolean hasEncryption;
 
     public Player(NettyPlayerNetwork nettyPlayerNetwork) {
         this.network = nettyPlayerNetwork;
         this.details = new PlayerDetails();
+        this.diffieHellman = new DiffieHellman();
         this.roomEntity = new RoomPlayer(this);
         this.ignoredList = new HashSet<>();
         this.log = LoggerFactory.getLogger("Connection " + this.network.getConnectionId());
@@ -80,6 +88,7 @@ public class Player extends Entity {
 
         this.messenger = new Messenger(this.details);
         this.inventory = new Inventory(this);
+        this.infoStand = new InfoStand(this);
 
         // Bye bye!
         var banned = this.getDetails().isBanned();
@@ -100,7 +109,10 @@ public class Player extends Entity {
         this.details.loadBadges();
         this.details.resetNextHandout();
 
-        this.send(new LOGIN());
+        this.send(new LOGIN_OK());
+        this.send(new STAMP_BALANCE(this.details.getStamps()));
+        // TODO: FISH_TOKENS
+        this.send(new AVAILABLE_INFO_PROPS(this.getInfoStand()));
         this.refreshFuserights();
 
         if (GameConfiguration.getInstance().getBoolean("welcome.message.enabled")) {
@@ -210,6 +222,29 @@ public class Player extends Entity {
         return this.details;
     }
 
+    /**
+     * Get the diffie-hellman instance of the user.
+     *
+     * @return the instance
+     */
+    public DiffieHellman getDiffieHellman() {
+        return diffieHellman;
+    }
+
+    /**
+     * Sets the rc4.
+     *
+     * @param sharedKey the new rc4
+     */
+    public void setDecoder(BigInteger sharedKey) {
+        this.hasEncryption = true;
+        this.network.registerEncryptionHandler(sharedKey);
+    }
+
+    public boolean hasEncryption() {
+        return hasEncryption;
+    }
+
     @Override
     public RoomPlayer getRoomUser() {
         return this.roomEntity;
@@ -217,6 +252,10 @@ public class Player extends Entity {
 
     public Inventory getInventory() {
         return inventory;
+    }
+
+    public InfoStand getInfoStand() {
+        return infoStand;
     }
 
     @Override

@@ -27,66 +27,54 @@ public class PLACESTUFF implements MessageEvent {
             return;
         }
 
-        String content = reader.contents();
-        String[] data = content.split(" ");
+        final int stripId = reader.readInt();
+        final int x = reader.readInt();
+        final int y = reader.readInt();
+        int rotation = reader.readInt();
 
-        if (data.length == 0) {
-            return;
-        }
-
-        // Make sure provided data is numeric
-        if (!StringUtils.isNumeric(data[0])) {
-            return;
-        }
-
-        int itemId = Integer.parseInt(data[0]);
-        Item item = player.getInventory().getItem(itemId);
+        Item item = player.getInventory().getItem(stripId);
 
         if (item == null) {
             return;
         }
 
         if (item.hasBehaviour(ItemBehaviour.WALL_ITEM)) {
-            String wallPosition = content.substring(data[0].length() + 1);
-
-            if (item.hasBehaviour(ItemBehaviour.POST_IT)) {
-                String defaultColour = "FFFF33";
-
-                Item sticky = new Item();
-                sticky.setOwnerId(room.getData().getOwnerId());
-                sticky.setDefinitionId(item.getDefinition().getId());
-                sticky.setCustomData(defaultColour);
-                sticky.setWallPosition(wallPosition);
-                sticky.setRoomId(room.getId());
-
-                ItemDao.newItem(sticky);
-                room.getMapping().addItem(player, sticky);
-
-                // Set custom data as 1 for 1 post-it, if for some reason they have no number for the post-it.
-                if (!StringUtils.isNumeric(item.getCustomData())) {
-                    item.setCustomData("1");
-                }
-
-                if (StringUtils.isNumeric(item.getCustomData())) {
-                    int totalStickies = Integer.parseInt(item.getCustomData()) - 1;
-
-                    if (totalStickies <= 0) {
-                        player.getInventory().getItems().remove(item);
-                        item.delete();
-                    } else {
-                        item.setCustomData(String.valueOf(totalStickies));
-                        item.save();
-                    }
-                }
-                return;
-            }
-
-            item.setWallPosition(wallPosition);
+            //String wallPosition = content.substring(data[0].length() + 1);
+            //
+            //if (item.hasBehaviour(ItemBehaviour.POST_IT)) {
+            //    String defaultColour = "FFFF33";
+            //
+            //    Item sticky = new Item();
+            //    sticky.setOwnerId(room.getData().getOwnerId());
+            //    sticky.setDefinitionId(item.getDefinition().getId());
+            //    sticky.setCustomData(defaultColour);
+            //    sticky.setWallPosition(wallPosition);
+            //    sticky.setRoomId(room.getId());
+            //
+            //    ItemDao.newItem(sticky);
+            //    room.getMapping().addItem(player, sticky);
+            //
+            //    // Set custom data as 1 for 1 post-it, if for some reason they have no number for the post-it.
+            //    if (!StringUtils.isNumeric(item.getCustomData())) {
+            //        item.setCustomData("1");
+            //    }
+            //
+            //    if (StringUtils.isNumeric(item.getCustomData())) {
+            //        int totalStickies = Integer.parseInt(item.getCustomData()) - 1;
+            //
+            //        if (totalStickies <= 0) {
+            //            player.getInventory().getItems().remove(item);
+            //            item.delete();
+            //        } else {
+            //            item.setCustomData(String.valueOf(totalStickies));
+            //            item.save();
+            //        }
+            //    }
+            //    return;
+            //}
+            //
+            //item.setWallPosition(wallPosition);
         } else {
-            int x = Integer.parseInt(data[1]);
-            int y = Integer.parseInt(data[2]);
-            int rotation = rotation = Integer.parseInt(data[5]);
-
             if (item.hasBehaviour(ItemBehaviour.REDIRECT_ROTATION_0)) {
                 rotation = 0;
             }

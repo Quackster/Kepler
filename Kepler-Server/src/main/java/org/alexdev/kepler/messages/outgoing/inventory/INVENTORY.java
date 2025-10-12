@@ -18,12 +18,13 @@ public class INVENTORY extends MessageComposer {
 
     @Override
     public void compose(NettyResponse response) {
+        response.writeInt(this.casts.size());
+
         for (var kvp : this.casts.entrySet()) {
-            this.inventory.serialise(response, kvp.getValue(), kvp.getKey());
+            Inventory.serialise(response, kvp.getValue(), kvp.getKey());
         }
 
-        response.write((char) 13);
-        response.write(this.inventory.getItems().size());
+        response.writeInt(this.inventory.getItems().size());
     }
 
     @Override
