@@ -31,22 +31,6 @@ public class G_OBJS implements MessageEvent {
         player.sendQueued(new ACTIVE_OBJECTS(room.getItemManager().getFloorItems().stream()
                 .filter(x -> x.getDefinition().getInteractionType() != InteractionType.PET_WATER_BOWL).toList()));
 
-        //for (int i = 0; i < 100; i++) {
-        //    final Item fishingArea = new Item();
-        //
-        //    fishingArea.setId(1002 + i);
-        //    fishingArea.setPosition(new Position(
-        //            ThreadLocalRandom.current().nextInt(0, 45),
-        //            ThreadLocalRandom.current().nextInt(0, 45),
-        //            ThreadLocalRandom.current().nextInt(-3, 10)));
-        //
-        //    fishingArea.getDefinition().setSprite("fish_area");
-        //    fishingArea.getDefinition().setLength(1);
-        //    fishingArea.getDefinition().setWidth(1);
-        //
-        //    player.sendQueued(new PLACE_FLOORITEM(fishingArea));
-        //}
-
         player.flush();
 
         player.getMessenger().sendStatusUpdate();

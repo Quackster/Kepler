@@ -7,8 +7,9 @@ import org.alexdev.kepler.game.games.battleball.BattleBallTask;
 import org.alexdev.kepler.game.games.snowstorm.SnowStormGame;
 import org.alexdev.kepler.game.games.snowstorm.tasks.SnowStormGameTask;
 import org.alexdev.kepler.game.room.Room;
+import org.alexdev.kepler.game.room.components.RoomComponent;
+import org.alexdev.kepler.game.room.public_rooms.FishingRoomHandler;
 import org.alexdev.kepler.game.room.tasks.EntityTask;
-import org.alexdev.kepler.game.room.tasks.PetTask;
 import org.alexdev.kepler.game.room.tasks.RollerTask;
 import org.alexdev.kepler.game.room.tasks.StatusTask;
 import org.alexdev.kepler.util.config.GameConfiguration;
@@ -42,6 +43,12 @@ public class RoomTaskManager {
 
         this.scheduleTask("EntityTask", new EntityTask(this.room), 0, 500, TimeUnit.MILLISECONDS);
         this.scheduleTask("StatusTask", new StatusTask(this.room), 0, 1, TimeUnit.SECONDS);
+
+        for (RoomComponent component : this.room.getRoomComponentManager().getComponents()) {
+            if (component instanceof Runnable) {
+                this.scheduleTask(component.getClass().getSimpleName(), (Runnable) component, 0, 1, TimeUnit.SECONDS);
+            }
+        }
 
         if (this.room.isPublicRoom()) {
             return;

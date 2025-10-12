@@ -18,7 +18,7 @@ import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.RoomManager;
 import org.alexdev.kepler.game.room.mapping.RoomTile;
-import org.alexdev.kepler.game.room.tasks.TeleporterTask;
+import org.alexdev.kepler.game.room.public_rooms.FishingRoomHandler;
 import org.alexdev.kepler.messages.outgoing.events.ROOMEEVENT_INFO;
 import org.alexdev.kepler.messages.outgoing.rooms.FLATPROPERTY;
 import org.alexdev.kepler.messages.outgoing.rooms.ROOM_READY;
@@ -241,6 +241,8 @@ public class RoomEntityManager {
         if (gamePlayer != null && gamePlayer.isEnteringGame()) {
             gamePlayer.setEnteringGame(false);
         }
+
+        this.room.getRoomComponentManager().onPlayerAdded(player);
     }
 
     /**
@@ -252,6 +254,7 @@ public class RoomEntityManager {
                 this.room.getItems().clear();
                 this.room.getRights().clear();
                 this.room.getVotes().clear();
+                this.room.getRoomComponentManager().clear();
 
                 if (this.room.isPublicRoom()) {
                     this.room.getItems().addAll(PublicItemParser.getPublicItems(this.room.getId(), this.room.getModel().getId()));
@@ -262,6 +265,10 @@ public class RoomEntityManager {
 
                 this.room.getItems().addAll(ItemDao.getRoomItems(this.room.getData()));
                 this.room.getItemManager().resetItemStates();
+
+                if (FishingRoomHandler.isSupported(this.room.getData().getModel())) {
+                    this.room.getRoomComponentManager().add(new FishingRoomHandler(this.room));
+                }
             }
 
             this.room.getMapping().regenerateCollisionMap();
@@ -359,5 +366,7 @@ public class RoomEntityManager {
                 player.getRoomUser().setGamePlayer(null);
             }
         }
+
+        this.room.getRoomComponentManager().onPlayerRemoved(player);
     }
 }

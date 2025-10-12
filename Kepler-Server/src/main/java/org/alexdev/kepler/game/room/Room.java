@@ -11,6 +11,7 @@ import org.alexdev.kepler.game.navigator.NavigatorCategory;
 import org.alexdev.kepler.game.navigator.NavigatorManager;
 import org.alexdev.kepler.game.pets.Pet;
 import org.alexdev.kepler.game.player.Player;
+import org.alexdev.kepler.game.room.components.RoomComponentManager;
 import org.alexdev.kepler.game.room.enums.StatusType;
 import org.alexdev.kepler.game.room.managers.RoomEntityManager;
 import org.alexdev.kepler.game.room.managers.RoomItemManager;
@@ -36,11 +37,12 @@ import java.util.concurrent.TimeUnit;
 
 public class Room {
     private RoomModel roomModel;
-    private RoomData roomData;
-    private RoomMapping roomMapping;
-    private RoomEntityManager roomEntityManager;
-    private RoomItemManager roomItemManager;
-    private RoomTaskManager roomTaskManager;
+    private final RoomData roomData;
+    private final RoomMapping roomMapping;
+    private final RoomEntityManager roomEntityManager;
+    private final RoomItemManager roomItemManager;
+    private final RoomTaskManager roomTaskManager;
+    private final RoomComponentManager roomComponentManager;
     private FutureRunnable disposeRunnable;
 
     private boolean isActive;
@@ -57,13 +59,13 @@ public class Room {
         this.roomEntityManager = new RoomEntityManager(this);
         this.roomItemManager = new RoomItemManager(this);
         this.roomTaskManager = new RoomTaskManager(this);
+        this.roomComponentManager = new RoomComponentManager();
         this.roomMapping = new RoomMapping(this);
         this.entities = new CopyOnWriteArrayList<>();
         this.items = new CopyOnWriteArrayList<>();
         this.rights = new CopyOnWriteArrayList<>();
         this.votes = new ConcurrentHashMap<>();
     }
-
 
     /**
      * Send a packet to all players.
@@ -318,6 +320,10 @@ public class Room {
      */
     public RoomTaskManager getTaskManager() {
         return this.roomTaskManager;
+    }
+
+    public RoomComponentManager getRoomComponentManager() {
+        return roomComponentManager;
     }
 
     /**
