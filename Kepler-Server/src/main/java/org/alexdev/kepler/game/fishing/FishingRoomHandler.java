@@ -41,4 +41,13 @@ public class FishingRoomHandler implements RoomComponent, Runnable {
     public void onPlayerRemoved(Player player) {
         this.instances.remove(player);
     }
+
+    public void onStartFishing(Player player, int itemId) {
+        final FishingInstance instance = this.instances.get(player);
+        if (instance == null) {
+            return;
+        }
+
+        instance.startFishing(itemId);
+    }
 }

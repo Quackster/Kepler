@@ -24,7 +24,8 @@ public enum StatusType {
     PET_SLEEP("slp"),
     EAT("eat"),
     SMILE("sml"),
-    PLAY("pla");
+    PLAY("pla"),
+    FISHING("fsh");
 
     private String statusCode;
 

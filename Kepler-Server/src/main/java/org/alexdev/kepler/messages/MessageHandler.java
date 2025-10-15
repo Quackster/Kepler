@@ -9,6 +9,12 @@ import org.alexdev.kepler.messages.incoming.bulletin.GET_CALENDAR_EVENTS;
 import org.alexdev.kepler.messages.incoming.bulletin.GET_PAGE_ARTICLES;
 import org.alexdev.kepler.messages.incoming.challenges.GET_COMMUNITY_CHALLENGE_PROGRESS;
 import org.alexdev.kepler.messages.incoming.challenges.GET_DAILY_TASKS;
+import org.alexdev.kepler.messages.incoming.fishing.FHM;
+import org.alexdev.kepler.messages.incoming.fishing.GET_FISHING_PRODUCTS;
+import org.alexdev.kepler.messages.incoming.fishing.GET_FISHING_STATS;
+import org.alexdev.kepler.messages.incoming.fishing.GET_FISH_TOKENS;
+import org.alexdev.kepler.messages.incoming.fishing.PURCHASE_FISHING_PRODUCT;
+import org.alexdev.kepler.messages.incoming.fishing.STARTFISHING;
 import org.alexdev.kepler.messages.incoming.handshake.GET_SESSION_PARAMETERS;
 import org.alexdev.kepler.messages.incoming.handshake.UNIQUEID;
 import org.alexdev.kepler.messages.incoming.handshake.VERSIONCHECK;
@@ -106,6 +112,7 @@ public class MessageHandler {
         registerInfobusPackets();
         registerInfostandPackets();
         registerRoomEventPackets();
+        registerFishing();
         registerGameModerationPackets();
         registerMessengerPackets();
         registerCataloguePackets();
@@ -389,6 +396,15 @@ public class MessageHandler {
         registerEvent(347, new QUIT_ROOMEVENT());
         registerEvent(349, new GET_ROOMEVENT_TYPE_COUNT());
         registerEvent(350, new GET_ROOMEVENTS_BY_TYPE());
+    }
+
+    private void registerFishing() {
+        registerEvent(1101, new FHM());
+        registerEvent(1100, new STARTFISHING());
+        registerEvent(1106, new GET_FISHING_STATS());
+        registerEvent(1103, new GET_FISHING_PRODUCTS());
+        registerEvent(1102, new GET_FISH_TOKENS());
+        registerEvent(1104, new PURCHASE_FISHING_PRODUCT());
     }
 
     /**
