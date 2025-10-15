@@ -20,6 +20,7 @@ public class DefaultConfigWriter implements ConfigWriter {
 
         config.put("log.connections", "true");
         config.put("log.sent.packets", "false");
+        config.put("log.sent.packets.hex", "false");
         config.put("log.received.packets", "false");
 
         config.put("mysql.hostname", "127.0.0.1");

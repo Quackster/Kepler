@@ -16,6 +16,15 @@ public class RoomComponentManager implements RoomComponent {
         this.components.add(component);
     }
 
+    public <T> T get(Class<T> clazz) {
+        for (RoomComponent component : components) {
+            if (clazz.isInstance(component)) {
+                return clazz.cast(component);
+            }
+        }
+        return null;
+    }
+
     public void clear() {
         this.components.clear();
     }

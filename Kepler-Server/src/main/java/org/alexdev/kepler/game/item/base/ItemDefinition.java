@@ -202,6 +202,10 @@ public class ItemDefinition {
         return colour;
     }
 
+    public void setColour(String colour) {
+        this.colour = colour;
+    }
+
     public void setTopHeight(double topHeight) {
         this.topHeight = topHeight;
     }

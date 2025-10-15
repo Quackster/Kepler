@@ -6,6 +6,7 @@ import org.alexdev.kepler.util.encoding.Base64Encoding;
 import org.alexdev.kepler.util.encoding.VL64Encoding;
 
 import java.nio.charset.Charset;
+import java.util.HexFormat;
 
 public class NettyResponse  {
     private short id;
@@ -108,6 +109,12 @@ public class NettyResponse  {
         }
 
         return str;
+    }
+
+    public String getBodyHex() {
+        final byte[] bytes = new byte[this.buffer.readableBytes()];
+        this.buffer.getBytes(0, bytes);
+        return HexFormat.of().withUpperCase().formatHex(bytes);
     }
 
     /**

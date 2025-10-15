@@ -9,6 +9,8 @@ import org.alexdev.kepler.game.bot.BotManager;
 import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.entity.EntityType;
 import org.alexdev.kepler.game.events.EventsManager;
+import org.alexdev.kepler.game.fishing.FishingConfiguration;
+import org.alexdev.kepler.game.fishing.FishingConfigurationManager;
 import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.item.Item;
 import org.alexdev.kepler.game.item.interactors.types.TeleportInteractor;
@@ -18,7 +20,7 @@ import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.RoomManager;
 import org.alexdev.kepler.game.room.mapping.RoomTile;
-import org.alexdev.kepler.game.room.public_rooms.FishingRoomHandler;
+import org.alexdev.kepler.game.fishing.FishingRoomHandler;
 import org.alexdev.kepler.messages.outgoing.events.ROOMEEVENT_INFO;
 import org.alexdev.kepler.messages.outgoing.rooms.FLATPROPERTY;
 import org.alexdev.kepler.messages.outgoing.rooms.ROOM_READY;
@@ -266,8 +268,9 @@ public class RoomEntityManager {
                 this.room.getItems().addAll(ItemDao.getRoomItems(this.room.getData()));
                 this.room.getItemManager().resetItemStates();
 
-                if (FishingRoomHandler.isSupported(this.room.getData().getModel())) {
-                    this.room.getRoomComponentManager().add(new FishingRoomHandler(this.room));
+                var fishingConfiguration = FishingConfigurationManager.get(this.room.getData().getModel());
+                if (fishingConfiguration != null) {
+                    this.room.getRoomComponentManager().add(new FishingRoomHandler(fishingConfiguration, this.room));
                 }
             }
 

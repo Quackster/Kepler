@@ -316,7 +316,7 @@ public class Item {
                 response.writeInt(definition.getLength());
                 response.writeInt(definition.getWidth());
                 response.writeInt(this.position.getRotation());
-                response.writeString(StringUtil.format(this.position.getZ()));
+                response.writeString("0");
                 response.writeString(definition.getColour());
                 response.writeString("");
                 response.writeInt(this.hasBehaviour(ItemBehaviour.ROLLER) ? 2 : 0); // Required 2 for rollers to enable animation when rollers are used!
@@ -332,6 +332,7 @@ public class Item {
                     response.writeString(this.customData);
                 }
 
+                response.writeInt(0); // isPlant
             }
         }
     }

@@ -8,7 +8,6 @@ import org.alexdev.kepler.game.games.snowstorm.SnowStormGame;
 import org.alexdev.kepler.game.games.snowstorm.tasks.SnowStormGameTask;
 import org.alexdev.kepler.game.room.Room;
 import org.alexdev.kepler.game.room.components.RoomComponent;
-import org.alexdev.kepler.game.room.public_rooms.FishingRoomHandler;
 import org.alexdev.kepler.game.room.tasks.EntityTask;
 import org.alexdev.kepler.game.room.tasks.RollerTask;
 import org.alexdev.kepler.game.room.tasks.StatusTask;
