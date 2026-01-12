@@ -15,15 +15,9 @@ public class GENERATEKEY implements MessageEvent {
 
         final String publicKey = reader.readString();
 
-        player.getDiffieHellman().generateSharedKey(publicKey);
+        player.getDiffieHellman().setRemotePublicKey(publicKey);
 
-        player.send(new SECRET_KEY(player.getDiffieHellman().getPublicKey().toString()));
-        player.setDecoder(player.getDiffieHellman().getSharedKey());
-
-        //player.send(new SESSION_PARAMETERS(player.getDetails()));
-
-        //if (player.getVersion() <= 17) {
-        //player.send(new AVAILABLE_SETS("[" + GameConfiguration.getInstance().getString("users.figure.parts.default") + "]"));
-        //}
+        player.send(new SECRET_KEY(player.getDiffieHellman().generatePublicKey()));
+        player.setEncryptionKeys(player.getDiffieHellman());
     }
 }

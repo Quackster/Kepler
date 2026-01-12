@@ -2,9 +2,9 @@ package org.alexdev.kepler.server.netty;
 
 import io.netty.channel.Channel;
 import org.alexdev.kepler.messages.types.MessageComposer;
-import org.alexdev.kepler.server.netty.codec.EncryptionDecoder;
-
-import java.math.BigInteger;
+import org.alexdev.kepler.server.netty.codec.BobbaDecoder;
+import org.alexdev.kepler.server.netty.codec.BobbaEncoder;
+import org.alexdev.kepler.server.netty.encryption.BobbaCryptoKeys;
 
 public class NettyPlayerNetwork {
     private int port;
@@ -21,8 +21,9 @@ public class NettyPlayerNetwork {
         return this.channel;
     }
 
-    public void registerEncryptionHandler(BigInteger sharedKey) {
-        this.channel.pipeline().addBefore("gameDecoder", "encryptionDecoder", new EncryptionDecoder(sharedKey));
+    public void registerEncryptionHandler(BobbaCryptoKeys keys) {
+        this.channel.pipeline().addBefore("gameDecoder", "encryptionDecoder", new BobbaDecoder(keys.getC2sHeader(), keys.getC2sData()));
+        this.channel.pipeline().addBefore("gameEncoder", "encryptionEncoder", new BobbaEncoder(keys.getS2cHeader(), keys.getS2cData()));
     }
 
     public int getPort() {

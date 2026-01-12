@@ -26,12 +26,12 @@ import org.alexdev.kepler.messages.outgoing.user.HOTEL_LOGOUT.LogoutReason;
 import org.alexdev.kepler.messages.outgoing.user.currencies.STAMP_BALANCE;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.NettyPlayerNetwork;
-import org.alexdev.kepler.server.netty.encryption.DiffieHellman;
+import org.alexdev.kepler.server.netty.encryption.BobbaCrypto;
+import org.alexdev.kepler.server.netty.encryption.BobbaCryptoKeys;
 import org.alexdev.kepler.util.config.GameConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.math.BigInteger;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -42,7 +42,7 @@ public class Player extends Entity {
 
     private final NettyPlayerNetwork network;
     private final PlayerDetails details;
-    private final DiffieHellman diffieHellman;
+    private final BobbaCrypto diffieHellman;
     private final RoomPlayer roomEntity;
 
     private Set<String> ignoredList;
@@ -61,7 +61,7 @@ public class Player extends Entity {
     public Player(NettyPlayerNetwork nettyPlayerNetwork) {
         this.network = nettyPlayerNetwork;
         this.details = new PlayerDetails();
-        this.diffieHellman = new DiffieHellman();
+        this.diffieHellman = new BobbaCrypto();
         this.roomEntity = new RoomPlayer(this);
         this.ignoredList = new HashSet<>();
         this.ignoredPhrases = new HashSet<>();
@@ -229,18 +229,16 @@ public class Player extends Entity {
      *
      * @return the instance
      */
-    public DiffieHellman getDiffieHellman() {
+    public BobbaCrypto getDiffieHellman() {
         return diffieHellman;
     }
 
     /**
-     * Sets the rc4.
-     *
-     * @param sharedKey the new rc4
+     * Sets the encryption handlers
      */
-    public void setDecoder(BigInteger sharedKey) {
+    public void setEncryptionKeys(BobbaCryptoKeys keys) {
         this.hasEncryption = true;
-        this.network.registerEncryptionHandler(sharedKey);
+        this.network.registerEncryptionHandler(keys);
     }
 
     public boolean hasEncryption() {
