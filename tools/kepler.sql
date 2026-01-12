@@ -6619,6 +6619,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `motto` varchar(100) NOT NULL DEFAULT 'i love habbo hotel',
   `credits` int(11) NOT NULL DEFAULT 200,
   `tickets` int(11) NOT NULL DEFAULT 0,
+  `stamps` int(11) NOT NULL DEFAULT 0,
   `film` int(11) NOT NULL DEFAULT 0,
   `rank` tinyint(1) unsigned NOT NULL DEFAULT 1,
   `console_motto` varchar(100) NOT NULL DEFAULT 'I''m a new user!',
@@ -6763,6 +6764,86 @@ CREATE TABLE IF NOT EXISTS `vouchers_items` (
 -- Dumping data for table kepler.vouchers_items: ~0 rows (approximately)
 /*!40000 ALTER TABLE `vouchers_items` DISABLE KEYS */;
 /*!40000 ALTER TABLE `vouchers_items` ENABLE KEYS */;
+
+--
+-- Table structure for table `info_stand`
+--
+
+DROP TABLE IF EXISTS `info_stand`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `info_stand` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `product_id` varchar(16) NOT NULL,
+  `product_type` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `info_stand_user_id_IDX` (`user_id`,`product_id`,`product_type`) USING BTREE,
+  CONSTRAINT `info_stand_users_FK` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `info_stand_shop`
+--
+
+DROP TABLE IF EXISTS `info_stand_shop`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `info_stand_shop` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` varchar(16) NOT NULL,
+  `product_code` varchar(64) NOT NULL,
+  `type` int(11) NOT NULL,
+  `currency` int(11) NOT NULL,
+  `price` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `info_stand_shop`
+--
+
+LOCK TABLES `info_stand_shop` WRITE;
+/*!40000 ALTER TABLE `info_stand_shop` DISABLE KEYS */;
+INSERT INTO `info_stand_shop` VALUES (1,'32','infostand_NAME_PLATE32',1,0,400),(2,'33','infostand_NAME_PLATE33',1,0,400),(3,'34','infostand_NAME_PLATE34',1,0,400),(4,'35','infostand_NAME_PLATE35',1,0,400),(5,'36','infostand_NAME_PLATE36',1,0,400),(6,'37','infostand_NAME_PLATE37',1,0,400),(7,'38','infostand_NAME_PLATE38',1,0,400),(8,'39','infostand_NAME_PLATE39',1,0,400),(9,'40','infostand_NAME_PLATE40',1,0,400),(10,'41','infostand_NAME_PLATE41',1,0,400),(11,'7','infostand_NAME_PLATE7',1,0,500),(12,'8','infostand_NAME_PLATE8',1,0,500),(13,'9','infostand_NAME_PLATE9',1,0,500),(14,'10','infostand_NAME_PLATE10',1,0,500),(15,'11','infostand_NAME_PLATE11',1,0,500),(16,'12','infostand_NAME_PLATE12',1,0,500),(17,'23','infostand_NAME_PLATE23',1,0,1500),(18,'27','infostand_NAME_PLATE27',1,0,2000),(19,'30','infostand_NAME_PLATE30',1,0,2000),(20,'58','infostand_NAME_PLATE58',1,0,500),(21,'59','infostand_NAME_PLATE59',1,0,500),(22,'60','infostand_NAME_PLATE60',1,0,1250),(23,'61','infostand_NAME_PLATE61',1,0,750),(24,'62','infostand_NAME_PLATE62',1,0,1500),(25,'1','infostand_FURNITURE1',2,0,500),(26,'11','infostand_FURNITURE11',2,0,500),(27,'12','infostand_FURNITURE12',2,0,500),(28,'13','infostand_FURNITURE13',2,0,500),(29,'14','infostand_FURNITURE14',2,0,500),(30,'15','infostand_FURNITURE15',2,0,500),(31,'16','infostand_FURNITURE16',2,0,500),(32,'17','infostand_FURNITURE17',2,0,500),(33,'18','infostand_FURNITURE18',2,0,500),(34,'19','infostand_FURNITURE19',2,0,500),(35,'20','infostand_FURNITURE20',2,0,500),(36,'21','infostand_FURNITURE21',2,0,500),(37,'wav','infostand_ACTION1',4,0,300),(38,'cr.1','infostand_ACTION4',4,0,400),(39,'drk.1','infostand_ACTION15',4,0,400),(40,'crr.5','infostand_ACTION5',4,0,400),(41,'drk.5','infostand_ACTION16',4,0,400),(42,'crr.6','infostand_ACTION6',4,0,400),(43,'drk.6','infostand_ACTION17',4,0,400),(44,'crr.9','infostand_ACTION7',4,0,400),(45,'drk.9','infostand_ACTION18',4,0,400),(46,'crr.667','infostand_ACTION8',4,0,400),(47,'drk.667','infostand_ACTION25',4,0,400),(48,'crr.42','infostand_ACTION9',4,0,400),(49,'drk.42','infostand_ACTION19',4,0,400),(50,'crr.43','infostand_ACTION10',4,0,400),(51,'drk.43','infostand_ACTION20',4,0,400),(52,'crr.56','infostand_ACTION12',4,0,400),(53,'drk.56','infostand_ACTION22',4,0,400),(54,'crr.45','infostand_ACTION11',4,0,400),(55,'drk.45','infostand_ACTION21',4,0,400),(56,'crr.2','infostand_ACTION13',4,0,400),(57,'drk.2','infostand_ACTION23',4,0,400),(58,'crr.3','infostand_ACTION14',4,0,400),(59,'drk.3','infostand_ACTION24',4,0,400),(60,'crr.73','infostand_ACTION29',4,0,400),(61,'crr.60','infostand_ACTION30',4,0,400),(62,'drk.60','infostand_ACTION31',4,0,400),(63,'crr.216','infostand_ACTION32',4,0,400);
+/*!40000 ALTER TABLE `info_stand_shop` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users_info_stand`
+--
+
+DROP TABLE IF EXISTS `users_info_stand`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `users_info_stand` (
+  `user_id` int(11) NOT NULL,
+  `plate` int(11) NOT NULL DEFAULT 0,
+  `furni` int(11) NOT NULL DEFAULT 0,
+  `expression` varchar(16) NOT NULL DEFAULT 'std',
+  `action` varchar(16) NOT NULL DEFAULT 'std',
+  `direction` int(11) NOT NULL DEFAULT 4,
+  PRIMARY KEY (`user_id`),
+  CONSTRAINT `users_info_stand_users_FK` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `users_mutes_custom`
+--
+
+DROP TABLE IF EXISTS `users_mutes_custom`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `users_mutes_custom` (
+  `user_id` int(11) NOT NULL,
+  `phrase` varchar(128) NOT NULL,
+  PRIMARY KEY (`user_id`,`phrase`),
+  CONSTRAINT `users_mutes_custom_users_FK` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
