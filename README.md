@@ -1,41 +1,32 @@
-# Kepler
+# Kepler: Origins
 
-Kepler is a Habbo Hotel emulator that is designed to fully emulate the v14 version from 2007 era. 
+Kepler: Origins is a Habbo Hotel emulator that is designed to fully emulate Habbo Hotel: Origins server from 2026. 
 The server is written in Java and using various libraries, such as Netty, an asynchronous networking library, Log4j and the Apache commons libraries.
 
-It is quite possibly the most complete v14 Habbo Hotel released to date, and has been in development since January 2018.
+> This is a fork of the original Kepler project, which can be found here [https://github.com/Quackster/Kepler](https://github.com/Quackster/Kepler).  
+> Kepler is quite possibly the most complete v14 Habbo Hotel released to date, and has been in development since January 2018.
 
 # Screenshots
 
 (Hotel view)
 
-![https://i.imgur.com/8eFvtdA.png](https://i.imgur.com/8eFvtdA.png)
+![.github/images/hotel_view.png](.github/images/hotel_view.png)
 
-(Automatic rare cycler)
+(Challenges / Automatic rare cycler)
 
-![https://i.imgur.com/8RTFFqD.png](https://i.imgur.com/8RTFFqD.png)
+![.github/images/challenges_and_rares.png](.github/images/challenges_and_rares.png)
 
-(Camera)
+(User info stand)
 
-![https://i.imgur.com/emseVbU.png](https://i.imgur.com/emseVbU.png)
+![.github/images/user_info_stand.png](.github/images/user_info_stand.png)
 
-(BattleBall)
+(Fishing – No catching yet)
 
-![https://i.imgur.com/a3MgkzU.png](https://i.imgur.com/a3MgkzU.png)
-
-![https://i.imgur.com/eUGmcwR.png](https://i.imgur.com/eUGmcwR.png)
-
-(Chess)
-
-![https://i.imgur.com/xundc8M.png](https://i.imgur.com/xundc8M.png)
-
-(Tic Tac Toe)
-
-![https://i.imgur.com/tTG5SVE.png](https://i.imgur.com/tTG5SVE.png)
+![.github/images/fishing.png](.github/images/fishing.png)
 
 # Download
 
-Download the latest development build from the [releases page](https://github.com/Quackster/Kepler/releases).
+Download the latest development build from the [releases page](https://github.com/UnfamiliarLegacy/KeplerOrigins/releases).
 
 ### Requirements
 
@@ -48,17 +39,13 @@ To be honest, this server doesn't require much. I'd argue that the MariaDB serve
 
 Install MariaDB server, connect to the database server and import Kepler.sql (located in /tools/Kepler.sql).
 
-Download the latest development build from the [releases page](https://github.com/Quackster/Kepler/releases) and rename the files to remove the short build hash version, for convenience. 
+Download the latest development build from the [releases page](https://github.com/UnfamiliarLegacy/KeplerOrigins/releases) and rename the files to remove the short build hash version, for convenience. 
 
 Install any JDK version that is equal or above >= 17 to run the jar files.
 
 Open run.sh (Linux) or run.bat (Windows) to start Kepler.
 
 ❗ Once registered as an admin, make yourself admin by setting your ``rank`` to 7 in the ``users`` table.
-
-As for the client, you can find version 14 DCRs: https://github.com/Quackster/Kepler-www/
-
-Setup the loader files on a web server, and once Kepler is started, ensure the loader is connecting to the correct IP and ports for both the standard connection and MUS connection. The MUS connection is used for the camera.
 
 # Docker installation
 
@@ -67,10 +54,10 @@ Install [Docker](https://docs.docker.com/engine/install/) and [git](https://git-
 ### 1. Clone repository
 
 ```shell
-git clone https://github.com/Quackster/Kepler.git
+git clone https://github.com/UnfamiliarLegacy/KeplerOrigins.git
 ```
 
-_You can also [download](https://github.com/Quackster/Kepler/archive/refs/heads/master.zip) this repository and unzip it._
+_You can also [download](https://github.com/UnfamiliarLegacy/KeplerOrigins/archive/refs/heads/master.zip) this repository and unzip it._
 
 ### 2. Configure variables
 
@@ -120,18 +107,19 @@ This program is free software: you can redistribute it and/or modify it under th
 ## Cloning this repository
 
 ```
-$ git clone --recursive https://github.com/Quackster/Kepler
+$ git clone --recursive https://github.com/UnfamiliarLegacy/KeplerOrigins
 ```
 
 **or**
 
 ```
-$ git clone https://github.com/Quackster/Kepler
+$ git clone https://github.com/UnfamiliarLegacy/KeplerOrigins
 $ git submodule update --init --recursive
 ```
 
 # Thanks to
 
+* Quackster
 * Hoshiko
 * ThuGie
 * Ascii
