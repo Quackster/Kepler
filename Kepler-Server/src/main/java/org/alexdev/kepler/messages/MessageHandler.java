@@ -166,6 +166,7 @@ public class MessageHandler {
      */
     private void registerPursePackets() {
         registerEvent(8, new GET_CREDITS());
+        registerEvent(11, new GET_CORE_BALANCES());
         registerEvent(127, new GETUSERCREDITLOG());
         registerEvent(129, new REDEEM_VOUCHER());
     }
