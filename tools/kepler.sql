@@ -2431,8 +2431,14 @@ CREATE TABLE IF NOT EXISTS `messenger_requests` (
 /*!40000 ALTER TABLE `messenger_requests` DISABLE KEYS */;
 /*!40000 ALTER TABLE `messenger_requests` ENABLE KEYS */;
 
--- Dumping structure for table kepler.public_items
-CREATE TABLE IF NOT EXISTS `public_items` (
+--
+-- Table structure for table `public_items`
+--
+
+DROP TABLE IF EXISTS `public_items`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `public_items` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `room_model` varchar(255) NOT NULL,
   `sprite` varchar(255) DEFAULT NULL,
@@ -2448,3502 +2454,3507 @@ CREATE TABLE IF NOT EXISTS `public_items` (
   `teleport_to` varchar(50) DEFAULT NULL,
   `swim_to` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3509 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=3540 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci ROW_FORMAT=COMPACT;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- Dumping data for table kepler.public_items: ~3,465 rows (approximately)
+--
+-- Dumping data for table `public_items`
+--
+
+LOCK TABLES `public_items` WRITE;
 /*!40000 ALTER TABLE `public_items` DISABLE KEYS */;
-INSERT INTO `public_items` (`id`, `room_model`, `sprite`, `x`, `y`, `z`, `rotation`, `top_height`, `length`, `width`, `behaviour`, `current_program`, `teleport_to`, `swim_to`) VALUES
-	(1, 'picnic', 'picnic_cloth1', 5, 16, 0.001, 0, 0.001, 0, 0, 'can_stand_on_top', '', NULL, NULL),
-	(2, 'newbie_lobby', 'crl_lamp', 16, 0, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3, 'newbie_lobby', 'crl_sofa2c', 17, 0, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(4, 'newbie_lobby', 'crl_sofa2b', 18, 0, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(5, 'newbie_lobby', 'crl_sofa2a', 19, 0, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(6, 'newbie_lobby', 'crl_lamp', 20, 0, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(7, 'newbie_lobby', 'crl_chair', 16, 1, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(8, 'newbie_lobby', 'crl_lamp', 7, 2, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(9, 'newbie_lobby', 'crl_lamp', 11, 2, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(10, 'newbie_lobby', 'crl_chair', 16, 2, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(11, 'newbie_lobby', 'crl_pillar', 5, 3, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(12, 'newbie_lobby', 'crl_chair', 7, 3, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(13, 'newbie_lobby', 'crl_table1b', 9, 3, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(14, 'newbie_lobby', 'crl_sofa1c', 11, 3, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(15, 'newbie_lobby', 'crl_chair', 16, 3, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(16, 'newbie_lobby', 'crl_table2b', 19, 3, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(17, 'newbie_lobby', 'crl_table2a', 20, 3, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(18, 'newbie_lobby', 'crl_lamp', 0, 4, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(19, 'newbie_lobby', 'crl_sofa2c', 1, 4, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(20, 'newbie_lobby', 'crl_sofa2b', 2, 4, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(21, 'newbie_lobby', 'crl_sofa2a', 3, 4, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(22, 'newbie_lobby', 'crl_lamp', 4, 4, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(23, 'newbie_lobby', 'crl_table1a', 9, 4, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(24, 'newbie_lobby', 'crl_sofa1b', 11, 4, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(25, 'newbie_lobby', 'crl_wall2a', 15, 4, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(26, 'newbie_lobby', 'crl_lamp', 16, 4, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(27, 'newbie_lobby', 'crl_chair', 0, 5, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(28, 'newbie_lobby', 'crl_chair', 7, 5, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(29, 'newbie_lobby', 'crl_sofa1a', 11, 5, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(30, 'newbie_lobby', 'crl_table2b', 2, 6, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(31, 'newbie_lobby', 'crl_table2a', 3, 6, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(32, 'newbie_lobby', 'crl_lamp', 11, 6, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(33, 'newbie_lobby', 'crl_chair', 0, 7, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(34, 'newbie_lobby', 'crl_lamp', 0, 8, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(35, 'newbie_lobby', 'crl_sofa3c', 1, 8, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(36, 'newbie_lobby', 'crl_sofa3b', 2, 8, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(37, 'newbie_lobby', 'crl_sofa3a', 3, 8, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(38, 'newbie_lobby', 'crl_lamp', 4, 8, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(39, 'newbie_lobby', 'crl_barchair2', 19, 8, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(40, 'newbie_lobby', 'crl_tablebar', 20, 8, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(41, 'newbie_lobby', 'crl_barchair2', 21, 8, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(42, 'newbie_lobby', 'crl_pillar2', 5, 9, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(43, 'newbie_lobby', 'crl_pillar', 9, 9, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(44, 'newbie_lobby', 'crl_desk1a', 8, 15, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(45, 'newbie_lobby', 'crl_deski', 9, 15, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(46, 'newbie_lobby', 'crl_deskh', 10, 15, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(47, 'newbie_lobby', 'crl_deskg', 10, 16, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(48, 'newbie_lobby', 'crl_deskf', 10, 17, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(49, 'newbie_lobby', 'crl_deske', 10, 18, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(50, 'newbie_lobby', 'crl_deske', 10, 19, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(51, 'newbie_lobby', 'crl_deske', 10, 20, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(52, 'newbie_lobby', 'crl_deske', 10, 21, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(53, 'newbie_lobby', 'crl_deske', 10, 22, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(54, 'newbie_lobby', 'crl_deske', 10, 23, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(55, 'newbie_lobby', 'crl_wallb', 7, 24, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(56, 'newbie_lobby', 'crl_deske', 10, 24, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(57, 'newbie_lobby', 'crl_walla', 7, 25, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(58, 'newbie_lobby', 'crl_desk1b', 8, 25, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(59, 'newbie_lobby', 'crl_desk1c', 9, 25, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(60, 'newbie_lobby', 'crl_desk1d', 10, 25, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(61, 'newbie_lobby', 'crl_lamp2', 12, 27, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(62, 'newbie_lobby', 'crl_cabinet2', 13, 27, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(63, 'newbie_lobby', 'crl_cabinet1', 14, 27, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(64, 'newbie_lobby', 'crl_lamp2', 15, 27, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(65, 'theater', 'mic', 11, 10, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(66, 'theater', 'thchair2', 2, 11, 4, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(67, 'theater', 'thchair2', 2, 12, 4, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(68, 'theater', 'thchair2', 2, 15, 4, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(69, 'theater', 'thchair1', 6, 15, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(70, 'theater', 'thchair1', 7, 15, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(71, 'theater', 'thchair1', 8, 15, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(72, 'theater', 'thchair1', 9, 15, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(73, 'theater', 'thchair1', 10, 15, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(74, 'theater', 'thchair1', 12, 15, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(75, 'theater', 'thchair1', 13, 15, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(76, 'theater', 'thchair1', 14, 15, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(77, 'theater', 'thchair1', 15, 15, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(78, 'theater', 'thchair1', 16, 15, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(79, 'theater', 'thchair2', 2, 16, 4, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(80, 'theater', 'thchair1', 6, 20, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(81, 'theater', 'thchair1', 7, 20, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(82, 'theater', 'thchair1', 8, 20, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(83, 'theater', 'thchair1', 9, 20, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(84, 'theater', 'thchair1', 10, 20, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(85, 'theater', 'thchair1', 12, 20, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(86, 'theater', 'thchair1', 13, 20, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(87, 'theater', 'thchair1', 14, 20, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(88, 'theater', 'thchair1', 15, 20, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(89, 'theater', 'thchair1', 16, 20, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(90, 'theater', 'thchair1', 6, 23, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(91, 'theater', 'thchair1', 7, 23, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(92, 'theater', 'thchair1', 8, 23, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(93, 'theater', 'thchair1', 9, 23, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(94, 'theater', 'thchair1', 10, 23, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(95, 'theater', 'thchair1', 12, 23, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(96, 'theater', 'thchair1', 13, 23, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(97, 'theater', 'thchair1', 14, 23, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(98, 'theater', 'thchair1', 15, 23, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(99, 'theater', 'thchair1', 16, 23, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(100, 'theater', 'thchair1', 6, 26, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(101, 'theater', 'thchair1', 7, 26, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(102, 'theater', 'thchair1', 8, 26, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(103, 'theater', 'thchair1', 9, 26, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(104, 'theater', 'thchair1', 10, 26, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(105, 'theater', 'thchair1', 12, 26, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(106, 'theater', 'thchair1', 13, 26, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(107, 'theater', 'thchair1', 14, 26, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(108, 'theater', 'thchair1', 15, 26, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(109, 'theater', 'thchair1', 16, 26, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(110, 'library', 'libchair', 14, 2, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(111, 'library', 'libchair', 16, 2, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(112, 'library', 'libchair', 26, 2, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(113, 'library', 'libchair', 24, 3, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(114, 'library', 'libchair', 12, 4, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(115, 'library', 'libchair', 12, 6, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(116, 'library', 'libstool', 13, 14, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(117, 'library', 'libstool', 13, 15, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(118, 'library', 'libstool', 13, 16, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(119, 'library', 'libchair', 28, 27, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(120, 'library', 'libchair', 27, 29, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(121, 'library', 'libstool', 24, 33, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(122, 'library', 'libstool', 24, 34, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(123, 'library', 'libstool', 24, 35, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(124, 'library', 'libstool', 21, 36, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(125, 'library', 'libstool', 22, 36, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(126, 'library', 'libstool', 23, 36, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(127, 'floatinggarden', 'stone', 15, 37, 1, 4, 1, 1, 1, 'can_sit_on_top,invisible', '', NULL, NULL),
-	(128, 'floatinggarden', 'stone', 16, 37, 1, 4, 1, 1, 1, 'can_sit_on_top,invisible', '', NULL, NULL),
-	(129, 'floatinggarden', 'stone', 17, 29, 1, 2, 1, 1, 1, 'can_sit_on_top,invisible', '', NULL, NULL),
-	(130, 'floatinggarden', 'stone', 17, 30, 1, 2, 1, 1, 1, 'can_sit_on_top,invisible', '', NULL, NULL),
-	(131, 'floatinggarden', 'stone', 17, 31, 1, 2, 1, 1, 1, 'can_sit_on_top,invisible', '', NULL, NULL),
-	(132, 'floatinggarden', 'stone', 17, 35, 1, 2, 1, 1, 1, 'can_sit_on_top,invisible', '', NULL, NULL),
-	(133, 'floatinggarden', 'stone', 17, 36, 1, 2, 1, 1, 1, 'can_sit_on_top,invisible', '', NULL, NULL),
-	(134, 'floatinggarden', 'stone', 21, 33, 1, 2, 1, 1, 1, 'can_sit_on_top,invisible', '', NULL, NULL),
-	(135, 'floatinggarden', 'stone', 21, 34, 1, 2, 1, 1, 1, 'can_sit_on_top,invisible', '', NULL, NULL),
-	(136, 'floatinggarden', 'stone', 21, 35, 1, 2, 1, 1, 1, 'can_sit_on_top,invisible', '', NULL, NULL),
-	(137, 'floatinggarden', 'stone', 21, 36, 1, 2, 1, 1, 1, 'can_sit_on_top,invisible', '', NULL, NULL),
-	(138, 'floatinggarden', 'stone', 24, 9, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(139, 'floatinggarden', 'stone', 25, 9, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(140, 'floatinggarden', 'stone', 26, 33, 1, 6, 1, 1, 1, 'can_sit_on_top,invisible', '', NULL, NULL),
-	(141, 'floatinggarden', 'stone', 26, 34, 1, 6, 1, 1, 1, 'can_sit_on_top,invisible', '', NULL, NULL),
-	(142, 'floatinggarden', 'stone', 26, 35, 1, 6, 1, 1, 1, 'can_sit_on_top,invisible', '', NULL, NULL),
-	(143, 'floatinggarden', 'stone', 26, 36, 1, 6, 1, 1, 1, 'can_sit_on_top,invisible', '', NULL, NULL),
-	(144, 'floatinggarden', 'stone', 28, 13, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(145, 'floatinggarden', 'stone', 29, 13, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(146, 'floatinggarden', 'floatbench1', 17, 18, 3, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(147, 'floatinggarden', 'floatbench1', 17, 24, 3, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(148, 'floatinggarden', 'floatbench1', 19, 18, 3, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(149, 'floatinggarden', 'floatbench1', 19, 24, 3, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(150, 'floatinggarden', 'floatbench1', 21, 18, 3, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(151, 'floatinggarden', 'floatbench1', 21, 24, 3, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(152, 'floatinggarden', 'floatbench1', 23, 18, 3, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(153, 'floatinggarden', 'floatbench1', 23, 24, 3, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(154, 'floatinggarden', 'floatbench1', 28, 17, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(155, 'floatinggarden', 'floatbench1', 28, 19, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(156, 'floatinggarden', 'floatbench1', 28, 23, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(157, 'floatinggarden', 'floatbench1', 28, 25, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(158, 'floatinggarden', 'floatbench2', 17, 17, 3, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(159, 'floatinggarden', 'floatbench2', 17, 23, 3, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(160, 'floatinggarden', 'floatbench2', 19, 17, 3, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(161, 'floatinggarden', 'floatbench2', 19, 23, 3, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(162, 'floatinggarden', 'floatbench2', 21, 17, 3, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(163, 'floatinggarden', 'floatbench2', 21, 23, 3, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(164, 'floatinggarden', 'floatbench2', 23, 17, 3, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(165, 'floatinggarden', 'floatbench2', 23, 23, 3, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(166, 'floatinggarden', 'floatbench2', 27, 17, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(167, 'floatinggarden', 'floatbench2', 27, 19, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(168, 'floatinggarden', 'floatbench2', 27, 23, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(169, 'floatinggarden', 'floatbench2', 27, 25, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(170, 'sunset_cafe', 'chairup4', 32, 21, 0, 3, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(171, 'sunset_cafe', 'chairup6', 33, 21, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(172, 'sunset_cafe', 'chairup6', 34, 21, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(173, 'sunset_cafe', 'chairup6', 35, 21, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(174, 'sunset_cafe', 'chairup6', 36, 21, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(175, 'sunset_cafe', 'chairup7', 37, 21, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(176, 'sunset_cafe', 'chairup2', 32, 22, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(177, 'sunset_cafe', 'chairup5', 25, 23, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(178, 'sunset_cafe', 'chairup6', 26, 23, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(179, 'sunset_cafe', 'chairup6', 27, 23, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(180, 'sunset_cafe', 'chairup6', 28, 23, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(181, 'sunset_cafe', 'chairup7', 29, 23, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(182, 'sunset_cafe', 'chairup1', 32, 23, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(183, 'sunset_cafe', 'counter5', 24, 24, 0, 7, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(184, 'sunset_cafe', 'table2', 25, 24, 0, 7, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(185, 'sunset_cafe', 'table1', 26, 24, 0, 7, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(186, 'sunset_cafe', 'counter3', 24, 25, 0, 7, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(187, 'sunset_cafe', 'counter4', 24, 26, 0, 7, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(188, 'sunset_cafe', 'counter3', 24, 27, 0, 7, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(189, 'sunset_cafe', 'counter3', 24, 28, 0, 7, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(190, 'sunset_cafe', 'palms4', 29, 28, 0, 7, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(191, 'sunset_cafe', 'counter3', 24, 29, 0, 7, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(192, 'sunset_cafe', 'palms3', 29, 29, 0, 7, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(193, 'sunset_cafe', 'counter3', 24, 30, 0, 7, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(194, 'sunset_cafe', 'palms2', 29, 30, 0, 7, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(195, 'sunset_cafe', 'counter1', 22, 31, 0, 7, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(196, 'sunset_cafe', 'counter1', 23, 31, 0, 7, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(197, 'sunset_cafe', 'counter2', 24, 31, 0, 7, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(198, 'sunset_cafe', 'palms1', 29, 31, 0, 7, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(199, 'sunset_cafe', 'chairup5', 30, 31, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(200, 'sunset_cafe', 'chairup6', 31, 31, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(201, 'sunset_cafe', 'chairup6', 32, 31, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(202, 'sunset_cafe', 'chairup6', 33, 31, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(203, 'sunset_cafe', 'chairup6', 34, 31, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(204, 'sunset_cafe', 'chairup6', 35, 31, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(205, 'sunset_cafe', 'chairup6', 36, 31, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(206, 'sunset_cafe', 'chairright3', 37, 31, 0, 5, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(207, 'sunset_cafe', 'chairup3', 21, 32, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(208, 'sunset_cafe', 'table4', 22, 32, 0, 7, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(209, 'sunset_cafe', 'table2', 30, 32, 0, 7, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(210, 'sunset_cafe', 'table1', 31, 32, 0, 7, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(211, 'sunset_cafe', 'table2', 33, 32, 0, 7, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(212, 'sunset_cafe', 'table1', 34, 32, 0, 7, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(213, 'sunset_cafe', 'chairright2', 37, 32, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(214, 'sunset_cafe', 'chairup2', 21, 33, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(215, 'sunset_cafe', 'table3', 22, 33, 0, 7, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(216, 'sunset_cafe', 'chairright2', 37, 33, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(217, 'sunset_cafe', 'chairup2', 21, 34, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(218, 'sunset_cafe', 'table4', 36, 34, 0, 7, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(219, 'sunset_cafe', 'chairright2', 37, 34, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(220, 'sunset_cafe', 'chairup2', 21, 35, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(221, 'sunset_cafe', 'table2', 24, 35, 0, 7, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(222, 'sunset_cafe', 'table1', 25, 35, 0, 7, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(223, 'sunset_cafe', 'table2', 27, 35, 0, 7, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(224, 'sunset_cafe', 'table1', 28, 35, 0, 7, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(225, 'sunset_cafe', 'palm', 33, 35, 0, 7, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(226, 'sunset_cafe', 'table3', 36, 35, 0, 7, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(227, 'sunset_cafe', 'chairright2', 37, 35, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(228, 'sunset_cafe', 'chairleft3', 21, 36, 0, 1, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(229, 'sunset_cafe', 'chairleft2', 22, 36, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(230, 'sunset_cafe', 'chairleft2', 23, 36, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(231, 'sunset_cafe', 'chairleft2', 24, 36, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(232, 'sunset_cafe', 'chairleft2', 25, 36, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(233, 'sunset_cafe', 'chairleft2', 26, 36, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(234, 'sunset_cafe', 'chairleft2', 27, 36, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(235, 'sunset_cafe', 'chairleft1', 28, 36, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(236, 'sunset_cafe', 'chairright2', 37, 36, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(237, 'sunset_cafe', 'table4', 36, 37, 0, 7, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(238, 'sunset_cafe', 'chairright2', 37, 37, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(239, 'sunset_cafe', 'table3', 36, 38, 0, 7, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(240, 'sunset_cafe', 'chairright1', 37, 38, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(241, 'pool_a', 'flower2b', 2, 28, 7, 0, 1, 1, 1, 'solid', '', NULL, NULL),
-	(242, 'pool_a', 'flower2a', 2, 29, 7, 0, 1, 1, 1, 'solid', '', NULL, NULL),
-	(243, 'pool_a', 'flower2b', 19, 30, 7, 0, 1, 1, 1, 'solid', '', NULL, NULL),
-	(244, 'pool_a', 'flower2a', 19, 31, 7, 0, 1, 1, 1, 'solid', '', NULL, NULL),
-	(245, 'pool_a', 'box', 6, 32, 7, 0, 1, 1, 1, 'solid', '', NULL, NULL),
-	(246, 'pool_a', 'flower1', 13, 33, 7, 0, 1, 1, 1, 'solid', '', NULL, NULL),
-	(247, 'pool_a', 'pool_chairy', 10, 34, 7, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(248, 'pool_a', 'umbrellay', 8, 35, 7, 0, 1, 1, 1, 'solid', '', NULL, NULL),
-	(249, 'pool_a', 'pool_chairy', 9, 35, 7, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(250, 'pool_a', 'pool_tabley', 10, 35, 7, 0, 1, 1, 1, 'solid', '', NULL, NULL),
-	(251, 'pool_a', 'pool_chairy', 11, 35, 7, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(252, 'pool_a', 'umbrellap', 15, 35, 7, 0, 1, 1, 1, 'solid', '', NULL, NULL),
-	(253, 'pool_a', 'pool_chairy', 10, 36, 7, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(254, 'pool_a', 'pool_chairp', 15, 36, 7, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(255, 'pool_a', 'pool_chairo', 22, 36, 7, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(256, 'pool_a', 'pool_chairp', 14, 37, 7, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(257, 'pool_a', 'pool_tablep', 15, 37, 7, 0, 1, 1, 1, 'solid', '', NULL, NULL),
-	(258, 'pool_a', 'pool_chairp', 16, 37, 7, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(259, 'pool_a', 'umbrellao', 20, 37, 7, 0, 1, 1, 1, 'solid', '', NULL, NULL),
-	(260, 'pool_a', 'pool_chairo', 21, 37, 7, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(261, 'pool_a', 'pool_tabo', 22, 37, 7, 0, 1, 1, 1, 'solid', '', NULL, NULL),
-	(262, 'pool_a', 'pool_chairo', 22, 38, 7, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(263, 'pool_a', 'pool_chairg', 18, 42, 7, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(264, 'pool_a', 'umbrellag', 16, 43, 7, 0, 1, 1, 1, 'solid', '', NULL, NULL),
-	(265, 'pool_a', 'pool_chairg', 17, 43, 7, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(266, 'pool_a', 'pool_tablg', 18, 43, 7, 0, 1, 1, 1, 'solid', '', NULL, NULL),
-	(267, 'pool_a', 'pool_chairg', 19, 43, 7, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(268, 'pool_a', 'pool_chairg', 18, 44, 7, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(269, 'pool_a', 'poolBooth', 17, 11, 7, 0, 0.001, 1, 1, 'can_stand_on_top,invisible', 'curtains1', NULL, NULL),
-	(270, 'pool_a', 'poolBooth', 17, 9, 7, 0, 0.001, 1, 1, 'can_stand_on_top,invisible', 'curtains2', NULL, NULL),
-	(271, 'pool_a', 'poolEnter', 20, 28, 7, 0, 0.001, 1, 1, 'can_stand_on_top,invisible', 'Splash0', NULL, NULL),
-	(272, 'pool_a', 'poolExit', 21, 28, 3, 0, 0.001, 1, 1, 'can_stand_on_top,invisible', 'Splash0', NULL, NULL),
-	(273, 'pub_a', 'pub_fence', 8, 12, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(274, 'pub_a', 'pub_fence', 18, 11, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(275, 'pub_a', 'pub_fence', 8, 11, 3, 1, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(276, 'pub_a', 'pub_chair2', 6, 11, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(277, 'pub_a', 'pub_chair2', 5, 11, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(278, 'pub_a', 'pub_chair2', 3, 11, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(279, 'pub_a', 'pub_chair2', 2, 11, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(280, 'pub_a', 'pub_fence', 18, 10, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(281, 'pub_a', 'pub_fence', 18, 9, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(282, 'pub_a', 'bardesk3', 11, 9, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(283, 'pub_a', 'bardesk4', 10, 9, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(284, 'pub_a', 'pub_fence', 18, 8, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(285, 'pub_a', 'pub_chair', 12, 8, 2, 6, 1.5, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(286, 'pub_a', 'bardesk1', 11, 8, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(287, 'pub_a', 'pub_fence', 18, 7, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(288, 'pub_a', 'bardesk2', 11, 7, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(289, 'pub_a', 'pub_fence', 18, 6, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(290, 'pub_a', 'pub_chair', 12, 6, 2, 6, 1.5, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(291, 'pub_a', 'bardesk1', 11, 6, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(292, 'pub_a', 'pub_fence', 18, 5, 2, 1, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(293, 'pub_a', 'bardesk2', 11, 5, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(294, 'pub_a', 'pub_chair', 12, 4, 2, 6, 1.5, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(295, 'pub_a', 'bardesk1', 11, 4, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(296, 'pub_a', 'bardesk2', 11, 3, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(297, 'pub_a', 'pub_chair', 12, 2, 2, 6, 1.5, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(298, 'pub_a', 'bardesk1', 11, 2, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(299, 'pub_a', 'pub_sofa', 21, 1, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(300, 'pub_a', 'pub_sofa', 20, 1, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(301, 'pub_a', 'pub_sofa2', 19, 1, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(302, 'pub_a', 'pub_fence', 18, 12, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(303, 'pub_a', 'pub_fence', 8, 13, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(304, 'pub_a', 'pub_chair2', 9, 13, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(305, 'pub_a', 'pub_chair3', 14, 13, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(306, 'pub_a', 'pub_table2', 15, 13, 2, 1, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(307, 'pub_a', 'pub_chair3', 16, 13, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(308, 'pub_a', 'pub_fence', 18, 13, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(309, 'pub_a', 'pub_fence', 8, 14, 3, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(310, 'pub_a', 'pub_chair2', 9, 14, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(311, 'pub_a', 'pub_chair3', 14, 14, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(312, 'pub_a', 'pub_table2', 15, 14, 2, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(313, 'pub_a', 'pub_chair3', 16, 14, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(314, 'pub_a', 'pub_fence', 18, 14, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(315, 'pub_a', 'pub_table', 1, 15, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(316, 'pub_a', 'pub_fence', 5, 15, 3, 1, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(317, 'pub_a', 'pub_fence', 18, 15, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(318, 'pub_a', 'pub_sofa2', 1, 16, 3, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(319, 'pub_a', 'pub_fence', 5, 16, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(320, 'pub_a', 'pub_fence', 18, 16, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(321, 'pub_a', 'pub_sofa', 1, 17, 3, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(322, 'pub_a', 'pub_fence', 5, 17, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(323, 'pub_a', 'pub_chair3', 13, 17, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(324, 'pub_a', 'pub_chair3', 14, 17, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(325, 'pub_a', 'pub_chair3', 15, 17, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(326, 'pub_a', 'pub_chair3', 16, 17, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(327, 'pub_a', 'pub_fence', 18, 17, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(328, 'pub_a', 'pub_sofa', 1, 18, 3, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(329, 'pub_a', 'pub_fence', 5, 18, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(330, 'pub_a', 'pub_table2', 13, 18, 2, 5, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(331, 'pub_a', 'pub_table2', 14, 18, 2, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(332, 'pub_a', 'pub_table2', 15, 18, 2, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(333, 'pub_a', 'pub_table2', 16, 18, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(334, 'pub_a', 'pub_fence', 18, 18, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(335, 'pub_a', 'pub_sofa', 2, 19, 3, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(336, 'pub_a', 'pub_sofa2', 3, 19, 3, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(337, 'pub_a', 'pub_fence', 5, 19, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(338, 'pub_a', 'pub_chair3', 13, 19, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(339, 'pub_a', 'pub_chair3', 14, 19, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(340, 'pub_a', 'pub_chair3', 15, 19, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(341, 'pub_a', 'pub_chair3', 16, 19, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(342, 'pub_a', 'pub_fence', 18, 19, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(343, 'pub_a', 'pub_fence', 1, 20, 3, 5, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(344, 'pub_a', 'pub_fence', 2, 20, 3, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(345, 'pub_a', 'pub_fence', 3, 20, 3, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(346, 'pub_a', 'pub_fence', 4, 20, 3, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(347, 'pub_a', 'pub_fence', 5, 20, 3, 3, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(348, 'pub_a', 'pub_fence', 18, 20, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(349, 'pub_a', 'pub_sofa2', 7, 21, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(350, 'pub_a', 'pub_sofa', 8, 21, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(351, 'pub_a', 'pub_fence', 12, 21, 2, 5, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(352, 'pub_a', 'pub_fence', 13, 21, 2, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(353, 'pub_a', 'pub_fence', 14, 21, 2, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(354, 'pub_a', 'pub_fence', 15, 21, 2, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(355, 'pub_a', 'pub_fence', 16, 21, 2, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(356, 'pub_a', 'pub_fence', 17, 21, 2, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(357, 'pub_a', 'pub_fence', 18, 21, 2, 3, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(358, 'pub_a', 'pub_sofa2', 6, 22, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(359, 'pub_a', 'pub_table', 15, 22, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(360, 'pub_a', 'pub_chair2', 16, 22, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(361, 'pub_a', 'pub_chair2', 17, 22, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(362, 'pub_a', 'pub_sofa', 6, 23, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(363, 'pub_a', 'pub_table2', 8, 23, 1, 1, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(364, 'pub_a', 'pub_sofa', 6, 24, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(365, 'pub_a', 'pub_table2', 8, 24, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(366, 'pub_a', 'pub_sofa', 6, 25, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(367, 'pub_a', 'pub_table2', 8, 25, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(368, 'md_a', 'mntdwchair', 4, 3, 7, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(369, 'md_a', 'mntdwchair', 5, 3, 7, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(370, 'md_a', 'barmask', 2, 8, 7, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(371, 'md_a', 'mntdwsofa2', 7, 8, 7, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(372, 'md_a', 'mntdwtable2', 8, 8, 7, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(373, 'md_a', 'mntdwsofa2', 9, 8, 7, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(374, 'md_a', 'paalu5', 21, 8, 8, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(375, 'md_a', 'barmask', 2, 9, 7, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(376, 'md_a', 'mntdwsofa1', 7, 9, 7, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(377, 'md_a', 'mntdwtable1', 8, 9, 7, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(378, 'md_a', 'mntdwsofa1', 9, 9, 7, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(379, 'md_a', 'paalu5', 21, 9, 8, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(380, 'md_a', 'barmask', 2, 10, 7, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(381, 'md_a', 'paalu5', 21, 10, 8, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(382, 'md_a', 'barmask', 2, 11, 7, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(383, 'md_a', 'paalu5', 21, 11, 8, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(384, 'md_a', 'barmask', 2, 12, 7, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(385, 'md_a', 'mntdwsofa2', 7, 12, 7, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(386, 'md_a', 'mntdwsofa1', 8, 12, 7, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(387, 'md_a', 'paalu3', 21, 12, 8, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(388, 'md_a', 'barmask', 2, 13, 7, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(389, 'md_a', 'mntdwtable2', 7, 13, 7, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(390, 'md_a', 'mntdwtable1', 8, 13, 7, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(391, 'md_a', 'paalu3', 21, 13, 8, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(392, 'md_a', 'barmask', 2, 14, 7, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(393, 'md_a', 'mntdwsofa2', 7, 14, 7, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(394, 'md_a', 'mntdwsofa1', 8, 14, 7, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(395, 'md_a', 'paalu3', 21, 14, 8, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(396, 'md_a', 'barmask', 2, 15, 100000, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(397, 'md_a', 'paalu1', 21, 15, 8, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(398, 'md_a', 'barmask', 2, 16, 100000, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(399, 'md_a', 'mntdwsofa2', 12, 16, 7, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(400, 'md_a', 'mntdwsofa1', 13, 16, 7, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(401, 'md_a', 'paalu1', 21, 16, 8, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(402, 'md_a', 'mntdwchair', 3, 17, 7, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(403, 'md_a', 'mntdwsofa2', 6, 17, 7, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(404, 'md_a', 'mntdwtable2', 7, 17, 7, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(405, 'md_a', 'mntdwsofa2', 8, 17, 7, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(406, 'md_a', 'mntdwtable2', 12, 17, 7, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(407, 'md_a', 'mntdwtable1', 13, 17, 7, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(408, 'md_a', 'paalu1', 21, 17, 8, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(409, 'md_a', 'mntdwchair', 3, 18, 7, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(410, 'md_a', 'mntdwsofa1', 6, 18, 7, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(411, 'md_a', 'mntdwtable1', 7, 18, 7, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(412, 'md_a', 'mntdwsofa1', 8, 18, 7, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(413, 'md_a', 'mntdwsofa2', 12, 18, 7, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(414, 'md_a', 'mntdwsofa1', 13, 18, 7, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(415, 'md_a', 'paalu1', 21, 18, 8, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(416, 'md_a', 'poolBooth', 8, 1, 7, 0, 0.001, 1, 1, 'can_stand_on_top,invisible', 'curtains1', NULL, NULL),
-	(417, 'md_a', 'poolBooth', 9, 1, 7, 0, 0.001, 1, 1, 'can_stand_on_top,invisible', 'curtains2', NULL, NULL),
-	(418, 'picnic', 'hedge7', 10, 7, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(419, 'picnic', 'hedge7', 11, 7, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(420, 'picnic', 'hedge7', 12, 7, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(421, 'picnic', 'hedge7', 13, 7, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(422, 'picnic', 'hedge8', 14, 7, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(423, 'picnic', 'hedge2', 18, 7, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(424, 'picnic', 'hedge7', 19, 7, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(425, 'picnic', 'hedge7', 20, 7, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(426, 'picnic', 'hedge7', 21, 7, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(427, 'picnic', 'hedge9', 14, 8, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(428, 'picnic', 'hedge9', 18, 8, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(429, 'picnic', 'hedge5', 3, 9, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(430, 'picnic', 'hedge9', 3, 10, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(431, 'picnic', 'picnic_ground', 21, 13, 2, 4, 0.2, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(432, 'picnic', 'picnic_ground', 7, 14, 2, 4, 0.2, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(433, 'picnic', 'picnic_ground', 19, 15, 2, 2, 0.2, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(434, 'picnic', 'picnic_ground', 23, 15, 2, 6, 0.2, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(435, 'picnic', 'picnic_ground', 5, 16, 2, 2, 0.2, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(436, 'picnic', 'picnic_ground', 9, 16, 2, 6, 0.2, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(437, 'picnic', 'picnic_cloth1', 19, 15, 0.001, 0, 0.001, 0, 0, 'can_stand_on_top', '', NULL, NULL),
-	(438, 'picnic', 'picnic_ground', 21, 17, 2, 0, 0.2, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(439, 'picnic', 'picnic_ground', 7, 18, 2, 0, 0.2, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(440, 'picnic', 'picnic_redbench2', 0, 19, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(441, 'picnic', 'picnic_redbench1', 0, 20, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(442, 'picnic', 'hedge6', 11, 20, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(443, 'picnic', 'hedge7', 12, 20, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(444, 'picnic', 'hedge7', 13, 20, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(445, 'picnic', 'hedge3', 14, 20, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(446, 'picnic', 'hedge4', 17, 20, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(447, 'picnic', 'hedge7', 18, 20, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(448, 'picnic', 'hedge7', 19, 20, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(449, 'picnic', 'hedge8', 20, 20, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(450, 'picnic', 'hedge5', 11, 21, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(451, 'picnic', 'picnic_bench1', 12, 21, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(452, 'picnic', 'picnic_bench2', 13, 21, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(453, 'picnic', 'picnic_bench3', 14, 21, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(454, 'picnic', 'picnic_bench1', 17, 21, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(455, 'picnic', 'picnic_bench2', 18, 21, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(456, 'picnic', 'picnic_bench3', 19, 21, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(457, 'picnic', 'hedge5', 20, 21, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(458, 'picnic', 'picnic_redbench2', 0, 22, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(459, 'picnic', 'hedge5', 11, 22, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(460, 'picnic', 'hedge5', 20, 22, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(461, 'picnic', 'picnic_ground', 25, 22, 2, 4, 0.2, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(462, 'picnic', 'picnic_redbench1', 0, 23, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(463, 'picnic', 'hedge5', 11, 23, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(464, 'picnic', 'picnic_bench1', 12, 23, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(465, 'picnic', 'picnic_bench1', 19, 23, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(466, 'picnic', 'hedge5', 20, 23, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(467, 'picnic', 'picnic_dummychair1', 6, 24, 2, 4, 1, 1, 1, 'can_sit_on_top,invisible', '', NULL, NULL),
-	(468, 'picnic', 'picnic_dummychair4', 7, 24, 2, 4, 4, 1, 1, 'can_sit_on_top,invisible', '', NULL, NULL),
-	(469, 'picnic', 'picnic_dummychair6', 8, 24, 2, 4, 7, 1, 1, 'can_sit_on_top,invisible', '', NULL, NULL),
-	(470, 'picnic', 'hedge5', 11, 24, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(471, 'picnic', 'picnic_bench2', 12, 24, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(472, 'picnic', 'picnic_bench2', 19, 24, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(473, 'picnic', 'hedge5', 20, 24, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(474, 'picnic', 'picnic_ground', 23, 24, 2, 2, 0.2, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(475, 'picnic', 'picnic_ground', 27, 24, 2, 6, 0.2, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(476, 'picnic', 'picnic_stump', 5, 25, 2, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(477, 'picnic', 'hedge5', 11, 25, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(478, 'picnic', 'picnic_bench2', 12, 25, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(479, 'picnic', 'picnic_bench2', 19, 25, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(480, 'picnic', 'hedge5', 20, 25, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(481, 'picnic', 'picnic_cloth2', 23, 24, 0.001, 0, 0.001, 0, 0, 'can_stand_on_top', '', NULL, NULL),
-	(482, 'picnic', 'picnic_stump', 7, 26, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(483, 'picnic', 'hedge5', 11, 26, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(484, 'picnic', 'picnic_bench3', 12, 26, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(485, 'picnic', 'picnic_fireplace1', 14, 26, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(486, 'picnic', 'picnic_fireplace2', 16, 26, 2, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(487, 'picnic', 'picnic_bench3', 19, 26, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(488, 'picnic', 'hedge5', 20, 26, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(489, 'picnic', 'picnic_ground', 25, 26, 2, 0, 0.2, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(490, 'picnic', 'hedge9', 11, 27, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(491, 'picnic', 'picnic_lemonade', 12, 27, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(492, 'picnic', 'hedge9', 20, 27, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(493, 'picnic', 'picnic_firewood2', 8, 29, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(494, 'picnic', 'picnic_redbench2', 0, 30, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(495, 'picnic', 'picnic_firewood1', 8, 30, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(496, 'picnic', 'picnic_redbench1', 0, 31, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(497, 'picnic', 'picnic_firewood1', 8, 31, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(498, 'picnic', 'picnic_bench1', 12, 31, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(499, 'picnic', 'picnic_bench2', 13, 31, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(500, 'picnic', 'picnic_bench3', 14, 31, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(501, 'picnic', 'picnic_bench1', 18, 31, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(502, 'picnic', 'picnic_bench2', 19, 31, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(503, 'picnic', 'picnic_bench3', 20, 31, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(504, 'picnic', 'picnic_carrot', 27, 31, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(505, 'picnic', 'picnic_carrot', 28, 31, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(506, 'picnic', 'picnic_carrot', 29, 31, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(507, 'picnic', 'picnic_carrot', 30, 31, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(508, 'picnic', 'picnic_carrot', 31, 31, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(509, 'picnic', 'picnic_firewood1', 8, 32, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(510, 'picnic', 'picnic_table2', 12, 32, 2, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(511, 'picnic', 'picnic_table', 14, 32, 2, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(512, 'picnic', 'picnic_table2', 18, 32, 2, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(513, 'picnic', 'picnic_table', 20, 32, 2, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(514, 'picnic', 'hedge1', 3, 33, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(515, 'picnic', 'picnic_firewood1', 8, 33, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(516, 'picnic', 'picnic_bench1', 12, 33, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(517, 'picnic', 'picnic_bench2', 13, 33, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(518, 'picnic', 'picnic_bench3', 14, 33, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(519, 'picnic', 'picnic_bench1', 18, 33, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(520, 'picnic', 'picnic_bench2', 19, 33, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(521, 'picnic', 'picnic_bench3', 20, 33, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(522, 'picnic', 'picnic_cabbage', 27, 33, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(523, 'picnic', 'picnic_cabbage', 28, 33, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(524, 'picnic', 'picnic_cabbage', 29, 33, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(525, 'picnic', 'hedge5', 3, 34, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(526, 'picnic', 'picnic_firewood1', 8, 34, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(527, 'picnic', 'hedge5', 3, 35, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(528, 'picnic', 'picnic_firewood1', 8, 35, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(529, 'picnic', 'hedge5', 3, 36, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(530, 'picnic', 'picnic_firewood1', 8, 36, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(531, 'picnic', 'picnic_firewood1', 8, 37, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(532, 'picnic', 'picnic_bench1', 12, 37, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(533, 'picnic', 'picnic_bench2', 13, 37, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(534, 'picnic', 'picnic_bench3', 14, 37, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(535, 'picnic', 'picnic_bench1', 18, 37, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(536, 'picnic', 'picnic_bench2', 19, 37, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(537, 'picnic', 'picnic_bench3', 20, 37, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(538, 'picnic', 'picnic_firewood1', 8, 38, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(539, 'picnic', 'picnic_table2', 12, 38, 2, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(540, 'picnic', 'picnic_table', 14, 38, 2, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(541, 'picnic', 'picnic_table2', 18, 38, 2, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(542, 'picnic', 'picnic_table', 20, 38, 2, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(543, 'picnic', 'picnic_firewood3', 8, 39, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(544, 'picnic', 'picnic_bench1', 12, 39, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(545, 'picnic', 'picnic_bench2', 13, 39, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(546, 'picnic', 'picnic_bench3', 14, 39, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(547, 'picnic', 'picnic_bench1', 18, 39, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(548, 'picnic', 'picnic_bench2', 19, 39, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(549, 'picnic', 'picnic_bench3', 20, 39, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(568, 'park_b', 'cornerchair2', 0, 0, 0, 4, 1, 1, 1, 'solid', '', NULL, NULL),
-	(569, 'park_b', 'cornerchair1', 1, 0, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(570, 'park_b', 'chair1', 2, 0, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(571, 'park_b', 'chair1', 3, 0, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(572, 'park_b', 'table1', 5, 0, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(573, 'park_b', 'chair1line', 6, 0, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(574, 'park_b', 'chair1', 7, 0, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(575, 'park_b', 'chair1frontend', 8, 0, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(576, 'park_b', 'bar_basic', 10, 0, 0, 4, 0.001, 1, 1, 'solid,private_furniture', '', NULL, NULL),
-	(577, 'park_b', 'cornerchair1', 0, 1, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(578, 'park_b', 'chair1', 0, 2, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(579, 'park_b', 'chair1', 0, 3, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(580, 'park_b', 'chair1', 0, 4, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(581, 'park_b', 'chair1frontend', 0, 5, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(582, 'park_b', 'table2', 3, 5, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(583, 'park_b', 'modchair', 5, 5, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(584, 'park_b', 'table2', 8, 5, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(585, 'pool_b', 'umbrella2', 33, 2, 7, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(586, 'pool_b', 'pool_2sofa2', 18, 3, 8, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(587, 'pool_b', 'pool_2sofa1', 19, 3, 8, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(588, 'pool_b', 'pool_2sofa2', 20, 3, 8, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(589, 'pool_b', 'pool_2sofa1', 21, 3, 8, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(590, 'pool_b', 'pool_2sofa2', 22, 3, 8, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(591, 'pool_b', 'pool_2sofa1', 23, 3, 8, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(592, 'pool_b', 'pool_chair2', 33, 3, 7, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(593, 'pool_b', 'pool_chair2', 32, 4, 7, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(594, 'pool_b', 'pool_table2', 33, 4, 7, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(595, 'pool_b', 'pool_chair2', 34, 4, 7, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(596, 'pool_b', 'pool_2sofa2', 16, 5, 8, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(597, 'pool_b', 'pool_chair2', 33, 5, 7, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(598, 'pool_b', 'pool_2sofa1', 16, 6, 8, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(599, 'pool_b', 'pool_2sofa2', 16, 7, 8, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(600, 'pool_b', 'pool_chair2', 35, 7, 7, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(601, 'pool_b', 'flower1', 14, 8, 9, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(602, 'pool_b', 'pool_2sofa1', 16, 8, 8, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(603, 'pool_b', 'umbrella2', 33, 8, 7, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(604, 'pool_b', 'pool_chair2', 34, 8, 7, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(605, 'pool_b', 'pool_table2', 35, 8, 7, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(606, 'pool_b', 'pool_chair2', 36, 8, 7, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(607, 'pool_b', 'pool_2sofa2', 14, 9, 9, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(608, 'pool_b', 'pool_2sofa2', 16, 9, 8, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(609, 'pool_b', 'pool_chair2', 35, 9, 7, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(610, 'pool_b', 'pool_2sofa1', 14, 10, 9, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(611, 'pool_b', 'pool_2sofa1', 16, 10, 8, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(612, 'pool_b', 'pool_2sofa2', 14, 11, 9, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(613, 'pool_b', 'pool_2sofa2', 16, 11, 8, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(614, 'pool_b', 'pool_2sofa1', 14, 12, 9, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(615, 'pool_b', 'pool_2sofa1', 16, 12, 8, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(616, 'pool_b', 'flower2b', 3, 13, 7, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(617, 'pool_b', 'flower2a', 4, 13, 7, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(618, 'pool_b', 'pool_2sofa2', 14, 13, 9, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(619, 'pool_b', 'pool_2sofa2', 16, 13, 8, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(620, 'pool_b', 'pool_2sofa1', 14, 14, 9, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(621, 'pool_b', 'pool_2sofa1', 16, 14, 8, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(622, 'pool_b', 'poolLift', 26, 4, 7, 0, 0.001, 1, 1, 'can_stand_on_top,invisible', 'door', NULL, NULL),
-	(623, 'pool_b', 'poolEnter', 17, 21, 7, 0, 0.001, 1, 1, 'can_stand_on_top,invisible', 'Splash0', '17 22 3 4', '17 23 3 4'),
-	(624, 'pool_b', 'poolExit', 17, 22, 0, 0, 0.001, 1, 1, 'can_stand_on_top,invisible', 'Splash0', '17 21 0 4', '17 20 0 4'),
-	(625, 'pool_b', 'poolExit', 20, 19, 0, 0, 0.001, 1, 1, 'can_stand_on_top,invisible', 'Splash1', '19 19 7 0', '18 19 7 0'),
-	(626, 'pool_b', 'poolEnter', 31, 10, 7, 0, 0.001, 1, 1, 'can_stand_on_top,invisible', 'Splash2', '31 11 0 4', '31 12 0 4'),
-	(627, 'pool_b', 'poolExit', 31, 11, 0, 0, 0.001, 1, 1, 'can_stand_on_top,invisible', 'Splash2', '31 10 7 0', '31 9 7 0'),
-	(628, 'pool_b', 'queue_tile2', 21, 9, 7, 0, 0.001, 1, 1, 'extra_parameter,can_stand_on_top', '', NULL, NULL),
-	(629, 'pool_b', 'queue_tile2', 21, 7, 7, 2, 0.001, 1, 1, 'extra_parameter,can_stand_on_top', '', NULL, NULL),
-	(630, 'pool_b', 'queue_tile2', 23, 7, 7, 2, 0.001, 1, 1, 'extra_parameter,can_stand_on_top', '', NULL, NULL),
-	(631, 'pool_b', 'queue_tile2', 26, 7, 7, 0, 0.001, 1, 1, 'extra_parameter,can_stand_on_top', '', NULL, NULL),
-	(632, 'pool_b', 'queue_tile2', 25, 7, 7, 2, 0.001, 1, 1, 'extra_parameter,can_stand_on_top', '', NULL, NULL),
-	(633, 'pool_b', 'queue_tile2', 22, 7, 7, 2, 0.001, 1, 1, 'extra_parameter,can_stand_on_top', '', NULL, NULL),
-	(634, 'pool_b', 'queue_tile2', 26, 5, 7, 0, 0.001, 1, 1, 'extra_parameter,can_stand_on_top', '', NULL, NULL),
-	(635, 'pool_b', 'queue_tile2', 21, 8, 7, 0, 0.001, 1, 1, 'extra_parameter,can_stand_on_top', '', NULL, NULL),
-	(636, 'pool_b', 'queue_tile2', 26, 6, 7, 0, 0.001, 1, 1, 'extra_parameter,can_stand_on_top', '', NULL, NULL),
-	(637, 'pool_b', 'queue_tile2', 24, 7, 7, 2, 0.001, 1, 1, 'extra_parameter,can_stand_on_top', '', NULL, NULL),
-	(638, 'ballroom', 'broom_bench1', 4, 0, 4, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(639, 'ballroom', 'broom_bench2', 5, 0, 4, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(640, 'ballroom', 'broom_bench3', 6, 0, 4, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(641, 'ballroom', 'broom_bench1', 7, 0, 4, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(642, 'ballroom', 'broom_bench2', 8, 0, 4, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(643, 'ballroom', 'broom_bench2', 9, 0, 4, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(644, 'ballroom', 'broom_bench3', 10, 0, 4, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(645, 'ballroom', 'broom_bench1', 11, 0, 4, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(646, 'ballroom', 'broom_bench2', 12, 0, 4, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(647, 'ballroom', 'broom_bench2', 13, 0, 4, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(648, 'ballroom', 'broom_bench2', 14, 0, 4, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(649, 'ballroom', 'broom_bench3', 15, 0, 4, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(650, 'ballroom', 'broom_bench1', 16, 0, 4, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(651, 'ballroom', 'broom_bench2', 17, 0, 4, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(652, 'ballroom', 'broom_bench2', 18, 0, 4, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(653, 'ballroom', 'broom_bench3', 19, 0, 4, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(654, 'ballroom', 'broom_bench1', 20, 0, 4, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(655, 'ballroom', 'broom_bench2', 21, 0, 4, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(656, 'ballroom', 'broom_bench3', 22, 0, 4, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(657, 'ballroom', 'broom_seatb1', 7, 3, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(658, 'ballroom', 'broom_seatb2', 8, 3, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(659, 'ballroom', 'broom_seatb3', 9, 3, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(660, 'ballroom', 'broom_seatb4', 10, 3, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(661, 'ballroom', 'broom_seat1', 16, 3, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(662, 'ballroom', 'broom_seat2', 17, 3, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(663, 'ballroom', 'broom_seat3', 18, 3, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(664, 'ballroom', 'broom_seat4', 19, 3, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(665, 'ballroom', 'broom_seatb1', 7, 6, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(666, 'ballroom', 'broom_seatb2', 8, 6, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(667, 'ballroom', 'broom_seatb3', 9, 6, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(668, 'ballroom', 'broom_seatb4', 10, 6, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(669, 'ballroom', 'broom_seat1', 16, 6, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(670, 'ballroom', 'broom_seat2', 17, 6, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(671, 'ballroom', 'broom_seat3', 18, 6, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(672, 'ballroom', 'broom_seat4', 19, 6, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(673, 'ballroom', 'broom_chair', 19, 10, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(674, 'ballroom', 'broom_chair', 20, 10, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(675, 'ballroom', 'broom_chair', 21, 10, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(676, 'ballroom', 'broom_table1', 19, 11, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(677, 'ballroom', 'broom_table2', 20, 11, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(678, 'ballroom', 'broom_table3', 21, 11, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(679, 'ballroom', 'broom_chair', 19, 12, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(680, 'ballroom', 'broom_chair', 20, 12, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(681, 'ballroom', 'broom_chair', 21, 12, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(682, 'ballroom', 'broom_chair', 19, 15, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(683, 'ballroom', 'broom_chair', 20, 15, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(684, 'ballroom', 'broom_chair', 21, 15, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(685, 'ballroom', 'broom_table1', 19, 16, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(686, 'ballroom', 'broom_table2', 20, 16, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(687, 'ballroom', 'broom_table3', 21, 16, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(688, 'ballroom', 'broom_chair', 19, 17, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(689, 'ballroom', 'broom_chair', 20, 17, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(690, 'ballroom', 'broom_chair', 21, 17, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(691, 'ballroom', 'broom_stool', 9, 20, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(692, 'ballroom', 'broom_stool', 9, 21, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(693, 'ballroom', 'broom_stool', 9, 22, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(694, 'ballroom', 'broom_stool', 9, 23, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(695, 'cafe_gold0', 'gold_chair', 5, 3, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(696, 'cafe_gold0', 'gold_table_small1', 6, 3, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(697, 'cafe_gold0', 'gold_chair', 7, 3, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(698, 'cafe_gold0', 'gold_bardesk5', 10, 3, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(699, 'cafe_gold0', 'gold_bardesk4', 11, 3, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(700, 'cafe_gold0', 'gold_bardesk3', 12, 3, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(701, 'cafe_gold0', 'gold_bardesk2', 13, 3, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(702, 'cafe_gold0', 'gold_bardesk1', 14, 3, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(703, 'cafe_gold0', 'gold_chair', 5, 4, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(704, 'cafe_gold0', 'gold_table_small2', 6, 4, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(705, 'cafe_gold0', 'gold_chair', 7, 4, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(706, 'cafe_gold0', 'gold_chair', 0, 5, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(707, 'cafe_gold0', 'gold_table_small1', 1, 5, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(708, 'cafe_gold0', 'gold_chair', 2, 5, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(709, 'cafe_gold0', 'gold_chair', 0, 6, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(710, 'cafe_gold0', 'gold_table_small2', 1, 6, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(711, 'cafe_gold0', 'gold_chair', 2, 6, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(712, 'cafe_gold0', 'gold_chair', 5, 6, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(713, 'cafe_gold0', 'gold_table_small1', 6, 6, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(714, 'cafe_gold0', 'gold_chair', 7, 6, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(715, 'cafe_gold0', 'gold_chair', 5, 7, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(716, 'cafe_gold0', 'gold_table_small2', 6, 7, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(717, 'cafe_gold0', 'gold_chair', 7, 7, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(718, 'cafe_gold0', 'gold_chair', 0, 8, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(719, 'cafe_gold0', 'gold_table_small1', 1, 8, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(720, 'cafe_gold0', 'gold_chair', 2, 8, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(721, 'cafe_gold0', 'gold_chair', 19, 8, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(722, 'cafe_gold0', 'gold_chair', 20, 8, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(723, 'cafe_gold0', 'gold_chair', 0, 9, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(724, 'cafe_gold0', 'gold_table_small2', 1, 9, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(725, 'cafe_gold0', 'gold_chair', 2, 9, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(726, 'cafe_gold0', 'gold_chair', 14, 9, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(727, 'cafe_gold0', 'gold_chair', 15, 9, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(728, 'cafe_gold0', 'gold_table_small1', 19, 10, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(729, 'cafe_gold0', 'gold_table_small2', 20, 10, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(730, 'cafe_gold0', 'gold_table_small1', 14, 11, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(731, 'cafe_gold0', 'gold_table_small2', 15, 11, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(732, 'cafe_gold0', 'gold_plant', 0, 12, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(733, 'cafe_gold0', 'gold_chair', 1, 12, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(734, 'cafe_gold0', 'gold_chair', 2, 12, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(735, 'cafe_gold0', 'gold_chair', 3, 12, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(736, 'cafe_gold0', 'gold_chair', 19, 12, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(737, 'cafe_gold0', 'gold_chair', 20, 12, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(738, 'cafe_gold0', 'gold_plant', 0, 13, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(739, 'cafe_gold0', 'gold_chair', 1, 13, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(740, 'cafe_gold0', 'gold_chair', 2, 13, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(741, 'cafe_gold0', 'gold_chair', 3, 13, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(742, 'cafe_gold0', 'gold_chair', 14, 13, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(743, 'cafe_gold0', 'gold_chair', 15, 13, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(744, 'cafe_gold0', 'gold_chair', 0, 14, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(745, 'cafe_gold0', 'gold_chair', 14, 14, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(746, 'cafe_gold0', 'gold_chair', 15, 14, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(747, 'cafe_gold0', 'gold_chair', 0, 15, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(748, 'cafe_gold0', 'gold_table_small1', 2, 15, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(749, 'cafe_gold0', 'gold_table_small2', 3, 15, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(750, 'cafe_gold0', 'gold_chair', 0, 16, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(751, 'cafe_gold0', 'gold_table_small1', 14, 16, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(752, 'cafe_gold0', 'gold_table_small2', 15, 16, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(753, 'cafe_gold0', 'gold_plant', 0, 17, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(754, 'cafe_gold0', 'gold_chair', 1, 17, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(755, 'cafe_gold0', 'gold_chair', 2, 17, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(756, 'cafe_gold0', 'gold_chair', 3, 17, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(757, 'cafe_gold0', 'gold_plant', 0, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(758, 'cafe_gold0', 'gold_chair', 1, 18, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(759, 'cafe_gold0', 'gold_chair', 2, 18, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(760, 'cafe_gold0', 'gold_chair', 3, 18, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(761, 'cafe_gold0', 'gold_chair', 14, 18, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(762, 'cafe_gold0', 'gold_chair', 15, 18, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(763, 'cafe_gold0', 'gold_chair', 0, 19, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(764, 'cafe_gold0', 'gold_chair', 0, 20, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(765, 'cafe_gold0', 'gold_table_small1', 2, 20, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(766, 'cafe_gold0', 'gold_table_small2', 3, 20, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(767, 'cafe_gold0', 'gold_chair', 0, 21, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(768, 'cafe_gold0', 'gold_plant', 0, 22, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(769, 'cafe_gold0', 'gold_chair', 1, 22, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(770, 'cafe_gold0', 'gold_chair', 2, 22, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(771, 'cafe_gold0', 'gold_chair', 3, 22, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(772, 'cafe_gold0', 'gold_plant', 0, 23, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(773, 'cafe_gold0', 'gold_chair', 1, 23, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(774, 'cafe_gold0', 'gold_chair', 2, 23, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(775, 'cafe_gold0', 'gold_chair', 3, 23, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(776, 'cafe_gold0', 'gold_chair', 0, 24, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(777, 'cafe_gold0', 'gold_chair', 0, 25, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(778, 'cafe_gold0', 'gold_table_small1', 2, 25, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(779, 'cafe_gold0', 'gold_table_small2', 3, 25, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(780, 'cafe_gold0', 'gold_chair', 0, 26, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(781, 'cafe_gold0', 'gold_chair', 1, 27, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(782, 'cafe_gold0', 'gold_chair', 2, 27, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(783, 'cafe_gold0', 'gold_chair', 3, 27, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(784, 'gate_park', 'gate_drumchair', 11, 15, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(785, 'gate_park', 'gate_drumchair', 12, 14, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(786, 'gate_park', 'gate_drumchair', 12, 16, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(787, 'gate_park', 'gate_drumchair', 16, 15, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(788, 'gate_park', 'gate_drumchair', 17, 14, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(789, 'gate_park', 'gate_drumchair', 17, 16, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(790, 'gate_park', 'gate_drumchair', 18, 15, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(791, 'gate_park', 'gate_drumchair', 21, 15, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(792, 'gate_park', 'gate_drumchair', 22, 14, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(793, 'gate_park', 'gate_drumchair', 22, 16, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(794, 'gate_park', 'gate_drumchair', 23, 15, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(795, 'gate_park', 'gate_drumchair', 29, 13, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(796, 'gate_park', 'gate_drumchair', 29, 17, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(797, 'gate_park', 'gate_drumchair', 30, 13, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(798, 'gate_park', 'gate_drumchair', 30, 17, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(799, 'gate_park', 'gate_lantern', 26, 15, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(800, 'gate_park', 'gate_lantern', 8, 15, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(801, 'gate_park', 'gate_rockchair1', 10, 18, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(802, 'gate_park', 'gate_rockchair1', 10, 21, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(803, 'gate_park', 'gate_rockchair1', 14, 18, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(804, 'gate_park', 'gate_rockchair1', 20, 21, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(805, 'gate_park', 'gate_rockchair1', 23, 18, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(806, 'gate_park', 'gate_rockchair2', 10, 19, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(807, 'gate_park', 'gate_rockchair2', 14, 20, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(808, 'gate_park', 'gate_rockchair2', 20, 19, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(809, 'gate_park', 'gate_rockchair2', 22, 18, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(810, 'gate_park', 'gate_rockchair3', 10, 20, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(811, 'gate_park', 'gate_rockchair3', 14, 19, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(812, 'gate_park', 'gate_rockchair3', 20, 20, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(813, 'gate_park', 'gate_rockchair3', 21, 18, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(814, 'gate_park', 'gate_table', 12, 15, 0, 0, 1, 1, 1, 'solid', '', NULL, NULL),
-	(815, 'gate_park', 'gate_table', 17, 15, 0, 0, 1, 1, 1, 'solid', '', NULL, NULL),
-	(816, 'gate_park', 'gate_table', 22, 15, 0, 0, 1, 1, 1, 'solid', '', NULL, NULL),
-	(817, 'gate_park', 'gate_table1', 15, 5, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(818, 'gate_park', 'gate_table1', 19, 5, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(819, 'gate_park', 'gate_table1', 2, 10, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(820, 'gate_park', 'gate_table1', 2, 11, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(821, 'gate_park', 'gate_table1', 2, 14, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(822, 'gate_park', 'gate_table1', 2, 7, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(823, 'gate_park', 'gate_table2', 15, 6, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(824, 'gate_park', 'gate_table2', 19, 6, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(825, 'gate_park', 'gate_table2', 3, 10, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(826, 'gate_park', 'gate_table2', 3, 11, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(827, 'gate_park', 'gate_table2', 3, 14, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(828, 'gate_park', 'gate_table2', 3, 7, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(829, 'gate_park', 'gate_table3', 15, 7, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(830, 'gate_park', 'gate_table3', 19, 7, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(831, 'gate_park', 'gate_table3', 4, 10, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(832, 'gate_park', 'gate_table3', 4, 11, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(833, 'gate_park', 'gate_table3', 4, 14, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(834, 'gate_park', 'gate_table3', 4, 7, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(835, 'gate_park', 'gate_talltree', 10, 22, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(836, 'gate_park', 'gate_talltree', 10, 23, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(837, 'gate_park', 'gate_trashcan', 20, 18, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(838, 'gate_park_2', 'gate_table1', 12, 0, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(839, 'gate_park_2', 'gate_table2', 13, 0, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(840, 'gate_park_2', 'gate_table3', 14, 0, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(841, 'gate_park_2', 'gate_table1', 16, 0, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(842, 'gate_park_2', 'gate_table3', 17, 0, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(843, 'gate_park_2', 'gate_table1', 19, 0, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(844, 'gate_park_2', 'gate_table2', 20, 0, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(845, 'gate_park_2', 'gate_table3', 21, 0, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(846, 'gate_park_2', 'gate_talltree', 9, 7, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(847, 'gate_park_2', 'gate_drumchair', 14, 8, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(848, 'gate_park_2', 'gate_drumchair', 19, 8, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(849, 'gate_park_2', 'gate_talltree', 9, 9, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(850, 'gate_park_2', 'gate_drumchair', 13, 9, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(851, 'gate_park_2', 'gate_table', 14, 9, 0, 0, 1, 1, 1, 'solid', '', NULL, NULL),
-	(852, 'gate_park_2', 'gate_drumchair', 15, 9, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(853, 'gate_park_2', 'gate_drumchair', 18, 9, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(854, 'gate_park_2', 'gate_table', 19, 9, 0, 0, 1, 1, 1, 'solid', '', NULL, NULL),
-	(855, 'gate_park_2', 'gate_drumchair', 20, 9, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(856, 'gate_park_2', 'gate_talltree', 6, 10, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(857, 'gate_park_2', 'gate_talltree', 8, 10, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(858, 'gate_park_2', 'gate_drumchair', 14, 10, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(859, 'gate_park_2', 'gate_drumchair', 19, 10, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(860, 'gate_park_2', 'gate_rockchair3', 6, 11, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(861, 'gate_park_2', 'gate_rockchair2', 8, 11, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(862, 'gate_park_2', 'gate_drumchair', 1, 12, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(863, 'gate_park_2', 'gate_drumchair', 2, 12, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(864, 'gate_park_2', 'gate_rockchair1', 6, 12, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(865, 'gate_park_2', 'gate_talltree', 27, 12, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(866, 'gate_park_2', 'gate_talltree', 30, 12, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(867, 'gate_park_2', 'gate_drumchair', 1, 14, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(868, 'gate_park_2', 'gate_drumchair', 2, 14, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(869, 'gate_park_2', 'gate_rockchair1', 6, 15, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(870, 'gate_park_2', 'gate_trashcan', 27, 15, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(871, 'gate_park_2', 'gate_rockchair2', 6, 16, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(872, 'gate_park_2', 'gate_rockchair3', 8, 16, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(873, 'gate_park_2', 'gate_table1', 31, 16, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(874, 'gate_park_2', 'gate_table3', 32, 16, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(875, 'gate_park_2', 'gate_drumchair', 14, 17, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(876, 'gate_park_2', 'gate_drumchair', 19, 17, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(877, 'gate_park_2', 'gate_drumchair', 13, 18, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(878, 'gate_park_2', 'gate_table', 14, 18, 0, 0, 1, 1, 1, 'solid', '', NULL, NULL),
-	(879, 'gate_park_2', 'gate_drumchair', 15, 18, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(880, 'gate_park_2', 'gate_drumchair', 18, 18, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(881, 'gate_park_2', 'gate_table', 19, 18, 0, 0, 1, 1, 1, 'solid', '', NULL, NULL),
-	(882, 'gate_park_2', 'gate_drumchair', 20, 18, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(883, 'gate_park_2', 'gate_drumchair', 14, 19, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(884, 'gate_park_2', 'gate_drumchair', 19, 19, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(885, 'gate_park_2', 'gate_table1', 31, 19, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(886, 'gate_park_2', 'gate_table3', 32, 19, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(887, 'gate_park_2', 'gate_lantern', 29, 22, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(888, 'gate_park_2', 'gate_trashcan', 8, 23, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(889, 'gate_park_2', 'gate_table1', 23, 24, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(890, 'gate_park_2', 'gate_table1', 26, 24, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(891, 'gate_park_2', 'gate_table3', 23, 25, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(892, 'gate_park_2', 'gate_table3', 26, 25, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(893, 'sun_terrace', 'sun_chair', 16, 11, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(894, 'sun_terrace', 'sun_chair', 20, 11, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(895, 'sun_terrace', 'sun_chair', 16, 12, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(896, 'sun_terrace', 'sun_chair', 20, 12, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(897, 'sun_terrace', 'blusun_chair', 10, 13, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(898, 'sun_terrace', 'sun_chair', 16, 13, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(899, 'sun_terrace', 'sun_chair', 20, 13, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(900, 'sun_terrace', 'sun_table', 10, 14, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(901, 'sun_terrace', 'sun_chair', 20, 14, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(902, 'sun_terrace', 'blusun_chair', 10, 15, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(903, 'sun_terrace', 'sun_chair', 1, 18, 8, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(904, 'sun_terrace', 'sun_chair', 4, 18, 6, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(905, 'sun_terrace', 'blusun_chair', 11, 18, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(906, 'sun_terrace', 'blusun_chair', 10, 19, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(907, 'sun_terrace', 'sun_table', 11, 19, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(908, 'sun_terrace', 'blusun_chair', 12, 19, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(909, 'sun_terrace', 'sun_chair', 18, 19, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(910, 'sun_terrace', 'sun_chair', 22, 19, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(911, 'sun_terrace', 'blusun_chair', 11, 20, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(912, 'sun_terrace', 'sun_chair', 18, 20, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(913, 'sun_terrace', 'sun_chair', 22, 20, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(914, 'sun_terrace', 'sun_chair', 4, 21, 6, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(915, 'sun_terrace', 'sun_chair', 6, 21, 4, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(916, 'sun_terrace', 'sun_chair', 18, 21, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(917, 'sun_terrace', 'sun_chair', 22, 21, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(918, 'sun_terrace', 'blusun_chair', 2, 22, 9, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(919, 'sun_terrace', 'sun_chair', 22, 22, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(920, 'sun_terrace', 'blusun_chair', 1, 23, 9, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(921, 'sun_terrace', 'sun_table2', 2, 23, 9, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(922, 'sun_terrace', 'blusun_chair', 2, 24, 9, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(923, 'sun_terrace', 'sun_chair', 11, 25, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(924, 'sun_terrace', 'sun_chair', 12, 25, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(925, 'sun_terrace', 'sun_chair', 13, 25, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(926, 'sun_terrace', 'sun_table', 14, 25, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(927, 'sun_terrace', 'sun_chair', 15, 25, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(928, 'sun_terrace', 'sun_chair', 16, 25, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(929, 'sun_terrace', 'sun_chair', 17, 25, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(930, 'sun_terrace', 'sun_chair', 13, 29, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(931, 'sun_terrace', 'sun_chair', 15, 29, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(932, 'sun_terrace', 'sun_chair', 17, 29, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(933, 'sun_terrace', 'sun_chair', 13, 30, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(934, 'sun_terrace', 'sun_chair', 15, 30, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(935, 'sun_terrace', 'sun_chair', 17, 30, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(936, 'space_cafe', 'bigtablea', 1, 10, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(937, 'space_cafe', 'bigtablea', 7, 10, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(938, 'space_cafe', 'bigtableb', 0, 10, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(939, 'space_cafe', 'bigtableb', 6, 10, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(940, 'space_cafe', 'bigtablec', 1, 9, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(941, 'space_cafe', 'bigtablec', 7, 9, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(942, 'space_cafe', 'bigtabled', 0, 9, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(943, 'space_cafe', 'bigtabled', 6, 9, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(944, 'space_cafe', 'bluesofaa', 1, 11, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(945, 'space_cafe', 'bluesofaa', 1, 8, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(946, 'space_cafe', 'bluesofaa', 14, 22, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(947, 'space_cafe', 'bluesofaa', 14, 24, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(948, 'space_cafe', 'bluesofaa', 2, 10, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(949, 'space_cafe', 'bluesofab', 0, 11, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(950, 'space_cafe', 'bluesofab', 0, 8, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(951, 'space_cafe', 'bluesofab', 13, 22, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(952, 'space_cafe', 'bluesofab', 13, 24, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(953, 'space_cafe', 'bluesofab', 2, 9, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(954, 'space_cafe', 'midtablea', 14, 23, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(955, 'space_cafe', 'midtablea', 19, 14, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(956, 'space_cafe', 'midtableb', 13, 23, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(957, 'space_cafe', 'midtableb', 19, 13, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(958, 'space_cafe', 'redsofaa', 10, 22, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(959, 'space_cafe', 'redsofaa', 10, 25, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(960, 'space_cafe', 'redsofaa', 18, 14, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(961, 'space_cafe', 'redsofaa', 20, 14, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(962, 'space_cafe', 'redsofaa', 5, 10, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(963, 'space_cafe', 'redsofaa', 7, 11, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(964, 'space_cafe', 'redsofaa', 7, 8, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(965, 'space_cafe', 'redsofab', 10, 21, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(966, 'space_cafe', 'redsofab', 10, 24, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(967, 'space_cafe', 'redsofab', 18, 13, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(968, 'space_cafe', 'redsofab', 20, 13, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(969, 'space_cafe', 'redsofab', 5, 9, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(970, 'space_cafe', 'redsofab', 6, 11, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(971, 'space_cafe', 'redsofab', 6, 8, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(972, 'space_cafe', 'smalltable', 10, 23, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(973, 'space_cafe', 'smalltable', 17, 6, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(974, 'space_cafe', 'smalltable', 19, 2, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(975, 'space_cafe', 'smalltable', 21, 6, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(976, 'space_cafe', 'smalltable', 23, 2, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(977, 'space_cafe', 'smalltable', 3, 16, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(978, 'space_cafe', 'space_stool', 19, 1, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(979, 'space_cafe', 'space_stool', 17, 5, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(980, 'space_cafe', 'space_stool', 17, 7, 3, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(981, 'space_cafe', 'space_stool', 18, 2, 3, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(982, 'space_cafe', 'space_stool', 18, 6, 3, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(983, 'space_cafe', 'space_stool', 19, 3, 3, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(984, 'space_cafe', 'space_stool', 20, 2, 3, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(985, 'space_cafe', 'space_stool', 20, 6, 3, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(986, 'space_cafe', 'space_stool', 21, 5, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(987, 'space_cafe', 'space_stool', 21, 7, 3, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(988, 'space_cafe', 'space_stool', 22, 2, 3, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(989, 'space_cafe', 'space_stool', 22, 6, 3, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(990, 'space_cafe', 'space_stool', 23, 1, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(991, 'space_cafe', 'space_stool', 23, 3, 3, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(992, 'space_cafe', 'space_stool', 3, 15, 3, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(993, 'space_cafe', 'space_stool', 3, 17, 3, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(994, 'beauty_salon0', 'directorchair', 16, 13, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(995, 'beauty_salon0', 'directorchair', 16, 14, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(996, 'beauty_salon0', 'directorchair', 18, 13, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(997, 'beauty_salon0', 'directorchair', 9, 13, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(998, 'beauty_salon0', 'longchair1', 12, 17, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(999, 'beauty_salon0', 'longchair1', 13, 16, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1000, 'beauty_salon0', 'longchair1', 13, 21, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1001, 'beauty_salon0', 'longchair1', 17, 17, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1002, 'beauty_salon0', 'longchair2', 12, 18, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1003, 'beauty_salon0', 'longchair2', 12, 19, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1004, 'beauty_salon0', 'longchair2', 14, 16, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1005, 'beauty_salon0', 'longchair2', 14, 21, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1006, 'beauty_salon0', 'longchair2', 15, 16, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1007, 'beauty_salon0', 'longchair2', 15, 21, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1008, 'beauty_salon0', 'longchair2', 17, 18, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1009, 'beauty_salon0', 'longchair2', 17, 19, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1010, 'beauty_salon0', 'longchair3', 12, 20, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1011, 'beauty_salon0', 'longchair3', 16, 16, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1012, 'beauty_salon0', 'longchair3', 16, 21, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1013, 'beauty_salon0', 'longchair3', 17, 20, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1014, 'beauty_salon0', 'pinkchair', 11, 6, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1015, 'beauty_salon0', 'pinkchair', 11, 7, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1016, 'beauty_salon0', 'pinkchair', 3, 8, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1017, 'beauty_salon0', 'pinkchair', 4, 11, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1018, 'beauty_salon0', 'pinkchair', 6, 10, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1019, 'beauty_salon0', 'pinkchair', 7, 10, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1020, 'beauty_salon0', 'pinkchair', 8, 10, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1021, 'beauty_salon0', 'table2', 2, 17, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1022, 'beauty_salon0', 'table2', 2, 18, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1023, 'beauty_salon0', 'table2', 2, 19, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1024, 'beauty_salon0', 'table2', 2, 20, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1025, 'beauty_salon0', 'table2', 8, 18, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1026, 'beauty_salon0', 'table2', 8, 19, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1027, 'beauty_salon0', 'table2', 8, 20, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1028, 'beauty_salon0', 'table2', 8, 21, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1029, 'chill', 'jap_chair', 3, 24, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1030, 'chill', 'jap_chair', 3, 26, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1031, 'chill', 'jap_chair', 3, 29, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1032, 'chill', 'jap_chair', 4, 20, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1033, 'chill', 'jap_chair', 4, 21, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1034, 'chill', 'jap_chair', 4, 24, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1035, 'chill', 'jap_chair', 4, 26, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1036, 'chill', 'jap_chair', 4, 29, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1037, 'chill', 'jap_chair', 5, 24, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1038, 'chill', 'jap_chair', 5, 26, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1039, 'chill', 'jap_chair', 5, 30, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1040, 'chill', 'jap_chair', 6, 20, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1041, 'chill', 'jap_chair', 6, 21, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1042, 'chill', 'jap_stool', 13, 19, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1043, 'chill', 'jap_stool', 16, 24, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1044, 'chill', 'jap_stool', 16, 25, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1045, 'chill', 'jap_stool', 16, 26, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1046, 'chill', 'jap_table', 3, 25, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1047, 'chill', 'jap_table', 3, 30, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1048, 'chill', 'jap_table', 5, 20, 0, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1049, 'chill', 'jap_table2', 4, 25, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1050, 'chill', 'jap_table3', 4, 30, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1051, 'chill', 'jap_table3', 5, 21, 0, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1052, 'chill', 'jap_table3', 5, 25, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1053, 'chill', 'stone', 11, 3, 0, 4, 2, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1054, 'chill', 'stone', 13, 10, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1055, 'chill', 'stone', 13, 7, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1056, 'chill', 'stone', 13, 8, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1057, 'chill', 'stone', 14, 13, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1058, 'chill', 'stone', 15, 14, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1059, 'chill', 'stone', 17, 15, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1060, 'chill', 'stone', 8, 8, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1061, 'chill', 'stone', 9, 7, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1062, 'dusty_lounge', 'dustylamp', 11, 14, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1063, 'dusty_lounge', 'dustylamp', 11, 19, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1064, 'dusty_lounge', 'dustylamp', 20, 6, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1065, 'dusty_lounge', 'dustylamp', 24, 17, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1066, 'dusty_lounge', 'dustylamp', 28, 6, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1067, 'dusty_lounge', 'greenchair1', 11, 13, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1068, 'dusty_lounge', 'greenchair1', 11, 16, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1069, 'dusty_lounge', 'greenchair1', 12, 24, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1070, 'dusty_lounge', 'greenchair1', 14, 24, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1071, 'dusty_lounge', 'greenchair1', 4, 13, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1072, 'dusty_lounge', 'greenchair1', 4, 15, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1073, 'dusty_lounge', 'greenchair1', 4, 7, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1074, 'dusty_lounge', 'greenchair1', 4, 9, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1075, 'dusty_lounge', 'greenchair1', 9, 4, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1076, 'dusty_lounge', 'greenchair1', 9, 6, 3, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1077, 'dusty_lounge', 'greenchair2', 11, 12, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1078, 'dusty_lounge', 'greenchair2', 11, 15, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1079, 'dusty_lounge', 'greenchair2', 12, 23, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1080, 'dusty_lounge', 'greenchair2', 14, 23, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1081, 'dusty_lounge', 'greenchair2', 3, 13, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1082, 'dusty_lounge', 'greenchair2', 3, 15, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1083, 'dusty_lounge', 'greenchair2', 3, 7, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1084, 'dusty_lounge', 'greenchair2', 3, 9, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1085, 'dusty_lounge', 'greenchair2', 8, 4, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1086, 'dusty_lounge', 'greenchair2', 8, 6, 3, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1087, 'dusty_lounge', 'yellowchair', 21, 10, 3, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1088, 'dusty_lounge', 'yellowchair', 22, 17, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1089, 'dusty_lounge', 'yellowchair', 23, 10, 3, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1090, 'dusty_lounge', 'yellowchair', 24, 15, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1091, 'dusty_lounge', 'yellowchair', 24, 19, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1092, 'dusty_lounge', 'yellowchair', 26, 10, 3, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1093, 'dusty_lounge', 'yellowchair', 26, 17, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1094, 'dusty_lounge', 'yellowchair', 28, 10, 3, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1095, 'cr_staff', 'crs_lamptable', 7, 0, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1096, 'cr_staff', 'tvtable', 14, 1, 0, 2, 0.001, 1, 2, 'solid', '', NULL, NULL),
-	(1097, 'cr_staff', 'crs_trash', 0, 2, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1098, 'cr_staff', 'crs_sofag_start', 2, 2, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1099, 'cr_staff', 'crs_sofag_mid', 3, 2, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1100, 'cr_staff', 'crs_sofag_mid', 4, 2, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1101, 'cr_staff', 'crs_sofag_end', 5, 2, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1102, 'cr_staff', 'crs_roundwoodtable', 12, 4, 0, 2, 0.001, 2, 2, 'extra_parameter', '', NULL, NULL),
-	(1103, 'cr_staff', 'crs_woodchair', 15, 4, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1104, 'cr_staff', 'crs_woodchair', 10, 5, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1105, 'cr_staff', 'crs_woodchair', 15, 6, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1106, 'cr_staff', 'crs_woodchair', 7, 7, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1107, 'cr_staff', 'crs_woodchair', 13, 8, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1108, 'cr_staff', 'crs_woodchair', 15, 8, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1109, 'cr_staff', 'crs_woodchair', 5, 9, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1110, 'cr_staff', 'crs_fridge', 0, 10, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1111, 'cr_staff', 'ctable2', 7, 10, 0, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1112, 'cr_staff', 'crs_woodtable_end', 13, 10, 0, 0, 0.001, 1, 2, 'extra_parameter', '', NULL, NULL),
-	(1113, 'cr_staff', 'crs_woodtable_start', 14, 10, 0, 0, 0.001, 2, 2, 'extra_parameter', '', NULL, NULL),
-	(1114, 'cr_staff', 'crs_woodchair', 5, 11, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1115, 'cr_staff', 'crs_box', 1, 12, 0, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1116, 'cr_staff', 'crs_box', 1, 13, 0, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1117, 'cr_staff', 'ctable1', 7, 13, 0, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1118, 'cr_staff', 'crs_woodchair', 13, 13, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1119, 'cr_staff', 'crs_woodchair', 15, 13, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1120, 'cr_staff', 'crs_box', 1, 15, 0, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1121, 'cr_staff', 'crs_boxopen', 1, 17, 0, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1122, 'cr_staff', 'crs_stomp', 15, 17, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1123, 'cr_staff', 'crs_box', 1, 18, 0, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1124, 'cr_staff', 'crs_stomp', 15, 18, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1125, 'cr_staff', 'crs_boxtwo', 1, 19, 0, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1126, 'rooftop', 'rooftop_emptytable', 0, 10, 4, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1127, 'rooftop', 'rooftop_flatcurb', 1, 13, 4, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1128, 'rooftop', 'rooftop_flatcurb', 13, 13, 4, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1129, 'rooftop', 'rooftop_flatcurb', 16, 1, 4, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1130, 'rooftop', 'rooftop_flatcurb', 16, 4, 4, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1131, 'rooftop', 'rooftop_flatcurb', 6, 13, 4, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1132, 'rooftop', 'rooftop_flatcurb', 8, 13, 4, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1133, 'rooftop', 'rooftop_flatcurb2', 17, 1, 4, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1134, 'rooftop', 'rooftop_flatcurb2', 17, 4, 4, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1135, 'rooftop', 'rooftop_flatcurb3', 1, 14, 4, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1136, 'rooftop', 'rooftop_flatcurb3', 1, 15, 4, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1137, 'rooftop', 'rooftop_flatcurb3', 1, 16, 4, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1138, 'rooftop', 'rooftop_flatcurb3', 10, 17, 4, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1139, 'rooftop', 'rooftop_flatcurb3', 11, 17, 4, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1140, 'rooftop', 'rooftop_flatcurb3', 12, 17, 4, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1141, 'rooftop', 'rooftop_flatcurb3', 13, 14, 4, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1142, 'rooftop', 'rooftop_flatcurb3', 13, 15, 4, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1143, 'rooftop', 'rooftop_flatcurb3', 13, 16, 4, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1144, 'rooftop', 'rooftop_flatcurb3', 2, 17, 4, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1145, 'rooftop', 'rooftop_flatcurb3', 3, 17, 4, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1146, 'rooftop', 'rooftop_flatcurb3', 4, 17, 4, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1147, 'rooftop', 'rooftop_flatcurb3', 5, 17, 4, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1148, 'rooftop', 'rooftop_flatcurb3', 6, 14, 4, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1149, 'rooftop', 'rooftop_flatcurb3', 6, 15, 4, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1150, 'rooftop', 'rooftop_flatcurb3', 6, 16, 4, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1151, 'rooftop', 'rooftop_flatcurb3', 8, 14, 4, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1152, 'rooftop', 'rooftop_flatcurb3', 8, 15, 4, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1153, 'rooftop', 'rooftop_flatcurb3', 8, 16, 4, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1154, 'rooftop', 'rooftop_flatcurb3', 9, 17, 4, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1155, 'rooftop', 'rooftop_flatcurb4', 1, 17, 4, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1156, 'rooftop', 'rooftop_flatcurb4', 8, 17, 4, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1157, 'rooftop', 'rooftop_flatcurb5', 13, 17, 4, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1158, 'rooftop', 'rooftop_flatcurb5', 6, 17, 4, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1159, 'rooftop', 'rooftop_minichair', 0, 1, 4, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1160, 'rooftop', 'rooftop_minichair', 0, 11, 4, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1161, 'rooftop', 'rooftop_minichair', 0, 3, 4, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1162, 'rooftop', 'rooftop_minichair', 0, 9, 4, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1163, 'rooftop', 'rooftop_minichair', 1, 2, 4, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1164, 'rooftop', 'rooftop_minichair', 1, 7, 4, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1165, 'rooftop', 'rooftop_minichair', 2, 6, 4, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1166, 'rooftop', 'rooftop_minichair', 2, 8, 4, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1167, 'rooftop', 'rooftop_minichair', 3, 7, 4, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1168, 'rooftop', 'rooftop_rodtable', 0, 2, 4, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1169, 'rooftop', 'rooftop_rodtable', 2, 7, 4, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1170, 'rooftop_2', 'rooftop_bigchair', 8, 0, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1171, 'rooftop_2', 'rooftop_bigtable', 8, 1, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1172, 'rooftop_2', 'rooftop_sofab', 0, 2, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1173, 'rooftop_2', 'rooftop_sofa', 1, 2, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1174, 'rooftop_2', 'rooftop_bigchair', 8, 2, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1175, 'rooftop_2', 'rooftop_bigchair', 8, 3, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1176, 'rooftop_2', 'rooftop_bigtable', 8, 4, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1177, 'rooftop_2', 'rooftop_sofab', 0, 5, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1178, 'rooftop_2', 'rooftop_sofa', 1, 5, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1179, 'rooftop_2', 'rooftop_bigchair', 8, 5, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1180, 'rooftop_2', 'rooftop_sofab', 0, 6, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1181, 'rooftop_2', 'rooftop_sofa', 1, 6, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1182, 'rooftop_2', 'rooftop_sofab', 7, 6, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1183, 'rooftop_2', 'rooftop_sofa', 8, 6, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1184, 'rooftop_2', 'rooftop_sofab', 0, 9, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1185, 'rooftop_2', 'rooftop_sofa', 1, 9, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1186, 'rooftop_2', 'rooftop_sofab', 7, 9, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1187, 'rooftop_2', 'rooftop_sofa', 8, 9, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1188, 'tearoom', 'chinastoolgreen', 0, 19, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1189, 'tearoom', 'chinastoolgreen', 0, 20, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1190, 'tearoom', 'chinastoolred', 10, 6, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1191, 'tearoom', 'chinastoolred', 11, 6, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1192, 'tearoom', 'chinastoolred', 8, 6, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1193, 'tearoom', 'chinastoolred', 9, 6, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1194, 'tearoom', 'hardwoodsofa1', 13, 1, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1195, 'tearoom', 'hardwoodsofa1', 18, 1, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1196, 'tearoom', 'hardwoodsofa2', 14, 1, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1197, 'tearoom', 'hardwoodsofa2', 19, 1, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1198, 'tearoom', 'hardwoodsofa3', 15, 1, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1199, 'tearoom', 'hardwoodsofa3', 20, 1, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1200, 'tearoom', 'teabamboo', 16, 1, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1201, 'tearoom', 'teasmalltable1', 13, 3, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1202, 'tearoom', 'teasmalltable1', 18, 3, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1203, 'tearoom', 'teasmalltable2', 15, 3, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1204, 'tearoom', 'teasmalltable2', 20, 3, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1205, 'tearoom', 'teastool', 16, 9, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1206, 'tearoom', 'teastool', 17, 9, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1207, 'tearoom', 'teastool', 2, 12, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1208, 'tearoom', 'teastool', 2, 6, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1209, 'tearoom', 'teastool', 3, 12, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1210, 'tearoom', 'teastool', 3, 6, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1211, 'tearoom', 'teastool2', 16, 12, 3, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1212, 'tearoom', 'teastool2', 17, 12, 3, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1213, 'tearoom', 'teastool2', 2, 15, 3, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1214, 'tearoom', 'teastool2', 2, 9, 3, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1215, 'tearoom', 'teastool2', 3, 15, 3, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1216, 'tearoom', 'teastool2', 3, 9, 3, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1217, 'tearoom', 'teatable1', 16, 11, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1218, 'tearoom', 'teatable1', 2, 14, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1219, 'tearoom', 'teatable1', 2, 8, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1220, 'tearoom', 'teatable2', 17, 11, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1221, 'tearoom', 'teatable2', 3, 14, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1222, 'tearoom', 'teatable2', 3, 8, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1223, 'tearoom', 'teavase', 0, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1224, 'tearoom', 'teavase', 0, 21, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1225, 'cafe_ole', 'cafe_table_largeb', 15, 0, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1226, 'cafe_ole', 'cafe_chair', 14, 1, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1227, 'cafe_ole', 'cafe_chair', 17, 1, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1228, 'cafe_ole', 'cafe_chair', 14, 2, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1229, 'cafe_ole', 'cafe_table_largea', 15, 2, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1230, 'cafe_ole', 'cafe_chair', 17, 2, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1231, 'cafe_ole', 'plant_yucca', 13, 4, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1232, 'cafe_ole', 'cafe_desk5', 4, 5, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1233, 'cafe_ole', 'plant_ftree', 5, 5, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1234, 'cafe_ole', 'cafe_chair', 8, 5, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1235, 'cafe_ole', 'cafe_chair', 11, 5, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1236, 'cafe_ole', 'cafe_desk4', 4, 6, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1237, 'cafe_ole', 'cafe_barchair', 5, 6, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1238, 'cafe_ole', 'cafe_chair', 8, 6, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1239, 'cafe_ole', 'cafe_table_mid', 10, 6, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1240, 'cafe_ole', 'cafe_chair', 11, 6, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1241, 'cafe_ole', 'cafe_desk4', 4, 7, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1242, 'cafe_ole', 'cafe_barchair', 5, 7, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1243, 'cafe_ole', 'cafe_desk4', 4, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1244, 'cafe_ole', 'cafe_desk4', 4, 9, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1245, 'cafe_ole', 'cafe_desk4', 4, 10, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1246, 'cafe_ole', 'cafe_chair', 12, 10, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1247, 'cafe_ole', 'cafe_table_small', 13, 10, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1248, 'cafe_ole', 'cafe_chair', 14, 10, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1249, 'cafe_ole', 'roommatic', 0, 11, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1250, 'cafe_ole', 'roommatic', 1, 11, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1251, 'cafe_ole', 'roommatic', 2, 11, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1252, 'cafe_ole', 'cafe_desk1', 3, 11, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1253, 'cafe_ole', 'cafe_desk3', 4, 11, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1254, 'cafe_ole', 'cafe_fence4', 9, 11, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1255, 'cafe_ole', 'cafe_fence3', 10, 11, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1256, 'cafe_ole', 'cafe_fence2', 11, 11, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1257, 'cafe_ole', 'cafe_fence3', 12, 11, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1258, 'cafe_ole', 'cafe_fence2', 13, 11, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1259, 'cafe_ole', 'cafe_fence3', 14, 11, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1260, 'cafe_ole', 'cafe_fence1', 15, 11, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1261, 'cafe_ole', 'cafe_barchair', 0, 12, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1262, 'cafe_ole', 'cafe_barchair', 1, 12, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1263, 'cafe_ole', 'cafe_barchair', 2, 12, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1264, 'cafe_ole', 'cafe_chair', 8, 12, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1265, 'cafe_ole', 'cafe_fence3', 9, 12, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1266, 'cafe_ole', 'plant_yucca', 10, 12, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1267, 'cafe_ole', 'cafe_table_small', 8, 13, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1268, 'cafe_ole', 'cafe_fence2', 9, 13, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1269, 'cafe_ole', 'cafe_chair', 8, 14, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1270, 'cafe_ole', 'cafe_fence3', 9, 14, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1271, 'cafe_ole', 'cafe_chair', 12, 14, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1272, 'cafe_ole', 'cafe_pianoc', 0, 15, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1273, 'cafe_ole', 'cafe_fence2', 9, 15, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1274, 'cafe_ole', 'cafe_table_largeb', 12, 15, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1275, 'cafe_ole', 'cafe_pianob', 0, 16, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1276, 'cafe_ole', 'cafe_barchair', 1, 16, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1277, 'cafe_ole', 'cafe_table_largeb', 4, 16, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1278, 'cafe_ole', 'cafe_fence3', 9, 16, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1279, 'cafe_ole', 'cafe_chair', 11, 16, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1280, 'cafe_ole', 'cafe_chair', 14, 16, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1281, 'cafe_ole', 'cafe_pianoa', 0, 17, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1282, 'cafe_ole', 'cafe_chair', 3, 17, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1283, 'cafe_ole', 'cafe_chair', 6, 17, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1284, 'cafe_ole', 'cafe_fence2', 9, 17, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1285, 'cafe_ole', 'cafe_chair', 11, 17, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1286, 'cafe_ole', 'cafe_table_largea', 12, 17, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1287, 'cafe_ole', 'cafe_chair', 14, 17, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1288, 'cafe_ole', 'cafe_chair', 3, 18, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1289, 'cafe_ole', 'cafe_table_largea', 4, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1290, 'cafe_ole', 'cafe_chair', 6, 18, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1291, 'cafe_ole', 'cafe_fence3', 9, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1292, 'cafe_ole', 'plant_ftree', 0, 19, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1293, 'cafe_ole', 'cafe_fence2', 9, 19, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1294, 'cafe_ole', 'cafe_chair', 12, 19, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1295, 'cafe_ole', 'plant_ftree', 0, 20, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1296, 'cafe_ole', 'cafe_chair', 8, 20, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1297, 'cafe_ole', 'cafe_fence3', 9, 20, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1298, 'cafe_ole', 'cafe_table_small', 8, 21, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1299, 'cafe_ole', 'cafe_fence2', 9, 21, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1300, 'cafe_ole', 'cafe_chair', 8, 22, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1301, 'cafe_ole', 'cafe_fence3', 9, 22, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1302, 'cafe_ole', 'cafe_fence2', 9, 23, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1303, 'cafe_ole', 'cafe_chair', 12, 23, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1304, 'cafe_ole', 'cafe_table_small', 13, 23, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1305, 'cafe_ole', 'cafe_chair', 14, 23, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1306, 'cafe_ole', 'cafe_fence1', 9, 24, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1307, 'cr_cafe', 'koc_chair', 11, 6, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1308, 'cr_cafe', 'koc_chair', 12, 2, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1309, 'cr_cafe', 'koc_chair', 13, 15, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1310, 'cr_cafe', 'koc_chair', 8, 6, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1311, 'cr_cafe', 'koc_chair', 12, 5, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1312, 'cr_cafe', 'koc_chair', 17, 5, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1313, 'cr_cafe', 'koc_chair', 18, 6, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1314, 'cr_cafe', 'koc_chair', 13, 6, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1315, 'cr_cafe', 'koc_chair', 14, 2, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1316, 'cr_cafe', 'koc_chair', 14, 16, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1317, 'cr_cafe', 'koc_chair', 9, 16, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1318, 'cr_cafe', 'koc_chair', 9, 7, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1319, 'cr_cafe', 'koc_chair', 9, 1, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1320, 'cr_cafe', 'koc_chair', 13, 3, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1321, 'cr_cafe', 'koc_chair', 17, 7, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1322, 'cr_cafe', 'koc_chair', 12, 7, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1323, 'cr_cafe', 'koc_chair', 13, 17, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1324, 'cr_cafe', 'koc_chair', 8, 17, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1325, 'cr_cafe', 'koc_chair', 8, 8, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1326, 'cr_cafe', 'koc_chair', 8, 2, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1327, 'cr_cafe', 'koc_stool', 7, 10, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1328, 'cr_cafe', 'koc_stool', 7, 11, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1329, 'cr_cafe', 'koc_stool', 7, 13, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1330, 'cr_cafe', 'koc_bartable', 6, 13, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1331, 'cr_cafe', 'koc_bartable', 6, 12, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1332, 'cr_cafe', 'koc_bartable', 6, 11, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1333, 'cr_cafe', 'koc_bartable', 6, 10, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1334, 'cr_cafe', 'koc_bartable', 6, 9, 0, 5, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1335, 'cr_cafe', 'koc_bartable_end', 6, 14, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1336, 'cr_cafe', 'koc_bartable_end', 5, 9, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1337, 'cr_cafe', 'drawer_end', 13, 0, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1338, 'cr_cafe', 'drawer_end', 2, 6, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1339, 'cr_cafe', 'drawer_start', 12, 0, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1340, 'cr_cafe', 'drawer_start', 1, 6, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1341, 'cr_cafe', 'drawer_start', 3, 13, 0, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1342, 'cr_cafe', 'drawer_end', 3, 12, 0, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1343, 'cr_cafe', 'drawer_start', 6, 19, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1344, 'cr_cafe', 'drawer_start', 4, 19, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1345, 'cr_cafe', 'drawer_end', 5, 19, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1346, 'cr_cafe', 'drawer_end', 3, 19, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1347, 'cr_cafe', 'drawer_start', 2, 19, 0, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1348, 'cr_cafe', 'drawer_end', 2, 18, 0, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1349, 'cr_cafe', 'cupboard', 2, 17, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1350, 'cr_cafe', 'cupboard', 2, 16, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1351, 'cr_cafe', 'koc_table', 13, 16, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1352, 'cr_cafe', 'koc_table', 8, 16, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1353, 'cr_cafe', 'koc_table', 8, 7, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1354, 'cr_cafe', 'koc_table', 12, 6, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1355, 'cr_cafe', 'koc_table', 17, 6, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1356, 'cr_cafe', 'koc_table', 13, 2, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1357, 'cr_cafe', 'koc_table', 8, 1, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1358, 'cr_cafe', 'koc_smalltable', 6, 0, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1359, 'cr_cafe', 'koc_table', 3, 0, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1360, 'cr_cafe', 'drawer_start', 2, 4, 0, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1361, 'cr_cafe', 'drawer_end', 2, 3, 0, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1362, 'cr_cafe', 'coatrack', 2, 2, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1363, 'cr_cafe', 'drawer_end', 0, 0, 0, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1364, 'cr_cafe', 'pillar', 16, 15, 0, 7, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1365, 'cr_cafe', 'pillar', 6, 15, 0, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1366, 'cr_cafe', 'pillar', 6, 2, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1367, 'cr_cafe', 'pillar', 16, 2, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1368, 'lobby_a', 'flower1', 9, 0, 7, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1369, 'lobby_a', 'chairf2b', 11, 0, 7, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1370, 'lobby_a', 'chairf2', 12, 0, 7, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1371, 'lobby_a', 'table1', 13, 0, 7, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1372, 'lobby_a', 'chairf2b', 14, 0, 7, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1373, 'lobby_a', 'chairf2', 15, 0, 7, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1374, 'lobby_a', 'watermatic', 16, 0, 7, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1375, 'lobby_a', 'telkka', 9, 2, 7, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1376, 'lobby_a', 'flower1', 9, 3, 7, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1377, 'lobby_a', 'chairf2d', 11, 3, 7, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1378, 'lobby_a', 'chairf2', 12, 3, 7, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1379, 'lobby_a', 'table1', 13, 3, 7, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1380, 'lobby_a', 'chairf2d', 14, 3, 7, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1381, 'lobby_a', 'chairf2', 15, 3, 7, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1382, 'lobby_a', 'flower1', 12, 4, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1383, 'lobby_a', 'flower1', 16, 4, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1384, 'lobby_a', 'chairf2b', 0, 7, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1385, 'lobby_a', 'chairf2', 1, 7, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1386, 'lobby_a', 'chairf2d', 0, 10, 3, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1387, 'lobby_a', 'chairf2', 1, 10, 3, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1388, 'lobby_a', 'roommatic', 21, 12, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1389, 'lobby_a', 'roommatic', 22, 12, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1390, 'lobby_a', 'roommatic', 23, 12, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1391, 'lobby_a', 'roommatic', 24, 12, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1392, 'lobby_a', 'chairf2b', 0, 14, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1393, 'lobby_a', 'chairf2', 1, 14, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1394, 'lobby_a', 'watermatic', 13, 14, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1395, 'lobby_a', 'watermatic', 12, 15, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1396, 'lobby_a', 'chairf1', 19, 16, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1397, 'lobby_a', 'table2c', 21, 16, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1398, 'lobby_a', 'chairf1', 23, 16, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1399, 'lobby_a', 'chairf2d', 0, 17, 3, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1400, 'lobby_a', 'chairf2', 1, 17, 3, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1401, 'lobby_a', 'table2b', 21, 17, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1402, 'lobby_a', 'chairf1', 19, 18, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1403, 'lobby_a', 'table2', 21, 18, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1404, 'lobby_a', 'chairf1', 23, 18, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1405, 'lobby_a', 'chairf2b', 7, 21, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1406, 'lobby_a', 'chairf2c', 7, 22, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1407, 'lobby_a', 'chairf2c', 7, 23, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1408, 'lobby_a', 'chairf2c', 7, 24, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1409, 'lobby_a', 'chairf2', 7, 25, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1410, 'lobby_a', 'table1', 7, 26, 2, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1411, 'lobby_a', 'flower2', 10, 26, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1412, 'floorlobby_c', 'moneyplant', 3, 2, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1413, 'floorlobby_c', 'roommatic', 5, 2, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1414, 'floorlobby_c', 'roommatic', 7, 2, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1415, 'floorlobby_c', 'roommatic', 9, 2, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1416, 'floorlobby_c', 'roommatic', 11, 2, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1417, 'floorlobby_c', 'roommatic', 13, 2, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1418, 'floorlobby_c', 'watermatic', 26, 2, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1419, 'floorlobby_c', 'edgec1', 14, 8, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1420, 'floorlobby_c', 'edgec1', 15, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1421, 'floorlobby_c', 'edgec1', 16, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1422, 'floorlobby_c', 'edgec1', 17, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1423, 'floorlobby_c', 'edgec1', 18, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1424, 'floorlobby_c', 'edgec1', 19, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1425, 'floorlobby_c', 'edgec1', 20, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1426, 'floorlobby_c', 'edgec1', 21, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1427, 'floorlobby_c', 'edgec1', 22, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1428, 'floorlobby_c', 'edgec1', 23, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1429, 'floorlobby_c', 'edgec1', 24, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1430, 'floorlobby_c', 'edgec1', 25, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1431, 'floorlobby_c', 'edgec1', 26, 8, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1432, 'floorlobby_c', 'chairg1', 3, 9, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1433, 'floorlobby_c', 'chairg1', 5, 9, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1434, 'floorlobby_c', 'moneyplant', 15, 9, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1435, 'floorlobby_c', 'chairg2b', 16, 9, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1436, 'floorlobby_c', 'chairg2c', 17, 9, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1437, 'floorlobby_c', 'chairg2', 18, 9, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1438, 'floorlobby_c', 'moneyplant', 19, 9, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1439, 'floorlobby_c', 'moneyplant', 21, 9, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1440, 'floorlobby_c', 'chairg2b', 22, 9, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1441, 'floorlobby_c', 'chairg2c', 23, 9, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1442, 'floorlobby_c', 'chairg2', 24, 9, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1443, 'floorlobby_c', 'moneyplant', 25, 9, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1444, 'floorlobby_c', 'chairg1', 3, 11, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1445, 'floorlobby_c', 'chairg1', 5, 11, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1446, 'floorlobby_c', 'newtable2', 3, 12, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1447, 'floorlobby_c', 'chairg1', 16, 14, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1448, 'floorlobby_c', 'chairg1', 18, 14, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1449, 'floorlobby_c', 'chairg1', 22, 14, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1450, 'floorlobby_c', 'chairg1', 24, 14, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1451, 'floorlobby_c', 'newtable2', 17, 15, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1452, 'floorlobby_c', 'newtable2', 23, 15, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1453, 'floorlobby_c', 'newtable2', 3, 16, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1454, 'floorlobby_c', 'chairg1', 16, 16, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1455, 'floorlobby_c', 'chairg1', 18, 16, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1456, 'floorlobby_c', 'chairg1', 22, 16, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1457, 'floorlobby_c', 'chairg1', 24, 16, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1458, 'floorlobby_c', 'chairg1', 3, 17, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1459, 'floorlobby_c', 'chairg1', 5, 17, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1460, 'floorlobby_c', 'edgec2', 14, 18, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1461, 'floorlobby_c', 'edgec2', 15, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1462, 'floorlobby_c', 'edgec2', 16, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1463, 'floorlobby_c', 'edgec2', 17, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1464, 'floorlobby_c', 'edgec2', 18, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1465, 'floorlobby_c', 'edgec2', 19, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1466, 'floorlobby_c', 'edgec2', 20, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1467, 'floorlobby_c', 'edgec2', 21, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1468, 'floorlobby_c', 'edgec2', 22, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1469, 'floorlobby_c', 'edgec2', 23, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1470, 'floorlobby_c', 'edgec2', 24, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1471, 'floorlobby_c', 'edgec2', 25, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1472, 'floorlobby_c', 'edgec2', 26, 18, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1473, 'floorlobby_b', 'moneyplant', 3, 2, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1474, 'floorlobby_b', 'roommatic', 5, 2, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1475, 'floorlobby_b', 'roommatic', 7, 2, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1476, 'floorlobby_b', 'roommatic', 9, 2, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1477, 'floorlobby_b', 'roommatic', 11, 2, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1478, 'floorlobby_b', 'roommatic', 13, 2, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1479, 'floorlobby_b', 'watermatic', 26, 2, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1480, 'floorlobby_b', 'standinglamp', 3, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1481, 'floorlobby_b', 'edgeb1', 14, 8, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1482, 'floorlobby_b', 'edgeb1', 15, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1483, 'floorlobby_b', 'edgeb1', 16, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1484, 'floorlobby_b', 'edgeb1', 17, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1485, 'floorlobby_b', 'edgeb1', 18, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1486, 'floorlobby_b', 'edgeb1', 19, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1487, 'floorlobby_b', 'edgeb1', 20, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1488, 'floorlobby_b', 'edgeb1', 21, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1489, 'floorlobby_b', 'edgeb1', 22, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1490, 'floorlobby_b', 'edgeb1', 23, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1491, 'floorlobby_b', 'edgeb1', 24, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1492, 'floorlobby_b', 'edgeb1', 25, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1493, 'floorlobby_b', 'edgeb1', 26, 8, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1494, 'floorlobby_b', 'chairf2b', 3, 9, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1495, 'floorlobby_b', 'chairf2c', 4, 9, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1496, 'floorlobby_b', 'chairf2', 5, 9, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1497, 'floorlobby_b', 'moneyplant', 15, 9, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1498, 'floorlobby_b', 'chairf2b', 16, 9, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1499, 'floorlobby_b', 'chairf2c', 17, 9, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1500, 'floorlobby_b', 'chairf2', 18, 9, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1501, 'floorlobby_b', 'moneyplant', 19, 9, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1502, 'floorlobby_b', 'moneyplant', 21, 9, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1503, 'floorlobby_b', 'chairf2b', 22, 9, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1504, 'floorlobby_b', 'chairf2c', 23, 9, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1505, 'floorlobby_b', 'chairf2', 24, 9, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1506, 'floorlobby_b', 'moneyplant', 25, 9, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1507, 'floorlobby_b', 'chairf1', 3, 11, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1508, 'floorlobby_b', 'newtable1', 4, 11, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1509, 'floorlobby_b', 'chairf1', 5, 11, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1510, 'floorlobby_b', 'chairf1', 16, 14, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1511, 'floorlobby_b', 'chairf1', 18, 14, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1512, 'floorlobby_b', 'chairf1', 22, 14, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1513, 'floorlobby_b', 'chairf1', 24, 14, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1514, 'floorlobby_b', 'newtable1', 17, 15, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1515, 'floorlobby_b', 'newtable1', 23, 15, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1516, 'floorlobby_b', 'newtable1', 3, 16, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1517, 'floorlobby_b', 'chairf1', 16, 16, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1518, 'floorlobby_b', 'chairf1', 18, 16, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1519, 'floorlobby_b', 'chairf1', 22, 16, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1520, 'floorlobby_b', 'chairf1', 24, 16, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1521, 'floorlobby_b', 'chairf1', 3, 17, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1522, 'floorlobby_b', 'chairf1', 5, 17, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1523, 'floorlobby_b', 'standinglamp', 3, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1524, 'floorlobby_b', 'edgeb2', 14, 18, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1525, 'floorlobby_b', 'edgeb2', 15, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1526, 'floorlobby_b', 'edgeb2', 16, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1527, 'floorlobby_b', 'edgeb2', 17, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1528, 'floorlobby_b', 'edgeb2', 18, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1529, 'floorlobby_b', 'edgeb2', 19, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1530, 'floorlobby_b', 'edgeb2', 20, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1531, 'floorlobby_b', 'edgeb2', 21, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1532, 'floorlobby_b', 'edgeb2', 22, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1533, 'floorlobby_b', 'edgeb2', 23, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1534, 'floorlobby_b', 'edgeb2', 24, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1535, 'floorlobby_b', 'edgeb2', 25, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1536, 'floorlobby_b', 'edgeb2', 26, 18, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1537, 'floorlobby_a', 'moneyplant', 3, 2, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1538, 'floorlobby_a', 'roommatic', 5, 2, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1539, 'floorlobby_a', 'roommatic', 7, 2, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1540, 'floorlobby_a', 'roommatic', 9, 2, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1541, 'floorlobby_a', 'roommatic', 11, 2, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1542, 'floorlobby_a', 'roommatic', 13, 2, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1543, 'floorlobby_a', 'watermatic', 26, 2, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1544, 'floorlobby_a', 'standinglamp', 3, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1545, 'floorlobby_a', 'edge1', 14, 8, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1546, 'floorlobby_a', 'edge1', 15, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1547, 'floorlobby_a', 'edge1', 16, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1548, 'floorlobby_a', 'edge1', 17, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1549, 'floorlobby_a', 'edge1', 18, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1550, 'floorlobby_a', 'edge1', 19, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1551, 'floorlobby_a', 'edge1', 20, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1552, 'floorlobby_a', 'edge1', 21, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1553, 'floorlobby_a', 'edge1', 22, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1554, 'floorlobby_a', 'edge1', 23, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1555, 'floorlobby_a', 'edge1', 24, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1556, 'floorlobby_a', 'edge1', 25, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1557, 'floorlobby_a', 'edge1', 26, 8, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1558, 'floorlobby_a', 'chairf1', 3, 9, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1559, 'floorlobby_a', 'chairf1', 5, 9, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1560, 'floorlobby_a', 'moneyplant', 15, 9, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1561, 'floorlobby_a', 'chairf2b', 16, 9, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1562, 'floorlobby_a', 'chairf2c', 17, 9, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1563, 'floorlobby_a', 'chairf2', 18, 9, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1564, 'floorlobby_a', 'moneyplant', 19, 9, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1565, 'floorlobby_a', 'moneyplant', 21, 9, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1566, 'floorlobby_a', 'chairf2b', 22, 9, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1567, 'floorlobby_a', 'chairf2c', 23, 9, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1568, 'floorlobby_a', 'chairf2', 24, 9, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1569, 'floorlobby_a', 'moneyplant', 25, 9, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1570, 'floorlobby_a', 'chairf1', 3, 11, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1571, 'floorlobby_a', 'chairf1', 5, 11, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1572, 'floorlobby_a', 'newtable1', 3, 12, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1573, 'floorlobby_a', 'chairf1', 16, 14, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1574, 'floorlobby_a', 'chairf1', 18, 14, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1575, 'floorlobby_a', 'chairf1', 22, 14, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1576, 'floorlobby_a', 'chairf1', 24, 14, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1577, 'floorlobby_a', 'newtable1', 17, 15, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1578, 'floorlobby_a', 'newtable1', 23, 15, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1579, 'floorlobby_a', 'chairf1', 16, 16, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1580, 'floorlobby_a', 'chairf1', 18, 16, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1581, 'floorlobby_a', 'chairf1', 22, 16, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1582, 'floorlobby_a', 'chairf1', 24, 16, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1583, 'floorlobby_a', 'chairf1', 3, 17, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1584, 'floorlobby_a', 'chairf1', 5, 17, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1585, 'floorlobby_a', 'edge2', 14, 18, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1586, 'floorlobby_a', 'edge2', 15, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1587, 'floorlobby_a', 'edge2', 16, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1588, 'floorlobby_a', 'edge2', 17, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1589, 'floorlobby_a', 'edge2', 18, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1590, 'floorlobby_a', 'edge2', 19, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1591, 'floorlobby_a', 'edge2', 20, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1592, 'floorlobby_a', 'edge2', 21, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1593, 'floorlobby_a', 'edge2', 22, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1594, 'floorlobby_a', 'edge2', 23, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1595, 'floorlobby_a', 'edge2', 24, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1596, 'floorlobby_a', 'edge2', 25, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1597, 'floorlobby_a', 'edge2', 26, 18, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1598, 'cinema_a', 'orange', 2, 4, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1599, 'cinema_a', 'loungey_chair', 7, 4, 3, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1600, 'cinema_a', 'loungey_tablebigb', 8, 4, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1601, 'cinema_a', 'loungey_chair', 9, 4, 3, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1602, 'cinema_a', 'loungey_chair', 2, 5, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1603, 'cinema_a', 'loungey_chair', 7, 5, 3, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1604, 'cinema_a', 'loungey_tablebiga', 8, 5, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1605, 'cinema_a', 'loungey_chair', 9, 5, 3, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1606, 'cinema_a', 'loungey_table', 2, 6, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1607, 'cinema_a', 'loungey_chair', 2, 7, 3, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1608, 'cinema_a', 'theater_chair', 13, 7, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1609, 'cinema_a', 'theater_chair', 14, 7, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1610, 'cinema_a', 'theater_chair', 15, 7, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1611, 'cinema_a', 'theater_chair', 16, 7, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1612, 'cinema_a', 'theater_chair', 17, 7, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1613, 'cinema_a', 'theater_chair', 18, 7, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1614, 'cinema_a', 'stair', 21, 7, 1, 0, 0.001, 1, 1, 'can_stand_on_top,invisible', '', NULL, NULL),
-	(1615, 'cinema_a', 'lightpole', 9, 8, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1616, 'cinema_a', 'pomomaski', 13, 8, 2, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1617, 'cinema_a', 'pomomaski', 14, 8, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1618, 'cinema_a', 'pomomaski', 15, 8, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1619, 'cinema_a', 'pomomaski', 16, 8, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1620, 'cinema_a', 'pomomaski', 17, 8, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1621, 'cinema_a', 'pomomaski', 18, 8, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1622, 'cinema_a', 'pomomaski', 19, 8, 2, 1, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1623, 'cinema_a', 'stair', 21, 8, 1, 0, 0.001, 1, 1, 'can_stand_on_top,invisible', '', NULL, NULL),
-	(1624, 'cinema_a', 'orange', 2, 9, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1625, 'cinema_a', 'theater_chair', 13, 9, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1626, 'cinema_a', 'theater_chair', 14, 9, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1627, 'cinema_a', 'theater_chair', 15, 9, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1628, 'cinema_a', 'theater_chair', 16, 9, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1629, 'cinema_a', 'theater_chair', 17, 9, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1630, 'cinema_a', 'theater_chair', 18, 9, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1631, 'cinema_a', 'theater_chair', 19, 9, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1632, 'cinema_a', 'theater_chair', 20, 9, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1633, 'cinema_a', 'stair', 21, 9, 1, 0, 0.001, 1, 1, 'can_stand_on_top,invisible', '', NULL, NULL),
-	(1634, 'cinema_a', 'loungey_chair', 2, 10, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1635, 'cinema_a', 'loungey_chair', 9, 10, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1636, 'cinema_a', 'loungey_table', 2, 11, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1637, 'cinema_a', 'loungey_table', 9, 11, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1638, 'cinema_a', 'loungey_chair', 2, 12, 3, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1639, 'cinema_a', 'loungey_chair', 9, 12, 3, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1640, 'cinema_a', 'cubicb_chair', 17, 12, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1641, 'cinema_a', 'cubico_chair', 19, 12, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1642, 'cinema_a', 'cubicb_chair', 15, 13, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1643, 'cinema_a', 'lightpole', 19, 13, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1644, 'cinema_a', 'cubicb_chair', 20, 13, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1645, 'cinema_a', 'lightpole', 9, 14, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1646, 'cinema_a', 'loungey_chair', 2, 15, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1647, 'cinema_a', 'cubicb_chair', 14, 15, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1648, 'cinema_a', 'cubico_chair', 19, 15, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1649, 'cinema_a', 'loungey_table', 2, 16, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1650, 'cinema_a', 'loungey_chair', 7, 16, 3, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1651, 'cinema_a', 'loungey_table', 8, 16, 3, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1652, 'cinema_a', 'loungey_chair', 9, 16, 3, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1653, 'cinema_a', 'cubicb_chair', 13, 16, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1654, 'cinema_a', 'cubicb_chair', 14, 16, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1655, 'cinema_a', 'orange', 19, 16, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1656, 'cinema_a', 'loungey_chair', 2, 17, 3, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1657, 'cinema_a', 'loungey_chair', 7, 17, 3, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1658, 'cinema_a', 'loungey_table', 8, 17, 3, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1659, 'cinema_a', 'loungey_chair', 9, 17, 3, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1660, 'cinema_a', 'cubicb_chair', 19, 17, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1661, 'cinema_a', 'orange', 2, 18, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1662, 'cinema_a', 'cubicb_chair', 14, 18, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1663, 'cinema_a', 'bardesque', 2, 19, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1664, 'cinema_a', 'bardesque', 2, 20, 3, 1, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1665, 'cinema_a', 'bar_chair', 3, 20, 3, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1666, 'cinema_a', 'lightpole', 9, 20, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1667, 'cinema_a', 'cubicb_chair', 14, 20, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1668, 'cinema_a', 'cubicb_chair', 19, 20, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1669, 'cinema_a', 'cubico_chair', 20, 20, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1670, 'cinema_a', 'bardesque', 2, 21, 3, 1, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1671, 'cinema_a', 'bar_chair', 3, 21, 3, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1672, 'cinema_a', 'cubicb_chair', 19, 21, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1673, 'cinema_a', 'bardesque', 2, 22, 3, 1, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1674, 'cinema_a', 'bar_chair', 3, 22, 3, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1675, 'cinema_a', 'lightpole', 16, 22, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1676, 'cinema_a', 'cubico_chair', 18, 22, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1677, 'cinema_a', 'bardesque', 2, 23, 3, 1, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1678, 'cinema_a', 'bar_chair', 3, 23, 3, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1679, 'cinema_a', 'bardesque', 2, 24, 3, 1, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1680, 'cinema_a', 'bar_chair', 3, 24, 3, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1681, 'cinema_a', 'bardesque', 2, 25, 3, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1682, 'sport', 'sporttable', 1, 11, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1683, 'sport', 'sporttable', 1, 6, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1684, 'sport', 'sporttable', 15, 6, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1685, 'sport', 'sporttable', 7, 6, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1686, 'sport', 'sportchair', 9, 0, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1687, 'sport', 'sportchair', 10, 0, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1688, 'sport', 'sportchair', 7, 5, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1689, 'sport', 'sportchair', 15, 5, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1690, 'sport', 'sportchair', 1, 5, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1691, 'sport', 'sportchair', 1, 10, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1692, 'sport', 'sportchair', 14, 6, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1693, 'sport', 'sportchair', 6, 6, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1694, 'sport', 'sportchair3', 15, 7, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1695, 'sport', 'sportchair3', 7, 7, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1696, 'sport', 'sportchair3', 1, 12, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1697, 'sport', 'sportchair3', 1, 7, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1698, 'sport', 'sportchair2', 16, 6, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1699, 'sport', 'sportchair2', 8, 6, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1700, 'sport', 'sodagreen', 6, 0, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1701, 'sport', 'sodapink', 8, 0, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1702, 'old_skool0', 'mobiles_chair1', 0, 11, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1703, 'old_skool0', 'mobiles_chair1', 0, 15, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1704, 'old_skool0', 'mobiles_chair1', 0, 17, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1705, 'old_skool0', 'mobiles_chair1', 0, 22, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1706, 'old_skool0', 'mobiles_chair1', 1, 10, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1707, 'old_skool0', 'mobiles_chair1', 1, 13, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1708, 'old_skool0', 'mobiles_chair1', 1, 21, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1709, 'old_skool0', 'mobiles_chair1', 1, 24, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1710, 'old_skool0', 'mobiles_chair1', 10, 10, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1711, 'old_skool0', 'mobiles_chair1', 11, 13, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1712, 'old_skool0', 'mobiles_chair1', 11, 22, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1713, 'old_skool0', 'mobiles_chair1', 12, 12, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1714, 'old_skool0', 'mobiles_chair1', 12, 21, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1715, 'old_skool0', 'mobiles_chair1', 13, 24, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1716, 'old_skool0', 'mobiles_chair1', 14, 22, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1717, 'old_skool0', 'mobiles_chair1', 2, 19, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1718, 'old_skool0', 'mobiles_chair1', 3, 11, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1719, 'old_skool0', 'mobiles_chair1', 3, 17, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1720, 'old_skool0', 'mobiles_chair1', 3, 22, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1721, 'old_skool0', 'mobiles_chair1', 5, 22, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1722, 'old_skool0', 'mobiles_chair1', 7, 24, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1723, 'old_skool0', 'mobiles_chair1', 8, 22, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1724, 'old_skool0', 'mobiles_chair1', 9, 12, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1725, 'old_skool0', 'mobiles_chair3', 10, 4, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1726, 'old_skool0', 'mobiles_chair3', 11, 4, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1727, 'old_skool0', 'mobiles_chair3', 12, 4, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1728, 'old_skool0', 'mobiles_chair3', 9, 4, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1729, 'old_skool0', 'mobiles_table1', 1, 12, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1730, 'old_skool0', 'mobiles_table1', 1, 18, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1731, 'old_skool0', 'mobiles_table1', 1, 23, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1732, 'old_skool0', 'mobiles_table1', 10, 12, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1733, 'old_skool0', 'mobiles_table1', 12, 23, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1734, 'old_skool0', 'mobiles_table1', 6, 22, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1735, 'old_skool0', 'mobiles_table2', 1, 11, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1736, 'old_skool0', 'mobiles_table2', 1, 17, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1737, 'old_skool0', 'mobiles_table2', 1, 22, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1738, 'old_skool0', 'mobiles_table2', 10, 11, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1739, 'old_skool0', 'mobiles_table2', 12, 22, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1740, 'old_skool0', 'mobiles_table2', 6, 21, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1741, 'old_skool0', 'mobiles_table3', 11, 11, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1742, 'old_skool0', 'mobiles_table3', 13, 22, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1743, 'old_skool0', 'mobiles_table3', 2, 11, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1744, 'old_skool0', 'mobiles_table3', 2, 17, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1745, 'old_skool0', 'mobiles_table3', 2, 22, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1746, 'old_skool0', 'mobiles_table3', 7, 21, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1747, 'old_skool0', 'mobiles_table4', 11, 12, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1748, 'old_skool0', 'mobiles_table4', 13, 23, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1749, 'old_skool0', 'mobiles_table4', 2, 12, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1750, 'old_skool0', 'mobiles_table4', 2, 18, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1751, 'old_skool0', 'mobiles_table4', 2, 23, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1752, 'old_skool0', 'mobiles_table4', 7, 22, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1753, 'old_skool1', 'mobiles_chair2', 3, 4, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1754, 'old_skool1', 'mobiles_chair2', 3, 7, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1755, 'old_skool1', 'mobiles_chair2', 4, 2, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1756, 'old_skool1', 'mobiles_chair2', 4, 9, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1757, 'old_skool1', 'mobiles_chair2', 5, 6, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1758, 'old_skool1', 'mobiles_chair2', 7, 3, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1759, 'old_skool1', 'mobiles_chair2', 8, 5, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1760, 'old_skool1', 'mobiles_chair2', 9, 2, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1761, 'old_skool1', 'mobiles_table5', 4, 4, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1762, 'old_skool1', 'mobiles_table5', 4, 8, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1763, 'old_skool1', 'mobiles_table5', 8, 4, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1764, 'old_skool1', 'mobiles_table6', 4, 3, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1765, 'old_skool1', 'mobiles_table6', 4, 7, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1766, 'old_skool1', 'mobiles_table6', 8, 3, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1767, 'old_skool1', 'mobiles_table7', 5, 3, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1768, 'old_skool1', 'mobiles_table7', 5, 7, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1769, 'old_skool1', 'mobiles_table7', 9, 3, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1770, 'old_skool1', 'mobiles_table8', 5, 4, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1771, 'old_skool1', 'mobiles_table8', 5, 8, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1772, 'old_skool1', 'mobiles_table8', 9, 4, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1773, 'malja_bar_a', 'bar_chair_green', 13, 1, 4, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1774, 'malja_bar_a', 'bar_chair_green', 7, 2, 4, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1775, 'malja_bar_a', 'bar_chair_green', 5, 3, 4, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1776, 'malja_bar_a', 'bar_table_green', 6, 3, 4, 2, 0.001, 2, 2, 'extra_parameter', '', NULL, NULL),
-	(1777, 'malja_bar_a', 'bar_chair_green', 8, 4, 4, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1778, 'malja_bar_a', 'bar_chair_green', 7, 5, 4, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1779, 'malja_bar_a', 'bar_bare', 10, 7, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1780, 'malja_bar_a', 'bar_bard', 10, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1781, 'malja_bar_a', 'bar_bara', 0, 9, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1782, 'malja_bar_a', 'bar_barb', 1, 9, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1783, 'malja_bar_a', 'bar_barb', 2, 9, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1784, 'malja_bar_a', 'bar_barb', 3, 9, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1785, 'malja_bar_a', 'bar_barb', 4, 9, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1786, 'malja_bar_a', 'bar_barb', 5, 9, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1787, 'malja_bar_a', 'bar_barb', 6, 9, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1788, 'malja_bar_a', 'bar_barb', 7, 9, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1789, 'malja_bar_a', 'bar_barb', 8, 9, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1790, 'malja_bar_a', 'bar_barb', 9, 9, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1791, 'malja_bar_a', 'bar_barc', 10, 9, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1792, 'malja_bar_a', 'bar_chair_green', 7, 13, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1793, 'malja_bar_a', 'bar_table_green', 7, 14, 1, 2, 0.001, 2, 2, 'extra_parameter', '', NULL, NULL),
-	(1794, 'malja_bar_a', 'bar_chair_green', 13, 14, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1795, 'malja_bar_a', 'bar_chair_green', 1, 15, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1796, 'malja_bar_a', 'bar_chair_green', 6, 15, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1797, 'malja_bar_a', 'bar_chair_green', 9, 15, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1798, 'malja_bar_a', 'bar_table_green', 13, 15, 1, 2, 0.001, 2, 2, 'extra_parameter', '', NULL, NULL),
-	(1799, 'malja_bar_a', 'bar_chair_green', 0, 16, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1800, 'malja_bar_a', 'bar_table_green', 1, 16, 1, 2, 0.001, 2, 2, 'extra_parameter', '', NULL, NULL),
-	(1801, 'malja_bar_a', 'bar_chair_green', 7, 16, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1802, 'malja_bar_a', 'bar_chair_green', 12, 16, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1803, 'malja_bar_a', 'bar_chair_green', 15, 16, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1804, 'malja_bar_a', 'bar_chair_green', 3, 17, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1805, 'malja_bar_a', 'bar_chair_green', 14, 17, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1806, 'malja_bar_a', 'bar_chair_green', 2, 18, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1807, 'malja_bar_a', 'bar_chair_green', 0, 21, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1808, 'malja_bar_b', 'bar_chair_blue', 4, 0, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1809, 'malja_bar_b', 'bar_chair_blue', 8, 0, 3, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1810, 'malja_bar_b', 'bar_table_small_blue', 9, 0, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1811, 'malja_bar_b', 'bar_chair_blue', 10, 0, 3, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1812, 'malja_bar_b', 'bar_table_blue', 4, 1, 3, 2, 0.001, 2, 2, 'extra_parameter', '', NULL, NULL),
-	(1813, 'malja_bar_b', 'bar_djbooth', 13, 1, 3, 1, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1814, 'malja_bar_b', 'bar_chair_blue', 6, 2, 3, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1815, 'malja_bar_b', 'bar_djbooth', 13, 2, 3, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1816, 'malja_bar_b', 'bar_djbooth', 14, 2, 3, 3, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1817, 'malja_bar_b', 'bar_djbooth', 15, 2, 3, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1818, 'malja_bar_b', 'stair', 1, 3, 7, 0, 0.001, 1, 1, 'can_stand_on_top,invisible', '', NULL, NULL),
-	(1819, 'malja_bar_b', 'bar_chair_blue', 4, 3, 3, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1820, 'malja_bar_b', 'stair', 1, 4, 7, 0, 0.001, 1, 1, 'can_stand_on_top,invisible', '', NULL, NULL),
-	(1821, 'malja_bar_b', 'stair', 2, 4, 5, 0, 0.001, 1, 1, 'can_stand_on_top,invisible', '', NULL, NULL),
-	(1822, 'malja_bar_b', 'stair', 3, 4, 5, 0, 0.001, 1, 1, 'can_stand_on_top,invisible', '', NULL, NULL),
-	(1823, 'malja_bar_b', 'stair', 12, 5, 2, 0, 0.001, 1, 1, 'can_stand_on_top,invisible', '', NULL, NULL),
-	(1824, 'malja_bar_b', 'stair', 13, 5, 2, 0, 0.001, 1, 1, 'can_stand_on_top,invisible', '', NULL, NULL),
-	(1825, 'malja_bar_b', 'stair', 14, 5, 2, 0, 0.001, 1, 1, 'can_stand_on_top,invisible', '', NULL, NULL),
-	(1826, 'malja_bar_b', 'stair', 3, 6, 4, 0, 0.001, 1, 1, 'can_stand_on_top,invisible', '', NULL, NULL),
-	(1827, 'malja_bar_b', 'stair', 12, 6, 1, 0, 0.001, 1, 1, 'can_stand_on_top,invisible', '', NULL, NULL),
-	(1828, 'malja_bar_b', 'stair', 13, 6, 1, 0, 0.001, 1, 1, 'can_stand_on_top,invisible', '', NULL, NULL),
-	(1829, 'malja_bar_b', 'stair', 14, 6, 1, 0, 0.001, 1, 1, 'can_stand_on_top,invisible', '', NULL, NULL),
-	(1830, 'malja_bar_b', 'stair', 3, 7, 4, 0, 0.001, 1, 1, 'can_stand_on_top,invisible', '', NULL, NULL),
-	(1831, 'malja_bar_b', 'stair', 2, 8, 3, 0, 0.001, 1, 1, 'can_stand_on_top,invisible', '', NULL, NULL),
-	(1832, 'malja_bar_b', 'stair', 3, 8, 3, 0, 0.001, 1, 1, 'can_stand_on_top,invisible', '', NULL, NULL),
-	(1833, 'malja_bar_b', 'bar_chair_blue', 7, 8, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1834, 'malja_bar_b', 'bar_table_small_blue', 7, 9, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1835, 'malja_bar_b', 'bar_chair_blue', 7, 10, 3, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1836, 'malja_bar_b', 'bar_chair_blue', 2, 11, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1837, 'malja_bar_b', 'bar_table_small_blue', 2, 12, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1838, 'malja_bar_b', 'bar_chair_blue', 2, 13, 3, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1839, 'malja_bar_b', 'bar_chair_blue', 0, 14, 9, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1840, 'malja_bar_b', 'bar_chair_blue', 0, 15, 9, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1841, 'malja_bar_b', 'bar_chair_blue', 0, 16, 9, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1842, 'malja_bar_b', 'bar_chair_blue', 2, 16, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1843, 'malja_bar_b', 'bar_chair_blue', 3, 16, 3, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1844, 'malja_bar_b', 'bar_chair_blue', 0, 17, 9, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1845, 'malja_bar_b', 'bar_table_blue', 2, 17, 3, 2, 0.001, 2, 2, 'extra_parameter', '', NULL, NULL),
-	(1846, 'malja_bar_b', 'bar_chair_blue', 4, 17, 3, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1847, 'malja_bar_b', 'bar_chair_blue', 0, 18, 9, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1848, 'malja_bar_b', 'bar_chair_blue', 4, 18, 3, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1849, 'malja_bar_b', 'bar_chair_blue', 0, 19, 9, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1850, 'malja_bar_b', 'bar_chair_blue', 2, 19, 3, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1851, 'malja_bar_b', 'goldfish_bar', 0, 22, 3, 0, 0.001, 1, 1, 'invisible,solid', '', NULL, NULL),
-	(1852, 'bar_a', 'lounge_chair_small', 12, 3, 5, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1853, 'bar_a', 'lounge_table_one', 13, 3, 5, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1854, 'bar_a', 'lounge_chair_small', 14, 3, 5, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1855, 'bar_a', 'lounge_chair_small', 13, 4, 5, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1856, 'bar_a', 'lounge_chair_small', 18, 5, 5, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1857, 'bar_a', 'lounge_chair_small', 17, 6, 5, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1858, 'bar_a', 'lounge_table_one', 18, 6, 5, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1859, 'bar_a', 'lounge_chair_small', 18, 7, 5, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1860, 'bar_a', 'lounge_private_bigback', 13, 11, 5, 3, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1861, 'bar_a', 'lounge_private_bigsofaback', 14, 11, 5, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1862, 'bar_a', 'lounge_private_bigsofaback', 15, 11, 5, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1863, 'bar_a', 'lounge_private_bigsofaback', 16, 11, 5, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1864, 'bar_a', 'lounge_private_bigsofaback', 17, 11, 5, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1865, 'bar_a', 'lounge_private_bigback', 18, 11, 5, 5, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1866, 'bar_a', 'lounge_private_bigsofa', 18, 12, 5, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1867, 'bar_a', 'lounge_table_threea', 14, 13, 5, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1868, 'bar_a', 'lounge_table_threeb', 15, 13, 5, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1869, 'bar_a', 'lounge_table_threec', 16, 13, 5, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1870, 'bar_a', 'lounge_private_bigsofa', 18, 13, 5, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1871, 'bar_a', 'lounge_private_bigsofa', 18, 14, 5, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1872, 'bar_a', 'lounge_private_bigcorner', 13, 15, 5, 1, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1873, 'bar_a', 'lounge_private_bigsofa', 14, 15, 5, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1874, 'bar_a', 'lounge_private_bigsofa', 15, 15, 5, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1875, 'bar_a', 'lounge_private_bigsofa', 16, 15, 5, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1876, 'bar_a', 'lounge_private_bigsofa', 17, 15, 5, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1877, 'bar_a', 'lounge_private_bigcorner', 18, 15, 5, 7, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1878, 'bar_a', 'lounge_chair_small', 3, 16, 5, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1879, 'bar_a', 'lounge_chair_small', 8, 16, 5, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1880, 'bar_a', 'lounge_table_one', 3, 17, 5, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1881, 'bar_a', 'lounge_chair_small', 4, 17, 5, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1882, 'bar_a', 'lounge_chair_small', 7, 17, 5, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1883, 'bar_a', 'lounge_table_one', 8, 17, 5, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1884, 'bar_a', 'lounge_chair_small', 9, 17, 5, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1885, 'bar_a', 'lounge_private_bigcorner', 13, 17, 5, 3, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1886, 'bar_a', 'lounge_private_bigsofa', 14, 17, 5, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1887, 'bar_a', 'lounge_private_bigsofa', 15, 17, 5, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1888, 'bar_a', 'lounge_private_bigsofa', 16, 17, 5, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1889, 'bar_a', 'lounge_private_bigsofa', 17, 17, 5, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1890, 'bar_a', 'lounge_private_bigcorner', 18, 17, 5, 5, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1891, 'bar_a', 'lounge_chair_small', 3, 18, 5, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1892, 'bar_a', 'lounge_chair_small', 8, 18, 5, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1893, 'bar_a', 'lounge_private_bigsofa', 18, 18, 5, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1894, 'bar_a', 'lounge_table_threea', 14, 19, 5, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1895, 'bar_a', 'lounge_table_threeb', 15, 19, 5, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1896, 'bar_a', 'lounge_table_threec', 16, 19, 5, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1897, 'bar_a', 'lounge_private_bigsofa', 18, 19, 5, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1898, 'bar_a', 'lounge_private_bigsofa', 18, 20, 5, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1899, 'bar_a', 'lounge_private_bigcorner', 13, 21, 5, 1, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1900, 'bar_a', 'lounge_private_bigsofa', 14, 21, 5, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1901, 'bar_a', 'lounge_private_bigsofa', 15, 21, 5, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1902, 'bar_a', 'lounge_private_bigsofa', 16, 21, 5, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1903, 'bar_a', 'lounge_private_bigsofa', 17, 21, 5, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1904, 'bar_a', 'lounge_private_bigcorner', 18, 21, 5, 7, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1905, 'bar_a', 'lounge_bara', 4, 23, 5, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1906, 'bar_a', 'lounge_bara', 5, 23, 5, 5, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1907, 'bar_a', 'lounge_bara', 6, 23, 5, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1908, 'bar_a', 'lounge_bara', 7, 23, 5, 3, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1909, 'bar_a', 'lounge_private_bigcorner', 13, 23, 5, 3, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1910, 'bar_a', 'lounge_private_bigsofa', 14, 23, 5, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1911, 'bar_a', 'lounge_private_bigsofa', 15, 23, 5, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1912, 'bar_a', 'lounge_private_bigsofa', 16, 23, 5, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1913, 'bar_a', 'lounge_private_bigsofa', 17, 23, 5, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1914, 'bar_a', 'lounge_private_bigcorner', 18, 23, 5, 5, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1915, 'bar_a', 'lounge_bara', 7, 24, 5, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1916, 'bar_a', 'lounge_private_bigsofa', 18, 24, 5, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1917, 'bar_a', 'lounge_bara', 7, 25, 5, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1918, 'bar_a', 'lounge_table_threea', 14, 25, 5, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1919, 'bar_a', 'lounge_table_threeb', 15, 25, 5, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1920, 'bar_a', 'lounge_table_threec', 16, 25, 5, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1921, 'bar_a', 'lounge_private_bigsofa', 18, 25, 5, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1922, 'bar_a', 'lounge_bara', 7, 26, 5, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1923, 'bar_a', 'lounge_private_bigsofa', 18, 26, 5, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1924, 'bar_a', 'lounge_bara', 7, 27, 5, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1925, 'bar_a', 'lounge_private_bigcorner', 13, 27, 5, 1, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1926, 'bar_a', 'lounge_private_bigsofa', 14, 27, 5, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1927, 'bar_a', 'lounge_private_bigsofa', 15, 27, 5, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1928, 'bar_a', 'lounge_private_bigsofa', 16, 27, 5, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1929, 'bar_a', 'lounge_private_bigsofa', 17, 27, 5, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1930, 'bar_a', 'lounge_private_bigcorner', 18, 27, 5, 7, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1931, 'bar_b', 'stair', 5, 21, 2, 0, 0.001, 1, 1, 'can_stand_on_top,invisible', '', NULL, NULL),
-	(1932, 'bar_b', 'stair', 4, 21, 2, 0, 0.001, 1, 1, 'can_stand_on_top,invisible', '', NULL, NULL),
-	(1933, 'bar_b', 'stair', 5, 20, 3, 0, 0.001, 1, 1, 'can_stand_on_top,invisible', '', NULL, NULL),
-	(1934, 'bar_b', 'stair', 4, 20, 3, 0, 0.001, 1, 1, 'can_stand_on_top,invisible', '', NULL, NULL),
-	(1935, 'bar_b', 'lounge_chair_small', 14, 19, 4, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1936, 'bar_b', 'lounge_table_one', 13, 19, 4, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1937, 'bar_b', 'lounge_chair_small', 12, 19, 4, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1938, 'bar_b', 'stair', 5, 19, 4, 0, 0.001, 1, 1, 'can_stand_on_top,invisible', '', NULL, NULL),
-	(1939, 'bar_b', 'stair', 4, 19, 4, 0, 0.001, 1, 1, 'can_stand_on_top,invisible', '', NULL, NULL),
-	(1940, 'bar_b', 'lounge_chair_small', 8, 18, 4, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1941, 'bar_b', 'lounge_table_one', 8, 17, 4, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1942, 'bar_b', 'lounge_chair_small', 15, 16, 4, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1943, 'bar_b', 'lounge_chair_small', 8, 16, 4, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1944, 'bar_b', 'lounge_table_one', 15, 15, 4, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1945, 'bar_b', 'lounge_chair_small', 14, 15, 4, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1946, 'bar_b', 'lounge_chair_small', 15, 14, 4, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1947, 'bar_b', 'lounge_chair_small', 10, 13, 4, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1948, 'bar_b', 'lounge_chair_small', 11, 12, 4, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1949, 'bar_b', 'lounge_table_one', 10, 12, 4, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1950, 'bar_b', 'lounge_chair_small', 9, 12, 4, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1951, 'bar_b', 'lounge_chair_small', 10, 11, 4, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1952, 'bar_b', 'lounge_chair_small', 15, 10, 4, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1953, 'bar_b', 'lounge_table_one', 15, 9, 4, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1954, 'bar_b', 'lounge_chair_small', 14, 9, 4, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1955, 'bar_b', 'fatsblox', 3, 9, 4, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1956, 'bar_b', 'lounge_chair_small', 15, 8, 4, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1957, 'bar_b', 'fatsofaa', 3, 8, 4, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1958, 'bar_b', 'lounge_chair_small', 9, 7, 4, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1959, 'bar_b', 'fatsofaa', 3, 7, 4, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1960, 'bar_b', 'lounge_chair_small', 10, 6, 4, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1961, 'bar_b', 'lounge_table_one', 9, 6, 4, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1962, 'bar_b', 'lounge_chair_small', 8, 6, 4, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1963, 'bar_b', 'fatsofaa', 3, 6, 4, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1964, 'bar_b', 'fatsofaa', 3, 5, 4, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1965, 'bar_b', 'fatsblox', 3, 4, 4, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1966, 'bar_b', 'fatsblox', 17, 3, 4, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1967, 'bar_b', 'fatsofaa', 16, 3, 4, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1968, 'bar_b', 'fatsofaa', 15, 3, 4, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1969, 'bar_b', 'fatsofaa', 14, 3, 4, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1970, 'bar_b', 'fatsofaa', 13, 3, 4, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1971, 'bar_b', 'fatsblox', 12, 3, 4, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1972, 'bar_b', 'pub_pineapple_small', 3, 3, 4, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1973, 'bar_b', 'stair', 11, 2, 100000, 2, 0.001, 1, 1, 'can_stand_on_top,invisible', '', NULL, NULL),
-	(1974, 'bar_b', 'stair', 10, 2, 4, 2, 0.001, 1, 1, 'can_stand_on_top,invisible', '', NULL, NULL),
-	(1975, 'bar_b', 'stair', 9, 2, 4, 2, 0.001, 1, 1, 'can_stand_on_top,invisible', '', NULL, NULL),
-	(1976, 'bar_b', 'stair', 8, 2, 4, 2, 0.001, 1, 1, 'can_stand_on_top,invisible', '', NULL, NULL),
-	(1977, 'bar_b', 'stair', 7, 2, 4, 2, 0.001, 1, 1, 'can_stand_on_top,invisible', '', NULL, NULL),
-	(1978, 'bar_b', 'stair', 6, 2, 4, 2, 0.001, 1, 1, 'can_stand_on_top,invisible', '', NULL, NULL),
-	(1979, 'bar_b', 'stair', 5, 2, 4, 2, 0.001, 1, 1, 'can_stand_on_top,invisible', '', NULL, NULL),
-	(1980, 'bar_b', 'stair', 4, 2, 4, 2, 0.001, 1, 1, 'can_stand_on_top,invisible', '', NULL, NULL),
-	(1981, 'habburger', 'sofa', 0, 0, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1982, 'habburger', 'table', 1, 0, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1983, 'habburger', 'sofa', 2, 0, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1984, 'habburger', 'sofa', 6, 0, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1985, 'habburger', 'tablesp', 7, 0, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1986, 'habburger', 'sofa', 8, 0, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1987, 'habburger', 'sofa', 12, 0, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1988, 'habburger', 'table', 13, 0, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1989, 'habburger', 'sofa', 14, 0, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1990, 'habburger', 'trashcan', 15, 0, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1991, 'habburger', 'sofa2', 0, 1, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1992, 'habburger', 'table2', 1, 1, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1993, 'habburger', 'sofa2', 2, 1, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1994, 'habburger', 'sofa2', 6, 1, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1995, 'habburger', 'table2', 7, 1, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1996, 'habburger', 'sofa2', 8, 1, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1997, 'habburger', 'sofa2', 12, 1, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(1998, 'habburger', 'table2', 13, 1, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(1999, 'habburger', 'sofa2', 14, 1, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2000, 'habburger', 'bardesk3', 2, 7, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2001, 'habburger', 'sofa', 7, 7, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2002, 'habburger', 'sofa2', 8, 7, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2003, 'habburger', 'sofa', 12, 7, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2004, 'habburger', 'sofa2', 13, 7, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2005, 'habburger', 'bardesk4', 2, 8, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2006, 'habburger', 'tablesp', 7, 8, 0, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2007, 'habburger', 'table2', 8, 8, 0, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2008, 'habburger', 'table', 12, 8, 0, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2009, 'habburger', 'table2', 13, 8, 0, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2010, 'habburger', 'bardesk', 2, 9, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2011, 'habburger', 'sofa', 7, 9, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2012, 'habburger', 'sofa2', 8, 9, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2013, 'habburger', 'sofa', 12, 9, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2014, 'habburger', 'sofa2', 13, 9, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2015, 'habburger', 'bardesk2', 2, 10, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2016, 'habburger', 'bardesk', 2, 11, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2017, 'habburger', 'bardesk', 2, 12, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2018, 'habburger', 'sofa', 7, 12, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2019, 'habburger', 'sofa2', 8, 12, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2020, 'habburger', 'sofa', 12, 12, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2021, 'habburger', 'sofa2', 13, 12, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2022, 'habburger', 'bardesk', 2, 13, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2023, 'habburger', 'table', 7, 13, 0, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2024, 'habburger', 'table2', 8, 13, 0, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2025, 'habburger', 'tablesp', 12, 13, 0, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2026, 'habburger', 'table2', 13, 13, 0, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2027, 'habburger', 'sofa', 7, 14, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2028, 'habburger', 'sofa2', 8, 14, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2029, 'habburger', 'sofa', 12, 14, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2030, 'habburger', 'sofa2', 13, 14, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2031, 'pizza', 'pizza_chair', 1, 11, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2032, 'pizza', 'pizza_chair', 1, 16, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2033, 'pizza', 'pizza_chair', 1, 19, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2034, 'pizza', 'pizza_chair', 1, 8, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2035, 'pizza', 'pizza_chair', 11, 21, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2036, 'pizza', 'pizza_chair', 11, 22, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2037, 'pizza', 'pizza_chair', 14, 21, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2038, 'pizza', 'pizza_chair', 14, 22, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2039, 'pizza', 'pizza_chair', 2, 11, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2040, 'pizza', 'pizza_chair', 2, 16, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2041, 'pizza', 'pizza_chair', 2, 19, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2042, 'pizza', 'pizza_chair', 2, 8, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2043, 'pizza', 'pizza_plant1', 0, 25, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2044, 'pizza', 'pizza_plant1', 15, 0, 0, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2045, 'pizza', 'pizza_plant1', 15, 25, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2046, 'pizza', 'pizza_plant2', 0, 6, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2047, 'pizza', 'pizza_sofa1', 14, 10, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2048, 'pizza', 'pizza_sofa1', 14, 3, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2049, 'pizza', 'pizza_sofa2', 15, 10, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2050, 'pizza', 'pizza_sofa2', 15, 3, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2051, 'pizza', 'pizza_sofa3', 14, 13, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2052, 'pizza', 'pizza_sofa3', 14, 6, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2053, 'pizza', 'pizza_sofa4', 15, 13, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2054, 'pizza', 'pizza_sofa4', 15, 6, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2055, 'pizza', 'pizza_table', 13, 22, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2056, 'pizza', 'pizza_table', 15, 12, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2057, 'pizza', 'pizza_table', 15, 5, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2058, 'pizza', 'pizza_table', 2, 10, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2059, 'pizza', 'pizza_table', 2, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2060, 'pizza', 'deska', 0, 5, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2061, 'pizza', 'deskb', 1, 5, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2062, 'pizza', 'deskc', 2, 5, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2063, 'pizza', 'deskd', 2, 4, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2064, 'pizza', 'deske', 2, 3, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2065, 'pizza', 'deskf', 2, 2, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2066, 'pizza', 'deskg', 3, 2, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2067, 'pizza', 'deskh', 4, 2, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2068, 'pizza', 'deski', 5, 2, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2069, 'pizza', 'deskj', 6, 2, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2070, 'pizza', 'deskk', 6, 1, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2071, 'pizza', 'deskl', 6, 0, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2072, 'bb_lobby_1', 'bb_crossrd', 3, 0, 2, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2073, 'bb_lobby_1', 'bb_bench1', 4, 0, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2074, 'bb_lobby_1', 'bb_bench2', 5, 0, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2075, 'bb_lobby_1', 'bb_plant1', 8, 0, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2076, 'bb_lobby_1', 'bb_sofa1', 9, 0, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2077, 'bb_lobby_1', 'bb_sofa2', 10, 0, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2078, 'bb_lobby_1', 'bb_plant1', 11, 0, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2079, 'bb_lobby_1', 'bb_sofa1', 12, 0, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2080, 'bb_lobby_1', 'bb_sofa2', 13, 0, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2081, 'bb_lobby_1', 'bb_plant1', 14, 0, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2082, 'bb_lobby_1', 'bb_bench1', 16, 0, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2083, 'bb_lobby_1', 'bb_bench2', 17, 0, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2084, 'bb_lobby_1', 'bb_corner1out', 18, 0, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2085, 'bb_lobby_1', 'bb_bench1', 3, 1, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2086, 'bb_lobby_1', 'bb_wallend1in', 18, 1, 2, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2087, 'bb_lobby_1', 'bb_bench2', 3, 2, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2088, 'bb_lobby_1', 'bb_wallend1in', 18, 2, 2, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2089, 'bb_lobby_1', 'bb_plant3', 3, 3, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2090, 'bb_lobby_1', 'bb_special', 7, 3, 2, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2091, 'bb_lobby_1', 'bb_wallend1in', 8, 3, 2, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2092, 'bb_lobby_1', 'bb_wallend1in', 9, 3, 2, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2093, 'bb_lobby_1', 'bb_wallend1in', 10, 3, 2, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2094, 'bb_lobby_1', 'bb_wallend1in', 11, 3, 2, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2095, 'bb_lobby_1', 'bb_crossrd', 12, 3, 2, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2096, 'bb_lobby_1', 'bb_crossrd', 16, 3, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2097, 'bb_lobby_1', 'bb_wallend1in', 17, 3, 2, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2098, 'bb_lobby_1', 'bb_crossrd', 18, 3, 2, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2099, 'bb_lobby_1', 'bb_wallend2in', 3, 4, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2100, 'bb_lobby_1', 'bb_wallend1in', 7, 4, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2101, 'bb_lobby_1', 'bb_bench1', 8, 4, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2102, 'bb_lobby_1', 'bb_bench2', 9, 4, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2103, 'bb_lobby_1', 'bb_bench1', 10, 4, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2104, 'bb_lobby_1', 'bb_bench2', 11, 4, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2105, 'bb_lobby_1', 'bb_wallend2in', 12, 4, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2106, 'bb_lobby_1', 'bb_wallend1in', 16, 4, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2107, 'bb_lobby_1', 'bb_bench1', 17, 4, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2108, 'bb_lobby_1', 'bb_bench2', 18, 4, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2109, 'bb_lobby_1', 'bb_wallendout', 19, 4, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2110, 'bb_lobby_1', 'bb_stool', 7, 5, 1, 3, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2111, 'bb_lobby_1', 'bb_stool', 12, 5, 1, 5, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2112, 'bb_lobby_1', 'bb_bench1', 19, 5, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2113, 'bb_lobby_1', 'bb_stool', 3, 6, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2114, 'bb_lobby_1', 'bb_bench2', 19, 6, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2115, 'bb_lobby_1', 'bb_chair', 9, 7, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2116, 'bb_lobby_1', 'bb_chair', 10, 7, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2117, 'bb_lobby_1', 'bb_bench1', 17, 7, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2118, 'bb_lobby_1', 'bb_bench2', 18, 7, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2119, 'bb_lobby_1', 'bb_wallendout', 19, 7, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2120, 'bb_lobby_1', 'bb_stool', 3, 8, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2121, 'bb_lobby_1', 'bb_extra', 17, 8, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2122, 'bb_lobby_1', 'bb_extra', 18, 8, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2123, 'bb_lobby_1', 'bb_crossrd', 19, 8, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2124, 'bb_lobby_1', 'bb_stool', 3, 9, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2125, 'bb_lobby_1', 'bb_chair', 9, 9, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2126, 'bb_lobby_1', 'bb_chair', 10, 9, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2127, 'bb_lobby_1', 'bb_bench1', 17, 9, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2128, 'bb_lobby_1', 'bb_bench2', 18, 9, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2129, 'bb_lobby_1', 'bb_wallendout', 19, 9, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2130, 'bb_lobby_1', 'bb_bench1', 19, 10, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2131, 'bb_lobby_1', 'bb_stool', 7, 11, 1, 1, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2132, 'bb_lobby_1', 'bb_stool', 12, 11, 1, 7, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2133, 'bb_lobby_1', 'bb_bench2', 19, 11, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2134, 'bb_lobby_1', 'bb_wallend1in', 7, 12, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2135, 'bb_lobby_1', 'bb_bench1', 8, 12, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2136, 'bb_lobby_1', 'bb_bench2', 9, 12, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2137, 'bb_lobby_1', 'bb_bench1', 10, 12, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2138, 'bb_lobby_1', 'bb_bench2', 11, 12, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2139, 'bb_lobby_1', 'bb_wallend2in', 12, 12, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2140, 'bb_lobby_1', 'bb_bench1', 17, 12, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2141, 'bb_lobby_1', 'bb_bench2', 18, 12, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2142, 'bb_lobby_1', 'bb_wallendout', 19, 12, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2143, 'bb_lobby_1', 'bb_corner1out', 7, 13, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2144, 'bb_lobby_1', 'bb_wallout', 8, 13, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2145, 'bb_lobby_1', 'bb_wallout', 9, 13, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2146, 'bb_lobby_1', 'bb_wallout', 10, 13, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2147, 'bb_lobby_1', 'bb_wallout', 11, 13, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2148, 'bb_lobby_1', 'bb_special', 12, 13, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2149, 'bb_lobby_1', 'bb_wallendout', 16, 13, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2150, 'bb_lobby_1', 'bb_wallout', 17, 13, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2151, 'bb_lobby_1', 'bb_wallout', 18, 13, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2152, 'bb_lobby_1', 'bb_corner1out', 19, 13, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2153, 'bb_lobby_1', 'bb_plant0', 9, 14, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2154, 'bb_lobby_1', 'bb_sofa1', 10, 14, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2155, 'bb_lobby_1', 'bb_sofa2', 11, 14, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2156, 'bb_lobby_1', 'bb_plant2', 12, 14, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2157, 'bb_lobby_1', 'bb_plant2', 16, 14, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2158, 'bb_lobby_1', 'bb_sofa1', 17, 14, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2159, 'bb_lobby_1', 'bb_sofa2', 18, 14, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2160, 'bb_lobby_1', 'bb_plant0', 19, 14, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2161, 'bb_lobby_1', 'bb_sofa1', 9, 15, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2162, 'bb_lobby_1', 'bb_sofa1', 19, 15, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2163, 'bb_lobby_1', 'bb_sofa2', 9, 16, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2164, 'bb_lobby_1', 'bb_sofa2', 19, 16, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2165, 'bb_lobby_1', 'bb_sofa1', 9, 17, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2166, 'bb_lobby_1', 'bb_sofa1', 19, 17, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2167, 'bb_lobby_1', 'bb_sofa2', 9, 18, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2168, 'bb_lobby_1', 'bb_sofa2', 19, 18, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2169, 'bb_lobby_1', 'bb_plant0', 9, 19, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2170, 'bb_lobby_1', 'bb_sofa1', 10, 19, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2171, 'bb_lobby_1', 'bb_sofa2', 11, 19, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2172, 'bb_lobby_1', 'bb_plant3', 12, 19, 0, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2173, 'bb_lobby_1', 'bb_plant3', 16, 19, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2174, 'bb_lobby_1', 'bb_sofa1', 17, 19, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2175, 'bb_lobby_1', 'bb_sofa2', 18, 19, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2176, 'bb_lobby_1', 'bb_plant0', 19, 19, 0, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2177, 'snowwar_lobby_1', 'sw_barrellchair', 31, 18, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2178, 'snowwar_lobby_1', 'sw_barrellchair', 31, 19, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2179, 'snowwar_lobby_1', 'sw_barrellchair', 30, 20, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2180, 'snowwar_lobby_1', 'sw_barrellchair', 37, 20, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2181, 'snowwar_lobby_1', 'sw_barrellchair', 39, 20, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2182, 'snowwar_lobby_1', 'sw_barrellchair', 41, 20, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2183, 'snowwar_lobby_1', 'sw_chair1', 30, 24, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2184, 'snowwar_lobby_1', 'sw_chair2', 31, 24, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2185, 'snowwar_lobby_1', 'sw_chair2', 32, 24, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2186, 'snowwar_lobby_1', 'sw_chair2', 33, 24, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2187, 'snowwar_lobby_1', 'sw_chair3', 34, 24, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2188, 'snowwar_lobby_1', 'sw_table1', 30, 25, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2189, 'snowwar_lobby_1', 'sw_table2', 31, 25, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2190, 'snowwar_lobby_1', 'sw_table3', 32, 25, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2191, 'snowwar_lobby_1', 'sw_table4', 33, 25, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2192, 'snowwar_lobby_1', 'sw_table5', 34, 25, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2193, 'snowwar_lobby_1', 'sw_chair1', 30, 26, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2194, 'snowwar_lobby_1', 'sw_chair2', 31, 26, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2195, 'snowwar_lobby_1', 'sw_chair2', 32, 26, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2196, 'snowwar_lobby_1', 'sw_chair2', 33, 26, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2197, 'snowwar_lobby_1', 'sw_chair3', 34, 26, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2198, 'snowwar_lobby_1', 'sw_chair1', 30, 29, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2199, 'snowwar_lobby_1', 'sw_chair2', 31, 29, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2200, 'snowwar_lobby_1', 'sw_chair2', 32, 29, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2201, 'snowwar_lobby_1', 'sw_chair2', 33, 29, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2202, 'snowwar_lobby_1', 'sw_chair3', 34, 29, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2203, 'snowwar_lobby_1', 'sw_table1', 30, 30, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2204, 'snowwar_lobby_1', 'sw_table2', 31, 30, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2205, 'snowwar_lobby_1', 'sw_table3', 32, 30, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2206, 'snowwar_lobby_1', 'sw_table4', 33, 30, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2207, 'snowwar_lobby_1', 'sw_table5', 34, 30, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2208, 'snowwar_lobby_1', 'sw_chair1', 30, 31, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2209, 'snowwar_lobby_1', 'sw_chair2', 31, 31, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2210, 'snowwar_lobby_1', 'sw_chair2', 32, 31, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2211, 'snowwar_lobby_1', 'sw_chair2', 33, 31, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2212, 'snowwar_lobby_1', 'sw_chair3', 34, 31, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2213, 'snowwar_lobby_1', 'invisichair', 27, 32, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2214, 'snowwar_lobby_1', 'invisichair', 27, 33, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2215, 'snowwar_lobby_1', 'invisichair', 27, 34, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2216, 'snowwar_lobby_1', 'invisichair', 28, 36, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2217, 'snowwar_lobby_1', 'invisichair', 29, 36, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2218, 'snowwar_lobby_1', 'invisichair', 30, 36, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2219, 'snowwar_lobby_1', 'invisichair', 31, 36, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2220, 'tv_studio', 'much_camera3', 4, 13, 0, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2221, 'tv_studio', 'much_chair', 14, 4, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2222, 'tv_studio', 'much_chair', 18, 5, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2223, 'tv_studio', 'much_chair', 18, 7, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2224, 'tv_studio', 'much_chair', 19, 11, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2225, 'tv_studio', 'much_chair', 19, 12, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2226, 'tv_studio', 'much_chair', 2, 6, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2227, 'tv_studio', 'much_chair', 5, 3, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2228, 'tv_studio', 'much_sofa1a', 0, 15, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2229, 'tv_studio', 'much_sofa1a', 1, 18, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2230, 'tv_studio', 'much_sofa1a', 14, 19, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2231, 'tv_studio', 'much_sofa1a', 14, 24, 4, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2232, 'tv_studio', 'much_sofa1a', 18, 16, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2233, 'tv_studio', 'much_sofa1a', 6, 27, 4, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2234, 'tv_studio', 'much_sofa1a', 8, 1, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2235, 'tv_studio', 'much_sofa1a', 8, 31, 4, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2236, 'tv_studio', 'much_sofa1b', 0, 16, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2237, 'tv_studio', 'much_sofa1b', 10, 1, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2238, 'tv_studio', 'much_sofa1b', 15, 19, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2239, 'tv_studio', 'much_sofa1b', 15, 24, 4, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2240, 'tv_studio', 'much_sofa1b', 16, 19, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2241, 'tv_studio', 'much_sofa1b', 18, 17, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2242, 'tv_studio', 'much_sofa1b', 18, 18, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2243, 'tv_studio', 'much_sofa1b', 2, 18, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2244, 'tv_studio', 'much_sofa1b', 3, 18, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2245, 'tv_studio', 'much_sofa1b', 6, 28, 4, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2246, 'tv_studio', 'much_sofa1b', 6, 29, 4, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2247, 'tv_studio', 'much_sofa1b', 6, 30, 4, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2248, 'tv_studio', 'much_sofa1b', 9, 1, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2249, 'tv_studio', 'much_sofa1b', 9, 31, 4, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2250, 'tv_studio', 'much_stool', 14, 10, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2251, 'tv_studio', 'much_stool', 14, 11, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2252, 'tv_studio', 'much_stool', 14, 12, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2253, 'tv_studio', 'much_stool', 14, 13, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2254, 'tv_studio', 'much_table1', 10, 3, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2255, 'tv_studio', 'much_table1', 16, 16, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2256, 'tv_studio', 'much_table1', 2, 16, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2257, 'tv_studio', 'much_table1', 8, 29, 4, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2258, 'tv_studio', 'much_table2', 15, 16, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2259, 'tv_studio', 'much_table2', 8, 28, 4, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2260, 'tv_studio', 'much_table2', 9, 3, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2261, 'tv_studio', 'much_table3', 14, 16, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2262, 'tv_studio', 'much_table3', 2, 15, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2263, 'tv_studio', 'much_table3', 8, 27, 4, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2264, 'tv_studio', 'much_table3', 8, 3, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2265, 'tv_studio', 'watermatic', 5, 25, 4, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2266, 'club_mammoth', 'bbarstool', 14, 0, 4, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2267, 'club_mammoth', 'bbarstool', 14, 1, 4, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2268, 'club_mammoth', 'bbarstool', 14, 2, 4, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2269, 'club_mammoth', 'elephantcouch2', 18, 4, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2270, 'club_mammoth', 'elephantcouch4', 21, 4, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2271, 'club_mammoth', 'elephantcouch1', 18, 5, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2272, 'club_mammoth', 'elephantcouch3', 21, 5, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2273, 'club_mammoth', 'tinypalm', 11, 6, 2, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2274, 'club_mammoth', 'plainstool1', 12, 6, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2275, 'club_mammoth', 'plainstool2', 13, 6, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2276, 'club_mammoth', 'plainstool2', 14, 6, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2277, 'club_mammoth', 'plainstool2', 15, 6, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2278, 'club_mammoth', 'plainstool2', 16, 6, 100000, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2279, 'club_mammoth', 'bbarstool', 15, 9, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2280, 'club_mammoth', 'bbarstool', 15, 10, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2281, 'club_mammoth', 'bbarstool', 15, 11, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2282, 'club_mammoth', 'bbarstool', 16, 11, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2283, 'club_mammoth', 'bbarstool', 17, 11, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2284, 'club_mammoth', 'plainstool3', 11, 15, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2285, 'club_mammoth', 'plainstool3', 11, 16, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2286, 'club_mammoth', 'plainstool3', 11, 17, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2287, 'club_mammoth', 'plainstool3', 11, 18, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2288, 'club_mammoth', 'elephantcouch2', 20, 24, 4, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2289, 'club_mammoth', 'elephantcouch4', 23, 24, 4, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2290, 'club_mammoth', 'elephantcouch1', 20, 25, 4, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2291, 'club_mammoth', 'elephantcouch3', 23, 25, 4, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2292, 'club_mammoth', 'boothsofa1', 7, 27, 6, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2293, 'club_mammoth', 'boothsofa3', 11, 27, 6, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2294, 'club_mammoth', 'boothsofa1', 13, 27, 6, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2295, 'club_mammoth', 'boothsofa1', 7, 28, 6, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2296, 'club_mammoth', 'boothsofa3', 11, 28, 6, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2297, 'club_mammoth', 'tinypalm', 12, 28, 6, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2298, 'club_mammoth', 'boothsofa1', 13, 28, 6, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2299, 'club_mammoth', 'boothsofa1', 7, 29, 6, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2300, 'club_mammoth', 'boothsofa3', 11, 29, 6, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2301, 'club_mammoth', 'boothsofa1', 13, 29, 6, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2302, 'club_mammoth', 'boothsofacorner1', 7, 30, 6, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2303, 'club_mammoth', 'boothsofa2', 8, 30, 6, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2304, 'club_mammoth', 'boothsofa2', 9, 30, 6, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2305, 'club_mammoth', 'boothsofa2', 10, 30, 6, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2306, 'club_mammoth', 'boothsofacorner2', 11, 30, 6, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2307, 'club_mammoth', 'tinypalm', 12, 30, 6, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2308, 'club_mammoth', 'boothsofacorner1', 13, 30, 6, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2309, 'club_mammoth', 'boothsofa2', 14, 30, 6, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2310, 'club_mammoth', 'boothsofa2', 15, 30, 6, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2311, 'club_mammoth', 'boothsofa2', 16, 30, 6, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2312, 'club_mammoth', 'boothsofa2', 17, 30, 6, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2313, 'ice_cafe', 'cafe_chair_cream', 17, 17, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2314, 'ice_cafe', 'infokiosk', 17, 0, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2315, 'ice_cafe', 'cafe_deskb', 1, 10, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2316, 'ice_cafe', 'cafe_chair_blue', 5, 17, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2317, 'ice_cafe', 'cafe_table_biga_blue', 4, 2, 1, 2, 0.001, 2, 2, 'extra_parameter', '', NULL, NULL),
-	(2318, 'ice_cafe', 'infokiosk', 15, 0, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2319, 'ice_cafe', 'cafe_chair_blue', 3, 1, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2320, 'ice_cafe', 'cafe_sofaa', 2, 21, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2321, 'ice_cafe', 'cafe_deskb', 1, 12, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2322, 'ice_cafe', 'cafe_sofaa', 2, 23, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2323, 'ice_cafe', 'cafe_chair_cream', 13, 3, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2324, 'ice_cafe', 'cafe_chair_cream', 10, 4, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2325, 'ice_cafe', 'cafe_table_cream', 15, 10, 0, 2, 0.001, 2, 2, 'extra_parameter', '', NULL, NULL),
-	(2326, 'ice_cafe', 'cafe_chair_cream', 13, 4, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2327, 'ice_cafe', 'cafe_chair_blue', 3, 15, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2328, 'ice_cafe', 'cafe_deskb', 1, 13, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2329, 'ice_cafe', 'cafe_sofab', 2, 20, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2330, 'ice_cafe', 'construction', 8, 22, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2331, 'ice_cafe', 'cafe_chair_blue', 3, 2, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2332, 'ice_cafe', 'cafe_chair_cream', 14, 10, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2333, 'ice_cafe', 'cafe_chair_cream', 12, 5, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2334, 'ice_cafe', 'cafe_chair_cream', 14, 17, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2335, 'ice_cafe', 'cafe_chair_blue', 5, 10, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2336, 'ice_cafe', 'cafe_chair_blue', 5, 14, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2337, 'ice_cafe', 'cafe_chair_cream', 15, 9, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2338, 'ice_cafe', 'cafe_table_bigb_cream', 12, 2, 0, 0, 0.001, 0, 0, 'solid', '', NULL, NULL),
-	(2339, 'ice_cafe', 'cafe_chair_blue', 3, 3, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2340, 'ice_cafe', 'cafe_chair_cream', 10, 3, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2341, 'ice_cafe', 'cafe_table_biga_cream', 11, 3, 0, 2, 0.001, 2, 2, 'extra_parameter', '', NULL, NULL),
-	(2342, 'ice_cafe', 'cafe_chair_cream', 10, 19, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2343, 'ice_cafe', 'cafe_chair_cream', 17, 11, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2344, 'ice_cafe', 'cafe_chair_blue', 5, 4, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2345, 'ice_cafe', 'cafe_chair_blue', 6, 1, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2346, 'ice_cafe', 'cafe_chair_blue', 6, 16, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2347, 'ice_cafe', 'cafe_chair_blue', 3, 8, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2348, 'ice_cafe', 'cafe_chair_cream', 11, 21, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2349, 'ice_cafe', 'cafe_table_bigb_blue', 5, 1, 1, 0, 0.001, 0, 0, 'solid', '', NULL, NULL),
-	(2350, 'ice_cafe', 'cafe_chair_cream', 11, 18, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2351, 'ice_cafe', 'cafe_table_blue', 4, 8, 1, 2, 0.001, 2, 2, 'extra_parameter', '', NULL, NULL),
-	(2352, 'ice_cafe', 'cafe_table_cream', 15, 17, 0, 2, 0.001, 2, 2, 'extra_parameter', '', NULL, NULL),
-	(2353, 'ice_cafe', 'cafe_chair_cream', 10, 2, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2354, 'ice_cafe', 'infokiosk', 16, 0, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2355, 'ice_cafe', 'cafe_sofab', 2, 22, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2356, 'ice_cafe', 'cafe_chair_cream', 13, 20, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2357, 'ice_cafe', 'cafe_chair_cream', 15, 16, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2358, 'ice_cafe', 'cafe_chair_cream', 16, 19, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2359, 'ice_cafe', 'cafe_deskc', 1, 9, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2360, 'ice_cafe', 'cafe_chair_blue', 6, 9, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2361, 'ice_cafe', 'cafe_chair_cream', 15, 12, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2362, 'ice_cafe', 'cafe_chair_cream', 11, 1, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2363, 'ice_cafe', 'cafe_chair_blue', 6, 2, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2364, 'ice_cafe', 'cafe_table_blue', 4, 15, 1, 2, 0.001, 2, 2, 'extra_parameter', '', NULL, NULL),
-	(2365, 'ice_cafe', 'cafe_chair_blue', 6, 3, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2366, 'ice_cafe', 'cafe_deskb', 1, 11, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2367, 'ice_cafe', 'cafe_table_cream', 11, 19, 0, 2, 0.001, 2, 2, 'extra_parameter', '', NULL, NULL),
-	(2368, 'ice_cafe', 'cafe_deskb', 1, 14, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2369, 'ice_cafe', 'cafe_chair_cream', 13, 2, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2370, 'ice_cafe', 'cafe_chair_blue', 4, 7, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2371, 'netcafe', 'k', 15, 7, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2372, 'netcafe', 'k', 12, 12, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2373, 'netcafe', 'k', 15, 9, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2374, 'netcafe', 'k', 16, 1, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2375, 'netcafe', 'k', 18, 10, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2376, 'netcafe', 'k', 18, 9, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2377, 'netcafe', 'k', 19, 1, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2378, 'netcafe', 'k', 4, 10, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2379, 'netcafe', 'k', 4, 12, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2380, 'netcafe', 'k', 6, 18, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2381, 'netcafe', 'k', 9, 9, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2382, 'netcafe', 'kukat1', 13, 3, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2383, 'netcafe', 'kukat1', 20, 3, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2384, 'netcafe', 'kukat1', 6, 16, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2385, 'netcafe', 'kukat1', 8, 16, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2386, 'netcafe', 'kukat2', 12, 3, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2387, 'netcafe', 'kukat2', 19, 3, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2388, 'netcafe', 'kukat2', 5, 16, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2389, 'netcafe', 'kukat2', 7, 16, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2390, 'netcafe', 'kukat3', 9, 16, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2391, 'netcafe', 'kukat3', 9, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2392, 'netcafe', 'kukat4', 9, 17, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2393, 'netcafe', 'kukat4', 9, 19, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2394, 'netcafe', 'kukat5', 6, 3, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2395, 'netcafe', 'kukat6', 5, 3, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2396, 'netcafe', 'kukka', 20, 23, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2397, 'netcafe', 'kukka2', 15, 16, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2398, 'netcafe', 'l', 12, 11, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2399, 'netcafe', 'l', 13, 1, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2400, 'netcafe', 'l', 15, 8, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2401, 'netcafe', 'l', 18, 8, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2402, 'netcafe', 'l', 4, 11, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2403, 'netcafe', 'l', 9, 11, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2404, 'netcafe', 'l', 9, 12, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2405, 'netcafe', 'm', 10, 1, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2406, 'netcafe', 'm', 12, 10, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2407, 'netcafe', 'm', 12, 9, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2408, 'netcafe', 'm', 15, 10, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2409, 'netcafe', 'm', 18, 7, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2410, 'netcafe', 'm', 4, 13, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2411, 'netcafe', 'm', 4, 9, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2412, 'netcafe', 'm', 6, 21, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2413, 'netcafe', 'm', 9, 10, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2414, 'netcafe', 'shift1', 0, 5, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2415, 'netcafe', 'shift1', 12, 4, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2416, 'netcafe', 'shift1', 19, 4, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2417, 'netcafe', 'shift1', 2, 5, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2418, 'netcafe', 'shift1', 6, 0, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2419, 'netcafe', 'shift2', 1, 5, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2420, 'netcafe', 'shift2', 13, 4, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2421, 'netcafe', 'shift2', 20, 4, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2422, 'netcafe', 'shift2', 3, 5, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2423, 'netcafe', 'shift2', 7, 0, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2424, 'netcafe', 'sofabig1', 20, 21, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2425, 'netcafe', 'sofabig2', 20, 19, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2426, 'netcafe', 'sofabig2', 20, 20, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2427, 'netcafe', 'sofabig3', 20, 18, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2428, 'netcafe', 'sofalittle1', 18, 23, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2429, 'netcafe', 'sofalittle2', 17, 23, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2430, 'netcafe', 'sofalittle3', 16, 23, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2431, 'netcafe', 'table1', 17, 19, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2432, 'netcafe', 'table1', 17, 20, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2433, 'netcafe', 'table1', 17, 21, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2434, 'netcafe', 'table2', 16, 10, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2435, 'netcafe', 'table2', 16, 7, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2436, 'netcafe', 'table2', 16, 8, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2437, 'netcafe', 'table2', 16, 9, 0, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2438, 'netcafe', 'table3', 10, 10, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2439, 'netcafe', 'table3', 10, 11, 0, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2440, 'netcafe', 'table3', 10, 12, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2441, 'netcafe', 'table3', 10, 9, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2442, 'netcafe', 'tablecorner', 11, 9, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2443, 'netcafe', 'tablecorner', 17, 7, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2444, 'netcafe', 'tablecorner', 18, 19, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2445, 'netcafe', 'watermatic', 5, 0, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2446, 'hallway0', 'hw_chair', 15, 0, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2447, 'hallway0', 'hw_chair', 15, 1, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2448, 'hallway0', 'hw_chair', 17, 0, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2449, 'hallway0', 'hw_chair', 17, 1, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2450, 'hallway0', 'hw_chair', 20, 0, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2451, 'hallway0', 'hw_chair', 20, 1, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2452, 'hallway0', 'hw_chair', 20, 2, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2453, 'hallway0', 'hw_chair', 22, 0, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2454, 'hallway0', 'hw_chair', 22, 1, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2455, 'hallway0', 'hw_chair', 22, 2, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2456, 'hallway0', 'hw_chair', 25, 0, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2457, 'hallway0', 'hw_chair', 25, 1, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2458, 'hallway0', 'hw_chair', 27, 0, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2459, 'hallway0', 'hw_chair', 27, 1, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2460, 'hallway0', 'hw_ero1', 17, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2461, 'hallway0', 'hw_ero2', 18, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2462, 'hallway0', 'hw_ero5', 19, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2463, 'hallway0', 'hw_plant', 4, 0, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2464, 'hallway0', 'hw_plant', 4, 7, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2465, 'hallway0', 'hw_pntg', 18, 0, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2466, 'hallway0', 'hw_smtble', 7, 0, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2467, 'hallway0', 'hw_sofa1', 12, 10, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2468, 'hallway0', 'hw_sofa1', 5, 0, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2469, 'hallway0', 'hw_sofa1', 8, 0, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2470, 'hallway0', 'hw_sofa2', 12, 11, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2471, 'hallway0', 'hw_sofa2', 12, 12, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2472, 'hallway0', 'hw_sofa2', 12, 13, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2473, 'hallway0', 'hw_sofa3', 12, 14, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2474, 'hallway0', 'hw_sofa3', 6, 0, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2475, 'hallway0', 'hw_sofa3', 9, 0, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2476, 'hallway0', 'hw_table1', 16, 0, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2477, 'hallway0', 'hw_table1', 21, 0, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2478, 'hallway0', 'hw_table1', 26, 0, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2479, 'hallway0', 'hw_table2', 21, 1, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2480, 'hallway0', 'hw_table3', 16, 1, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2481, 'hallway0', 'hw_table3', 21, 2, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2482, 'hallway0', 'hw_table3', 26, 1, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2483, 'hallway0', 'hw_watermatic', 10, 0, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2484, 'hallway0', 'pillar1', 12, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2485, 'hallway9', 'hw_ero1', 12, 14, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2486, 'hallway9', 'hw_ero1', 14, 12, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2487, 'hallway9', 'hw_ero1', 14, 19, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2488, 'hallway9', 'hw_ero1', 19, 14, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2489, 'hallway9', 'hw_ero2', 12, 15, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2490, 'hallway9', 'hw_ero2', 15, 12, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2491, 'hallway9', 'hw_ero2', 15, 19, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2492, 'hallway9', 'hw_ero2', 19, 15, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2493, 'hallway9', 'hw_ero3', 12, 16, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2494, 'hallway9', 'hw_ero3', 16, 12, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2495, 'hallway9', 'hw_ero3', 16, 19, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2496, 'hallway9', 'hw_ero3', 19, 16, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2497, 'hallway9', 'hw_ero5', 12, 17, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2498, 'hallway9', 'hw_ero5', 17, 12, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2499, 'hallway9', 'hw_ero5', 17, 19, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2500, 'hallway9', 'hw_ero5', 19, 17, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2501, 'hallway9', 'hw_plant', 12, 27, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2502, 'hallway9', 'hw_shelf', 12, 4, 0, 4, 0.001, 2, 1, 'solid', '', NULL, NULL),
-	(2503, 'hallway9', 'hw_shelf', 4, 12, 0, 2, 0.001, 2, 1, 'solid', '', NULL, NULL),
-	(2504, 'hallway9', 'hw_smtble', 10, 12, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2505, 'hallway9', 'hw_smtble', 12, 10, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2506, 'hallway9', 'hw_smtble', 12, 21, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2507, 'hallway9', 'hw_smtble', 21, 12, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2508, 'hallway9', 'hw_sofa1', 12, 22, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2509, 'hallway9', 'hw_sofa1', 12, 6, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2510, 'hallway9', 'hw_sofa1', 22, 12, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2511, 'hallway9', 'hw_sofa1', 6, 12, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2512, 'hallway9', 'hw_sofa2', 12, 23, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2513, 'hallway9', 'hw_sofa2', 12, 24, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2514, 'hallway9', 'hw_sofa2', 12, 7, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2515, 'hallway9', 'hw_sofa2', 12, 8, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2516, 'hallway9', 'hw_sofa2', 23, 12, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2517, 'hallway9', 'hw_sofa2', 24, 12, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2518, 'hallway9', 'hw_sofa2', 7, 12, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2519, 'hallway9', 'hw_sofa2', 8, 12, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2520, 'hallway9', 'hw_sofa3', 12, 25, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2521, 'hallway9', 'hw_sofa3', 12, 9, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2522, 'hallway9', 'hw_sofa3', 25, 12, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2523, 'hallway9', 'hw_sofa3', 9, 12, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2524, 'hallway9', 'hw_watermatic', 27, 12, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2525, 'hallway9', 'pillar1', 19, 4, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2526, 'hallway9', 'pillar1', 4, 19, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2527, 'hallway2', 'hw_chair', 17, 13, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2528, 'hallway2', 'hw_chair', 17, 15, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2529, 'hallway2', 'hw_chair', 19, 18, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2530, 'hallway2', 'hw_chair', 19, 4, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2531, 'hallway2', 'hw_chair', 20, 13, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2532, 'hallway2', 'hw_chair', 22, 13, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2533, 'hallway2', 'hw_chair', 22, 16, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2534, 'hallway2', 'hw_chair', 22, 18, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2535, 'hallway2', 'hw_ero1', 12, 11, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2536, 'hallway2', 'hw_ero1', 22, 11, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2537, 'hallway2', 'hw_ero1', 4, 10, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2538, 'hallway2', 'hw_ero2', 13, 11, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2539, 'hallway2', 'hw_ero2', 16, 11, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2540, 'hallway2', 'hw_ero3', 14, 11, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2541, 'hallway2', 'hw_ero4', 15, 11, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2542, 'hallway2', 'hw_ero5', 17, 11, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2543, 'hallway2', 'hw_ero5', 23, 11, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2544, 'hallway2', 'hw_ero5', 5, 10, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2545, 'hallway2', 'hw_plant', 13, 4, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2546, 'hallway2', 'hw_plant', 18, 4, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2547, 'hallway2', 'hw_plant', 3, 6, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2548, 'hallway2', 'hw_plant', 4, 17, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2549, 'hallway2', 'hw_smtble', 17, 14, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2550, 'hallway2', 'hw_smtble', 18, 18, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2551, 'hallway2', 'hw_smtble', 21, 13, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2552, 'hallway2', 'hw_smtble', 22, 17, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2553, 'hallway2', 'hw_smtble', 4, 14, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2554, 'hallway2', 'hw_smtble', 7, 4, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2555, 'hallway2', 'hw_sofa1', 4, 12, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2556, 'hallway2', 'hw_sofa1', 4, 15, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2557, 'hallway2', 'hw_sofa1', 5, 4, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2558, 'hallway2', 'hw_sofa1', 8, 4, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2559, 'hallway2', 'hw_sofa3', 4, 13, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2560, 'hallway2', 'hw_sofa3', 4, 16, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2561, 'hallway2', 'hw_sofa3', 6, 4, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2562, 'hallway2', 'hw_sofa3', 9, 4, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2563, 'hallway2', 'hw_statue', 19, 15, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2564, 'hallway2', 'hw_watermatic', 11, 13, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2565, 'hallway2', 'pillar1', 11, 12, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2566, 'hallway1', 'hw_chair', 13, 4, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2567, 'hallway1', 'hw_chair', 17, 16, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2568, 'hallway1', 'hw_chair', 17, 18, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2569, 'hallway1', 'hw_chair', 18, 16, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2570, 'hallway1', 'hw_chair', 18, 18, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2571, 'hallway1', 'hw_chair', 4, 13, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2572, 'hallway1', 'hw_chair', 4, 18, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2573, 'hallway1', 'hw_ero1', 17, 13, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2574, 'hallway1', 'hw_ero5', 18, 13, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2575, 'hallway1', 'hw_painting1', 22, 5, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2576, 'hallway1', 'hw_plant', 12, 9, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2577, 'hallway1', 'hw_plant', 26, 4, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2578, 'hallway1', 'hw_plant', 4, 12, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2579, 'hallway1', 'hw_plant', 4, 19, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2580, 'hallway1', 'hw_smtble', 12, 4, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2581, 'hallway1', 'hw_smtble', 22, 4, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2582, 'hallway1', 'hw_smtble', 7, 12, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2583, 'hallway1', 'hw_sofa1', 12, 5, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2584, 'hallway1', 'hw_sofa1', 19, 4, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2585, 'hallway1', 'hw_sofa1', 23, 4, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2586, 'hallway1', 'hw_sofa1', 5, 12, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2587, 'hallway1', 'hw_sofa1', 8, 12, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2588, 'hallway1', 'hw_sofa2', 12, 6, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2589, 'hallway1', 'hw_sofa2', 12, 7, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2590, 'hallway1', 'hw_sofa2', 20, 4, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2591, 'hallway1', 'hw_sofa2', 24, 4, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2592, 'hallway1', 'hw_sofa3', 12, 8, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2593, 'hallway1', 'hw_sofa3', 21, 4, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2594, 'hallway1', 'hw_sofa3', 25, 4, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2595, 'hallway1', 'hw_sofa3', 6, 12, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2596, 'hallway1', 'hw_sofa3', 9, 12, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2597, 'hallway1', 'hw_table1', 17, 17, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2598, 'hallway1', 'hw_table3', 18, 17, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2599, 'hallway1', 'hw_watermatic', 12, 10, 0, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2600, 'hallway1', 'pillar1', 10, 19, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2601, 'hallway3', 'hw_chair', 13, 4, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2602, 'hallway3', 'hw_chair', 13, 5, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2603, 'hallway3', 'hw_chair', 15, 4, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2604, 'hallway3', 'hw_chair', 15, 5, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2605, 'hallway3', 'hw_chair', 5, 4, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2606, 'hallway3', 'hw_chair', 7, 10, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2607, 'hallway3', 'hw_chair', 7, 11, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2608, 'hallway3', 'hw_chair', 9, 10, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2609, 'hallway3', 'hw_chair', 9, 11, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2610, 'hallway3', 'hw_ero1', 12, 10, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2611, 'hallway3', 'hw_ero2', 12, 11, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2612, 'hallway3', 'hw_ero2', 12, 14, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2613, 'hallway3', 'hw_ero2', 12, 17, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2614, 'hallway3', 'hw_ero3', 12, 12, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2615, 'hallway3', 'hw_ero3', 12, 15, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2616, 'hallway3', 'hw_ero3', 12, 18, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2617, 'hallway3', 'hw_ero4', 12, 13, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2618, 'hallway3', 'hw_ero4', 12, 16, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2619, 'hallway3', 'hw_ero5', 12, 19, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2620, 'hallway3', 'hw_plant', 10, 4, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2621, 'hallway3', 'hw_plant', 26, 4, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2622, 'hallway3', 'hw_plant', 4, 5, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2623, 'hallway3', 'hw_smtble', 4, 4, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2624, 'hallway3', 'hw_sofa1', 21, 4, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2625, 'hallway3', 'hw_sofa2', 22, 4, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2626, 'hallway3', 'hw_sofa2', 23, 4, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2627, 'hallway3', 'hw_sofa2', 24, 4, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2628, 'hallway3', 'hw_sofa3', 25, 4, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2629, 'hallway3', 'hw_table1', 14, 4, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2630, 'hallway3', 'hw_table1', 8, 10, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2631, 'hallway3', 'hw_table3', 14, 5, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2632, 'hallway3', 'hw_table3', 8, 11, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2633, 'hallway3', 'hw_watermatic', 19, 13, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2634, 'hallway3', 'pillar1', 19, 12, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2635, 'hallway4', 'hw_chair', 20, 10, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2636, 'hallway4', 'hw_chair', 20, 13, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2637, 'hallway4', 'hw_chair', 20, 14, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2638, 'hallway4', 'hw_chair', 20, 9, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2639, 'hallway4', 'hw_chair', 22, 10, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2640, 'hallway4', 'hw_chair', 22, 13, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2641, 'hallway4', 'hw_chair', 22, 14, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2642, 'hallway4', 'hw_chair', 22, 9, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2643, 'hallway4', 'hw_ero1', 17, 7, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2644, 'hallway4', 'hw_ero2', 18, 7, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2645, 'hallway4', 'hw_ero2', 21, 7, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2646, 'hallway4', 'hw_ero3', 19, 7, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2647, 'hallway4', 'hw_ero4', 20, 7, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2648, 'hallway4', 'hw_ero5', 22, 7, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2649, 'hallway4', 'hw_painting1', 19, 1, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2650, 'hallway4', 'hw_plant', 14, 0, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2651, 'hallway4', 'hw_plant', 27, 1, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2652, 'hallway4', 'hw_plant', 27, 6, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2653, 'hallway4', 'hw_plant', 4, 0, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2654, 'hallway4', 'hw_plant', 4, 7, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2655, 'hallway4', 'hw_smtble', 19, 0, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2656, 'hallway4', 'hw_smtble', 7, 0, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2657, 'hallway4', 'hw_sofa1', 15, 0, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2658, 'hallway4', 'hw_sofa1', 20, 0, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2659, 'hallway4', 'hw_sofa1', 5, 0, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2660, 'hallway4', 'hw_sofa1', 8, 0, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2661, 'hallway4', 'hw_sofa2', 16, 0, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2662, 'hallway4', 'hw_sofa2', 17, 0, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2663, 'hallway4', 'hw_sofa2', 21, 0, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2664, 'hallway4', 'hw_sofa2', 22, 0, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2665, 'hallway4', 'hw_sofa3', 18, 0, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2666, 'hallway4', 'hw_sofa3', 23, 0, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2667, 'hallway4', 'hw_sofa3', 6, 0, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2668, 'hallway4', 'hw_sofa3', 9, 0, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2669, 'hallway4', 'hw_table1', 21, 13, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2670, 'hallway4', 'hw_table1', 21, 9, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2671, 'hallway4', 'hw_table3', 21, 10, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2672, 'hallway4', 'hw_table3', 21, 14, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2673, 'hallway4', 'hw_watermatic', 14, 7, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2674, 'hallway4', 'pillar1', 13, 7, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2675, 'hallway5', 'hw_chair', 13, 4, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2676, 'hallway5', 'hw_chair', 23, 10, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2677, 'hallway5', 'hw_chair', 23, 6, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2678, 'hallway5', 'hw_chair', 23, 7, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2679, 'hallway5', 'hw_chair', 23, 8, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2680, 'hallway5', 'hw_chair', 23, 9, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2681, 'hallway5', 'hw_chair', 25, 10, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2682, 'hallway5', 'hw_chair', 25, 6, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2683, 'hallway5', 'hw_chair', 25, 7, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2684, 'hallway5', 'hw_chair', 25, 8, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2685, 'hallway5', 'hw_chair', 25, 9, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2686, 'hallway5', 'hw_ero1', 15, 20, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2687, 'hallway5', 'hw_ero1', 22, 12, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2688, 'hallway5', 'hw_ero2', 23, 12, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2689, 'hallway5', 'hw_ero3', 24, 12, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2690, 'hallway5', 'hw_ero4', 25, 12, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2691, 'hallway5', 'hw_ero5', 16, 20, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2692, 'hallway5', 'hw_ero5', 26, 12, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2693, 'hallway5', 'hw_plant', 12, 4, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2694, 'hallway5', 'hw_plant', 17, 25, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2695, 'hallway5', 'hw_plant', 19, 4, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2696, 'hallway5', 'hw_plant', 25, 17, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2697, 'hallway5', 'hw_plant', 4, 12, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2698, 'hallway5', 'hw_plant', 4, 19, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2699, 'hallway5', 'hw_smtble', 12, 7, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2700, 'hallway5', 'hw_smtble', 14, 22, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2701, 'hallway5', 'hw_smtble', 21, 15, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2702, 'hallway5', 'hw_smtble', 7, 12, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2703, 'hallway5', 'hw_sofa1', 12, 5, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2704, 'hallway5', 'hw_sofa1', 12, 8, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2705, 'hallway5', 'hw_sofa1', 14, 23, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2706, 'hallway5', 'hw_sofa1', 15, 22, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2707, 'hallway5', 'hw_sofa1', 21, 16, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2708, 'hallway5', 'hw_sofa1', 23, 14, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2709, 'hallway5', 'hw_sofa1', 5, 12, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2710, 'hallway5', 'hw_sofa1', 8, 12, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2711, 'hallway5', 'hw_sofa2', 14, 24, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2712, 'hallway5', 'hw_sofa2', 16, 22, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2713, 'hallway5', 'hw_sofa2', 24, 14, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2714, 'hallway5', 'hw_sofa3', 12, 6, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2715, 'hallway5', 'hw_sofa3', 12, 9, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2716, 'hallway5', 'hw_sofa3', 14, 25, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2717, 'hallway5', 'hw_sofa3', 17, 22, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2718, 'hallway5', 'hw_sofa3', 21, 17, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2719, 'hallway5', 'hw_sofa3', 25, 14, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2720, 'hallway5', 'hw_sofa3', 6, 12, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2721, 'hallway5', 'hw_sofa3', 9, 12, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2722, 'hallway5', 'hw_table1', 24, 6, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2723, 'hallway5', 'hw_table2', 24, 7, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2724, 'hallway5', 'hw_table2', 24, 8, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2725, 'hallway5', 'hw_table2', 24, 9, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2726, 'hallway5', 'hw_table3', 24, 10, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2727, 'hallway5', 'hw_watermatic', 18, 4, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2728, 'hallway5', 'pillar1', 12, 20, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2729, 'hallway8', 'hw_chair', 17, 13, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2730, 'hallway8', 'hw_chair', 17, 14, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2731, 'hallway8', 'hw_chair', 17, 15, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2732, 'hallway8', 'hw_chair', 17, 16, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2733, 'hallway8', 'hw_chair', 19, 13, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2734, 'hallway8', 'hw_chair', 19, 14, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2735, 'hallway8', 'hw_chair', 19, 15, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2736, 'hallway8', 'hw_chair', 19, 16, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2737, 'hallway8', 'hw_chair', 6, 16, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2738, 'hallway8', 'hw_chair', 6, 18, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2739, 'hallway8', 'hw_chair', 7, 16, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2740, 'hallway8', 'hw_chair', 7, 18, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2741, 'hallway8', 'hw_chair', 8, 16, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2742, 'hallway8', 'hw_chair', 8, 18, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2743, 'hallway8', 'hw_chair', 9, 16, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2744, 'hallway8', 'hw_chair', 9, 18, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2745, 'hallway8', 'hw_ero1', 12, 11, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2746, 'hallway8', 'hw_ero1', 20, 0, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2747, 'hallway8', 'hw_ero2', 13, 11, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2748, 'hallway8', 'hw_ero2', 16, 11, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2749, 'hallway8', 'hw_ero2', 20, 1, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2750, 'hallway8', 'hw_ero2', 20, 2, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2751, 'hallway8', 'hw_ero3', 14, 11, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2752, 'hallway8', 'hw_ero3', 17, 11, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2753, 'hallway8', 'hw_ero4', 15, 11, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2754, 'hallway8', 'hw_ero4', 18, 11, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2755, 'hallway8', 'hw_ero5', 19, 11, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2756, 'hallway8', 'hw_ero5', 20, 3, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2757, 'hallway8', 'hw_painting2', 7, 5, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2758, 'hallway8', 'hw_plant', 4, 13, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2759, 'hallway8', 'hw_plant', 4, 18, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2760, 'hallway8', 'hw_shelf', 4, 11, 1, 2, 0.001, 2, 1, 'solid', '', NULL, NULL),
-	(2761, 'hallway8', 'hw_shelf', 4, 4, 1, 2, 0.001, 2, 1, 'solid', '', NULL, NULL),
-	(2762, 'hallway8', 'hw_sofa1', 21, 0, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2763, 'hallway8', 'hw_sofa1', 4, 7, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2764, 'hallway8', 'hw_sofa1', 6, 4, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2765, 'hallway8', 'hw_sofa2', 22, 0, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2766, 'hallway8', 'hw_sofa2', 4, 8, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2767, 'hallway8', 'hw_sofa2', 7, 4, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2768, 'hallway8', 'hw_sofa3', 23, 0, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2769, 'hallway8', 'hw_sofa3', 4, 9, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2770, 'hallway8', 'hw_sofa3', 8, 4, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2771, 'hallway8', 'hw_table1', 18, 13, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2772, 'hallway8', 'hw_table1', 6, 17, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2773, 'hallway8', 'hw_table2', 18, 14, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2774, 'hallway8', 'hw_table2', 18, 15, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2775, 'hallway8', 'hw_table2', 7, 17, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2776, 'hallway8', 'hw_table2', 8, 17, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2777, 'hallway8', 'hw_table3', 18, 16, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2778, 'hallway8', 'hw_table3', 9, 17, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2779, 'hallway8', 'hw_watermatic', 13, 4, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2780, 'hallway8', 'pillar0', 17, 19, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2781, 'hallway8', 'pillar0', 22, 19, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2782, 'hallway8', 'pillar1', 11, 12, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2783, 'hallway7', 'hw_chair', 12, 24, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2784, 'hallway7', 'hw_chair', 12, 26, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2785, 'hallway7', 'hw_chair', 13, 24, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2786, 'hallway7', 'hw_chair', 13, 26, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2787, 'hallway7', 'hw_chair', 14, 24, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2788, 'hallway7', 'hw_chair', 14, 26, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2789, 'hallway7', 'hw_ero1', 10, 17, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2790, 'hallway7', 'hw_ero1', 10, 4, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2791, 'hallway7', 'hw_ero1', 4, 17, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2792, 'hallway7', 'hw_ero1', 4, 4, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2793, 'hallway7', 'hw_ero5', 11, 17, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2794, 'hallway7', 'hw_ero5', 11, 4, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2795, 'hallway7', 'hw_ero5', 5, 17, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2796, 'hallway7', 'hw_ero5', 5, 4, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2797, 'hallway7', 'hw_painting2', 5, 11, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2798, 'hallway7', 'hw_plant', 10, 25, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2799, 'hallway7', 'hw_smtble', 9, 10, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2800, 'hallway7', 'hw_sofa1', 10, 10, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2801, 'hallway7', 'hw_sofa1', 4, 7, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2802, 'hallway7', 'hw_sofa1', 9, 11, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2803, 'hallway7', 'hw_sofa2', 4, 10, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2804, 'hallway7', 'hw_sofa2', 4, 11, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2805, 'hallway7', 'hw_sofa2', 4, 12, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2806, 'hallway7', 'hw_sofa2', 4, 13, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2807, 'hallway7', 'hw_sofa2', 4, 14, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2808, 'hallway7', 'hw_sofa2', 4, 8, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2809, 'hallway7', 'hw_sofa2', 4, 9, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2810, 'hallway7', 'hw_sofa2', 9, 12, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2811, 'hallway7', 'hw_sofa2', 9, 13, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2812, 'hallway7', 'hw_sofa3', 11, 10, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2813, 'hallway7', 'hw_sofa3', 4, 15, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2814, 'hallway7', 'hw_sofa3', 9, 14, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2815, 'hallway7', 'hw_table1', 12, 25, 0, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2816, 'hallway7', 'hw_table2', 13, 25, 0, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2817, 'hallway7', 'hw_table3', 14, 25, 0, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2818, 'hallway7', 'hw_watermatic', 4, 6, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2819, 'hallway7', 'pillar0', 4, 21, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2820, 'hallway7', 'pillar0', 4, 26, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2821, 'hallway7', 'pillar1', 15, 20, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2822, 'hallway6', 'hw_chair', 11, 22, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2823, 'hallway6', 'hw_chair', 13, 22, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2824, 'hallway6', 'hw_chair', 16, 22, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2825, 'hallway6', 'hw_chair', 18, 22, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2826, 'hallway6', 'hw_chair', 4, 14, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2827, 'hallway6', 'hw_chair', 4, 5, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2828, 'hallway6', 'hw_chair', 4, 6, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2829, 'hallway6', 'hw_chair', 9, 18, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2830, 'hallway6', 'hw_chair', 9, 20, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2831, 'hallway6', 'hw_ero1', 12, 20, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2832, 'hallway6', 'hw_ero1', 4, 0, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2833, 'hallway6', 'hw_ero1', 7, 4, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2834, 'hallway6', 'hw_ero2', 13, 20, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2835, 'hallway6', 'hw_ero2', 16, 20, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2836, 'hallway6', 'hw_ero2', 7, 5, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2837, 'hallway6', 'hw_ero3', 14, 20, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2838, 'hallway6', 'hw_ero3', 17, 20, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2839, 'hallway6', 'hw_ero3', 7, 6, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2840, 'hallway6', 'hw_ero4', 15, 20, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2841, 'hallway6', 'hw_ero4', 18, 20, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2842, 'hallway6', 'hw_ero5', 19, 20, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2843, 'hallway6', 'hw_ero5', 4, 1, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2844, 'hallway6', 'hw_ero5', 7, 7, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2845, 'hallway6', 'hw_painting2', 16, 1, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2846, 'hallway6', 'hw_painting2', 7, 1, 1, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2847, 'hallway6', 'hw_plant', 19, 0, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2848, 'hallway6', 'hw_shelf', 11, 0, 1, 4, 0.001, 2, 1, 'solid', '', NULL, NULL),
-	(2849, 'hallway6', 'hw_smtble', 12, 22, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2850, 'hallway6', 'hw_smtble', 17, 22, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2851, 'hallway6', 'hw_smtble', 9, 19, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2852, 'hallway6', 'hw_sofa1', 14, 0, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2853, 'hallway6', 'hw_sofa1', 5, 0, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2854, 'hallway6', 'hw_sofa2', 15, 0, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2855, 'hallway6', 'hw_sofa2', 16, 0, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2856, 'hallway6', 'hw_sofa2', 17, 0, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2857, 'hallway6', 'hw_sofa2', 6, 0, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2858, 'hallway6', 'hw_sofa2', 7, 0, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2859, 'hallway6', 'hw_sofa2', 8, 0, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2860, 'hallway6', 'hw_sofa3', 18, 0, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2861, 'hallway6', 'hw_sofa3', 9, 0, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2862, 'hallway6', 'hw_table1', 10, 0, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2863, 'hallway6', 'hw_table1', 13, 0, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2864, 'hallway6', 'hw_table3', 10, 1, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2865, 'hallway6', 'hw_table3', 13, 1, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2866, 'hallway6', 'hw_watermatic', 4, 9, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2867, 'hallway6', 'pillar0', 19, 14, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2868, 'hallway6', 'pillar0', 19, 9, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2869, 'hallway6', 'pillar0', 9, 22, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2870, 'hallway6', 'pillar1', 11, 16, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2871, 'hallway10', 'hw_chair', 0, 10, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2872, 'hallway10', 'hw_chair', 0, 12, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2873, 'hallway10', 'hw_chair', 0, 16, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2874, 'hallway10', 'hw_chair', 0, 18, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2875, 'hallway10', 'hw_chair', 1, 10, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2876, 'hallway10', 'hw_chair', 1, 12, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2877, 'hallway10', 'hw_chair', 1, 16, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2878, 'hallway10', 'hw_chair', 1, 18, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2879, 'hallway10', 'hw_chair', 2, 10, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2880, 'hallway10', 'hw_chair', 2, 12, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2881, 'hallway10', 'hw_chair', 2, 16, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2882, 'hallway10', 'hw_chair', 2, 18, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2883, 'hallway10', 'hw_ero1', 13, 4, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2884, 'hallway10', 'hw_ero1', 16, 12, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2885, 'hallway10', 'hw_ero1', 7, 22, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2886, 'hallway10', 'hw_ero1', 7, 8, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2887, 'hallway10', 'hw_ero2', 13, 5, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2888, 'hallway10', 'hw_ero2', 16, 13, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2889, 'hallway10', 'hw_ero2', 7, 12, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2890, 'hallway10', 'hw_ero2', 7, 15, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2891, 'hallway10', 'hw_ero2', 7, 9, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2892, 'hallway10', 'hw_ero3', 13, 6, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2893, 'hallway10', 'hw_ero3', 16, 14, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2894, 'hallway10', 'hw_ero3', 7, 10, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2895, 'hallway10', 'hw_ero3', 7, 13, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2896, 'hallway10', 'hw_ero3', 7, 16, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2897, 'hallway10', 'hw_ero4', 7, 11, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2898, 'hallway10', 'hw_ero4', 7, 14, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2899, 'hallway10', 'hw_ero5', 13, 7, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2900, 'hallway10', 'hw_ero5', 16, 15, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2901, 'hallway10', 'hw_ero5', 7, 17, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2902, 'hallway10', 'hw_ero5', 7, 23, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2903, 'hallway10', 'hw_painting2', 1, 14, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2904, 'hallway10', 'hw_smtble', 10, 10, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2905, 'hallway10', 'hw_smtble', 19, 8, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2906, 'hallway10', 'hw_sofa1', 10, 2, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2907, 'hallway10', 'hw_sofa1', 15, 8, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2908, 'hallway10', 'hw_sofa2', 10, 3, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2909, 'hallway10', 'hw_sofa2', 10, 4, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2910, 'hallway10', 'hw_sofa2', 10, 5, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2911, 'hallway10', 'hw_sofa2', 10, 6, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2912, 'hallway10', 'hw_sofa2', 10, 7, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2913, 'hallway10', 'hw_sofa2', 10, 8, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2914, 'hallway10', 'hw_sofa2', 16, 8, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2915, 'hallway10', 'hw_sofa2', 17, 8, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2916, 'hallway10', 'hw_sofa3', 10, 9, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2917, 'hallway10', 'hw_sofa3', 18, 8, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2918, 'hallway10', 'hw_table1', 0, 11, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2919, 'hallway10', 'hw_table1', 0, 17, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2920, 'hallway10', 'hw_table2', 1, 11, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2921, 'hallway10', 'hw_table2', 1, 17, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2922, 'hallway10', 'hw_table3', 2, 11, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2923, 'hallway10', 'hw_table3', 2, 17, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2924, 'hallway10', 'hw_watermatic', 0, 14, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2925, 'hallway10', 'pillar1', 10, 0, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2926, 'hallway10', 'pillar1', 14, 16, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2927, 'hallway10', 'pillar1', 14, 23, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2928, 'hallway11', 'hw_chair', 10, 18, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2929, 'hallway11', 'hw_chair', 12, 11, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2930, 'hallway11', 'hw_chair', 13, 10, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2931, 'hallway11', 'hw_chair', 13, 12, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2932, 'hallway11', 'hw_chair', 13, 15, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2933, 'hallway11', 'hw_chair', 15, 15, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2934, 'hallway11', 'hw_chair', 20, 10, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2935, 'hallway11', 'hw_chair', 20, 14, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2936, 'hallway11', 'hw_chair', 21, 11, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2937, 'hallway11', 'hw_chair', 21, 13, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2938, 'hallway11', 'hw_chair', 21, 15, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2939, 'hallway11', 'hw_chair', 21, 9, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2940, 'hallway11', 'hw_chair', 22, 10, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2941, 'hallway11', 'hw_chair', 22, 14, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2942, 'hallway11', 'hw_ero1', 10, 10, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2943, 'hallway11', 'hw_ero1', 12, 17, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2944, 'hallway11', 'hw_ero1', 15, 7, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2945, 'hallway11', 'hw_ero1', 20, 17, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2946, 'hallway11', 'hw_ero1', 4, 6, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2947, 'hallway11', 'hw_ero2', 10, 11, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2948, 'hallway11', 'hw_ero2', 13, 17, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2949, 'hallway11', 'hw_ero2', 16, 7, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2950, 'hallway11', 'hw_ero2', 21, 17, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2951, 'hallway11', 'hw_ero3', 10, 12, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2952, 'hallway11', 'hw_ero3', 14, 17, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2953, 'hallway11', 'hw_ero3', 17, 7, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2954, 'hallway11', 'hw_ero3', 22, 17, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2955, 'hallway11', 'hw_ero4', 18, 7, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2956, 'hallway11', 'hw_ero5', 10, 13, 0, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2957, 'hallway11', 'hw_ero5', 15, 17, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2958, 'hallway11', 'hw_ero5', 19, 7, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2959, 'hallway11', 'hw_ero5', 23, 17, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2960, 'hallway11', 'hw_ero5', 4, 7, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2961, 'hallway11', 'hw_shelf', 4, 0, 1, 2, 0.001, 2, 1, 'solid', '', NULL, NULL),
-	(2962, 'hallway11', 'hw_smtble', 13, 11, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2963, 'hallway11', 'hw_smtble', 14, 15, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2964, 'hallway11', 'hw_smtble', 21, 10, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2965, 'hallway11', 'hw_smtble', 21, 14, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2966, 'hallway11', 'hw_sofa1', 6, 0, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2967, 'hallway11', 'hw_sofa2', 7, 0, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2968, 'hallway11', 'hw_sofa3', 8, 0, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2969, 'hallway11', 'hw_watermatic', 11, 18, 0, 4, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2970, 'hallway11', 'pillar0', 10, 0, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2971, 'hallway11', 'pillar0', 10, 7, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2972, 'star_lounge', 'star_table', 21, 15, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2973, 'star_lounge', 'star_sofa', 22, 15, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2974, 'star_lounge', 'star_sofa2', 23, 15, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2975, 'star_lounge', 'palm', 24, 15, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2976, 'star_lounge', 'star_sofa2', 21, 16, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2977, 'star_lounge', 'dj1', 32, 16, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2978, 'star_lounge', 'dj2', 33, 16, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2979, 'star_lounge', 'dj3', 34, 16, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2980, 'star_lounge', 'star_sofa', 21, 17, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2981, 'star_lounge', 'star_microphone', 28, 17, 4, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2982, 'star_lounge', 'star_sofa2', 21, 18, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2983, 'star_lounge', 'star_sofa', 35, 18, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2984, 'star_lounge', 'star_sofa', 21, 19, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2985, 'star_lounge', 'star_sofa2', 35, 19, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2986, 'star_lounge', 'star_sofa2', 21, 20, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2987, 'star_lounge', 'star_sofa2', 24, 20, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2988, 'star_lounge', 'star_sofa', 32, 20, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2989, 'star_lounge', 'star_sofa', 35, 20, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2990, 'star_lounge', 'star_sofa', 21, 21, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2991, 'star_lounge', 'star_sofa', 24, 21, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2992, 'star_lounge', 'star_sofa2', 32, 21, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2993, 'star_lounge', 'star_sofa2', 35, 21, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2994, 'star_lounge', 'star_sofachair', 21, 22, 2, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2995, 'star_lounge', 'star_table', 24, 22, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(2996, 'star_lounge', 'star_sofa2', 25, 22, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2997, 'star_lounge', 'star_sofa', 26, 22, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2998, 'star_lounge', 'star_sofa2', 30, 22, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(2999, 'star_lounge', 'star_sofa', 31, 22, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3000, 'star_lounge', 'star_table', 32, 22, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3001, 'star_lounge', 'star_table', 35, 22, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3002, 'star_lounge', 'palm', 21, 23, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3003, 'star_lounge', 'star_sofa', 35, 23, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3004, 'star_lounge', 'bar10', 22, 24, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3005, 'star_lounge', 'star_sofa2', 35, 24, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3006, 'star_lounge', 'star_sofa', 37, 24, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3007, 'star_lounge', 'star_sofa2', 38, 24, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3008, 'star_lounge', 'star_sofa', 39, 24, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3009, 'star_lounge', 'star_sofa2', 40, 24, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3010, 'star_lounge', 'bar9', 22, 25, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3011, 'star_lounge', 'star_sofa2', 25, 25, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3012, 'star_lounge', 'star_sofa', 26, 25, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3013, 'star_lounge', 'star_sofa2', 30, 25, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3014, 'star_lounge', 'star_sofa', 31, 25, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3015, 'star_lounge', 'star_sofa', 35, 25, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3016, 'star_lounge', 'star_sofa2', 36, 25, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3017, 'star_lounge', 'bar8', 22, 26, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3018, 'star_lounge', 'palm1', 25, 26, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3019, 'star_lounge', 'palm3', 26, 26, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3020, 'star_lounge', 'palm2', 30, 26, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3021, 'star_lounge', 'palm4', 31, 26, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3022, 'star_lounge', 'star_sofa2', 35, 26, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3023, 'star_lounge', 'star_sofa', 36, 26, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3024, 'star_lounge', 'star_table', 39, 26, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3025, 'star_lounge', 'star_table', 40, 26, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3026, 'star_lounge', 'bar7', 22, 27, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3027, 'star_lounge', 'star_sofa', 25, 27, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3028, 'star_lounge', 'star_sofa2', 26, 27, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3029, 'star_lounge', 'star_sofa', 30, 27, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3030, 'star_lounge', 'star_sofa2', 31, 27, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3031, 'star_lounge', 'star_table', 35, 27, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3032, 'star_lounge', 'palm', 36, 27, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3033, 'star_lounge', 'star_table', 37, 27, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3034, 'star_lounge', 'bar6', 22, 28, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3035, 'star_lounge', 'bar5', 22, 29, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3036, 'star_lounge', 'star_table', 25, 29, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3037, 'star_lounge', 'star_table', 26, 29, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3038, 'star_lounge', 'star_table', 16, 30, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3039, 'star_lounge', 'bar4', 22, 30, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3040, 'star_lounge', 'star_sofa2', 16, 31, 3, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3041, 'star_lounge', 'bar3', 22, 31, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3042, 'star_lounge', 'star_sofa2', 25, 31, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3043, 'star_lounge', 'star_sofa', 26, 31, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3044, 'star_lounge', 'star_sofa', 30, 31, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3045, 'star_lounge', 'star_sofa', 16, 32, 3, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3046, 'star_lounge', 'bar2', 22, 32, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3047, 'star_lounge', 'palm4', 25, 32, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3048, 'star_lounge', 'palm1', 26, 32, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3049, 'star_lounge', 'star_sofa2', 30, 32, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3050, 'star_lounge', 'star_sofa2', 16, 33, 3, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3051, 'star_lounge', 'bar1', 22, 33, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3052, 'star_lounge', 'star_sofa', 25, 33, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3053, 'star_lounge', 'star_sofa2', 26, 33, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3054, 'star_lounge', 'star_sofa', 30, 33, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3055, 'star_lounge', 'star_sofa', 16, 34, 3, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3056, 'star_lounge', 'star_sofa2', 30, 34, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3057, 'star_lounge', 'palm3', 35, 34, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3058, 'star_lounge', 'palm2', 36, 34, 0, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3059, 'star_lounge', 'star_table', 16, 35, 3, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3060, 'star_lounge', 'star_sofa', 30, 35, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3061, 'star_lounge', 'star_sofa2', 30, 36, 2, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3062, 'star_lounge', 'star_sofachair', 25, 37, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3063, 'star_lounge', 'star_sofa2', 26, 37, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3064, 'star_lounge', 'star_sofa', 27, 37, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3065, 'star_lounge', 'star_sofa2', 28, 37, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3066, 'star_lounge', 'star_sofa', 29, 37, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3067, 'star_lounge', 'star_table', 30, 37, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3068, 'orient', 'bench', 17, 10, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3069, 'orient', 'bench', 17, 11, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3070, 'orient', 'bench', 17, 12, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3071, 'orient', 'bench', 17, 13, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3072, 'orient', 'bench', 17, 14, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3073, 'orient', 'bench', 17, 15, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3074, 'orient', 'bench', 17, 25, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3075, 'orient', 'bench', 17, 26, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3076, 'orient', 'bench', 17, 27, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3077, 'orient', 'bench', 17, 28, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3078, 'orient', 'bench', 17, 29, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3079, 'orient', 'bench', 19, 10, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3080, 'orient', 'bench', 19, 11, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3081, 'orient', 'bench', 19, 12, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3082, 'orient', 'bench', 19, 14, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3083, 'orient', 'bench', 19, 15, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3084, 'orient', 'bench', 19, 25, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3085, 'orient', 'bench', 19, 26, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3086, 'orient', 'bench', 19, 27, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3087, 'orient', 'bench', 19, 28, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3088, 'orient', 'bench', 19, 29, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3089, 'orient', 'bench', 21, 10, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3090, 'orient', 'bench', 21, 11, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3091, 'orient', 'bench', 21, 12, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3092, 'orient', 'bench', 21, 13, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3093, 'orient', 'bench', 21, 14, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3094, 'orient', 'bench', 21, 15, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3095, 'orient', 'bench', 21, 25, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3096, 'orient', 'bench', 21, 26, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3097, 'orient', 'bench', 21, 27, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3098, 'orient', 'bench', 21, 28, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3099, 'orient', 'bench', 21, 29, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3100, 'orient', 'bench', 23, 10, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3101, 'orient', 'bench', 23, 11, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3102, 'orient', 'bench', 23, 12, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3103, 'orient', 'bench', 23, 13, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3104, 'orient', 'bench', 23, 14, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3105, 'orient', 'bench', 23, 15, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3106, 'orient', 'bench', 23, 25, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3107, 'orient', 'bench', 23, 26, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3108, 'orient', 'bench', 23, 27, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3109, 'orient', 'bench', 23, 28, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3110, 'orient', 'bench', 23, 29, 9, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3111, 'orient', 'chairf1', 25, 24, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3112, 'orient', 'chairf1', 25, 25, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3113, 'orient', 'chairf1', 25, 26, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3114, 'orient', 'chairf1', 33, 24, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3115, 'orient', 'chairf1', 33, 25, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3116, 'orient', 'chairf1', 33, 26, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3117, 'orient', 'koc_chair', 25, 13, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3118, 'orient', 'koc_chair', 25, 15, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3119, 'orient', 'koc_chair', 26, 14, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3120, 'orient', 'koc_chair', 29, 15, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3121, 'orient', 'koc_chair', 30, 16, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3122, 'orient', 'koc_chair', 31, 12, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3123, 'orient', 'koc_chair', 31, 15, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3124, 'orient', 'koc_chair', 32, 11, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3125, 'orient', 'koc_chair', 32, 13, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3126, 'orient', 'koc_chair', 33, 12, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3127, 'orient', 'koc_table', 25, 14, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3128, 'orient', 'koc_table', 30, 15, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3129, 'orient', 'koc_table', 32, 12, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3130, 'entryhall', 'splashkiosk', 11, 11, 1, 0, 0.001, 3, 3, 'invisible,solid', '', NULL, NULL),
-	(3131, 'entryhall', 'gl_sofatable', 7, 16, 1, 0, 1, 1, 1, 'solid', '', NULL, NULL),
-	(3132, 'entryhall', 'gl_sofatable', 5, 1, 1, 4, 1, 1, 1, 'solid', '', NULL, NULL),
-	(3133, 'entryhall', 'gl_sofatable', 16, 1, 1, 4, 1, 1, 1, 'solid', '', NULL, NULL),
-	(3134, 'entryhall', 'gl_sofatable', 14, 14, 1, 4, 1, 1, 1, 'solid', '', NULL, NULL),
-	(3135, 'entryhall', 'gl_sofatable', 1, 19, 1, 0, 1, 1, 1, 'solid', '', NULL, NULL),
-	(3136, 'entryhall', 'gl_yukka', 15, 6, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3137, 'entryhall', 'gl_yukka', 7, 7, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3138, 'entryhall', 'gl_chair', 6, 1, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3139, 'entryhall', 'gl_chair', 4, 1, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3140, 'entryhall', 'gl_chair', 17, 1, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3141, 'entryhall', 'gl_chair', 18, 1, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3142, 'entryhall', 'gl_chair', 14, 11, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3143, 'entryhall', 'gl_chair', 14, 12, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3144, 'entryhall', 'gl_chair', 14, 13, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3145, 'entryhall', 'gl_chair', 13, 14, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3146, 'entryhall', 'gl_chair', 12, 14, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3147, 'entryhall', 'gl_chair', 11, 14, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3148, 'entryhall', 'gl_sofaa', 1, 16, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3149, 'entryhall', 'gl_sofab', 1, 17, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3150, 'entryhall', 'gl_sofac', 1, 18, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3151, 'entryhall', 'gl_sofaa', 1, 10, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3152, 'entryhall', 'gl_sofab', 1, 11, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3153, 'entryhall', 'gl_sofac', 1, 12, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3154, 'entryhall', 'gl_sofaa', 7, 13, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3155, 'entryhall', 'gl_sofab', 7, 14, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3156, 'entryhall', 'gl_sofac', 7, 15, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3157, 'entryhall', 'gl_sofaa', 7, 8, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3158, 'entryhall', 'gl_sofab', 7, 9, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3159, 'entryhall', 'gl_sofac', 7, 10, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3160, 'entryhall', 'gl_sofaa', 8, 7, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3161, 'entryhall', 'gl_sofab', 9, 7, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3162, 'entryhall', 'gl_sofac', 10, 7, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3163, 'entryhall', 'gl_sofaa', 13, 7, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3164, 'entryhall', 'gl_sofab', 14, 7, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3165, 'entryhall', 'gl_sofac', 15, 7, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3166, 'entryhall', 'gl_table', 7, 12, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3167, 'entryhall', 'gl_tablea', 7, 11, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3168, 'entryhall', 'gl_tablea', 11, 7, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3169, 'entryhall', 'gl_table', 12, 7, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3170, 'hallA', 'gamehall_chair_wood', 15, 4, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3171, 'hallA', 'gamehall_chair_wood', 15, 5, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3172, 'hallA', 'gamehall_chair_wood', 15, 9, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3173, 'hallA', 'gamehall_chair_wood', 15, 10, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3174, 'hallA', 'gamehall_chair_wood', 15, 14, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3175, 'hallA', 'gamehall_chair_wood', 15, 15, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3176, 'hallA', 'gamehall_chair_wood', 10, 4, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3177, 'hallA', 'gamehall_chair_wood', 10, 5, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3178, 'hallA', 'gamehall_chair_wood', 10, 9, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3179, 'hallA', 'gamehall_chair_wood', 10, 10, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3180, 'hallA', 'gamehall_chair_wood', 10, 14, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3181, 'hallA', 'gamehall_chair_wood', 10, 15, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3182, 'hallA', 'gamehall_chair_wood', 5, 4, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3183, 'hallA', 'gamehall_chair_wood', 5, 5, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3184, 'hallA', 'gamehall_chair_wood', 5, 9, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3185, 'hallA', 'gamehall_chair_wood', 5, 10, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3186, 'hallA', 'gamehall_chair_wood', 5, 14, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3187, 'hallA', 'gamehall_chair_wood', 5, 15, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3188, 'hallA', 'table_xoxa', 14, 5, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3189, 'hallA', 'table_xoxa', 14, 10, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3190, 'hallA', 'table_xoxa', 14, 15, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3191, 'hallA', 'table_xoxa', 9, 5, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3192, 'hallA', 'table_xoxa', 9, 10, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3193, 'hallA', 'table_xoxa', 9, 15, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3194, 'hallA', 'table_xoxa', 4, 5, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3195, 'hallA', 'table_xoxa', 4, 10, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3196, 'hallA', 'table_xoxa', 4, 15, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3197, 'hallA', 'table_xoxb', 14, 14, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3198, 'hallA', 'table_xoxb', 14, 9, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3199, 'hallA', 'table_xoxb', 14, 4, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3200, 'hallA', 'table_xoxb', 9, 14, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3201, 'hallA', 'table_xoxb', 9, 9, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3202, 'hallA', 'table_xoxb', 9, 4, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3203, 'hallA', 'table_xoxb', 4, 14, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3204, 'hallA', 'table_xoxb', 4, 9, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3205, 'hallA', 'table_xoxb', 4, 4, 1, 6, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3206, 'hallB', 'gamehall_chair_green', 2, 4, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3207, 'hallB', 'gamehall_chair_green', 2, 10, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3208, 'hallB', 'gamehall_chair_green', 2, 16, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3209, 'hallB', 'gamehall_chair_green', 2, 6, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3210, 'hallB', 'gamehall_chair_green', 2, 12, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3211, 'hallB', 'gamehall_chair_green', 2, 18, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3212, 'hallB', 'gamehall_chair_green', 6, 3, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3213, 'hallB', 'gamehall_chair_green', 8, 3, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3214, 'hallB', 'gamehall_chair_green', 13, 3, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3215, 'hallB', 'gamehall_chair_green', 15, 3, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3216, 'hallB', 'table_battleships', 2, 5, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3217, 'hallB', 'table_battleships', 2, 11, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3218, 'hallB', 'table_battleships', 2, 17, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3219, 'hallB', 'table_battleships', 7, 3, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3220, 'hallB', 'table_battleships', 14, 3, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3221, 'hallC', 'table_chess_king', 12, 13, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3222, 'hallC', 'table_chess', 13, 6, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3223, 'hallC', 'table_chess', 2, 8, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3224, 'hallC', 'table_chess', 5, 14, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3225, 'hallC', 'table_chess', 8, 3, 1, 2, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3226, 'hallC', 'chess_king_chair', 12, 14, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3227, 'hallC', 'chess_king_chair', 12, 12, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3228, 'hallC', 'gamehall_chair_green', 13, 7, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3229, 'hallC', 'gamehall_chair_green', 13, 5, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3230, 'hallC', 'gamehall_chair_green', 2, 9, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3231, 'hallC', 'gamehall_chair_green', 2, 7, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3232, 'hallC', 'gamehall_chair_green', 4, 14, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3233, 'hallC', 'gamehall_chair_green', 6, 14, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3234, 'hallC', 'gamehall_chair_green', 7, 3, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3235, 'hallC', 'gamehall_chair_green', 9, 3, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3236, 'hallD', 'cardtableb', 2, 15, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3237, 'hallD', 'cardtableb', 8, 3, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3238, 'hallD', 'cardtableb', 14, 3, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3239, 'hallD', 'cardtablea', 2, 9, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3240, 'hallD', 'cardtablea', 8, 9, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3241, 'hallD', 'cardtablea', 14, 9, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3242, 'hallD', 'cardtablea', 8, 15, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3243, 'hallD', 'cardtablea', 14, 15, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3244, 'hallD', 'gamehall_chair_green', 8, 4, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3245, 'hallD', 'gamehall_chair_green', 14, 4, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3246, 'hallD', 'gamehall_chair_green', 2, 10, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3247, 'hallD', 'gamehall_chair_green', 8, 10, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3248, 'hallD', 'gamehall_chair_green', 14, 10, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3249, 'hallD', 'gamehall_chair_green', 2, 16, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3250, 'hallD', 'gamehall_chair_green', 8, 16, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3251, 'hallD', 'gamehall_chair_green', 14, 16, 1, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3252, 'hallD', 'gamehall_chair_green', 7, 3, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3253, 'hallD', 'gamehall_chair_green', 13, 3, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3254, 'hallD', 'gamehall_chair_green', 1, 9, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3255, 'hallD', 'gamehall_chair_green', 7, 9, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3256, 'hallD', 'gamehall_chair_green', 13, 9, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3257, 'hallD', 'gamehall_chair_green', 1, 15, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3258, 'hallD', 'gamehall_chair_green', 7, 15, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3259, 'hallD', 'gamehall_chair_green', 13, 15, 1, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3260, 'hallD', 'gamehall_chair_green', 8, 2, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3261, 'hallD', 'gamehall_chair_green', 14, 2, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3262, 'hallD', 'gamehall_chair_green', 2, 8, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3263, 'hallD', 'gamehall_chair_green', 8, 8, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3264, 'hallD', 'gamehall_chair_green', 14, 8, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3265, 'hallD', 'gamehall_chair_green', 2, 14, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3266, 'hallD', 'gamehall_chair_green', 8, 14, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3267, 'hallD', 'gamehall_chair_green', 14, 14, 1, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3268, 'hallD', 'gamehall_chair_green', 9, 3, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3269, 'hallD', 'gamehall_chair_green', 15, 3, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3270, 'hallD', 'gamehall_chair_green', 3, 9, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3271, 'hallD', 'gamehall_chair_green', 9, 9, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3272, 'hallD', 'gamehall_chair_green', 15, 9, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3273, 'hallD', 'gamehall_chair_green', 3, 15, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3274, 'hallD', 'gamehall_chair_green', 9, 15, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3275, 'hallD', 'gamehall_chair_green', 15, 15, 1, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3276, 'md_a', 'poolEnter', 11, 11, 7, 2, 0.001, 1, 1, 'can_stand_on_top,invisible', 'Splash0', '12 11 4 2', '13 11 4 2'),
-	(3277, 'md_a', 'poolExit', 12, 11, 4, 6, 0.001, 1, 1, 'can_stand_on_top,invisible', 'Splash0', '11 11 4 6', '10 11 4 6'),
-	(3278, 'hallD', 'streetlight', 0, 9, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3279, 'hallD', 'streetlight', 0, 15, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3280, 'hallD', 'streetlight', 8, 1, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3281, 'hallD', 'streetlight', 14, 1, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3282, 'pub_a', 'bar_gate', 9, 9, 2, 0, 0.001, 1, 1, 'solid,invisible', '', NULL, NULL),
-	(3283, 'bar_b', 'djtable', 16, 22, 4, 0, 0.001, 1, 2, 'solid,invisible', '', NULL, NULL),
-	(3284, 'library', 'invisible_table', 28, 28, 1, 0, 0.001, 2, 2, 'solid,invisible', '', NULL, NULL),
-	(3285, 'tearoom', 'invisible_table', 2, 7, 3, 0, 0.002, 2, 2, 'solid,invisible', '', NULL, NULL),
-	(3286, 'tearoom', 'invisible_table', 2, 13, 3, 0, 0.002, 2, 2, 'solid,invisible', '', NULL, NULL),
-	(3287, 'tearoom', 'invisible_table', 16, 10, 3, 0, 0.002, 2, 2, 'solid,invisible', '', NULL, NULL),
-	(3288, 'tearoom', 'invisible_table', 19, 3, 3, 0, 0.002, 1, 1, 'solid,invisible', '', NULL, NULL),
-	(3289, 'tearoom', 'invisible_table', 14, 3, 3, 0, 0.002, 1, 1, 'solid,invisible', '', NULL, NULL),
-	(3290, 'cr_staff', 'invisible_table', 6, 8, 1, 0, 0.001, 3, 6, 'solid,invisible', '', NULL, NULL),
-	(3291, 'sport', 'invisible_barrier', 11, 14, 1, 0, 0.002, 1, 4, 'solid,invisible', '', NULL, NULL),
-	(3292, 'cafe_ole', 'invisible_table', 4, 17, 1, 0, 0.002, 2, 3, 'solid,invisible', '', NULL, NULL),
-	(3293, 'cafe_ole', 'invisible_table', 12, 16, 1, 0, 0.002, 2, 3, 'solid,invisible', '', NULL, NULL),
-	(3294, 'cafe_ole', 'invisible_table', 15, 1, 1, 0, 0.002, 2, 3, 'solid,invisible', '', NULL, NULL),
-	(3295, 'cafe_ole', 'invisible_table', 9, 5, 1, 0, 0.002, 2, 2, 'solid,invisible', '', NULL, NULL),
-	(3296, 'malja_bar_a', 'invisible_table', 6, 3, 4, 0, 0.002, 2, 2, 'solid,invisible', '', NULL, NULL),
-	(3297, 'malja_bar_a', 'invisible_table', 7, 14, 1, 0, 0.002, 2, 2, 'solid,invisible', '', NULL, NULL),
-	(3298, 'malja_bar_a', 'invisible_table', 13, 15, 1, 0, 0.002, 2, 2, 'solid,invisible', '', NULL, NULL),
-	(3299, 'malja_bar_a', 'invisible_table', 1, 16, 1, 0, 0.002, 2, 2, 'solid,invisible', '', NULL, NULL),
-	(3300, 'malja_bar_b', 'invisible_table', 4, 1, 3, 0, 0.002, 2, 2, 'solid,invisible', '', NULL, NULL),
-	(3301, 'malja_bar_b', 'invisible_table', 2, 17, 3, 0, 0.002, 2, 2, 'solid,invisible', '', NULL, NULL),
-	(3302, 'pizza', 'invisible_table', 1, 17, 1, 0, 0.002, 2, 2, 'solid,invisible', '', NULL, NULL),
-	(3303, 'pizza', 'invisible_table', 1, 9, 1, 0, 0.002, 2, 2, 'solid,invisible', '', NULL, NULL),
-	(3304, 'pizza', 'invisible_table', 12, 21, 1, 0, 0.002, 2, 2, 'solid,invisible', '', NULL, NULL),
-	(3305, 'pizza', 'invisible_table', 14, 4, 0, 0, 0.002, 2, 2, 'solid,invisible', '', NULL, NULL),
-	(3306, 'pizza', 'invisible_table', 14, 11, 0, 0, 0.002, 2, 2, 'solid,invisible', '', NULL, NULL),
-	(3307, 'md_a', 'wsJoinQueue', 21, 19, 4, 0, 0.002, 1, 1, 'invisible,can_stand_on_top', '21,18,0', NULL, NULL),
-	(3308, 'md_a', 'wsJoinQueue', 21, 7, 4, 0, 0.002, 1, 1, 'invisible,can_stand_on_top', '21,8,4', NULL, NULL),
-	(3309, 'md_a', 'wsQueueTile', 21, 18, 8, 0, 0.002, 1, 1, 'invisible,can_stand_on_top', '21,18', NULL, NULL),
-	(3310, 'md_a', 'wsQueueTile', 21, 17, 8, 0, 0.002, 1, 1, 'invisible,can_stand_on_top', '', NULL, NULL),
-	(3311, 'md_a', 'wsQueueTile', 21, 16, 8, 0, 0.002, 1, 1, 'invisible,can_stand_on_top', '', NULL, NULL),
-	(3312, 'md_a', 'wsQueueTile', 21, 8, 8, 0, 0.002, 1, 1, 'invisible,can_stand_on_top', '', NULL, NULL),
-	(3313, 'md_a', 'wsQueueTile', 21, 9, 8, 0, 0.002, 1, 1, 'invisible,can_stand_on_top', '', NULL, NULL),
-	(3314, 'md_a', 'wsQueueTile', 21, 10, 8, 0, 0.002, 1, 1, 'invisible,can_stand_on_top', '', NULL, NULL),
-	(3315, 'hallway2', 'hw_chair', 17, 18, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3316, 'gate_park', 'gate_drumchair', 13, 15, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3317, 'emperors', 'invisichair', 12, 7, 4, 4, 1, 1, 1, 'invisible,can_sit_on_top', '', NULL, NULL),
-	(3318, 'emperors', 'emperors_pillar', 5, 10, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3319, 'emperors', 'emperors_pillar', 19, 10, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3320, 'emperors', 'emperors_chair1', 5, 14, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3321, 'emperors', 'emperors_chair2', 6, 14, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3322, 'emperors', 'emperors_chair2', 7, 14, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3323, 'emperors', 'emperors_chair3', 8, 14, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3324, 'emperors', 'emperors_chair1', 16, 14, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3325, 'emperors', 'emperors_chair2', 17, 14, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3326, 'emperors', 'emperors_chair2', 18, 14, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3327, 'emperors', 'emperors_chair3', 19, 14, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3328, 'emperors', 'emperors_chair1', 5, 15, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3329, 'emperors', 'emperors_chair2', 6, 15, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3330, 'emperors', 'emperors_chair2', 7, 15, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3331, 'emperors', 'emperors_chair3', 8, 15, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3332, 'emperors', 'emperors_chair1', 16, 15, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3333, 'emperors', 'emperors_chair2', 17, 15, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3334, 'emperors', 'emperors_chair2', 18, 15, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3335, 'emperors', 'emperors_chair3', 19, 15, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3336, 'emperors', 'emperors_chair1', 5, 18, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3337, 'emperors', 'emperors_chair2', 6, 18, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3338, 'emperors', 'emperors_chair2', 7, 18, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3339, 'emperors', 'emperors_chair3', 8, 18, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3340, 'emperors', 'emperors_chair1', 16, 18, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3341, 'emperors', 'emperors_chair2', 17, 18, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3342, 'emperors', 'emperors_chair2', 18, 18, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3343, 'emperors', 'emperors_chair3', 19, 18, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3344, 'emperors', 'emperors_pillar', 5, 19, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3345, 'emperors', 'emperors_pillar2', 8, 19, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3346, 'emperors', 'emperors_pillar2', 16, 19, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3347, 'emperors', 'emperors_pillar', 19, 19, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3348, 'emperors', 'emperors_chair1', 5, 20, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3349, 'emperors', 'emperors_chair2', 6, 20, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3350, 'emperors', 'emperors_chair2', 7, 20, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3351, 'emperors', 'emperors_chair3', 8, 20, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3352, 'emperors', 'emperors_chair1', 16, 20, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3353, 'emperors', 'emperors_chair2', 17, 20, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3354, 'emperors', 'emperors_chair2', 18, 20, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3355, 'emperors', 'emperors_chair3', 19, 20, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3356, 'emperors', 'emperors_chair1', 5, 23, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3357, 'emperors', 'emperors_chair2', 6, 23, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3358, 'emperors', 'emperors_chair2', 7, 23, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3359, 'emperors', 'emperors_chair3', 8, 23, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3360, 'emperors', 'emperors_chair1', 16, 23, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3361, 'emperors', 'emperors_chair2', 17, 23, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3362, 'emperors', 'emperors_chair2', 18, 23, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3363, 'emperors', 'emperors_chair3', 19, 23, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3364, 'emperors', 'emperors_chair1', 5, 24, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3365, 'emperors', 'emperors_chair2', 6, 24, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3366, 'emperors', 'emperors_chair2', 7, 24, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3367, 'emperors', 'emperors_chair3', 8, 24, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3368, 'emperors', 'emperors_chair1', 16, 24, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3369, 'emperors', 'emperors_chair2', 17, 24, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3370, 'emperors', 'emperors_chair2', 18, 24, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3371, 'emperors', 'emperors_chair3', 19, 24, 2, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3372, 'emperors', 'emperors_chair1', 5, 27, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3373, 'emperors', 'emperors_chair2', 6, 27, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3374, 'emperors', 'emperors_chair2', 7, 27, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3375, 'emperors', 'emperors_chair3', 8, 27, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3376, 'emperors', 'emperors_chair1', 16, 27, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3377, 'emperors', 'emperors_chair2', 17, 27, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3378, 'emperors', 'emperors_chair2', 18, 27, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3379, 'emperors', 'emperors_chair3', 19, 27, 2, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3380, 'emperors', 'emperors_pillar', 5, 28, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3381, 'emperors', 'emperors_pillar', 8, 28, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3382, 'emperors', 'emperors_pillar', 16, 28, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3383, 'emperors', 'emperors_pillar', 19, 28, 2, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3384, 'beauty_salon1', 'pinkchair', 12, 5, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3385, 'beauty_salon1', 'smallchair', 17, 5, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3386, 'beauty_salon1', 'smallchair', 18, 5, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3387, 'beauty_salon1', 'smallchair', 19, 5, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3388, 'beauty_salon1', 'longchair1', 4, 8, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3389, 'beauty_salon1', 'longchair2', 5, 8, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3390, 'beauty_salon1', 'longchair2', 6, 8, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3391, 'beauty_salon1', 'longchair2', 7, 8, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3392, 'beauty_salon1', 'longchair3', 8, 8, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3393, 'beauty_salon1', 'longchair1', 11, 8, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3394, 'beauty_salon1', 'longchair2', 12, 8, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3395, 'beauty_salon1', 'longchair2', 13, 8, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3396, 'beauty_salon1', 'longchair2', 14, 8, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3397, 'beauty_salon1', 'longchair3', 15, 8, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3398, 'beauty_salon1', 'longchair1', 4, 10, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3399, 'beauty_salon1', 'longchair2', 5, 10, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3400, 'beauty_salon1', 'longchair2', 6, 10, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3401, 'beauty_salon1', 'longchair2', 7, 10, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3402, 'beauty_salon1', 'longchair3', 8, 10, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3403, 'beauty_salon1', 'longchair1', 11, 10, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3404, 'beauty_salon1', 'longchair2', 12, 10, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3405, 'beauty_salon1', 'longchair2', 13, 10, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3406, 'beauty_salon1', 'longchair2', 14, 10, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3407, 'beauty_salon1', 'longchair3', 15, 10, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3408, 'beauty_salon1', 'longchair1', 17, 13, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3409, 'beauty_salon1', 'longchair1', 19, 13, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3410, 'beauty_salon1', 'longchair2', 17, 14, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3411, 'beauty_salon1', 'longchair2', 19, 14, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3412, 'beauty_salon1', 'longchair2', 17, 15, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3413, 'beauty_salon1', 'longchair2', 19, 15, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3414, 'beauty_salon1', 'longchair2', 17, 16, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3415, 'beauty_salon1', 'longchair2', 19, 16, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3416, 'beauty_salon1', 'longchair3', 17, 17, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3417, 'beauty_salon1', 'longchair3', 19, 17, 0, 6, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3418, 'beauty_salon1', 'longchair1', 4, 19, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3419, 'beauty_salon1', 'longchair2', 5, 19, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3420, 'beauty_salon1', 'longchair2', 6, 19, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3421, 'beauty_salon1', 'longchair2', 7, 19, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3422, 'beauty_salon1', 'longchair3', 8, 19, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3423, 'beauty_salon1', 'longchair1', 11, 19, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3424, 'beauty_salon1', 'longchair2', 12, 19, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3425, 'beauty_salon1', 'longchair2', 13, 19, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3426, 'beauty_salon1', 'longchair2', 14, 19, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3427, 'beauty_salon1', 'longchair3', 15, 19, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3428, 'beauty_salon1', 'longchair1', 4, 21, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3429, 'beauty_salon1', 'longchair2', 5, 21, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3430, 'beauty_salon1', 'longchair2', 6, 21, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3431, 'beauty_salon1', 'longchair2', 7, 21, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3432, 'beauty_salon1', 'longchair3', 8, 21, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3433, 'beauty_salon1', 'longchair1', 11, 21, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3434, 'beauty_salon1', 'longchair2', 12, 21, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3435, 'beauty_salon1', 'longchair2', 13, 21, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3436, 'beauty_salon1', 'longchair2', 14, 21, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3437, 'beauty_salon1', 'longchair3', 15, 21, 0, 0, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-	(3438, 'ice_cafe', 'cafe_deskb', 1, 15, 1, 0, 0.001, 1, 1, 'solid', '', NULL, NULL),
-	(3439, 'md_a', 'wsTileStart', 21, 15, 8, 0, 0.002, 1, 1, 'invisible,can_stand_on_top', '21,11', NULL, NULL),
-	(3440, 'md_a', 'wsTileStart', 21, 11, 8, 0, 0.002, 1, 1, 'invisible,can_stand_on_top', '21,15', NULL, NULL),
-	(3441, 'cafe_gold0', 'ignore', 15, 3, 1, 0, 1, 1, 1, 'solid,invisible', NULL, NULL, NULL),
-	(3442, 'cafe_gold0', 'ignore', 16, 3, 1, 0, 1, 1, 1, 'solid,invisible', NULL, NULL, NULL),
-    (3443, 'park_a', 'bench', 11, 7, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-    (3444, 'park_a', 'bench', 9, 10, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-    (3445, 'park_a', 'bench', 40, 14, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-    (3446, 'park_a', 'bench', 37, 15, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-    (3447, 'park_a', 'bench', 30, 16, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-    (3448, 'park_a', 'bench', 37, 17, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-    (3449, 'park_a', 'bench', 27, 18, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-    (3450, 'park_a', 'bench', 28, 27, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-    (3451, 'park_a', 'bench', 25, 29, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-    (3452, 'park_a', 'bench2', 10, 7, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-    (3453, 'park_a', 'bench2', 9, 9, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-    (3454, 'park_a', 'bench2', 37, 14, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-    (3455, 'park_a', 'bench2', 39, 14, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-    (3456, 'park_a', 'bench2', 29, 16, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-    (3457, 'park_a', 'bench2', 37, 16, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-    (3458, 'park_a', 'bench2', 27, 17, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-    (3459, 'park_a', 'bench2', 27, 27, 0, 4, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-    (3460, 'park_a', 'bench2', 25, 28, 0, 2, 1, 1, 1, 'can_sit_on_top', '', NULL, NULL),
-    (3461, 'park_a', 'parkfence1', 21, 4, 0, 0, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3462, 'park_a', 'parkfence1', 29, 4, 0, 2, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3463, 'park_a', 'parkfence1', 19, 9, 0, 4, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3464, 'park_a', 'parkfence1', 31, 9, 0, 6, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3465, 'park_a', 'parkfence2', 29, 3, 0, 0, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3466, 'park_a', 'parkfence2', 31, 3, 0, 0, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3467, 'park_a', 'parkfence2', 25, 4, 0, 4, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3468, 'park_a', 'parkfence2', 19, 5, 0, 0, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3469, 'park_a', 'parkfence2', 23, 6, 0, 0, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3470, 'park_a', 'parkfence2', 27, 6, 0, 0, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3471, 'park_a', 'parkfence2', 21, 7, 0, 6, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3472, 'park_a', 'parkfence2', 25, 7, 0, 6, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3473, 'park_a', 'parkfence2', 29, 7, 0, 6, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3474, 'park_a', 'parkfence2', 23, 9, 0, 2, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3475, 'park_a', 'parkfence2', 27, 9, 0, 2, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3476, 'park_a', 'parkfence3', 22, 4, 0, 4, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3477, 'park_a', 'parkfence3', 23, 4, 0, 4, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3478, 'park_a', 'parkfence3', 24, 4, 0, 4, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3479, 'park_a', 'parkfence3', 26, 4, 0, 4, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3480, 'park_a', 'parkfence3', 27, 4, 0, 4, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3481, 'park_a', 'parkfence3', 28, 4, 0, 4, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3482, 'park_a', 'parkfence3', 31, 4, 0, 2, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3483, 'park_a', 'parkfence3', 21, 5, 0, 2, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3484, 'park_a', 'parkfence3', 25, 5, 0, 2, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3485, 'park_a', 'parkfence3', 29, 5, 0, 2, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3486, 'park_a', 'parkfence3', 31, 5, 0, 2, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3487, 'park_a', 'parkfence3', 19, 6, 0, 2, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3488, 'park_a', 'parkfence3', 21, 6, 0, 2, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3489, 'park_a', 'parkfence3', 25, 6, 0, 2, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3490, 'park_a', 'parkfence3', 29, 6, 0, 2, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3491, 'park_a', 'parkfence3', 31, 6, 0, 2, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3492, 'park_a', 'parkfence3', 19, 7, 0, 2, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3493, 'park_a', 'parkfence3', 23, 7, 0, 2, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3494, 'park_a', 'parkfence3', 27, 7, 0, 2, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3495, 'park_a', 'parkfence3', 31, 7, 0, 2, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3496, 'park_a', 'parkfence3', 19, 8, 0, 2, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3497, 'park_a', 'parkfence3', 23, 8, 0, 2, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3498, 'park_a', 'parkfence3', 27, 8, 0, 2, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3499, 'park_a', 'parkfence3', 31, 8, 0, 2, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3500, 'park_a', 'parkfence3', 20, 9, 0, 4, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3501, 'park_a', 'parkfence3', 21, 9, 0, 4, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3502, 'park_a', 'parkfence3', 22, 9, 0, 4, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3503, 'park_a', 'parkfence3', 24, 9, 0, 4, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3504, 'park_a', 'parkfence3', 25, 9, 0, 4, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3505, 'park_a', 'parkfence3', 26, 9, 0, 4, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3506, 'park_a', 'parkfence3', 28, 9, 0, 4, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3507, 'park_a', 'parkfence3', 29, 9, 0, 4, 1, 1, 1, 'solid', '', NULL, NULL),
-    (3508, 'park_a', 'parkfence3', 30, 9, 0, 4, 1, 1, 1, 'solid', '', NULL, NULL);
+INSERT INTO `public_items` VALUES (1,'picnic','picnic_cloth1',5,16,0.001,0,0.001,0,0,'can_stand_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2,'newbie_lobby','crl_lamp',16,0,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3,'newbie_lobby','crl_sofa2c',17,0,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (4,'newbie_lobby','crl_sofa2b',18,0,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (5,'newbie_lobby','crl_sofa2a',19,0,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (6,'newbie_lobby','crl_lamp',20,0,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (7,'newbie_lobby','crl_chair',16,1,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (8,'newbie_lobby','crl_lamp',7,2,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (9,'newbie_lobby','crl_lamp',11,2,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (10,'newbie_lobby','crl_chair',16,2,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (11,'newbie_lobby','crl_pillar',5,3,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (12,'newbie_lobby','crl_chair',7,3,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (13,'newbie_lobby','crl_table1b',9,3,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (14,'newbie_lobby','crl_sofa1c',11,3,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (15,'newbie_lobby','crl_chair',16,3,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (16,'newbie_lobby','crl_table2b',19,3,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (17,'newbie_lobby','crl_table2a',20,3,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (18,'newbie_lobby','crl_lamp',0,4,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (19,'newbie_lobby','crl_sofa2c',1,4,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (20,'newbie_lobby','crl_sofa2b',2,4,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (21,'newbie_lobby','crl_sofa2a',3,4,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (22,'newbie_lobby','crl_lamp',4,4,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (23,'newbie_lobby','crl_table1a',9,4,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (24,'newbie_lobby','crl_sofa1b',11,4,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (25,'newbie_lobby','crl_wall2a',15,4,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (26,'newbie_lobby','crl_lamp',16,4,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (27,'newbie_lobby','crl_chair',0,5,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (28,'newbie_lobby','crl_chair',7,5,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (29,'newbie_lobby','crl_sofa1a',11,5,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (30,'newbie_lobby','crl_table2b',2,6,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (31,'newbie_lobby','crl_table2a',3,6,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (32,'newbie_lobby','crl_lamp',11,6,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (33,'newbie_lobby','crl_chair',0,7,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (34,'newbie_lobby','crl_lamp',0,8,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (35,'newbie_lobby','crl_sofa3c',1,8,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (36,'newbie_lobby','crl_sofa3b',2,8,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (37,'newbie_lobby','crl_sofa3a',3,8,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (38,'newbie_lobby','crl_lamp',4,8,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (39,'newbie_lobby','crl_barchair2',19,8,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (40,'newbie_lobby','crl_tablebar',20,8,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (41,'newbie_lobby','crl_barchair2',21,8,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (42,'newbie_lobby','crl_pillar2',5,9,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (43,'newbie_lobby','crl_pillar',9,9,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (44,'newbie_lobby','crl_desk1a',8,15,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (45,'newbie_lobby','crl_deski',9,15,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (46,'newbie_lobby','crl_deskh',10,15,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (47,'newbie_lobby','crl_deskg',10,16,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (48,'newbie_lobby','crl_deskf',10,17,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (49,'newbie_lobby','crl_deske',10,18,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (50,'newbie_lobby','crl_deske',10,19,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (51,'newbie_lobby','crl_deske',10,20,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (52,'newbie_lobby','crl_deske',10,21,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (53,'newbie_lobby','crl_deske',10,22,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (54,'newbie_lobby','crl_deske',10,23,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (55,'newbie_lobby','crl_wallb',7,24,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (56,'newbie_lobby','crl_deske',10,24,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (57,'newbie_lobby','crl_walla',7,25,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (58,'newbie_lobby','crl_desk1b',8,25,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (59,'newbie_lobby','crl_desk1c',9,25,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (60,'newbie_lobby','crl_desk1d',10,25,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (61,'newbie_lobby','crl_lamp2',12,27,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (62,'newbie_lobby','crl_cabinet2',13,27,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (63,'newbie_lobby','crl_cabinet1',14,27,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (64,'newbie_lobby','crl_lamp2',15,27,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (65,'theater','mic',11,10,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (66,'theater','thchair2',2,11,4,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (67,'theater','thchair2',2,12,4,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (68,'theater','thchair2',2,15,4,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (69,'theater','thchair1',6,15,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (70,'theater','thchair1',7,15,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (71,'theater','thchair1',8,15,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (72,'theater','thchair1',9,15,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (73,'theater','thchair1',10,15,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (74,'theater','thchair1',12,15,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (75,'theater','thchair1',13,15,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (76,'theater','thchair1',14,15,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (77,'theater','thchair1',15,15,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (78,'theater','thchair1',16,15,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (79,'theater','thchair2',2,16,4,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (80,'theater','thchair1',6,20,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (81,'theater','thchair1',7,20,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (82,'theater','thchair1',8,20,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (83,'theater','thchair1',9,20,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (84,'theater','thchair1',10,20,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (85,'theater','thchair1',12,20,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (86,'theater','thchair1',13,20,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (87,'theater','thchair1',14,20,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (88,'theater','thchair1',15,20,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (89,'theater','thchair1',16,20,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (90,'theater','thchair1',6,23,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (91,'theater','thchair1',7,23,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (92,'theater','thchair1',8,23,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (93,'theater','thchair1',9,23,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (94,'theater','thchair1',10,23,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (95,'theater','thchair1',12,23,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (96,'theater','thchair1',13,23,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (97,'theater','thchair1',14,23,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (98,'theater','thchair1',15,23,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (99,'theater','thchair1',16,23,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (100,'theater','thchair1',6,26,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (101,'theater','thchair1',7,26,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (102,'theater','thchair1',8,26,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (103,'theater','thchair1',9,26,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (104,'theater','thchair1',10,26,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (105,'theater','thchair1',12,26,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (106,'theater','thchair1',13,26,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (107,'theater','thchair1',14,26,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (108,'theater','thchair1',15,26,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (109,'theater','thchair1',16,26,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (110,'library','libchair',14,2,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (111,'library','libchair',16,2,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (112,'library','libchair',26,2,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (113,'library','libchair',24,3,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (114,'library','libchair',12,4,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (115,'library','libchair',12,6,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (116,'library','libstool',13,14,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (117,'library','libstool',13,15,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (118,'library','libstool',13,16,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (119,'library','libchair',28,27,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (120,'library','libchair',27,29,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (121,'library','libstool',24,33,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (122,'library','libstool',24,34,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (123,'library','libstool',24,35,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (124,'library','libstool',21,36,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (125,'library','libstool',22,36,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (126,'library','libstool',23,36,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (127,'floatinggarden','stone',15,37,1,4,1,1,1,'can_sit_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (128,'floatinggarden','stone',16,37,1,4,1,1,1,'can_sit_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (129,'floatinggarden','stone',17,29,1,2,1,1,1,'can_sit_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (130,'floatinggarden','stone',17,30,1,2,1,1,1,'can_sit_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (131,'floatinggarden','stone',17,31,1,2,1,1,1,'can_sit_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (132,'floatinggarden','stone',17,35,1,2,1,1,1,'can_sit_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (133,'floatinggarden','stone',17,36,1,2,1,1,1,'can_sit_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (134,'floatinggarden','stone',21,33,1,2,1,1,1,'can_sit_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (135,'floatinggarden','stone',21,34,1,2,1,1,1,'can_sit_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (136,'floatinggarden','stone',21,35,1,2,1,1,1,'can_sit_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (137,'floatinggarden','stone',21,36,1,2,1,1,1,'can_sit_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (138,'floatinggarden','stone',24,9,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (139,'floatinggarden','stone',25,9,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (140,'floatinggarden','stone',26,33,1,6,1,1,1,'can_sit_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (141,'floatinggarden','stone',26,34,1,6,1,1,1,'can_sit_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (142,'floatinggarden','stone',26,35,1,6,1,1,1,'can_sit_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (143,'floatinggarden','stone',26,36,1,6,1,1,1,'can_sit_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (144,'floatinggarden','stone',28,13,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (145,'floatinggarden','stone',29,13,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (146,'floatinggarden','floatbench1',17,18,3,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (147,'floatinggarden','floatbench1',17,24,3,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (148,'floatinggarden','floatbench1',19,18,3,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (149,'floatinggarden','floatbench1',19,24,3,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (150,'floatinggarden','floatbench1',21,18,3,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (151,'floatinggarden','floatbench1',21,24,3,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (152,'floatinggarden','floatbench1',23,18,3,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (153,'floatinggarden','floatbench1',23,24,3,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (154,'floatinggarden','floatbench1',28,17,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (155,'floatinggarden','floatbench1',28,19,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (156,'floatinggarden','floatbench1',28,23,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (157,'floatinggarden','floatbench1',28,25,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (158,'floatinggarden','floatbench2',17,17,3,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (159,'floatinggarden','floatbench2',17,23,3,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (160,'floatinggarden','floatbench2',19,17,3,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (161,'floatinggarden','floatbench2',19,23,3,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (162,'floatinggarden','floatbench2',21,17,3,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (163,'floatinggarden','floatbench2',21,23,3,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (164,'floatinggarden','floatbench2',23,17,3,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (165,'floatinggarden','floatbench2',23,23,3,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (166,'floatinggarden','floatbench2',27,17,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (167,'floatinggarden','floatbench2',27,19,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (168,'floatinggarden','floatbench2',27,23,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (169,'floatinggarden','floatbench2',27,25,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (170,'sunset_cafe','chairup4',32,21,0,3,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (171,'sunset_cafe','chairup6',33,21,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (172,'sunset_cafe','chairup6',34,21,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (173,'sunset_cafe','chairup6',35,21,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (174,'sunset_cafe','chairup6',36,21,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (175,'sunset_cafe','chairup7',37,21,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (176,'sunset_cafe','chairup2',32,22,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (177,'sunset_cafe','chairup5',25,23,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (178,'sunset_cafe','chairup6',26,23,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (179,'sunset_cafe','chairup6',27,23,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (180,'sunset_cafe','chairup6',28,23,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (181,'sunset_cafe','chairup7',29,23,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (182,'sunset_cafe','chairup1',32,23,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (183,'sunset_cafe','counter5',24,24,0,7,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (184,'sunset_cafe','table2',25,24,0,7,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (185,'sunset_cafe','table1',26,24,0,7,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (186,'sunset_cafe','counter3',24,25,0,7,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (187,'sunset_cafe','counter4',24,26,0,7,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (188,'sunset_cafe','counter3',24,27,0,7,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (189,'sunset_cafe','counter3',24,28,0,7,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (190,'sunset_cafe','palms4',29,28,0,7,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (191,'sunset_cafe','counter3',24,29,0,7,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (192,'sunset_cafe','palms3',29,29,0,7,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (193,'sunset_cafe','counter3',24,30,0,7,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (194,'sunset_cafe','palms2',29,30,0,7,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (195,'sunset_cafe','counter1',22,31,0,7,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (196,'sunset_cafe','counter1',23,31,0,7,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (197,'sunset_cafe','counter2',24,31,0,7,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (198,'sunset_cafe','palms1',29,31,0,7,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (199,'sunset_cafe','chairup5',30,31,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (200,'sunset_cafe','chairup6',31,31,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (201,'sunset_cafe','chairup6',32,31,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (202,'sunset_cafe','chairup6',33,31,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (203,'sunset_cafe','chairup6',34,31,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (204,'sunset_cafe','chairup6',35,31,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (205,'sunset_cafe','chairup6',36,31,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (206,'sunset_cafe','chairright3',37,31,0,5,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (207,'sunset_cafe','chairup3',21,32,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (208,'sunset_cafe','table4',22,32,0,7,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (209,'sunset_cafe','table2',30,32,0,7,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (210,'sunset_cafe','table1',31,32,0,7,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (211,'sunset_cafe','table2',33,32,0,7,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (212,'sunset_cafe','table1',34,32,0,7,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (213,'sunset_cafe','chairright2',37,32,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (214,'sunset_cafe','chairup2',21,33,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (215,'sunset_cafe','table3',22,33,0,7,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (216,'sunset_cafe','chairright2',37,33,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (217,'sunset_cafe','chairup2',21,34,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (218,'sunset_cafe','table4',36,34,0,7,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (219,'sunset_cafe','chairright2',37,34,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (220,'sunset_cafe','chairup2',21,35,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (221,'sunset_cafe','table2',24,35,0,7,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (222,'sunset_cafe','table1',25,35,0,7,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (223,'sunset_cafe','table2',27,35,0,7,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (224,'sunset_cafe','table1',28,35,0,7,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (225,'sunset_cafe','palm',33,35,0,7,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (226,'sunset_cafe','table3',36,35,0,7,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (227,'sunset_cafe','chairright2',37,35,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (228,'sunset_cafe','chairleft3',21,36,0,1,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (229,'sunset_cafe','chairleft2',22,36,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (230,'sunset_cafe','chairleft2',23,36,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (231,'sunset_cafe','chairleft2',24,36,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (232,'sunset_cafe','chairleft2',25,36,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (233,'sunset_cafe','chairleft2',26,36,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (234,'sunset_cafe','chairleft2',27,36,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (235,'sunset_cafe','chairleft1',28,36,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (236,'sunset_cafe','chairright2',37,36,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (237,'sunset_cafe','table4',36,37,0,7,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (238,'sunset_cafe','chairright2',37,37,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (239,'sunset_cafe','table3',36,38,0,7,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (240,'sunset_cafe','chairright1',37,38,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (241,'pool_a','flower2b',2,28,7,0,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (242,'pool_a','flower2a',2,29,7,0,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (243,'pool_a','flower2b',19,30,7,0,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (244,'pool_a','flower2a',19,31,7,0,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (245,'pool_a','box',6,32,7,0,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (246,'pool_a','flower1',13,33,7,0,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (247,'pool_a','pool_chairy',10,34,7,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (248,'pool_a','umbrellay',8,35,7,0,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (249,'pool_a','pool_chairy',9,35,7,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (250,'pool_a','pool_tabley',10,35,7,0,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (251,'pool_a','pool_chairy',11,35,7,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (252,'pool_a','umbrellap',15,35,7,0,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (253,'pool_a','pool_chairy',10,36,7,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (254,'pool_a','pool_chairp',15,36,7,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (255,'pool_a','pool_chairo',22,36,7,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (256,'pool_a','pool_chairp',14,37,7,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (257,'pool_a','pool_tablep',15,37,7,0,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (258,'pool_a','pool_chairp',16,37,7,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (259,'pool_a','umbrellao',20,37,7,0,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (260,'pool_a','pool_chairo',21,37,7,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (261,'pool_a','pool_tabo',22,37,7,0,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (262,'pool_a','pool_chairo',22,38,7,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (263,'pool_a','pool_chairg',18,42,7,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (264,'pool_a','umbrellag',16,43,7,0,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (265,'pool_a','pool_chairg',17,43,7,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (266,'pool_a','pool_tablg',18,43,7,0,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (267,'pool_a','pool_chairg',19,43,7,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (268,'pool_a','pool_chairg',18,44,7,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (269,'pool_a','poolBooth',17,11,7,0,0.001,1,1,'can_stand_on_top,invisible','curtains1',NULL,NULL);
+INSERT INTO `public_items` VALUES (270,'pool_a','poolBooth',17,9,7,0,0.001,1,1,'can_stand_on_top,invisible','curtains2',NULL,NULL);
+INSERT INTO `public_items` VALUES (271,'pool_a','poolEnter',20,28,7,0,0.001,1,1,'can_stand_on_top,invisible','Splash0',NULL,NULL);
+INSERT INTO `public_items` VALUES (272,'pool_a','poolExit',21,28,3,0,0.001,1,1,'can_stand_on_top,invisible','Splash0',NULL,NULL);
+INSERT INTO `public_items` VALUES (273,'pub_a','pub_fence',8,12,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (274,'pub_a','pub_fence',18,11,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (275,'pub_a','pub_fence',8,11,3,1,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (276,'pub_a','pub_chair2',6,11,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (277,'pub_a','pub_chair2',5,11,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (278,'pub_a','pub_chair2',3,11,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (279,'pub_a','pub_chair2',2,11,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (280,'pub_a','pub_fence',18,10,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (281,'pub_a','pub_fence',18,9,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (282,'pub_a','bardesk3',11,9,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (283,'pub_a','bardesk4',10,9,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (284,'pub_a','pub_fence',18,8,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (285,'pub_a','pub_chair',12,8,2,6,1.5,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (286,'pub_a','bardesk1',11,8,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (287,'pub_a','pub_fence',18,7,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (288,'pub_a','bardesk2',11,7,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (289,'pub_a','pub_fence',18,6,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (290,'pub_a','pub_chair',12,6,2,6,1.5,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (291,'pub_a','bardesk1',11,6,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (292,'pub_a','pub_fence',18,5,2,1,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (293,'pub_a','bardesk2',11,5,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (294,'pub_a','pub_chair',12,4,2,6,1.5,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (295,'pub_a','bardesk1',11,4,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (296,'pub_a','bardesk2',11,3,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (297,'pub_a','pub_chair',12,2,2,6,1.5,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (298,'pub_a','bardesk1',11,2,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (299,'pub_a','pub_sofa',21,1,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (300,'pub_a','pub_sofa',20,1,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (301,'pub_a','pub_sofa2',19,1,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (302,'pub_a','pub_fence',18,12,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (303,'pub_a','pub_fence',8,13,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (304,'pub_a','pub_chair2',9,13,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (305,'pub_a','pub_chair3',14,13,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (306,'pub_a','pub_table2',15,13,2,1,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (307,'pub_a','pub_chair3',16,13,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (308,'pub_a','pub_fence',18,13,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (309,'pub_a','pub_fence',8,14,3,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (310,'pub_a','pub_chair2',9,14,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (311,'pub_a','pub_chair3',14,14,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (312,'pub_a','pub_table2',15,14,2,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (313,'pub_a','pub_chair3',16,14,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (314,'pub_a','pub_fence',18,14,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (315,'pub_a','pub_table',1,15,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (316,'pub_a','pub_fence',5,15,3,1,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (317,'pub_a','pub_fence',18,15,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (318,'pub_a','pub_sofa2',1,16,3,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (319,'pub_a','pub_fence',5,16,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (320,'pub_a','pub_fence',18,16,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (321,'pub_a','pub_sofa',1,17,3,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (322,'pub_a','pub_fence',5,17,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (323,'pub_a','pub_chair3',13,17,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (324,'pub_a','pub_chair3',14,17,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (325,'pub_a','pub_chair3',15,17,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (326,'pub_a','pub_chair3',16,17,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (327,'pub_a','pub_fence',18,17,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (328,'pub_a','pub_sofa',1,18,3,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (329,'pub_a','pub_fence',5,18,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (330,'pub_a','pub_table2',13,18,2,5,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (331,'pub_a','pub_table2',14,18,2,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (332,'pub_a','pub_table2',15,18,2,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (333,'pub_a','pub_table2',16,18,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (334,'pub_a','pub_fence',18,18,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (335,'pub_a','pub_sofa',2,19,3,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (336,'pub_a','pub_sofa2',3,19,3,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (337,'pub_a','pub_fence',5,19,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (338,'pub_a','pub_chair3',13,19,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (339,'pub_a','pub_chair3',14,19,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (340,'pub_a','pub_chair3',15,19,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (341,'pub_a','pub_chair3',16,19,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (342,'pub_a','pub_fence',18,19,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (343,'pub_a','pub_fence',1,20,3,5,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (344,'pub_a','pub_fence',2,20,3,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (345,'pub_a','pub_fence',3,20,3,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (346,'pub_a','pub_fence',4,20,3,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (347,'pub_a','pub_fence',5,20,3,3,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (348,'pub_a','pub_fence',18,20,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (349,'pub_a','pub_sofa2',7,21,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (350,'pub_a','pub_sofa',8,21,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (351,'pub_a','pub_fence',12,21,2,5,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (352,'pub_a','pub_fence',13,21,2,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (353,'pub_a','pub_fence',14,21,2,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (354,'pub_a','pub_fence',15,21,2,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (355,'pub_a','pub_fence',16,21,2,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (356,'pub_a','pub_fence',17,21,2,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (357,'pub_a','pub_fence',18,21,2,3,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (358,'pub_a','pub_sofa2',6,22,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (359,'pub_a','pub_table',15,22,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (360,'pub_a','pub_chair2',16,22,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (361,'pub_a','pub_chair2',17,22,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (362,'pub_a','pub_sofa',6,23,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (363,'pub_a','pub_table2',8,23,1,1,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (364,'pub_a','pub_sofa',6,24,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (365,'pub_a','pub_table2',8,24,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (366,'pub_a','pub_sofa',6,25,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (367,'pub_a','pub_table2',8,25,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (368,'md_a','mntdwchair',4,3,7,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (369,'md_a','mntdwchair',5,3,7,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (370,'md_a','barmask',2,8,7,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (371,'md_a','mntdwsofa2',7,8,7,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (372,'md_a','mntdwtable2',8,8,7,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (373,'md_a','mntdwsofa2',9,8,7,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (374,'md_a','paalu5',21,8,8,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (375,'md_a','barmask',2,9,7,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (376,'md_a','mntdwsofa1',7,9,7,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (377,'md_a','mntdwtable1',8,9,7,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (378,'md_a','mntdwsofa1',9,9,7,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (379,'md_a','paalu5',21,9,8,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (380,'md_a','barmask',2,10,7,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (381,'md_a','paalu5',21,10,8,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (382,'md_a','barmask',2,11,7,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (383,'md_a','paalu5',21,11,8,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (384,'md_a','barmask',2,12,7,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (385,'md_a','mntdwsofa2',7,12,7,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (386,'md_a','mntdwsofa1',8,12,7,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (387,'md_a','paalu3',21,12,8,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (388,'md_a','barmask',2,13,7,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (389,'md_a','mntdwtable2',7,13,7,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (390,'md_a','mntdwtable1',8,13,7,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (391,'md_a','paalu3',21,13,8,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (392,'md_a','barmask',2,14,7,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (393,'md_a','mntdwsofa2',7,14,7,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (394,'md_a','mntdwsofa1',8,14,7,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (395,'md_a','paalu3',21,14,8,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (396,'md_a','barmask',2,15,100000,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (397,'md_a','paalu1',21,15,8,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (398,'md_a','barmask',2,16,100000,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (399,'md_a','mntdwsofa2',12,16,7,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (400,'md_a','mntdwsofa1',13,16,7,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (401,'md_a','paalu1',21,16,8,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (402,'md_a','mntdwchair',3,17,7,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (403,'md_a','mntdwsofa2',6,17,7,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (404,'md_a','mntdwtable2',7,17,7,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (405,'md_a','mntdwsofa2',8,17,7,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (406,'md_a','mntdwtable2',12,17,7,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (407,'md_a','mntdwtable1',13,17,7,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (408,'md_a','paalu1',21,17,8,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (409,'md_a','mntdwchair',3,18,7,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (410,'md_a','mntdwsofa1',6,18,7,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (411,'md_a','mntdwtable1',7,18,7,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (412,'md_a','mntdwsofa1',8,18,7,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (413,'md_a','mntdwsofa2',12,18,7,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (414,'md_a','mntdwsofa1',13,18,7,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (415,'md_a','paalu1',21,18,8,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (416,'md_a','poolBooth',8,1,7,0,0.001,1,1,'can_stand_on_top,invisible','curtains1',NULL,NULL);
+INSERT INTO `public_items` VALUES (417,'md_a','poolBooth',9,1,7,0,0.001,1,1,'can_stand_on_top,invisible','curtains2',NULL,NULL);
+INSERT INTO `public_items` VALUES (418,'picnic','hedge7',10,7,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (419,'picnic','hedge7',11,7,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (420,'picnic','hedge7',12,7,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (421,'picnic','hedge7',13,7,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (422,'picnic','hedge8',14,7,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (423,'picnic','hedge2',18,7,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (424,'picnic','hedge7',19,7,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (425,'picnic','hedge7',20,7,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (426,'picnic','hedge7',21,7,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (427,'picnic','hedge9',14,8,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (428,'picnic','hedge9',18,8,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (429,'picnic','hedge5',3,9,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (430,'picnic','hedge9',3,10,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (431,'picnic','picnic_ground',21,13,2,4,0.2,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (432,'picnic','picnic_ground',7,14,2,4,0.2,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (433,'picnic','picnic_ground',19,15,2,2,0.2,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (434,'picnic','picnic_ground',23,15,2,6,0.2,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (435,'picnic','picnic_ground',5,16,2,2,0.2,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (436,'picnic','picnic_ground',9,16,2,6,0.2,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (437,'picnic','picnic_cloth1',19,15,0.001,0,0.001,0,0,'can_stand_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (438,'picnic','picnic_ground',21,17,2,0,0.2,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (439,'picnic','picnic_ground',7,18,2,0,0.2,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (440,'picnic','picnic_redbench2',0,19,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (441,'picnic','picnic_redbench1',0,20,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (442,'picnic','hedge6',11,20,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (443,'picnic','hedge7',12,20,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (444,'picnic','hedge7',13,20,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (445,'picnic','hedge3',14,20,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (446,'picnic','hedge4',17,20,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (447,'picnic','hedge7',18,20,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (448,'picnic','hedge7',19,20,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (449,'picnic','hedge8',20,20,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (450,'picnic','hedge5',11,21,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (451,'picnic','picnic_bench1',12,21,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (452,'picnic','picnic_bench2',13,21,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (453,'picnic','picnic_bench3',14,21,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (454,'picnic','picnic_bench1',17,21,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (455,'picnic','picnic_bench2',18,21,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (456,'picnic','picnic_bench3',19,21,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (457,'picnic','hedge5',20,21,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (458,'picnic','picnic_redbench2',0,22,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (459,'picnic','hedge5',11,22,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (460,'picnic','hedge5',20,22,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (461,'picnic','picnic_ground',25,22,2,4,0.2,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (462,'picnic','picnic_redbench1',0,23,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (463,'picnic','hedge5',11,23,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (464,'picnic','picnic_bench1',12,23,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (465,'picnic','picnic_bench1',19,23,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (466,'picnic','hedge5',20,23,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (467,'picnic','picnic_dummychair1',6,24,2,4,1,1,1,'can_sit_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (468,'picnic','picnic_dummychair4',7,24,2,4,4,1,1,'can_sit_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (469,'picnic','picnic_dummychair6',8,24,2,4,7,1,1,'can_sit_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (470,'picnic','hedge5',11,24,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (471,'picnic','picnic_bench2',12,24,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (472,'picnic','picnic_bench2',19,24,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (473,'picnic','hedge5',20,24,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (474,'picnic','picnic_ground',23,24,2,2,0.2,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (475,'picnic','picnic_ground',27,24,2,6,0.2,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (476,'picnic','picnic_stump',5,25,2,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (477,'picnic','hedge5',11,25,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (478,'picnic','picnic_bench2',12,25,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (479,'picnic','picnic_bench2',19,25,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (480,'picnic','hedge5',20,25,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (481,'picnic','picnic_cloth2',23,24,0.001,0,0.001,0,0,'can_stand_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (482,'picnic','picnic_stump',7,26,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (483,'picnic','hedge5',11,26,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (484,'picnic','picnic_bench3',12,26,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (485,'picnic','picnic_fireplace1',14,26,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (486,'picnic','picnic_fireplace2',16,26,2,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (487,'picnic','picnic_bench3',19,26,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (488,'picnic','hedge5',20,26,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (489,'picnic','picnic_ground',25,26,2,0,0.2,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (490,'picnic','hedge9',11,27,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (491,'picnic','picnic_lemonade',12,27,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (492,'picnic','hedge9',20,27,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (493,'picnic','picnic_firewood2',8,29,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (494,'picnic','picnic_redbench2',0,30,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (495,'picnic','picnic_firewood1',8,30,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (496,'picnic','picnic_redbench1',0,31,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (497,'picnic','picnic_firewood1',8,31,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (498,'picnic','picnic_bench1',12,31,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (499,'picnic','picnic_bench2',13,31,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (500,'picnic','picnic_bench3',14,31,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (501,'picnic','picnic_bench1',18,31,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (502,'picnic','picnic_bench2',19,31,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (503,'picnic','picnic_bench3',20,31,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (504,'picnic','picnic_carrot',27,31,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (505,'picnic','picnic_carrot',28,31,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (506,'picnic','picnic_carrot',29,31,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (507,'picnic','picnic_carrot',30,31,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (508,'picnic','picnic_carrot',31,31,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (509,'picnic','picnic_firewood1',8,32,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (510,'picnic','picnic_table2',12,32,2,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (511,'picnic','picnic_table',14,32,2,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (512,'picnic','picnic_table2',18,32,2,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (513,'picnic','picnic_table',20,32,2,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (514,'picnic','hedge1',3,33,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (515,'picnic','picnic_firewood1',8,33,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (516,'picnic','picnic_bench1',12,33,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (517,'picnic','picnic_bench2',13,33,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (518,'picnic','picnic_bench3',14,33,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (519,'picnic','picnic_bench1',18,33,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (520,'picnic','picnic_bench2',19,33,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (521,'picnic','picnic_bench3',20,33,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (522,'picnic','picnic_cabbage',27,33,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (523,'picnic','picnic_cabbage',28,33,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (524,'picnic','picnic_cabbage',29,33,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (525,'picnic','hedge5',3,34,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (526,'picnic','picnic_firewood1',8,34,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (527,'picnic','hedge5',3,35,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (528,'picnic','picnic_firewood1',8,35,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (529,'picnic','hedge5',3,36,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (530,'picnic','picnic_firewood1',8,36,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (531,'picnic','picnic_firewood1',8,37,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (532,'picnic','picnic_bench1',12,37,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (533,'picnic','picnic_bench2',13,37,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (534,'picnic','picnic_bench3',14,37,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (535,'picnic','picnic_bench1',18,37,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (536,'picnic','picnic_bench2',19,37,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (537,'picnic','picnic_bench3',20,37,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (538,'picnic','picnic_firewood1',8,38,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (539,'picnic','picnic_table2',12,38,2,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (540,'picnic','picnic_table',14,38,2,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (541,'picnic','picnic_table2',18,38,2,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (542,'picnic','picnic_table',20,38,2,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (543,'picnic','picnic_firewood3',8,39,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (544,'picnic','picnic_bench1',12,39,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (545,'picnic','picnic_bench2',13,39,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (546,'picnic','picnic_bench3',14,39,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (547,'picnic','picnic_bench1',18,39,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (548,'picnic','picnic_bench2',19,39,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (549,'picnic','picnic_bench3',20,39,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (568,'park_b','cornerchair2',0,0,0,4,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (569,'park_b','cornerchair1',1,0,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (570,'park_b','chair1',2,0,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (571,'park_b','chair1',3,0,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (572,'park_b','table1',5,0,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (573,'park_b','chair1line',6,0,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (574,'park_b','chair1',7,0,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (575,'park_b','chair1frontend',8,0,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (576,'park_b','bar_basic',10,0,0,4,0.001,1,1,'solid,private_furniture','',NULL,NULL);
+INSERT INTO `public_items` VALUES (577,'park_b','cornerchair1',0,1,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (578,'park_b','chair1',0,2,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (579,'park_b','chair1',0,3,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (580,'park_b','chair1',0,4,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (581,'park_b','chair1frontend',0,5,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (582,'park_b','table2',3,5,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (583,'park_b','modchair',5,5,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (584,'park_b','table2',8,5,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (585,'pool_b','umbrella2',33,2,7,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (586,'pool_b','pool_2sofa2',18,3,8,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (587,'pool_b','pool_2sofa1',19,3,8,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (588,'pool_b','pool_2sofa2',20,3,8,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (589,'pool_b','pool_2sofa1',21,3,8,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (590,'pool_b','pool_2sofa2',22,3,8,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (591,'pool_b','pool_2sofa1',23,3,8,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (592,'pool_b','pool_chair2',33,3,7,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (593,'pool_b','pool_chair2',32,4,7,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (594,'pool_b','pool_table2',33,4,7,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (595,'pool_b','pool_chair2',34,4,7,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (596,'pool_b','pool_2sofa2',16,5,8,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (597,'pool_b','pool_chair2',33,5,7,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (598,'pool_b','pool_2sofa1',16,6,8,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (599,'pool_b','pool_2sofa2',16,7,8,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (600,'pool_b','pool_chair2',35,7,7,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (601,'pool_b','flower1',14,8,9,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (602,'pool_b','pool_2sofa1',16,8,8,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (603,'pool_b','umbrella2',33,8,7,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (604,'pool_b','pool_chair2',34,8,7,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (605,'pool_b','pool_table2',35,8,7,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (606,'pool_b','pool_chair2',36,8,7,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (607,'pool_b','pool_2sofa2',14,9,9,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (608,'pool_b','pool_2sofa2',16,9,8,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (609,'pool_b','pool_chair2',35,9,7,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (610,'pool_b','pool_2sofa1',14,10,9,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (611,'pool_b','pool_2sofa1',16,10,8,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (612,'pool_b','pool_2sofa2',14,11,9,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (613,'pool_b','pool_2sofa2',16,11,8,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (614,'pool_b','pool_2sofa1',14,12,9,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (615,'pool_b','pool_2sofa1',16,12,8,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (616,'pool_b','flower2b',3,13,7,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (617,'pool_b','flower2a',4,13,7,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (618,'pool_b','pool_2sofa2',14,13,9,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (619,'pool_b','pool_2sofa2',16,13,8,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (620,'pool_b','pool_2sofa1',14,14,9,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (621,'pool_b','pool_2sofa1',16,14,8,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (622,'pool_b','poolLift',26,4,7,0,0.001,1,1,'can_stand_on_top,invisible','door',NULL,NULL);
+INSERT INTO `public_items` VALUES (623,'pool_b','poolEnter',17,21,7,0,0.001,1,1,'can_stand_on_top,invisible','Splash0','17 22 3 4','17 23 3 4');
+INSERT INTO `public_items` VALUES (624,'pool_b','poolExit',17,22,0,0,0.001,1,1,'can_stand_on_top,invisible','Splash0','17 21 0 4','17 20 0 4');
+INSERT INTO `public_items` VALUES (625,'pool_b','poolExit',20,19,0,0,0.001,1,1,'can_stand_on_top,invisible','Splash1','19 19 7 0','18 19 7 0');
+INSERT INTO `public_items` VALUES (626,'pool_b','poolEnter',31,10,7,0,0.001,1,1,'can_stand_on_top,invisible','Splash2','31 11 0 4','31 12 0 4');
+INSERT INTO `public_items` VALUES (627,'pool_b','poolExit',31,11,0,0,0.001,1,1,'can_stand_on_top,invisible','Splash2','31 10 7 0','31 9 7 0');
+INSERT INTO `public_items` VALUES (628,'pool_b','queue_tile2',21,9,7,0,0.001,1,1,'extra_parameter,can_stand_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (629,'pool_b','queue_tile2',21,7,7,2,0.001,1,1,'extra_parameter,can_stand_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (630,'pool_b','queue_tile2',23,7,7,2,0.001,1,1,'extra_parameter,can_stand_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (631,'pool_b','queue_tile2',26,7,7,0,0.001,1,1,'extra_parameter,can_stand_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (632,'pool_b','queue_tile2',25,7,7,2,0.001,1,1,'extra_parameter,can_stand_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (633,'pool_b','queue_tile2',22,7,7,2,0.001,1,1,'extra_parameter,can_stand_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (634,'pool_b','queue_tile2',26,5,7,0,0.001,1,1,'extra_parameter,can_stand_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (635,'pool_b','queue_tile2',21,8,7,0,0.001,1,1,'extra_parameter,can_stand_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (636,'pool_b','queue_tile2',26,6,7,0,0.001,1,1,'extra_parameter,can_stand_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (637,'pool_b','queue_tile2',24,7,7,2,0.001,1,1,'extra_parameter,can_stand_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (638,'ballroom','broom_bench1',4,0,4,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (639,'ballroom','broom_bench2',5,0,4,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (640,'ballroom','broom_bench3',6,0,4,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (641,'ballroom','broom_bench1',7,0,4,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (642,'ballroom','broom_bench2',8,0,4,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (643,'ballroom','broom_bench2',9,0,4,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (644,'ballroom','broom_bench3',10,0,4,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (645,'ballroom','broom_bench1',11,0,4,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (646,'ballroom','broom_bench2',12,0,4,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (647,'ballroom','broom_bench2',13,0,4,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (648,'ballroom','broom_bench2',14,0,4,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (649,'ballroom','broom_bench3',15,0,4,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (650,'ballroom','broom_bench1',16,0,4,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (651,'ballroom','broom_bench2',17,0,4,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (652,'ballroom','broom_bench2',18,0,4,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (653,'ballroom','broom_bench3',19,0,4,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (654,'ballroom','broom_bench1',20,0,4,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (655,'ballroom','broom_bench2',21,0,4,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (656,'ballroom','broom_bench3',22,0,4,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (657,'ballroom','broom_seatb1',7,3,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (658,'ballroom','broom_seatb2',8,3,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (659,'ballroom','broom_seatb3',9,3,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (660,'ballroom','broom_seatb4',10,3,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (661,'ballroom','broom_seat1',16,3,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (662,'ballroom','broom_seat2',17,3,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (663,'ballroom','broom_seat3',18,3,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (664,'ballroom','broom_seat4',19,3,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (665,'ballroom','broom_seatb1',7,6,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (666,'ballroom','broom_seatb2',8,6,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (667,'ballroom','broom_seatb3',9,6,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (668,'ballroom','broom_seatb4',10,6,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (669,'ballroom','broom_seat1',16,6,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (670,'ballroom','broom_seat2',17,6,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (671,'ballroom','broom_seat3',18,6,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (672,'ballroom','broom_seat4',19,6,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (673,'ballroom','broom_chair',19,10,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (674,'ballroom','broom_chair',20,10,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (675,'ballroom','broom_chair',21,10,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (676,'ballroom','broom_table1',19,11,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (677,'ballroom','broom_table2',20,11,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (678,'ballroom','broom_table3',21,11,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (679,'ballroom','broom_chair',19,12,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (680,'ballroom','broom_chair',20,12,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (681,'ballroom','broom_chair',21,12,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (682,'ballroom','broom_chair',19,15,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (683,'ballroom','broom_chair',20,15,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (684,'ballroom','broom_chair',21,15,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (685,'ballroom','broom_table1',19,16,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (686,'ballroom','broom_table2',20,16,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (687,'ballroom','broom_table3',21,16,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (688,'ballroom','broom_chair',19,17,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (689,'ballroom','broom_chair',20,17,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (690,'ballroom','broom_chair',21,17,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (691,'ballroom','broom_stool',9,20,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (692,'ballroom','broom_stool',9,21,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (693,'ballroom','broom_stool',9,22,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (694,'ballroom','broom_stool',9,23,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (695,'cafe_gold0','gold_chair',5,3,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (696,'cafe_gold0','gold_table_small1',6,3,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (697,'cafe_gold0','gold_chair',7,3,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (698,'cafe_gold0','gold_bardesk5',10,3,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (699,'cafe_gold0','gold_bardesk4',11,3,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (700,'cafe_gold0','gold_bardesk3',12,3,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (701,'cafe_gold0','gold_bardesk2',13,3,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (702,'cafe_gold0','gold_bardesk1',14,3,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (703,'cafe_gold0','gold_chair',5,4,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (704,'cafe_gold0','gold_table_small2',6,4,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (705,'cafe_gold0','gold_chair',7,4,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (706,'cafe_gold0','gold_chair',0,5,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (707,'cafe_gold0','gold_table_small1',1,5,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (708,'cafe_gold0','gold_chair',2,5,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (709,'cafe_gold0','gold_chair',0,6,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (710,'cafe_gold0','gold_table_small2',1,6,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (711,'cafe_gold0','gold_chair',2,6,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (712,'cafe_gold0','gold_chair',5,6,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (713,'cafe_gold0','gold_table_small1',6,6,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (714,'cafe_gold0','gold_chair',7,6,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (715,'cafe_gold0','gold_chair',5,7,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (716,'cafe_gold0','gold_table_small2',6,7,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (717,'cafe_gold0','gold_chair',7,7,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (718,'cafe_gold0','gold_chair',0,8,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (719,'cafe_gold0','gold_table_small1',1,8,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (720,'cafe_gold0','gold_chair',2,8,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (721,'cafe_gold0','gold_chair',19,8,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (722,'cafe_gold0','gold_chair',20,8,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (723,'cafe_gold0','gold_chair',0,9,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (724,'cafe_gold0','gold_table_small2',1,9,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (725,'cafe_gold0','gold_chair',2,9,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (726,'cafe_gold0','gold_chair',14,9,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (727,'cafe_gold0','gold_chair',15,9,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (728,'cafe_gold0','gold_table_small1',19,10,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (729,'cafe_gold0','gold_table_small2',20,10,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (730,'cafe_gold0','gold_table_small1',14,11,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (731,'cafe_gold0','gold_table_small2',15,11,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (732,'cafe_gold0','gold_plant',0,12,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (733,'cafe_gold0','gold_chair',1,12,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (734,'cafe_gold0','gold_chair',2,12,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (735,'cafe_gold0','gold_chair',3,12,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (736,'cafe_gold0','gold_chair',19,12,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (737,'cafe_gold0','gold_chair',20,12,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (738,'cafe_gold0','gold_plant',0,13,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (739,'cafe_gold0','gold_chair',1,13,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (740,'cafe_gold0','gold_chair',2,13,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (741,'cafe_gold0','gold_chair',3,13,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (742,'cafe_gold0','gold_chair',14,13,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (743,'cafe_gold0','gold_chair',15,13,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (744,'cafe_gold0','gold_chair',0,14,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (745,'cafe_gold0','gold_chair',14,14,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (746,'cafe_gold0','gold_chair',15,14,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (747,'cafe_gold0','gold_chair',0,15,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (748,'cafe_gold0','gold_table_small1',2,15,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (749,'cafe_gold0','gold_table_small2',3,15,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (750,'cafe_gold0','gold_chair',0,16,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (751,'cafe_gold0','gold_table_small1',14,16,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (752,'cafe_gold0','gold_table_small2',15,16,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (753,'cafe_gold0','gold_plant',0,17,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (754,'cafe_gold0','gold_chair',1,17,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (755,'cafe_gold0','gold_chair',2,17,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (756,'cafe_gold0','gold_chair',3,17,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (757,'cafe_gold0','gold_plant',0,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (758,'cafe_gold0','gold_chair',1,18,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (759,'cafe_gold0','gold_chair',2,18,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (760,'cafe_gold0','gold_chair',3,18,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (761,'cafe_gold0','gold_chair',14,18,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (762,'cafe_gold0','gold_chair',15,18,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (763,'cafe_gold0','gold_chair',0,19,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (764,'cafe_gold0','gold_chair',0,20,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (765,'cafe_gold0','gold_table_small1',2,20,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (766,'cafe_gold0','gold_table_small2',3,20,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (767,'cafe_gold0','gold_chair',0,21,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (768,'cafe_gold0','gold_plant',0,22,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (769,'cafe_gold0','gold_chair',1,22,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (770,'cafe_gold0','gold_chair',2,22,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (771,'cafe_gold0','gold_chair',3,22,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (772,'cafe_gold0','gold_plant',0,23,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (773,'cafe_gold0','gold_chair',1,23,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (774,'cafe_gold0','gold_chair',2,23,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (775,'cafe_gold0','gold_chair',3,23,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (776,'cafe_gold0','gold_chair',0,24,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (777,'cafe_gold0','gold_chair',0,25,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (778,'cafe_gold0','gold_table_small1',2,25,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (779,'cafe_gold0','gold_table_small2',3,25,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (780,'cafe_gold0','gold_chair',0,26,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (781,'cafe_gold0','gold_chair',1,27,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (782,'cafe_gold0','gold_chair',2,27,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (783,'cafe_gold0','gold_chair',3,27,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (784,'gate_park','gate_drumchair',11,15,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (785,'gate_park','gate_drumchair',12,14,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (786,'gate_park','gate_drumchair',12,16,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (787,'gate_park','gate_drumchair',16,15,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (788,'gate_park','gate_drumchair',17,14,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (789,'gate_park','gate_drumchair',17,16,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (790,'gate_park','gate_drumchair',18,15,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (791,'gate_park','gate_drumchair',21,15,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (792,'gate_park','gate_drumchair',22,14,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (793,'gate_park','gate_drumchair',22,16,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (794,'gate_park','gate_drumchair',23,15,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (795,'gate_park','gate_drumchair',29,13,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (796,'gate_park','gate_drumchair',29,17,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (797,'gate_park','gate_drumchair',30,13,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (798,'gate_park','gate_drumchair',30,17,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (799,'gate_park','gate_lantern',26,15,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (800,'gate_park','gate_lantern',8,15,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (801,'gate_park','gate_rockchair1',10,18,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (802,'gate_park','gate_rockchair1',10,21,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (803,'gate_park','gate_rockchair1',14,18,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (804,'gate_park','gate_rockchair1',20,21,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (805,'gate_park','gate_rockchair1',23,18,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (806,'gate_park','gate_rockchair2',10,19,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (807,'gate_park','gate_rockchair2',14,20,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (808,'gate_park','gate_rockchair2',20,19,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (809,'gate_park','gate_rockchair2',22,18,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (810,'gate_park','gate_rockchair3',10,20,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (811,'gate_park','gate_rockchair3',14,19,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (812,'gate_park','gate_rockchair3',20,20,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (813,'gate_park','gate_rockchair3',21,18,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (814,'gate_park','gate_table',12,15,0,0,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (815,'gate_park','gate_table',17,15,0,0,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (816,'gate_park','gate_table',22,15,0,0,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (817,'gate_park','gate_table1',15,5,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (818,'gate_park','gate_table1',19,5,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (819,'gate_park','gate_table1',2,10,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (820,'gate_park','gate_table1',2,11,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (821,'gate_park','gate_table1',2,14,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (822,'gate_park','gate_table1',2,7,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (823,'gate_park','gate_table2',15,6,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (824,'gate_park','gate_table2',19,6,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (825,'gate_park','gate_table2',3,10,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (826,'gate_park','gate_table2',3,11,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (827,'gate_park','gate_table2',3,14,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (828,'gate_park','gate_table2',3,7,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (829,'gate_park','gate_table3',15,7,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (830,'gate_park','gate_table3',19,7,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (831,'gate_park','gate_table3',4,10,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (832,'gate_park','gate_table3',4,11,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (833,'gate_park','gate_table3',4,14,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (834,'gate_park','gate_table3',4,7,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (835,'gate_park','gate_talltree',10,22,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (836,'gate_park','gate_talltree',10,23,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (837,'gate_park','gate_trashcan',20,18,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (838,'gate_park_2','gate_table1',12,0,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (839,'gate_park_2','gate_table2',13,0,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (840,'gate_park_2','gate_table3',14,0,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (841,'gate_park_2','gate_table1',16,0,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (842,'gate_park_2','gate_table3',17,0,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (843,'gate_park_2','gate_table1',19,0,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (844,'gate_park_2','gate_table2',20,0,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (845,'gate_park_2','gate_table3',21,0,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (846,'gate_park_2','gate_talltree',9,7,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (847,'gate_park_2','gate_drumchair',14,8,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (848,'gate_park_2','gate_drumchair',19,8,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (849,'gate_park_2','gate_talltree',9,9,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (850,'gate_park_2','gate_drumchair',13,9,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (851,'gate_park_2','gate_table',14,9,0,0,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (852,'gate_park_2','gate_drumchair',15,9,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (853,'gate_park_2','gate_drumchair',18,9,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (854,'gate_park_2','gate_table',19,9,0,0,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (855,'gate_park_2','gate_drumchair',20,9,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (856,'gate_park_2','gate_talltree',6,10,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (857,'gate_park_2','gate_talltree',8,10,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (858,'gate_park_2','gate_drumchair',14,10,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (859,'gate_park_2','gate_drumchair',19,10,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (860,'gate_park_2','gate_rockchair3',6,11,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (861,'gate_park_2','gate_rockchair2',8,11,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (862,'gate_park_2','gate_drumchair',1,12,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (863,'gate_park_2','gate_drumchair',2,12,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (864,'gate_park_2','gate_rockchair1',6,12,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (865,'gate_park_2','gate_talltree',27,12,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (866,'gate_park_2','gate_talltree',30,12,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (867,'gate_park_2','gate_drumchair',1,14,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (868,'gate_park_2','gate_drumchair',2,14,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (869,'gate_park_2','gate_rockchair1',6,15,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (870,'gate_park_2','gate_trashcan',27,15,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (871,'gate_park_2','gate_rockchair2',6,16,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (872,'gate_park_2','gate_rockchair3',8,16,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (873,'gate_park_2','gate_table1',31,16,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (874,'gate_park_2','gate_table3',32,16,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (875,'gate_park_2','gate_drumchair',14,17,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (876,'gate_park_2','gate_drumchair',19,17,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (877,'gate_park_2','gate_drumchair',13,18,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (878,'gate_park_2','gate_table',14,18,0,0,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (879,'gate_park_2','gate_drumchair',15,18,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (880,'gate_park_2','gate_drumchair',18,18,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (881,'gate_park_2','gate_table',19,18,0,0,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (882,'gate_park_2','gate_drumchair',20,18,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (883,'gate_park_2','gate_drumchair',14,19,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (884,'gate_park_2','gate_drumchair',19,19,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (885,'gate_park_2','gate_table1',31,19,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (886,'gate_park_2','gate_table3',32,19,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (887,'gate_park_2','gate_lantern',29,22,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (888,'gate_park_2','gate_trashcan',8,23,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (889,'gate_park_2','gate_table1',23,24,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (890,'gate_park_2','gate_table1',26,24,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (891,'gate_park_2','gate_table3',23,25,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (892,'gate_park_2','gate_table3',26,25,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (893,'sun_terrace','sun_chair',16,11,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (894,'sun_terrace','sun_chair',20,11,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (895,'sun_terrace','sun_chair',16,12,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (896,'sun_terrace','sun_chair',20,12,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (897,'sun_terrace','blusun_chair',10,13,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (898,'sun_terrace','sun_chair',16,13,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (899,'sun_terrace','sun_chair',20,13,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (900,'sun_terrace','sun_table',10,14,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (901,'sun_terrace','sun_chair',20,14,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (902,'sun_terrace','blusun_chair',10,15,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (903,'sun_terrace','sun_chair',1,18,8,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (904,'sun_terrace','sun_chair',4,18,6,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (905,'sun_terrace','blusun_chair',11,18,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (906,'sun_terrace','blusun_chair',10,19,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (907,'sun_terrace','sun_table',11,19,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (908,'sun_terrace','blusun_chair',12,19,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (909,'sun_terrace','sun_chair',18,19,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (910,'sun_terrace','sun_chair',22,19,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (911,'sun_terrace','blusun_chair',11,20,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (912,'sun_terrace','sun_chair',18,20,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (913,'sun_terrace','sun_chair',22,20,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (914,'sun_terrace','sun_chair',4,21,6,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (915,'sun_terrace','sun_chair',6,21,4,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (916,'sun_terrace','sun_chair',18,21,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (917,'sun_terrace','sun_chair',22,21,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (918,'sun_terrace','blusun_chair',2,22,9,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (919,'sun_terrace','sun_chair',22,22,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (920,'sun_terrace','blusun_chair',1,23,9,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (921,'sun_terrace','sun_table2',2,23,9,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (922,'sun_terrace','blusun_chair',2,24,9,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (923,'sun_terrace','sun_chair',11,25,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (924,'sun_terrace','sun_chair',12,25,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (925,'sun_terrace','sun_chair',13,25,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (926,'sun_terrace','sun_table',14,25,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (927,'sun_terrace','sun_chair',15,25,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (928,'sun_terrace','sun_chair',16,25,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (929,'sun_terrace','sun_chair',17,25,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (930,'sun_terrace','sun_chair',13,29,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (931,'sun_terrace','sun_chair',15,29,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (932,'sun_terrace','sun_chair',17,29,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (933,'sun_terrace','sun_chair',13,30,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (934,'sun_terrace','sun_chair',15,30,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (935,'sun_terrace','sun_chair',17,30,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (936,'space_cafe','bigtablea',1,10,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (937,'space_cafe','bigtablea',7,10,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (938,'space_cafe','bigtableb',0,10,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (939,'space_cafe','bigtableb',6,10,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (940,'space_cafe','bigtablec',1,9,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (941,'space_cafe','bigtablec',7,9,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (942,'space_cafe','bigtabled',0,9,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (943,'space_cafe','bigtabled',6,9,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (944,'space_cafe','bluesofaa',1,11,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (945,'space_cafe','bluesofaa',1,8,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (946,'space_cafe','bluesofaa',14,22,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (947,'space_cafe','bluesofaa',14,24,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (948,'space_cafe','bluesofaa',2,10,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (949,'space_cafe','bluesofab',0,11,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (950,'space_cafe','bluesofab',0,8,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (951,'space_cafe','bluesofab',13,22,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (952,'space_cafe','bluesofab',13,24,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (953,'space_cafe','bluesofab',2,9,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (954,'space_cafe','midtablea',14,23,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (955,'space_cafe','midtablea',19,14,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (956,'space_cafe','midtableb',13,23,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (957,'space_cafe','midtableb',19,13,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (958,'space_cafe','redsofaa',10,22,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (959,'space_cafe','redsofaa',10,25,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (960,'space_cafe','redsofaa',18,14,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (961,'space_cafe','redsofaa',20,14,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (962,'space_cafe','redsofaa',5,10,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (963,'space_cafe','redsofaa',7,11,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (964,'space_cafe','redsofaa',7,8,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (965,'space_cafe','redsofab',10,21,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (966,'space_cafe','redsofab',10,24,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (967,'space_cafe','redsofab',18,13,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (968,'space_cafe','redsofab',20,13,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (969,'space_cafe','redsofab',5,9,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (970,'space_cafe','redsofab',6,11,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (971,'space_cafe','redsofab',6,8,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (972,'space_cafe','smalltable',10,23,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (973,'space_cafe','smalltable',17,6,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (974,'space_cafe','smalltable',19,2,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (975,'space_cafe','smalltable',21,6,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (976,'space_cafe','smalltable',23,2,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (977,'space_cafe','smalltable',3,16,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (978,'space_cafe','space_stool',19,1,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (979,'space_cafe','space_stool',17,5,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (980,'space_cafe','space_stool',17,7,3,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (981,'space_cafe','space_stool',18,2,3,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (982,'space_cafe','space_stool',18,6,3,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (983,'space_cafe','space_stool',19,3,3,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (984,'space_cafe','space_stool',20,2,3,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (985,'space_cafe','space_stool',20,6,3,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (986,'space_cafe','space_stool',21,5,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (987,'space_cafe','space_stool',21,7,3,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (988,'space_cafe','space_stool',22,2,3,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (989,'space_cafe','space_stool',22,6,3,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (990,'space_cafe','space_stool',23,1,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (991,'space_cafe','space_stool',23,3,3,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (992,'space_cafe','space_stool',3,15,3,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (993,'space_cafe','space_stool',3,17,3,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (994,'beauty_salon0','directorchair',16,13,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (995,'beauty_salon0','directorchair',16,14,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (996,'beauty_salon0','directorchair',18,13,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (997,'beauty_salon0','directorchair',9,13,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (998,'beauty_salon0','longchair1',12,17,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (999,'beauty_salon0','longchair1',13,16,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1000,'beauty_salon0','longchair1',13,21,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1001,'beauty_salon0','longchair1',17,17,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1002,'beauty_salon0','longchair2',12,18,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1003,'beauty_salon0','longchair2',12,19,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1004,'beauty_salon0','longchair2',14,16,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1005,'beauty_salon0','longchair2',14,21,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1006,'beauty_salon0','longchair2',15,16,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1007,'beauty_salon0','longchair2',15,21,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1008,'beauty_salon0','longchair2',17,18,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1009,'beauty_salon0','longchair2',17,19,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1010,'beauty_salon0','longchair3',12,20,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1011,'beauty_salon0','longchair3',16,16,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1012,'beauty_salon0','longchair3',16,21,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1013,'beauty_salon0','longchair3',17,20,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1014,'beauty_salon0','pinkchair',11,6,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1015,'beauty_salon0','pinkchair',11,7,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1016,'beauty_salon0','pinkchair',3,8,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1017,'beauty_salon0','pinkchair',4,11,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1018,'beauty_salon0','pinkchair',6,10,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1019,'beauty_salon0','pinkchair',7,10,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1020,'beauty_salon0','pinkchair',8,10,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1021,'beauty_salon0','table2',2,17,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1022,'beauty_salon0','table2',2,18,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1023,'beauty_salon0','table2',2,19,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1024,'beauty_salon0','table2',2,20,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1025,'beauty_salon0','table2',8,18,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1026,'beauty_salon0','table2',8,19,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1027,'beauty_salon0','table2',8,20,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1028,'beauty_salon0','table2',8,21,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1029,'chill','jap_chair',3,24,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1030,'chill','jap_chair',3,26,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1031,'chill','jap_chair',3,29,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1032,'chill','jap_chair',4,20,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1033,'chill','jap_chair',4,21,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1034,'chill','jap_chair',4,24,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1035,'chill','jap_chair',4,26,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1036,'chill','jap_chair',4,29,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1037,'chill','jap_chair',5,24,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1038,'chill','jap_chair',5,26,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1039,'chill','jap_chair',5,30,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1040,'chill','jap_chair',6,20,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1041,'chill','jap_chair',6,21,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1042,'chill','jap_stool',13,19,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1043,'chill','jap_stool',16,24,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1044,'chill','jap_stool',16,25,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1045,'chill','jap_stool',16,26,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1046,'chill','jap_table',3,25,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1047,'chill','jap_table',3,30,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1048,'chill','jap_table',5,20,0,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1049,'chill','jap_table2',4,25,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1050,'chill','jap_table3',4,30,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1051,'chill','jap_table3',5,21,0,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1052,'chill','jap_table3',5,25,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1053,'chill','stone',11,3,0,4,2,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1054,'chill','stone',13,10,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1055,'chill','stone',13,7,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1056,'chill','stone',13,8,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1057,'chill','stone',14,13,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1058,'chill','stone',15,14,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1059,'chill','stone',17,15,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1060,'chill','stone',8,8,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1061,'chill','stone',9,7,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1062,'dusty_lounge','dustylamp',11,14,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1063,'dusty_lounge','dustylamp',11,19,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1064,'dusty_lounge','dustylamp',20,6,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1065,'dusty_lounge','dustylamp',24,17,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1066,'dusty_lounge','dustylamp',28,6,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1067,'dusty_lounge','greenchair1',11,13,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1068,'dusty_lounge','greenchair1',11,16,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1069,'dusty_lounge','greenchair1',12,24,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1070,'dusty_lounge','greenchair1',14,24,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1071,'dusty_lounge','greenchair1',4,13,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1072,'dusty_lounge','greenchair1',4,15,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1073,'dusty_lounge','greenchair1',4,7,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1074,'dusty_lounge','greenchair1',4,9,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1075,'dusty_lounge','greenchair1',9,4,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1076,'dusty_lounge','greenchair1',9,6,3,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1077,'dusty_lounge','greenchair2',11,12,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1078,'dusty_lounge','greenchair2',11,15,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1079,'dusty_lounge','greenchair2',12,23,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1080,'dusty_lounge','greenchair2',14,23,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1081,'dusty_lounge','greenchair2',3,13,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1082,'dusty_lounge','greenchair2',3,15,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1083,'dusty_lounge','greenchair2',3,7,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1084,'dusty_lounge','greenchair2',3,9,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1085,'dusty_lounge','greenchair2',8,4,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1086,'dusty_lounge','greenchair2',8,6,3,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1087,'dusty_lounge','yellowchair',21,10,3,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1088,'dusty_lounge','yellowchair',22,17,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1089,'dusty_lounge','yellowchair',23,10,3,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1090,'dusty_lounge','yellowchair',24,15,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1091,'dusty_lounge','yellowchair',24,19,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1092,'dusty_lounge','yellowchair',26,10,3,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1093,'dusty_lounge','yellowchair',26,17,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1094,'dusty_lounge','yellowchair',28,10,3,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1095,'cr_staff','crs_lamptable',7,0,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1096,'cr_staff','tvtable',14,1,0,2,0.001,1,2,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1097,'cr_staff','crs_trash',0,2,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1098,'cr_staff','crs_sofag_start',2,2,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1099,'cr_staff','crs_sofag_mid',3,2,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1100,'cr_staff','crs_sofag_mid',4,2,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1101,'cr_staff','crs_sofag_end',5,2,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1102,'cr_staff','crs_roundwoodtable',12,4,0,2,0.001,2,2,'extra_parameter','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1103,'cr_staff','crs_woodchair',15,4,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1104,'cr_staff','crs_woodchair',10,5,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1105,'cr_staff','crs_woodchair',15,6,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1106,'cr_staff','crs_woodchair',7,7,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1107,'cr_staff','crs_woodchair',13,8,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1108,'cr_staff','crs_woodchair',15,8,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1109,'cr_staff','crs_woodchair',5,9,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1110,'cr_staff','crs_fridge',0,10,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1111,'cr_staff','ctable2',7,10,0,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1112,'cr_staff','crs_woodtable_end',13,10,0,0,0.001,1,2,'extra_parameter','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1113,'cr_staff','crs_woodtable_start',14,10,0,0,0.001,2,2,'extra_parameter','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1114,'cr_staff','crs_woodchair',5,11,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1115,'cr_staff','crs_box',1,12,0,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1116,'cr_staff','crs_box',1,13,0,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1117,'cr_staff','ctable1',7,13,0,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1118,'cr_staff','crs_woodchair',13,13,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1119,'cr_staff','crs_woodchair',15,13,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1120,'cr_staff','crs_box',1,15,0,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1121,'cr_staff','crs_boxopen',1,17,0,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1122,'cr_staff','crs_stomp',15,17,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1123,'cr_staff','crs_box',1,18,0,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1124,'cr_staff','crs_stomp',15,18,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1125,'cr_staff','crs_boxtwo',1,19,0,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1126,'rooftop','rooftop_emptytable',0,10,4,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1127,'rooftop','rooftop_flatcurb',1,13,4,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1128,'rooftop','rooftop_flatcurb',13,13,4,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1129,'rooftop','rooftop_flatcurb',16,1,4,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1130,'rooftop','rooftop_flatcurb',16,4,4,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1131,'rooftop','rooftop_flatcurb',6,13,4,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1132,'rooftop','rooftop_flatcurb',8,13,4,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1133,'rooftop','rooftop_flatcurb2',17,1,4,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1134,'rooftop','rooftop_flatcurb2',17,4,4,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1135,'rooftop','rooftop_flatcurb3',1,14,4,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1136,'rooftop','rooftop_flatcurb3',1,15,4,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1137,'rooftop','rooftop_flatcurb3',1,16,4,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1138,'rooftop','rooftop_flatcurb3',10,17,4,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1139,'rooftop','rooftop_flatcurb3',11,17,4,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1140,'rooftop','rooftop_flatcurb3',12,17,4,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1141,'rooftop','rooftop_flatcurb3',13,14,4,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1142,'rooftop','rooftop_flatcurb3',13,15,4,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1143,'rooftop','rooftop_flatcurb3',13,16,4,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1144,'rooftop','rooftop_flatcurb3',2,17,4,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1145,'rooftop','rooftop_flatcurb3',3,17,4,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1146,'rooftop','rooftop_flatcurb3',4,17,4,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1147,'rooftop','rooftop_flatcurb3',5,17,4,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1148,'rooftop','rooftop_flatcurb3',6,14,4,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1149,'rooftop','rooftop_flatcurb3',6,15,4,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1150,'rooftop','rooftop_flatcurb3',6,16,4,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1151,'rooftop','rooftop_flatcurb3',8,14,4,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1152,'rooftop','rooftop_flatcurb3',8,15,4,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1153,'rooftop','rooftop_flatcurb3',8,16,4,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1154,'rooftop','rooftop_flatcurb3',9,17,4,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1155,'rooftop','rooftop_flatcurb4',1,17,4,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1156,'rooftop','rooftop_flatcurb4',8,17,4,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1157,'rooftop','rooftop_flatcurb5',13,17,4,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1158,'rooftop','rooftop_flatcurb5',6,17,4,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1159,'rooftop','rooftop_minichair',0,1,4,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1160,'rooftop','rooftop_minichair',0,11,4,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1161,'rooftop','rooftop_minichair',0,3,4,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1162,'rooftop','rooftop_minichair',0,9,4,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1163,'rooftop','rooftop_minichair',1,2,4,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1164,'rooftop','rooftop_minichair',1,7,4,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1165,'rooftop','rooftop_minichair',2,6,4,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1166,'rooftop','rooftop_minichair',2,8,4,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1167,'rooftop','rooftop_minichair',3,7,4,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1168,'rooftop','rooftop_rodtable',0,2,4,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1169,'rooftop','rooftop_rodtable',2,7,4,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1170,'rooftop_2','rooftop_bigchair',8,0,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1171,'rooftop_2','rooftop_bigtable',8,1,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1172,'rooftop_2','rooftop_sofab',0,2,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1173,'rooftop_2','rooftop_sofa',1,2,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1174,'rooftop_2','rooftop_bigchair',8,2,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1175,'rooftop_2','rooftop_bigchair',8,3,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1176,'rooftop_2','rooftop_bigtable',8,4,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1177,'rooftop_2','rooftop_sofab',0,5,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1178,'rooftop_2','rooftop_sofa',1,5,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1179,'rooftop_2','rooftop_bigchair',8,5,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1180,'rooftop_2','rooftop_sofab',0,6,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1181,'rooftop_2','rooftop_sofa',1,6,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1182,'rooftop_2','rooftop_sofab',7,6,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1183,'rooftop_2','rooftop_sofa',8,6,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1184,'rooftop_2','rooftop_sofab',0,9,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1185,'rooftop_2','rooftop_sofa',1,9,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1186,'rooftop_2','rooftop_sofab',7,9,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1187,'rooftop_2','rooftop_sofa',8,9,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1188,'tearoom','chinastoolgreen',0,19,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1189,'tearoom','chinastoolgreen',0,20,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1190,'tearoom','chinastoolred',10,6,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1191,'tearoom','chinastoolred',11,6,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1192,'tearoom','chinastoolred',8,6,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1193,'tearoom','chinastoolred',9,6,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1194,'tearoom','hardwoodsofa1',13,1,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1195,'tearoom','hardwoodsofa1',18,1,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1196,'tearoom','hardwoodsofa2',14,1,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1197,'tearoom','hardwoodsofa2',19,1,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1198,'tearoom','hardwoodsofa3',15,1,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1199,'tearoom','hardwoodsofa3',20,1,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1200,'tearoom','teabamboo',16,1,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1201,'tearoom','teasmalltable1',13,3,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1202,'tearoom','teasmalltable1',18,3,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1203,'tearoom','teasmalltable2',15,3,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1204,'tearoom','teasmalltable2',20,3,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1205,'tearoom','teastool',16,9,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1206,'tearoom','teastool',17,9,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1207,'tearoom','teastool',2,12,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1208,'tearoom','teastool',2,6,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1209,'tearoom','teastool',3,12,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1210,'tearoom','teastool',3,6,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1211,'tearoom','teastool2',16,12,3,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1212,'tearoom','teastool2',17,12,3,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1213,'tearoom','teastool2',2,15,3,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1214,'tearoom','teastool2',2,9,3,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1215,'tearoom','teastool2',3,15,3,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1216,'tearoom','teastool2',3,9,3,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1217,'tearoom','teatable1',16,11,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1218,'tearoom','teatable1',2,14,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1219,'tearoom','teatable1',2,8,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1220,'tearoom','teatable2',17,11,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1221,'tearoom','teatable2',3,14,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1222,'tearoom','teatable2',3,8,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1223,'tearoom','teavase',0,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1224,'tearoom','teavase',0,21,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1225,'cafe_ole','cafe_table_largeb',15,0,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1226,'cafe_ole','cafe_chair',14,1,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1227,'cafe_ole','cafe_chair',17,1,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1228,'cafe_ole','cafe_chair',14,2,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1229,'cafe_ole','cafe_table_largea',15,2,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1230,'cafe_ole','cafe_chair',17,2,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1231,'cafe_ole','plant_yucca',13,4,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1232,'cafe_ole','cafe_desk5',4,5,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1233,'cafe_ole','plant_ftree',5,5,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1234,'cafe_ole','cafe_chair',8,5,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1235,'cafe_ole','cafe_chair',11,5,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1236,'cafe_ole','cafe_desk4',4,6,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1237,'cafe_ole','cafe_barchair',5,6,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1238,'cafe_ole','cafe_chair',8,6,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1239,'cafe_ole','cafe_table_mid',10,6,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1240,'cafe_ole','cafe_chair',11,6,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1241,'cafe_ole','cafe_desk4',4,7,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1242,'cafe_ole','cafe_barchair',5,7,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1243,'cafe_ole','cafe_desk4',4,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1244,'cafe_ole','cafe_desk4',4,9,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1245,'cafe_ole','cafe_desk4',4,10,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1246,'cafe_ole','cafe_chair',12,10,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1247,'cafe_ole','cafe_table_small',13,10,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1248,'cafe_ole','cafe_chair',14,10,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1249,'cafe_ole','roommatic',0,11,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1250,'cafe_ole','roommatic',1,11,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1251,'cafe_ole','roommatic',2,11,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1252,'cafe_ole','cafe_desk1',3,11,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1253,'cafe_ole','cafe_desk3',4,11,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1254,'cafe_ole','cafe_fence4',9,11,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1255,'cafe_ole','cafe_fence3',10,11,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1256,'cafe_ole','cafe_fence2',11,11,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1257,'cafe_ole','cafe_fence3',12,11,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1258,'cafe_ole','cafe_fence2',13,11,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1259,'cafe_ole','cafe_fence3',14,11,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1260,'cafe_ole','cafe_fence1',15,11,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1261,'cafe_ole','cafe_barchair',0,12,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1262,'cafe_ole','cafe_barchair',1,12,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1263,'cafe_ole','cafe_barchair',2,12,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1264,'cafe_ole','cafe_chair',8,12,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1265,'cafe_ole','cafe_fence3',9,12,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1266,'cafe_ole','plant_yucca',10,12,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1267,'cafe_ole','cafe_table_small',8,13,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1268,'cafe_ole','cafe_fence2',9,13,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1269,'cafe_ole','cafe_chair',8,14,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1270,'cafe_ole','cafe_fence3',9,14,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1271,'cafe_ole','cafe_chair',12,14,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1272,'cafe_ole','cafe_pianoc',0,15,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1273,'cafe_ole','cafe_fence2',9,15,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1274,'cafe_ole','cafe_table_largeb',12,15,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1275,'cafe_ole','cafe_pianob',0,16,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1276,'cafe_ole','cafe_barchair',1,16,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1277,'cafe_ole','cafe_table_largeb',4,16,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1278,'cafe_ole','cafe_fence3',9,16,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1279,'cafe_ole','cafe_chair',11,16,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1280,'cafe_ole','cafe_chair',14,16,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1281,'cafe_ole','cafe_pianoa',0,17,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1282,'cafe_ole','cafe_chair',3,17,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1283,'cafe_ole','cafe_chair',6,17,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1284,'cafe_ole','cafe_fence2',9,17,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1285,'cafe_ole','cafe_chair',11,17,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1286,'cafe_ole','cafe_table_largea',12,17,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1287,'cafe_ole','cafe_chair',14,17,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1288,'cafe_ole','cafe_chair',3,18,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1289,'cafe_ole','cafe_table_largea',4,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1290,'cafe_ole','cafe_chair',6,18,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1291,'cafe_ole','cafe_fence3',9,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1292,'cafe_ole','plant_ftree',0,19,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1293,'cafe_ole','cafe_fence2',9,19,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1294,'cafe_ole','cafe_chair',12,19,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1295,'cafe_ole','plant_ftree',0,20,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1296,'cafe_ole','cafe_chair',8,20,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1297,'cafe_ole','cafe_fence3',9,20,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1298,'cafe_ole','cafe_table_small',8,21,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1299,'cafe_ole','cafe_fence2',9,21,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1300,'cafe_ole','cafe_chair',8,22,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1301,'cafe_ole','cafe_fence3',9,22,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1302,'cafe_ole','cafe_fence2',9,23,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1303,'cafe_ole','cafe_chair',12,23,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1304,'cafe_ole','cafe_table_small',13,23,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1305,'cafe_ole','cafe_chair',14,23,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1306,'cafe_ole','cafe_fence1',9,24,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1307,'cr_cafe','koc_chair',11,6,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1308,'cr_cafe','koc_chair',12,2,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1309,'cr_cafe','koc_chair',13,15,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1310,'cr_cafe','koc_chair',8,6,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1311,'cr_cafe','koc_chair',12,5,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1312,'cr_cafe','koc_chair',17,5,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1313,'cr_cafe','koc_chair',18,6,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1314,'cr_cafe','koc_chair',13,6,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1315,'cr_cafe','koc_chair',14,2,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1316,'cr_cafe','koc_chair',14,16,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1317,'cr_cafe','koc_chair',9,16,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1318,'cr_cafe','koc_chair',9,7,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1319,'cr_cafe','koc_chair',9,1,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1320,'cr_cafe','koc_chair',13,3,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1321,'cr_cafe','koc_chair',17,7,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1322,'cr_cafe','koc_chair',12,7,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1323,'cr_cafe','koc_chair',13,17,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1324,'cr_cafe','koc_chair',8,17,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1325,'cr_cafe','koc_chair',8,8,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1326,'cr_cafe','koc_chair',8,2,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1327,'cr_cafe','koc_stool',7,10,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1328,'cr_cafe','koc_stool',7,11,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1329,'cr_cafe','koc_stool',7,13,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1330,'cr_cafe','koc_bartable',6,13,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1331,'cr_cafe','koc_bartable',6,12,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1332,'cr_cafe','koc_bartable',6,11,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1333,'cr_cafe','koc_bartable',6,10,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1334,'cr_cafe','koc_bartable',6,9,0,5,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1335,'cr_cafe','koc_bartable_end',6,14,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1336,'cr_cafe','koc_bartable_end',5,9,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1337,'cr_cafe','drawer_end',13,0,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1338,'cr_cafe','drawer_end',2,6,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1339,'cr_cafe','drawer_start',12,0,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1340,'cr_cafe','drawer_start',1,6,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1341,'cr_cafe','drawer_start',3,13,0,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1342,'cr_cafe','drawer_end',3,12,0,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1343,'cr_cafe','drawer_start',6,19,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1344,'cr_cafe','drawer_start',4,19,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1345,'cr_cafe','drawer_end',5,19,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1346,'cr_cafe','drawer_end',3,19,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1347,'cr_cafe','drawer_start',2,19,0,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1348,'cr_cafe','drawer_end',2,18,0,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1349,'cr_cafe','cupboard',2,17,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1350,'cr_cafe','cupboard',2,16,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1351,'cr_cafe','koc_table',13,16,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1352,'cr_cafe','koc_table',8,16,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1353,'cr_cafe','koc_table',8,7,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1354,'cr_cafe','koc_table',12,6,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1355,'cr_cafe','koc_table',17,6,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1356,'cr_cafe','koc_table',13,2,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1357,'cr_cafe','koc_table',8,1,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1358,'cr_cafe','koc_smalltable',6,0,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1359,'cr_cafe','koc_table',3,0,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1360,'cr_cafe','drawer_start',2,4,0,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1361,'cr_cafe','drawer_end',2,3,0,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1362,'cr_cafe','coatrack',2,2,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1363,'cr_cafe','drawer_end',0,0,0,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1364,'cr_cafe','pillar',16,15,0,7,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1365,'cr_cafe','pillar',6,15,0,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1366,'cr_cafe','pillar',6,2,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1367,'cr_cafe','pillar',16,2,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1368,'lobby_a','flower1',9,0,7,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1369,'lobby_a','chairf2b',11,0,7,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1370,'lobby_a','chairf2',12,0,7,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1371,'lobby_a','table1',13,0,7,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1372,'lobby_a','chairf2b',14,0,7,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1373,'lobby_a','chairf2',15,0,7,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1374,'lobby_a','watermatic',16,0,7,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1375,'lobby_a','telkka',9,2,7,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1376,'lobby_a','flower1',9,3,7,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1377,'lobby_a','chairf2d',11,3,7,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1378,'lobby_a','chairf2',12,3,7,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1379,'lobby_a','table1',13,3,7,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1380,'lobby_a','chairf2d',14,3,7,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1381,'lobby_a','chairf2',15,3,7,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1382,'lobby_a','flower1',12,4,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1383,'lobby_a','flower1',16,4,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1384,'lobby_a','chairf2b',0,7,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1385,'lobby_a','chairf2',1,7,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1386,'lobby_a','chairf2d',0,10,3,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1387,'lobby_a','chairf2',1,10,3,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1388,'lobby_a','roommatic',21,12,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1389,'lobby_a','roommatic',22,12,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1390,'lobby_a','roommatic',23,12,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1391,'lobby_a','roommatic',24,12,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1392,'lobby_a','chairf2b',0,14,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1393,'lobby_a','chairf2',1,14,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1394,'lobby_a','watermatic',13,14,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1395,'lobby_a','watermatic',12,15,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1396,'lobby_a','chairf1',19,16,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1397,'lobby_a','table2c',21,16,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1398,'lobby_a','chairf1',23,16,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1399,'lobby_a','chairf2d',0,17,3,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1400,'lobby_a','chairf2',1,17,3,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1401,'lobby_a','table2b',21,17,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1402,'lobby_a','chairf1',19,18,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1403,'lobby_a','table2',21,18,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1404,'lobby_a','chairf1',23,18,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1405,'lobby_a','chairf2b',7,21,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1406,'lobby_a','chairf2c',7,22,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1407,'lobby_a','chairf2c',7,23,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1408,'lobby_a','chairf2c',7,24,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1409,'lobby_a','chairf2',7,25,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1410,'lobby_a','table1',7,26,2,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1411,'lobby_a','flower2',10,26,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1412,'floorlobby_c','moneyplant',3,2,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1413,'floorlobby_c','roommatic',5,2,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1414,'floorlobby_c','roommatic',7,2,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1415,'floorlobby_c','roommatic',9,2,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1416,'floorlobby_c','roommatic',11,2,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1417,'floorlobby_c','roommatic',13,2,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1418,'floorlobby_c','watermatic',26,2,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1419,'floorlobby_c','edgec1',14,8,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1420,'floorlobby_c','edgec1',15,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1421,'floorlobby_c','edgec1',16,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1422,'floorlobby_c','edgec1',17,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1423,'floorlobby_c','edgec1',18,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1424,'floorlobby_c','edgec1',19,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1425,'floorlobby_c','edgec1',20,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1426,'floorlobby_c','edgec1',21,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1427,'floorlobby_c','edgec1',22,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1428,'floorlobby_c','edgec1',23,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1429,'floorlobby_c','edgec1',24,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1430,'floorlobby_c','edgec1',25,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1431,'floorlobby_c','edgec1',26,8,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1432,'floorlobby_c','chairg1',3,9,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1433,'floorlobby_c','chairg1',5,9,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1434,'floorlobby_c','moneyplant',15,9,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1435,'floorlobby_c','chairg2b',16,9,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1436,'floorlobby_c','chairg2c',17,9,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1437,'floorlobby_c','chairg2',18,9,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1438,'floorlobby_c','moneyplant',19,9,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1439,'floorlobby_c','moneyplant',21,9,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1440,'floorlobby_c','chairg2b',22,9,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1441,'floorlobby_c','chairg2c',23,9,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1442,'floorlobby_c','chairg2',24,9,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1443,'floorlobby_c','moneyplant',25,9,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1444,'floorlobby_c','chairg1',3,11,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1445,'floorlobby_c','chairg1',5,11,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1446,'floorlobby_c','newtable2',3,12,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1447,'floorlobby_c','chairg1',16,14,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1448,'floorlobby_c','chairg1',18,14,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1449,'floorlobby_c','chairg1',22,14,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1450,'floorlobby_c','chairg1',24,14,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1451,'floorlobby_c','newtable2',17,15,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1452,'floorlobby_c','newtable2',23,15,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1453,'floorlobby_c','newtable2',3,16,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1454,'floorlobby_c','chairg1',16,16,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1455,'floorlobby_c','chairg1',18,16,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1456,'floorlobby_c','chairg1',22,16,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1457,'floorlobby_c','chairg1',24,16,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1458,'floorlobby_c','chairg1',3,17,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1459,'floorlobby_c','chairg1',5,17,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1460,'floorlobby_c','edgec2',14,18,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1461,'floorlobby_c','edgec2',15,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1462,'floorlobby_c','edgec2',16,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1463,'floorlobby_c','edgec2',17,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1464,'floorlobby_c','edgec2',18,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1465,'floorlobby_c','edgec2',19,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1466,'floorlobby_c','edgec2',20,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1467,'floorlobby_c','edgec2',21,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1468,'floorlobby_c','edgec2',22,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1469,'floorlobby_c','edgec2',23,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1470,'floorlobby_c','edgec2',24,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1471,'floorlobby_c','edgec2',25,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1472,'floorlobby_c','edgec2',26,18,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1473,'floorlobby_b','moneyplant',3,2,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1474,'floorlobby_b','roommatic',5,2,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1475,'floorlobby_b','roommatic',7,2,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1476,'floorlobby_b','roommatic',9,2,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1477,'floorlobby_b','roommatic',11,2,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1478,'floorlobby_b','roommatic',13,2,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1479,'floorlobby_b','watermatic',26,2,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1480,'floorlobby_b','standinglamp',3,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1481,'floorlobby_b','edgeb1',14,8,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1482,'floorlobby_b','edgeb1',15,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1483,'floorlobby_b','edgeb1',16,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1484,'floorlobby_b','edgeb1',17,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1485,'floorlobby_b','edgeb1',18,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1486,'floorlobby_b','edgeb1',19,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1487,'floorlobby_b','edgeb1',20,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1488,'floorlobby_b','edgeb1',21,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1489,'floorlobby_b','edgeb1',22,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1490,'floorlobby_b','edgeb1',23,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1491,'floorlobby_b','edgeb1',24,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1492,'floorlobby_b','edgeb1',25,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1493,'floorlobby_b','edgeb1',26,8,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1494,'floorlobby_b','chairf2b',3,9,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1495,'floorlobby_b','chairf2c',4,9,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1496,'floorlobby_b','chairf2',5,9,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1497,'floorlobby_b','moneyplant',15,9,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1498,'floorlobby_b','chairf2b',16,9,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1499,'floorlobby_b','chairf2c',17,9,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1500,'floorlobby_b','chairf2',18,9,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1501,'floorlobby_b','moneyplant',19,9,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1502,'floorlobby_b','moneyplant',21,9,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1503,'floorlobby_b','chairf2b',22,9,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1504,'floorlobby_b','chairf2c',23,9,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1505,'floorlobby_b','chairf2',24,9,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1506,'floorlobby_b','moneyplant',25,9,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1507,'floorlobby_b','chairf1',3,11,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1508,'floorlobby_b','newtable1',4,11,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1509,'floorlobby_b','chairf1',5,11,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1510,'floorlobby_b','chairf1',16,14,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1511,'floorlobby_b','chairf1',18,14,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1512,'floorlobby_b','chairf1',22,14,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1513,'floorlobby_b','chairf1',24,14,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1514,'floorlobby_b','newtable1',17,15,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1515,'floorlobby_b','newtable1',23,15,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1516,'floorlobby_b','newtable1',3,16,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1517,'floorlobby_b','chairf1',16,16,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1518,'floorlobby_b','chairf1',18,16,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1519,'floorlobby_b','chairf1',22,16,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1520,'floorlobby_b','chairf1',24,16,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1521,'floorlobby_b','chairf1',3,17,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1522,'floorlobby_b','chairf1',5,17,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1523,'floorlobby_b','standinglamp',3,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1524,'floorlobby_b','edgeb2',14,18,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1525,'floorlobby_b','edgeb2',15,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1526,'floorlobby_b','edgeb2',16,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1527,'floorlobby_b','edgeb2',17,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1528,'floorlobby_b','edgeb2',18,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1529,'floorlobby_b','edgeb2',19,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1530,'floorlobby_b','edgeb2',20,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1531,'floorlobby_b','edgeb2',21,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1532,'floorlobby_b','edgeb2',22,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1533,'floorlobby_b','edgeb2',23,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1534,'floorlobby_b','edgeb2',24,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1535,'floorlobby_b','edgeb2',25,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1536,'floorlobby_b','edgeb2',26,18,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1537,'floorlobby_a','moneyplant',3,2,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1538,'floorlobby_a','roommatic',5,2,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1539,'floorlobby_a','roommatic',7,2,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1540,'floorlobby_a','roommatic',9,2,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1541,'floorlobby_a','roommatic',11,2,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1542,'floorlobby_a','roommatic',13,2,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1543,'floorlobby_a','watermatic',26,2,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1544,'floorlobby_a','standinglamp',3,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1545,'floorlobby_a','edge1',14,8,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1546,'floorlobby_a','edge1',15,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1547,'floorlobby_a','edge1',16,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1548,'floorlobby_a','edge1',17,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1549,'floorlobby_a','edge1',18,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1550,'floorlobby_a','edge1',19,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1551,'floorlobby_a','edge1',20,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1552,'floorlobby_a','edge1',21,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1553,'floorlobby_a','edge1',22,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1554,'floorlobby_a','edge1',23,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1555,'floorlobby_a','edge1',24,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1556,'floorlobby_a','edge1',25,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1557,'floorlobby_a','edge1',26,8,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1558,'floorlobby_a','chairf1',3,9,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1559,'floorlobby_a','chairf1',5,9,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1560,'floorlobby_a','moneyplant',15,9,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1561,'floorlobby_a','chairf2b',16,9,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1562,'floorlobby_a','chairf2c',17,9,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1563,'floorlobby_a','chairf2',18,9,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1564,'floorlobby_a','moneyplant',19,9,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1565,'floorlobby_a','moneyplant',21,9,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1566,'floorlobby_a','chairf2b',22,9,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1567,'floorlobby_a','chairf2c',23,9,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1568,'floorlobby_a','chairf2',24,9,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1569,'floorlobby_a','moneyplant',25,9,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1570,'floorlobby_a','chairf1',3,11,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1571,'floorlobby_a','chairf1',5,11,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1572,'floorlobby_a','newtable1',3,12,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1573,'floorlobby_a','chairf1',16,14,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1574,'floorlobby_a','chairf1',18,14,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1575,'floorlobby_a','chairf1',22,14,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1576,'floorlobby_a','chairf1',24,14,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1577,'floorlobby_a','newtable1',17,15,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1578,'floorlobby_a','newtable1',23,15,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1579,'floorlobby_a','chairf1',16,16,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1580,'floorlobby_a','chairf1',18,16,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1581,'floorlobby_a','chairf1',22,16,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1582,'floorlobby_a','chairf1',24,16,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1583,'floorlobby_a','chairf1',3,17,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1584,'floorlobby_a','chairf1',5,17,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1585,'floorlobby_a','edge2',14,18,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1586,'floorlobby_a','edge2',15,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1587,'floorlobby_a','edge2',16,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1588,'floorlobby_a','edge2',17,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1589,'floorlobby_a','edge2',18,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1590,'floorlobby_a','edge2',19,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1591,'floorlobby_a','edge2',20,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1592,'floorlobby_a','edge2',21,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1593,'floorlobby_a','edge2',22,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1594,'floorlobby_a','edge2',23,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1595,'floorlobby_a','edge2',24,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1596,'floorlobby_a','edge2',25,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1597,'floorlobby_a','edge2',26,18,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1598,'cinema_a','orange',2,4,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1599,'cinema_a','loungey_chair',7,4,3,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1600,'cinema_a','loungey_tablebigb',8,4,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1601,'cinema_a','loungey_chair',9,4,3,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1602,'cinema_a','loungey_chair',2,5,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1603,'cinema_a','loungey_chair',7,5,3,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1604,'cinema_a','loungey_tablebiga',8,5,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1605,'cinema_a','loungey_chair',9,5,3,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1606,'cinema_a','loungey_table',2,6,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1607,'cinema_a','loungey_chair',2,7,3,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1608,'cinema_a','theater_chair',13,7,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1609,'cinema_a','theater_chair',14,7,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1610,'cinema_a','theater_chair',15,7,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1611,'cinema_a','theater_chair',16,7,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1612,'cinema_a','theater_chair',17,7,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1613,'cinema_a','theater_chair',18,7,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1614,'cinema_a','stair',21,7,1,0,0.001,1,1,'can_stand_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1615,'cinema_a','lightpole',9,8,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1616,'cinema_a','pomomaski',13,8,2,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1617,'cinema_a','pomomaski',14,8,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1618,'cinema_a','pomomaski',15,8,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1619,'cinema_a','pomomaski',16,8,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1620,'cinema_a','pomomaski',17,8,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1621,'cinema_a','pomomaski',18,8,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1622,'cinema_a','pomomaski',19,8,2,1,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1623,'cinema_a','stair',21,8,1,0,0.001,1,1,'can_stand_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1624,'cinema_a','orange',2,9,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1625,'cinema_a','theater_chair',13,9,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1626,'cinema_a','theater_chair',14,9,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1627,'cinema_a','theater_chair',15,9,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1628,'cinema_a','theater_chair',16,9,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1629,'cinema_a','theater_chair',17,9,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1630,'cinema_a','theater_chair',18,9,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1631,'cinema_a','theater_chair',19,9,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1632,'cinema_a','theater_chair',20,9,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1633,'cinema_a','stair',21,9,1,0,0.001,1,1,'can_stand_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1634,'cinema_a','loungey_chair',2,10,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1635,'cinema_a','loungey_chair',9,10,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1636,'cinema_a','loungey_table',2,11,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1637,'cinema_a','loungey_table',9,11,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1638,'cinema_a','loungey_chair',2,12,3,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1639,'cinema_a','loungey_chair',9,12,3,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1640,'cinema_a','cubicb_chair',17,12,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1641,'cinema_a','cubico_chair',19,12,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1642,'cinema_a','cubicb_chair',15,13,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1643,'cinema_a','lightpole',19,13,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1644,'cinema_a','cubicb_chair',20,13,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1645,'cinema_a','lightpole',9,14,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1646,'cinema_a','loungey_chair',2,15,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1647,'cinema_a','cubicb_chair',14,15,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1648,'cinema_a','cubico_chair',19,15,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1649,'cinema_a','loungey_table',2,16,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1650,'cinema_a','loungey_chair',7,16,3,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1651,'cinema_a','loungey_table',8,16,3,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1652,'cinema_a','loungey_chair',9,16,3,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1653,'cinema_a','cubicb_chair',13,16,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1654,'cinema_a','cubicb_chair',14,16,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1655,'cinema_a','orange',19,16,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1656,'cinema_a','loungey_chair',2,17,3,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1657,'cinema_a','loungey_chair',7,17,3,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1658,'cinema_a','loungey_table',8,17,3,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1659,'cinema_a','loungey_chair',9,17,3,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1660,'cinema_a','cubicb_chair',19,17,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1661,'cinema_a','orange',2,18,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1662,'cinema_a','cubicb_chair',14,18,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1663,'cinema_a','bardesque',2,19,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1664,'cinema_a','bardesque',2,20,3,1,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1665,'cinema_a','bar_chair',3,20,3,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1666,'cinema_a','lightpole',9,20,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1667,'cinema_a','cubicb_chair',14,20,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1668,'cinema_a','cubicb_chair',19,20,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1669,'cinema_a','cubico_chair',20,20,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1670,'cinema_a','bardesque',2,21,3,1,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1671,'cinema_a','bar_chair',3,21,3,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1672,'cinema_a','cubicb_chair',19,21,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1673,'cinema_a','bardesque',2,22,3,1,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1674,'cinema_a','bar_chair',3,22,3,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1675,'cinema_a','lightpole',16,22,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1676,'cinema_a','cubico_chair',18,22,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1677,'cinema_a','bardesque',2,23,3,1,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1678,'cinema_a','bar_chair',3,23,3,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1679,'cinema_a','bardesque',2,24,3,1,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1680,'cinema_a','bar_chair',3,24,3,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1681,'cinema_a','bardesque',2,25,3,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1682,'sport','sporttable',1,11,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1683,'sport','sporttable',1,6,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1684,'sport','sporttable',15,6,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1685,'sport','sporttable',7,6,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1686,'sport','sportchair',9,0,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1687,'sport','sportchair',10,0,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1688,'sport','sportchair',7,5,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1689,'sport','sportchair',15,5,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1690,'sport','sportchair',1,5,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1691,'sport','sportchair',1,10,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1692,'sport','sportchair',14,6,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1693,'sport','sportchair',6,6,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1694,'sport','sportchair3',15,7,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1695,'sport','sportchair3',7,7,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1696,'sport','sportchair3',1,12,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1697,'sport','sportchair3',1,7,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1698,'sport','sportchair2',16,6,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1699,'sport','sportchair2',8,6,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1700,'sport','sodagreen',6,0,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1701,'sport','sodapink',8,0,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1702,'old_skool0','mobiles_chair1',0,11,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1703,'old_skool0','mobiles_chair1',0,15,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1704,'old_skool0','mobiles_chair1',0,17,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1705,'old_skool0','mobiles_chair1',0,22,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1706,'old_skool0','mobiles_chair1',1,10,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1707,'old_skool0','mobiles_chair1',1,13,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1708,'old_skool0','mobiles_chair1',1,21,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1709,'old_skool0','mobiles_chair1',1,24,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1710,'old_skool0','mobiles_chair1',10,10,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1711,'old_skool0','mobiles_chair1',11,13,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1712,'old_skool0','mobiles_chair1',11,22,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1713,'old_skool0','mobiles_chair1',12,12,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1714,'old_skool0','mobiles_chair1',12,21,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1715,'old_skool0','mobiles_chair1',13,24,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1716,'old_skool0','mobiles_chair1',14,22,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1717,'old_skool0','mobiles_chair1',2,19,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1718,'old_skool0','mobiles_chair1',3,11,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1719,'old_skool0','mobiles_chair1',3,17,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1720,'old_skool0','mobiles_chair1',3,22,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1721,'old_skool0','mobiles_chair1',5,22,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1722,'old_skool0','mobiles_chair1',7,24,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1723,'old_skool0','mobiles_chair1',8,22,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1724,'old_skool0','mobiles_chair1',9,12,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1725,'old_skool0','mobiles_chair3',10,4,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1726,'old_skool0','mobiles_chair3',11,4,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1727,'old_skool0','mobiles_chair3',12,4,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1728,'old_skool0','mobiles_chair3',9,4,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1729,'old_skool0','mobiles_table1',1,12,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1730,'old_skool0','mobiles_table1',1,18,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1731,'old_skool0','mobiles_table1',1,23,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1732,'old_skool0','mobiles_table1',10,12,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1733,'old_skool0','mobiles_table1',12,23,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1734,'old_skool0','mobiles_table1',6,22,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1735,'old_skool0','mobiles_table2',1,11,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1736,'old_skool0','mobiles_table2',1,17,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1737,'old_skool0','mobiles_table2',1,22,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1738,'old_skool0','mobiles_table2',10,11,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1739,'old_skool0','mobiles_table2',12,22,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1740,'old_skool0','mobiles_table2',6,21,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1741,'old_skool0','mobiles_table3',11,11,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1742,'old_skool0','mobiles_table3',13,22,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1743,'old_skool0','mobiles_table3',2,11,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1744,'old_skool0','mobiles_table3',2,17,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1745,'old_skool0','mobiles_table3',2,22,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1746,'old_skool0','mobiles_table3',7,21,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1747,'old_skool0','mobiles_table4',11,12,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1748,'old_skool0','mobiles_table4',13,23,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1749,'old_skool0','mobiles_table4',2,12,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1750,'old_skool0','mobiles_table4',2,18,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1751,'old_skool0','mobiles_table4',2,23,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1752,'old_skool0','mobiles_table4',7,22,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1753,'old_skool1','mobiles_chair2',3,4,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1754,'old_skool1','mobiles_chair2',3,7,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1755,'old_skool1','mobiles_chair2',4,2,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1756,'old_skool1','mobiles_chair2',4,9,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1757,'old_skool1','mobiles_chair2',5,6,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1758,'old_skool1','mobiles_chair2',7,3,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1759,'old_skool1','mobiles_chair2',8,5,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1760,'old_skool1','mobiles_chair2',9,2,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1761,'old_skool1','mobiles_table5',4,4,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1762,'old_skool1','mobiles_table5',4,8,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1763,'old_skool1','mobiles_table5',8,4,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1764,'old_skool1','mobiles_table6',4,3,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1765,'old_skool1','mobiles_table6',4,7,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1766,'old_skool1','mobiles_table6',8,3,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1767,'old_skool1','mobiles_table7',5,3,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1768,'old_skool1','mobiles_table7',5,7,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1769,'old_skool1','mobiles_table7',9,3,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1770,'old_skool1','mobiles_table8',5,4,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1771,'old_skool1','mobiles_table8',5,8,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1772,'old_skool1','mobiles_table8',9,4,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1773,'malja_bar_a','bar_chair_green',13,1,4,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1774,'malja_bar_a','bar_chair_green',7,2,4,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1775,'malja_bar_a','bar_chair_green',5,3,4,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1776,'malja_bar_a','bar_table_green',6,3,4,2,0.001,2,2,'extra_parameter','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1777,'malja_bar_a','bar_chair_green',8,4,4,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1778,'malja_bar_a','bar_chair_green',7,5,4,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1779,'malja_bar_a','bar_bare',10,7,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1780,'malja_bar_a','bar_bard',10,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1781,'malja_bar_a','bar_bara',0,9,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1782,'malja_bar_a','bar_barb',1,9,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1783,'malja_bar_a','bar_barb',2,9,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1784,'malja_bar_a','bar_barb',3,9,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1785,'malja_bar_a','bar_barb',4,9,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1786,'malja_bar_a','bar_barb',5,9,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1787,'malja_bar_a','bar_barb',6,9,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1788,'malja_bar_a','bar_barb',7,9,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1789,'malja_bar_a','bar_barb',8,9,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1790,'malja_bar_a','bar_barb',9,9,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1791,'malja_bar_a','bar_barc',10,9,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1792,'malja_bar_a','bar_chair_green',7,13,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1793,'malja_bar_a','bar_table_green',7,14,1,2,0.001,2,2,'extra_parameter','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1794,'malja_bar_a','bar_chair_green',13,14,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1795,'malja_bar_a','bar_chair_green',1,15,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1796,'malja_bar_a','bar_chair_green',6,15,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1797,'malja_bar_a','bar_chair_green',9,15,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1798,'malja_bar_a','bar_table_green',13,15,1,2,0.001,2,2,'extra_parameter','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1799,'malja_bar_a','bar_chair_green',0,16,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1800,'malja_bar_a','bar_table_green',1,16,1,2,0.001,2,2,'extra_parameter','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1801,'malja_bar_a','bar_chair_green',7,16,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1802,'malja_bar_a','bar_chair_green',12,16,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1803,'malja_bar_a','bar_chair_green',15,16,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1804,'malja_bar_a','bar_chair_green',3,17,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1805,'malja_bar_a','bar_chair_green',14,17,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1806,'malja_bar_a','bar_chair_green',2,18,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1807,'malja_bar_a','bar_chair_green',0,21,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1808,'malja_bar_b','bar_chair_blue',4,0,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1809,'malja_bar_b','bar_chair_blue',8,0,3,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1810,'malja_bar_b','bar_table_small_blue',9,0,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1811,'malja_bar_b','bar_chair_blue',10,0,3,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1812,'malja_bar_b','bar_table_blue',4,1,3,2,0.001,2,2,'extra_parameter','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1813,'malja_bar_b','bar_djbooth',13,1,3,1,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1814,'malja_bar_b','bar_chair_blue',6,2,3,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1815,'malja_bar_b','bar_djbooth',13,2,3,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1816,'malja_bar_b','bar_djbooth',14,2,3,3,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1817,'malja_bar_b','bar_djbooth',15,2,3,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1818,'malja_bar_b','stair',1,3,7,0,0.001,1,1,'can_stand_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1819,'malja_bar_b','bar_chair_blue',4,3,3,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1820,'malja_bar_b','stair',1,4,7,0,0.001,1,1,'can_stand_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1821,'malja_bar_b','stair',2,4,5,0,0.001,1,1,'can_stand_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1822,'malja_bar_b','stair',3,4,5,0,0.001,1,1,'can_stand_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1823,'malja_bar_b','stair',12,5,2,0,0.001,1,1,'can_stand_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1824,'malja_bar_b','stair',13,5,2,0,0.001,1,1,'can_stand_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1825,'malja_bar_b','stair',14,5,2,0,0.001,1,1,'can_stand_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1826,'malja_bar_b','stair',3,6,4,0,0.001,1,1,'can_stand_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1827,'malja_bar_b','stair',12,6,1,0,0.001,1,1,'can_stand_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1828,'malja_bar_b','stair',13,6,1,0,0.001,1,1,'can_stand_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1829,'malja_bar_b','stair',14,6,1,0,0.001,1,1,'can_stand_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1830,'malja_bar_b','stair',3,7,4,0,0.001,1,1,'can_stand_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1831,'malja_bar_b','stair',2,8,3,0,0.001,1,1,'can_stand_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1832,'malja_bar_b','stair',3,8,3,0,0.001,1,1,'can_stand_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1833,'malja_bar_b','bar_chair_blue',7,8,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1834,'malja_bar_b','bar_table_small_blue',7,9,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1835,'malja_bar_b','bar_chair_blue',7,10,3,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1836,'malja_bar_b','bar_chair_blue',2,11,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1837,'malja_bar_b','bar_table_small_blue',2,12,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1838,'malja_bar_b','bar_chair_blue',2,13,3,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1839,'malja_bar_b','bar_chair_blue',0,14,9,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1840,'malja_bar_b','bar_chair_blue',0,15,9,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1841,'malja_bar_b','bar_chair_blue',0,16,9,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1842,'malja_bar_b','bar_chair_blue',2,16,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1843,'malja_bar_b','bar_chair_blue',3,16,3,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1844,'malja_bar_b','bar_chair_blue',0,17,9,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1845,'malja_bar_b','bar_table_blue',2,17,3,2,0.001,2,2,'extra_parameter','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1846,'malja_bar_b','bar_chair_blue',4,17,3,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1847,'malja_bar_b','bar_chair_blue',0,18,9,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1848,'malja_bar_b','bar_chair_blue',4,18,3,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1849,'malja_bar_b','bar_chair_blue',0,19,9,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1850,'malja_bar_b','bar_chair_blue',2,19,3,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1851,'malja_bar_b','goldfish_bar',0,22,3,0,0.001,1,1,'invisible,solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1852,'bar_a','lounge_chair_small',12,3,5,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1853,'bar_a','lounge_table_one',13,3,5,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1854,'bar_a','lounge_chair_small',14,3,5,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1855,'bar_a','lounge_chair_small',13,4,5,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1856,'bar_a','lounge_chair_small',18,5,5,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1857,'bar_a','lounge_chair_small',17,6,5,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1858,'bar_a','lounge_table_one',18,6,5,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1859,'bar_a','lounge_chair_small',18,7,5,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1860,'bar_a','lounge_private_bigback',13,11,5,3,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1861,'bar_a','lounge_private_bigsofaback',14,11,5,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1862,'bar_a','lounge_private_bigsofaback',15,11,5,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1863,'bar_a','lounge_private_bigsofaback',16,11,5,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1864,'bar_a','lounge_private_bigsofaback',17,11,5,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1865,'bar_a','lounge_private_bigback',18,11,5,5,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1866,'bar_a','lounge_private_bigsofa',18,12,5,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1867,'bar_a','lounge_table_threea',14,13,5,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1868,'bar_a','lounge_table_threeb',15,13,5,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1869,'bar_a','lounge_table_threec',16,13,5,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1870,'bar_a','lounge_private_bigsofa',18,13,5,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1871,'bar_a','lounge_private_bigsofa',18,14,5,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1872,'bar_a','lounge_private_bigcorner',13,15,5,1,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1873,'bar_a','lounge_private_bigsofa',14,15,5,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1874,'bar_a','lounge_private_bigsofa',15,15,5,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1875,'bar_a','lounge_private_bigsofa',16,15,5,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1876,'bar_a','lounge_private_bigsofa',17,15,5,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1877,'bar_a','lounge_private_bigcorner',18,15,5,7,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1878,'bar_a','lounge_chair_small',3,16,5,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1879,'bar_a','lounge_chair_small',8,16,5,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1880,'bar_a','lounge_table_one',3,17,5,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1881,'bar_a','lounge_chair_small',4,17,5,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1882,'bar_a','lounge_chair_small',7,17,5,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1883,'bar_a','lounge_table_one',8,17,5,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1884,'bar_a','lounge_chair_small',9,17,5,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1885,'bar_a','lounge_private_bigcorner',13,17,5,3,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1886,'bar_a','lounge_private_bigsofa',14,17,5,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1887,'bar_a','lounge_private_bigsofa',15,17,5,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1888,'bar_a','lounge_private_bigsofa',16,17,5,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1889,'bar_a','lounge_private_bigsofa',17,17,5,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1890,'bar_a','lounge_private_bigcorner',18,17,5,5,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1891,'bar_a','lounge_chair_small',3,18,5,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1892,'bar_a','lounge_chair_small',8,18,5,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1893,'bar_a','lounge_private_bigsofa',18,18,5,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1894,'bar_a','lounge_table_threea',14,19,5,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1895,'bar_a','lounge_table_threeb',15,19,5,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1896,'bar_a','lounge_table_threec',16,19,5,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1897,'bar_a','lounge_private_bigsofa',18,19,5,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1898,'bar_a','lounge_private_bigsofa',18,20,5,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1899,'bar_a','lounge_private_bigcorner',13,21,5,1,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1900,'bar_a','lounge_private_bigsofa',14,21,5,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1901,'bar_a','lounge_private_bigsofa',15,21,5,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1902,'bar_a','lounge_private_bigsofa',16,21,5,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1903,'bar_a','lounge_private_bigsofa',17,21,5,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1904,'bar_a','lounge_private_bigcorner',18,21,5,7,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1905,'bar_a','lounge_bara',4,23,5,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1906,'bar_a','lounge_bara',5,23,5,5,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1907,'bar_a','lounge_bara',6,23,5,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1908,'bar_a','lounge_bara',7,23,5,3,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1909,'bar_a','lounge_private_bigcorner',13,23,5,3,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1910,'bar_a','lounge_private_bigsofa',14,23,5,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1911,'bar_a','lounge_private_bigsofa',15,23,5,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1912,'bar_a','lounge_private_bigsofa',16,23,5,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1913,'bar_a','lounge_private_bigsofa',17,23,5,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1914,'bar_a','lounge_private_bigcorner',18,23,5,5,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1915,'bar_a','lounge_bara',7,24,5,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1916,'bar_a','lounge_private_bigsofa',18,24,5,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1917,'bar_a','lounge_bara',7,25,5,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1918,'bar_a','lounge_table_threea',14,25,5,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1919,'bar_a','lounge_table_threeb',15,25,5,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1920,'bar_a','lounge_table_threec',16,25,5,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1921,'bar_a','lounge_private_bigsofa',18,25,5,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1922,'bar_a','lounge_bara',7,26,5,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1923,'bar_a','lounge_private_bigsofa',18,26,5,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1924,'bar_a','lounge_bara',7,27,5,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1925,'bar_a','lounge_private_bigcorner',13,27,5,1,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1926,'bar_a','lounge_private_bigsofa',14,27,5,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1927,'bar_a','lounge_private_bigsofa',15,27,5,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1928,'bar_a','lounge_private_bigsofa',16,27,5,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1929,'bar_a','lounge_private_bigsofa',17,27,5,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1930,'bar_a','lounge_private_bigcorner',18,27,5,7,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1931,'bar_b','stair',5,21,2,0,0.001,1,1,'can_stand_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1932,'bar_b','stair',4,21,2,0,0.001,1,1,'can_stand_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1933,'bar_b','stair',5,20,3,0,0.001,1,1,'can_stand_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1934,'bar_b','stair',4,20,3,0,0.001,1,1,'can_stand_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1935,'bar_b','lounge_chair_small',14,19,4,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1936,'bar_b','lounge_table_one',13,19,4,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1937,'bar_b','lounge_chair_small',12,19,4,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1938,'bar_b','stair',5,19,4,0,0.001,1,1,'can_stand_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1939,'bar_b','stair',4,19,4,0,0.001,1,1,'can_stand_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1940,'bar_b','lounge_chair_small',8,18,4,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1941,'bar_b','lounge_table_one',8,17,4,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1942,'bar_b','lounge_chair_small',15,16,4,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1943,'bar_b','lounge_chair_small',8,16,4,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1944,'bar_b','lounge_table_one',15,15,4,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1945,'bar_b','lounge_chair_small',14,15,4,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1946,'bar_b','lounge_chair_small',15,14,4,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1947,'bar_b','lounge_chair_small',10,13,4,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1948,'bar_b','lounge_chair_small',11,12,4,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1949,'bar_b','lounge_table_one',10,12,4,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1950,'bar_b','lounge_chair_small',9,12,4,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1951,'bar_b','lounge_chair_small',10,11,4,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1952,'bar_b','lounge_chair_small',15,10,4,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1953,'bar_b','lounge_table_one',15,9,4,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1954,'bar_b','lounge_chair_small',14,9,4,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1955,'bar_b','fatsblox',3,9,4,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1956,'bar_b','lounge_chair_small',15,8,4,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1957,'bar_b','fatsofaa',3,8,4,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1958,'bar_b','lounge_chair_small',9,7,4,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1959,'bar_b','fatsofaa',3,7,4,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1960,'bar_b','lounge_chair_small',10,6,4,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1961,'bar_b','lounge_table_one',9,6,4,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1962,'bar_b','lounge_chair_small',8,6,4,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1963,'bar_b','fatsofaa',3,6,4,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1964,'bar_b','fatsofaa',3,5,4,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1965,'bar_b','fatsblox',3,4,4,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1966,'bar_b','fatsblox',17,3,4,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1967,'bar_b','fatsofaa',16,3,4,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1968,'bar_b','fatsofaa',15,3,4,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1969,'bar_b','fatsofaa',14,3,4,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1970,'bar_b','fatsofaa',13,3,4,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1971,'bar_b','fatsblox',12,3,4,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1972,'bar_b','pub_pineapple_small',3,3,4,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1973,'bar_b','stair',11,2,100000,2,0.001,1,1,'can_stand_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1974,'bar_b','stair',10,2,4,2,0.001,1,1,'can_stand_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1975,'bar_b','stair',9,2,4,2,0.001,1,1,'can_stand_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1976,'bar_b','stair',8,2,4,2,0.001,1,1,'can_stand_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1977,'bar_b','stair',7,2,4,2,0.001,1,1,'can_stand_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1978,'bar_b','stair',6,2,4,2,0.001,1,1,'can_stand_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1979,'bar_b','stair',5,2,4,2,0.001,1,1,'can_stand_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1980,'bar_b','stair',4,2,4,2,0.001,1,1,'can_stand_on_top,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1981,'habburger','sofa',0,0,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1982,'habburger','table',1,0,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1983,'habburger','sofa',2,0,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1984,'habburger','sofa',6,0,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1985,'habburger','tablesp',7,0,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1986,'habburger','sofa',8,0,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1987,'habburger','sofa',12,0,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1988,'habburger','table',13,0,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1989,'habburger','sofa',14,0,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1990,'habburger','trashcan',15,0,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1991,'habburger','sofa2',0,1,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1992,'habburger','table2',1,1,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1993,'habburger','sofa2',2,1,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1994,'habburger','sofa2',6,1,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1995,'habburger','table2',7,1,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1996,'habburger','sofa2',8,1,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1997,'habburger','sofa2',12,1,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1998,'habburger','table2',13,1,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (1999,'habburger','sofa2',14,1,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2000,'habburger','bardesk3',2,7,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2001,'habburger','sofa',7,7,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2002,'habburger','sofa2',8,7,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2003,'habburger','sofa',12,7,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2004,'habburger','sofa2',13,7,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2005,'habburger','bardesk4',2,8,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2006,'habburger','tablesp',7,8,0,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2007,'habburger','table2',8,8,0,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2008,'habburger','table',12,8,0,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2009,'habburger','table2',13,8,0,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2010,'habburger','bardesk',2,9,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2011,'habburger','sofa',7,9,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2012,'habburger','sofa2',8,9,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2013,'habburger','sofa',12,9,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2014,'habburger','sofa2',13,9,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2015,'habburger','bardesk2',2,10,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2016,'habburger','bardesk',2,11,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2017,'habburger','bardesk',2,12,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2018,'habburger','sofa',7,12,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2019,'habburger','sofa2',8,12,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2020,'habburger','sofa',12,12,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2021,'habburger','sofa2',13,12,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2022,'habburger','bardesk',2,13,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2023,'habburger','table',7,13,0,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2024,'habburger','table2',8,13,0,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2025,'habburger','tablesp',12,13,0,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2026,'habburger','table2',13,13,0,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2027,'habburger','sofa',7,14,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2028,'habburger','sofa2',8,14,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2029,'habburger','sofa',12,14,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2030,'habburger','sofa2',13,14,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2031,'pizza','pizza_chair',1,11,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2032,'pizza','pizza_chair',1,16,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2033,'pizza','pizza_chair',1,19,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2034,'pizza','pizza_chair',1,8,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2035,'pizza','pizza_chair',11,21,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2036,'pizza','pizza_chair',11,22,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2037,'pizza','pizza_chair',14,21,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2038,'pizza','pizza_chair',14,22,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2039,'pizza','pizza_chair',2,11,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2040,'pizza','pizza_chair',2,16,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2041,'pizza','pizza_chair',2,19,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2042,'pizza','pizza_chair',2,8,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2043,'pizza','pizza_plant1',0,25,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2044,'pizza','pizza_plant1',15,0,0,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2045,'pizza','pizza_plant1',15,25,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2046,'pizza','pizza_plant2',0,6,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2047,'pizza','pizza_sofa1',14,10,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2048,'pizza','pizza_sofa1',14,3,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2049,'pizza','pizza_sofa2',15,10,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2050,'pizza','pizza_sofa2',15,3,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2051,'pizza','pizza_sofa3',14,13,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2052,'pizza','pizza_sofa3',14,6,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2053,'pizza','pizza_sofa4',15,13,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2054,'pizza','pizza_sofa4',15,6,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2055,'pizza','pizza_table',13,22,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2056,'pizza','pizza_table',15,12,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2057,'pizza','pizza_table',15,5,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2058,'pizza','pizza_table',2,10,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2059,'pizza','pizza_table',2,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2060,'pizza','deska',0,5,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2061,'pizza','deskb',1,5,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2062,'pizza','deskc',2,5,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2063,'pizza','deskd',2,4,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2064,'pizza','deske',2,3,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2065,'pizza','deskf',2,2,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2066,'pizza','deskg',3,2,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2067,'pizza','deskh',4,2,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2068,'pizza','deski',5,2,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2069,'pizza','deskj',6,2,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2070,'pizza','deskk',6,1,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2071,'pizza','deskl',6,0,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2072,'bb_lobby_1','bb_crossrd',3,0,2,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2073,'bb_lobby_1','bb_bench1',4,0,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2074,'bb_lobby_1','bb_bench2',5,0,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2075,'bb_lobby_1','bb_plant1',8,0,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2076,'bb_lobby_1','bb_sofa1',9,0,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2077,'bb_lobby_1','bb_sofa2',10,0,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2078,'bb_lobby_1','bb_plant1',11,0,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2079,'bb_lobby_1','bb_sofa1',12,0,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2080,'bb_lobby_1','bb_sofa2',13,0,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2081,'bb_lobby_1','bb_plant1',14,0,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2082,'bb_lobby_1','bb_bench1',16,0,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2083,'bb_lobby_1','bb_bench2',17,0,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2084,'bb_lobby_1','bb_corner1out',18,0,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2085,'bb_lobby_1','bb_bench1',3,1,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2086,'bb_lobby_1','bb_wallend1in',18,1,2,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2087,'bb_lobby_1','bb_bench2',3,2,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2088,'bb_lobby_1','bb_wallend1in',18,2,2,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2089,'bb_lobby_1','bb_plant3',3,3,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2090,'bb_lobby_1','bb_special',7,3,2,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2091,'bb_lobby_1','bb_wallend1in',8,3,2,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2092,'bb_lobby_1','bb_wallend1in',9,3,2,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2093,'bb_lobby_1','bb_wallend1in',10,3,2,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2094,'bb_lobby_1','bb_wallend1in',11,3,2,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2095,'bb_lobby_1','bb_crossrd',12,3,2,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2096,'bb_lobby_1','bb_crossrd',16,3,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2097,'bb_lobby_1','bb_wallend1in',17,3,2,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2098,'bb_lobby_1','bb_crossrd',18,3,2,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2099,'bb_lobby_1','bb_wallend2in',3,4,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2100,'bb_lobby_1','bb_wallend1in',7,4,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2101,'bb_lobby_1','bb_bench1',8,4,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2102,'bb_lobby_1','bb_bench2',9,4,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2103,'bb_lobby_1','bb_bench1',10,4,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2104,'bb_lobby_1','bb_bench2',11,4,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2105,'bb_lobby_1','bb_wallend2in',12,4,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2106,'bb_lobby_1','bb_wallend1in',16,4,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2107,'bb_lobby_1','bb_bench1',17,4,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2108,'bb_lobby_1','bb_bench2',18,4,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2109,'bb_lobby_1','bb_wallendout',19,4,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2110,'bb_lobby_1','bb_stool',7,5,1,3,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2111,'bb_lobby_1','bb_stool',12,5,1,5,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2112,'bb_lobby_1','bb_bench1',19,5,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2113,'bb_lobby_1','bb_stool',3,6,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2114,'bb_lobby_1','bb_bench2',19,6,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2115,'bb_lobby_1','bb_chair',9,7,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2116,'bb_lobby_1','bb_chair',10,7,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2117,'bb_lobby_1','bb_bench1',17,7,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2118,'bb_lobby_1','bb_bench2',18,7,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2119,'bb_lobby_1','bb_wallendout',19,7,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2120,'bb_lobby_1','bb_stool',3,8,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2121,'bb_lobby_1','bb_extra',17,8,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2122,'bb_lobby_1','bb_extra',18,8,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2123,'bb_lobby_1','bb_crossrd',19,8,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2124,'bb_lobby_1','bb_stool',3,9,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2125,'bb_lobby_1','bb_chair',9,9,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2126,'bb_lobby_1','bb_chair',10,9,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2127,'bb_lobby_1','bb_bench1',17,9,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2128,'bb_lobby_1','bb_bench2',18,9,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2129,'bb_lobby_1','bb_wallendout',19,9,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2130,'bb_lobby_1','bb_bench1',19,10,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2131,'bb_lobby_1','bb_stool',7,11,1,1,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2132,'bb_lobby_1','bb_stool',12,11,1,7,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2133,'bb_lobby_1','bb_bench2',19,11,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2134,'bb_lobby_1','bb_wallend1in',7,12,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2135,'bb_lobby_1','bb_bench1',8,12,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2136,'bb_lobby_1','bb_bench2',9,12,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2137,'bb_lobby_1','bb_bench1',10,12,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2138,'bb_lobby_1','bb_bench2',11,12,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2139,'bb_lobby_1','bb_wallend2in',12,12,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2140,'bb_lobby_1','bb_bench1',17,12,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2141,'bb_lobby_1','bb_bench2',18,12,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2142,'bb_lobby_1','bb_wallendout',19,12,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2143,'bb_lobby_1','bb_corner1out',7,13,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2144,'bb_lobby_1','bb_wallout',8,13,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2145,'bb_lobby_1','bb_wallout',9,13,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2146,'bb_lobby_1','bb_wallout',10,13,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2147,'bb_lobby_1','bb_wallout',11,13,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2148,'bb_lobby_1','bb_special',12,13,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2149,'bb_lobby_1','bb_wallendout',16,13,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2150,'bb_lobby_1','bb_wallout',17,13,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2151,'bb_lobby_1','bb_wallout',18,13,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2152,'bb_lobby_1','bb_corner1out',19,13,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2153,'bb_lobby_1','bb_plant0',9,14,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2154,'bb_lobby_1','bb_sofa1',10,14,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2155,'bb_lobby_1','bb_sofa2',11,14,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2156,'bb_lobby_1','bb_plant2',12,14,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2157,'bb_lobby_1','bb_plant2',16,14,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2158,'bb_lobby_1','bb_sofa1',17,14,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2159,'bb_lobby_1','bb_sofa2',18,14,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2160,'bb_lobby_1','bb_plant0',19,14,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2161,'bb_lobby_1','bb_sofa1',9,15,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2162,'bb_lobby_1','bb_sofa1',19,15,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2163,'bb_lobby_1','bb_sofa2',9,16,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2164,'bb_lobby_1','bb_sofa2',19,16,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2165,'bb_lobby_1','bb_sofa1',9,17,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2166,'bb_lobby_1','bb_sofa1',19,17,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2167,'bb_lobby_1','bb_sofa2',9,18,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2168,'bb_lobby_1','bb_sofa2',19,18,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2169,'bb_lobby_1','bb_plant0',9,19,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2170,'bb_lobby_1','bb_sofa1',10,19,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2171,'bb_lobby_1','bb_sofa2',11,19,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2172,'bb_lobby_1','bb_plant3',12,19,0,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2173,'bb_lobby_1','bb_plant3',16,19,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2174,'bb_lobby_1','bb_sofa1',17,19,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2175,'bb_lobby_1','bb_sofa2',18,19,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2176,'bb_lobby_1','bb_plant0',19,19,0,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2177,'snowwar_lobby_1','sw_barrellchair',31,18,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2178,'snowwar_lobby_1','sw_barrellchair',31,19,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2179,'snowwar_lobby_1','sw_barrellchair',30,20,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2180,'snowwar_lobby_1','sw_barrellchair',37,20,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2181,'snowwar_lobby_1','sw_barrellchair',39,20,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2182,'snowwar_lobby_1','sw_barrellchair',41,20,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2183,'snowwar_lobby_1','sw_chair1',30,24,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2184,'snowwar_lobby_1','sw_chair2',31,24,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2185,'snowwar_lobby_1','sw_chair2',32,24,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2186,'snowwar_lobby_1','sw_chair2',33,24,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2187,'snowwar_lobby_1','sw_chair3',34,24,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2188,'snowwar_lobby_1','sw_table1',30,25,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2189,'snowwar_lobby_1','sw_table2',31,25,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2190,'snowwar_lobby_1','sw_table3',32,25,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2191,'snowwar_lobby_1','sw_table4',33,25,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2192,'snowwar_lobby_1','sw_table5',34,25,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2193,'snowwar_lobby_1','sw_chair1',30,26,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2194,'snowwar_lobby_1','sw_chair2',31,26,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2195,'snowwar_lobby_1','sw_chair2',32,26,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2196,'snowwar_lobby_1','sw_chair2',33,26,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2197,'snowwar_lobby_1','sw_chair3',34,26,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2198,'snowwar_lobby_1','sw_chair1',30,29,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2199,'snowwar_lobby_1','sw_chair2',31,29,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2200,'snowwar_lobby_1','sw_chair2',32,29,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2201,'snowwar_lobby_1','sw_chair2',33,29,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2202,'snowwar_lobby_1','sw_chair3',34,29,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2203,'snowwar_lobby_1','sw_table1',30,30,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2204,'snowwar_lobby_1','sw_table2',31,30,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2205,'snowwar_lobby_1','sw_table3',32,30,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2206,'snowwar_lobby_1','sw_table4',33,30,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2207,'snowwar_lobby_1','sw_table5',34,30,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2208,'snowwar_lobby_1','sw_chair1',30,31,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2209,'snowwar_lobby_1','sw_chair2',31,31,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2210,'snowwar_lobby_1','sw_chair2',32,31,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2211,'snowwar_lobby_1','sw_chair2',33,31,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2212,'snowwar_lobby_1','sw_chair3',34,31,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2213,'snowwar_lobby_1','invisichair',27,32,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2214,'snowwar_lobby_1','invisichair',27,33,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2215,'snowwar_lobby_1','invisichair',27,34,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2216,'snowwar_lobby_1','invisichair',28,36,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2217,'snowwar_lobby_1','invisichair',29,36,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2218,'snowwar_lobby_1','invisichair',30,36,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2219,'snowwar_lobby_1','invisichair',31,36,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2220,'tv_studio','much_camera3',4,13,0,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2221,'tv_studio','much_chair',14,4,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2222,'tv_studio','much_chair',18,5,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2223,'tv_studio','much_chair',18,7,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2224,'tv_studio','much_chair',19,11,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2225,'tv_studio','much_chair',19,12,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2226,'tv_studio','much_chair',2,6,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2227,'tv_studio','much_chair',5,3,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2228,'tv_studio','much_sofa1a',0,15,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2229,'tv_studio','much_sofa1a',1,18,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2230,'tv_studio','much_sofa1a',14,19,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2231,'tv_studio','much_sofa1a',14,24,4,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2232,'tv_studio','much_sofa1a',18,16,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2233,'tv_studio','much_sofa1a',6,27,4,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2234,'tv_studio','much_sofa1a',8,1,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2235,'tv_studio','much_sofa1a',8,31,4,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2236,'tv_studio','much_sofa1b',0,16,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2237,'tv_studio','much_sofa1b',10,1,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2238,'tv_studio','much_sofa1b',15,19,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2239,'tv_studio','much_sofa1b',15,24,4,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2240,'tv_studio','much_sofa1b',16,19,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2241,'tv_studio','much_sofa1b',18,17,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2242,'tv_studio','much_sofa1b',18,18,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2243,'tv_studio','much_sofa1b',2,18,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2244,'tv_studio','much_sofa1b',3,18,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2245,'tv_studio','much_sofa1b',6,28,4,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2246,'tv_studio','much_sofa1b',6,29,4,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2247,'tv_studio','much_sofa1b',6,30,4,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2248,'tv_studio','much_sofa1b',9,1,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2249,'tv_studio','much_sofa1b',9,31,4,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2250,'tv_studio','much_stool',14,10,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2251,'tv_studio','much_stool',14,11,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2252,'tv_studio','much_stool',14,12,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2253,'tv_studio','much_stool',14,13,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2254,'tv_studio','much_table1',10,3,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2255,'tv_studio','much_table1',16,16,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2256,'tv_studio','much_table1',2,16,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2257,'tv_studio','much_table1',8,29,4,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2258,'tv_studio','much_table2',15,16,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2259,'tv_studio','much_table2',8,28,4,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2260,'tv_studio','much_table2',9,3,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2261,'tv_studio','much_table3',14,16,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2262,'tv_studio','much_table3',2,15,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2263,'tv_studio','much_table3',8,27,4,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2264,'tv_studio','much_table3',8,3,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2265,'tv_studio','watermatic',5,25,4,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2266,'club_mammoth','bbarstool',14,0,4,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2267,'club_mammoth','bbarstool',14,1,4,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2268,'club_mammoth','bbarstool',14,2,4,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2269,'club_mammoth','elephantcouch2',18,4,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2270,'club_mammoth','elephantcouch4',21,4,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2271,'club_mammoth','elephantcouch1',18,5,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2272,'club_mammoth','elephantcouch3',21,5,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2273,'club_mammoth','tinypalm',11,6,2,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2274,'club_mammoth','plainstool1',12,6,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2275,'club_mammoth','plainstool2',13,6,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2276,'club_mammoth','plainstool2',14,6,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2277,'club_mammoth','plainstool2',15,6,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2278,'club_mammoth','plainstool2',16,6,100000,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2279,'club_mammoth','bbarstool',15,9,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2280,'club_mammoth','bbarstool',15,10,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2281,'club_mammoth','bbarstool',15,11,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2282,'club_mammoth','bbarstool',16,11,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2283,'club_mammoth','bbarstool',17,11,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2284,'club_mammoth','plainstool3',11,15,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2285,'club_mammoth','plainstool3',11,16,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2286,'club_mammoth','plainstool3',11,17,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2287,'club_mammoth','plainstool3',11,18,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2288,'club_mammoth','elephantcouch2',20,24,4,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2289,'club_mammoth','elephantcouch4',23,24,4,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2290,'club_mammoth','elephantcouch1',20,25,4,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2291,'club_mammoth','elephantcouch3',23,25,4,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2292,'club_mammoth','boothsofa1',7,27,6,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2293,'club_mammoth','boothsofa3',11,27,6,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2294,'club_mammoth','boothsofa1',13,27,6,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2295,'club_mammoth','boothsofa1',7,28,6,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2296,'club_mammoth','boothsofa3',11,28,6,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2297,'club_mammoth','tinypalm',12,28,6,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2298,'club_mammoth','boothsofa1',13,28,6,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2299,'club_mammoth','boothsofa1',7,29,6,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2300,'club_mammoth','boothsofa3',11,29,6,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2301,'club_mammoth','boothsofa1',13,29,6,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2302,'club_mammoth','boothsofacorner1',7,30,6,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2303,'club_mammoth','boothsofa2',8,30,6,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2304,'club_mammoth','boothsofa2',9,30,6,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2305,'club_mammoth','boothsofa2',10,30,6,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2306,'club_mammoth','boothsofacorner2',11,30,6,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2307,'club_mammoth','tinypalm',12,30,6,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2308,'club_mammoth','boothsofacorner1',13,30,6,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2309,'club_mammoth','boothsofa2',14,30,6,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2310,'club_mammoth','boothsofa2',15,30,6,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2311,'club_mammoth','boothsofa2',16,30,6,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2312,'club_mammoth','boothsofa2',17,30,6,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2313,'ice_cafe','cafe_chair_cream',17,17,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2314,'ice_cafe','infokiosk',17,0,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2315,'ice_cafe','cafe_deskb',1,10,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2316,'ice_cafe','cafe_chair_blue',5,17,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2317,'ice_cafe','cafe_table_biga_blue',4,2,1,2,0.001,2,2,'extra_parameter','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2318,'ice_cafe','infokiosk',15,0,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2319,'ice_cafe','cafe_chair_blue',3,1,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2320,'ice_cafe','cafe_sofaa',2,21,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2321,'ice_cafe','cafe_deskb',1,12,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2322,'ice_cafe','cafe_sofaa',2,23,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2323,'ice_cafe','cafe_chair_cream',13,3,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2324,'ice_cafe','cafe_chair_cream',10,4,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2325,'ice_cafe','cafe_table_cream',15,10,0,2,0.001,2,2,'extra_parameter','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2326,'ice_cafe','cafe_chair_cream',13,4,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2327,'ice_cafe','cafe_chair_blue',3,15,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2328,'ice_cafe','cafe_deskb',1,13,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2329,'ice_cafe','cafe_sofab',2,20,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2330,'ice_cafe','construction',8,22,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2331,'ice_cafe','cafe_chair_blue',3,2,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2332,'ice_cafe','cafe_chair_cream',14,10,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2333,'ice_cafe','cafe_chair_cream',12,5,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2334,'ice_cafe','cafe_chair_cream',14,17,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2335,'ice_cafe','cafe_chair_blue',5,10,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2336,'ice_cafe','cafe_chair_blue',5,14,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2337,'ice_cafe','cafe_chair_cream',15,9,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2338,'ice_cafe','cafe_table_bigb_cream',12,2,0,0,0.001,0,0,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2339,'ice_cafe','cafe_chair_blue',3,3,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2340,'ice_cafe','cafe_chair_cream',10,3,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2341,'ice_cafe','cafe_table_biga_cream',11,3,0,2,0.001,2,2,'extra_parameter','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2342,'ice_cafe','cafe_chair_cream',10,19,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2343,'ice_cafe','cafe_chair_cream',17,11,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2344,'ice_cafe','cafe_chair_blue',5,4,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2345,'ice_cafe','cafe_chair_blue',6,1,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2346,'ice_cafe','cafe_chair_blue',6,16,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2347,'ice_cafe','cafe_chair_blue',3,8,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2348,'ice_cafe','cafe_chair_cream',11,21,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2349,'ice_cafe','cafe_table_bigb_blue',5,1,1,0,0.001,0,0,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2350,'ice_cafe','cafe_chair_cream',11,18,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2351,'ice_cafe','cafe_table_blue',4,8,1,2,0.001,2,2,'extra_parameter','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2352,'ice_cafe','cafe_table_cream',15,17,0,2,0.001,2,2,'extra_parameter','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2353,'ice_cafe','cafe_chair_cream',10,2,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2354,'ice_cafe','infokiosk',16,0,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2355,'ice_cafe','cafe_sofab',2,22,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2356,'ice_cafe','cafe_chair_cream',13,20,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2357,'ice_cafe','cafe_chair_cream',15,16,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2358,'ice_cafe','cafe_chair_cream',16,19,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2359,'ice_cafe','cafe_deskc',1,9,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2360,'ice_cafe','cafe_chair_blue',6,9,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2361,'ice_cafe','cafe_chair_cream',15,12,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2362,'ice_cafe','cafe_chair_cream',11,1,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2363,'ice_cafe','cafe_chair_blue',6,2,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2364,'ice_cafe','cafe_table_blue',4,15,1,2,0.001,2,2,'extra_parameter','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2365,'ice_cafe','cafe_chair_blue',6,3,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2366,'ice_cafe','cafe_deskb',1,11,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2367,'ice_cafe','cafe_table_cream',11,19,0,2,0.001,2,2,'extra_parameter','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2368,'ice_cafe','cafe_deskb',1,14,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2369,'ice_cafe','cafe_chair_cream',13,2,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2370,'ice_cafe','cafe_chair_blue',4,7,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2371,'netcafe','k',15,7,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2372,'netcafe','k',12,12,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2373,'netcafe','k',15,9,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2374,'netcafe','k',16,1,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2375,'netcafe','k',18,10,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2376,'netcafe','k',18,9,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2377,'netcafe','k',19,1,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2378,'netcafe','k',4,10,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2379,'netcafe','k',4,12,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2380,'netcafe','k',6,18,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2381,'netcafe','k',9,9,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2382,'netcafe','kukat1',13,3,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2383,'netcafe','kukat1',20,3,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2384,'netcafe','kukat1',6,16,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2385,'netcafe','kukat1',8,16,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2386,'netcafe','kukat2',12,3,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2387,'netcafe','kukat2',19,3,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2388,'netcafe','kukat2',5,16,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2389,'netcafe','kukat2',7,16,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2390,'netcafe','kukat3',9,16,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2391,'netcafe','kukat3',9,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2392,'netcafe','kukat4',9,17,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2393,'netcafe','kukat4',9,19,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2394,'netcafe','kukat5',6,3,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2395,'netcafe','kukat6',5,3,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2396,'netcafe','kukka',20,23,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2397,'netcafe','kukka2',15,16,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2398,'netcafe','l',12,11,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2399,'netcafe','l',13,1,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2400,'netcafe','l',15,8,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2401,'netcafe','l',18,8,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2402,'netcafe','l',4,11,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2403,'netcafe','l',9,11,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2404,'netcafe','l',9,12,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2405,'netcafe','m',10,1,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2406,'netcafe','m',12,10,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2407,'netcafe','m',12,9,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2408,'netcafe','m',15,10,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2409,'netcafe','m',18,7,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2410,'netcafe','m',4,13,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2411,'netcafe','m',4,9,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2412,'netcafe','m',6,21,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2413,'netcafe','m',9,10,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2414,'netcafe','shift1',0,5,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2415,'netcafe','shift1',12,4,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2416,'netcafe','shift1',19,4,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2417,'netcafe','shift1',2,5,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2418,'netcafe','shift1',6,0,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2419,'netcafe','shift2',1,5,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2420,'netcafe','shift2',13,4,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2421,'netcafe','shift2',20,4,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2422,'netcafe','shift2',3,5,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2423,'netcafe','shift2',7,0,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2424,'netcafe','sofabig1',20,21,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2425,'netcafe','sofabig2',20,19,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2426,'netcafe','sofabig2',20,20,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2427,'netcafe','sofabig3',20,18,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2428,'netcafe','sofalittle1',18,23,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2429,'netcafe','sofalittle2',17,23,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2430,'netcafe','sofalittle3',16,23,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2431,'netcafe','table1',17,19,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2432,'netcafe','table1',17,20,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2433,'netcafe','table1',17,21,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2434,'netcafe','table2',16,10,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2435,'netcafe','table2',16,7,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2436,'netcafe','table2',16,8,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2437,'netcafe','table2',16,9,0,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2438,'netcafe','table3',10,10,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2439,'netcafe','table3',10,11,0,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2440,'netcafe','table3',10,12,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2441,'netcafe','table3',10,9,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2442,'netcafe','tablecorner',11,9,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2443,'netcafe','tablecorner',17,7,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2444,'netcafe','tablecorner',18,19,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2445,'netcafe','watermatic',5,0,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2446,'hallway0','hw_chair',15,0,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2447,'hallway0','hw_chair',15,1,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2448,'hallway0','hw_chair',17,0,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2449,'hallway0','hw_chair',17,1,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2450,'hallway0','hw_chair',20,0,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2451,'hallway0','hw_chair',20,1,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2452,'hallway0','hw_chair',20,2,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2453,'hallway0','hw_chair',22,0,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2454,'hallway0','hw_chair',22,1,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2455,'hallway0','hw_chair',22,2,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2456,'hallway0','hw_chair',25,0,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2457,'hallway0','hw_chair',25,1,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2458,'hallway0','hw_chair',27,0,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2459,'hallway0','hw_chair',27,1,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2460,'hallway0','hw_ero1',17,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2461,'hallway0','hw_ero2',18,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2462,'hallway0','hw_ero5',19,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2463,'hallway0','hw_plant',4,0,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2464,'hallway0','hw_plant',4,7,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2465,'hallway0','hw_pntg',18,0,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2466,'hallway0','hw_smtble',7,0,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2467,'hallway0','hw_sofa1',12,10,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2468,'hallway0','hw_sofa1',5,0,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2469,'hallway0','hw_sofa1',8,0,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2470,'hallway0','hw_sofa2',12,11,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2471,'hallway0','hw_sofa2',12,12,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2472,'hallway0','hw_sofa2',12,13,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2473,'hallway0','hw_sofa3',12,14,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2474,'hallway0','hw_sofa3',6,0,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2475,'hallway0','hw_sofa3',9,0,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2476,'hallway0','hw_table1',16,0,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2477,'hallway0','hw_table1',21,0,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2478,'hallway0','hw_table1',26,0,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2479,'hallway0','hw_table2',21,1,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2480,'hallway0','hw_table3',16,1,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2481,'hallway0','hw_table3',21,2,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2482,'hallway0','hw_table3',26,1,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2483,'hallway0','hw_watermatic',10,0,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2484,'hallway0','pillar1',12,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2485,'hallway9','hw_ero1',12,14,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2486,'hallway9','hw_ero1',14,12,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2487,'hallway9','hw_ero1',14,19,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2488,'hallway9','hw_ero1',19,14,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2489,'hallway9','hw_ero2',12,15,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2490,'hallway9','hw_ero2',15,12,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2491,'hallway9','hw_ero2',15,19,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2492,'hallway9','hw_ero2',19,15,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2493,'hallway9','hw_ero3',12,16,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2494,'hallway9','hw_ero3',16,12,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2495,'hallway9','hw_ero3',16,19,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2496,'hallway9','hw_ero3',19,16,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2497,'hallway9','hw_ero5',12,17,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2498,'hallway9','hw_ero5',17,12,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2499,'hallway9','hw_ero5',17,19,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2500,'hallway9','hw_ero5',19,17,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2501,'hallway9','hw_plant',12,27,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2502,'hallway9','hw_shelf',12,4,0,4,0.001,2,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2503,'hallway9','hw_shelf',4,12,0,2,0.001,2,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2504,'hallway9','hw_smtble',10,12,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2505,'hallway9','hw_smtble',12,10,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2506,'hallway9','hw_smtble',12,21,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2507,'hallway9','hw_smtble',21,12,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2508,'hallway9','hw_sofa1',12,22,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2509,'hallway9','hw_sofa1',12,6,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2510,'hallway9','hw_sofa1',22,12,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2511,'hallway9','hw_sofa1',6,12,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2512,'hallway9','hw_sofa2',12,23,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2513,'hallway9','hw_sofa2',12,24,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2514,'hallway9','hw_sofa2',12,7,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2515,'hallway9','hw_sofa2',12,8,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2516,'hallway9','hw_sofa2',23,12,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2517,'hallway9','hw_sofa2',24,12,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2518,'hallway9','hw_sofa2',7,12,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2519,'hallway9','hw_sofa2',8,12,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2520,'hallway9','hw_sofa3',12,25,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2521,'hallway9','hw_sofa3',12,9,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2522,'hallway9','hw_sofa3',25,12,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2523,'hallway9','hw_sofa3',9,12,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2524,'hallway9','hw_watermatic',27,12,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2525,'hallway9','pillar1',19,4,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2526,'hallway9','pillar1',4,19,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2527,'hallway2','hw_chair',17,13,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2528,'hallway2','hw_chair',17,15,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2529,'hallway2','hw_chair',19,18,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2530,'hallway2','hw_chair',19,4,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2531,'hallway2','hw_chair',20,13,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2532,'hallway2','hw_chair',22,13,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2533,'hallway2','hw_chair',22,16,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2534,'hallway2','hw_chair',22,18,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2535,'hallway2','hw_ero1',12,11,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2536,'hallway2','hw_ero1',22,11,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2537,'hallway2','hw_ero1',4,10,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2538,'hallway2','hw_ero2',13,11,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2539,'hallway2','hw_ero2',16,11,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2540,'hallway2','hw_ero3',14,11,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2541,'hallway2','hw_ero4',15,11,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2542,'hallway2','hw_ero5',17,11,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2543,'hallway2','hw_ero5',23,11,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2544,'hallway2','hw_ero5',5,10,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2545,'hallway2','hw_plant',13,4,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2546,'hallway2','hw_plant',18,4,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2547,'hallway2','hw_plant',3,6,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2548,'hallway2','hw_plant',4,17,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2549,'hallway2','hw_smtble',17,14,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2550,'hallway2','hw_smtble',18,18,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2551,'hallway2','hw_smtble',21,13,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2552,'hallway2','hw_smtble',22,17,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2553,'hallway2','hw_smtble',4,14,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2554,'hallway2','hw_smtble',7,4,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2555,'hallway2','hw_sofa1',4,12,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2556,'hallway2','hw_sofa1',4,15,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2557,'hallway2','hw_sofa1',5,4,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2558,'hallway2','hw_sofa1',8,4,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2559,'hallway2','hw_sofa3',4,13,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2560,'hallway2','hw_sofa3',4,16,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2561,'hallway2','hw_sofa3',6,4,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2562,'hallway2','hw_sofa3',9,4,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2563,'hallway2','hw_statue',19,15,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2564,'hallway2','hw_watermatic',11,13,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2565,'hallway2','pillar1',11,12,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2566,'hallway1','hw_chair',13,4,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2567,'hallway1','hw_chair',17,16,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2568,'hallway1','hw_chair',17,18,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2569,'hallway1','hw_chair',18,16,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2570,'hallway1','hw_chair',18,18,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2571,'hallway1','hw_chair',4,13,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2572,'hallway1','hw_chair',4,18,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2573,'hallway1','hw_ero1',17,13,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2574,'hallway1','hw_ero5',18,13,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2575,'hallway1','hw_painting1',22,5,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2576,'hallway1','hw_plant',12,9,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2577,'hallway1','hw_plant',26,4,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2578,'hallway1','hw_plant',4,12,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2579,'hallway1','hw_plant',4,19,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2580,'hallway1','hw_smtble',12,4,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2581,'hallway1','hw_smtble',22,4,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2582,'hallway1','hw_smtble',7,12,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2583,'hallway1','hw_sofa1',12,5,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2584,'hallway1','hw_sofa1',19,4,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2585,'hallway1','hw_sofa1',23,4,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2586,'hallway1','hw_sofa1',5,12,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2587,'hallway1','hw_sofa1',8,12,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2588,'hallway1','hw_sofa2',12,6,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2589,'hallway1','hw_sofa2',12,7,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2590,'hallway1','hw_sofa2',20,4,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2591,'hallway1','hw_sofa2',24,4,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2592,'hallway1','hw_sofa3',12,8,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2593,'hallway1','hw_sofa3',21,4,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2594,'hallway1','hw_sofa3',25,4,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2595,'hallway1','hw_sofa3',6,12,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2596,'hallway1','hw_sofa3',9,12,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2597,'hallway1','hw_table1',17,17,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2598,'hallway1','hw_table3',18,17,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2599,'hallway1','hw_watermatic',12,10,0,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2600,'hallway1','pillar1',10,19,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2601,'hallway3','hw_chair',13,4,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2602,'hallway3','hw_chair',13,5,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2603,'hallway3','hw_chair',15,4,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2604,'hallway3','hw_chair',15,5,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2605,'hallway3','hw_chair',5,4,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2606,'hallway3','hw_chair',7,10,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2607,'hallway3','hw_chair',7,11,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2608,'hallway3','hw_chair',9,10,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2609,'hallway3','hw_chair',9,11,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2610,'hallway3','hw_ero1',12,10,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2611,'hallway3','hw_ero2',12,11,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2612,'hallway3','hw_ero2',12,14,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2613,'hallway3','hw_ero2',12,17,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2614,'hallway3','hw_ero3',12,12,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2615,'hallway3','hw_ero3',12,15,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2616,'hallway3','hw_ero3',12,18,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2617,'hallway3','hw_ero4',12,13,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2618,'hallway3','hw_ero4',12,16,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2619,'hallway3','hw_ero5',12,19,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2620,'hallway3','hw_plant',10,4,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2621,'hallway3','hw_plant',26,4,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2622,'hallway3','hw_plant',4,5,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2623,'hallway3','hw_smtble',4,4,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2624,'hallway3','hw_sofa1',21,4,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2625,'hallway3','hw_sofa2',22,4,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2626,'hallway3','hw_sofa2',23,4,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2627,'hallway3','hw_sofa2',24,4,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2628,'hallway3','hw_sofa3',25,4,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2629,'hallway3','hw_table1',14,4,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2630,'hallway3','hw_table1',8,10,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2631,'hallway3','hw_table3',14,5,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2632,'hallway3','hw_table3',8,11,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2633,'hallway3','hw_watermatic',19,13,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2634,'hallway3','pillar1',19,12,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2635,'hallway4','hw_chair',20,10,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2636,'hallway4','hw_chair',20,13,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2637,'hallway4','hw_chair',20,14,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2638,'hallway4','hw_chair',20,9,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2639,'hallway4','hw_chair',22,10,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2640,'hallway4','hw_chair',22,13,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2641,'hallway4','hw_chair',22,14,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2642,'hallway4','hw_chair',22,9,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2643,'hallway4','hw_ero1',17,7,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2644,'hallway4','hw_ero2',18,7,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2645,'hallway4','hw_ero2',21,7,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2646,'hallway4','hw_ero3',19,7,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2647,'hallway4','hw_ero4',20,7,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2648,'hallway4','hw_ero5',22,7,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2649,'hallway4','hw_painting1',19,1,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2650,'hallway4','hw_plant',14,0,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2651,'hallway4','hw_plant',27,1,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2652,'hallway4','hw_plant',27,6,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2653,'hallway4','hw_plant',4,0,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2654,'hallway4','hw_plant',4,7,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2655,'hallway4','hw_smtble',19,0,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2656,'hallway4','hw_smtble',7,0,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2657,'hallway4','hw_sofa1',15,0,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2658,'hallway4','hw_sofa1',20,0,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2659,'hallway4','hw_sofa1',5,0,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2660,'hallway4','hw_sofa1',8,0,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2661,'hallway4','hw_sofa2',16,0,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2662,'hallway4','hw_sofa2',17,0,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2663,'hallway4','hw_sofa2',21,0,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2664,'hallway4','hw_sofa2',22,0,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2665,'hallway4','hw_sofa3',18,0,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2666,'hallway4','hw_sofa3',23,0,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2667,'hallway4','hw_sofa3',6,0,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2668,'hallway4','hw_sofa3',9,0,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2669,'hallway4','hw_table1',21,13,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2670,'hallway4','hw_table1',21,9,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2671,'hallway4','hw_table3',21,10,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2672,'hallway4','hw_table3',21,14,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2673,'hallway4','hw_watermatic',14,7,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2674,'hallway4','pillar1',13,7,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2675,'hallway5','hw_chair',13,4,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2676,'hallway5','hw_chair',23,10,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2677,'hallway5','hw_chair',23,6,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2678,'hallway5','hw_chair',23,7,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2679,'hallway5','hw_chair',23,8,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2680,'hallway5','hw_chair',23,9,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2681,'hallway5','hw_chair',25,10,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2682,'hallway5','hw_chair',25,6,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2683,'hallway5','hw_chair',25,7,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2684,'hallway5','hw_chair',25,8,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2685,'hallway5','hw_chair',25,9,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2686,'hallway5','hw_ero1',15,20,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2687,'hallway5','hw_ero1',22,12,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2688,'hallway5','hw_ero2',23,12,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2689,'hallway5','hw_ero3',24,12,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2690,'hallway5','hw_ero4',25,12,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2691,'hallway5','hw_ero5',16,20,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2692,'hallway5','hw_ero5',26,12,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2693,'hallway5','hw_plant',12,4,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2694,'hallway5','hw_plant',17,25,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2695,'hallway5','hw_plant',19,4,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2696,'hallway5','hw_plant',25,17,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2697,'hallway5','hw_plant',4,12,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2698,'hallway5','hw_plant',4,19,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2699,'hallway5','hw_smtble',12,7,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2700,'hallway5','hw_smtble',14,22,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2701,'hallway5','hw_smtble',21,15,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2702,'hallway5','hw_smtble',7,12,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2703,'hallway5','hw_sofa1',12,5,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2704,'hallway5','hw_sofa1',12,8,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2705,'hallway5','hw_sofa1',14,23,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2706,'hallway5','hw_sofa1',15,22,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2707,'hallway5','hw_sofa1',21,16,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2708,'hallway5','hw_sofa1',23,14,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2709,'hallway5','hw_sofa1',5,12,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2710,'hallway5','hw_sofa1',8,12,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2711,'hallway5','hw_sofa2',14,24,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2712,'hallway5','hw_sofa2',16,22,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2713,'hallway5','hw_sofa2',24,14,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2714,'hallway5','hw_sofa3',12,6,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2715,'hallway5','hw_sofa3',12,9,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2716,'hallway5','hw_sofa3',14,25,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2717,'hallway5','hw_sofa3',17,22,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2718,'hallway5','hw_sofa3',21,17,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2719,'hallway5','hw_sofa3',25,14,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2720,'hallway5','hw_sofa3',6,12,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2721,'hallway5','hw_sofa3',9,12,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2722,'hallway5','hw_table1',24,6,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2723,'hallway5','hw_table2',24,7,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2724,'hallway5','hw_table2',24,8,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2725,'hallway5','hw_table2',24,9,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2726,'hallway5','hw_table3',24,10,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2727,'hallway5','hw_watermatic',18,4,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2728,'hallway5','pillar1',12,20,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2729,'hallway8','hw_chair',17,13,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2730,'hallway8','hw_chair',17,14,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2731,'hallway8','hw_chair',17,15,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2732,'hallway8','hw_chair',17,16,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2733,'hallway8','hw_chair',19,13,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2734,'hallway8','hw_chair',19,14,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2735,'hallway8','hw_chair',19,15,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2736,'hallway8','hw_chair',19,16,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2737,'hallway8','hw_chair',6,16,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2738,'hallway8','hw_chair',6,18,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2739,'hallway8','hw_chair',7,16,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2740,'hallway8','hw_chair',7,18,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2741,'hallway8','hw_chair',8,16,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2742,'hallway8','hw_chair',8,18,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2743,'hallway8','hw_chair',9,16,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2744,'hallway8','hw_chair',9,18,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2745,'hallway8','hw_ero1',12,11,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2746,'hallway8','hw_ero1',20,0,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2747,'hallway8','hw_ero2',13,11,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2748,'hallway8','hw_ero2',16,11,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2749,'hallway8','hw_ero2',20,1,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2750,'hallway8','hw_ero2',20,2,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2751,'hallway8','hw_ero3',14,11,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2752,'hallway8','hw_ero3',17,11,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2753,'hallway8','hw_ero4',15,11,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2754,'hallway8','hw_ero4',18,11,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2755,'hallway8','hw_ero5',19,11,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2756,'hallway8','hw_ero5',20,3,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2757,'hallway8','hw_painting2',7,5,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2758,'hallway8','hw_plant',4,13,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2759,'hallway8','hw_plant',4,18,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2760,'hallway8','hw_shelf',4,11,1,2,0.001,2,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2761,'hallway8','hw_shelf',4,4,1,2,0.001,2,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2762,'hallway8','hw_sofa1',21,0,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2763,'hallway8','hw_sofa1',4,7,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2764,'hallway8','hw_sofa1',6,4,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2765,'hallway8','hw_sofa2',22,0,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2766,'hallway8','hw_sofa2',4,8,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2767,'hallway8','hw_sofa2',7,4,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2768,'hallway8','hw_sofa3',23,0,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2769,'hallway8','hw_sofa3',4,9,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2770,'hallway8','hw_sofa3',8,4,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2771,'hallway8','hw_table1',18,13,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2772,'hallway8','hw_table1',6,17,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2773,'hallway8','hw_table2',18,14,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2774,'hallway8','hw_table2',18,15,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2775,'hallway8','hw_table2',7,17,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2776,'hallway8','hw_table2',8,17,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2777,'hallway8','hw_table3',18,16,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2778,'hallway8','hw_table3',9,17,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2779,'hallway8','hw_watermatic',13,4,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2780,'hallway8','pillar0',17,19,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2781,'hallway8','pillar0',22,19,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2782,'hallway8','pillar1',11,12,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2783,'hallway7','hw_chair',12,24,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2784,'hallway7','hw_chair',12,26,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2785,'hallway7','hw_chair',13,24,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2786,'hallway7','hw_chair',13,26,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2787,'hallway7','hw_chair',14,24,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2788,'hallway7','hw_chair',14,26,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2789,'hallway7','hw_ero1',10,17,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2790,'hallway7','hw_ero1',10,4,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2791,'hallway7','hw_ero1',4,17,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2792,'hallway7','hw_ero1',4,4,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2793,'hallway7','hw_ero5',11,17,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2794,'hallway7','hw_ero5',11,4,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2795,'hallway7','hw_ero5',5,17,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2796,'hallway7','hw_ero5',5,4,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2797,'hallway7','hw_painting2',5,11,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2798,'hallway7','hw_plant',10,25,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2799,'hallway7','hw_smtble',9,10,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2800,'hallway7','hw_sofa1',10,10,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2801,'hallway7','hw_sofa1',4,7,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2802,'hallway7','hw_sofa1',9,11,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2803,'hallway7','hw_sofa2',4,10,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2804,'hallway7','hw_sofa2',4,11,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2805,'hallway7','hw_sofa2',4,12,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2806,'hallway7','hw_sofa2',4,13,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2807,'hallway7','hw_sofa2',4,14,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2808,'hallway7','hw_sofa2',4,8,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2809,'hallway7','hw_sofa2',4,9,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2810,'hallway7','hw_sofa2',9,12,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2811,'hallway7','hw_sofa2',9,13,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2812,'hallway7','hw_sofa3',11,10,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2813,'hallway7','hw_sofa3',4,15,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2814,'hallway7','hw_sofa3',9,14,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2815,'hallway7','hw_table1',12,25,0,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2816,'hallway7','hw_table2',13,25,0,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2817,'hallway7','hw_table3',14,25,0,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2818,'hallway7','hw_watermatic',4,6,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2819,'hallway7','pillar0',4,21,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2820,'hallway7','pillar0',4,26,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2821,'hallway7','pillar1',15,20,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2822,'hallway6','hw_chair',11,22,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2823,'hallway6','hw_chair',13,22,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2824,'hallway6','hw_chair',16,22,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2825,'hallway6','hw_chair',18,22,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2826,'hallway6','hw_chair',4,14,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2827,'hallway6','hw_chair',4,5,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2828,'hallway6','hw_chair',4,6,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2829,'hallway6','hw_chair',9,18,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2830,'hallway6','hw_chair',9,20,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2831,'hallway6','hw_ero1',12,20,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2832,'hallway6','hw_ero1',4,0,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2833,'hallway6','hw_ero1',7,4,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2834,'hallway6','hw_ero2',13,20,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2835,'hallway6','hw_ero2',16,20,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2836,'hallway6','hw_ero2',7,5,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2837,'hallway6','hw_ero3',14,20,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2838,'hallway6','hw_ero3',17,20,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2839,'hallway6','hw_ero3',7,6,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2840,'hallway6','hw_ero4',15,20,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2841,'hallway6','hw_ero4',18,20,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2842,'hallway6','hw_ero5',19,20,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2843,'hallway6','hw_ero5',4,1,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2844,'hallway6','hw_ero5',7,7,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2845,'hallway6','hw_painting2',16,1,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2846,'hallway6','hw_painting2',7,1,1,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2847,'hallway6','hw_plant',19,0,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2848,'hallway6','hw_shelf',11,0,1,4,0.001,2,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2849,'hallway6','hw_smtble',12,22,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2850,'hallway6','hw_smtble',17,22,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2851,'hallway6','hw_smtble',9,19,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2852,'hallway6','hw_sofa1',14,0,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2853,'hallway6','hw_sofa1',5,0,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2854,'hallway6','hw_sofa2',15,0,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2855,'hallway6','hw_sofa2',16,0,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2856,'hallway6','hw_sofa2',17,0,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2857,'hallway6','hw_sofa2',6,0,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2858,'hallway6','hw_sofa2',7,0,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2859,'hallway6','hw_sofa2',8,0,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2860,'hallway6','hw_sofa3',18,0,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2861,'hallway6','hw_sofa3',9,0,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2862,'hallway6','hw_table1',10,0,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2863,'hallway6','hw_table1',13,0,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2864,'hallway6','hw_table3',10,1,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2865,'hallway6','hw_table3',13,1,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2866,'hallway6','hw_watermatic',4,9,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2867,'hallway6','pillar0',19,14,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2868,'hallway6','pillar0',19,9,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2869,'hallway6','pillar0',9,22,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2870,'hallway6','pillar1',11,16,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2871,'hallway10','hw_chair',0,10,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2872,'hallway10','hw_chair',0,12,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2873,'hallway10','hw_chair',0,16,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2874,'hallway10','hw_chair',0,18,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2875,'hallway10','hw_chair',1,10,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2876,'hallway10','hw_chair',1,12,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2877,'hallway10','hw_chair',1,16,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2878,'hallway10','hw_chair',1,18,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2879,'hallway10','hw_chair',2,10,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2880,'hallway10','hw_chair',2,12,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2881,'hallway10','hw_chair',2,16,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2882,'hallway10','hw_chair',2,18,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2883,'hallway10','hw_ero1',13,4,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2884,'hallway10','hw_ero1',16,12,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2885,'hallway10','hw_ero1',7,22,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2886,'hallway10','hw_ero1',7,8,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2887,'hallway10','hw_ero2',13,5,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2888,'hallway10','hw_ero2',16,13,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2889,'hallway10','hw_ero2',7,12,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2890,'hallway10','hw_ero2',7,15,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2891,'hallway10','hw_ero2',7,9,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2892,'hallway10','hw_ero3',13,6,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2893,'hallway10','hw_ero3',16,14,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2894,'hallway10','hw_ero3',7,10,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2895,'hallway10','hw_ero3',7,13,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2896,'hallway10','hw_ero3',7,16,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2897,'hallway10','hw_ero4',7,11,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2898,'hallway10','hw_ero4',7,14,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2899,'hallway10','hw_ero5',13,7,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2900,'hallway10','hw_ero5',16,15,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2901,'hallway10','hw_ero5',7,17,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2902,'hallway10','hw_ero5',7,23,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2903,'hallway10','hw_painting2',1,14,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2904,'hallway10','hw_smtble',10,10,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2905,'hallway10','hw_smtble',19,8,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2906,'hallway10','hw_sofa1',10,2,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2907,'hallway10','hw_sofa1',15,8,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2908,'hallway10','hw_sofa2',10,3,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2909,'hallway10','hw_sofa2',10,4,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2910,'hallway10','hw_sofa2',10,5,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2911,'hallway10','hw_sofa2',10,6,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2912,'hallway10','hw_sofa2',10,7,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2913,'hallway10','hw_sofa2',10,8,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2914,'hallway10','hw_sofa2',16,8,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2915,'hallway10','hw_sofa2',17,8,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2916,'hallway10','hw_sofa3',10,9,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2917,'hallway10','hw_sofa3',18,8,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2918,'hallway10','hw_table1',0,11,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2919,'hallway10','hw_table1',0,17,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2920,'hallway10','hw_table2',1,11,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2921,'hallway10','hw_table2',1,17,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2922,'hallway10','hw_table3',2,11,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2923,'hallway10','hw_table3',2,17,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2924,'hallway10','hw_watermatic',0,14,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2925,'hallway10','pillar1',10,0,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2926,'hallway10','pillar1',14,16,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2927,'hallway10','pillar1',14,23,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2928,'hallway11','hw_chair',10,18,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2929,'hallway11','hw_chair',12,11,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2930,'hallway11','hw_chair',13,10,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2931,'hallway11','hw_chair',13,12,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2932,'hallway11','hw_chair',13,15,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2933,'hallway11','hw_chair',15,15,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2934,'hallway11','hw_chair',20,10,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2935,'hallway11','hw_chair',20,14,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2936,'hallway11','hw_chair',21,11,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2937,'hallway11','hw_chair',21,13,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2938,'hallway11','hw_chair',21,15,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2939,'hallway11','hw_chair',21,9,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2940,'hallway11','hw_chair',22,10,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2941,'hallway11','hw_chair',22,14,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2942,'hallway11','hw_ero1',10,10,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2943,'hallway11','hw_ero1',12,17,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2944,'hallway11','hw_ero1',15,7,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2945,'hallway11','hw_ero1',20,17,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2946,'hallway11','hw_ero1',4,6,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2947,'hallway11','hw_ero2',10,11,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2948,'hallway11','hw_ero2',13,17,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2949,'hallway11','hw_ero2',16,7,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2950,'hallway11','hw_ero2',21,17,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2951,'hallway11','hw_ero3',10,12,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2952,'hallway11','hw_ero3',14,17,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2953,'hallway11','hw_ero3',17,7,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2954,'hallway11','hw_ero3',22,17,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2955,'hallway11','hw_ero4',18,7,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2956,'hallway11','hw_ero5',10,13,0,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2957,'hallway11','hw_ero5',15,17,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2958,'hallway11','hw_ero5',19,7,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2959,'hallway11','hw_ero5',23,17,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2960,'hallway11','hw_ero5',4,7,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2961,'hallway11','hw_shelf',4,0,1,2,0.001,2,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2962,'hallway11','hw_smtble',13,11,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2963,'hallway11','hw_smtble',14,15,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2964,'hallway11','hw_smtble',21,10,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2965,'hallway11','hw_smtble',21,14,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2966,'hallway11','hw_sofa1',6,0,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2967,'hallway11','hw_sofa2',7,0,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2968,'hallway11','hw_sofa3',8,0,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2969,'hallway11','hw_watermatic',11,18,0,4,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2970,'hallway11','pillar0',10,0,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2971,'hallway11','pillar0',10,7,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2972,'star_lounge','star_table',21,15,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2973,'star_lounge','star_sofa',22,15,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2974,'star_lounge','star_sofa2',23,15,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2975,'star_lounge','palm',24,15,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2976,'star_lounge','star_sofa2',21,16,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2977,'star_lounge','dj1',32,16,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2978,'star_lounge','dj2',33,16,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2979,'star_lounge','dj3',34,16,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2980,'star_lounge','star_sofa',21,17,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2981,'star_lounge','star_microphone',28,17,4,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2982,'star_lounge','star_sofa2',21,18,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2983,'star_lounge','star_sofa',35,18,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2984,'star_lounge','star_sofa',21,19,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2985,'star_lounge','star_sofa2',35,19,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2986,'star_lounge','star_sofa2',21,20,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2987,'star_lounge','star_sofa2',24,20,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2988,'star_lounge','star_sofa',32,20,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2989,'star_lounge','star_sofa',35,20,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2990,'star_lounge','star_sofa',21,21,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2991,'star_lounge','star_sofa',24,21,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2992,'star_lounge','star_sofa2',32,21,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2993,'star_lounge','star_sofa2',35,21,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2994,'star_lounge','star_sofachair',21,22,2,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2995,'star_lounge','star_table',24,22,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2996,'star_lounge','star_sofa2',25,22,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2997,'star_lounge','star_sofa',26,22,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2998,'star_lounge','star_sofa2',30,22,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (2999,'star_lounge','star_sofa',31,22,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3000,'star_lounge','star_table',32,22,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3001,'star_lounge','star_table',35,22,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3002,'star_lounge','palm',21,23,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3003,'star_lounge','star_sofa',35,23,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3004,'star_lounge','bar10',22,24,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3005,'star_lounge','star_sofa2',35,24,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3006,'star_lounge','star_sofa',37,24,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3007,'star_lounge','star_sofa2',38,24,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3008,'star_lounge','star_sofa',39,24,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3009,'star_lounge','star_sofa2',40,24,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3010,'star_lounge','bar9',22,25,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3011,'star_lounge','star_sofa2',25,25,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3012,'star_lounge','star_sofa',26,25,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3013,'star_lounge','star_sofa2',30,25,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3014,'star_lounge','star_sofa',31,25,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3015,'star_lounge','star_sofa',35,25,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3016,'star_lounge','star_sofa2',36,25,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3017,'star_lounge','bar8',22,26,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3018,'star_lounge','palm1',25,26,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3019,'star_lounge','palm3',26,26,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3020,'star_lounge','palm2',30,26,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3021,'star_lounge','palm4',31,26,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3022,'star_lounge','star_sofa2',35,26,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3023,'star_lounge','star_sofa',36,26,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3024,'star_lounge','star_table',39,26,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3025,'star_lounge','star_table',40,26,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3026,'star_lounge','bar7',22,27,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3027,'star_lounge','star_sofa',25,27,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3028,'star_lounge','star_sofa2',26,27,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3029,'star_lounge','star_sofa',30,27,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3030,'star_lounge','star_sofa2',31,27,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3031,'star_lounge','star_table',35,27,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3032,'star_lounge','palm',36,27,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3033,'star_lounge','star_table',37,27,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3034,'star_lounge','bar6',22,28,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3035,'star_lounge','bar5',22,29,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3036,'star_lounge','star_table',25,29,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3037,'star_lounge','star_table',26,29,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3038,'star_lounge','star_table',16,30,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3039,'star_lounge','bar4',22,30,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3040,'star_lounge','star_sofa2',16,31,3,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3041,'star_lounge','bar3',22,31,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3042,'star_lounge','star_sofa2',25,31,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3043,'star_lounge','star_sofa',26,31,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3044,'star_lounge','star_sofa',30,31,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3045,'star_lounge','star_sofa',16,32,3,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3046,'star_lounge','bar2',22,32,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3047,'star_lounge','palm4',25,32,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3048,'star_lounge','palm1',26,32,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3049,'star_lounge','star_sofa2',30,32,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3050,'star_lounge','star_sofa2',16,33,3,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3051,'star_lounge','bar1',22,33,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3052,'star_lounge','star_sofa',25,33,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3053,'star_lounge','star_sofa2',26,33,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3054,'star_lounge','star_sofa',30,33,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3055,'star_lounge','star_sofa',16,34,3,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3056,'star_lounge','star_sofa2',30,34,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3057,'star_lounge','palm3',35,34,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3058,'star_lounge','palm2',36,34,0,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3059,'star_lounge','star_table',16,35,3,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3060,'star_lounge','star_sofa',30,35,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3061,'star_lounge','star_sofa2',30,36,2,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3062,'star_lounge','star_sofachair',25,37,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3063,'star_lounge','star_sofa2',26,37,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3064,'star_lounge','star_sofa',27,37,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3065,'star_lounge','star_sofa2',28,37,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3066,'star_lounge','star_sofa',29,37,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3067,'star_lounge','star_table',30,37,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3068,'orient','bench',17,10,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3069,'orient','bench',17,11,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3070,'orient','bench',17,12,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3071,'orient','bench',17,13,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3072,'orient','bench',17,14,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3073,'orient','bench',17,15,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3074,'orient','bench',17,25,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3075,'orient','bench',17,26,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3076,'orient','bench',17,27,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3077,'orient','bench',17,28,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3078,'orient','bench',17,29,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3079,'orient','bench',19,10,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3080,'orient','bench',19,11,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3081,'orient','bench',19,12,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3082,'orient','bench',19,14,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3083,'orient','bench',19,15,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3084,'orient','bench',19,25,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3085,'orient','bench',19,26,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3086,'orient','bench',19,27,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3087,'orient','bench',19,28,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3088,'orient','bench',19,29,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3089,'orient','bench',21,10,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3090,'orient','bench',21,11,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3091,'orient','bench',21,12,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3092,'orient','bench',21,13,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3093,'orient','bench',21,14,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3094,'orient','bench',21,15,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3095,'orient','bench',21,25,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3096,'orient','bench',21,26,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3097,'orient','bench',21,27,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3098,'orient','bench',21,28,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3099,'orient','bench',21,29,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3100,'orient','bench',23,10,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3101,'orient','bench',23,11,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3102,'orient','bench',23,12,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3103,'orient','bench',23,13,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3104,'orient','bench',23,14,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3105,'orient','bench',23,15,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3106,'orient','bench',23,25,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3107,'orient','bench',23,26,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3108,'orient','bench',23,27,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3109,'orient','bench',23,28,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3110,'orient','bench',23,29,9,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3111,'orient','chairf1',25,24,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3112,'orient','chairf1',25,25,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3113,'orient','chairf1',25,26,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3114,'orient','chairf1',33,24,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3115,'orient','chairf1',33,25,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3116,'orient','chairf1',33,26,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3117,'orient','koc_chair',25,13,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3118,'orient','koc_chair',25,15,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3119,'orient','koc_chair',26,14,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3120,'orient','koc_chair',29,15,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3121,'orient','koc_chair',30,16,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3122,'orient','koc_chair',31,12,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3123,'orient','koc_chair',31,15,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3124,'orient','koc_chair',32,11,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3125,'orient','koc_chair',32,13,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3126,'orient','koc_chair',33,12,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3127,'orient','koc_table',25,14,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3128,'orient','koc_table',30,15,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3129,'orient','koc_table',32,12,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3130,'entryhall','splashkiosk',11,11,1,0,0.001,3,3,'invisible,solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3131,'entryhall','gl_sofatable',7,16,1,0,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3132,'entryhall','gl_sofatable',5,1,1,4,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3133,'entryhall','gl_sofatable',16,1,1,4,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3134,'entryhall','gl_sofatable',14,14,1,4,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3135,'entryhall','gl_sofatable',1,19,1,0,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3136,'entryhall','gl_yukka',15,6,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3137,'entryhall','gl_yukka',7,7,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3138,'entryhall','gl_chair',6,1,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3139,'entryhall','gl_chair',4,1,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3140,'entryhall','gl_chair',17,1,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3141,'entryhall','gl_chair',18,1,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3142,'entryhall','gl_chair',14,11,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3143,'entryhall','gl_chair',14,12,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3144,'entryhall','gl_chair',14,13,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3145,'entryhall','gl_chair',13,14,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3146,'entryhall','gl_chair',12,14,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3147,'entryhall','gl_chair',11,14,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3148,'entryhall','gl_sofaa',1,16,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3149,'entryhall','gl_sofab',1,17,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3150,'entryhall','gl_sofac',1,18,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3151,'entryhall','gl_sofaa',1,10,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3152,'entryhall','gl_sofab',1,11,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3153,'entryhall','gl_sofac',1,12,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3154,'entryhall','gl_sofaa',7,13,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3155,'entryhall','gl_sofab',7,14,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3156,'entryhall','gl_sofac',7,15,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3157,'entryhall','gl_sofaa',7,8,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3158,'entryhall','gl_sofab',7,9,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3159,'entryhall','gl_sofac',7,10,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3160,'entryhall','gl_sofaa',8,7,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3161,'entryhall','gl_sofab',9,7,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3162,'entryhall','gl_sofac',10,7,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3163,'entryhall','gl_sofaa',13,7,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3164,'entryhall','gl_sofab',14,7,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3165,'entryhall','gl_sofac',15,7,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3166,'entryhall','gl_table',7,12,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3167,'entryhall','gl_tablea',7,11,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3168,'entryhall','gl_tablea',11,7,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3169,'entryhall','gl_table',12,7,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3170,'hallA','gamehall_chair_wood',15,4,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3171,'hallA','gamehall_chair_wood',15,5,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3172,'hallA','gamehall_chair_wood',15,9,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3173,'hallA','gamehall_chair_wood',15,10,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3174,'hallA','gamehall_chair_wood',15,14,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3175,'hallA','gamehall_chair_wood',15,15,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3176,'hallA','gamehall_chair_wood',10,4,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3177,'hallA','gamehall_chair_wood',10,5,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3178,'hallA','gamehall_chair_wood',10,9,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3179,'hallA','gamehall_chair_wood',10,10,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3180,'hallA','gamehall_chair_wood',10,14,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3181,'hallA','gamehall_chair_wood',10,15,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3182,'hallA','gamehall_chair_wood',5,4,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3183,'hallA','gamehall_chair_wood',5,5,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3184,'hallA','gamehall_chair_wood',5,9,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3185,'hallA','gamehall_chair_wood',5,10,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3186,'hallA','gamehall_chair_wood',5,14,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3187,'hallA','gamehall_chair_wood',5,15,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3188,'hallA','table_xoxa',14,5,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3189,'hallA','table_xoxa',14,10,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3190,'hallA','table_xoxa',14,15,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3191,'hallA','table_xoxa',9,5,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3192,'hallA','table_xoxa',9,10,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3193,'hallA','table_xoxa',9,15,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3194,'hallA','table_xoxa',4,5,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3195,'hallA','table_xoxa',4,10,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3196,'hallA','table_xoxa',4,15,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3197,'hallA','table_xoxb',14,14,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3198,'hallA','table_xoxb',14,9,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3199,'hallA','table_xoxb',14,4,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3200,'hallA','table_xoxb',9,14,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3201,'hallA','table_xoxb',9,9,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3202,'hallA','table_xoxb',9,4,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3203,'hallA','table_xoxb',4,14,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3204,'hallA','table_xoxb',4,9,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3205,'hallA','table_xoxb',4,4,1,6,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3206,'hallB','gamehall_chair_green',2,4,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3207,'hallB','gamehall_chair_green',2,10,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3208,'hallB','gamehall_chair_green',2,16,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3209,'hallB','gamehall_chair_green',2,6,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3210,'hallB','gamehall_chair_green',2,12,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3211,'hallB','gamehall_chair_green',2,18,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3212,'hallB','gamehall_chair_green',6,3,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3213,'hallB','gamehall_chair_green',8,3,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3214,'hallB','gamehall_chair_green',13,3,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3215,'hallB','gamehall_chair_green',15,3,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3216,'hallB','table_battleships',2,5,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3217,'hallB','table_battleships',2,11,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3218,'hallB','table_battleships',2,17,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3219,'hallB','table_battleships',7,3,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3220,'hallB','table_battleships',14,3,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3221,'hallC','table_chess_king',12,13,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3222,'hallC','table_chess',13,6,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3223,'hallC','table_chess',2,8,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3224,'hallC','table_chess',5,14,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3225,'hallC','table_chess',8,3,1,2,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3226,'hallC','chess_king_chair',12,14,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3227,'hallC','chess_king_chair',12,12,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3228,'hallC','gamehall_chair_green',13,7,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3229,'hallC','gamehall_chair_green',13,5,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3230,'hallC','gamehall_chair_green',2,9,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3231,'hallC','gamehall_chair_green',2,7,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3232,'hallC','gamehall_chair_green',4,14,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3233,'hallC','gamehall_chair_green',6,14,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3234,'hallC','gamehall_chair_green',7,3,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3235,'hallC','gamehall_chair_green',9,3,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3236,'hallD','cardtableb',2,15,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3237,'hallD','cardtableb',8,3,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3238,'hallD','cardtableb',14,3,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3239,'hallD','cardtablea',2,9,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3240,'hallD','cardtablea',8,9,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3241,'hallD','cardtablea',14,9,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3242,'hallD','cardtablea',8,15,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3243,'hallD','cardtablea',14,15,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3244,'hallD','gamehall_chair_green',8,4,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3245,'hallD','gamehall_chair_green',14,4,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3246,'hallD','gamehall_chair_green',2,10,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3247,'hallD','gamehall_chair_green',8,10,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3248,'hallD','gamehall_chair_green',14,10,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3249,'hallD','gamehall_chair_green',2,16,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3250,'hallD','gamehall_chair_green',8,16,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3251,'hallD','gamehall_chair_green',14,16,1,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3252,'hallD','gamehall_chair_green',7,3,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3253,'hallD','gamehall_chair_green',13,3,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3254,'hallD','gamehall_chair_green',1,9,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3255,'hallD','gamehall_chair_green',7,9,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3256,'hallD','gamehall_chair_green',13,9,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3257,'hallD','gamehall_chair_green',1,15,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3258,'hallD','gamehall_chair_green',7,15,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3259,'hallD','gamehall_chair_green',13,15,1,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3260,'hallD','gamehall_chair_green',8,2,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3261,'hallD','gamehall_chair_green',14,2,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3262,'hallD','gamehall_chair_green',2,8,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3263,'hallD','gamehall_chair_green',8,8,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3264,'hallD','gamehall_chair_green',14,8,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3265,'hallD','gamehall_chair_green',2,14,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3266,'hallD','gamehall_chair_green',8,14,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3267,'hallD','gamehall_chair_green',14,14,1,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3268,'hallD','gamehall_chair_green',9,3,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3269,'hallD','gamehall_chair_green',15,3,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3270,'hallD','gamehall_chair_green',3,9,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3271,'hallD','gamehall_chair_green',9,9,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3272,'hallD','gamehall_chair_green',15,9,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3273,'hallD','gamehall_chair_green',3,15,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3274,'hallD','gamehall_chair_green',9,15,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3275,'hallD','gamehall_chair_green',15,15,1,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3276,'md_a','poolEnter',11,11,7,2,0.001,1,1,'can_stand_on_top,invisible','Splash0','12 11 4 2','13 11 4 2');
+INSERT INTO `public_items` VALUES (3277,'md_a','poolExit',12,11,4,6,0.001,1,1,'can_stand_on_top,invisible','Splash0','11 11 4 6','10 11 4 6');
+INSERT INTO `public_items` VALUES (3278,'hallD','streetlight',0,9,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3279,'hallD','streetlight',0,15,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3280,'hallD','streetlight',8,1,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3281,'hallD','streetlight',14,1,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3282,'pub_a','bar_gate',9,9,2,0,0.001,1,1,'solid,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3283,'bar_b','djtable',16,22,4,0,0.001,1,2,'solid,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3284,'library','invisible_table',28,28,1,0,0.001,2,2,'solid,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3285,'tearoom','invisible_table',2,7,3,0,0.002,2,2,'solid,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3286,'tearoom','invisible_table',2,13,3,0,0.002,2,2,'solid,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3287,'tearoom','invisible_table',16,10,3,0,0.002,2,2,'solid,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3288,'tearoom','invisible_table',19,3,3,0,0.002,1,1,'solid,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3289,'tearoom','invisible_table',14,3,3,0,0.002,1,1,'solid,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3290,'cr_staff','invisible_table',6,8,1,0,0.001,3,6,'solid,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3291,'sport','invisible_barrier',11,14,1,0,0.002,1,4,'solid,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3292,'cafe_ole','invisible_table',4,17,1,0,0.002,2,3,'solid,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3293,'cafe_ole','invisible_table',12,16,1,0,0.002,2,3,'solid,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3294,'cafe_ole','invisible_table',15,1,1,0,0.002,2,3,'solid,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3295,'cafe_ole','invisible_table',9,5,1,0,0.002,2,2,'solid,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3296,'malja_bar_a','invisible_table',6,3,4,0,0.002,2,2,'solid,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3297,'malja_bar_a','invisible_table',7,14,1,0,0.002,2,2,'solid,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3298,'malja_bar_a','invisible_table',13,15,1,0,0.002,2,2,'solid,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3299,'malja_bar_a','invisible_table',1,16,1,0,0.002,2,2,'solid,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3300,'malja_bar_b','invisible_table',4,1,3,0,0.002,2,2,'solid,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3301,'malja_bar_b','invisible_table',2,17,3,0,0.002,2,2,'solid,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3302,'pizza','invisible_table',1,17,1,0,0.002,2,2,'solid,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3303,'pizza','invisible_table',1,9,1,0,0.002,2,2,'solid,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3304,'pizza','invisible_table',12,21,1,0,0.002,2,2,'solid,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3305,'pizza','invisible_table',14,4,0,0,0.002,2,2,'solid,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3306,'pizza','invisible_table',14,11,0,0,0.002,2,2,'solid,invisible','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3307,'md_a','wsJoinQueue',21,19,4,0,0.002,1,1,'invisible,can_stand_on_top','21,18,0',NULL,NULL);
+INSERT INTO `public_items` VALUES (3308,'md_a','wsJoinQueue',21,7,4,0,0.002,1,1,'invisible,can_stand_on_top','21,8,4',NULL,NULL);
+INSERT INTO `public_items` VALUES (3309,'md_a','wsQueueTile',21,18,8,0,0.002,1,1,'invisible,can_stand_on_top','21,18',NULL,NULL);
+INSERT INTO `public_items` VALUES (3310,'md_a','wsQueueTile',21,17,8,0,0.002,1,1,'invisible,can_stand_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3311,'md_a','wsQueueTile',21,16,8,0,0.002,1,1,'invisible,can_stand_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3312,'md_a','wsQueueTile',21,8,8,0,0.002,1,1,'invisible,can_stand_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3313,'md_a','wsQueueTile',21,9,8,0,0.002,1,1,'invisible,can_stand_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3314,'md_a','wsQueueTile',21,10,8,0,0.002,1,1,'invisible,can_stand_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3315,'hallway2','hw_chair',17,18,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3316,'gate_park','gate_drumchair',13,15,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3317,'emperors','invisichair',12,7,4,4,1,1,1,'invisible,can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3318,'emperors','emperors_pillar',5,10,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3319,'emperors','emperors_pillar',19,10,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3320,'emperors','emperors_chair1',5,14,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3321,'emperors','emperors_chair2',6,14,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3322,'emperors','emperors_chair2',7,14,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3323,'emperors','emperors_chair3',8,14,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3324,'emperors','emperors_chair1',16,14,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3325,'emperors','emperors_chair2',17,14,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3326,'emperors','emperors_chair2',18,14,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3327,'emperors','emperors_chair3',19,14,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3328,'emperors','emperors_chair1',5,15,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3329,'emperors','emperors_chair2',6,15,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3330,'emperors','emperors_chair2',7,15,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3331,'emperors','emperors_chair3',8,15,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3332,'emperors','emperors_chair1',16,15,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3333,'emperors','emperors_chair2',17,15,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3334,'emperors','emperors_chair2',18,15,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3335,'emperors','emperors_chair3',19,15,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3336,'emperors','emperors_chair1',5,18,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3337,'emperors','emperors_chair2',6,18,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3338,'emperors','emperors_chair2',7,18,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3339,'emperors','emperors_chair3',8,18,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3340,'emperors','emperors_chair1',16,18,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3341,'emperors','emperors_chair2',17,18,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3342,'emperors','emperors_chair2',18,18,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3343,'emperors','emperors_chair3',19,18,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3344,'emperors','emperors_pillar',5,19,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3345,'emperors','emperors_pillar2',8,19,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3346,'emperors','emperors_pillar2',16,19,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3347,'emperors','emperors_pillar',19,19,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3348,'emperors','emperors_chair1',5,20,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3349,'emperors','emperors_chair2',6,20,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3350,'emperors','emperors_chair2',7,20,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3351,'emperors','emperors_chair3',8,20,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3352,'emperors','emperors_chair1',16,20,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3353,'emperors','emperors_chair2',17,20,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3354,'emperors','emperors_chair2',18,20,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3355,'emperors','emperors_chair3',19,20,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3356,'emperors','emperors_chair1',5,23,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3357,'emperors','emperors_chair2',6,23,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3358,'emperors','emperors_chair2',7,23,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3359,'emperors','emperors_chair3',8,23,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3360,'emperors','emperors_chair1',16,23,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3361,'emperors','emperors_chair2',17,23,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3362,'emperors','emperors_chair2',18,23,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3363,'emperors','emperors_chair3',19,23,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3364,'emperors','emperors_chair1',5,24,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3365,'emperors','emperors_chair2',6,24,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3366,'emperors','emperors_chair2',7,24,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3367,'emperors','emperors_chair3',8,24,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3368,'emperors','emperors_chair1',16,24,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3369,'emperors','emperors_chair2',17,24,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3370,'emperors','emperors_chair2',18,24,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3371,'emperors','emperors_chair3',19,24,2,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3372,'emperors','emperors_chair1',5,27,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3373,'emperors','emperors_chair2',6,27,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3374,'emperors','emperors_chair2',7,27,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3375,'emperors','emperors_chair3',8,27,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3376,'emperors','emperors_chair1',16,27,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3377,'emperors','emperors_chair2',17,27,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3378,'emperors','emperors_chair2',18,27,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3379,'emperors','emperors_chair3',19,27,2,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3380,'emperors','emperors_pillar',5,28,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3381,'emperors','emperors_pillar',8,28,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3382,'emperors','emperors_pillar',16,28,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3383,'emperors','emperors_pillar',19,28,2,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3384,'beauty_salon1','pinkchair',12,5,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3385,'beauty_salon1','smallchair',17,5,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3386,'beauty_salon1','smallchair',18,5,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3387,'beauty_salon1','smallchair',19,5,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3388,'beauty_salon1','longchair1',4,8,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3389,'beauty_salon1','longchair2',5,8,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3390,'beauty_salon1','longchair2',6,8,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3391,'beauty_salon1','longchair2',7,8,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3392,'beauty_salon1','longchair3',8,8,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3393,'beauty_salon1','longchair1',11,8,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3394,'beauty_salon1','longchair2',12,8,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3395,'beauty_salon1','longchair2',13,8,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3396,'beauty_salon1','longchair2',14,8,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3397,'beauty_salon1','longchair3',15,8,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3398,'beauty_salon1','longchair1',4,10,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3399,'beauty_salon1','longchair2',5,10,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3400,'beauty_salon1','longchair2',6,10,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3401,'beauty_salon1','longchair2',7,10,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3402,'beauty_salon1','longchair3',8,10,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3403,'beauty_salon1','longchair1',11,10,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3404,'beauty_salon1','longchair2',12,10,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3405,'beauty_salon1','longchair2',13,10,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3406,'beauty_salon1','longchair2',14,10,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3407,'beauty_salon1','longchair3',15,10,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3408,'beauty_salon1','longchair1',17,13,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3409,'beauty_salon1','longchair1',19,13,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3410,'beauty_salon1','longchair2',17,14,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3411,'beauty_salon1','longchair2',19,14,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3412,'beauty_salon1','longchair2',17,15,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3413,'beauty_salon1','longchair2',19,15,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3414,'beauty_salon1','longchair2',17,16,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3415,'beauty_salon1','longchair2',19,16,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3416,'beauty_salon1','longchair3',17,17,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3417,'beauty_salon1','longchair3',19,17,0,6,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3418,'beauty_salon1','longchair1',4,19,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3419,'beauty_salon1','longchair2',5,19,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3420,'beauty_salon1','longchair2',6,19,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3421,'beauty_salon1','longchair2',7,19,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3422,'beauty_salon1','longchair3',8,19,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3423,'beauty_salon1','longchair1',11,19,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3424,'beauty_salon1','longchair2',12,19,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3425,'beauty_salon1','longchair2',13,19,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3426,'beauty_salon1','longchair2',14,19,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3427,'beauty_salon1','longchair3',15,19,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3428,'beauty_salon1','longchair1',4,21,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3429,'beauty_salon1','longchair2',5,21,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3430,'beauty_salon1','longchair2',6,21,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3431,'beauty_salon1','longchair2',7,21,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3432,'beauty_salon1','longchair3',8,21,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3433,'beauty_salon1','longchair1',11,21,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3434,'beauty_salon1','longchair2',12,21,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3435,'beauty_salon1','longchair2',13,21,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3436,'beauty_salon1','longchair2',14,21,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3437,'beauty_salon1','longchair3',15,21,0,0,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3438,'ice_cafe','cafe_deskb',1,15,1,0,0.001,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3439,'md_a','wsTileStart',21,15,8,0,0.002,1,1,'invisible,can_stand_on_top','21,11',NULL,NULL);
+INSERT INTO `public_items` VALUES (3440,'md_a','wsTileStart',21,11,8,0,0.002,1,1,'invisible,can_stand_on_top','21,15',NULL,NULL);
+INSERT INTO `public_items` VALUES (3441,'cafe_gold0','ignore',15,3,1,0,1,1,1,'solid,invisible',NULL,NULL,NULL);
+INSERT INTO `public_items` VALUES (3442,'cafe_gold0','ignore',16,3,1,0,1,1,1,'solid,invisible',NULL,NULL,NULL);
+INSERT INTO `public_items` VALUES (3443,'park_a','bench',11,7,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3444,'park_a','bench',9,10,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3445,'park_a','bench',40,14,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3446,'park_a','bench',37,15,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3447,'park_a','bench',30,16,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3448,'park_a','bench',37,17,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3449,'park_a','bench',27,18,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3450,'park_a','bench',28,27,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3451,'park_a','bench',25,29,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3452,'park_a','bench2',10,7,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3453,'park_a','bench2',9,9,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3454,'park_a','bench2',37,14,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3455,'park_a','bench2',39,14,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3456,'park_a','bench2',29,16,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3457,'park_a','bench2',37,16,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3458,'park_a','bench2',27,17,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3459,'park_a','bench2',27,27,0,4,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3460,'park_a','bench2',25,28,0,2,1,1,1,'can_sit_on_top','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3461,'park_a','parkfence1',21,4,0,0,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3462,'park_a','parkfence1',29,4,0,2,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3463,'park_a','parkfence1',19,9,0,4,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3464,'park_a','parkfence1',31,9,0,6,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3465,'park_a','parkfence2',29,3,0,0,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3466,'park_a','parkfence2',31,3,0,0,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3467,'park_a','parkfence2',25,4,0,4,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3468,'park_a','parkfence2',19,5,0,0,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3469,'park_a','parkfence2',23,6,0,0,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3470,'park_a','parkfence2',27,6,0,0,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3471,'park_a','parkfence2',21,7,0,6,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3472,'park_a','parkfence2',25,7,0,6,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3473,'park_a','parkfence2',29,7,0,6,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3474,'park_a','parkfence2',23,9,0,2,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3475,'park_a','parkfence2',27,9,0,2,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3476,'park_a','parkfence3',22,4,0,4,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3477,'park_a','parkfence3',23,4,0,4,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3478,'park_a','parkfence3',24,4,0,4,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3479,'park_a','parkfence3',26,4,0,4,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3480,'park_a','parkfence3',27,4,0,4,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3481,'park_a','parkfence3',28,4,0,4,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3482,'park_a','parkfence3',31,4,0,2,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3483,'park_a','parkfence3',21,5,0,2,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3484,'park_a','parkfence3',25,5,0,2,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3485,'park_a','parkfence3',29,5,0,2,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3486,'park_a','parkfence3',31,5,0,2,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3487,'park_a','parkfence3',19,6,0,2,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3488,'park_a','parkfence3',21,6,0,2,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3489,'park_a','parkfence3',25,6,0,2,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3490,'park_a','parkfence3',29,6,0,2,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3491,'park_a','parkfence3',31,6,0,2,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3492,'park_a','parkfence3',19,7,0,2,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3493,'park_a','parkfence3',23,7,0,2,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3494,'park_a','parkfence3',27,7,0,2,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3495,'park_a','parkfence3',31,7,0,2,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3496,'park_a','parkfence3',19,8,0,2,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3497,'park_a','parkfence3',23,8,0,2,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3498,'park_a','parkfence3',27,8,0,2,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3499,'park_a','parkfence3',31,8,0,2,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3500,'park_a','parkfence3',20,9,0,4,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3501,'park_a','parkfence3',21,9,0,4,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3502,'park_a','parkfence3',22,9,0,4,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3503,'park_a','parkfence3',24,9,0,4,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3504,'park_a','parkfence3',25,9,0,4,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3505,'park_a','parkfence3',26,9,0,4,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3506,'park_a','parkfence3',28,9,0,4,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3507,'park_a','parkfence3',29,9,0,4,1,1,1,'solid','',NULL,NULL);
+INSERT INTO `public_items` VALUES (3508,'park_a','parkfence3',30,9,0,4,1,1,1,'solid','',NULL,NULL);
 /*!40000 ALTER TABLE `public_items` ENABLE KEYS */;
+UNLOCK TABLES;
 
 -- Dumping structure for table kepler.public_roomwalkways
 CREATE TABLE IF NOT EXISTS `public_roomwalkways` (
@@ -6125,8 +6136,14 @@ CREATE TABLE IF NOT EXISTS `recycler_sessions` (
 /*!40000 ALTER TABLE `recycler_sessions` DISABLE KEYS */;
 /*!40000 ALTER TABLE `recycler_sessions` ENABLE KEYS */;
 
--- Dumping structure for table kepler.rooms
-CREATE TABLE IF NOT EXISTS `rooms` (
+--
+-- Table structure for table `rooms`
+--
+
+DROP TABLE IF EXISTS `rooms`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `rooms` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `owner_id` varchar(11) NOT NULL,
   `category` int(11) DEFAULT 2,
@@ -6148,81 +6165,86 @@ CREATE TABLE IF NOT EXISTS `rooms` (
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1002 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci ROW_FORMAT=COMPACT;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- Dumping data for table kepler.rooms: ~69 rows (approximately)
+--
+-- Dumping data for table `rooms`
+--
+
+LOCK TABLES `rooms` WRITE;
 /*!40000 ALTER TABLE `rooms` DISABLE KEYS */;
-INSERT INTO `rooms` (`id`, `owner_id`, `category`, `name`, `description`, `model`, `ccts`, `wallpaper`, `floor`, `showname`, `superusers`, `accesstype`, `password`, `visitors_now`, `visitors_max`, `rating`, `is_hidden`, `created_at`, `updated_at`) VALUES
-	(1, '0', 3, 'Welcome Lounge', 'welcome_lounge', 'newbie_lobby', 'hh_room_nlobby', 0, 0, 0, 0, 0, '', 0, 40, 0, 0, '2018-08-11 07:54:01', '2019-10-16 23:35:48'),
-	(2, '0', 3, 'Theatredome', 'theatredrome', 'theater', 'hh_room_theater', 0, 0, 0, 0, 0, '', 0, 100, 0, 0, '2018-08-11 07:54:01', '2022-07-30 17:42:56'),
-	(3, '0', 3, 'Library', 'library', 'library', 'hh_room_library', 0, 0, 0, 0, 0, '', 0, 30, 0, 0, '2018-08-11 07:54:01', '2019-10-16 23:33:57'),
-	(4, '0', 5, 'TV Studio', 'tv_studio', 'tv_studio', 'hh_room_tv_studio_general', 0, 0, 0, 0, 0, '', 0, 20, 0, 0, '2018-08-11 07:54:01', '2018-08-11 07:54:01'),
-	(5, '0', 5, 'Cinema', 'habbo_cinema', 'cinema_a', 'hh_room_cinema', 0, 0, 0, 0, 0, '', 0, 50, 0, 0, '2018-08-11 07:54:01', '2019-10-16 23:07:00'),
-	(6, '0', 5, 'Power Gym', 'sport', 'sport', 'hh_room_sport', 0, 0, 0, 0, 0, '', 0, 35, 0, 0, '2018-08-11 07:54:01', '2018-08-11 07:54:01'),
-	(7, '0', 5, 'Olympic Stadium', 'ballroom', 'ballroom', 'hh_room_ballroom', 0, 0, 0, 0, 0, '', 0, 50, 0, 0, '2018-08-11 07:54:01', '2018-08-11 07:54:01'),
-	(8, '0', 5, 'Habbo Kitchen', 'hotel_kitchen', 'cr_kitchen', 'hh_room_kitchen', 0, 0, 0, 0, 0, '', 0, 20, 0, 0, '2018-08-11 07:54:01', '2019-10-16 23:07:35'),
-	(9, '0', 6, 'The Dirty Duck Pub', 'the_dirty_duck_pub', 'pub_a', 'hh_room_pub', 0, 0, 0, 0, 0, '', 0, 40, 0, 0, '2018-08-11 07:54:01', '2018-08-11 07:54:01'),
-	(10, '0', 6, 'Cafe Ole', 'cafe_ole', 'cafe_ole', 'hh_room_cafe', 0, 0, 0, 0, 0, '', 0, 35, 0, 0, '2018-08-11 07:54:01', '2018-08-11 07:54:01'),
-	(11, '0', 6, 'Gallery Cafe', 'eric\'s_eaterie', 'cr_cafe', 'hh_room_erics', 0, 0, 0, 0, 0, '', 0, 35, 0, 0, '2018-08-11 07:54:01', '2018-08-11 07:54:01'),
-	(12, '0', 6, 'Space Cafe', 'space_cafe', 'space_cafe', 'hh_room_space_cafe', 0, 0, 0, 0, 0, '', 0, 35, 0, 0, '2018-08-11 07:54:01', '2018-08-11 07:54:01'),
-	(13, '0', 7, 'Rooftop Terrace', 'rooftop', 'rooftop', 'hh_room_rooftop', 0, 0, 0, 0, 0, '', 0, 30, 0, 0, '2018-08-11 07:54:01', '2018-08-11 07:54:01'),
-	(14, '0', 7, 'Rooftop Cafe', 'rooftop', 'rooftop_2', 'hh_room_rooftop', 0, 0, 0, 0, 0, '', 0, 20, 0, 1, '2018-08-11 07:54:01', '2021-11-03 08:46:46'),
-	(15, '0', 6, 'Palazzo Pizza', 'pizza', 'pizza', 'hh_room_pizza', 0, 0, 0, 0, 0, '', 0, 40, 0, 0, '2018-08-11 07:54:01', '2018-08-11 07:54:01'),
-	(16, '0', 6, 'Habburgers', 'habburger\'s', 'habburger', 'hh_room_habburger', 0, 0, 0, 0, 0, '', 0, 40, 0, 0, '2018-08-11 07:54:01', '2018-08-11 07:54:01'),
-	(17, '0', 8, 'Grandfathers Lounge', 'dusty_lounge', 'dusty_lounge', 'hh_room_dustylounge', 0, 0, 0, 0, 0, '', 0, 45, 0, 0, '2018-08-11 07:54:01', '2018-08-11 07:54:01'),
-	(18, '0', 7, 'Oriental Tearoom', 'tearoom', 'tearoom', 'hh_room_tearoom', 0, 0, 0, 0, 0, '', 0, 40, 0, 0, '2018-08-11 07:54:01', '2018-08-11 07:54:01'),
-	(19, '0', 7, 'Oldskool Lounge', 'old_skool', 'old_skool0', 'hh_room_old_skool', 0, 0, 0, 0, 0, '', 0, 45, 0, 0, '2018-08-11 07:54:01', '2018-08-11 07:54:01'),
-	(20, '0', 7, 'Oldskool Dancefloor', 'old_skool', 'old_skool1', 'hh_room_old_skool', 0, 0, 0, 0, 0, '', 0, 45, 0, 1, '2018-08-11 07:54:01', '2021-11-03 08:46:46'),
-	(21, '0', 7, 'The Chromide Club', 'the_chromide_club', 'malja_bar_a', 'hh_room_disco', 0, 0, 0, 0, 0, '', 0, 45, 0, 0, '2018-08-11 07:54:01', '2018-08-11 07:54:01'),
-	(22, '0', 7, 'The Chromide Club II', 'the_chromide_club', 'malja_bar_b', 'hh_room_disco', 0, 0, 0, 0, 0, '', 0, 50, 0, 1, '2018-08-11 07:54:01', '2021-11-03 08:46:46'),
-	(23, '0', 7, 'Club Massiva', 'club_massiva', 'bar_a', 'hh_room_bar', 0, 0, 0, 0, 0, '', 0, 45, 0, 0, '2018-08-11 07:54:01', '2018-08-11 07:54:01'),
-	(24, '0', 7, 'Club Massiva II', 'club_massiva2', 'bar_b', 'hh_room_bar', 0, 0, 0, 0, 0, '', 0, 70, 0, 1, '2018-08-11 07:54:01', '2021-11-03 08:46:46'),
-	(25, '0', 6, 'Sunset Cafe', 'sunset_cafe', 'sunset_cafe', 'hh_room_sunsetcafe', 0, 0, 0, 0, 0, '', 0, 35, 0, 0, '2018-08-11 07:54:01', '2018-08-11 07:54:01'),
-	(26, '0', 7, 'Oasis Spa', 'cafe_gold', 'cafe_gold0', 'hh_room_gold', 0, 0, 0, 0, 0, '', 0, 50, 0, 0, '2018-08-11 07:54:01', '2018-08-11 07:54:01'),
-	(27, '0', 9, 'Treehugger Garden', 'chill', 'chill', 'hh_room_chill', 0, 0, 0, 0, 0, '', 0, 30, 0, 0, '2018-08-11 07:54:01', '2019-12-05 01:05:25'),
-	(28, '0', 8, 'Club Mammoth', 'club_mammoth', 'club_mammoth', 'hh_room_clubmammoth', 0, 0, 0, 0, 0, '', 0, 45, 0, 0, '2018-08-11 07:54:01', '2018-08-11 07:54:01'),
-	(29, '0', 9, 'Floating Garden', 'floatinggarden', 'floatinggarden', 'hh_room_floatinggarden', 0, 0, 0, 0, 0, '', 0, 80, 0, 0, '2018-08-11 07:54:01', '2018-08-11 07:54:01'),
-	(30, '0', 9, 'Picnic Fields', 'picnic', 'picnic', 'hh_room_picnic', 0, 0, 0, 0, 0, '', 0, 55, 0, 0, '2018-08-11 07:54:01', '2022-07-30 17:53:36'),
-	(31, '0', 9, 'Sun Terrace', 'sun_terrace', 'sun_terrace', 'hh_room_sun_terrace', 0, 0, 0, 0, 0, '', 0, 50, 0, 0, '2018-08-11 07:54:01', '2019-10-16 23:21:54'),
-	(32, '0', 9, 'Peaceful Park', 'gate_park', 'gate_park', 'hh_room_gate_park', 0, 0, 0, 0, 0, '', 0, 50, 0, 0, '2018-08-11 07:54:01', '2018-11-17 00:14:57'),
-	(33, '0', 9, 'Peaceful Park B', 'gate_park', 'gate_park_2', 'hh_room_gate_park', 0, 0, 0, 0, 0, '', 0, 50, 0, 1, '2018-08-11 07:54:01', '2021-11-03 08:46:46'),
-	(34, '0', 9, 'Infobus Park', 'park', 'park_a', 'hh_room_park_general,hh_room_park,hh_fishing,hh_challenges', 0, 0, 0, 0, 0, '', 0, 45, 0, 0, '2018-08-11 07:54:01', '2022-07-30 18:13:04'),
-	(35, '0', 9, 'The Infobus', 'park', 'park_b', 'hh_room_park_general,hh_room_park', 0, 0, 0, 0, 0, '', 0, 20, 0, 1, '2018-08-11 07:54:01', '2021-11-03 08:46:46'),
-	(36, '0', 10, 'Habbo Lido', 'habbo_lido', 'pool_a', 'hh_room_pool,hh_people_pool', 0, 0, 0, 0, 0, '', 0, 60, 0, 0, '2018-08-11 07:54:01', '2022-07-30 17:52:36'),
-	(37, '0', 10, 'Lido B', 'habbo_lido_ii', 'pool_b', 'hh_room_pool,hh_people_pool', 0, 0, 0, 0, 0, '', 0, 60, 0, 1, '2018-08-11 07:54:01', '2021-12-06 20:56:02'),
-	(38, '0', 10, 'Rooftop Rumble', 'rooftop_rumble', 'md_a', 'hh_room_terrace,hh_paalu,hh_people_pool,hh_people_paalu', 0, 0, 0, 0, 0, '', 0, 50, 0, 0, '2018-08-11 07:54:01', '2021-12-06 21:00:22'),
-	(39, '0', 11, 'Main Lobby', 'main_lobby', 'lobby_a', 'hh_room_lobby', 0, 0, 0, 0, 0, '', 0, 100, 0, 0, '2018-08-11 07:54:01', '2018-08-11 07:54:01'),
-	(40, '0', 11, 'Basement Lobby', 'basement_lobby', 'floorlobby_a', 'hh_room_floorlobbies', 0, 0, 0, 0, 0, '', 0, 50, 0, 0, '2018-08-11 07:54:01', '2018-08-11 07:54:01'),
-	(41, '0', 11, 'Median Lobby', 'median_lobby', 'floorlobby_b', 'hh_room_floorlobbies', 0, 0, 0, 0, 0, '', 0, 50, 0, 0, '2018-08-11 07:54:01', '2019-10-16 23:06:33'),
-	(42, '0', 11, 'Skylight Lobby', 'skylight_lobby', 'floorlobby_c', 'hh_room_floorlobbies', 0, 0, 0, 0, 0, '', 0, 50, 0, 0, '2018-08-11 07:54:01', '2019-10-16 23:06:42'),
-	(43, '0', 6, 'Ice Cafe', 'ice_cafe', 'ice_cafe', 'hh_room_icecafe', 0, 0, 0, 0, 0, '', 0, 25, 0, 0, '2018-08-11 07:54:01', '2018-08-11 07:54:01'),
-	(44, '0', 6, 'Net Cafe', 'netcafe', 'netcafe', 'hh_room_netcafe', 0, 0, 0, 0, 0, '', 0, 25, 0, 0, '2018-08-11 07:54:01', '2018-08-11 07:54:01'),
-	(45, '0', 5, 'Beauty Salon', 'beauty_salon_loreal', 'beauty_salon0', 'hh_room_beauty_salon_general', 0, 0, 0, 0, 0, '', 0, 25, 0, 0, '2018-08-11 07:54:01', '2019-10-16 23:07:26'),
-	(46, '0', 5, 'The Den', 'the_den', 'cr_staff', 'hh_room_den', 0, 0, 0, 0, 0, '', 0, 100, 0, 0, '2018-08-11 07:54:01', '2018-08-11 07:54:01'),
-	(47, '0', 12, 'Lower Hallways', 'hallway', 'hallway2', 'hh_room_hallway', 0, 0, 1, 0, 0, '', 0, 25, 0, 0, '2018-08-11 07:54:01', '2018-08-11 07:54:01'),
-	(48, '0', 12, 'Lower Hallways I', 'hallway', 'hallway0', 'hh_room_hallway', 0, 0, 1, 0, 0, '', 0, 25, 0, 1, '2018-08-11 07:54:01', '2021-11-03 08:46:46'),
-	(49, '0', 12, 'Lower Hallways II', 'hallway', 'hallway1', 'hh_room_hallway', 0, 0, 1, 0, 0, '', 0, 25, 0, 1, '2018-08-11 07:54:01', '2021-11-03 08:46:46'),
-	(50, '0', 12, 'Lower Hallways III', 'hallway', 'hallway3', 'hh_room_hallway', 0, 0, 1, 0, 0, '', 0, 25, 0, 1, '2018-08-11 07:54:01', '2021-11-03 08:46:46'),
-	(51, '0', 12, 'Lower Hallways IV', 'hallway', 'hallway5', 'hh_room_hallway', 0, 0, 1, 0, 0, '', 0, 25, 0, 1, '2018-08-11 07:54:01', '2021-11-03 08:46:46'),
-	(52, '0', 12, 'Lower Hallways V', 'hallway', 'hallway4', 'hh_room_hallway', 0, 0, 1, 0, 0, '', 0, 25, 0, 1, '2018-08-11 07:54:01', '2021-11-03 08:46:46'),
-	(53, '0', 12, 'Upper Hallways', 'hallway_ii', 'hallway9', 'hh_room_hallway', 0, 0, 1, 0, 0, '', 0, 25, 0, 0, '2018-08-11 07:54:01', '2018-08-11 07:54:01'),
-	(54, '0', 12, 'Upper Hallways I', 'hallway_ii', 'hallway8', 'hh_room_hallway', 0, 0, 1, 0, 0, '', 0, 25, 0, 1, '2018-08-11 07:54:01', '2021-11-03 08:46:46'),
-	(55, '0', 12, 'Upper Hallways II', 'hallway_ii', 'hallway7', 'hh_room_hallway', 0, 0, 1, 0, 0, '', 0, 25, 0, 1, '2018-08-11 07:54:01', '2021-11-03 08:46:46'),
-	(56, '0', 12, 'Upper Hallways III', 'hallway_ii', 'hallway6', 'hh_room_hallway', 0, 0, 1, 0, 0, '', 0, 25, 0, 1, '2018-08-11 07:54:01', '2021-11-03 08:46:46'),
-	(57, '0', 12, 'Upper Hallways IV', 'hallway_ii', 'hallway10', 'hh_room_hallway', 0, 0, 1, 0, 0, '', 0, 25, 0, 1, '2018-08-11 07:54:01', '2021-11-03 08:46:46'),
-	(58, '0', 12, 'Upper Hallways V', 'hallway_ii', 'hallway11', 'hh_room_hallway', 0, 0, 1, 0, 0, '', 0, 25, 0, 1, '2018-08-11 07:54:01', '2021-11-03 08:46:46'),
-	(59, '0', 7, 'Star Lounge', 'star_lounge', 'star_lounge', 'hh_room_starlounge', 0, 0, 1, 0, 0, '', 0, 35, 0, 0, '2018-08-11 07:54:01', '2019-10-15 20:45:32'),
-	(60, '0', 8, 'Club Orient', 'orient', 'orient', 'hh_room_orient', 0, 0, 1, 0, 0, '', 0, 35, 0, 0, '2018-08-11 07:54:01', '2019-10-16 23:30:17'),
-	(61, '0', 13, 'Cunning Fox Gamehall', 'cunning_fox_gamehall', 'entryhall', 'hh_room_gamehall,hh_games', 0, 0, 1, 0, 0, '', 0, 25, 0, 0, '2018-08-11 07:54:01', '2021-01-23 17:39:36'),
-	(62, '0', 13, 'TicTacToe hall', 'cunning_fox_gamehall/1', 'hallA', 'hh_room_gamehall,hh_games', 0, 0, 1, 0, 0, '', 0, 25, 0, 1, '2018-08-11 07:54:01', '2021-11-03 08:46:46'),
-	(63, '0', 13, 'Battleships hall', 'cunning_fox_gamehall/2', 'hallB', 'hh_room_gamehall,hh_games', 0, 0, 1, 0, 0, '', 0, 25, 0, 1, '2018-08-11 07:54:01', '2021-11-03 08:46:46'),
-	(64, '0', 13, 'Chess hall', 'cunning_fox_gamehall/3', 'hallC', 'hh_room_gamehall,hh_games', 0, 0, 1, 0, 0, '', 0, 25, 0, 1, '2018-08-11 07:54:01', '2021-11-03 08:46:46'),
-	(65, '0', 13, 'Poker hall', 'cunning_fox_gamehall/4', 'hallD', 'hh_room_gamehall,hh_games', 0, 0, 1, 0, 0, '', 0, 25, 0, 1, '2018-08-11 07:54:01', '2021-11-03 08:46:46'),
-	(66, '0', 13, 'Battleball Lobby', 'bb_lobby_beginner_0', 'bb_lobby_1', 'hh_game_bb,hh_game_bb_room,hh_game_bb_ui,hh_gamesys', 0, 0, 1, 0, 0, '', 0, 25, 0, 0, '2018-08-11 07:54:01', '2021-01-23 17:39:26'),
-	(67, '0', 13, 'Snowstorm Lobby', 'sw_lobby_beginner_0', 'snowwar_lobby_1', 'hh_gamesys,hh_game_snowwar,hh_game_snowwar_room,hh_game_snowwar_ui', 0, 0, 1, 0, 0, '', 0, 25, 0, 0, '2018-08-11 07:54:01', '2021-01-23 17:38:51'),
-	(68, '0', 5, 'Imperial Palace', 'emperors', 'emperors', 'hh_room_emperors', 0, 0, 0, 0, 0, '', 0, 30, 0, 0, '2018-08-11 07:54:01', '2022-06-20 22:36:50'),
-	(69, '0', 5, 'Beauty Salon II', 'beauty_salon_loreal', 'beauty_salon1', 'hh_room_beauty_salon_general', 0, 0, 0, 0, 0, '', 0, 25, 0, 1, '2018-08-11 07:54:01', '2022-05-25 22:12:01');
+INSERT INTO `rooms` VALUES (1,'0',3,'Welcome Lounge','welcome_lounge','newbie_lobby','hh_room_nlobby',0,0,0,0,0,'',0,40,0,0,'2018-08-11 07:54:01','2025-10-11 11:05:10');
+INSERT INTO `rooms` VALUES (2,'0',3,'Theatredome','theatredrome','theater','hh_room_theater',0,0,0,0,0,'',0,100,0,0,'2018-08-11 07:54:01','2026-01-13 00:29:57');
+INSERT INTO `rooms` VALUES (3,'0',3,'Library','library','library','hh_room_library',0,0,0,0,0,'',0,30,0,0,'2018-08-11 07:54:01','2019-10-16 23:33:57');
+INSERT INTO `rooms` VALUES (4,'0',5,'TV Studio','tv_studio','tv_studio','hh_room_tv_studio_general',0,0,0,0,0,'',0,20,0,0,'2018-08-11 07:54:01','2018-08-11 07:54:01');
+INSERT INTO `rooms` VALUES (5,'0',5,'Cinema','habbo_cinema','cinema_a','hh_room_cinema',0,0,0,0,0,'',0,50,0,0,'2018-08-11 07:54:01','2019-10-16 23:07:00');
+INSERT INTO `rooms` VALUES (6,'0',5,'Power Gym','sport','sport','hh_room_sport',0,0,0,0,0,'',0,35,0,0,'2018-08-11 07:54:01','2018-08-11 07:54:01');
+INSERT INTO `rooms` VALUES (7,'0',5,'Olympic Stadium','ballroom','ballroom','hh_room_ballroom',0,0,0,0,0,'',0,50,0,0,'2018-08-11 07:54:01','2018-08-11 07:54:01');
+INSERT INTO `rooms` VALUES (8,'0',5,'Habbo Kitchen','hotel_kitchen','cr_kitchen','hh_room_kitchen',0,0,0,0,0,'',0,20,0,0,'2018-08-11 07:54:01','2019-10-16 23:07:35');
+INSERT INTO `rooms` VALUES (9,'0',6,'The Dirty Duck Pub','the_dirty_duck_pub','pub_a','hh_room_pub',0,0,0,0,0,'',0,40,0,0,'2018-08-11 07:54:01','2018-08-11 07:54:01');
+INSERT INTO `rooms` VALUES (10,'0',6,'Cafe Ole','cafe_ole','cafe_ole','hh_room_cafe',0,0,0,0,0,'',0,35,0,0,'2018-08-11 07:54:01','2018-08-11 07:54:01');
+INSERT INTO `rooms` VALUES (11,'0',6,'Gallery Cafe','eric\'s_eaterie','cr_cafe','hh_room_erics',0,0,0,0,0,'',0,35,0,0,'2018-08-11 07:54:01','2018-08-11 07:54:01');
+INSERT INTO `rooms` VALUES (12,'0',6,'Space Cafe','space_cafe','space_cafe','hh_room_space_cafe',0,0,0,0,0,'',0,35,0,0,'2018-08-11 07:54:01','2018-08-11 07:54:01');
+INSERT INTO `rooms` VALUES (13,'0',7,'Rooftop Terrace','rooftop','rooftop','hh_room_rooftop',0,0,0,0,0,'',0,30,0,0,'2018-08-11 07:54:01','2018-08-11 07:54:01');
+INSERT INTO `rooms` VALUES (14,'0',7,'Rooftop Cafe','rooftop','rooftop_2','hh_room_rooftop',0,0,0,0,0,'',0,20,0,1,'2018-08-11 07:54:01','2021-11-03 08:46:46');
+INSERT INTO `rooms` VALUES (15,'0',6,'Palazzo Pizza','pizza','pizza','hh_room_pizza',0,0,0,0,0,'',0,40,0,0,'2018-08-11 07:54:01','2018-08-11 07:54:01');
+INSERT INTO `rooms` VALUES (16,'0',6,'Habburgers','habburger\'s','habburger','hh_room_habburger',0,0,0,0,0,'',0,40,0,0,'2018-08-11 07:54:01','2018-08-11 07:54:01');
+INSERT INTO `rooms` VALUES (17,'0',8,'Grandfathers Lounge','dusty_lounge','dusty_lounge','hh_room_dustylounge',0,0,0,0,0,'',0,45,0,0,'2018-08-11 07:54:01','2018-08-11 07:54:01');
+INSERT INTO `rooms` VALUES (18,'0',7,'Oriental Tearoom','tearoom','tearoom','hh_room_tearoom',0,0,0,0,0,'',0,40,0,0,'2018-08-11 07:54:01','2018-08-11 07:54:01');
+INSERT INTO `rooms` VALUES (19,'0',7,'Oldskool Lounge','old_skool','old_skool0','hh_room_old_skool',0,0,0,0,0,'',0,45,0,0,'2018-08-11 07:54:01','2018-08-11 07:54:01');
+INSERT INTO `rooms` VALUES (20,'0',7,'Oldskool Dancefloor','old_skool','old_skool1','hh_room_old_skool',0,0,0,0,0,'',0,45,0,1,'2018-08-11 07:54:01','2021-11-03 08:46:46');
+INSERT INTO `rooms` VALUES (21,'0',7,'The Chromide Club','the_chromide_club','malja_bar_a','hh_room_disco',0,0,0,0,0,'',0,45,0,0,'2018-08-11 07:54:01','2018-08-11 07:54:01');
+INSERT INTO `rooms` VALUES (22,'0',7,'The Chromide Club II','the_chromide_club','malja_bar_b','hh_room_disco',0,0,0,0,0,'',0,50,0,1,'2018-08-11 07:54:01','2021-11-03 08:46:46');
+INSERT INTO `rooms` VALUES (23,'0',7,'Club Massiva','club_massiva','bar_a','hh_room_bar',0,0,0,0,0,'',0,45,0,0,'2018-08-11 07:54:01','2018-08-11 07:54:01');
+INSERT INTO `rooms` VALUES (24,'0',7,'Club Massiva II','club_massiva2','bar_b','hh_room_bar',0,0,0,0,0,'',0,70,0,1,'2018-08-11 07:54:01','2021-11-03 08:46:46');
+INSERT INTO `rooms` VALUES (25,'0',6,'Sunset Cafe','sunset_cafe','sunset_cafe','hh_room_sunsetcafe',0,0,0,0,0,'',0,35,0,0,'2018-08-11 07:54:01','2018-08-11 07:54:01');
+INSERT INTO `rooms` VALUES (26,'0',7,'Oasis Spa','cafe_gold','cafe_gold0','hh_room_gold',0,0,0,0,0,'',0,50,0,0,'2018-08-11 07:54:01','2018-08-11 07:54:01');
+INSERT INTO `rooms` VALUES (27,'0',9,'Treehugger Garden','chill','chill','hh_room_chill',0,0,0,0,0,'',0,30,0,0,'2018-08-11 07:54:01','2019-12-05 01:05:25');
+INSERT INTO `rooms` VALUES (28,'0',8,'Club Mammoth','club_mammoth','club_mammoth','hh_room_clubmammoth',0,0,0,0,0,'',0,45,0,0,'2018-08-11 07:54:01','2018-08-11 07:54:01');
+INSERT INTO `rooms` VALUES (29,'0',9,'Floating Garden','floatinggarden','floatinggarden','hh_room_floatinggarden',0,0,0,0,0,'',0,80,0,0,'2018-08-11 07:54:01','2018-08-11 07:54:01');
+INSERT INTO `rooms` VALUES (30,'0',9,'Picnic Fields','picnic','picnic','hh_room_picnic',0,0,0,0,0,'',0,55,0,0,'2018-08-11 07:54:01','2022-07-30 17:53:36');
+INSERT INTO `rooms` VALUES (31,'0',9,'Sun Terrace','sun_terrace','sun_terrace','hh_room_sun_terrace',0,0,0,0,0,'',0,50,0,0,'2018-08-11 07:54:01','2019-10-16 23:21:54');
+INSERT INTO `rooms` VALUES (32,'0',9,'Peaceful Park','gate_park','gate_park','hh_room_gate_park',0,0,0,0,0,'',0,50,0,0,'2018-08-11 07:54:01','2018-11-17 00:14:57');
+INSERT INTO `rooms` VALUES (33,'0',9,'Peaceful Park B','gate_park','gate_park_2','hh_room_gate_park',0,0,0,0,0,'',0,50,0,1,'2018-08-11 07:54:01','2021-11-03 08:46:46');
+INSERT INTO `rooms` VALUES (34,'0',9,'Infobus Park','park','park_a','hh_room_park_general,hh_room_park,hh_fishing,hh_challenges',0,0,0,0,0,'',1,45,0,0,'2018-08-11 07:54:01','2026-01-13 00:55:28');
+INSERT INTO `rooms` VALUES (35,'0',9,'The Infobus','park','park_b','hh_room_park_general,hh_room_park',0,0,0,0,0,'',0,20,0,1,'2018-08-11 07:54:01','2021-11-03 08:46:46');
+INSERT INTO `rooms` VALUES (36,'0',10,'Habbo Lido','habbo_lido','pool_a','hh_room_pool,hh_people_pool',0,0,0,0,0,'',0,60,0,0,'2018-08-11 07:54:01','2022-07-30 17:52:36');
+INSERT INTO `rooms` VALUES (37,'0',10,'Lido B','habbo_lido_ii','pool_b','hh_room_pool,hh_people_pool',0,0,0,0,0,'',0,60,0,1,'2018-08-11 07:54:01','2021-12-06 20:56:02');
+INSERT INTO `rooms` VALUES (38,'0',10,'Rooftop Rumble','rooftop_rumble','md_a','hh_room_terrace,hh_paalu,hh_people_pool,hh_people_paalu',0,0,0,0,0,'',0,50,0,0,'2018-08-11 07:54:01','2021-12-06 21:00:22');
+INSERT INTO `rooms` VALUES (39,'0',11,'Main Lobby','main_lobby','lobby_a','hh_room_lobby',0,0,0,0,0,'',0,100,0,0,'2018-08-11 07:54:01','2018-08-11 07:54:01');
+INSERT INTO `rooms` VALUES (40,'0',11,'Basement Lobby','basement_lobby','floorlobby_a','hh_room_floorlobbies',0,0,0,0,0,'',0,50,0,0,'2018-08-11 07:54:01','2018-08-11 07:54:01');
+INSERT INTO `rooms` VALUES (41,'0',11,'Median Lobby','median_lobby','floorlobby_b','hh_room_floorlobbies',0,0,0,0,0,'',0,50,0,0,'2018-08-11 07:54:01','2019-10-16 23:06:33');
+INSERT INTO `rooms` VALUES (42,'0',11,'Skylight Lobby','skylight_lobby','floorlobby_c','hh_room_floorlobbies',0,0,0,0,0,'',0,50,0,0,'2018-08-11 07:54:01','2019-10-16 23:06:42');
+INSERT INTO `rooms` VALUES (43,'0',6,'Ice Cafe','ice_cafe','ice_cafe','hh_room_icecafe',0,0,0,0,0,'',0,25,0,0,'2018-08-11 07:54:01','2018-08-11 07:54:01');
+INSERT INTO `rooms` VALUES (44,'0',6,'Net Cafe','netcafe','netcafe','hh_room_netcafe',0,0,0,0,0,'',0,25,0,0,'2018-08-11 07:54:01','2018-08-11 07:54:01');
+INSERT INTO `rooms` VALUES (45,'0',5,'Beauty Salon','beauty_salon_loreal','beauty_salon0','hh_room_beauty_salon_general',0,0,0,0,0,'',0,25,0,0,'2018-08-11 07:54:01','2019-10-16 23:07:26');
+INSERT INTO `rooms` VALUES (46,'0',5,'The Den','the_den','cr_staff','hh_room_den',0,0,0,0,0,'',0,100,0,0,'2018-08-11 07:54:01','2018-08-11 07:54:01');
+INSERT INTO `rooms` VALUES (47,'0',12,'Lower Hallways','hallway','hallway2','hh_room_hallway',0,0,1,0,0,'',0,25,0,0,'2018-08-11 07:54:01','2018-08-11 07:54:01');
+INSERT INTO `rooms` VALUES (48,'0',12,'Lower Hallways I','hallway','hallway0','hh_room_hallway',0,0,1,0,0,'',0,25,0,1,'2018-08-11 07:54:01','2021-11-03 08:46:46');
+INSERT INTO `rooms` VALUES (49,'0',12,'Lower Hallways II','hallway','hallway1','hh_room_hallway',0,0,1,0,0,'',0,25,0,1,'2018-08-11 07:54:01','2021-11-03 08:46:46');
+INSERT INTO `rooms` VALUES (50,'0',12,'Lower Hallways III','hallway','hallway3','hh_room_hallway',0,0,1,0,0,'',0,25,0,1,'2018-08-11 07:54:01','2021-11-03 08:46:46');
+INSERT INTO `rooms` VALUES (51,'0',12,'Lower Hallways IV','hallway','hallway5','hh_room_hallway',0,0,1,0,0,'',0,25,0,1,'2018-08-11 07:54:01','2021-11-03 08:46:46');
+INSERT INTO `rooms` VALUES (52,'0',12,'Lower Hallways V','hallway','hallway4','hh_room_hallway',0,0,1,0,0,'',0,25,0,1,'2018-08-11 07:54:01','2021-11-03 08:46:46');
+INSERT INTO `rooms` VALUES (53,'0',12,'Upper Hallways','hallway_ii','hallway9','hh_room_hallway',0,0,1,0,0,'',0,25,0,0,'2018-08-11 07:54:01','2018-08-11 07:54:01');
+INSERT INTO `rooms` VALUES (54,'0',12,'Upper Hallways I','hallway_ii','hallway8','hh_room_hallway',0,0,1,0,0,'',0,25,0,1,'2018-08-11 07:54:01','2021-11-03 08:46:46');
+INSERT INTO `rooms` VALUES (55,'0',12,'Upper Hallways II','hallway_ii','hallway7','hh_room_hallway',0,0,1,0,0,'',0,25,0,1,'2018-08-11 07:54:01','2021-11-03 08:46:46');
+INSERT INTO `rooms` VALUES (56,'0',12,'Upper Hallways III','hallway_ii','hallway6','hh_room_hallway',0,0,1,0,0,'',0,25,0,1,'2018-08-11 07:54:01','2021-11-03 08:46:46');
+INSERT INTO `rooms` VALUES (57,'0',12,'Upper Hallways IV','hallway_ii','hallway10','hh_room_hallway',0,0,1,0,0,'',0,25,0,1,'2018-08-11 07:54:01','2021-11-03 08:46:46');
+INSERT INTO `rooms` VALUES (58,'0',12,'Upper Hallways V','hallway_ii','hallway11','hh_room_hallway',0,0,1,0,0,'',0,25,0,1,'2018-08-11 07:54:01','2021-11-03 08:46:46');
+INSERT INTO `rooms` VALUES (59,'0',7,'Star Lounge','star_lounge','star_lounge','hh_room_starlounge',0,0,1,0,0,'',0,35,0,0,'2018-08-11 07:54:01','2019-10-15 20:45:32');
+INSERT INTO `rooms` VALUES (60,'0',8,'Club Orient','orient','orient','hh_room_orient',0,0,1,0,0,'',0,35,0,0,'2018-08-11 07:54:01','2019-10-16 23:30:17');
+INSERT INTO `rooms` VALUES (61,'0',13,'Cunning Fox Gamehall','cunning_fox_gamehall','entryhall','hh_room_gamehall,hh_games',0,0,1,0,0,'',0,25,0,0,'2018-08-11 07:54:01','2021-01-23 17:39:36');
+INSERT INTO `rooms` VALUES (62,'0',13,'TicTacToe hall','cunning_fox_gamehall/1','hallA','hh_room_gamehall,hh_games',0,0,1,0,0,'',0,25,0,1,'2018-08-11 07:54:01','2021-11-03 08:46:46');
+INSERT INTO `rooms` VALUES (63,'0',13,'Battleships hall','cunning_fox_gamehall/2','hallB','hh_room_gamehall,hh_games',0,0,1,0,0,'',0,25,0,1,'2018-08-11 07:54:01','2021-11-03 08:46:46');
+INSERT INTO `rooms` VALUES (64,'0',13,'Chess hall','cunning_fox_gamehall/3','hallC','hh_room_gamehall,hh_games',0,0,1,0,0,'',0,25,0,1,'2018-08-11 07:54:01','2021-11-03 08:46:46');
+INSERT INTO `rooms` VALUES (65,'0',13,'Poker hall','cunning_fox_gamehall/4','hallD','hh_room_gamehall,hh_games',0,0,1,0,0,'',0,25,0,1,'2018-08-11 07:54:01','2021-11-03 08:46:46');
+INSERT INTO `rooms` VALUES (66,'0',13,'Battleball Lobby','bb_lobby_beginner_0','bb_lobby_1','hh_game_bb,hh_game_bb_room,hh_game_bb_ui,hh_gamesys',0,0,1,0,0,'',0,25,0,0,'2018-08-11 07:54:01','2021-01-23 17:39:26');
+INSERT INTO `rooms` VALUES (67,'0',13,'Snowstorm Lobby','sw_lobby_beginner_0','snowwar_lobby_1','hh_gamesys,hh_game_snowwar,hh_game_snowwar_room,hh_game_snowwar_ui',0,0,1,0,0,'',0,25,0,0,'2018-08-11 07:54:01','2021-01-23 17:38:51');
+INSERT INTO `rooms` VALUES (68,'0',5,'Imperial Palace','emperors','emperors','hh_room_emperors',0,0,0,0,0,'',0,30,0,0,'2018-08-11 07:54:01','2022-06-20 22:36:50');
+INSERT INTO `rooms` VALUES (69,'0',5,'Beauty Salon II','beauty_salon_loreal','beauty_salon1','hh_room_beauty_salon_general',0,0,0,0,0,'',0,25,0,1,'2018-08-11 07:54:01','2022-05-25 22:12:01');
 /*!40000 ALTER TABLE `rooms` ENABLE KEYS */;
+UNLOCK TABLES;
 
 -- Dumping structure for table kepler.rooms_bots
 CREATE TABLE IF NOT EXISTS `rooms_bots` (
@@ -6338,8 +6360,14 @@ CREATE TABLE IF NOT EXISTS `rooms_events` (
 /*!40000 ALTER TABLE `rooms_events` DISABLE KEYS */;
 /*!40000 ALTER TABLE `rooms_events` ENABLE KEYS */;
 
--- Dumping structure for table kepler.rooms_models
-CREATE TABLE IF NOT EXISTS `rooms_models` (
+--
+-- Table structure for table `rooms_models`
+--
+
+DROP TABLE IF EXISTS `rooms_models`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `rooms_models` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `model_id` varchar(255) NOT NULL,
   `model_name` varchar(255) DEFAULT NULL,
@@ -6351,103 +6379,108 @@ CREATE TABLE IF NOT EXISTS `rooms_models` (
   `trigger_class` enum('flat_trigger','battleball_lobby_trigger','snowstorm_lobby_trigger','space_cafe_trigger','habbo_lido_trigger','rooftop_rumble_trigger','diving_deck_trigger','infobus_park','infobus_poll','none') NOT NULL DEFAULT 'flat_trigger',
   PRIMARY KEY (`id`),
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- Dumping data for table kepler.rooms_models: ~91 rows (approximately)
+--
+-- Dumping data for table `rooms_models`
+--
+
+LOCK TABLES `rooms_models` WRITE;
 /*!40000 ALTER TABLE `rooms_models` DISABLE KEYS */;
-INSERT INTO `rooms_models` (`id`, `model_id`, `model_name`, `door_x`, `door_y`, `door_z`, `door_dir`, `heightmap`, `trigger_class`) VALUES
-	(1, 'model_a', 'model_a', 3, 5, 0, 2, 'xxxxxxxxxxxx|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxxxxxxxxxx|xxxxxxxxxxxx', 'flat_trigger'),
-	(2, 'model_b', 'model_b', 0, 5, 0, 2, 'xxxxxxxxxxxx|xxxxx0000000|xxxxx0000000|xxxxx0000000|xxxxx0000000|x00000000000|x00000000000|x00000000000|x00000000000|x00000000000|x00000000000|xxxxxxxxxxxx|xxxxxxxxxxxx|xxxxxxxxxxxx|xxxxxxxxxxxx|xxxxxxxxxxxx', 'flat_trigger'),
-	(3, 'model_c', 'model_c', 4, 7, 0, 2, 'xxxxxxxxxxxx|xxxxxxxxxxxx|xxxxxxxxxxxx|xxxxxxxxxxxx|xxxxxxxxxxxx|xxxxx000000x|xxxxx000000x|xxxxx000000x|xxxxx000000x|xxxxx000000x|xxxxx000000x|xxxxxxxxxxxx|xxxxxxxxxxxx|xxxxxxxxxxxx|xxxxxxxxxxxx|xxxxxxxxxxxx', 'flat_trigger'),
-	(4, 'model_d', 'model_d', 4, 7, 0, 2, 'xxxxxxxxxxxx|xxxxx000000x|xxxxx000000x|xxxxx000000x|xxxxx000000x|xxxxx000000x|xxxxx000000x|xxxxx000000x|xxxxx000000x|xxxxx000000x|xxxxx000000x|xxxxx000000x|xxxxx000000x|xxxxx000000x|xxxxx000000x|xxxxxxxxxxxx', 'flat_trigger'),
-	(5, 'model_e', 'model_e', 1, 5, 0, 2, 'xxxxxxxxxxxx|xxxxxxxxxxxx|xxxxxxxxxxxx|xx0000000000|xx0000000000|xx0000000000|xx0000000000|xx0000000000|xx0000000000|xx0000000000|xx0000000000|xxxxxxxxxxxx|xxxxxxxxxxxx|xxxxxxxxxxxx|xxxxxxxxxxxx|xxxxxxxxxxxx', 'flat_trigger'),
-	(6, 'model_f', 'model_f', 2, 5, 0, 2, 'xxxxxxxxxxxx|xxxxxxx0000x|xxxxxxx0000x|xxx00000000x|xxx00000000x|xxx00000000x|xxx00000000x|x0000000000x|x0000000000x|x0000000000x|x0000000000x|xxxxxxxxxxxx|xxxxxxxxxxxx|xxxxxxxxxxxx|xxxxxxxxxxxx|xxxxxxxxxxxx', 'flat_trigger'),
-	(7, 'model_g', 'model_g', 1, 7, 1, 2, 'xxxxxxxxxxxxx|xxxxxxxxxxxxx|xxxxxxx00000x|xxxxxxx00000x|xxxxxxx00000x|xx1111000000x|xx1111000000x|xx1111000000x|xx1111000000x|xx1111000000x|xxxxxxx00000x|xxxxxxx00000x|xxxxxxx00000x|xxxxxxxxxxxxx|xxxxxxxxxxxxx|xxxxxxxxxxxxx|xxxxxxxxxxxxx', 'flat_trigger'),
-	(8, 'model_h', 'model_h', 4, 4, 1, 2, 'xxxxxxxxxxxx|xxxxxxxxxxxx|xxxxx111111x|xxxxx111111x|xxxxx111111x|xxxxx111111x|xxxxx111111x|xxxxx000000x|xxxxx000000x|xxx00000000x|xxx00000000x|xxx00000000x|xxx00000000x|xxxxxxxxxxxx|xxxxxxxxxxxx|xxxxxxxxxxxx', 'flat_trigger'),
-	(9, 'model_i', 'model_i', 0, 10, 0, 2, 'xxxxxxxxxxxxxxxxx|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|xxxxxxxxxxxxxxxxx', 'flat_trigger'),
-	(10, 'model_j', 'model_j', 0, 10, 0, 2, 'xxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxx0000000000|xxxxxxxxxxx0000000000|xxxxxxxxxxx0000000000|xxxxxxxxxxx0000000000|xxxxxxxxxxx0000000000|xxxxxxxxxxx0000000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|x0000000000xxxxxxxxxx|x0000000000xxxxxxxxxx|x0000000000xxxxxxxxxx|x0000000000xxxxxxxxxx|x0000000000xxxxxxxxxx|x0000000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx', 'flat_trigger'),
-	(11, 'model_k', 'model_k', 0, 13, 0, 2, 'xxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx00000000|xxxxxxxxxxxxxxxxx00000000|xxxxxxxxxxxxxxxxx00000000|xxxxxxxxxxxxxxxxx00000000|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|x000000000000000000000000|x000000000000000000000000|x000000000000000000000000|x000000000000000000000000|x000000000000000000000000|x000000000000000000000000|x000000000000000000000000|x000000000000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxxxxxxxxxxxxxxxxxx', 'flat_trigger'),
-	(12, 'model_l', 'model_l', 0, 16, 0, 2, 'xxxxxxxxxxxxxxxxxxxxx|x00000000000000000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|x00000000xxxx00000000|x00000000xxxx00000000|x00000000xxxx00000000|x00000000xxxx00000000|x00000000xxxx00000000|x00000000xxxx00000000|x00000000xxxx00000000|x00000000xxxx00000000|x00000000xxxx00000000|x00000000xxxx00000000|x00000000xxxx00000000|x00000000xxxx00000000|xxxxxxxxxxxxxxxxxxxxx', 'flat_trigger'),
-	(13, 'model_m', 'model_m', 0, 15, 0, 2, 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxx00000000xxxxxxxxxx|xxxxxxxxxxx00000000xxxxxxxxxx|xxxxxxxxxxx00000000xxxxxxxxxx|xxxxxxxxxxx00000000xxxxxxxxxx|xxxxxxxxxxx00000000xxxxxxxxxx|xxxxxxxxxxx00000000xxxxxxxxxx|xxxxxxxxxxx00000000xxxxxxxxxx|xxxxxxxxxxx00000000xxxxxxxxxx|xxxxxxxxxxx00000000xxxxxxxxxx|xxxxxxxxxxx00000000xxxxxxxxxx|x0000000000000000000000000000|x0000000000000000000000000000|x0000000000000000000000000000|x0000000000000000000000000000|x0000000000000000000000000000|x0000000000000000000000000000|x0000000000000000000000000000|x0000000000000000000000000000|xxxxxxxxxxx00000000xxxxxxxxxx|xxxxxxxxxxx00000000xxxxxxxxxx|xxxxxxxxxxx00000000xxxxxxxxxx|xxxxxxxxxxx00000000xxxxxxxxxx|xxxxxxxxxxx00000000xxxxxxxxxx|xxxxxxxxxxx00000000xxxxxxxxxx|xxxxxxxxxxx00000000xxxxxxxxxx|xxxxxxxxxxx00000000xxxxxxxxxx|xxxxxxxxxxx00000000xxxxxxxxxx|xxxxxxxxxxx00000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxx', 'flat_trigger'),
-	(14, 'model_n', 'model_n', 0, 16, 0, 2, 'xxxxxxxxxxxxxxxxxxxxx|x00000000000000000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|x000000xxxxxxxx000000|x000000x000000x000000|x000000x000000x000000|x000000x000000x000000|x000000x000000x000000|x000000x000000x000000|x000000x000000x000000|x000000xxxxxxxx000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|xxxxxxxxxxxxxxxxxxxxx', 'flat_trigger'),
-	(15, 'model_o', 'model_o', 0, 18, 1, 2, 'xxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxx11111111xxxx|xxxxxxxxxxxxx11111111xxxx|xxxxxxxxxxxxx11111111xxxx|xxxxxxxxxxxxx11111111xxxx|xxxxxxxxxxxxx11111111xxxx|xxxxxxxxxxxxx11111111xxxx|xxxxxxxxxxxxx11111111xxxx|xxxxxxxxxxxxx00000000xxxx|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|x111111100000000000000000|x111111100000000000000000|x111111100000000000000000|x111111100000000000000000|x111111100000000000000000|x111111100000000000000000|x111111100000000000000000|x111111100000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxxxxxxxxxxxxxxxxxx', 'flat_trigger'),
-	(16, 'model_p', 'model_p', 0, 23, 2, 2, 'xxxxxxxxxxxxxxxxxxx|xxxxxxx222222222222|xxxxxxx222222222222|xxxxxxx222222222222|xxxxxxx222222222222|xxxxxxx222222222222|xxxxxxx222222222222|xxxxxxx22222222xxxx|xxxxxxx11111111xxxx|x222221111111111111|x222221111111111111|x222221111111111111|x222221111111111111|x222221111111111111|x222221111111111111|x222221111111111111|x222221111111111111|x2222xx11111111xxxx|x2222xx00000000xxxx|x2222xx000000000000|x2222xx000000000000|x2222xx000000000000|x2222xx000000000000|x2222xx000000000000|x2222xx000000000000|xxxxxxxxxxxxxxxxxxx', 'flat_trigger'),
-	(17, 'model_q', 'model_q', 10, 4, 2, 2, 'xxxxxxxxxxxxxxxxxxx|xxxxxxxxxxx22222222|xxxxxxxxxxx22222222|xxxxxxxxxxx22222222|xxxxxxxxxxx22222222|xxxxxxxxxxx22222222|xxxxxxxxxxx22222222|x222222222222222222|x222222222222222222|x222222222222222222|x222222222222222222|x222222222222222222|x222222222222222222|x2222xxxxxxxxxxxxxx|x2222xxxxxxxxxxxxxx|x2222211111xx000000|x222221111110000000|x222221111110000000|x2222211111xx000000|xx22xxx1111xxxxxxxx|xx11xxx1111xxxxxxxx|x1111xx1111xx000000|x1111xx111110000000|x1111xx111110000000|x1111xx1111xx000000|xxxxxxxxxxxxxxxxxxx', 'flat_trigger'),
-	(18, 'model_r', 'model_r', 10, 4, 3, 2, 'xxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxx33333333333333|xxxxxxxxxxx33333333333333|xxxxxxxxxxx33333333333333|xxxxxxxxxxx33333333333333|xxxxxxxxxxx33333333333333|xxxxxxxxxxx33333333333333|xxxxxxx333333333333333333|xxxxxxx333333333333333333|xxxxxxx333333333333333333|xxxxxxx333333333333333333|xxxxxxx333333333333333333|xxxxxxx333333333333333333|x4444433333xxxxxxxxxxxxxx|x4444433333xxxxxxxxxxxxxx|x44444333333222xx000000xx|x44444333333222xx000000xx|xxx44xxxxxxxx22xx000000xx|xxx33xxxxxxxx11xx000000xx|xxx33322222211110000000xx|xxx33322222211110000000xx|xxxxxxxxxxxxxxxxx000000xx|xxxxxxxxxxxxxxxxx000000xx|xxxxxxxxxxxxxxxxx000000xx|xxxxxxxxxxxxxxxxx000000xx|xxxxxxxxxxxxxxxxxxxxxxxxx', 'flat_trigger'),
-	(19, 'newbie_lobby', 'newbie_lobby', 2, 11, 0, 2, 'xxxxxxxxxxxxxxxx000000|xxxxx0xxxxxxxxxx000000|xxxxx00000000xxx000000|xxxxx000000000xx000000|0000000000000000000000|0000000000000000000000|0000000000000000000000|0000000000000000000000|0000000000000000000000|xxxxx000000000000000xx|xxxxx000000000000000xx|x0000000000000000000xx|x0000000000000000xxxxx|xxxxxx00000000000xxxxx|xxxxxxx0000000000xxxxx|xxxxxxxx000000000xxxxx|xxxxxxxx000000000xxxxx|xxxxxxxx000000000xxxxx|xxxxxxxx000000000xxxxx|xxxxxxxx000000000xxxxx|xxxxxxxx000000000xxxxx|xxxxxx00000000000xxxxx|xxxxxx00000000000xxxxx|xxxxxx00000000000xxxxx|xxxxxx00000000000xxxxx|xxxxxx00000000000xxxxx|xxxxx000000000000xxxxx|xxxxx000000000000xxxxx', 'none'),
-	(20, 'theater', 'theater', 20, 27, 0, 0, 'XXXXXXXXXXXXXXXXXXXXXXX|XXXXXXXXXXXXXXXXXXXXXXX|XXXXXXXXXXXXXXXXXXXXXXX|XXXXXXXXXXXXXXXXXXXXXXX|XXXXXXXXXXXXXXXXXXXXXXX|XXXXXXXXXXXXXXXXXXXXXXX|XXXXXXX111111111XXXXXXX|XXXXXXX11111111100000XX|XXXX00X11111111100000XX|XXXX00x11111111100000XX|4XXX00X11111111100000XX|4440000XXXXXXXXX00000XX|444000000000000000000XX|4XX000000000000000000XX|4XX0000000000000000000X|44400000000000000000000|44400000000000000000000|44X0000000000000000O000|44X11111111111111111000|44X11111111111111111000|33X11111111111111111000|22X11111111111111111000|22X11111111111111111000|22X11111111111111111000|22X11111111111111111000|22X11111111111111111000|22211111111111111111000|22211111111111111111000|XXXXXXXXXXXXXXXXXXXX00X|XXXXXXXXXXXXXXXXXXXX00X', 'none'),
-	(21, 'library', 'library', 20, 3, 1, 4, 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxx11111xx1xx1x111111x|xxxxxxxxxxxx111111xx1xx11111111x|xx111xxxxxxx111111xx1xx11111111x|xx111xxxxxxx1111111111111111111x|xx111xxxxxxx1111111111111111111x|xx111xxxxxxx1111111111111111111x|xx111xxxxxxx1111111111111xxxxxxx|xx111xxxxxx11111111111111111111x|xx111xxxxxx11111111111111111111x|xx111xxxxxx11111111111111111111x|xx111xxxxxx11111111111111xxxxxxx|xx111xxxxxxxx111111111111111111x|xx111xx11111x111111111111111111x|xx111xx11111x111111111111111111x|xx111xxxxx11x11111111x111xxxxxxx|xx111xxxxxxxx11111111xx11111111x|xx111xxx1111111111111xxx1111111x|xx111xxx1111111111111xxxx111111x|xxx111xx1111111111x11xxxx000000x|xxxxx1111xx1111111x11xxxx000000x|xxxxxxxxxxxx111111x11xxxx000000x|xxxxxxxxxxxx11xx11x11xxxx000000x|xxxxxxxxxxxx11xx11x11xxxx000000x|xxxxxxxxxxxx11xx11x11xxxx000000x|xxxxxxxxxxxx11xx11x11xxxx000000x|xxxxxxxxxxxx11xx11x11xxxx000000x|xxxxxxxxxxxx11xx11x111xxx000000x|xxxxxxxxxxxxxxxxxxxx11xxx000000x|xxxxxxxxxxxxxxxxxxxx11xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxx22222xxxxxxx|xxxxxxxxxxxxxxxxxxxx22222xxxxxxx|xxxxxxxxxxxxxxxxxxxx22222xxxxxxx|xxxxxxxxxxxxxxxxxxxx22222xxxxxxx|xxxxxxxxxxxxxxxxxxxx22222xxxxxxx|xxxxxxxxxxxxxxxxxxxx22222xxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', 'none'),
-	(22, 'floatinggarden', 'floatinggarden', 2, 21, 5, 4, 'xxxxxxxxxxxxxxxx333333xxxxxxxxx|xxxxxxxxxxxxxxxx3xxxx3xxxxxxxxx|xxxxxxxxxxxxxxxx3xxxx3xxxxxxxxx|xxxxxxxxxxxxxxxx3xxxx3xxxxxxxxx|xxxxxxxxxxxxxxx223xxx33xxxxxxxx|xxxxxxxxxxxxxxx11xxx33333xxxxxx|xxxxxxxxxxxxxxxx11xx3333333xxxx|xxxxxxxxxxxxxxxx11xx33333333xxx|xxxxxxxxxxxxxxxxx11xxxxxxxx3xxx|xxxxxxxxxxxxxxxxxx11xxxx3333xxx|xxxxxxxxxxxxxxxxxxx1xxxx33333xx|xxxxxxxxxxxxxxxxxxx1xxx3333333x|555xxxxxxxxxxx1111111x333333333|555xxxxxxxxxxx21111111xxxxxx333|555xxxxxxxxxxx22111111111xxxxxx|555xxxxxxxxxxx222xxxxxxx111xxxx|555xxxxxxxxxxx22xxxxxxxxxx1xxxx|555xxxxxxxxxxx23333333333x111xx|555xxxxxxxx33333333333333x111xx|555xxxxxxxx333333x3333333x111xx|555xxxxxxxx33333333333333x111xx|555xxxxxxxx33x33333333333x111xx|555xxxxxxxx33x33x33333333x111xx|555xxxxxxxx33x33x33333333x111xx|5554333333333x333x3333333x111xx|x554333333xxxx33xxxxxxxxxx111xx|xxxxxxxxx3xxxx333221111111111xx|xxxxxxxxx3xxxx333221111111111xx|xxxxxxxxx33333333xx1111x11x11xx|xxxxxxxxx33333333111xxx11xxxxxx|xxxxxxxxxxxxxx33311xxxx11xxxxxx|xxxxxxxxxxxxxx33311xxxx11xxxxxx|xxxxxxxxxxxxxx333x1xxxx11xxxxxx|xxxxxxxxxxxxxx333x1xx111111xxxx|xxxxxxxxxxxxxx33311xx111111xxxx|xxxxxxxxxx333333311xx111111xxxx|xxxxxxxxxxx33333311xx111111xxxx|xxxxxxxxxxxxxxxx111xxxxxxxxxxxx|xxxxxxxxxxxxxxx111xxxxxxxxxxxxx', 'none'),
-	(23, 'sunset_cafe', 'sunset_cafe', 34, 40, 0, 0, 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0000000xxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxx00000xx00000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx000000000000000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx000000000000000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx000000000000000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx000000000000000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx00000000xxx0000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx00000000xxxx000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx00000000xxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx0000000000000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx00000000000000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx00000000000000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx00000000000000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx00000000000000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx00000000000000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', 'none'),
-	(24, 'pool_a', 'pool_a', 2, 25, 7, 2, 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx7xxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx777xxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxx7777777xxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxx77777777xxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxx77777777xxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxx777777777xxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxx7xxx777777xxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxx7x777777777xxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxx7xxx77777777xxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxx7x777777777x7xxxxxxxxxxxxxxx|xxxxxxxxxxxxxxx7xxx7777777777xxxxxxxxxxxxxx|xxxxxxxxxxxxxxx777777777777xxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxx77777777777x2111xxxxxxxxxxxx|xxxxxxxxxxxxxxx7777777777x221111xxxxxxxxxxx|xxxxxxxxx7777777777777777x2211111xxxxxxxxxx|xxxxxxxxx7777777777777777x22211111xxxxxxxxx|xxxxxxxxx7777777777777777x222211111xxxxxxxx|xxxxxx77777777777777777777x222211111xxxxxxx|xxxxxx7777777xx777777777777x222211111xxxxxx|xxxxxx7777777xx77777777777772222111111xxxxx|xxxxxx777777777777777777777x22221111111xxxx|xx7777777777777777777777x322222211111111xxx|77777777777777777777777x33222222111111111xx|7777777777777777777777x333222222211111111xx|xx7777777777777777777x333322222222111111xxx|xx7777777777777777777333332222222221111xxxx|xx777xxx777777777777733333222222222211xxxxx|xx777x7x77777777777773333322222222222xxxxxx|xx777x7x7777777777777x33332222222222xxxxxxx|xxx77x7x7777777777777xx333222222222xxxxxxxx|xxxx77777777777777777xxx3222222222xxxxxxxxx|xxxxx777777777777777777xx22222222xxxxxxxxxx|xxxxxx777777777777777777x2222222xxxxxxxxxxx|xxxxxxx777777777777777777222222xxxxxxxxxxxx|xxxxxxxx7777777777777777722222xxxxxxxxxxxxx|xxxxxxxxx77777777777777772222xxxxxxxxxxxxxx|xxxxxxxxxx777777777777777222xxxxxxxxxxxxxxx|xxxxxxxxxxx77777777777777x2xxxxxxxxxxxxxxxx|xxxxxxxxxxxx77777777777777xxxxxxxxxxxxxxxxx|xxxxxxxxxxxxx777777777777xxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxx7777777777xxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxx77777777xxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxx777777xxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx7777xxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxx77xxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', 'habbo_lido_trigger'),
-	(25, 'pub_a', 'pub_a', 15, 25, 0, 0, 'xxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxx2222211111xxx|xxxxxxxxx2222222211111xxx|xxxxxxxxx2222222211111xxx|xxxxxxxxx2222222211111xxx|xxxxxxxxx2222222222111xxx|xxxxxxxxx2222222222111xxx|xxxxxxxxx2222222222000xxx|xxxxxxxxx2222222222000xxx|xxxxxxxxx2222222222000xxx|xxxxxxxxx2222222222000xxx|x333333332222222222000xxx|x333333332222222222000xxx|x333333332222222222000xxx|x333333332222222222000xxx|x333333332222222222000xxx|x333332222222222222000xxx|x333332222222222222000xxx|x333332222222222222000xxx|x333332222222222222000xxx|x333333332222222222000xxx|xxxxx31111112222222000xxx|xxxxx31111111000000000xxx|xxxxx31111111000000000xxx|xxxxx31111111000000000xxx|xxxxx31111111000000000xxx|xxxxxxxxxxxxxxx00xxxxxxxx|xxxxxxxxxxxxxxx00xxxxxxxx|xxxxxxxxxxxxxxx00xxxxxxxx|xxxxxxxxxxxxxxx00xxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxx', 'none'),
-	(26, 'md_a', 'md_a', 3, 4, 7, 2, 'xxxxxxxx77xxxxxxxxxxxxxxxx|xxxxxxxx77xxxxxxxxxxxxxxxx|xxxxxx77777x77xxxxxxxxxxxx|xxx77777777777xxx44xxxxxxx|77777777777777xx444444444x|777777777777777xx44444444x|xxx777777777777xx44444444x|xxxx7777777777xxx44444444x|7777777777777777744448444x|7777777777777x4x744448444x|777777777777x444444448444x|7777777777774444444448444x|7777777777774444444448444x|777777777777x444444448444x|7777777777777x44444448444x|xxx777777777777x444448444x|xxx7777777777777444448444x|xxx7777777777777444448444x|xxx777777777777x444448444x|xxx77777777777x4444444444x|xxxx777777777444444444444x|xxxxxxxxxxxxxxxxxxxxxxxxxx', 'rooftop_rumble_trigger'),
-	(27, 'picnic', 'picnic', 16, 5, 2, 4, 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xx22222xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|22xxxxxxxxxxxxx22xxxxxxxxxxxxxxxxxxxxx|2222222222222222222x222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222xxx222222222222222222222222|2222222222xx33x22222222222222222222222|222222222xx3333x2222222222222222222222|222222222x333333x222222222222222222222|222222222x333333x222222222222222222222|2222222222x3332x2222222222222222222222|22222222222x33x22222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222x22222xxxx22222222222222222222|22222222222222xxxx22222222222222222222|22222222222222xxx222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222', 'none'),
-	(28, 'park_a', 'park_a', 2, 15, 0, 0, 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx000000xxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0000000xxxxx|xxxxxxxxxxxxxxx0x00xxxxxxxxxxx0x00000000xxxx|xxxxxxxxxxxxxx000000000000000000000000000xxx|xxxxxxxxxxxxx00000000000000000000000000000xx|xxxxxxxxxxxxx00000000000000000000000000000xx|xxxxxxxxxxxxx00000000000000000000000000000xx|xxxxxxxxxx00000000000000000000000000000000xx|xxxxxxxxx000000000000000000000000000000000xx|xxxxxxxxx000000000000000000000000000000000xx|xxxxxxxxx0000000000000000000000000000000000x|xxxxxxxxxxx000000000000000000000000000000000|xx00000000000000000000xx00000000000000000000|xx0000000000000000000xxxx00000000000xxxxxxx0|xx0000000000000000000xxxx00000000000x00000xx|xx0xxxx00x0000000000xxxxx0xxxxxx0000x0000000|xxxxxxx0000000000000xxxxx0xxx00x0000x000000x|xxxxxxx0000000000000xxxxx0x000000000x00000xx|xxxxxxx000000x0000000xxxx0x000000000xxx00xxx|xxxxxxxxxx000x0000000xxx00xxx000000x0000xxxx|xxxxxxxxxx000x000000xxxx0x0000000000000xxxxx|xxxxxxxxxx000x000000011100000000000000xxxxxx|xxxxxxxxxx000x00000001110000000000000xxxxxxx|xxxxxxxxxxx00x0000000111x00000000x00xxxxxxxx|xxxxxxxxxxxx0x0000000xxx0000000xxxxxxxxxxxxx|xxxxxxxxxxxxxx000000xxxx0000000xxxxxxxxxxxxx|xxxxxxxxxxxxxx000000xxx00xxxxx00xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxx0xxx0xx000x00xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxx0xxx0x000000xxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxx0xxxxx00000xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxx0xxxxx00xxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxx0xxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', 'infobus_park'),
-	(29, 'park_b', 'park_b', 11, 2, 0, 6, '0000x0000000|0000xx000000|000000000000|00000000000x|000000000000|00x0000x0000', 'infobus_poll'),
-	(30, 'pool_b', 'pool_b', 9, 21, 7, 1, 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx7xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx777xxxxxxxxxxx|xxxxxxxxxxxxxxxxxx8888888x7xxx77777xxxxxxxxxx|xxxxxxxxxxxxxxxxxx8888888x7xxx777777xxxxxxxxx|xxxxxxxxxxxxxxxx88xxxxx77x7x777777777xxxxxxxx|xxxxxxxxxxxxxxxx88x7777777777777777777xxxxxxx|xxxxxxxxxxxxxxxx88x77777777777777777777xxxxxx|xxxxxxxxxxxxxx9988x77777777777777777777xxxxxx|xxxxxxxxxxxxxx9988x7777777777777777777x00xxxx|xxxxxxxxxxxxxx9988x777777777777777777x0000xxx|xxxxxxxxxxxxxx9988x7777777x0000000000000000xx|xxxxxxxxxxxxxx9988x777777x000000000000000000x|7777777777xxxx9988777777x0x0000000000000000xx|x7777777777xxx998877777x000x00000000000000xxx|xx7777777777xx99887777x00000x000000000000xxxx|xxx7777777777x9988777x0000000x0000000000xxxxx|xxxx777777777x777777x00000000x000000000xxxxxx|xxxxx777777777777777000000000x00000000xxxxxxx|xxxxxx77777777777777000000000x0000000xxxxxxxx|xxxxxxx777777x7777770000000000xxxx00xxxxxxxxx|xxxxxxxx77777777777xx0000000000000xxxxxxxxxxx|xxxxxxxxx777777110000x000000000000xxxxxxxxxxx|xxxxxxxxxx7x77x1100000x0000000000xxxxxxxxxxxx|xxxxxxxxxxx777x11000000x00000000xxxxxxxxxxxxx|xxxxxxxxxxxx771110000000x000000xxxxxxxxxxxxxx|xxxxxxxxxxxxx111100000000x0000xxxxxxxxxxxxxxx|xxxxxxxxxxxxxx11100000000x000xxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxx1100000000x00xxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxx110000000x0xxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx110000000xxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxx1100000xxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxx11000xxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxx110xxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx1xxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', 'diving_deck_trigger'),
-	(31, 'ballroom', 'ballroom', 13, 6, 0, 4, 'xxxx4444444444444444444|xxxx4444444444444444444|xxxx4444444444444444444|xxxx33x2222444442222x33|xxxx2222222x00xx2222222|xxxx22222220000x2222222|xxxx11x0000x000x0000x11|xxxx0000000000000000000|11100000000000000000000|11100000000000000000000|11100000000000000000000|xxxx0000000000000000000|22210000000000000000000|22210000000000000000000|22210000000000000000000|xxxx0000000000000000000|11100000000000000000000|11100000000000000000000|11100000000000000000000|xxxxx000x11111111x0000x|xxxxxx00x1111x111x000xx|xxxxxxx0x11111111x00xxx|xxxxxxxxx11111111x0xxxx|xxxxxxxxx11111111xxxxxx', 'none'),
-	(32, 'cafe_gold0', 'cafe_gold0', 9, 29, 0, 0, 'xxxxxxxxxx1111xxxxxxx|xxxxxxxxxx11111xxxxxx|xxxxxxxxxx111111xxxxx|xx111111111111111xxxx|x11111111111111111xxx|1111111111111111111xx|11111111111111111111x|111111111111111111111|111111111111111111111|1111111111111x1111111|1111111000000x1111111|1111111000000x1111111|1111111000000x1111111|1111111000000x1111111|1111111000000x1111111|1111111000000x1111111|1111111000000x1111111|1111111000000x1111111|1111111000000x1111111|1111111000000xxx00000|111111100000000000000|111111100000000000000|111111100000000000000|111111100000000xxxxx0|11111110000000xxxxxx0|11111110000000xxxxxx0|11111110000000xxxxxxx|x1111110000000xxxxxxx|xxxxxxxx0000000000xxx|xxxxxxxx000xxxxxxxxxx|xxxxxxxx000xxxxxxxxxx|xxxxxxxx000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx', 'none'),
-	(33, 'cafe', 'cafe', 30, 40, 0, 0, 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0000000xxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxx00000xx00000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx000000000000000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx000000000000000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx000000000000000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx000000000000000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx00000000xxx0000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx00000000xxxx000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx00000000xxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx0000000000000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx00000000000000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx00000000000000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx00000000000000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx00000000000000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx00000000000000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', 'none'),
-	(34, 'den', 'den', 3, 22, 0, 0, '00000000xxxxxxxx|0000000000000000|0000000000000000|000000000000xx00|0000000000000000|0000000000000000|0000000000000000|x000000000000000|0000000000000000|0000000000000000|0000000000000000|0000000000000000|x000000000000000|x000000000000000|x000000000000000|x000000000000000|x000000000000000|x000000000000000|x000000000000000|x000000000000000|xxx00xxxxxxxxxxx|xxx00xxxxxxxxxxx|xxx00xxxxxxxxxxx', 'none'),
-	(35, 'gardens', 'gardens', 2, 15, 0, 0, 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0xxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx00xxxxxxxxxxxx|xxxxxxxxxxxxx0x00xxxxxxxxxxx0x000xxxxxxxxxxx|xxxxxxxxxxxx0000000000000000000000xxxxxxxxxx|xxxxxxxxxxx000000000000000000000000xxxxxxxxx|xxxxxxxxxxx0000000000000000000000000xxxxxxxx|xxxxxxxxxxx00000000000000000000000000xxxxxxx|xxxxxxxx000000000000000000000000000000xxxxxx|xxxxxxx00000000000000000000000000000000xxxxx|xxxxxxx000000000000000000000000000000000xxxx|xxxxxxx0000000000000000000000000000000000xxx|xxxxxxxxx000000000000000000000000000000000xx|00000000000000000000xx00000000000000000000xx|0000000000000000000xxxx00000000000xxxxxxx0xx|0000000000000000000xxxx00000000000x00000xxxx|xxxxx00x0000000000xxxxx0xxxxxx0000x0000000xx|xxxxx0000000000000xxxxx0xx000x0000x000000xxx|xxxxx0000000000000xxxxx0x000000000x00000xxxx|xxxxx000000x0000000xxxx0x000000000xxx00xxxxx|xxxxxxxx000x0000000xxx00xxx000000x0000xxxxxx|xxxxxxxx000x000000xxxx0x0000000000000xxxxxxx|xxxxxxxx000x000000011100000000000000xxxxxxxx|xxxxxxxx000x00000001110000000000000xxxxxxxxx|xxxxxxxxx00x0000000111x00000000x00xxxxxxxxxx|xxxxxxxxxx0x0000000xxx0000000xxxxxxxxxxxxxxx|xxxxxxxxxxxx000000xxxx0000000xxxxxxxxxxxxxxx|xxxxxxxxxxxx000000xxx00xxxxx00xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx0xxx0xx000x00xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx0xxx0x000000xxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx0xxx0x00000xxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx0xxxxx00xxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx0xxxxx0xxxxxxxxxxxxxxxxxxxx', 'none'),
-	(36, 'gate_park', 'gate_park', 17, 26, 0, 0, 'xxxxxxxxx222xx222222xxx22xxxxxxx|xxxxxxxxx222xx2222222xx22xxxxxxx|xxxxxxxxx22222222222222222xxxxxx|xxxxxxxxx22222222222222222xxxxxx|xxxxxxxxx22222222222222222xxxxxx|xxxxxxxxx22222x22222x22222xxxxxx|xxxxxxxxx11111x22222x11111xxxxxx|0000000xx00000x22222x00000xxxxxx|0000000xx00000000000000000xxxxxx|000000000000000000000000000xx00x|000000000000xxx00000xxx00000000x|000000000000xxx00000xxx00000000x|000000000000xxx00000xxx000000000|00000000000000000000000000000000|x0000000000000000000000000000000|xxx00000000000000000000000000000|xxxxx000000000000000000000000000|xxxxx000000000000000000000000000|xxxxx000000000000000000000000xxx|xxxxxx00000000000000000000000xxx|xxxxxxx000000000000000000000xxxx|xxxxxxxxxx00000000000000000xxxxx|xxxxxxxxxx0000000000000000xxxxxx|xxxxxxxxxx000000000000000xxxxxxx|xxxxxxxxxxxxx00000000000xxxxxxxx|xxxxxxxxxxxxxx000000000xxxxxxxxx|xxxxxxxxxxxxxxxx000xxxxxxxxxxxxx|xxxxxxxxxxxxxxxx000xxxxxxxxxxxxx|xxxxxxxxxxxxxxxx000xxxxxxxxxxxxx', 'none'),
-	(37, 'gate_park_2', 'gate_park_2', 17, 23, 0, 0, 'xxxxxxxxxxx111111111111xxxxxxxxxxxx|xxxxxxxxxx11111111111111xxxxxxxxxxx|xxxxxxxxxx11111111111111xxxxxxxxxxx|xxxxxxxxxx11xxxx11xxxx11xxxxxxxxxxx|xxxxxxxxxx00xxxx00xxxx00xxxxxxxxxxx|xxxxxxx0000000000000000000xxxxxxxxx|xxxxxx000000000000000000000xxxxxxxx|xxxxx0000000000000000000x000xxxxxxx|xxxx00000000000000000000xx000xxxxxx|xxxx00000000000000000000xxx000xxxxx|xxxx00000000000000000000xxxx00xxxxx|000000000000000000000000000000xxxxx|0000000000000000000000000000000xxxx|000000000000000000000000000000xxxxx|000000000000000000000000000000xxxxx|000000000000000000000000000000xxxxx|xx00000000000000000000000000000000x|xxx000xxxx00000000000000xxxx0000000|xxx0000xxx00000000000000xxx00000000|xxxx0000xx00000000000000xx000000000|xxxxx0000x00000000000000x00000000xx|xxxxxx00000000000000000000000xxxxxx|xxxxxxx00000x000000000000000x0xxxxx|xxxxxxxx0000xxx0000xxx000000xxxxxxx|xxxxxxxxx000xxx0000xxx000000xxxxxxx|xxxxxxxxxxxxxxx0000xxx000000xxxxxxx|xxxxxxxxxxxxxxxx000xxx000000xxxxxxx|xxxxxxxxxxxxxxxxxxxxxx00000xxxxxxxx', 'none'),
-	(38, 'sun_terrace', 'sun_terrace', 9, 17, 0, 2, 'xxxxxx21000000000xxxxxxxx|xxxxxx3xxx000xx000xxxxxxx|xxxxxx4xxx000xxx000xxxxxx|xxxxxx44xx000x00x000xxxxx|xxxxxx44xx0000xx00000xxxx|xxxxxx44xx000000000000xxx|xxxxxx44xx0000000000000xx|xxxxxxx4xxxxxxx00000000xx|xxxxxxx4xxxxxxx0000000xxx|xxxxxx444432222xxx00xxxxx|xxxxxx444432222x0000000xx|xxxxxx444432222x0000000xx|xxxxxx44400x222x0000000xx|xxxxxx444000x11x0000000xx|xxxxxx444000000x0000000xx|xxxxxx444000000x0000000xx|xxxxxx440000000000000000x|xxxxxx4400000000000000000|x8876x444000000x000000000|x8xx6x444000000x000000000|x9xx6x444000000x000000000|999x65444000000x000000000|999xxx444xxxxxxxxxx000000|999xxx444xxxxxxxxxxx00000|999xxx333xxxxxxxxxxxx0000|999xxx222222222222222x000|xxxxxx222222222222222xx00|xxxxxx222222222222222xxx0|xxxxxx222222222222222xxxx|xxxxxxx22222222222222xxxx|xxxxxxxx2222222222222xxxx', 'none'),
-	(39, 'space_cafe', 'space_cafe', 21, 17, 1, 0, 'x3333x333211111xxxxxxxxx|x3333x333211111xx3333333|xxxxxx333211111xx3333333|33333333xx11111xx3333333|33333333xx11111xx3333333|33x333xxxx11111xx3333333|xxx222xxx111111xx3333333|22222222xx11111xx3333333|22222222xxx1111xx3333333|22222222xxxx1111x2222222|22222222xxxx1111x1111111|22222222xxxx111111111111|22222222xxxx111111111111|xxx222xxxxx1111111111111|xxxx33xxxx11111111111111|xxx333321111111111111111|xxx333321111111111111111|xxx333321111111111111111|xxxxxxxxxxxxx1111xxxx11x|xxxxxxxxxxxxx0000xxxx11x|xxxxxxxxxx0000000xxxx11x|xxxxxxxxxx0000000xxxxxxx|xxxxxxxxxx0000000xxxxxxx|xxxxxxxxxx0000000xxxxxxx|xxxxxxxxxx0000000xxxxxxx|xxxxxxxxxx0000000xxxxxxx', 'space_cafe_trigger'),
-	(40, 'beauty_salon0', 'beauty_salon0', 4, 3, 0, 0, 'xxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxx|xxx0000000000000xxxxxxxx|xxx00000000000000xxxxxxx|xxxxxx000000000000xxxxxx|xxxxxxxxxxxxx0000xxxxxxx|xxxx0x0000x00000000xxxxx|xxx00xxxxxx0000000xxxxxx|xx000x000xx0000000xxxxxx|xx000xxxxx00000000xxxxxx|xx000x000000000000xxxxxx|xx000x000000000000xxxxxx|xx00xx000000000000xxxxxx|xx00xx00x0000000000xxxxx|xx00xx00x0000000000xxxxx|xx00xx0000000000000xxxxx|xx00xx0000000000000xxxxx|xx000x0xx0000000000xxxxx|xx000x0x00000000000xxxxx|xx000x0x00x00000000xxxxx|xx000x0x00000000000xxxxx|xx000x0x00x00000000xxxxx|xx000xx000000000000xxxxx|xx00000000000000000000xx|xx00000000000000000000xx|xxxxxx0000000000000000xx', 'none'),
-	(41, 'chill', 'chill', 22, 22, 0, 6, 'xxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxx00xxxxxxxx|xxxxxxxxxxx000000xxxxxxxx|xxxxxxxxxxx000000xxxxxxxx|xxxxxxxxxxxxxx000xxxxxxxx|xxxxxxxxxxxxxxxx0xxxxxxxx|xxxxxxxxx00000000xxxxxxxx|xxxxxxxx000000xxxxxxxxxxx|xxxxxxxx000000xxxxxxxxxxx|xxxxxxxx000000xxxxxxxxxxx|xxxxxxxx000000xxxxxxxxxxx|xxxxxxxx000000xxxxxxxxxxx|xxxxxxxx0000000xxxxxxxxxx|xxxxxxxx00000000xxxxxxxxx|xxxxxxxx0000000000xxxxxxx|xxxxxxxx0000000000xxxxxxx|xxxxxxxx0000000000xxxxxxx|xxxxxxxx0000000000xxxxxxx|xx000000000000xxxxxxxxxxx|xx000000000000000000000xx|xx000000000000000000000xx|xx000000000xx0000000000xx|xx000000000xxxxx000000000|xx000000000xxx0x000000000|xx00000x000xxx0x000000000|xx000000000xxxxx0000000xx|xx000000000000000000000xx|xx000000000000000000000xx|xx000000000000000000000xx|xx000000000000xxxxxxxxxxx', 'none'),
-	(42, 'dusty_lounge', 'dusty_lounge', 14, 1, 2, 4, 'xxxxxxxxxxxxxx22xxxxxxxxxxxxx|xxxxxxxxxx222x222x2xxxxxxxxxx|xxxxxxx33322222222223xxxxxxx3|xxxxxxx33322222222223xxxxxxx3|xxxxxxx33322222222223x33333x3|xxxxxxx33322222222223x33333x3|xx111xx33322222222223xxxxxxx3|xx111xxx332222222222333333333|xx111xxxx32222222222333333333|xx111xxxxxx222222222333333333|xx111xxxxxxx1111111x333333333|xx111xxxxxxx1111111x222222222|xx111xxxxxx111111111111111111|xx111xxxxxx111111111111111111|11111xxxxxx111111111111111111|11111xxxxxx111111111111111111|11x11xxxxxx111111111111111111|11xxxxxxxxx11111111111111111x|x11xxxxxxxxx1111111x1111111xx|xx11xxxxxxx111111111111111xxx|xxx11xxxxxx11111111111111xxxx|xxxx11111111111111111111xxxxx|xxxxx11111111111111xxxxxxxxxx|xxxxxxxxxxx11111111xxxxxxxxxx|xxxxxxxxxxx11111111xxxxxxxxxx', 'none'),
-	(43, 'cr_staff', 'cr_staff', 3, 22, 0, 0, '00000000xxxxxxxx|0000000000000000|0000000000000000|000000000000xx00|0000000000000000|0000000000000000|0000000000000000|x000000000000000|0000000000000000|0000000000000000|0000000000000000|0000000000000000|x000000000000000|x000000000000000|x000000000000000|x000000000000000|x000000000000000|x000000000000000|x000000000000000|x000000000000000|xxx00xxxxxxxxxxx|xxx00xxxxxxxxxxx|xxx00xxxxxxxxxxx', 'none'),
-	(44, 'rooftop', 'rooftop', 17, 12, 4, 0, '44xxxxxxxxxxxxxxxxxx|444xxxxxxxxxxx444444|4444xxxxxxxxxx444444|44444xxxx4xxxx444444|444444xxx44xxx444444|44444444444444444444|44444444444444444444|44444444444444444444|44444444xx44xx44xx44|44444444xx44xx44xx44|44444444444444444444|44444444444444444444|44444444444444444444|x444444x444444xx4444|x444444x444444xx333x|x444444x444444xx222x|x444444x444444xx11xx|x444444x444444xxxxxx', 'none'),
-	(45, 'rooftop_2', 'rooftop_2', 4, 11, 0, 0, 'x0000x000|xxxxxx000|000000000|000000000|000000000|000000000|000000000|000000000|000000000|000000000|xxx000xxx|xxx000xxx', 'none'),
-	(46, 'tearoom', 'tearoom', 21, 19, 1, 6, 'xxxxxxxxxxxxxxxxxxxxxx|xxxxxxxx3333x33333333x|333333xx3333x33333333x|3333333x3333x33333333x|3333333x3333x33333333x|3333333xxxxxx33333333x|333333333333333333333x|333333333333333333333x|333333333333333333333x|333333333333333333333x|33333333222x333333333x|33333333222x333333333x|33333333222x333333333x|33333333222x333333333x|33333333111x333333333x|33333333111x333333333x|33333333111x333333333x|xxxxxxxx111xxxxxxxxxxx|11111111111111111111xx|1111111111111111111111|1111111111111111111111|11111111111111111111xx', 'none'),
-	(47, 'cafe_ole', 'taivas_cafe', 14, 29, 0, 0, 'XXXXXXXXXXXXX111111X|XXXXXXXXXXXXX1111111|XXXXXXXXXXXXX1111111|XXXXXXXXXXXXX1111111|XXXXXXXXXXXXX1111111|XXX11111111111111111|XXX11111111111111111|XX111111111111111111|XX111111111111111111|XX111111111111111111|XXX11111111111111111|111111111XXXXXXX1111|111111111X0000000000|111111111X0000000000|111111111X0000000000|111111111X0000000000|111111111X0000000000|111111111X0000000000|111111111X0000000000|111111111X0000000000|111111111X0000000000|X11111111X0000000000|XX1111111X0000000000|XXX111111X0000000000|XXXX11111X0000000000|XXXXX111110000000000|XXXXXX11110000000000|XXXXXXX1110000000000|XXXXXXXX11000000000X|XXXXXXXXXX00000000XX|XXXXXXXXXXXXXX00XXXX|XXXXXXXXXXXXXX00XXXX', 'none'),
-	(48, 'cr_cafe', 'cr_cafe', 20, 10, 0, 6, '0000000000000000000xx|x000000000000000000xx|xx00000000000000000xx|xx00000000000000000xx|xx00000000000000000xx|xxxx000000000000000xx|0000000000000000000xx|0000000000000000000xx|x000000000000000000xx|xx00000000000000000xx|xxxx00000000000000000|xxx000000000000000000|xxx0000000000000000xx|xxx0000000000000000xx|xx00000000000000000xx|xx00000000000000000xx|xx00000000000000000xx|xx00000000000000000xx|xx00000000000000000xx|xx00000000000000000xx', 'none'),
-	(49, 'lobby_a', 'lobby_a', 12, 27, 1, 0, 'XXXXXXXXX77777777777XXXXX|XXXXXXXXX777777777777XXXX|XXXXXXXXX777777777766XXXX|XXXXXXXXX777777777755XXXX|XX333333333333333334433XX|XX333333333333333333333XX|XX333333333333333333333XX|33333333333333333333333XX|333333XXXXXXX3333333333XX|333333XXXXXXX2222222222XX|333333XXXXXXX2222222222XX|XX3333XXXXXXX2222222222XX|XX3333XXXXXXX222222221111|XX3333XXXXXXX111111111111|333333XXXXXXX111111111111|3333333222211111111111111|3333333222211111111111111|3333333222211111111111111|XX33333222211111111111111|XX33333222211111111111111|XX3333322221111111XXXXXXX|XXXXXXX22221111111XXXXXXX|XXXXXXX22221111111XXXXXXX|XXXXXXX22221111111XXXXXXX|XXXXXXX22221111111XXXXXXX|XXXXXXX222X1111111XXXXXXX|XXXXXXX222X1111111XXXXXXX|XXXXXXXXXXXX11XXXXXXXXXXX|XXXXXXXXXXXX11XXXXXXXXXXX|XXXXXXXXXXXX11XXXXXXXXXXX|XXXXXXXXXXXX11XXXXXXXXXXX', 'none'),
-	(50, 'floorlobby_c', 'floorlobby_c', 9, 21, 0, 0, 'XXXXXXXXXXXXXXXXXXXXXXXXXXX|XXXXXXXXXXXXXXXXXXXXXXXXXXX|XXX0000000000000000XXXXXXX0|XXX000000000000000000XXXX00|X00000000000000000000000000|X00000000000000000000000000|XXX000000000000000000000000|XXXXXXX00000000000000000000|XXX111100000011111111111111|XXX111100000011111111111111|XXX111100000011111111111111|XXX111100000011111111111111|XXX111100000011111111111111|XXX111100000011111111111111|XXX1XX100000011111111111111|XXX1XX100000011111111111111|XXX111100000011111111111111|XXX111100000011111111111111|XXX111100000011111111111111|XXXXXXXX0000XXXXXXXXXXXXXXX|XXXXXXXX0000XXXXXXXXXXXXXXX|XXXXXXXX0000XXXXXXXXXXXXXXX', 'none'),
-	(51, 'floorlobby_b', 'floorlobby_b', 9, 21, 0, 0, 'XXXXXXXXXXXXXXXXXXXXXXXXXXX|XXXXXXXXXXXXXXXXXXXXXXXXXXX|XXX0000000000000000XXXXXXX0|XXX000000000000000000XXXX00|X00000000000000000000000000|X00000000000000000000000000|XXX000000000000000000000000|XXXXXXX00000000000000000000|XXX111100000011111111111111|XXX111100000011111111111111|XXX111100000011111111111111|XXX111100000011111111111111|XXX111100000011111111111111|XXX111100000011111111111111|XXX1XX100000011111111111111|XXX1XX100000011111111111111|XXX111100000011111111111111|XXX111100000011111111111111|XXX111100000011111111111111|XXXXXXXX0000XXXXXXXXXXXXXXX|XXXXXXXX0000XXXXXXXXXXXXXXX|XXXXXXXX0000XXXXXXXXXXXXXXX', 'none'),
-	(52, 'floorlobby_a', 'floorlobby_a', 9, 21, 0, 0, 'XXXXXXXXXXXXXXXXXXXXXXXXXXX|XXXXXXXXXXXXXXXXXXXXXXXXXXX|XXX0000000000000000XXXXXXX0|XXX000000000000000000XXXX00|X00000000000000000000000000|X00000000000000000000000000|XXX000000000000000000000000|XXXXXXX00000000000000000000|XXX111100000011111111111111|XXX111100000011111111111111|XXX111100000011111111111111|XXX111100000011111111111111|XXX111100000011111111111111|XXX111100000011111111111111|XXX1XX100000011111111111111|XXX1XX100000011111111111111|XXX111100000011111111111111|XXX111100000011111111111111|XXX111100000011111111111111|XXXXXXXX0000XXXXXXXXXXXXXXX|XXXXXXXX0000XXXXXXXXXXXXXXX|XXXXXXXX0000XXXXXXXXXXXXXXX', 'none'),
-	(53, 'cinema_a', 'cinema_a', 20, 27, 1, 0, 'xxxxxxx1xx11111111xxxxxx|xxx1111111111111111xxxxx|xxx111xxxx1111111111xxxx|xxxx2xxxxxxxxxxxxxxxxxxx|xx3x3x333311xxxxxxxxxx11|xx3333333311111111111111|xx3333333311111111111111|xx3333333311111111122111|xx3333333311x22222222111|xx3333333311x22222222111|xx3333333311xxxxxxxxx111|xx3333333311111111111111|xx3333333311111111111111|xx3333333311111111111111|xx3333333311111xxxx11111|xx3333333311111xxxx11111|xx3333333311111xxxx11111|xx3333333311111xxxx11111|xx3333333311111xxxx11111|xx3333333311111xxxx11111|xx3333333311111xxxx11111|333333332111111xxxx11111|333333332111111111111111|333333332111111111111111|333333332111111111111111|xx3333332111111111111111|xxxxxxxxxxxxxxxxxxx11111|xxxxxxxxxxxxxxxxxxx11111|xxxxxxxxxxxxxxxxxxx11111', 'none'),
-	(54, 'sport', 'sport', 0, 0, 1, 2, '111222222222222222x2222|x11222222222222222x2222|x11222222222222222x2222|xx1x2222222222222211111|x11xx222222222222211111|x11xx222222x22222211111|x11xx222222x222222x1111|x11xx222222x222222x1111|x11xx2222222222222x1111|x11xxxxxxxxxxxxxxxx1111|x1111111111111111111111|x1111111111111111111111|x1111111111111111111111|x1111111111111111111111|xxxx1111111111111x1111x|111x1111111111111x1111x|111x1111111111111x1111x|111x1111111111111x1111x|111x11111xxxxxxxxxxxxxx|x11x1111xxxxxxxxxxxxxxx|xxxx111xxxxxxxxxxxxxxxx', 'none'),
-	(55, 'old_skool0', 'old_skool0', 2, 1, 0, 4, 'xx0xxxxxxxxxxxxxx|0000000xxx00000xx|0000000x0000000xx|0000000xxxxxxxxxx|0000000000000000x|0000000000000000x|0000000000000000x|0000000000000000x|0000000000000000x|0000000000000000x|0000000000000000x|0000000000000000x|0000000000000000x|0000000000000000x|0000000000000000x|0000000000000000x|0000000000000000x|0000000000000000x|00000000000000000|0000000000000000x|0000000000000000x|0000000000000000x|0000000000000000x|0000000000000000x|0000000000000000x', 'none'),
-	(56, 'old_skool1', 'old_skool1', 1, 7, 6, 2, 'x6666666665432100|x6666666665432100|x6600000000000x00|x6600000000000000|x6600000000000000|x6600000000000000|x660000000000x000|666000000000x1111|x66000000000xx111|x66000000000x1111|x66000000000x1111|x55000000000x1111|x44000000000x1111|x33000000000x1111|x22000000000xx111|x11x00000000x1111|x00000000000x1111|x00000000000xx111', 'none'),
-	(57, 'malja_bar_a', 'malja_bar_a', 4, 24, 1, 0, 'xxxxxxxxxxxxxx44|xxxx444444444444|xxxx444444444444|xxxx444444444444|xxxx444444444444|xxxx444444444444|xxxxxxxxxxxxx333|1111111111111222|1111111111111111|1111111111111111|1111111111111111|1111111111111111|1111111111111111|1111111111111111|1111111111111111|1111111111111111|1111111111111111|1111111111111111|1111111111111111|111111111xxxxxxx|xxx11111xxxxxxxx|11111111xxxxxxxx|11111111xxxxxxxx|11111111xxxxxxxx|11111111xxxxxxxx', 'none'),
-	(58, 'malja_bar_b', 'malja_bar_b', 4, 24, 3, 0, '6666333333333333|6666333333333333|6666333333333333|7766333333333333|7755333333333333|8855333333332223|8844333311111111|9944333311111111|9933333311111111|9933333311111111|9933333311111111|9933333311111111|9933333311111111|9933333311111111|9933333211111111|9933333211111111|9933333211111111|9933333311111111|99333333xxxxxxxx|99333333xxxxxxxx|xxx33333xxxxxxxx|xxx33333xxxxxxxx|3xx33333xxxxxxxx|xxx33333xxxxxxxx|xxx33333xxxxxxxx|xxx33333xxxxxxxx', 'none'),
-	(59, 'bar_a', 'bar_a', 5, 1, 7, 4, 'xxxx8888xxxxxxxxxxx|xxxx7777xxxxxxxxxxx|xxxx6666xxxxxxxxxxx|xxx6666666555555555|xxx6666666555555555|xxx6666666555555555|xxx6666666555555555|xxx6666666555555555|xxx6666666555555555|xxx6666666555555555|xxx6666666555xxxxxx|xxx6666666555555555|xxx5555555555555555|xxx5555555555555555|xxx5555555555555555|xxx5555555555555555|xxx5555555555xxxxxx|xxx5555555555555555|xxx5555555555555555|xxx5555555555555555|xxx5555555555555555|xxx5555555555555555|xxx5555555555xxxxxx|xxxx555555555555555|55xx555555555555555|55xx555555555555555|5555555555555555555|5555555555555555555|xxxxxxxx55555xxxxxx|xxxxxxxxx5555xxxxxx|xxxxxxxxx5555xxxxxx|xxxxxxxxx5555xxxxxx|xxxxxxxxx4444xxxxxx|xxxxxxxxx3333xxxxxx', 'none'),
-	(60, 'bar_b', 'bar_b', 2, 12, 4, 2, 'xxxxx4xxxxxxxxxxxx|xxxx4444444xxxxxxx|xxxx4444444xxxxxxx|xxx444444444444444|xxx444444444444444|xxx444444444444444|xxx444444444444444|xxx444444444444444|xxx444444444444444|xxx444444444444444|654444444444444444|654444444444444444|654444444444444444|654444444444444444|xxx444444444444444|xxx444444444444444|xxx444444444444444|xxx444444444444444|xxx444444444444444|xxxx44444444444444|xxxx33444444444444|xxxx22444444444444|xxxx2222222222xx44|xxxx2222222222xx44|xxxxx222222222xxxx|xxxxxx22222222xxxx|xxxxxx22222222xxxx|xxxxxx22222222xxxx|xxxxxx22222222xxxx|xxxxxx22222222xxxx|xxxxxx22222222xxxx', 'none'),
-	(61, 'habburger', 'habburger', 22, 10, 0, 6, '22222222222222222222xxx|22222222222222222222xxx|22222222222222222222xxx|22222222222222222222xxx|xxxxxxxxxxxxxxxx1111xxx|xxxxxxxxxxxxxxxx0000xxx|xxx00000000000000000xxx|00000000000000000000xxx|00000000000000000000xxx|00000000000000000000000|00000000000000000000000|00000000000000000000xxx|00000000000000000000xxx|00000000000000000000xxx|xxx00000000000000000xxx', 'none'),
-	(62, 'pizza', 'pizza', 5, 27, 1, 0, 'xxxxxxxxx0000000|x11111x1xx000000|11xxxxx111x00000|11x1111111xx0000|11x1111111100000|xxx1111111100000|1111111111100000|1111111111100000|1111111111100000|1111111111100000|1111111111100000|1111111111100000|1111111111100000|1111111111100000|1111111111100000|1111111111100000|1111111111100000|11111111111xxxxx|1111111111xxxxxx|1111111111111111|1111111111111111|1111111111111111|1111111111111111|1111111111111111|1111111111111111|11xx11xx11111111|xxxx11xxxxxxxxxx|xxxx11xxxxxxxxxx', 'none'),
-	(63, 'bb_lobby_1', 'bb_lobby_1', 14, 19, 0, 0, 'xxx2222222222222222x|xxx2222222222222222x|xxx2222222222222222x|xxx2222222222222222x|xxx11111111111111111|11x11111111111111111|11x11111111111111111|11x11111111111111111|x1x11111111111111111|xxx11111111111111111|xxx11111111111111111|xxx11111111111111111|xxx11111111111111111|xxx11111111111111111|xxxxxxxxx00000000000|xxxxxxxxx00000000000|xxxxxxxxx00000000000|xxxxxxxxx00000000000|xxxxxxxxx00000000000|xxxxxxxxx00000000000|xxxxxxxxxxxxx000xxxx|xxxxxxxxxxxxx000xxxx|xxxxxxxxxxxxx000xxxx', 'battleball_lobby_trigger'),
-	(64, 'snowwar_lobby_1', 'snowwar_lobby_1', 41, 36, 1, 0, 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx11111xx1xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx11111xx1111xxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxx111111xxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxx1111111111111111xxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxx1111111111111111xxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxx1111111111111111xxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxx1111111111111111xxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxx1111111111111111xxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxx1111111111111111xxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxx1111111111111111xxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxx1111111111111111xxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxx1111111111111111xxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxx1111111111111111xxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxx1111111111111111xxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxx111111111111111xxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxx1111111111111111xxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxx1111111111111111xxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxx1111111111111111xxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxx111111111111111xxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxx1111x1111111111xxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', 'snowstorm_lobby_trigger'),
-	(65, 'tv_studio', 'tv_studio', 16, 27, 4, 6, 'xxxxxxxxxxxxxxxxxxxx|xxxxx0x00000xxxxxxxx|xxxxx0x000000xxxxxxx|xxxxx0x000000xxxxxxx|xxxxx0x0xxx00000xx0x|xx0000x000000000xx00|xx00xxx000000000xx00|xxxxx00000000000xx00|x000000000000x000000|x0000000000000000000|x0000000000000000x00|00000000000000000x00|x000x000000000000x00|x0000000000000000x00|x0000000000000000x00|000x0000000000000000|000x0000000000000000|00000000000000xxx000|x0000000000000000000|xx00000000000000000x|xxx000000000000000xx|xxxxxxxxx1111xxxx0xx|xxxxxxxxx2222xxxxxxx|xxxxxxxxx3333xxxxxxx|xxxxxx44x4444x444xxx|xxxxx444444444444xxx|xxxxxx44444444444444|xxxxx4444x4444444444|xxxxx4444x4444444444|xxxxx4444x4444444xxx|xxxxx444444444444xxx|xxxxx444444444444xxx|xxxxxx44444444444xxx', 'none'),
-	(66, 'cr_kitchen', 'cr_kitchen', 7, 21, 0, 0, 'X0XXXX000XXXX000X0X|X000000000000000000|X000000000000000000|X000000000000000XXX|X00XXXX00XXXX000XXX|X00XXXX00XXXX00XXXX|X00000000000000XXXX|X00000000000000XXXX|X00000000000000XXXX|X00XXXXXXXXXX00XXXX|X00XXXXXXXXXX00XXXX|X00XXXXXXXXXX000XXX|0000000000000000XXX|000000000000000XXXX|000000000000000XXXX|000XXX0000XXX00XXXX|000XXX0000XXX00XXXX|000000000000000XXXX|000000000000000XXXX|000000000000000XXXX|XXXXXXX00XXXXXXXXXX|XXXXXXX00XXXXXXXXXX|XXXXXXX00XXXXXXXXXX', 'none'),
-	(67, 'club_mammoth', 'club_mammoth', 6, 16, 4, 2, 'xxxxxx4444444x4444xxxxxxxxxxxxx|xxxxxx4444444x444322xxxxxxxxxxx|xxxxxxxxxxxxxx444322xxxxxxxxxxx|x444444444444444442222xxxxxxxxx|4444444444444444442222xxxxxxxxx|4xxxxxxxxxxxxxxxxx2222xxxxxxxxx|4xxxxxxxxxx22222xx2222xxxxxxxxx|44xxxxxxxxx22222x2xxxxxxxxxxxxx|x4444444xxx22222x22xxxxxxxxxxxx|xx4444444xx22x22x222xxxxxxxxxxx|xxxxxxx444x22222xxxxxxxxxxxxxxx|xxxxxx444322222222211111111xxxx|xxxxxx444322222222211111111xxxx|xxxxxx444442222222211111111xxxx|xxx444444442222222211111111xxxx|xxx444444442222222211111111xxxx|xxx444444442222222211111111xxxx|xxx444444442222222211111111xxxx|xxxxxx4444422222222x1111111xxxx|xxxxxx4444422222222xxxxxxxxxxxx|xxxxxx4443222222222222222222xxx|xxxxxx4443xxxxxxx2xxxxx222xxxxx|xxxxxx444xxxxxxxxxxxxxxx22xxxxx|xxxxxx4xxxxxxxxxxxxx444422xxxxx|xxx4444xxxxxxxxxxxxx4444x2xxxxx|xxx566666666666666664444xxxxxxx|xxxx66666666666666664444xxxxxxx|xxxxxxx666666666666544xxxxxxxxx|xxxxxxx666666666666544xxxxxxxxx|xxxxxxx6666666666666xxxxxxxxxxx|xxxxxxx6666666666666xxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', 'none'),
-	(68, 'ice_cafe', 'taivas_cafe', 17, 23, 0, 0, 'xx111111x000000000|xx111111x000000000|xx111111x000000000|xx111111x000000000|xx111111x000000000|xx111111x000000000|xx111111x000000000|xx1111111000000000|xx1111111000000000|111111111000000000|111111111000000000|111111111000000000|111111111000000000|111111111000000000|11111111x000000000|11111111x000000000|xx111111x000000000|xx111111x000000000|xx111111x000000000|xx111111x000000000|xx111111x000000000|xx111111x000000000|xx1111110000000000|xx1111111000000000|xx1111111000000000|xx1111111000000000|', 'none'),
-	(69, 'netcafe', 'netcafe', 22, 12, 0, 6, 'xxxxx1111xxxxxxxxxxx1xxxx|xxxxx1111111111111111xxxx|xxxxx1111111111111111xxxx|xxxxx1111111111111111xxxx|xxxxxxxx0000000000000xxxx|111111100000000000000xxxx|111111100000000000000xxxx|111111100000000000000xxxx|xxxx11100000000000000xxxx|x1xx11100000000000000xxxx|x1xx11100000000000000xxxx|x1xx111000000000000000000|x1xx111000000000000000000|xxxx111000000000000000000|xxxx11100000000000000xxxx|xxxx1110000000xx11111xxxx|xxxxx111110000x111111xxxx|xxxxxx111100001111111xxxx|xxxxxx111100001111111xxxx|xxxxxx111100001111111xxxx|xxxxxx111100001111111xxxx|xxxxxx111100001111111xxxx|xxxxxx111100001111111xxxx|xxxxx1111100001111111xxxx|', 'none'),
-	(70, 'hallway0', 'hallway0', 2, 2, 0, 2, 'xxxx000000001111111111111111xxxx|xxxx000000001111111111111111xxxx|00000000000011111111111111111111|00000000000011111111111111111111|00000000000011111111111111111111|00000000000011111111111111111111|xxxx000000001111111111111111xxxx|xxxx0000000x1111111111111111xxxx|xxxxxxxxxxxxx1111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxxxx1111xxxxxxxxxxxxxx|xxxxxxxxxxxxxx1111xxxxxxxxxxxxxx|xxxxxxxxxxxxxx1111xxxxxxxxxxxxxx|xxxxxxxxxxxxxx1111xxxxxxxxxxxxxx', 'none'),
-	(71, 'hallway9', 'hallway9', 21, 23, 0, 7, 'xxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxx000000000000000000000000xxxx|xxxx000000000000000000000000xxxx|00000000000000000000000000000000|00000000000000000000000000000000|00000000000000000000000000000000|00000000000000000000000000000000|xxxx000000000000000000000000xxxx|xxxx000000000000000000000000xxxx|xxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxx000000000000xxxxxxxx|xxxxxxxxxxxx000000000000xxxxxxxx|xxxxxxxxxxxx000000000000xxxxxxxx|xxxxxxxxxxxx000000000000xxxxxxxx|xxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxx0000xxxxxxxxxxxxxx', 'none'),
-	(72, 'hallway2', 'hallway2', 15, 2, 0, 4, 'xxxxxxxxxxxxxx000xxxxxxxxxxx|xxxxxxxxxxxxxx000xxxxxxxxxxx|xxxxxxxxxxxxxx000xxxxxxxxxxx|xxxxxxxxxxxxxx0000xxxxxxxxxx|xxxx11111111000000000000xxxx|xxxx11111111000000000000xxxx|1111111111110000000000000000|1111111111110000000000000000|1111111111110000000000000000|1111111111110000000000000000|xxxx11111111000000000000xxxx|xxxx11111111000000000000xxxx|xxxx11111111xxxx00000000xxxx|xxxx11111111xxxx00000000xxxx|xxxx11111111xxxx00000000xxxx|xxxx11111111xxxx00000000xxxx|xxxx11111111xxxx00000000xxxx|xxxx11111111xxxx00000000xxxx|xxxx11111111xxxx00000000xxxx|xxxx11111111xxxx00000000xxxx|xxxxxx1111xxxxxxxxxxxxxxxxxx|xxxxxx1111xxxxxxxxxxxxxxxxxx|xxxxxx1111xxxxxxxxxxxxxxxxxx|xxxxxx1111xxxxxxxxxxxxxxxxxx', 'none'),
-	(73, 'hallway1', 'hallway1', 2, 14, 0, 2, 'xxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxx0000000000000000xxxx|xxxxxxxxxxxx0000000000000000xxxx|xxxxxxxxxxxx00000000000000000000|xxxxxxxxxxxx00000000000000000000|xxxxxxxxxxxx00000000000000000000|xxxxxxxxxxxx00000000000000000000|xxxxxxxxxxxx0000000000000000xxxx|xxxxxxxxxxxx0000000000000000xxxx|xxxx1111111100000000xxxxxxxxxxxx|xxxx1111111100000000xxxxxxxxxxxx|11111111111100000000xxxxxxxxxxxx|11111111111100000000xxxxxxxxxxxx|11111111111100000000xxxxxxxxxxxx|11111111111100000000xxxxxxxxxxxx|xxxx1111111100000000xxxxxxxxxxxx|xxxx1111111100000000xxxxxxxxxxxx', 'none'),
-	(74, 'hallway3', 'hallway3', 14, 21, 1, 0, 'xxxxxx1111xxxxxxxxxxxxxxxxxxxxxx|xxxxxx1111xxxxxxxxxxxxxxxxxxxxxx|xxxxxx1111xxxxxxxxxxxxxxxxxxxxxx|xxxxxx1111xxxxxxxxxxxxxxxxxxxxxx|xxxx111111111111111100000000xxxx|xxxx111111111111111100000000xxxx|11111111111111111111000000000000|11111111111111111111000000000000|11111111111111111111000000000000|11111111111111111111000000000000|xxxx111111111111111100000000xxxx|xxxx111111111111111100000000xxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxxxx1111xxxxxxxxxxxxxx|xxxxxxxxxxxxxx1111xxxxxxxxxxxxxx|xxxxxxxxxxxxxx1111xxxxxxxxxxxxxx|xxxxxxxxxxxxxx1111xxxxxxxxxxxxxx', 'none'),
-	(75, 'hallway4', 'hallway4', 29, 3, 1, 6, 'xxxx000000001111111111111111xxxx|xxxx000000001111111111111111xxxx|00000000000011111111111111111111|00000000000011111111111111111111|00000000000011111111111111111111|00000000000011111111111111111111|xxxx000000001111111111111111xxxx|xxxx000000001111111111111111xxxx|xxxxxxxxxxxxxxxxxxxx11111111xxxx|xxxxxxxxxxxxxxxxxxxx11111111xxxx|xxxxxxxxxxxxxxxxxxxx11111111xxxx|xxxxxxxxxxxxxxxxxxxx11111111xxxx|xxxxxxxxxxxxxxxxxxxx11111111xxxx|xxxxxxxxxxxxxxxxxxxx11111111xxxx|xxxxxxxxxxxxxxxxxxxx11111111xxxx|xxxxxxxxxxxxxxxxxxxx11111111xxxx|xxxxxxxxxxxxxxxxxxxxxx1111xxxxxx|xxxxxxxxxxxxxxxxxxxxxx1111xxxxxx|xxxxxxxxxxxxxxxxxxxxxx1111xxxxxx|xxxxxxxxxxxxxxxxxxxxxx1111xxxxxx', 'none'),
-	(76, 'hallway5', 'hallway5', 14, 2, 1, 4, 'xxxxxxxxxxxxxx11xxxxxx1111xx|xxxxxxxxxxxxxx111xxxxx1111xx|xxxxxxxxxxxxxx1111xxxx1111xx|xxxxxxxxxxxxxx1111xxxx1111xx|xxxxxxxxxxxx1111111111111111|xxxxxxxxxxxx1111111111111111|xxxxxxxxxxxx1111111111111111|xxxxxxxxxxxx1111111111111111|xxxxxxxxxxxx1111111111111111|xxxxxxxxxxxx1111111111111111|xxxxxxxxxxxx1111111111111111|xxxxxxxxxxxx1111111111111111|xxxx000000001111111111111111|xxxx000000001111111111111111|0000000000001111111111111111|0000000000001111111111111111|0000000000001111111111111111|0000000000001111111111111111|xxxx000000001111111111111111|xxxx0000000x1111111111111111|xxxxxxxxxxxx11111111xxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxx', 'none'),
-	(77, 'hallway8', 'hallway8', 15, 3, 0, 4, 'xxxxxxxxxxxxxx00xxxx0000|xxxxxxxxxxxxxx000xxx0000|xxxxxxxxxxxxxx0000xx0000|xxxxxxxxxxxxxx0000xx0000|xxxx11111111000000000000|xxxx11111111000000000000|xxxx11111111000000000000|xxxx11111111000000000000|xxxx11111111000000000000|xxxx11111111000000000000|xxxx11111111000000000000|xxxx11111111000000000000|xxxx11111111xxxx00000000|xxxx11111111xxxx00000000|111111111111xxxx00000000|111111111111xxxx00000000|111111111111xxxx00000000|111111111111xxxx00000000|xxxx11111111xxxx00000000|xxxx11111111xxxx00000000|xxxxxxxxxxxxxxxxxx0000xx|xxxxxxxxxxxxxxxxxx0000xx|xxxxxxxxxxxxxxxxxx0000xx|xxxxxxxxxxxxxxxxxx0000xx', 'none'),
-	(78, 'hallway7', 'hallway7', 7, 2, 1, 4, 'xxxxxx11xxxxxxxxxxxx|xxxxxx111xxxxxxxxxxx|xxxxxx1111xxxxxxxxxx|xxxxxx1111xxxxxxxxxx|xxxx11111111xxxxxxxx|xxxx11111111xxxxxxxx|xxxx111111111111xxxx|xxxx111111111111xxxx|xxxx111111111111xxxx|xxxx111111111111xxxx|xxxx11111111xxxxxxxx|xxxx11111111xxxxxxxx|xxxx11111111xxxxxxxx|xxxx11111111xxxxxxxx|xxxx11111111xxxxxxxx|xxxx11111111xxxxxxxx|xxxx11111111xxxxxxxx|xxxx11111111xxxxxxxx|xxxx11111111xxxxxxxx|xxxx11111111xxxxxxxx|xxxx000000000000xxxx|xxxx000000000000xxxx|00000000000000000000|00000000000000000000|00000000000000000000|00000000000000000000|xxxx000000000000xxxx|xxxx000000000000xxxx', 'none'),
-	(79, 'hallway6', 'hallway6', 1, 10, 1, 2, 'xxxx1111111111111111xxxx|xxxx1111111111111111xxxx|xxxx1111111111111111xxxx|xxxx1111111111111111xxxx|xxxx1111xxxxxxxxxxxxxxxx|xxxx1111xxxxxxxxxxxxxxxx|xxxx1111xxxxxxxxxxxxxxxx|xxxx1111xxxxxxxxxxxxxxxx|xxxx1111111100000000xxxx|xxxx1111111100000000xxxx|111111111111000000000000|111111111111000000000000|111111111111000000000000|111111111111000000000000|xxxx1111111100000000xxxx|xxxx1111111100000000xxxx|xxxxxxxx1111xxxxxxxxxxxx|xxxxxxxx1111xxxxxxxxxxxx|xxxxxxxx1111xxxxxxxxxxxx|xxxxxxxx1111xxxxxxxxxxxx|xxxxxxxx111111111111xxxx|xxxxxxxx111111111111xxxx|xxxxxxxx111111111111xxxx|xxxxxxxx111111111111xxxx', 'none'),
-	(80, 'hallway10', 'hallway10', 3, 23, 1, 1, 'xxxxxxxxxx00000000xxxx|xxxxxxxxxx00000000xxxx|xxxxxxxxxx00000000xxxx|xxxxxxxxxx00000000xxxx|xx1111xxxx0000xxxxxxxx|xx1111xxxx0000xxxxxxxx|xx1111xxxx0000xxxxxxxx|xx1111xxxx0000xxxxxxxx|11111111xx0000000000xx|11111111xx0000000000xx|11111111xx0000000000xx|11111111xx0000000000xx|11111111xxxxxxxx0000xx|11111111xxxxxxxx0000xx|11111111xxxxxxxx0000xx|11111111xxxxxxxx0000xx|1111111111111111000000|1111111111111111000000|1111111111111111000000|1111111111111111000000|1111111111111111000000|1111111111111111000000|1111111111111111000000|1111111111111111000000|xx1111xxxxxxxxxxxxxxxx|xx1111xxxxxxxxxxxxxxxx|xx1111xxxxxxxxxxxxxxxx|xx1111xxxxxxxxxxxxxxxx', 'none'),
-	(81, 'hallway11', 'hallway11', 20, 3, 0, 6, 'xxxx1111111100000000xxxx|xxxx1111111100000000xxxx|111111111111000000000000|111111111111000000000000|111111111111000000000000|111111111111000000000000|xxxx1111111100000000xxxx|xxxx1111111100000000xxxx|xxxxxxxxxxxx000000000000|xxxxxxxxxxxx000000000000|xxxxxxxxxx00000000000000|xxxxxxxxxx00000000000000|xxxxxxxxxx00000000000000|xxxxxxxxxx00000000000000|xxxxxxxxxxxx000000000000|xxxxxxxxxxxx000000000000|xxxxxxxxxxxx000000000000|xxxxxxxxxxxx000000000000|xxxxxxxx000000000000xxxx|xxxxxxxx000000000000xxxx|xxxxxxxx000000000000xxxx|xxxxxxxx000000000000xxxx', 'none'),
-	(82, 'star_lounge', 'star_lounge', 36, 35, 0, 6, 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx2222x4444442222xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx22222x444x32222xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx22222xx4xx22222xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx222222222222222xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx222222222222222xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx222222222222222xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx222222222222222xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx222222222222222xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx222222222222222xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx22222222222222211111xxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx22222222222222211111xxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx22222222222222211111xxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx22222222222222211111xxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx22222222222222222111xxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx22222222222222222111xxxxxxxxx|xxxxxxxxxxxxxxxx3333x22222222222222xxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxx3333x22222222222222xxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxx3333x22222222221111xxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxx3333xx2x22222220000xxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxx333333332222222000000xxxxxxxxxxxxx|xxxxxxxxxxxxxxxx333333332222222x0000000xxxxxxxxxxx|xxxxxxxxxxxxxxxxx33333332222222x0000000xxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxx222222000000xxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', 'none'),
-	(83, 'orient', 'orient', 32, 20, 1, 6, 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxxxx1000000000xxxxxxxxxxxx|xxxxxxxxxxxxxx1xxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxx1xxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxx1xxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxx1xxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxx1xxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxx1xxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxx1xxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxx1xx000x000xx111x111xxx|xxxxxxxxxxxxxx1xx000x000xxxxxx1111xx|xxxxxxxxxxxxxx1xx000x000x111111111xx|xxxxxxxxxxxxxx1xx000x000x111111111xx|xxx111111111111xx000x000x111111111xx|xxx1xxxxxxxxxxxxx000x000x111111111xx|xxx1x1111111111000000000x111111111xx|xxx1x1111111111000000000xx1111111xxx|xxx1x11xxxxxx11000000000xx1111111100|xxx111xxxxxxx11000000000011111111100|xxx111xxxxxxx11000000000011111111100|xxxxx1xxxxxxx11000000000011111111100|xxxxx11xxxxxx11000000000xx1111111100|xxxxx1111111111000000000xx1111111xxx|xxxxx1111111111xx000x000x111111111xx|xxxxxxxxxxxxxxxxx000x000x111111111xx|xxxxxxxxxxxxxxxxx000x000x111111111xx|xxxxxxxxxxxxxxxxx000x000x111111111xx|xxxxxxxxxxxxxxxxx000x000x111111111xx|xxxxxxxxxxxxxxxxx000x00xx11xxxx111xx|xxxxxxxxxxxxxxxxxxxxxxxxxx11111111xx|', 'none'),
-	(84, 'entryhall', 'entryhall', 17, 18, 1, 0, 'xx11xxxx11xxxx11xxxx|x1111111111111111111|11111111111111111111|11111111111111111111|x1111111111111111111|x1111111111111111111|x1111111111111111111|x1111111111111111111|x1111111111111111111|x1111111111111111111|x1111111111111111111|x1111111111111111111|x1111111111111111111|x1111111111111111111|x1111111111111111111|x1111111111111111111|x1111111111111111111|x1111111111111111111|x1111111111111111111|x1111111111111111111|xxxxxxxxxxxxxxxxx11x', 'none'),
-	(85, 'hallA', 'hallA', 0, 0, 1, 4, '11xxxxxxxxxxxxxxx|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111', 'none'),
-	(86, 'hallB', 'hallB', 1, 0, 1, 4, 'x11xxxxxxxxxxxxxxxx|1111111111111111111|1111111111111111111|1111111111111111111|1111111111111111111|1111111111111111111|1111111111111111111|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx', 'none'),
-	(87, 'hallC', 'hallC', 0, 0, 1, 4, '11xxxxxxxxxxxxxxx|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111', 'none'),
-	(88, 'hallD', 'hallD', 0, 0, 1, 4, '11xxxxxxxxxxxxxxx|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111', 'none'),
-	(89, 'model_s', 'model_s', 0, 3, 0, 2, 'xxxxxxx|x00000x|x00000x|000000x|x00000x|x00000x|x00000x|x00000x|xxxxxxx', 'flat_trigger'),
-	(90, 'emperors', 'emperors', 11, 31, 0, 0, 'xxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxx444xxxx4444xxxxxx|xxxx2x4444xxxx44444x2xxx|xxxx2x44444x4x44444x2xxx|xxxx2x4444444444444x2xxx|xxxx2x33xx33333xx33x2xxx|xxxx2222xx22222xx2222xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22xx222222222xx22xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22222xx22x2222222xxx|xxxxx2xx2xx22xxx2xx2xxxx|xxxxxxxxxxx11xxxxxxxxxxx|xxxxxxxxxxx00xxxxxxxxxxx|xxxxxxxxxxx00xxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxx', 'none'),
-	(91, 'beauty_salon1', 'beauty_salon1', 14, 3, 0, 1, 'xxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxx0xxxxxxxxx|xxxxxxx000000000000000xx|xxxxxx0000000000000000xx|xxxxx000000000000xxxxxxx|xxxx000000000000000000xx|xxx0000000000000000000xx|xxx0000000000000000000xx|xxx0000000000000000000xx|xxxxxxxxxxxxxxxx000000xx|xx0000000000000x000000xx|000000000000000x000000xx|000000000000000x000000xx|000000000000000x000000xx|00x000000000000x000000xx|00xxxxxxxxxxxxxx000000xx|00xxxxxxxxxxxxxx000000xx|00x0000000000000000000xx|00x0000000000000000000xx|00x0000000000000000000xx|0000000000000000000000xx|x000000000000000000000xx|xxx0000000000000000000xx', 'none');
+INSERT INTO `rooms_models` VALUES (1,'model_a','model_a',3,5,0,2,'xxxxxxxxxxxx|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxx00000000|xxxxxxxxxxxx|xxxxxxxxxxxx','flat_trigger');
+INSERT INTO `rooms_models` VALUES (2,'model_b','model_b',0,5,0,2,'xxxxxxxxxxxx|xxxxx0000000|xxxxx0000000|xxxxx0000000|xxxxx0000000|x00000000000|x00000000000|x00000000000|x00000000000|x00000000000|x00000000000|xxxxxxxxxxxx|xxxxxxxxxxxx|xxxxxxxxxxxx|xxxxxxxxxxxx|xxxxxxxxxxxx','flat_trigger');
+INSERT INTO `rooms_models` VALUES (3,'model_c','model_c',4,7,0,2,'xxxxxxxxxxxx|xxxxxxxxxxxx|xxxxxxxxxxxx|xxxxxxxxxxxx|xxxxxxxxxxxx|xxxxx000000x|xxxxx000000x|xxxxx000000x|xxxxx000000x|xxxxx000000x|xxxxx000000x|xxxxxxxxxxxx|xxxxxxxxxxxx|xxxxxxxxxxxx|xxxxxxxxxxxx|xxxxxxxxxxxx','flat_trigger');
+INSERT INTO `rooms_models` VALUES (4,'model_d','model_d',4,7,0,2,'xxxxxxxxxxxx|xxxxx000000x|xxxxx000000x|xxxxx000000x|xxxxx000000x|xxxxx000000x|xxxxx000000x|xxxxx000000x|xxxxx000000x|xxxxx000000x|xxxxx000000x|xxxxx000000x|xxxxx000000x|xxxxx000000x|xxxxx000000x|xxxxxxxxxxxx','flat_trigger');
+INSERT INTO `rooms_models` VALUES (5,'model_e','model_e',1,5,0,2,'xxxxxxxxxxxx|xxxxxxxxxxxx|xxxxxxxxxxxx|xx0000000000|xx0000000000|xx0000000000|xx0000000000|xx0000000000|xx0000000000|xx0000000000|xx0000000000|xxxxxxxxxxxx|xxxxxxxxxxxx|xxxxxxxxxxxx|xxxxxxxxxxxx|xxxxxxxxxxxx','flat_trigger');
+INSERT INTO `rooms_models` VALUES (6,'model_f','model_f',2,5,0,2,'xxxxxxxxxxxx|xxxxxxx0000x|xxxxxxx0000x|xxx00000000x|xxx00000000x|xxx00000000x|xxx00000000x|x0000000000x|x0000000000x|x0000000000x|x0000000000x|xxxxxxxxxxxx|xxxxxxxxxxxx|xxxxxxxxxxxx|xxxxxxxxxxxx|xxxxxxxxxxxx','flat_trigger');
+INSERT INTO `rooms_models` VALUES (7,'model_g','model_g',1,7,1,2,'xxxxxxxxxxxxx|xxxxxxxxxxxxx|xxxxxxx00000x|xxxxxxx00000x|xxxxxxx00000x|xx1111000000x|xx1111000000x|xx1111000000x|xx1111000000x|xx1111000000x|xxxxxxx00000x|xxxxxxx00000x|xxxxxxx00000x|xxxxxxxxxxxxx|xxxxxxxxxxxxx|xxxxxxxxxxxxx|xxxxxxxxxxxxx','flat_trigger');
+INSERT INTO `rooms_models` VALUES (8,'model_h','model_h',4,4,1,2,'xxxxxxxxxxxx|xxxxxxxxxxxx|xxxxx111111x|xxxxx111111x|xxxxx111111x|xxxxx111111x|xxxxx111111x|xxxxx000000x|xxxxx000000x|xxx00000000x|xxx00000000x|xxx00000000x|xxx00000000x|xxxxxxxxxxxx|xxxxxxxxxxxx|xxxxxxxxxxxx','flat_trigger');
+INSERT INTO `rooms_models` VALUES (9,'model_i','model_i',0,10,0,2,'xxxxxxxxxxxxxxxxx|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|x0000000000000000|xxxxxxxxxxxxxxxxx','flat_trigger');
+INSERT INTO `rooms_models` VALUES (10,'model_j','model_j',0,10,0,2,'xxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxx0000000000|xxxxxxxxxxx0000000000|xxxxxxxxxxx0000000000|xxxxxxxxxxx0000000000|xxxxxxxxxxx0000000000|xxxxxxxxxxx0000000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|x0000000000xxxxxxxxxx|x0000000000xxxxxxxxxx|x0000000000xxxxxxxxxx|x0000000000xxxxxxxxxx|x0000000000xxxxxxxxxx|x0000000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx','flat_trigger');
+INSERT INTO `rooms_models` VALUES (11,'model_k','model_k',0,13,0,2,'xxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx00000000|xxxxxxxxxxxxxxxxx00000000|xxxxxxxxxxxxxxxxx00000000|xxxxxxxxxxxxxxxxx00000000|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|x000000000000000000000000|x000000000000000000000000|x000000000000000000000000|x000000000000000000000000|x000000000000000000000000|x000000000000000000000000|x000000000000000000000000|x000000000000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxxxxxxxxxxxxxxxxxx','flat_trigger');
+INSERT INTO `rooms_models` VALUES (12,'model_l','model_l',0,16,0,2,'xxxxxxxxxxxxxxxxxxxxx|x00000000000000000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|x00000000xxxx00000000|x00000000xxxx00000000|x00000000xxxx00000000|x00000000xxxx00000000|x00000000xxxx00000000|x00000000xxxx00000000|x00000000xxxx00000000|x00000000xxxx00000000|x00000000xxxx00000000|x00000000xxxx00000000|x00000000xxxx00000000|x00000000xxxx00000000|xxxxxxxxxxxxxxxxxxxxx','flat_trigger');
+INSERT INTO `rooms_models` VALUES (13,'model_m','model_m',0,15,0,2,'xxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxx00000000xxxxxxxxxx|xxxxxxxxxxx00000000xxxxxxxxxx|xxxxxxxxxxx00000000xxxxxxxxxx|xxxxxxxxxxx00000000xxxxxxxxxx|xxxxxxxxxxx00000000xxxxxxxxxx|xxxxxxxxxxx00000000xxxxxxxxxx|xxxxxxxxxxx00000000xxxxxxxxxx|xxxxxxxxxxx00000000xxxxxxxxxx|xxxxxxxxxxx00000000xxxxxxxxxx|xxxxxxxxxxx00000000xxxxxxxxxx|x0000000000000000000000000000|x0000000000000000000000000000|x0000000000000000000000000000|x0000000000000000000000000000|x0000000000000000000000000000|x0000000000000000000000000000|x0000000000000000000000000000|x0000000000000000000000000000|xxxxxxxxxxx00000000xxxxxxxxxx|xxxxxxxxxxx00000000xxxxxxxxxx|xxxxxxxxxxx00000000xxxxxxxxxx|xxxxxxxxxxx00000000xxxxxxxxxx|xxxxxxxxxxx00000000xxxxxxxxxx|xxxxxxxxxxx00000000xxxxxxxxxx|xxxxxxxxxxx00000000xxxxxxxxxx|xxxxxxxxxxx00000000xxxxxxxxxx|xxxxxxxxxxx00000000xxxxxxxxxx|xxxxxxxxxxx00000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxx','flat_trigger');
+INSERT INTO `rooms_models` VALUES (14,'model_n','model_n',0,16,0,2,'xxxxxxxxxxxxxxxxxxxxx|x00000000000000000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|x000000xxxxxxxx000000|x000000x000000x000000|x000000x000000x000000|x000000x000000x000000|x000000x000000x000000|x000000x000000x000000|x000000x000000x000000|x000000xxxxxxxx000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|x00000000000000000000|xxxxxxxxxxxxxxxxxxxxx','flat_trigger');
+INSERT INTO `rooms_models` VALUES (15,'model_o','model_o',0,18,1,2,'xxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxx11111111xxxx|xxxxxxxxxxxxx11111111xxxx|xxxxxxxxxxxxx11111111xxxx|xxxxxxxxxxxxx11111111xxxx|xxxxxxxxxxxxx11111111xxxx|xxxxxxxxxxxxx11111111xxxx|xxxxxxxxxxxxx11111111xxxx|xxxxxxxxxxxxx00000000xxxx|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|x111111100000000000000000|x111111100000000000000000|x111111100000000000000000|x111111100000000000000000|x111111100000000000000000|x111111100000000000000000|x111111100000000000000000|x111111100000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxx0000000000000000|xxxxxxxxxxxxxxxxxxxxxxxxx','flat_trigger');
+INSERT INTO `rooms_models` VALUES (16,'model_p','model_p',0,23,2,2,'xxxxxxxxxxxxxxxxxxx|xxxxxxx222222222222|xxxxxxx222222222222|xxxxxxx222222222222|xxxxxxx222222222222|xxxxxxx222222222222|xxxxxxx222222222222|xxxxxxx22222222xxxx|xxxxxxx11111111xxxx|x222221111111111111|x222221111111111111|x222221111111111111|x222221111111111111|x222221111111111111|x222221111111111111|x222221111111111111|x222221111111111111|x2222xx11111111xxxx|x2222xx00000000xxxx|x2222xx000000000000|x2222xx000000000000|x2222xx000000000000|x2222xx000000000000|x2222xx000000000000|x2222xx000000000000|xxxxxxxxxxxxxxxxxxx','flat_trigger');
+INSERT INTO `rooms_models` VALUES (17,'model_q','model_q',10,4,2,2,'xxxxxxxxxxxxxxxxxxx|xxxxxxxxxxx22222222|xxxxxxxxxxx22222222|xxxxxxxxxxx22222222|xxxxxxxxxxx22222222|xxxxxxxxxxx22222222|xxxxxxxxxxx22222222|x222222222222222222|x222222222222222222|x222222222222222222|x222222222222222222|x222222222222222222|x222222222222222222|x2222xxxxxxxxxxxxxx|x2222xxxxxxxxxxxxxx|x2222211111xx000000|x222221111110000000|x222221111110000000|x2222211111xx000000|xx22xxx1111xxxxxxxx|xx11xxx1111xxxxxxxx|x1111xx1111xx000000|x1111xx111110000000|x1111xx111110000000|x1111xx1111xx000000|xxxxxxxxxxxxxxxxxxx','flat_trigger');
+INSERT INTO `rooms_models` VALUES (18,'model_r','model_r',10,4,3,2,'xxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxx33333333333333|xxxxxxxxxxx33333333333333|xxxxxxxxxxx33333333333333|xxxxxxxxxxx33333333333333|xxxxxxxxxxx33333333333333|xxxxxxxxxxx33333333333333|xxxxxxx333333333333333333|xxxxxxx333333333333333333|xxxxxxx333333333333333333|xxxxxxx333333333333333333|xxxxxxx333333333333333333|xxxxxxx333333333333333333|x4444433333xxxxxxxxxxxxxx|x4444433333xxxxxxxxxxxxxx|x44444333333222xx000000xx|x44444333333222xx000000xx|xxx44xxxxxxxx22xx000000xx|xxx33xxxxxxxx11xx000000xx|xxx33322222211110000000xx|xxx33322222211110000000xx|xxxxxxxxxxxxxxxxx000000xx|xxxxxxxxxxxxxxxxx000000xx|xxxxxxxxxxxxxxxxx000000xx|xxxxxxxxxxxxxxxxx000000xx|xxxxxxxxxxxxxxxxxxxxxxxxx','flat_trigger');
+INSERT INTO `rooms_models` VALUES (19,'newbie_lobby','newbie_lobby',2,11,0,2,'xxxxxxxxxxxxxxxx000000|xxxxx0xxxxxxxxxx000000|xxxxx00000000xxx000000|xxxxx000000000xx000000|0000000000000000000000|0000000000000000000000|0000000000000000000000|0000000000000000000000|0000000000000000000000|xxxxx000000000000000xx|xxxxx000000000000000xx|x0000000000000000000xx|x0000000000000000xxxxx|xxxxxx00000000000xxxxx|xxxxxxx0000000000xxxxx|xxxxxxxx000000000xxxxx|xxxxxxxx000000000xxxxx|xxxxxxxx000000000xxxxx|xxxxxxxx000000000xxxxx|xxxxxxxx000000000xxxxx|xxxxxxxx000000000xxxxx|xxxxxx00000000000xxxxx|xxxxxx00000000000xxxxx|xxxxxx00000000000xxxxx|xxxxxx00000000000xxxxx|xxxxxx00000000000xxxxx|xxxxx000000000000xxxxx|xxxxx000000000000xxxxx','none');
+INSERT INTO `rooms_models` VALUES (20,'theater','theater',20,27,0,0,'XXXXXXXXXXXXXXXXXXXXXXX|XXXXXXXXXXXXXXXXXXXXXXX|XXXXXXXXXXXXXXXXXXXXXXX|XXXXXXXXXXXXXXXXXXXXXXX|XXXXXXXXXXXXXXXXXXXXXXX|XXXXXXXXXXXXXXXXXXXXXXX|XXXXXXX111111111XXXXXXX|XXXXXXX11111111100000XX|XXXX00X11111111100000XX|XXXX00x11111111100000XX|4XXX00X11111111100000XX|4440000XXXXXXXXX00000XX|444000000000000000000XX|4XX000000000000000000XX|4XX0000000000000000000X|44400000000000000000000|44400000000000000000000|44X0000000000000000O000|44X11111111111111111000|44X11111111111111111000|33X11111111111111111000|22X11111111111111111000|22X11111111111111111000|22X11111111111111111000|22X11111111111111111000|22X11111111111111111000|22211111111111111111000|22211111111111111111000|XXXXXXXXXXXXXXXXXXXX00X|XXXXXXXXXXXXXXXXXXXX00X','none');
+INSERT INTO `rooms_models` VALUES (21,'library','library',20,3,1,4,'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxx11111xx1xx1x111111x|xxxxxxxxxxxx111111xx1xx11111111x|xx111xxxxxxx111111xx1xx11111111x|xx111xxxxxxx1111111111111111111x|xx111xxxxxxx1111111111111111111x|xx111xxxxxxx1111111111111111111x|xx111xxxxxxx1111111111111xxxxxxx|xx111xxxxxx11111111111111111111x|xx111xxxxxx11111111111111111111x|xx111xxxxxx11111111111111111111x|xx111xxxxxx11111111111111xxxxxxx|xx111xxxxxxxx111111111111111111x|xx111xx11111x111111111111111111x|xx111xx11111x111111111111111111x|xx111xxxxx11x11111111x111xxxxxxx|xx111xxxxxxxx11111111xx11111111x|xx111xxx1111111111111xxx1111111x|xx111xxx1111111111111xxxx111111x|xxx111xx1111111111x11xxxx000000x|xxxxx1111xx1111111x11xxxx000000x|xxxxxxxxxxxx111111x11xxxx000000x|xxxxxxxxxxxx11xx11x11xxxx000000x|xxxxxxxxxxxx11xx11x11xxxx000000x|xxxxxxxxxxxx11xx11x11xxxx000000x|xxxxxxxxxxxx11xx11x11xxxx000000x|xxxxxxxxxxxx11xx11x11xxxx000000x|xxxxxxxxxxxx11xx11x111xxx000000x|xxxxxxxxxxxxxxxxxxxx11xxx000000x|xxxxxxxxxxxxxxxxxxxx11xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxx22222xxxxxxx|xxxxxxxxxxxxxxxxxxxx22222xxxxxxx|xxxxxxxxxxxxxxxxxxxx22222xxxxxxx|xxxxxxxxxxxxxxxxxxxx22222xxxxxxx|xxxxxxxxxxxxxxxxxxxx22222xxxxxxx|xxxxxxxxxxxxxxxxxxxx22222xxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx','none');
+INSERT INTO `rooms_models` VALUES (22,'floatinggarden','floatinggarden',2,21,5,4,'xxxxxxxxxxxxxxxx333333xxxxxxxxx|xxxxxxxxxxxxxxxx3xxxx3xxxxxxxxx|xxxxxxxxxxxxxxxx3xxxx3xxxxxxxxx|xxxxxxxxxxxxxxxx3xxxx3xxxxxxxxx|xxxxxxxxxxxxxxx223xxx33xxxxxxxx|xxxxxxxxxxxxxxx11xxx33333xxxxxx|xxxxxxxxxxxxxxxx11xx3333333xxxx|xxxxxxxxxxxxxxxx11xx33333333xxx|xxxxxxxxxxxxxxxxx11xxxxxxxx3xxx|xxxxxxxxxxxxxxxxxx11xxxx3333xxx|xxxxxxxxxxxxxxxxxxx1xxxx33333xx|xxxxxxxxxxxxxxxxxxx1xxx3333333x|555xxxxxxxxxxx1111111x333333333|555xxxxxxxxxxx21111111xxxxxx333|555xxxxxxxxxxx22111111111xxxxxx|555xxxxxxxxxxx222xxxxxxx111xxxx|555xxxxxxxxxxx22xxxxxxxxxx1xxxx|555xxxxxxxxxxx23333333333x111xx|555xxxxxxxx33333333333333x111xx|555xxxxxxxx333333x3333333x111xx|555xxxxxxxx33333333333333x111xx|555xxxxxxxx33x33333333333x111xx|555xxxxxxxx33x33x33333333x111xx|555xxxxxxxx33x33x33333333x111xx|5554333333333x333x3333333x111xx|x554333333xxxx33xxxxxxxxxx111xx|xxxxxxxxx3xxxx333221111111111xx|xxxxxxxxx3xxxx333221111111111xx|xxxxxxxxx33333333xx1111x11x11xx|xxxxxxxxx33333333111xxx11xxxxxx|xxxxxxxxxxxxxx33311xxxx11xxxxxx|xxxxxxxxxxxxxx33311xxxx11xxxxxx|xxxxxxxxxxxxxx333x1xxxx11xxxxxx|xxxxxxxxxxxxxx333x1xx111111xxxx|xxxxxxxxxxxxxx33311xx111111xxxx|xxxxxxxxxx333333311xx111111xxxx|xxxxxxxxxxx33333311xx111111xxxx|xxxxxxxxxxxxxxxx111xxxxxxxxxxxx|xxxxxxxxxxxxxxx111xxxxxxxxxxxxx','none');
+INSERT INTO `rooms_models` VALUES (23,'sunset_cafe','sunset_cafe',34,40,0,0,'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0000000xxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxx00000xx00000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx000000000000000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx000000000000000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx000000000000000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx000000000000000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx00000000xxx0000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx00000000xxxx000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx00000000xxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx0000000000000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx00000000000000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx00000000000000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx00000000000000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx00000000000000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx00000000000000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx','none');
+INSERT INTO `rooms_models` VALUES (24,'pool_a','pool_a',2,25,7,2,'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx7xxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx777xxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxx7777777xxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxx77777777xxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxx77777777xxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxx777777777xxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxx7xxx777777xxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxx7x777777777xxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxx7xxx77777777xxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxx7x777777777x7xxxxxxxxxxxxxxx|xxxxxxxxxxxxxxx7xxx7777777777xxxxxxxxxxxxxx|xxxxxxxxxxxxxxx777777777777xxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxx77777777777x2111xxxxxxxxxxxx|xxxxxxxxxxxxxxx7777777777x221111xxxxxxxxxxx|xxxxxxxxx7777777777777777x2211111xxxxxxxxxx|xxxxxxxxx7777777777777777x22211111xxxxxxxxx|xxxxxxxxx7777777777777777x222211111xxxxxxxx|xxxxxx77777777777777777777x222211111xxxxxxx|xxxxxx7777777xx777777777777x222211111xxxxxx|xxxxxx7777777xx77777777777772222111111xxxxx|xxxxxx777777777777777777777x22221111111xxxx|xx7777777777777777777777x322222211111111xxx|77777777777777777777777x33222222111111111xx|7777777777777777777777x333222222211111111xx|xx7777777777777777777x333322222222111111xxx|xx7777777777777777777333332222222221111xxxx|xx777xxx777777777777733333222222222211xxxxx|xx777x7x77777777777773333322222222222xxxxxx|xx777x7x7777777777777x33332222222222xxxxxxx|xxx77x7x7777777777777xx333222222222xxxxxxxx|xxxx77777777777777777xxx3222222222xxxxxxxxx|xxxxx777777777777777777xx22222222xxxxxxxxxx|xxxxxx777777777777777777x2222222xxxxxxxxxxx|xxxxxxx777777777777777777222222xxxxxxxxxxxx|xxxxxxxx7777777777777777722222xxxxxxxxxxxxx|xxxxxxxxx77777777777777772222xxxxxxxxxxxxxx|xxxxxxxxxx777777777777777222xxxxxxxxxxxxxxx|xxxxxxxxxxx77777777777777x2xxxxxxxxxxxxxxxx|xxxxxxxxxxxx77777777777777xxxxxxxxxxxxxxxxx|xxxxxxxxxxxxx777777777777xxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxx7777777777xxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxx77777777xxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxx777777xxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx7777xxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxx77xxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx','habbo_lido_trigger');
+INSERT INTO `rooms_models` VALUES (25,'pub_a','pub_a',15,25,0,0,'xxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxx2222211111xxx|xxxxxxxxx2222222211111xxx|xxxxxxxxx2222222211111xxx|xxxxxxxxx2222222211111xxx|xxxxxxxxx2222222222111xxx|xxxxxxxxx2222222222111xxx|xxxxxxxxx2222222222000xxx|xxxxxxxxx2222222222000xxx|xxxxxxxxx2222222222000xxx|xxxxxxxxx2222222222000xxx|x333333332222222222000xxx|x333333332222222222000xxx|x333333332222222222000xxx|x333333332222222222000xxx|x333333332222222222000xxx|x333332222222222222000xxx|x333332222222222222000xxx|x333332222222222222000xxx|x333332222222222222000xxx|x333333332222222222000xxx|xxxxx31111112222222000xxx|xxxxx31111111000000000xxx|xxxxx31111111000000000xxx|xxxxx31111111000000000xxx|xxxxx31111111000000000xxx|xxxxxxxxxxxxxxx00xxxxxxxx|xxxxxxxxxxxxxxx00xxxxxxxx|xxxxxxxxxxxxxxx00xxxxxxxx|xxxxxxxxxxxxxxx00xxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxx','none');
+INSERT INTO `rooms_models` VALUES (26,'md_a','md_a',3,4,7,2,'xxxxxxxx77xxxxxxxxxxxxxxxx|xxxxxxxx77xxxxxxxxxxxxxxxx|xxxxxx77777x77xxxxxxxxxxxx|xxx77777777777xxx44xxxxxxx|77777777777777xx444444444x|777777777777777xx44444444x|xxx777777777777xx44444444x|xxxx7777777777xxx44444444x|7777777777777777744448444x|7777777777777x4x744448444x|777777777777x444444448444x|7777777777774444444448444x|7777777777774444444448444x|777777777777x444444448444x|7777777777777x44444448444x|xxx777777777777x444448444x|xxx7777777777777444448444x|xxx7777777777777444448444x|xxx777777777777x444448444x|xxx77777777777x4444444444x|xxxx777777777444444444444x|xxxxxxxxxxxxxxxxxxxxxxxxxx','rooftop_rumble_trigger');
+INSERT INTO `rooms_models` VALUES (27,'picnic','picnic',16,5,2,4,'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xx22222xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|22xxxxxxxxxxxxx22xxxxxxxxxxxxxxxxxxxxx|2222222222222222222x222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222xxx222222222222222222222222|2222222222xx33x22222222222222222222222|222222222xx3333x2222222222222222222222|222222222x333333x222222222222222222222|222222222x333333x222222222222222222222|2222222222x3332x2222222222222222222222|22222222222x33x22222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222x22222xxxx22222222222222222222|22222222222222xxxx22222222222222222222|22222222222222xxx222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222|22222222222222222222222222222222222222','none');
+INSERT INTO `rooms_models` VALUES (28,'park_a','park_a',2,15,0,0,'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx000000xxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0000000xxxxx|xxxxxxxxxxxxxxx0x00xxxxxxxxxxx0x00000000xxxx|xxxxxxxxxxxxxx000000000000000000000000000xxx|xxxxxxxxxxxxx00000000000000000000000000000xx|xxxxxxxxxxxxx00000000000000000000000000000xx|xxxxxxxxxxxxx00000000000000000000000000000xx|xxxxxxxxxx00000000000000000000000000000000xx|xxxxxxxxx000000000000000000000000000000000xx|xxxxxxxxx000000000000000000000000000000000xx|xxxxxxxxx0000000000000000000000000000000000x|xxxxxxxxxxx000000000000000000000000000000000|xx00000000000000000000xx00000000000000000000|xx0000000000000000000xxxx00000000000xxxxxxx0|xx0000000000000000000xxxx00000000000x00000xx|xx0xxxx00x0000000000xxxxx0xxxxxx0000x0000000|xxxxxxx0000000000000xxxxx0xxx00x0000x000000x|xxxxxxx0000000000000xxxxx0x000000000x00000xx|xxxxxxx000000x0000000xxxx0x000000000xxx00xxx|xxxxxxxxxx000x0000000xxx00xxx000000x0000xxxx|xxxxxxxxxx000x000000xxxx0x0000000000000xxxxx|xxxxxxxxxx000x000000011100000000000000xxxxxx|xxxxxxxxxx000x00000001110000000000000xxxxxxx|xxxxxxxxxxx00x0000000111x00000000x00xxxxxxxx|xxxxxxxxxxxx0x0000000xxx0000000xxxxxxxxxxxxx|xxxxxxxxxxxxxx000000xxxx0000000xxxxxxxxxxxxx|xxxxxxxxxxxxxx000000xxx00xxxxx00xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxx0xxx0xx000x00xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxx0xxx0x000000xxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxx0xxxxx00000xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxx0xxxxx00xxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxx0xxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx','infobus_park');
+INSERT INTO `rooms_models` VALUES (29,'park_b','park_b',11,2,0,6,'0000x0000000|0000xx000000|000000000000|00000000000x|000000000000|00x0000x0000','infobus_poll');
+INSERT INTO `rooms_models` VALUES (30,'pool_b','pool_b',9,21,7,1,'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx7xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx777xxxxxxxxxxx|xxxxxxxxxxxxxxxxxx8888888x7xxx77777xxxxxxxxxx|xxxxxxxxxxxxxxxxxx8888888x7xxx777777xxxxxxxxx|xxxxxxxxxxxxxxxx88xxxxx77x7x777777777xxxxxxxx|xxxxxxxxxxxxxxxx88x7777777777777777777xxxxxxx|xxxxxxxxxxxxxxxx88x77777777777777777777xxxxxx|xxxxxxxxxxxxxx9988x77777777777777777777xxxxxx|xxxxxxxxxxxxxx9988x7777777777777777777x00xxxx|xxxxxxxxxxxxxx9988x777777777777777777x0000xxx|xxxxxxxxxxxxxx9988x7777777x0000000000000000xx|xxxxxxxxxxxxxx9988x777777x000000000000000000x|7777777777xxxx9988777777x0x0000000000000000xx|x7777777777xxx998877777x000x00000000000000xxx|xx7777777777xx99887777x00000x000000000000xxxx|xxx7777777777x9988777x0000000x0000000000xxxxx|xxxx777777777x777777x00000000x000000000xxxxxx|xxxxx777777777777777000000000x00000000xxxxxxx|xxxxxx77777777777777000000000x0000000xxxxxxxx|xxxxxxx777777x7777770000000000xxxx00xxxxxxxxx|xxxxxxxx77777777777xx0000000000000xxxxxxxxxxx|xxxxxxxxx777777110000x000000000000xxxxxxxxxxx|xxxxxxxxxx7x77x1100000x0000000000xxxxxxxxxxxx|xxxxxxxxxxx777x11000000x00000000xxxxxxxxxxxxx|xxxxxxxxxxxx771110000000x000000xxxxxxxxxxxxxx|xxxxxxxxxxxxx111100000000x0000xxxxxxxxxxxxxxx|xxxxxxxxxxxxxx11100000000x000xxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxx1100000000x00xxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxx110000000x0xxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx110000000xxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxx1100000xxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxx11000xxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxx110xxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx1xxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx','diving_deck_trigger');
+INSERT INTO `rooms_models` VALUES (31,'ballroom','ballroom',13,6,0,4,'xxxx4444444444444444444|xxxx4444444444444444444|xxxx4444444444444444444|xxxx33x2222444442222x33|xxxx2222222x00xx2222222|xxxx22222220000x2222222|xxxx11x0000x000x0000x11|xxxx0000000000000000000|11100000000000000000000|11100000000000000000000|11100000000000000000000|xxxx0000000000000000000|22210000000000000000000|22210000000000000000000|22210000000000000000000|xxxx0000000000000000000|11100000000000000000000|11100000000000000000000|11100000000000000000000|xxxxx000x11111111x0000x|xxxxxx00x1111x111x000xx|xxxxxxx0x11111111x00xxx|xxxxxxxxx11111111x0xxxx|xxxxxxxxx11111111xxxxxx','none');
+INSERT INTO `rooms_models` VALUES (32,'cafe_gold0','cafe_gold0',9,29,0,0,'xxxxxxxxxx1111xxxxxxx|xxxxxxxxxx11111xxxxxx|xxxxxxxxxx111111xxxxx|xx111111111111111xxxx|x11111111111111111xxx|1111111111111111111xx|11111111111111111111x|111111111111111111111|111111111111111111111|1111111111111x1111111|1111111000000x1111111|1111111000000x1111111|1111111000000x1111111|1111111000000x1111111|1111111000000x1111111|1111111000000x1111111|1111111000000x1111111|1111111000000x1111111|1111111000000x1111111|1111111000000xxx00000|111111100000000000000|111111100000000000000|111111100000000000000|111111100000000xxxxx0|11111110000000xxxxxx0|11111110000000xxxxxx0|11111110000000xxxxxxx|x1111110000000xxxxxxx|xxxxxxxx0000000000xxx|xxxxxxxx000xxxxxxxxxx|xxxxxxxx000xxxxxxxxxx|xxxxxxxx000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx','none');
+INSERT INTO `rooms_models` VALUES (33,'cafe','cafe',30,40,0,0,'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0000000xxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxx00000xx00000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx000000000000000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx000000000000000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx000000000000000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx000000000000000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx00000000xxx0000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx00000000xxxx000000xxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx00000000xxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxx0000000000000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx00000000000000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx00000000000000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx00000000000000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx00000000000000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx00000000000000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0000000xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx','none');
+INSERT INTO `rooms_models` VALUES (34,'den','den',3,22,0,0,'00000000xxxxxxxx|0000000000000000|0000000000000000|000000000000xx00|0000000000000000|0000000000000000|0000000000000000|x000000000000000|0000000000000000|0000000000000000|0000000000000000|0000000000000000|x000000000000000|x000000000000000|x000000000000000|x000000000000000|x000000000000000|x000000000000000|x000000000000000|x000000000000000|xxx00xxxxxxxxxxx|xxx00xxxxxxxxxxx|xxx00xxxxxxxxxxx','none');
+INSERT INTO `rooms_models` VALUES (35,'gardens','gardens',2,15,0,0,'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0xxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx00xxxxxxxxxxxx|xxxxxxxxxxxxx0x00xxxxxxxxxxx0x000xxxxxxxxxxx|xxxxxxxxxxxx0000000000000000000000xxxxxxxxxx|xxxxxxxxxxx000000000000000000000000xxxxxxxxx|xxxxxxxxxxx0000000000000000000000000xxxxxxxx|xxxxxxxxxxx00000000000000000000000000xxxxxxx|xxxxxxxx000000000000000000000000000000xxxxxx|xxxxxxx00000000000000000000000000000000xxxxx|xxxxxxx000000000000000000000000000000000xxxx|xxxxxxx0000000000000000000000000000000000xxx|xxxxxxxxx000000000000000000000000000000000xx|00000000000000000000xx00000000000000000000xx|0000000000000000000xxxx00000000000xxxxxxx0xx|0000000000000000000xxxx00000000000x00000xxxx|xxxxx00x0000000000xxxxx0xxxxxx0000x0000000xx|xxxxx0000000000000xxxxx0xx000x0000x000000xxx|xxxxx0000000000000xxxxx0x000000000x00000xxxx|xxxxx000000x0000000xxxx0x000000000xxx00xxxxx|xxxxxxxx000x0000000xxx00xxx000000x0000xxxxxx|xxxxxxxx000x000000xxxx0x0000000000000xxxxxxx|xxxxxxxx000x000000011100000000000000xxxxxxxx|xxxxxxxx000x00000001110000000000000xxxxxxxxx|xxxxxxxxx00x0000000111x00000000x00xxxxxxxxxx|xxxxxxxxxx0x0000000xxx0000000xxxxxxxxxxxxxxx|xxxxxxxxxxxx000000xxxx0000000xxxxxxxxxxxxxxx|xxxxxxxxxxxx000000xxx00xxxxx00xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx0xxx0xx000x00xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx0xxx0x000000xxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx0xxx0x00000xxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx0xxxxx00xxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxx0xxxxx0xxxxxxxxxxxxxxxxxxxx','none');
+INSERT INTO `rooms_models` VALUES (36,'gate_park','gate_park',17,26,0,0,'xxxxxxxxx222xx222222xxx22xxxxxxx|xxxxxxxxx222xx2222222xx22xxxxxxx|xxxxxxxxx22222222222222222xxxxxx|xxxxxxxxx22222222222222222xxxxxx|xxxxxxxxx22222222222222222xxxxxx|xxxxxxxxx22222x22222x22222xxxxxx|xxxxxxxxx11111x22222x11111xxxxxx|0000000xx00000x22222x00000xxxxxx|0000000xx00000000000000000xxxxxx|000000000000000000000000000xx00x|000000000000xxx00000xxx00000000x|000000000000xxx00000xxx00000000x|000000000000xxx00000xxx000000000|00000000000000000000000000000000|x0000000000000000000000000000000|xxx00000000000000000000000000000|xxxxx000000000000000000000000000|xxxxx000000000000000000000000000|xxxxx000000000000000000000000xxx|xxxxxx00000000000000000000000xxx|xxxxxxx000000000000000000000xxxx|xxxxxxxxxx00000000000000000xxxxx|xxxxxxxxxx0000000000000000xxxxxx|xxxxxxxxxx000000000000000xxxxxxx|xxxxxxxxxxxxx00000000000xxxxxxxx|xxxxxxxxxxxxxx000000000xxxxxxxxx|xxxxxxxxxxxxxxxx000xxxxxxxxxxxxx|xxxxxxxxxxxxxxxx000xxxxxxxxxxxxx|xxxxxxxxxxxxxxxx000xxxxxxxxxxxxx','none');
+INSERT INTO `rooms_models` VALUES (37,'gate_park_2','gate_park_2',17,23,0,0,'xxxxxxxxxxx111111111111xxxxxxxxxxxx|xxxxxxxxxx11111111111111xxxxxxxxxxx|xxxxxxxxxx11111111111111xxxxxxxxxxx|xxxxxxxxxx11xxxx11xxxx11xxxxxxxxxxx|xxxxxxxxxx00xxxx00xxxx00xxxxxxxxxxx|xxxxxxx0000000000000000000xxxxxxxxx|xxxxxx000000000000000000000xxxxxxxx|xxxxx0000000000000000000x000xxxxxxx|xxxx00000000000000000000xx000xxxxxx|xxxx00000000000000000000xxx000xxxxx|xxxx00000000000000000000xxxx00xxxxx|000000000000000000000000000000xxxxx|0000000000000000000000000000000xxxx|000000000000000000000000000000xxxxx|000000000000000000000000000000xxxxx|000000000000000000000000000000xxxxx|xx00000000000000000000000000000000x|xxx000xxxx00000000000000xxxx0000000|xxx0000xxx00000000000000xxx00000000|xxxx0000xx00000000000000xx000000000|xxxxx0000x00000000000000x00000000xx|xxxxxx00000000000000000000000xxxxxx|xxxxxxx00000x000000000000000x0xxxxx|xxxxxxxx0000xxx0000xxx000000xxxxxxx|xxxxxxxxx000xxx0000xxx000000xxxxxxx|xxxxxxxxxxxxxxx0000xxx000000xxxxxxx|xxxxxxxxxxxxxxxx000xxx000000xxxxxxx|xxxxxxxxxxxxxxxxxxxxxx00000xxxxxxxx','none');
+INSERT INTO `rooms_models` VALUES (38,'sun_terrace','sun_terrace',9,17,0,2,'xxxxxx21000000000xxxxxxxx|xxxxxx3xxx000xx000xxxxxxx|xxxxxx4xxx000xxx000xxxxxx|xxxxxx44xx000x00x000xxxxx|xxxxxx44xx0000xx00000xxxx|xxxxxx44xx000000000000xxx|xxxxxx44xx0000000000000xx|xxxxxxx4xxxxxxx00000000xx|xxxxxxx4xxxxxxx0000000xxx|xxxxxx444432222xxx00xxxxx|xxxxxx444432222x0000000xx|xxxxxx444432222x0000000xx|xxxxxx44400x222x0000000xx|xxxxxx444000x11x0000000xx|xxxxxx444000000x0000000xx|xxxxxx444000000x0000000xx|xxxxxx440000000000000000x|xxxxxx4400000000000000000|x8876x444000000x000000000|x8xx6x444000000x000000000|x9xx6x444000000x000000000|999x65444000000x000000000|999xxx444xxxxxxxxxx000000|999xxx444xxxxxxxxxxx00000|999xxx333xxxxxxxxxxxx0000|999xxx222222222222222x000|xxxxxx222222222222222xx00|xxxxxx222222222222222xxx0|xxxxxx222222222222222xxxx|xxxxxxx22222222222222xxxx|xxxxxxxx2222222222222xxxx','none');
+INSERT INTO `rooms_models` VALUES (39,'space_cafe','space_cafe',21,17,1,0,'x3333x333211111xxxxxxxxx|x3333x333211111xx3333333|xxxxxx333211111xx3333333|33333333xx11111xx3333333|33333333xx11111xx3333333|33x333xxxx11111xx3333333|xxx222xxx111111xx3333333|22222222xx11111xx3333333|22222222xxx1111xx3333333|22222222xxxx1111x2222222|22222222xxxx1111x1111111|22222222xxxx111111111111|22222222xxxx111111111111|xxx222xxxxx1111111111111|xxxx33xxxx11111111111111|xxx333321111111111111111|xxx333321111111111111111|xxx333321111111111111111|xxxxxxxxxxxxx1111xxxx11x|xxxxxxxxxxxxx0000xxxx11x|xxxxxxxxxx0000000xxxx11x|xxxxxxxxxx0000000xxxxxxx|xxxxxxxxxx0000000xxxxxxx|xxxxxxxxxx0000000xxxxxxx|xxxxxxxxxx0000000xxxxxxx|xxxxxxxxxx0000000xxxxxxx','space_cafe_trigger');
+INSERT INTO `rooms_models` VALUES (40,'beauty_salon0','beauty_salon0',4,3,0,0,'xxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxx|xxx0000000000000xxxxxxxx|xxx00000000000000xxxxxxx|xxxxxx000000000000xxxxxx|xxxxxxxxxxxxx0000xxxxxxx|xxxx0x0000x00000000xxxxx|xxx00xxxxxx0000000xxxxxx|xx000x000xx0000000xxxxxx|xx000xxxxx00000000xxxxxx|xx000x000000000000xxxxxx|xx000x000000000000xxxxxx|xx00xx000000000000xxxxxx|xx00xx00x0000000000xxxxx|xx00xx00x0000000000xxxxx|xx00xx0000000000000xxxxx|xx00xx0000000000000xxxxx|xx000x0xx0000000000xxxxx|xx000x0x00000000000xxxxx|xx000x0x00x00000000xxxxx|xx000x0x00000000000xxxxx|xx000x0x00x00000000xxxxx|xx000xx000000000000xxxxx|xx00000000000000000000xx|xx00000000000000000000xx|xxxxxx0000000000000000xx','none');
+INSERT INTO `rooms_models` VALUES (41,'chill','chill',22,22,0,6,'xxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxx00xxxxxxxx|xxxxxxxxxxx000000xxxxxxxx|xxxxxxxxxxx000000xxxxxxxx|xxxxxxxxxxxxxx000xxxxxxxx|xxxxxxxxxxxxxxxx0xxxxxxxx|xxxxxxxxx00000000xxxxxxxx|xxxxxxxx000000xxxxxxxxxxx|xxxxxxxx000000xxxxxxxxxxx|xxxxxxxx000000xxxxxxxxxxx|xxxxxxxx000000xxxxxxxxxxx|xxxxxxxx000000xxxxxxxxxxx|xxxxxxxx0000000xxxxxxxxxx|xxxxxxxx00000000xxxxxxxxx|xxxxxxxx0000000000xxxxxxx|xxxxxxxx0000000000xxxxxxx|xxxxxxxx0000000000xxxxxxx|xxxxxxxx0000000000xxxxxxx|xx000000000000xxxxxxxxxxx|xx000000000000000000000xx|xx000000000000000000000xx|xx000000000xx0000000000xx|xx000000000xxxxx000000000|xx000000000xxx0x000000000|xx00000x000xxx0x000000000|xx000000000xxxxx0000000xx|xx000000000000000000000xx|xx000000000000000000000xx|xx000000000000000000000xx|xx000000000000xxxxxxxxxxx','none');
+INSERT INTO `rooms_models` VALUES (42,'dusty_lounge','dusty_lounge',14,1,2,4,'xxxxxxxxxxxxxx22xxxxxxxxxxxxx|xxxxxxxxxx222x222x2xxxxxxxxxx|xxxxxxx33322222222223xxxxxxx3|xxxxxxx33322222222223xxxxxxx3|xxxxxxx33322222222223x33333x3|xxxxxxx33322222222223x33333x3|xx111xx33322222222223xxxxxxx3|xx111xxx332222222222333333333|xx111xxxx32222222222333333333|xx111xxxxxx222222222333333333|xx111xxxxxxx1111111x333333333|xx111xxxxxxx1111111x222222222|xx111xxxxxx111111111111111111|xx111xxxxxx111111111111111111|11111xxxxxx111111111111111111|11111xxxxxx111111111111111111|11x11xxxxxx111111111111111111|11xxxxxxxxx11111111111111111x|x11xxxxxxxxx1111111x1111111xx|xx11xxxxxxx111111111111111xxx|xxx11xxxxxx11111111111111xxxx|xxxx11111111111111111111xxxxx|xxxxx11111111111111xxxxxxxxxx|xxxxxxxxxxx11111111xxxxxxxxxx|xxxxxxxxxxx11111111xxxxxxxxxx','none');
+INSERT INTO `rooms_models` VALUES (43,'cr_staff','cr_staff',3,22,0,0,'00000000xxxxxxxx|0000000000000000|0000000000000000|000000000000xx00|0000000000000000|0000000000000000|0000000000000000|x000000000000000|0000000000000000|0000000000000000|0000000000000000|0000000000000000|x000000000000000|x000000000000000|x000000000000000|x000000000000000|x000000000000000|x000000000000000|x000000000000000|x000000000000000|xxx00xxxxxxxxxxx|xxx00xxxxxxxxxxx|xxx00xxxxxxxxxxx','none');
+INSERT INTO `rooms_models` VALUES (44,'rooftop','rooftop',17,12,4,0,'44xxxxxxxxxxxxxxxxxx|444xxxxxxxxxxx444444|4444xxxxxxxxxx444444|44444xxxx4xxxx444444|444444xxx44xxx444444|44444444444444444444|44444444444444444444|44444444444444444444|44444444xx44xx44xx44|44444444xx44xx44xx44|44444444444444444444|44444444444444444444|44444444444444444444|x444444x444444xx4444|x444444x444444xx333x|x444444x444444xx222x|x444444x444444xx11xx|x444444x444444xxxxxx','none');
+INSERT INTO `rooms_models` VALUES (45,'rooftop_2','rooftop_2',4,11,0,0,'x0000x000|xxxxxx000|000000000|000000000|000000000|000000000|000000000|000000000|000000000|000000000|xxx000xxx|xxx000xxx','none');
+INSERT INTO `rooms_models` VALUES (46,'tearoom','tearoom',21,19,1,6,'xxxxxxxxxxxxxxxxxxxxxx|xxxxxxxx3333x33333333x|333333xx3333x33333333x|3333333x3333x33333333x|3333333x3333x33333333x|3333333xxxxxx33333333x|333333333333333333333x|333333333333333333333x|333333333333333333333x|333333333333333333333x|33333333222x333333333x|33333333222x333333333x|33333333222x333333333x|33333333222x333333333x|33333333111x333333333x|33333333111x333333333x|33333333111x333333333x|xxxxxxxx111xxxxxxxxxxx|11111111111111111111xx|1111111111111111111111|1111111111111111111111|11111111111111111111xx','none');
+INSERT INTO `rooms_models` VALUES (47,'cafe_ole','taivas_cafe',14,29,0,0,'XXXXXXXXXXXXX111111X|XXXXXXXXXXXXX1111111|XXXXXXXXXXXXX1111111|XXXXXXXXXXXXX1111111|XXXXXXXXXXXXX1111111|XXX11111111111111111|XXX11111111111111111|XX111111111111111111|XX111111111111111111|XX111111111111111111|XXX11111111111111111|111111111XXXXXXX1111|111111111X0000000000|111111111X0000000000|111111111X0000000000|111111111X0000000000|111111111X0000000000|111111111X0000000000|111111111X0000000000|111111111X0000000000|111111111X0000000000|X11111111X0000000000|XX1111111X0000000000|XXX111111X0000000000|XXXX11111X0000000000|XXXXX111110000000000|XXXXXX11110000000000|XXXXXXX1110000000000|XXXXXXXX11000000000X|XXXXXXXXXX00000000XX|XXXXXXXXXXXXXX00XXXX|XXXXXXXXXXXXXX00XXXX','none');
+INSERT INTO `rooms_models` VALUES (48,'cr_cafe','cr_cafe',20,10,0,6,'0000000000000000000xx|x000000000000000000xx|xx00000000000000000xx|xx00000000000000000xx|xx00000000000000000xx|xxxx000000000000000xx|0000000000000000000xx|0000000000000000000xx|x000000000000000000xx|xx00000000000000000xx|xxxx00000000000000000|xxx000000000000000000|xxx0000000000000000xx|xxx0000000000000000xx|xx00000000000000000xx|xx00000000000000000xx|xx00000000000000000xx|xx00000000000000000xx|xx00000000000000000xx|xx00000000000000000xx','none');
+INSERT INTO `rooms_models` VALUES (49,'lobby_a','lobby_a',12,27,1,0,'XXXXXXXXX77777777777XXXXX|XXXXXXXXX777777777777XXXX|XXXXXXXXX777777777766XXXX|XXXXXXXXX777777777755XXXX|XX333333333333333334433XX|XX333333333333333333333XX|XX333333333333333333333XX|33333333333333333333333XX|333333XXXXXXX3333333333XX|333333XXXXXXX2222222222XX|333333XXXXXXX2222222222XX|XX3333XXXXXXX2222222222XX|XX3333XXXXXXX222222221111|XX3333XXXXXXX111111111111|333333XXXXXXX111111111111|3333333222211111111111111|3333333222211111111111111|3333333222211111111111111|XX33333222211111111111111|XX33333222211111111111111|XX3333322221111111XXXXXXX|XXXXXXX22221111111XXXXXXX|XXXXXXX22221111111XXXXXXX|XXXXXXX22221111111XXXXXXX|XXXXXXX22221111111XXXXXXX|XXXXXXX222X1111111XXXXXXX|XXXXXXX222X1111111XXXXXXX|XXXXXXXXXXXX11XXXXXXXXXXX|XXXXXXXXXXXX11XXXXXXXXXXX|XXXXXXXXXXXX11XXXXXXXXXXX|XXXXXXXXXXXX11XXXXXXXXXXX','none');
+INSERT INTO `rooms_models` VALUES (50,'floorlobby_c','floorlobby_c',9,21,0,0,'XXXXXXXXXXXXXXXXXXXXXXXXXXX|XXXXXXXXXXXXXXXXXXXXXXXXXXX|XXX0000000000000000XXXXXXX0|XXX000000000000000000XXXX00|X00000000000000000000000000|X00000000000000000000000000|XXX000000000000000000000000|XXXXXXX00000000000000000000|XXX111100000011111111111111|XXX111100000011111111111111|XXX111100000011111111111111|XXX111100000011111111111111|XXX111100000011111111111111|XXX111100000011111111111111|XXX1XX100000011111111111111|XXX1XX100000011111111111111|XXX111100000011111111111111|XXX111100000011111111111111|XXX111100000011111111111111|XXXXXXXX0000XXXXXXXXXXXXXXX|XXXXXXXX0000XXXXXXXXXXXXXXX|XXXXXXXX0000XXXXXXXXXXXXXXX','none');
+INSERT INTO `rooms_models` VALUES (51,'floorlobby_b','floorlobby_b',9,21,0,0,'XXXXXXXXXXXXXXXXXXXXXXXXXXX|XXXXXXXXXXXXXXXXXXXXXXXXXXX|XXX0000000000000000XXXXXXX0|XXX000000000000000000XXXX00|X00000000000000000000000000|X00000000000000000000000000|XXX000000000000000000000000|XXXXXXX00000000000000000000|XXX111100000011111111111111|XXX111100000011111111111111|XXX111100000011111111111111|XXX111100000011111111111111|XXX111100000011111111111111|XXX111100000011111111111111|XXX1XX100000011111111111111|XXX1XX100000011111111111111|XXX111100000011111111111111|XXX111100000011111111111111|XXX111100000011111111111111|XXXXXXXX0000XXXXXXXXXXXXXXX|XXXXXXXX0000XXXXXXXXXXXXXXX|XXXXXXXX0000XXXXXXXXXXXXXXX','none');
+INSERT INTO `rooms_models` VALUES (52,'floorlobby_a','floorlobby_a',9,21,0,0,'XXXXXXXXXXXXXXXXXXXXXXXXXXX|XXXXXXXXXXXXXXXXXXXXXXXXXXX|XXX0000000000000000XXXXXXX0|XXX000000000000000000XXXX00|X00000000000000000000000000|X00000000000000000000000000|XXX000000000000000000000000|XXXXXXX00000000000000000000|XXX111100000011111111111111|XXX111100000011111111111111|XXX111100000011111111111111|XXX111100000011111111111111|XXX111100000011111111111111|XXX111100000011111111111111|XXX1XX100000011111111111111|XXX1XX100000011111111111111|XXX111100000011111111111111|XXX111100000011111111111111|XXX111100000011111111111111|XXXXXXXX0000XXXXXXXXXXXXXXX|XXXXXXXX0000XXXXXXXXXXXXXXX|XXXXXXXX0000XXXXXXXXXXXXXXX','none');
+INSERT INTO `rooms_models` VALUES (53,'cinema_a','cinema_a',20,27,1,0,'xxxxxxx1xx11111111xxxxxx|xxx1111111111111111xxxxx|xxx111xxxx1111111111xxxx|xxxx2xxxxxxxxxxxxxxxxxxx|xx3x3x333311xxxxxxxxxx11|xx3333333311111111111111|xx3333333311111111111111|xx3333333311111111122111|xx3333333311x22222222111|xx3333333311x22222222111|xx3333333311xxxxxxxxx111|xx3333333311111111111111|xx3333333311111111111111|xx3333333311111111111111|xx3333333311111xxxx11111|xx3333333311111xxxx11111|xx3333333311111xxxx11111|xx3333333311111xxxx11111|xx3333333311111xxxx11111|xx3333333311111xxxx11111|xx3333333311111xxxx11111|333333332111111xxxx11111|333333332111111111111111|333333332111111111111111|333333332111111111111111|xx3333332111111111111111|xxxxxxxxxxxxxxxxxxx11111|xxxxxxxxxxxxxxxxxxx11111|xxxxxxxxxxxxxxxxxxx11111','none');
+INSERT INTO `rooms_models` VALUES (54,'sport','sport',0,0,1,2,'111222222222222222x2222|x11222222222222222x2222|x11222222222222222x2222|xx1x2222222222222211111|x11xx222222222222211111|x11xx222222x22222211111|x11xx222222x222222x1111|x11xx222222x222222x1111|x11xx2222222222222x1111|x11xxxxxxxxxxxxxxxx1111|x1111111111111111111111|x1111111111111111111111|x1111111111111111111111|x1111111111111111111111|xxxx1111111111111x1111x|111x1111111111111x1111x|111x1111111111111x1111x|111x1111111111111x1111x|111x11111xxxxxxxxxxxxxx|x11x1111xxxxxxxxxxxxxxx|xxxx111xxxxxxxxxxxxxxxx','none');
+INSERT INTO `rooms_models` VALUES (55,'old_skool0','old_skool0',2,1,0,4,'xx0xxxxxxxxxxxxxx|0000000xxx00000xx|0000000x0000000xx|0000000xxxxxxxxxx|0000000000000000x|0000000000000000x|0000000000000000x|0000000000000000x|0000000000000000x|0000000000000000x|0000000000000000x|0000000000000000x|0000000000000000x|0000000000000000x|0000000000000000x|0000000000000000x|0000000000000000x|0000000000000000x|00000000000000000|0000000000000000x|0000000000000000x|0000000000000000x|0000000000000000x|0000000000000000x|0000000000000000x','none');
+INSERT INTO `rooms_models` VALUES (56,'old_skool1','old_skool1',1,7,6,2,'x6666666665432100|x6666666665432100|x6600000000000x00|x6600000000000000|x6600000000000000|x6600000000000000|x660000000000x000|666000000000x1111|x66000000000xx111|x66000000000x1111|x66000000000x1111|x55000000000x1111|x44000000000x1111|x33000000000x1111|x22000000000xx111|x11x00000000x1111|x00000000000x1111|x00000000000xx111','none');
+INSERT INTO `rooms_models` VALUES (57,'malja_bar_a','malja_bar_a',4,24,1,0,'xxxxxxxxxxxxxx44|xxxx444444444444|xxxx444444444444|xxxx444444444444|xxxx444444444444|xxxx444444444444|xxxxxxxxxxxxx333|1111111111111222|1111111111111111|1111111111111111|1111111111111111|1111111111111111|1111111111111111|1111111111111111|1111111111111111|1111111111111111|1111111111111111|1111111111111111|1111111111111111|111111111xxxxxxx|xxx11111xxxxxxxx|11111111xxxxxxxx|11111111xxxxxxxx|11111111xxxxxxxx|11111111xxxxxxxx','none');
+INSERT INTO `rooms_models` VALUES (58,'malja_bar_b','malja_bar_b',4,24,3,0,'6666333333333333|6666333333333333|6666333333333333|7766333333333333|7755333333333333|8855333333332223|8844333311111111|9944333311111111|9933333311111111|9933333311111111|9933333311111111|9933333311111111|9933333311111111|9933333311111111|9933333211111111|9933333211111111|9933333211111111|9933333311111111|99333333xxxxxxxx|99333333xxxxxxxx|xxx33333xxxxxxxx|xxx33333xxxxxxxx|3xx33333xxxxxxxx|xxx33333xxxxxxxx|xxx33333xxxxxxxx|xxx33333xxxxxxxx','none');
+INSERT INTO `rooms_models` VALUES (59,'bar_a','bar_a',5,1,7,4,'xxxx8888xxxxxxxxxxx|xxxx7777xxxxxxxxxxx|xxxx6666xxxxxxxxxxx|xxx6666666555555555|xxx6666666555555555|xxx6666666555555555|xxx6666666555555555|xxx6666666555555555|xxx6666666555555555|xxx6666666555555555|xxx6666666555xxxxxx|xxx6666666555555555|xxx5555555555555555|xxx5555555555555555|xxx5555555555555555|xxx5555555555555555|xxx5555555555xxxxxx|xxx5555555555555555|xxx5555555555555555|xxx5555555555555555|xxx5555555555555555|xxx5555555555555555|xxx5555555555xxxxxx|xxxx555555555555555|55xx555555555555555|55xx555555555555555|5555555555555555555|5555555555555555555|xxxxxxxx55555xxxxxx|xxxxxxxxx5555xxxxxx|xxxxxxxxx5555xxxxxx|xxxxxxxxx5555xxxxxx|xxxxxxxxx4444xxxxxx|xxxxxxxxx3333xxxxxx','none');
+INSERT INTO `rooms_models` VALUES (60,'bar_b','bar_b',2,12,4,2,'xxxxx4xxxxxxxxxxxx|xxxx4444444xxxxxxx|xxxx4444444xxxxxxx|xxx444444444444444|xxx444444444444444|xxx444444444444444|xxx444444444444444|xxx444444444444444|xxx444444444444444|xxx444444444444444|654444444444444444|654444444444444444|654444444444444444|654444444444444444|xxx444444444444444|xxx444444444444444|xxx444444444444444|xxx444444444444444|xxx444444444444444|xxxx44444444444444|xxxx33444444444444|xxxx22444444444444|xxxx2222222222xx44|xxxx2222222222xx44|xxxxx222222222xxxx|xxxxxx22222222xxxx|xxxxxx22222222xxxx|xxxxxx22222222xxxx|xxxxxx22222222xxxx|xxxxxx22222222xxxx|xxxxxx22222222xxxx','none');
+INSERT INTO `rooms_models` VALUES (61,'habburger','habburger',22,10,0,6,'22222222222222222222xxx|22222222222222222222xxx|22222222222222222222xxx|22222222222222222222xxx|xxxxxxxxxxxxxxxx1111xxx|xxxxxxxxxxxxxxxx0000xxx|xxx00000000000000000xxx|00000000000000000000xxx|00000000000000000000xxx|00000000000000000000000|00000000000000000000000|00000000000000000000xxx|00000000000000000000xxx|00000000000000000000xxx|xxx00000000000000000xxx','none');
+INSERT INTO `rooms_models` VALUES (62,'pizza','pizza',5,27,1,0,'xxxxxxxxx0000000|x11111x1xx000000|11xxxxx111x00000|11x1111111xx0000|11x1111111100000|xxx1111111100000|1111111111100000|1111111111100000|1111111111100000|1111111111100000|1111111111100000|1111111111100000|1111111111100000|1111111111100000|1111111111100000|1111111111100000|1111111111100000|11111111111xxxxx|1111111111xxxxxx|1111111111111111|1111111111111111|1111111111111111|1111111111111111|1111111111111111|1111111111111111|11xx11xx11111111|xxxx11xxxxxxxxxx|xxxx11xxxxxxxxxx','none');
+INSERT INTO `rooms_models` VALUES (63,'bb_lobby_1','bb_lobby_1',14,19,0,0,'xxx2222222222222222x|xxx2222222222222222x|xxx2222222222222222x|xxx2222222222222222x|xxx11111111111111111|11x11111111111111111|11x11111111111111111|11x11111111111111111|x1x11111111111111111|xxx11111111111111111|xxx11111111111111111|xxx11111111111111111|xxx11111111111111111|xxx11111111111111111|xxxxxxxxx00000000000|xxxxxxxxx00000000000|xxxxxxxxx00000000000|xxxxxxxxx00000000000|xxxxxxxxx00000000000|xxxxxxxxx00000000000|xxxxxxxxxxxxx000xxxx|xxxxxxxxxxxxx000xxxx|xxxxxxxxxxxxx000xxxx','battleball_lobby_trigger');
+INSERT INTO `rooms_models` VALUES (64,'snowwar_lobby_1','snowwar_lobby_1',41,36,1,0,'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx11111xx1xxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx11111xx1111xxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxx111111xxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxx1111111111111111xxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxx1111111111111111xxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxx1111111111111111xxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxx1111111111111111xxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxx1111111111111111xxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxx1111111111111111xxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxx1111111111111111xxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxx1111111111111111xxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxx1111111111111111xxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxx1111111111111111xxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxx1111111111111111xxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxx111111111111111xxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxx1111111111111111xxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxx1111111111111111xxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxx1111111111111111xxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxx111111111111111xxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxx1111x1111111111xxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx','snowstorm_lobby_trigger');
+INSERT INTO `rooms_models` VALUES (65,'tv_studio','tv_studio',16,27,4,6,'xxxxxxxxxxxxxxxxxxxx|xxxxx0x00000xxxxxxxx|xxxxx0x000000xxxxxxx|xxxxx0x000000xxxxxxx|xxxxx0x0xxx00000xx0x|xx0000x000000000xx00|xx00xxx000000000xx00|xxxxx00000000000xx00|x000000000000x000000|x0000000000000000000|x0000000000000000x00|00000000000000000x00|x000x000000000000x00|x0000000000000000x00|x0000000000000000x00|000x0000000000000000|000x0000000000000000|00000000000000xxx000|x0000000000000000000|xx00000000000000000x|xxx000000000000000xx|xxxxxxxxx1111xxxx0xx|xxxxxxxxx2222xxxxxxx|xxxxxxxxx3333xxxxxxx|xxxxxx44x4444x444xxx|xxxxx444444444444xxx|xxxxxx44444444444444|xxxxx4444x4444444444|xxxxx4444x4444444444|xxxxx4444x4444444xxx|xxxxx444444444444xxx|xxxxx444444444444xxx|xxxxxx44444444444xxx','none');
+INSERT INTO `rooms_models` VALUES (66,'cr_kitchen','cr_kitchen',7,21,0,0,'X0XXXX000XXXX000X0X|X000000000000000000|X000000000000000000|X000000000000000XXX|X00XXXX00XXXX000XXX|X00XXXX00XXXX00XXXX|X00000000000000XXXX|X00000000000000XXXX|X00000000000000XXXX|X00XXXXXXXXXX00XXXX|X00XXXXXXXXXX00XXXX|X00XXXXXXXXXX000XXX|0000000000000000XXX|000000000000000XXXX|000000000000000XXXX|000XXX0000XXX00XXXX|000XXX0000XXX00XXXX|000000000000000XXXX|000000000000000XXXX|000000000000000XXXX|XXXXXXX00XXXXXXXXXX|XXXXXXX00XXXXXXXXXX|XXXXXXX00XXXXXXXXXX','none');
+INSERT INTO `rooms_models` VALUES (67,'club_mammoth','club_mammoth',6,16,4,2,'xxxxxx4444444x4444xxxxxxxxxxxxx|xxxxxx4444444x444322xxxxxxxxxxx|xxxxxxxxxxxxxx444322xxxxxxxxxxx|x444444444444444442222xxxxxxxxx|4444444444444444442222xxxxxxxxx|4xxxxxxxxxxxxxxxxx2222xxxxxxxxx|4xxxxxxxxxx22222xx2222xxxxxxxxx|44xxxxxxxxx22222x2xxxxxxxxxxxxx|x4444444xxx22222x22xxxxxxxxxxxx|xx4444444xx22x22x222xxxxxxxxxxx|xxxxxxx444x22222xxxxxxxxxxxxxxx|xxxxxx444322222222211111111xxxx|xxxxxx444322222222211111111xxxx|xxxxxx444442222222211111111xxxx|xxx444444442222222211111111xxxx|xxx444444442222222211111111xxxx|xxx444444442222222211111111xxxx|xxx444444442222222211111111xxxx|xxxxxx4444422222222x1111111xxxx|xxxxxx4444422222222xxxxxxxxxxxx|xxxxxx4443222222222222222222xxx|xxxxxx4443xxxxxxx2xxxxx222xxxxx|xxxxxx444xxxxxxxxxxxxxxx22xxxxx|xxxxxx4xxxxxxxxxxxxx444422xxxxx|xxx4444xxxxxxxxxxxxx4444x2xxxxx|xxx566666666666666664444xxxxxxx|xxxx66666666666666664444xxxxxxx|xxxxxxx666666666666544xxxxxxxxx|xxxxxxx666666666666544xxxxxxxxx|xxxxxxx6666666666666xxxxxxxxxxx|xxxxxxx6666666666666xxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx','none');
+INSERT INTO `rooms_models` VALUES (68,'ice_cafe','taivas_cafe',17,23,0,0,'xx111111x000000000|xx111111x000000000|xx111111x000000000|xx111111x000000000|xx111111x000000000|xx111111x000000000|xx111111x000000000|xx1111111000000000|xx1111111000000000|111111111000000000|111111111000000000|111111111000000000|111111111000000000|111111111000000000|11111111x000000000|11111111x000000000|xx111111x000000000|xx111111x000000000|xx111111x000000000|xx111111x000000000|xx111111x000000000|xx111111x000000000|xx1111110000000000|xx1111111000000000|xx1111111000000000|xx1111111000000000|','none');
+INSERT INTO `rooms_models` VALUES (69,'netcafe','netcafe',22,12,0,6,'xxxxx1111xxxxxxxxxxx1xxxx|xxxxx1111111111111111xxxx|xxxxx1111111111111111xxxx|xxxxx1111111111111111xxxx|xxxxxxxx0000000000000xxxx|111111100000000000000xxxx|111111100000000000000xxxx|111111100000000000000xxxx|xxxx11100000000000000xxxx|x1xx11100000000000000xxxx|x1xx11100000000000000xxxx|x1xx111000000000000000000|x1xx111000000000000000000|xxxx111000000000000000000|xxxx11100000000000000xxxx|xxxx1110000000xx11111xxxx|xxxxx111110000x111111xxxx|xxxxxx111100001111111xxxx|xxxxxx111100001111111xxxx|xxxxxx111100001111111xxxx|xxxxxx111100001111111xxxx|xxxxxx111100001111111xxxx|xxxxxx111100001111111xxxx|xxxxx1111100001111111xxxx|','none');
+INSERT INTO `rooms_models` VALUES (70,'hallway0','hallway0',2,2,0,2,'xxxx000000001111111111111111xxxx|xxxx000000001111111111111111xxxx|00000000000011111111111111111111|00000000000011111111111111111111|00000000000011111111111111111111|00000000000011111111111111111111|xxxx000000001111111111111111xxxx|xxxx0000000x1111111111111111xxxx|xxxxxxxxxxxxx1111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxxxx1111xxxxxxxxxxxxxx|xxxxxxxxxxxxxx1111xxxxxxxxxxxxxx|xxxxxxxxxxxxxx1111xxxxxxxxxxxxxx|xxxxxxxxxxxxxx1111xxxxxxxxxxxxxx','none');
+INSERT INTO `rooms_models` VALUES (71,'hallway9','hallway9',21,23,0,7,'xxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxx000000000000000000000000xxxx|xxxx000000000000000000000000xxxx|00000000000000000000000000000000|00000000000000000000000000000000|00000000000000000000000000000000|00000000000000000000000000000000|xxxx000000000000000000000000xxxx|xxxx000000000000000000000000xxxx|xxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxx000000000000xxxxxxxx|xxxxxxxxxxxx000000000000xxxxxxxx|xxxxxxxxxxxx000000000000xxxxxxxx|xxxxxxxxxxxx000000000000xxxxxxxx|xxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxx0000xxxxxxxxxxxxxx','none');
+INSERT INTO `rooms_models` VALUES (72,'hallway2','hallway2',15,2,0,4,'xxxxxxxxxxxxxx000xxxxxxxxxxx|xxxxxxxxxxxxxx000xxxxxxxxxxx|xxxxxxxxxxxxxx000xxxxxxxxxxx|xxxxxxxxxxxxxx0000xxxxxxxxxx|xxxx11111111000000000000xxxx|xxxx11111111000000000000xxxx|1111111111110000000000000000|1111111111110000000000000000|1111111111110000000000000000|1111111111110000000000000000|xxxx11111111000000000000xxxx|xxxx11111111000000000000xxxx|xxxx11111111xxxx00000000xxxx|xxxx11111111xxxx00000000xxxx|xxxx11111111xxxx00000000xxxx|xxxx11111111xxxx00000000xxxx|xxxx11111111xxxx00000000xxxx|xxxx11111111xxxx00000000xxxx|xxxx11111111xxxx00000000xxxx|xxxx11111111xxxx00000000xxxx|xxxxxx1111xxxxxxxxxxxxxxxxxx|xxxxxx1111xxxxxxxxxxxxxxxxxx|xxxxxx1111xxxxxxxxxxxxxxxxxx|xxxxxx1111xxxxxxxxxxxxxxxxxx','none');
+INSERT INTO `rooms_models` VALUES (73,'hallway1','hallway1',2,14,0,2,'xxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxxxx0000xxxxxxxxxxxxxx|xxxxxxxxxxxx0000000000000000xxxx|xxxxxxxxxxxx0000000000000000xxxx|xxxxxxxxxxxx00000000000000000000|xxxxxxxxxxxx00000000000000000000|xxxxxxxxxxxx00000000000000000000|xxxxxxxxxxxx00000000000000000000|xxxxxxxxxxxx0000000000000000xxxx|xxxxxxxxxxxx0000000000000000xxxx|xxxx1111111100000000xxxxxxxxxxxx|xxxx1111111100000000xxxxxxxxxxxx|11111111111100000000xxxxxxxxxxxx|11111111111100000000xxxxxxxxxxxx|11111111111100000000xxxxxxxxxxxx|11111111111100000000xxxxxxxxxxxx|xxxx1111111100000000xxxxxxxxxxxx|xxxx1111111100000000xxxxxxxxxxxx','none');
+INSERT INTO `rooms_models` VALUES (74,'hallway3','hallway3',14,21,1,0,'xxxxxx1111xxxxxxxxxxxxxxxxxxxxxx|xxxxxx1111xxxxxxxxxxxxxxxxxxxxxx|xxxxxx1111xxxxxxxxxxxxxxxxxxxxxx|xxxxxx1111xxxxxxxxxxxxxxxxxxxxxx|xxxx111111111111111100000000xxxx|xxxx111111111111111100000000xxxx|11111111111111111111000000000000|11111111111111111111000000000000|11111111111111111111000000000000|11111111111111111111000000000000|xxxx111111111111111100000000xxxx|xxxx111111111111111100000000xxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxxxxxx|xxxxxxxxxxxxxx1111xxxxxxxxxxxxxx|xxxxxxxxxxxxxx1111xxxxxxxxxxxxxx|xxxxxxxxxxxxxx1111xxxxxxxxxxxxxx|xxxxxxxxxxxxxx1111xxxxxxxxxxxxxx','none');
+INSERT INTO `rooms_models` VALUES (75,'hallway4','hallway4',29,3,1,6,'xxxx000000001111111111111111xxxx|xxxx000000001111111111111111xxxx|00000000000011111111111111111111|00000000000011111111111111111111|00000000000011111111111111111111|00000000000011111111111111111111|xxxx000000001111111111111111xxxx|xxxx000000001111111111111111xxxx|xxxxxxxxxxxxxxxxxxxx11111111xxxx|xxxxxxxxxxxxxxxxxxxx11111111xxxx|xxxxxxxxxxxxxxxxxxxx11111111xxxx|xxxxxxxxxxxxxxxxxxxx11111111xxxx|xxxxxxxxxxxxxxxxxxxx11111111xxxx|xxxxxxxxxxxxxxxxxxxx11111111xxxx|xxxxxxxxxxxxxxxxxxxx11111111xxxx|xxxxxxxxxxxxxxxxxxxx11111111xxxx|xxxxxxxxxxxxxxxxxxxxxx1111xxxxxx|xxxxxxxxxxxxxxxxxxxxxx1111xxxxxx|xxxxxxxxxxxxxxxxxxxxxx1111xxxxxx|xxxxxxxxxxxxxxxxxxxxxx1111xxxxxx','none');
+INSERT INTO `rooms_models` VALUES (76,'hallway5','hallway5',14,2,1,4,'xxxxxxxxxxxxxx11xxxxxx1111xx|xxxxxxxxxxxxxx111xxxxx1111xx|xxxxxxxxxxxxxx1111xxxx1111xx|xxxxxxxxxxxxxx1111xxxx1111xx|xxxxxxxxxxxx1111111111111111|xxxxxxxxxxxx1111111111111111|xxxxxxxxxxxx1111111111111111|xxxxxxxxxxxx1111111111111111|xxxxxxxxxxxx1111111111111111|xxxxxxxxxxxx1111111111111111|xxxxxxxxxxxx1111111111111111|xxxxxxxxxxxx1111111111111111|xxxx000000001111111111111111|xxxx000000001111111111111111|0000000000001111111111111111|0000000000001111111111111111|0000000000001111111111111111|0000000000001111111111111111|xxxx000000001111111111111111|xxxx0000000x1111111111111111|xxxxxxxxxxxx11111111xxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxx|xxxxxxxxxxxx11111111xxxxxxxx','none');
+INSERT INTO `rooms_models` VALUES (77,'hallway8','hallway8',15,3,0,4,'xxxxxxxxxxxxxx00xxxx0000|xxxxxxxxxxxxxx000xxx0000|xxxxxxxxxxxxxx0000xx0000|xxxxxxxxxxxxxx0000xx0000|xxxx11111111000000000000|xxxx11111111000000000000|xxxx11111111000000000000|xxxx11111111000000000000|xxxx11111111000000000000|xxxx11111111000000000000|xxxx11111111000000000000|xxxx11111111000000000000|xxxx11111111xxxx00000000|xxxx11111111xxxx00000000|111111111111xxxx00000000|111111111111xxxx00000000|111111111111xxxx00000000|111111111111xxxx00000000|xxxx11111111xxxx00000000|xxxx11111111xxxx00000000|xxxxxxxxxxxxxxxxxx0000xx|xxxxxxxxxxxxxxxxxx0000xx|xxxxxxxxxxxxxxxxxx0000xx|xxxxxxxxxxxxxxxxxx0000xx','none');
+INSERT INTO `rooms_models` VALUES (78,'hallway7','hallway7',7,2,1,4,'xxxxxx11xxxxxxxxxxxx|xxxxxx111xxxxxxxxxxx|xxxxxx1111xxxxxxxxxx|xxxxxx1111xxxxxxxxxx|xxxx11111111xxxxxxxx|xxxx11111111xxxxxxxx|xxxx111111111111xxxx|xxxx111111111111xxxx|xxxx111111111111xxxx|xxxx111111111111xxxx|xxxx11111111xxxxxxxx|xxxx11111111xxxxxxxx|xxxx11111111xxxxxxxx|xxxx11111111xxxxxxxx|xxxx11111111xxxxxxxx|xxxx11111111xxxxxxxx|xxxx11111111xxxxxxxx|xxxx11111111xxxxxxxx|xxxx11111111xxxxxxxx|xxxx11111111xxxxxxxx|xxxx000000000000xxxx|xxxx000000000000xxxx|00000000000000000000|00000000000000000000|00000000000000000000|00000000000000000000|xxxx000000000000xxxx|xxxx000000000000xxxx','none');
+INSERT INTO `rooms_models` VALUES (79,'hallway6','hallway6',1,10,1,2,'xxxx1111111111111111xxxx|xxxx1111111111111111xxxx|xxxx1111111111111111xxxx|xxxx1111111111111111xxxx|xxxx1111xxxxxxxxxxxxxxxx|xxxx1111xxxxxxxxxxxxxxxx|xxxx1111xxxxxxxxxxxxxxxx|xxxx1111xxxxxxxxxxxxxxxx|xxxx1111111100000000xxxx|xxxx1111111100000000xxxx|111111111111000000000000|111111111111000000000000|111111111111000000000000|111111111111000000000000|xxxx1111111100000000xxxx|xxxx1111111100000000xxxx|xxxxxxxx1111xxxxxxxxxxxx|xxxxxxxx1111xxxxxxxxxxxx|xxxxxxxx1111xxxxxxxxxxxx|xxxxxxxx1111xxxxxxxxxxxx|xxxxxxxx111111111111xxxx|xxxxxxxx111111111111xxxx|xxxxxxxx111111111111xxxx|xxxxxxxx111111111111xxxx','none');
+INSERT INTO `rooms_models` VALUES (80,'hallway10','hallway10',3,23,1,1,'xxxxxxxxxx00000000xxxx|xxxxxxxxxx00000000xxxx|xxxxxxxxxx00000000xxxx|xxxxxxxxxx00000000xxxx|xx1111xxxx0000xxxxxxxx|xx1111xxxx0000xxxxxxxx|xx1111xxxx0000xxxxxxxx|xx1111xxxx0000xxxxxxxx|11111111xx0000000000xx|11111111xx0000000000xx|11111111xx0000000000xx|11111111xx0000000000xx|11111111xxxxxxxx0000xx|11111111xxxxxxxx0000xx|11111111xxxxxxxx0000xx|11111111xxxxxxxx0000xx|1111111111111111000000|1111111111111111000000|1111111111111111000000|1111111111111111000000|1111111111111111000000|1111111111111111000000|1111111111111111000000|1111111111111111000000|xx1111xxxxxxxxxxxxxxxx|xx1111xxxxxxxxxxxxxxxx|xx1111xxxxxxxxxxxxxxxx|xx1111xxxxxxxxxxxxxxxx','none');
+INSERT INTO `rooms_models` VALUES (81,'hallway11','hallway11',20,3,0,6,'xxxx1111111100000000xxxx|xxxx1111111100000000xxxx|111111111111000000000000|111111111111000000000000|111111111111000000000000|111111111111000000000000|xxxx1111111100000000xxxx|xxxx1111111100000000xxxx|xxxxxxxxxxxx000000000000|xxxxxxxxxxxx000000000000|xxxxxxxxxx00000000000000|xxxxxxxxxx00000000000000|xxxxxxxxxx00000000000000|xxxxxxxxxx00000000000000|xxxxxxxxxxxx000000000000|xxxxxxxxxxxx000000000000|xxxxxxxxxxxx000000000000|xxxxxxxxxxxx000000000000|xxxxxxxx000000000000xxxx|xxxxxxxx000000000000xxxx|xxxxxxxx000000000000xxxx|xxxxxxxx000000000000xxxx','none');
+INSERT INTO `rooms_models` VALUES (82,'star_lounge','star_lounge',36,35,0,6,'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx2222x4444442222xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx22222x444x32222xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx22222xx4xx22222xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx222222222222222xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx222222222222222xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx222222222222222xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx222222222222222xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx222222222222222xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx222222222222222xxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx22222222222222211111xxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx22222222222222211111xxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx22222222222222211111xxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx22222222222222211111xxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx22222222222222222111xxxxxxxxx|xxxxxxxxxxxxxxxxxxxxx22222222222222222111xxxxxxxxx|xxxxxxxxxxxxxxxx3333x22222222222222xxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxx3333x22222222222222xxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxx3333x22222222221111xxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxx3333xx2x22222220000xxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxx333333332222222000000xxxxxxxxxxxxx|xxxxxxxxxxxxxxxx333333332222222x0000000xxxxxxxxxxx|xxxxxxxxxxxxxxxxx33333332222222x0000000xxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxx222222000000xxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx','none');
+INSERT INTO `rooms_models` VALUES (83,'orient','orient',32,20,1,6,'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxx00000000xxxxxxxxxxxx|xxxxxxxxxxxxxx1000000000xxxxxxxxxxxx|xxxxxxxxxxxxxx1xxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxx1xxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxx1xxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxx1xxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxx1xxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxx1xxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxx1xxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxx1xx000x000xx111x111xxx|xxxxxxxxxxxxxx1xx000x000xxxxxx1111xx|xxxxxxxxxxxxxx1xx000x000x111111111xx|xxxxxxxxxxxxxx1xx000x000x111111111xx|xxx111111111111xx000x000x111111111xx|xxx1xxxxxxxxxxxxx000x000x111111111xx|xxx1x1111111111000000000x111111111xx|xxx1x1111111111000000000xx1111111xxx|xxx1x11xxxxxx11000000000xx1111111100|xxx111xxxxxxx11000000000011111111100|xxx111xxxxxxx11000000000011111111100|xxxxx1xxxxxxx11000000000011111111100|xxxxx11xxxxxx11000000000xx1111111100|xxxxx1111111111000000000xx1111111xxx|xxxxx1111111111xx000x000x111111111xx|xxxxxxxxxxxxxxxxx000x000x111111111xx|xxxxxxxxxxxxxxxxx000x000x111111111xx|xxxxxxxxxxxxxxxxx000x000x111111111xx|xxxxxxxxxxxxxxxxx000x000x111111111xx|xxxxxxxxxxxxxxxxx000x00xx11xxxx111xx|xxxxxxxxxxxxxxxxxxxxxxxxxx11111111xx|','none');
+INSERT INTO `rooms_models` VALUES (84,'entryhall','entryhall',17,18,1,0,'xx11xxxx11xxxx11xxxx|x1111111111111111111|11111111111111111111|11111111111111111111|x1111111111111111111|x1111111111111111111|x1111111111111111111|x1111111111111111111|x1111111111111111111|x1111111111111111111|x1111111111111111111|x1111111111111111111|x1111111111111111111|x1111111111111111111|x1111111111111111111|x1111111111111111111|x1111111111111111111|x1111111111111111111|x1111111111111111111|x1111111111111111111|xxxxxxxxxxxxxxxxx11x','none');
+INSERT INTO `rooms_models` VALUES (85,'hallA','hallA',0,0,1,4,'11xxxxxxxxxxxxxxx|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111','none');
+INSERT INTO `rooms_models` VALUES (86,'hallB','hallB',1,0,1,4,'x11xxxxxxxxxxxxxxxx|1111111111111111111|1111111111111111111|1111111111111111111|1111111111111111111|1111111111111111111|1111111111111111111|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx|111111xxxxxxxxxxxxx','none');
+INSERT INTO `rooms_models` VALUES (87,'hallC','hallC',0,0,1,4,'11xxxxxxxxxxxxxxx|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111','none');
+INSERT INTO `rooms_models` VALUES (88,'hallD','hallD',0,0,1,4,'11xxxxxxxxxxxxxxx|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111|11111111111111111','none');
+INSERT INTO `rooms_models` VALUES (89,'model_s','model_s',0,3,0,2,'xxxxxxx|x00000x|x00000x|000000x|x00000x|x00000x|x00000x|x00000x|xxxxxxx','flat_trigger');
+INSERT INTO `rooms_models` VALUES (90,'emperors','emperors',11,31,0,0,'xxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxx444xxxx4444xxxxxx|xxxx2x4444xxxx44444x2xxx|xxxx2x44444x4x44444x2xxx|xxxx2x4444444444444x2xxx|xxxx2x33xx33333xx33x2xxx|xxxx2222xx22222xx2222xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22xx222222222xx22xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22222222222222222xxx|xxxx22222xx22x2222222xxx|xxxxx2xx2xx22xxx2xx2xxxx|xxxxxxxxxxx11xxxxxxxxxxx|xxxxxxxxxxx00xxxxxxxxxxx|xxxxxxxxxxx00xxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxx','none');
+INSERT INTO `rooms_models` VALUES (91,'beauty_salon1','beauty_salon1',14,3,0,1,'xxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxx0xxxxxxxxx|xxxxxxx000000000000000xx|xxxxxx0000000000000000xx|xxxxx000000000000xxxxxxx|xxxx000000000000000000xx|xxx0000000000000000000xx|xxx0000000000000000000xx|xxx0000000000000000000xx|xxxxxxxxxxxxxxxx000000xx|xx0000000000000x000000xx|000000000000000x000000xx|000000000000000x000000xx|000000000000000x000000xx|00x000000000000x000000xx|00xxxxxxxxxxxxxx000000xx|00xxxxxxxxxxxxxx000000xx|00x0000000000000000000xx|00x0000000000000000000xx|00x0000000000000000000xx|0000000000000000000000xx|x000000000000000000000xx|xxx0000000000000000000xx','none');
 /*!40000 ALTER TABLE `rooms_models` ENABLE KEYS */;
+UNLOCK TABLES;
 
 -- Dumping structure for table kepler.rooms_rights
 CREATE TABLE IF NOT EXISTS `rooms_rights` (
