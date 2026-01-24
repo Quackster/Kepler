@@ -1,0 +1,71 @@
+package net.h4bbo.kepler.game.games.gamehalls.utils;
+
+import net.h4bbo.kepler.game.games.gamehalls.GameBattleShip;
+import net.h4bbo.kepler.game.pathfinder.Position;
+
+public class GameShip {
+    private final GameBattleShip game;
+    private final GameShipType shipType;
+    private final Position position;
+    private final int player;
+    private final boolean isHorizontal;
+
+    public GameShip(GameBattleShip game, GameShipType shipType, Position position, int player, boolean isHorizontal) {
+        this.game = game;
+        this.shipType = shipType;
+        this.position = position;
+        this.player = player;
+        this.isHorizontal = isHorizontal;
+    }
+
+
+    public final GameShipType getShipType() {
+        return shipType;
+    }
+
+    public final Position getPosition() {
+        return position;
+    }
+
+    public final int getPlayer() {
+        return player;
+    }
+
+    public int getHits() {
+        int hits = 0;
+
+        for (int i = 0; i < this.shipType.getLength(); i++) {
+            int shipX = this.position.getX() + (isHorizontal ? i : 0);
+            int shipY = this.position.getY() + (isHorizontal ? 0 : i);
+
+            GameShipMove shipMove = this.game.getPlayerListMap().get(this.game.getOppositePlayerNum(this.player)).stream()
+                    .filter(move ->
+                            move.getX() == shipX &&
+                                    move.getY() == shipY)
+                    .findFirst().orElse(null);
+
+            if (shipMove == null) {
+                continue;
+            }
+
+            if (shipMove.getMoveResult() == GameShipMoveResult.HIT) {
+                hits++;
+            }
+        }
+
+        return hits;
+    }
+
+    public boolean isHitTwice() {
+        int hits = this.getHits();
+        return hits >= 2 && hits != this.shipType.getLength();
+    }
+
+    public boolean isDestroyed() {
+        return this.getHits() == this.shipType.getLength();
+    }
+
+    public boolean isHorizontal() {
+        return isHorizontal;
+    }
+}
