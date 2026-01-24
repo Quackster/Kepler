@@ -1,6 +1,9 @@
 package org.alexdev.kepler.game.games.battleball.objects;
 
 import org.alexdev.kepler.game.games.GameObject;
+import org.alexdev.kepler.game.games.battleball.BattleBallGame;
+import org.alexdev.kepler.game.games.battleball.BattleBallPlayerStateManager;
+import org.alexdev.kepler.game.games.battleball.enums.BattleBallPlayerState;
 import org.alexdev.kepler.game.games.enums.GameObjectType;
 import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
@@ -20,13 +23,24 @@ public class PlayerObject extends GameObject {
         response.writeInt(this.gamePlayer.getPlayer().getRoomUser().getPosition().getY());
         response.writeInt((int) this.gamePlayer.getPlayer().getRoomUser().getPosition().getZ());
         response.writeInt(this.gamePlayer.getPlayer().getRoomUser().getPosition().getRotation());
-        response.writeInt(this.gamePlayer.getPlayerState().getStateId());
-        response.writeInt(this.gamePlayer.getColouringForOpponentId());
+        response.writeInt(getPlayerState().getStateId());
+        BattleBallGame battleBallGame = (BattleBallGame) this.gamePlayer.getGame();
+        response.writeInt(battleBallGame.getColouringForOpponentId(this.gamePlayer));
         response.writeString(this.gamePlayer.getPlayer().getDetails().getName());
         response.writeString(this.gamePlayer.getPlayer().getDetails().getMotto());
         response.writeString(this.gamePlayer.getPlayer().getDetails().getFigure());
         response.writeString(this.gamePlayer.getPlayer().getDetails().getSex());
-        response.writeInt(this.gamePlayer.getTeamId());
+        response.writeInt(battleBallGame.getTeamIdFor(this.gamePlayer));
         response.writeInt(this.gamePlayer.getObjectId());
+    }
+
+    private BattleBallPlayerState getPlayerState() {
+        var game = this.gamePlayer.getGame();
+        if (game instanceof BattleBallGame battleBallGame) {
+            BattleBallPlayerStateManager manager = battleBallGame.getPlayerStateManager();
+            return manager.getState(this.gamePlayer);
+        }
+
+        return BattleBallPlayerState.NORMAL;
     }
 }

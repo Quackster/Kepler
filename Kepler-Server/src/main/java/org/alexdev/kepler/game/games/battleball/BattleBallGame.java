@@ -13,6 +13,8 @@ import org.alexdev.kepler.game.games.battleball.enums.BattleBallTileState;
 import org.alexdev.kepler.game.games.enums.GameType;
 import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.games.player.GameTeam;
+import org.alexdev.kepler.game.games.player.score.ScoreCalculator;
+import org.alexdev.kepler.game.games.battleball.BattleBallPlayerStateManager;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.mapping.RoomTileState;
@@ -37,6 +39,9 @@ public class BattleBallGame extends Game {
 
     private Map<GamePlayer, List<BattleBallPowerUp>> storedPowers;
     private boolean spawnedInitialPowers;
+    private final ScoreCalculator scoreCalculator;
+    private final BattleBallPlayerStateManager playerStateManager = new BattleBallPlayerStateManager();
+    private final BattleBallHarlequinManager harlequinManager = new BattleBallHarlequinManager();
 
     public static final int MAX_POWERS_ACTIVE = 2;
 
@@ -55,6 +60,7 @@ public class BattleBallGame extends Game {
 
         this.updateTilesQueue = new LinkedBlockingQueue<>();
         this.fillTilesQueue = new LinkedBlockingQueue<>();
+        this.scoreCalculator = new BattleBallScoreCalculator(this);
     }
 
     @Override
@@ -94,6 +100,7 @@ public class BattleBallGame extends Game {
 
         this.storedPowers.clear();
         this.activePowers.clear();
+        this.playerStateManager.reset();
 
         int ticketCharge = GameConfiguration.getInstance().getInteger("battleball.ticket.charge");
 
@@ -238,6 +245,8 @@ public class BattleBallGame extends Game {
      */
     @Override
     public void assignSpawnPoints() {
+        this.getHarlequinManager().clearAll();
+
         for (GameTeam team : this.getTeams().values()) {
             List<GameSpawn> gameSpawns = GameManager.getInstance().getGameSpawns(this.getGameType(), this.getMapId(), team.getId());
 
@@ -261,8 +270,8 @@ public class BattleBallGame extends Game {
                     continue;
                 }
 
-                p.setPlayerState(BattleBallPlayerState.NORMAL);
-                p.setHarlequinPlayer(null);
+                this.playerStateManager.setState(p, BattleBallPlayerState.NORMAL);
+                this.getHarlequinManager().clear(p);
                 p.setGameObject(new PlayerObject(p));
 
                 if (p.getObjectId() == -1) {
@@ -404,6 +413,11 @@ public class BattleBallGame extends Game {
         return battleballTiles;
     }
 
+    @Override
+    public ScoreCalculator getScoreCalculator() {
+        return scoreCalculator;
+    }
+
     /**
      * Get the power ups allowed for this match.
      *
@@ -420,6 +434,10 @@ public class BattleBallGame extends Game {
      */
     public List<BattleBallPowerUp> getActivePowers() {
         return activePowers;
+    }
+
+    public BattleBallPlayerStateManager getPlayerStateManager() {
+        return playerStateManager;
     }
 
     /**
@@ -456,5 +474,27 @@ public class BattleBallGame extends Game {
      */
     public List<BattleBallTile> getTiles() {
         return this.tiles;
+    }
+
+    public BattleBallHarlequinManager getHarlequinManager() {
+        return harlequinManager;
+    }
+
+    public GameTeam getTeamFor(GamePlayer player) {
+        GameTeam team = harlequinManager.getEffectiveTeam(this, player);
+        if (team == null && player != null) {
+            return this.getTeams().get(player.getTeamId());
+        }
+
+        return team;
+    }
+
+    public int getTeamIdFor(GamePlayer player) {
+        GameTeam team = getTeamFor(player);
+        return team != null ? team.getId() : (player != null ? player.getTeamId() : -1);
+    }
+
+    public int getColouringForOpponentId(GamePlayer player) {
+        return harlequinManager.getColouringForOpponentId(player);
     }
 }

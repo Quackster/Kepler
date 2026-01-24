@@ -62,7 +62,7 @@ public class RoomEntityManager {
      * given class.
      *
      * @param entityClass the entity class
-     * @return List<T extends Entity> list of entities
+     * @return list of entities
      */
     public <T extends Entity> List<T> getEntitiesByClass(Class<T> entityClass) {
         List<T> entities = new ArrayList<>();
@@ -80,7 +80,7 @@ public class RoomEntityManager {
      * Return the list of players currently in this room by its
      * given class.
      *
-     * @return List<Player> list of players
+     * @return list of players
      */
     public List<Player> getPlayers() {
         return getEntitiesByClass(Player.class);

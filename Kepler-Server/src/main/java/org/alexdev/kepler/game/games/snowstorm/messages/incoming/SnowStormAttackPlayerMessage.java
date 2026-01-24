@@ -2,85 +2,89 @@ package org.alexdev.kepler.game.games.snowstorm.messages.incoming;
 
 import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.games.snowstorm.SnowStormGame;
+import org.alexdev.kepler.game.games.snowstorm.SnowStormPlayers;
+import org.alexdev.kepler.game.games.snowstorm.objects.SnowStormAvatarObject;
 import org.alexdev.kepler.game.games.snowstorm.events.SnowStormLaunchSnowballEvent;
 import org.alexdev.kepler.game.games.snowstorm.events.SnowStormThrowEvent;
-import org.alexdev.kepler.game.games.snowstorm.objects.SnowballObject;
+import org.alexdev.kepler.game.games.snowstorm.objects.SnowStormSnowballObject;
+import org.alexdev.kepler.game.games.snowstorm.util.SnowStormConstants;
 import org.alexdev.kepler.game.games.snowstorm.util.SnowStormMessage;
-import org.alexdev.kepler.game.pathfinder.Position;
-import org.alexdev.kepler.game.pathfinder.Rotation;
+import org.alexdev.kepler.game.games.snowstorm.util.SnowStormMath;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 
 public class SnowStormAttackPlayerMessage implements SnowStormMessage {
+    private static final int QUICK_THROW_TRAJECTORY = 3;
+
     @Override
     public void handle(NettyRequest reader, SnowStormGame snowStormGame, GamePlayer gamePlayer) {
-        if (!gamePlayer.getSnowStormAttributes().isWalkable()) {
+        var attributes = SnowStormPlayers.get(gamePlayer);
+        if (!attributes.isWalkable()) {
             return;
         }
 
-        if ((gamePlayer.getSnowStormAttributes().getLastThrow().get() + 300) > System.currentTimeMillis()) {
+        if ((attributes.getLastThrow().get() + SnowStormConstants.THROW_COOLDOWN_MS) > System.currentTimeMillis()) {
             return;
         }
 
         int userId = reader.readInt();
         int trajectory = reader.readInt();
-
-        if (trajectory != 0 && trajectory != 2 && trajectory != 3) {
+        if (!isValidTrajectory(trajectory)) {
             return;
         }
 
-        if (gamePlayer.getSnowStormAttributes().getSnowballs().get() <= 0) {
+        if (attributes.getSnowballs().get() <= 0) {
             return;
         }
 
-        if (gamePlayer.getSnowStormAttributes().isWalking()) {
-            gamePlayer.getSnowStormAttributes().setWalking(false);
-        }
+        var targetPlayer = snowStormGame.getActivePlayers().stream()
+                .filter(p -> p.getObjectId() == userId)
+                .findFirst()
+                .orElse(null);
 
-        var player = snowStormGame.getActivePlayers().stream().filter(p -> p.getObjectId() == userId).findFirst().orElse(null);
-
-        if (player == null || !snowStormGame.isOppositionPlayer(gamePlayer, player)) {
+        if (targetPlayer == null || !snowStormGame.isOppositionPlayer(gamePlayer, targetPlayer)) {
             return;
         }
 
-        //gamePlayer.getPlayer().getRoomUser().setWalkingAllowed(false);
-        int objectId = snowStormGame.getObjectId().incrementAndGet();
-
-        var snowball = new SnowballObject(objectId, snowStormGame, gamePlayer,
-                gamePlayer.getSnowStormAttributes().getCurrentPosition().getX(),
-                gamePlayer.getSnowStormAttributes().getCurrentPosition().getY(),
-                player.getSnowStormAttributes().getCurrentPosition().getX(),
-                player.getSnowStormAttributes().getCurrentPosition().getY(),
-                trajectory,
-                Rotation.calculateWalkDirection(gamePlayer.getSnowStormAttributes().getCurrentPosition(), player.getSnowStormAttributes().getCurrentPosition()));
-
-        snowball.setTargetPlayer(player);
-        gamePlayer.getSnowStormAttributes().getSnowballs().decrementAndGet();
-
-        var visibilityPath = snowball.getPath();
-        Position lastTilePosition = visibilityPath.size() > 0 ? visibilityPath.pollLast() : null;
-
-        // Reconsider velocity/time to live and recalculate since it's blocked
-        if (lastTilePosition != null && !lastTilePosition.equals(new Position(snowball.getTargetX(), snowball.getTargetY()))) {
-            snowball.setTargetX(lastTilePosition.getX());
-            snowball.setTargetY(lastTilePosition.getY());
-            snowball.setBlocked(true);
-        }
-
-        snowStormGame.getUpdateTask().sendQueue(0, 1, new SnowStormThrowEvent(gamePlayer.getObjectId(), SnowStormGame.convertToWorldCoordinate(snowball.getTargetX()), SnowStormGame.convertToWorldCoordinate(snowball.getTargetY()), trajectory));
-        snowStormGame.getUpdateTask().sendQueue(0, 1, new SnowStormLaunchSnowballEvent(objectId, gamePlayer.getObjectId(), SnowStormGame.convertToWorldCoordinate(snowball.getTargetX()), SnowStormGame.convertToWorldCoordinate(snowball.getTargetY()), trajectory));
-        gamePlayer.getSnowStormAttributes().getLastThrow().set(System.currentTimeMillis());
-
-        if (trajectory == 0 && visibilityPath.size() >= SnowStormGame.MAX_QUICK_THROW_DISTANCE) {
-            return;
-        }
-
-        snowball.scheduleMovementTask();
-        /*GameScheduler.getInstance().getService().schedule(() -> {
-            try {
-                snowStormGame.handleSnowballLanding(snowball);
-            } catch (Exception e) {
-                e.printStackTrace();
+        if (attributes.isWalking()) {
+            SnowStormAvatarObject avatar = SnowStormAvatarObject.getAvatar(gamePlayer);
+            if (avatar != null) {
+                avatar.stopWalking();
             }
-        }, snowball.getTimeToLive() * 100, TimeUnit.MILLISECONDS);*/
+        }
+
+        int objectId = snowStormGame.getObjectId().incrementAndGet();
+        var origin = attributes.getCurrentPosition();
+        var destination = SnowStormPlayers.get(targetPlayer).getCurrentPosition();
+
+        var snowball = new SnowStormSnowballObject(
+                objectId,
+                snowStormGame,
+                gamePlayer,
+                origin.getX(),
+                origin.getY(),
+                destination.getX(),
+                destination.getY(),
+                trajectory);
+
+        snowStormGame.getUpdateTask().addSnowball(snowball);
+        attributes.getSnowballs().decrementAndGet();
+
+        int targetX = SnowStormMath.tileToWorld(destination.getX());
+        int targetY = SnowStormMath.tileToWorld(destination.getY());
+        int currentX = SnowStormMath.tileToWorld(origin.getX());
+        int currentY = SnowStormMath.tileToWorld(origin.getY());
+
+        int direction = SnowStormMath.getAngleFromComponents(targetX - currentX, targetY - currentY);
+        attributes.setRotation(SnowStormMath.direction360To8(direction));
+
+        int worldTargetX = SnowStormMath.convertToWorldCoordinate(snowball.getTargetX());
+        int worldTargetY = SnowStormMath.convertToWorldCoordinate(snowball.getTargetY());
+        snowStormGame.getUpdateTask().queueEvent( new SnowStormThrowEvent(gamePlayer.getObjectId(), worldTargetX, worldTargetY, trajectory));
+        snowStormGame.getUpdateTask().queueEvent( new SnowStormLaunchSnowballEvent(objectId, gamePlayer.getObjectId(), worldTargetX, worldTargetY, trajectory));
+    }
+
+    private boolean isValidTrajectory(int trajectory) {
+        return trajectory == 0 || trajectory == 2 || trajectory == QUICK_THROW_TRAJECTORY;
     }
 }
+

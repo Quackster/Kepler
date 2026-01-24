@@ -15,7 +15,7 @@ import java.util.List;
 
 public class TorchHandle {
     public static void handle(BattleBallGame game, GamePlayer gamePlayer, Room room) {
-        GameTeam gameTeam = gamePlayer.getTeam();
+        GameTeam gameTeam = game.getTeamFor(gamePlayer);
         List<BattleBallTile> tilesToUpdate = new ArrayList<>();
 
         Position nextPosition = gamePlayer.getPlayer().getRoomUser().getPosition();

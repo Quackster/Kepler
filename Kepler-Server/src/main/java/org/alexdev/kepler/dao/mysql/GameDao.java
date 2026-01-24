@@ -29,7 +29,7 @@ public class GameDao {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                ranks.add(new GameRank(resultSet.getInt("id"), resultSet.getString("type"),
+                ranks.add(new GameRank(resultSet.getString("type"),
                         resultSet.getString("title"), resultSet.getInt("min_points"),
                         resultSet.getInt("max_points")));
             }
@@ -142,7 +142,23 @@ public class GameDao {
      * @param details the player details
      */
     public static void increasePoints(PlayerDetails details, GameType type, int amount) {
-        String column = type.name().toLowerCase() + "_points";
+        String column;
+        String updateSql;
+        String fetchSql;
+
+        switch (type) {
+            case BATTLEBALL -> {
+                column = "battleball_points";
+                updateSql = "UPDATE users SET battleball_points = battleball_points + ? WHERE id = ?";
+                fetchSql = "SELECT battleball_points FROM users WHERE id = ?";
+            }
+            case SNOWSTORM -> {
+                column = "snowstorm_points";
+                updateSql = "UPDATE users SET snowstorm_points = snowstorm_points + ? WHERE id = ?";
+                fetchSql = "SELECT snowstorm_points FROM users WHERE id = ?";
+            }
+            default -> throw new IllegalArgumentException("Unsupported game type: " + type);
+        }
 
         Connection conn = null;
         PreparedStatement updateQuery = null;
@@ -156,13 +172,13 @@ public class GameDao {
             conn.setAutoCommit(false);
 
             // Increase credits
-            updateQuery = Storage.getStorage().prepare("UPDATE users SET " + column + " = " + column + " + ? WHERE id = ?", conn);
+            updateQuery = Storage.getStorage().prepare(updateSql, conn);
             updateQuery.setInt(1, amount);
             updateQuery.setInt(2, details.getId());
             updateQuery.execute();
 
             // Fetch increased amount
-            fetchQuery = Storage.getStorage().prepare("SELECT " + column + " FROM users WHERE id = ?", conn);
+            fetchQuery = Storage.getStorage().prepare(fetchSql, conn);
             fetchQuery.setInt(1, details.getId());
             row = fetchQuery.executeQuery();
 

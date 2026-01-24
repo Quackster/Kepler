@@ -2,6 +2,7 @@ package org.alexdev.kepler.game.games.battleball.powerups;
 
 import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.games.battleball.BattleBallGame;
+import org.alexdev.kepler.game.games.battleball.BattleBallPlayerStateManager;
 import org.alexdev.kepler.game.games.battleball.enums.BattleBallPlayerState;
 import org.alexdev.kepler.game.games.battleball.objects.PlayerUpdateObject;
 import org.alexdev.kepler.game.games.enums.GameState;
@@ -15,18 +16,19 @@ import java.util.concurrent.TimeUnit;
 public class HarlequinHandle {
     public static void handle(BattleBallGame game, GamePlayer gamePlayer, Room room) {
         List<GamePlayer> affectedPlayers = new ArrayList<>();
+        BattleBallPlayerStateManager stateManager = game.getPlayerStateManager();
 
         for (GamePlayer p : gamePlayer.getGame().getActivePlayers()) {
-            if (p.getColouringForOpponentId() != -1 || p.getTeamId() == gamePlayer.getTeamId()) {
+            if (game.getHarlequinManager().getColouringForOpponentId(p) != -1 || p.getTeamId() == gamePlayer.getTeamId()) {
                 continue;
             }
 
-            if (p.getPlayerState() != BattleBallPlayerState.NORMAL) {
+            if (stateManager.getState(p) != BattleBallPlayerState.NORMAL) {
                 continue; // Don't override people using power ups
             }
 
-            p.setPlayerState(BattleBallPlayerState.COLORING_FOR_OPPONENT);
-            p.setHarlequinPlayer(gamePlayer);
+            stateManager.setState(p, BattleBallPlayerState.COLORING_FOR_OPPONENT);
+            game.getHarlequinManager().assign(p, gamePlayer);
 
             game.addObjectToQueue(new PlayerUpdateObject(p));
             affectedPlayers.add(p);
@@ -38,8 +40,8 @@ public class HarlequinHandle {
             }
 
             for (GamePlayer p : affectedPlayers) {
-                p.setPlayerState(BattleBallPlayerState.NORMAL);
-                p.setHarlequinPlayer(null);
+                stateManager.setState(p, BattleBallPlayerState.NORMAL);
+                game.getHarlequinManager().clear(p);
 
                 game.addObjectToQueue(new PlayerUpdateObject(p));
             }

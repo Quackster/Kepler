@@ -8,6 +8,7 @@ import org.alexdev.kepler.game.games.enums.GameType;
 import org.alexdev.kepler.game.games.history.GameHistoryData;
 import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.games.player.GameTeam;
+import org.alexdev.kepler.game.games.player.score.ScoreCalculator;
 import org.alexdev.kepler.game.games.history.GameHistory;
 import org.alexdev.kepler.game.games.snowstorm.SnowStormGame;
 import org.alexdev.kepler.game.player.Player;
@@ -16,7 +17,6 @@ import org.alexdev.kepler.game.room.RoomManager;
 import org.alexdev.kepler.game.room.models.RoomModel;
 import org.alexdev.kepler.log.Log;
 import org.alexdev.kepler.messages.outgoing.games.*;
-import org.alexdev.kepler.messages.outgoing.messenger.ROOMFORWARD;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.util.config.GameConfiguration;
 import org.alexdev.kepler.util.schedule.FutureRunnable;
@@ -196,7 +196,7 @@ public abstract class Game {
     /**
      * Method for when the game begins after the initial preparing game seconds timer
      */
-    private void beginGame() {
+    public void beginGame() {
         this.gameStarted = true;
 
         // Stop all players from walking when game starts if they selected a tile
@@ -758,6 +758,11 @@ public abstract class Game {
      * Handler for building map
      */
     public abstract void buildMap();
+
+    /**
+     * Get the score calculator for this game type.
+     */
+    public abstract ScoreCalculator getScoreCalculator();
 
     /**
      * Method called when game is ticked

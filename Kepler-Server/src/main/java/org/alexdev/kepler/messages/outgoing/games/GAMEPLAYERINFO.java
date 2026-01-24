@@ -17,7 +17,6 @@ public class GAMEPLAYERINFO extends MessageComposer {
         this.players = players;
     }
 
-
     @Override
     public void compose(NettyResponse response) {
         response.writeInt(this.players.size());
@@ -31,6 +30,6 @@ public class GAMEPLAYERINFO extends MessageComposer {
 
     @Override
     public short getHeader() {
-        return 250; // "Cz"
+        return 250;
     }
 }

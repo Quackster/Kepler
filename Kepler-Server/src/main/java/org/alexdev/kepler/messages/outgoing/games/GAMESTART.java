@@ -17,6 +17,6 @@ public class GAMESTART extends MessageComposer {
 
     @Override
     public short getHeader() {
-        return 247; // "Cw"
+        return 247;
     }
 }

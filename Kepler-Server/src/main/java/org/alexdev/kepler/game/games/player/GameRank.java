@@ -3,27 +3,16 @@ package org.alexdev.kepler.game.games.player;
 import org.alexdev.kepler.game.games.enums.GameType;
 
 public class GameRank {
-    private final int id;
     private final GameType type;
     private final String title;
     private final int minPoints;
     private final int maxPoints;
 
-    public GameRank(int id, String type, String title, int minPoints, int maxPoints) {
-        this.id = id;
+    public GameRank(String type, String title, int minPoints, int maxPoints) {
         this.type = GameType.valueOf(type.toUpperCase());
         this.title = title;
         this.minPoints = minPoints;
         this.maxPoints = maxPoints;
-    }
-
-    /**
-     * Get the game rank ID
-     *
-     * @return the game rank ID
-     */
-    public int getId() {
-        return id;
     }
 
     /**

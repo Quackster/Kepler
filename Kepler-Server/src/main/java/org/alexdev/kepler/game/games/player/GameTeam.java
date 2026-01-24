@@ -1,9 +1,6 @@
 package org.alexdev.kepler.game.games.player;
 
 import org.alexdev.kepler.game.games.Game;
-import org.alexdev.kepler.game.games.battleball.BattleBallGame;
-import org.alexdev.kepler.game.games.battleball.BattleBallTile;
-import org.alexdev.kepler.game.games.utils.ScoreReference;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -11,18 +8,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class GameTeam {
-    private int id;
-    private Game game;
-    private List<GamePlayer> playerList;
-
-    public AtomicInteger points;
-    public AtomicInteger snowstormPoints;
+    private final int id;
+    private final Game game;
+    private final List<GamePlayer> players = new CopyOnWriteArrayList<>();
+    private final AtomicInteger points = new AtomicInteger(0);
 
     public GameTeam(int id, Game game) {
         this.id = id;
         this.game = game;
-        this.playerList = new CopyOnWriteArrayList<>();
-        this.points = new AtomicInteger(0);
     }
 
     public int getId() {
@@ -30,43 +23,18 @@ public class GameTeam {
     }
 
     public List<GamePlayer> getPlayers() {
-        return playerList;
+        return players;
     }
 
     public void calculateScore() {
-        this.points.set(0);
-
-        if (this.game instanceof BattleBallGame) {
-            BattleBallGame battleBallGame = (BattleBallGame) this.game;
-
-            for (BattleBallTile battleBallTile : battleBallGame.getTiles()) {
-                for (ScoreReference scoreReference : battleBallTile.getPointsReferece()) {
-                    if (scoreReference.getGameTeam().getId() != this.id) {
-                        continue;
-                    }
-
-                    this.points.addAndGet(scoreReference.getScore());
-                }
-            }
-        }
-        else {
-            this.points.set(0);
-
-            int totalScore = this.playerList.stream()
-                    .mapToInt(player -> player.getScore())
-                    .sum();
-
-            this.points.addAndGet(totalScore);
-        }
+        points.set(game.getScoreCalculator().calculateTeamScore(this));
     }
 
     public int getPoints() {
         return points.get();
     }
 
-
-
     public List<GamePlayer> getActivePlayers() {
-        return playerList.stream().filter(GamePlayer::isInGame).collect(Collectors.toList());
+        return players.stream().filter(GamePlayer::isInGame).collect(Collectors.toList());
     }
 }

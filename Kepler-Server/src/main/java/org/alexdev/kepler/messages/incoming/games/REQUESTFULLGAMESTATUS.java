@@ -2,15 +2,15 @@ package org.alexdev.kepler.messages.incoming.games;
 
 import org.alexdev.kepler.game.games.Game;
 import org.alexdev.kepler.game.games.GameManager;
-import org.alexdev.kepler.game.games.GameObject;
 import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.games.snowstorm.SnowStormGame;
+import org.alexdev.kepler.game.games.snowstorm.SnowStormPlayers;
+import org.alexdev.kepler.game.games.snowstorm.objects.SnowStormAvatarObject;
+import org.alexdev.kepler.game.games.snowstorm.util.SnowStormAttributes;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.messages.outgoing.games.FULLGAMESTATUS;
 import org.alexdev.kepler.messages.types.MessageEvent;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
-
-import java.util.List;
 
 public class REQUESTFULLGAMESTATUS implements MessageEvent {
     @Override
@@ -27,12 +27,19 @@ public class REQUESTFULLGAMESTATUS implements MessageEvent {
 
         Game game = GameManager.getInstance().getGameById(gamePlayer.getGameId());
 
-        if (!(game instanceof SnowStormGame)) {
-            return;
+        if (game instanceof SnowStormGame) {
+            var snowStormAvatarObject = SnowStormAvatarObject.getAvatar(gamePlayer);
+            var attributes = SnowStormPlayers.get(gamePlayer);
+
+            if (snowStormAvatarObject == null || attributes == null) {
+                return;
+            }
+
+            if (attributes.isWalking()) {
+                snowStormAvatarObject.stopWalking();
+            }
+
+            player.send(new FULLGAMESTATUS(game));
         }
-
-        player.send(new FULLGAMESTATUS(game));
-
-        //player.send(new SNOWSTORM_FULLGAMESTATUS((SnowStormGame) game, gamePlayer, objects, snowStormGame.getExecutingEvents()));
     }
 }

@@ -11,6 +11,6 @@ public class GAMELOCATION extends MessageComposer {
 
     @Override
     public short getHeader() {
-        return 241; // "Cq"
+        return 241;
     }
 }

@@ -1,23 +1,40 @@
 package org.alexdev.kepler.game.games.snowstorm.mapping;
 
 import org.alexdev.kepler.game.pathfinder.Position;
-import org.alexdev.kepler.game.games.snowstorm.util.SnowStormSpawn;
 
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class SnowStormMap {
+    public record SpawnCluster(Position position, int radius, int minDistance) {
+        public SpawnCluster(int x, int y, int radius, int minDistance) {
+            this(new Position(x, y), radius, minDistance);
+        }
+
+        public Position getPosition() {
+            return position;
+        }
+
+        public int getRadius() {
+            return radius;
+        }
+
+        public int getMinDistance() {
+            return minDistance;
+        }
+    }
+
     private final int mapId;
     private final ArrayList<SnowStormItem> itemList;
-    private final ArrayList<SnowStormSpawn> spawnClusters;
+    private final ArrayList<SpawnCluster> spawnClusters;
     private final String compiledItems;
     private String heightMap;
     private int mapSizeY;
     private int mapSizeX;
     private SnowStormTile[][] tiles;
 
-    public SnowStormMap(int mapId, String compiledItems, ArrayList<SnowStormItem> itemList, String heightMap, ArrayList<SnowStormSpawn> spawnClusters) {
+    public SnowStormMap(int mapId, String compiledItems, ArrayList<SnowStormItem> itemList, String heightMap, ArrayList<SpawnCluster> spawnClusters) {
         this.mapId = mapId;
         this.compiledItems = compiledItems;
         this.itemList = itemList;
@@ -99,8 +116,8 @@ public class SnowStormMap {
         return this.itemList;
     }
 
-    public SnowStormSpawn[] getSpawnClusters() {
-        return spawnClusters.toArray(new SnowStormSpawn[0]);
+    public SpawnCluster[] getSpawnClusters() {
+        return spawnClusters.toArray(new SpawnCluster[0]);
     }
 
     public String getCompiledItems() {

@@ -1,34 +1,66 @@
 package org.alexdev.kepler.game.games.snowstorm.util;
 
-import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.pathfinder.Position;
 
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class SnowStormAttributes {
-    private boolean isWalking;
-    private Position currentPosition;
-    private Position walkGoal;
-    private Position nextGoal;
-    private int[] goalWorldCoordinates;
-    private AtomicInteger snowballs;
-    private AtomicInteger health;
-    private AtomicInteger score;
-    private int rotation;
-    private AtomicLong lastThrow;
-    private long immunityExpiry;
-
-    private SnowStormActivityState activityState;
-    private long stateTime;
+    private volatile boolean isWalking;
+    private volatile Position currentPosition;
+    private volatile Position walkGoal;
+    private volatile Position nextGoal;
+    private volatile int[] goalWorldCoordinates;
+    private final AtomicInteger snowballs;
+    private final AtomicInteger health;
+    private final AtomicInteger score;
+    private volatile int rotation;
+    private final AtomicLong lastThrow;
+    private volatile long immunityExpiry;
+    private volatile SnowStormActivityState activityState;
+    private volatile int activityTimer;
+    private final AtomicInteger healthToImplement;
+    private volatile boolean isStunnedToImplement;
+    private volatile Position gameObjectWorldLocation;
+    private volatile int currentMachineId;
 
     public SnowStormAttributes() {
         this.snowballs = new AtomicInteger(0);
         this.health = new AtomicInteger(0);
+        this.healthToImplement = new AtomicInteger(0);
         this.score = new AtomicInteger(0);
         this.lastThrow = new AtomicLong(0);
         this.immunityExpiry = 0;
+        this.activityTimer = 0;
+        this.isStunnedToImplement = false;
+        this.activityState = SnowStormActivityState.ACTIVITY_STATE_NORMAL;
+        this.currentMachineId = -1;
+    }
+
+    public boolean getStunnedToImplement() {
+        return this.isStunnedToImplement;
+    }
+
+    public void setStunnedToImplement(boolean stunnedToImplement) {
+        this.isStunnedToImplement = stunnedToImplement;
+    }
+
+    public AtomicInteger getHealthToImplement() {
+        return this.healthToImplement;
+    }
+
+    public int getActivityTimer() {
+        return activityTimer;
+    }
+
+    public void setActivityTimer(int activityTimer) {
+        this.activityTimer = activityTimer;
+    }
+
+    public void decreaseActivityTimer() {
+        if (this.activityTimer > 0) {
+            this.activityTimer--;
+        }
     }
 
     public boolean isWalking() {
@@ -92,52 +124,35 @@ public class SnowStormAttributes {
     }
 
     public boolean isWalkable() {
+        if (this.activityState == null) {
+            return false;
+        }
+
         return this.activityState == SnowStormActivityState.ACTIVITY_STATE_NORMAL ||
                 this.activityState == SnowStormActivityState.ACTIVITY_STATE_INVINCIBLE_AFTER_STUN;
     }
 
     public boolean isDamageable() {
-        return System.currentTimeMillis() > this.immunityExpiry && this.activityState == SnowStormActivityState.ACTIVITY_STATE_NORMAL;
-    }
-
-    public void setActivityState(SnowStormActivityState activityState, Runnable runnable) {
-        this.activityState = activityState;
-        this.stateTime = System.currentTimeMillis() + activityState.getTimeInMS();
-
-        //System.out.println("Queued " + this.activityState.name() + " for " + activityState.getTimeInMS() + "ms");
-
-        if (activityState != SnowStormActivityState.ACTIVITY_STATE_NORMAL) {
-            GameScheduler.getInstance().getService().schedule(()-> {
-                this.activityState = SnowStormActivityState.ACTIVITY_STATE_NORMAL;
-
-                if (runnable != null)
-                    runnable.run();
-            }, this.activityState.getTimeInMS(), TimeUnit.MILLISECONDS);
+        if (this.activityState == null) {
+            return false;
         }
+
+        return System.currentTimeMillis() > this.immunityExpiry &&
+                this.activityState == SnowStormActivityState.ACTIVITY_STATE_NORMAL;
     }
 
     public void setActivityState(SnowStormActivityState activityState) {
-        this.setActivityState(activityState, null);
+        this.activityState = activityState;
     }
-
-    public int getActivityTimer() {
-        int timeRemaining = 0;
-        long expireTime = this.stateTime + this.activityState.getTimeInMS();
-
-        if (!(System.currentTimeMillis() > this.stateTime || this.activityState == SnowStormActivityState.ACTIVITY_STATE_NORMAL)) {
-            timeRemaining = (int) (expireTime - System.currentTimeMillis());
-            timeRemaining = (timeRemaining / 300)*5;
-        }
-
-        return timeRemaining;
-     }
 
     public AtomicInteger getScore() {
         return score;
     }
 
     public void setScore(AtomicInteger score) {
-        this.score = score;
+        if (score != null) {
+            this.score.set(score.get());
+        }
     }
 
     public AtomicLong getLastThrow() {
@@ -150,5 +165,21 @@ public class SnowStormAttributes {
 
     public void setImmunityExpiry(long immunityExpiry) {
         this.immunityExpiry = immunityExpiry;
+    }
+
+    public Position getGameObjectWorldLocation() {
+        return gameObjectWorldLocation;
+    }
+
+    public void setGameObjectWorldLocation(Position position) {
+        this.gameObjectWorldLocation = position;
+    }
+
+    public int getCurrentMachineId() {
+        return currentMachineId;
+    }
+
+    public void setCurrentMachineId(int currentMachineId) {
+        this.currentMachineId = currentMachineId;
     }
 }

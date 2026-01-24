@@ -2,6 +2,7 @@ package org.alexdev.kepler.game.games.battleball;
 
 import org.alexdev.kepler.game.games.GameEvent;
 import org.alexdev.kepler.game.games.GameObject;
+import org.alexdev.kepler.game.games.battleball.BattleBallGame;
 import org.alexdev.kepler.game.games.battleball.enums.BattleBallColourState;
 import org.alexdev.kepler.game.games.battleball.enums.BattleBallPlayerState;
 import org.alexdev.kepler.game.games.battleball.enums.BattleBallPowerType;
@@ -9,6 +10,7 @@ import org.alexdev.kepler.game.games.battleball.enums.BattleBallTileState;
 import org.alexdev.kepler.game.games.battleball.events.AcquirePowerUpEvent;
 import org.alexdev.kepler.game.games.battleball.objects.PowerObject;
 import org.alexdev.kepler.game.games.battleball.objects.PowerUpUpdateObject;
+import org.alexdev.kepler.game.games.battleball.BattleBallPlayerStateManager;
 import org.alexdev.kepler.game.games.battleball.powerups.*;
 import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.games.player.GameTeam;
@@ -101,27 +103,28 @@ public class BattleBallPowerUp {
             return false;
         }
 
-        GameTeam team = gamePlayer.getTeam();
+        BattleBallGame battleBallGame = (BattleBallGame) gamePlayer.getGame();
+        GameTeam team = battleBallGame.getTeamFor(gamePlayer);
 
-        if (gamePlayer.getPlayerState() == BattleBallPlayerState.HIGH_JUMPS) {
+        if (getState(gamePlayer) == BattleBallPlayerState.HIGH_JUMPS) {
             if (state == BattleBallTileState.SEALED) {
                 return true;
             }
 
             tile.getPointsReferece().clear();
 
-            tile.setColour(BattleBallColourState.getColourById(gamePlayer.getTeam().getId()));
+            tile.setColour(BattleBallColourState.getColourById(battleBallGame.getTeamIdFor(gamePlayer)));
             tile.setState(BattleBallTileState.SEALED);
 
             //tile.(team);
-            tile.getNewPoints(gamePlayer, BattleBallTileState.SEALED, BattleBallColourState.getColourById(gamePlayer.getTeam().getId()));//.addScore(new ScoreReference(14, team, gamePlayer.getUserId()));
+            tile.getNewPoints(gamePlayer, BattleBallTileState.SEALED, BattleBallColourState.getColourById(battleBallGame.getTeamIdFor(gamePlayer)));//.addScore(new ScoreReference(14, team, gamePlayer.getUserId()));
             tile.checkFill(gamePlayer, updateFillTiles);
 
             updateTiles.add(tile);
             return true;
         }
 
-        if (gamePlayer.getPlayerState() == BattleBallPlayerState.CLEANING_TILES) {
+        if (getState(gamePlayer) == BattleBallPlayerState.CLEANING_TILES) {
             if (TileUtil.undoTileAttributes(tile, gamePlayer.getGame())) {
                 updateTiles.add(tile);
 
@@ -257,4 +260,20 @@ public class BattleBallPowerUp {
     public GameObject getObject() {
         return object;
     }
+
+    private static BattleBallPlayerStateManager getStateManager(GamePlayer player) {
+        var game = player.getGame();
+
+        if (game instanceof BattleBallGame battleBallGame) {
+            return battleBallGame.getPlayerStateManager();
+        }
+
+        return null;
+    }
+
+    private static BattleBallPlayerState getState(GamePlayer player) {
+        var manager = getStateManager(player);
+        return manager != null ? manager.getState(player) : BattleBallPlayerState.NORMAL;
+    }
+
 }

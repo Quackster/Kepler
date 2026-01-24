@@ -7,6 +7,7 @@ import org.alexdev.kepler.game.games.GameEvent;
 import org.alexdev.kepler.game.games.GameObject;
 import org.alexdev.kepler.game.games.GameTile;
 import org.alexdev.kepler.game.games.battleball.enums.BattleBallColourState;
+import org.alexdev.kepler.game.games.battleball.BattleBallGame;
 import org.alexdev.kepler.game.games.battleball.enums.BattleBallTileState;
 import org.alexdev.kepler.game.games.battleball.powerups.NailBoxHandle;
 import org.alexdev.kepler.game.games.player.GamePlayer;
@@ -92,7 +93,8 @@ public class BattleBallTile extends GameTile  {
         BattleBallTileState state = this.getState();
         BattleBallColourState colour = this.getColour();
 
-        GameTeam team = gamePlayer.getTeam();
+        BattleBallGame battleBallGame = (BattleBallGame) gamePlayer.getGame();
+        GameTeam team = battleBallGame.getTeamFor(gamePlayer);
 
         if (colour == BattleBallColourState.DISABLED) {
             return;
@@ -128,7 +130,8 @@ public class BattleBallTile extends GameTile  {
     }
 
     public void getNewPoints(GamePlayer gamePlayer, BattleBallTileState newState, BattleBallColourState newColour) {
-        GameTeam team = gamePlayer.getTeam();
+        BattleBallGame battleBallGame = (BattleBallGame) gamePlayer.getGame();
+        GameTeam team = battleBallGame.getTeamFor(gamePlayer);
 
         int newPoints = -1;
         //boolean sealed = false;
@@ -157,11 +160,11 @@ public class BattleBallTile extends GameTile  {
 
         if (newPoints != -1) {
             //if (!sealed) { // Set to sealed
-            if (gamePlayer.getHarlequinPlayer() != null) {
-                this.pointsReferece.add(new ScoreReference(newPoints, team, gamePlayer.getHarlequinPlayer().getUserId()));
-            } else {
-                this.pointsReferece.add(new ScoreReference(newPoints, team, gamePlayer.getUserId()));
+            int scoringUserId = battleBallGame.getColouringForOpponentId(gamePlayer);
+            if (scoringUserId == -1) {
+                scoringUserId = gamePlayer.getUserId();
             }
+            this.pointsReferece.add(new ScoreReference(newPoints, team, scoringUserId));
             //} else {
             //    this.pointsReferece.add(team);
             //}
@@ -170,8 +173,6 @@ public class BattleBallTile extends GameTile  {
 
 
     public void checkFill(GamePlayer gamePlayer, Collection<BattleBallTile> updateFillTiles) {
-        GameTeam team = gamePlayer.getTeam();
-
         for (BattleBallTile neighbour : FloodFill.neighbours(gamePlayer.getGame(), this.getPosition())) {
             if (neighbour == null || neighbour.getState() == BattleBallTileState.SEALED || neighbour.getColour() == BattleBallColourState.DISABLED) {
                 continue;

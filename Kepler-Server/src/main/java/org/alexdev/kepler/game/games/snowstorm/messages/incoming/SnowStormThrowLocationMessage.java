@@ -2,75 +2,73 @@ package org.alexdev.kepler.game.games.snowstorm.messages.incoming;
 
 import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.games.snowstorm.SnowStormGame;
+import org.alexdev.kepler.game.games.snowstorm.SnowStormPlayers;
+import org.alexdev.kepler.game.games.snowstorm.objects.SnowStormAvatarObject;
 import org.alexdev.kepler.game.games.snowstorm.events.SnowStormLaunchSnowballEvent;
 import org.alexdev.kepler.game.games.snowstorm.events.SnowStormThrowEvent;
-import org.alexdev.kepler.game.games.snowstorm.objects.SnowballObject;
+import org.alexdev.kepler.game.games.snowstorm.objects.SnowStormSnowballObject;
+import org.alexdev.kepler.game.games.snowstorm.util.SnowStormConstants;
 import org.alexdev.kepler.game.games.snowstorm.util.SnowStormMessage;
-import org.alexdev.kepler.game.pathfinder.Position;
-import org.alexdev.kepler.game.pathfinder.Rotation;
+import org.alexdev.kepler.game.games.snowstorm.util.SnowStormMath;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 
 public class SnowStormThrowLocationMessage implements SnowStormMessage {
     @Override
     public void handle(NettyRequest reader, SnowStormGame snowStormGame, GamePlayer gamePlayer) {
-        if (!gamePlayer.getSnowStormAttributes().isWalkable()) {
+        var attributes = SnowStormPlayers.get(gamePlayer);
+        if (!attributes.isWalkable()) {
             return;
         }
 
-        if ((gamePlayer.getSnowStormAttributes().getLastThrow().get() + 300) > System.currentTimeMillis()) {
+        if ((attributes.getLastThrow().get() + SnowStormConstants.THROW_COOLDOWN_MS) > System.currentTimeMillis()) {
             return;
         }
 
-        int X = reader.readInt();
-        int Y = reader.readInt();
+        int worldX = reader.readInt();
+        int worldY = reader.readInt();
         int trajectory = reader.readInt();
-
-        if (trajectory != 2 && trajectory != 1) {
+        if (trajectory != 1 && trajectory != 2) {
             return;
         }
 
-        if (gamePlayer.getSnowStormAttributes().getSnowballs().get() <= 0) {
+        if (attributes.getSnowballs().get() <= 0) {
             return;
         }
 
-        //gamePlayer.getSnowStormAttributes().getPlayer().getRoomUser().setWalkingAllowed(false);
+        if (attributes.isWalking()) {
+            SnowStormAvatarObject avatar = SnowStormAvatarObject.getAvatar(gamePlayer);
+            if (avatar != null) {
+                avatar.stopWalking();
+            }
+        }
+
         int objectId = snowStormGame.getObjectId().incrementAndGet();
+        int targetX = SnowStormMath.convertToGameCoordinate(worldX);
+        int targetY = SnowStormMath.convertToGameCoordinate(worldY);
 
-        final var snowball = new SnowballObject(
+        var snowball = new SnowStormSnowballObject(
                 objectId,
                 snowStormGame,
                 gamePlayer,
-                gamePlayer.getSnowStormAttributes().getCurrentPosition().getX(),
-                gamePlayer.getSnowStormAttributes().getCurrentPosition().getY(),
-                SnowStormGame.convertToGameCoordinate(X),
-                SnowStormGame.convertToGameCoordinate(Y),
-                trajectory,
-                Rotation.calculateWalkDirection(gamePlayer.getSnowStormAttributes().getCurrentPosition(), new Position(SnowStormGame.convertToGameCoordinate(X), SnowStormGame.convertToGameCoordinate(Y))));
+                attributes.getCurrentPosition().getX(),
+                attributes.getCurrentPosition().getY(),
+                targetX,
+                targetY,
+                trajectory);
 
-        gamePlayer.getSnowStormAttributes().getSnowballs().decrementAndGet();
+        snowStormGame.getUpdateTask().addSnowball(snowball);
+        attributes.getSnowballs().decrementAndGet();
 
-        var visibilityPath = snowball.getPath();
-        Position lastTilePosition = visibilityPath.size() > 0 ? visibilityPath.pollLast() : null;
+        int currentWorldX = SnowStormMath.tileToWorld(attributes.getCurrentPosition().getX());
+        int currentWorldY = SnowStormMath.tileToWorld(attributes.getCurrentPosition().getY());
+        int moveDirection360 = SnowStormMath.getAngleFromComponents((worldX - currentWorldX), (worldY - currentWorldY));
+        attributes.setRotation(SnowStormMath.direction360To8(moveDirection360));
 
-        // Reconsider velocity/time to live and recalculate since it's blocked
-        if (lastTilePosition != null && !lastTilePosition.equals(new Position(snowball.getTargetX(), snowball.getTargetY()))) {
-            snowball.setTargetX(lastTilePosition.getX());
-            snowball.setTargetY(lastTilePosition.getY());
-            snowball.setBlocked(true);
-        }
+        int convertedTargetX = SnowStormMath.convertToWorldCoordinate(snowball.getTargetX());
+        int convertedTargetY = SnowStormMath.convertToWorldCoordinate(snowball.getTargetY());
 
-        snowStormGame.getUpdateTask().sendQueue(0, 1, new SnowStormThrowEvent(gamePlayer.getObjectId(), SnowStormGame.convertToWorldCoordinate(snowball.getTargetX()), SnowStormGame.convertToWorldCoordinate(snowball.getTargetY()), trajectory));
-        snowStormGame.getUpdateTask().sendQueue(0, 1, new SnowStormLaunchSnowballEvent(objectId, gamePlayer.getObjectId(), SnowStormGame.convertToWorldCoordinate(snowball.getTargetX()), SnowStormGame.convertToWorldCoordinate(snowball.getTargetY()), trajectory));
-
-        gamePlayer.getSnowStormAttributes().getLastThrow().set(System.currentTimeMillis());
-        snowball.scheduleMovementTask();
-
-        /*GameScheduler.getInstance().getService().schedule(() -> {
-            try {
-                snowStormGame.handleSnowballLanding(snowball);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }, snowball.getTimeToLive() * 100, TimeUnit.MILLISECONDS);*/
+        snowStormGame.getUpdateTask().queueEvent( new SnowStormThrowEvent(gamePlayer.getObjectId(), convertedTargetX, convertedTargetY, trajectory));
+        snowStormGame.getUpdateTask().queueEvent( new SnowStormLaunchSnowballEvent(objectId, gamePlayer.getObjectId(), convertedTargetX, convertedTargetY, trajectory));
     }
 }
+

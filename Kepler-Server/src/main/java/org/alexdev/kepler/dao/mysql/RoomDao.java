@@ -18,6 +18,17 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class RoomDao {
+    private static final String RECOMMENDED_ROOMS_SQL =
+            "SELECT * FROM rooms LEFT JOIN users ON rooms.owner_id = users.id WHERE owner_id > 0 AND accesstype = 0 ORDER BY rating DESC,visitors_now DESC LIMIT ?";
+
+    private static final String RECOMMENDED_ROOMS_NO_STARTER_SQL =
+            "SELECT * FROM rooms LEFT JOIN users ON rooms.owner_id = users.id WHERE owner_id > 0 AND accesstype = 0 AND model <> 'model_s' ORDER BY rating DESC,visitors_now DESC LIMIT ?";
+
+    private static final String HIGHEST_RATED_ROOMS_SQL =
+            "SELECT * FROM rooms LEFT JOIN users ON rooms.owner_id = users.id WHERE owner_id > 0 AND accesstype = 0 ORDER BY rating DESC LIMIT ?";
+
+    private static final String HIGHEST_RATED_ROOMS_NO_STARTER_SQL =
+            "SELECT * FROM rooms LEFT JOIN users ON rooms.owner_id = users.id WHERE owner_id > 0 AND accesstype = 0 AND model <> 'model_s' ORDER BY rating DESC LIMIT ?";
 
     public static void resetVisitors() {
         try {
@@ -145,7 +156,7 @@ public class RoomDao {
 
         try {
             sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("SELECT * FROM rooms LEFT JOIN users ON rooms.owner_id = users.id WHERE owner_id > 0 AND accesstype = 0" + (allowStarterRooms ? "" : " AND model <> 'model_s'") + " ORDER BY rating DESC,visitors_now DESC LIMIT ?", sqlConnection);
+            preparedStatement = Storage.getStorage().prepare(allowStarterRooms ? RECOMMENDED_ROOMS_SQL : RECOMMENDED_ROOMS_NO_STARTER_SQL, sqlConnection);
             preparedStatement.setInt(1, limit);
             resultSet = preparedStatement.executeQuery();
 
@@ -183,7 +194,7 @@ public class RoomDao {
 
         try {
             sqlConnection = Storage.getStorage().getConnection();
-            preparedStatement = Storage.getStorage().prepare("SELECT * FROM rooms LEFT JOIN users ON rooms.owner_id = users.id WHERE owner_id > 0 AND accesstype = 0" + (allowStarterRooms ? "" : " AND model <> 'model_s'") + " ORDER BY rating DESC LIMIT ?", sqlConnection);
+            preparedStatement = Storage.getStorage().prepare(allowStarterRooms ? HIGHEST_RATED_ROOMS_SQL : HIGHEST_RATED_ROOMS_NO_STARTER_SQL, sqlConnection);
             preparedStatement.setInt(1, limit);
             resultSet = preparedStatement.executeQuery();
 

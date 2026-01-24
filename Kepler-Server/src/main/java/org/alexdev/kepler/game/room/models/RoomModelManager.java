@@ -31,8 +31,6 @@ public class RoomModelManager {
 
     /**
      * Reload the instance of {@link RoomModelManager}
-     *
-     * @return the instance
      */
     public static void reset() {
         instance = null;

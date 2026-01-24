@@ -2,6 +2,7 @@ package org.alexdev.kepler.game.games.battleball.powerups;
 
 import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.games.battleball.BattleBallGame;
+import org.alexdev.kepler.game.games.battleball.BattleBallPlayerStateManager;
 import org.alexdev.kepler.game.games.battleball.enums.BattleBallPlayerState;
 import org.alexdev.kepler.game.games.battleball.objects.PlayerUpdateObject;
 import org.alexdev.kepler.game.games.enums.GameState;
@@ -12,7 +13,8 @@ import java.util.concurrent.TimeUnit;
 
 public class VacuumHandle {
     public static void handle(BattleBallGame game, GamePlayer gamePlayer, Room room) {
-        gamePlayer.setPlayerState(BattleBallPlayerState.CLEANING_TILES);
+        BattleBallPlayerStateManager stateManager = game.getPlayerStateManager();
+        stateManager.setState(gamePlayer, BattleBallPlayerState.CLEANING_TILES);
         game.addObjectToQueue(new PlayerUpdateObject(gamePlayer));
 
         GameScheduler.getInstance().getService().schedule(() -> {
@@ -20,11 +22,11 @@ public class VacuumHandle {
                 return;
             }
 
-            if (gamePlayer.getPlayerState() != BattleBallPlayerState.CLEANING_TILES) {
+            if (stateManager.getState(gamePlayer) != BattleBallPlayerState.CLEANING_TILES) {
                 return;
             }
 
-            gamePlayer.setPlayerState(BattleBallPlayerState.NORMAL);
+            stateManager.setState(gamePlayer, BattleBallPlayerState.NORMAL);
             game.addObjectToQueue(new PlayerUpdateObject(gamePlayer));
         }, 10, TimeUnit.SECONDS);
     }

@@ -113,7 +113,7 @@ public class CannonHandle {
                 continue;
             }
 
-            if (tile.getState() == BattleBallTileState.SEALED && tile.getColour().getColourId() == gamePlayer.getTeam().getId()) {
+            if (tile.getState() == BattleBallTileState.SEALED && tile.getColour().getColourId() == game.getTeamIdFor(gamePlayer)) {
                 continue;
             }
 
@@ -122,7 +122,7 @@ public class CannonHandle {
             BattleBallColourState colour = tile.getColour();*/
 
             BattleBallTileState newState = BattleBallTileState.SEALED;
-            BattleBallColourState newColour = BattleBallColourState.getColourById(gamePlayer.getTeam().getId());
+            BattleBallColourState newColour = BattleBallColourState.getColourById(game.getTeamIdFor(gamePlayer));
 
             //tile.addSealedPoints(gamePlayer.getTeam());
             tile.getNewPoints(gamePlayer, newState, newColour);
@@ -139,7 +139,7 @@ public class CannonHandle {
         Position lastPosition = lastTile.getPosition().copy();
         lastPosition.setRotation(rotation);
 
-        gamePlayer.setPlayerState(BattleBallPlayerState.FLYING_THROUGH_AIR);
+        game.getPlayerStateManager().setState(gamePlayer, BattleBallPlayerState.FLYING_THROUGH_AIR);
 
         game.addObjectToQueue(new PlayerUpdateObject(gamePlayer));
         game.addPlayerMove(new PlayerMoveEvent(gamePlayer, lastPosition));

@@ -2,6 +2,7 @@ package org.alexdev.kepler.game.games.battleball.powerups;
 
 import org.alexdev.kepler.game.GameScheduler;
 import org.alexdev.kepler.game.games.battleball.BattleBallGame;
+import org.alexdev.kepler.game.games.battleball.BattleBallPlayerStateManager;
 import org.alexdev.kepler.game.games.battleball.enums.BattleBallPlayerState;
 import org.alexdev.kepler.game.games.battleball.objects.PlayerUpdateObject;
 import org.alexdev.kepler.game.games.enums.GameState;
@@ -12,7 +13,8 @@ import java.util.concurrent.TimeUnit;
 
 public class SpringHandle {
     public static void handle(BattleBallGame game, GamePlayer gamePlayer, Room room) {
-        gamePlayer.setPlayerState(BattleBallPlayerState.HIGH_JUMPS);
+        BattleBallPlayerStateManager stateManager = game.getPlayerStateManager();
+        stateManager.setState(gamePlayer, BattleBallPlayerState.HIGH_JUMPS);
         game.addObjectToQueue(new PlayerUpdateObject(gamePlayer));
 
         GameScheduler.getInstance().getService().schedule(()-> {
@@ -20,11 +22,11 @@ public class SpringHandle {
                 return;
             }
 
-            if (gamePlayer.getPlayerState() != BattleBallPlayerState.HIGH_JUMPS) {
+            if (stateManager.getState(gamePlayer) != BattleBallPlayerState.HIGH_JUMPS) {
                 return;
             }
 
-            gamePlayer.setPlayerState(BattleBallPlayerState.NORMAL);
+            stateManager.setState(gamePlayer, BattleBallPlayerState.NORMAL);
             game.addObjectToQueue(new PlayerUpdateObject(gamePlayer));
         }, 10, TimeUnit.SECONDS);
     }

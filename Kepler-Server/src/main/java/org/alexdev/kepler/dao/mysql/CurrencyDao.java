@@ -18,6 +18,10 @@ public class CurrencyDao {
      * Atomically increase credits.
      */
     public static void increaseCredits(Map<PlayerDetails, Integer> playerMap) {
+        if (playerMap == null || playerMap.isEmpty()) {
+            return;
+        }
+
         Connection conn = null;
         PreparedStatement updateQuery = null;
         PreparedStatement fetchQuery = null;
@@ -46,19 +50,26 @@ public class CurrencyDao {
             // Execute update queries in batch
             updateQuery.executeBatch();
 
-            List<String> playerIds = new ArrayList<>();
+            List<Integer> playerIds = new ArrayList<>();
 
             for (var player : playerMap.keySet()) {
-                playerIds.add(Integer.toString(player.getId()));
+                playerIds.add(player.getId());
             }
 
-            // String of structure 1, 2, 3 containing playerIds to be used in query below
-            String rawPlayerBind = String.join(",", playerIds);
+            StringBuilder placeholders = new StringBuilder();
+            for (int i = 0; i < playerIds.size(); i++) {
+                if (i > 0) {
+                    placeholders.append(",");
+                }
+                placeholders.append("?");
+            }
 
             // Fetch increased amount
-            // TODO: find better way to write the IN clause
-            // TODO: use temporary table when playerIds list is above max arguments of SQL IN function or size above max_allowed_packet MariaDB configuration setting
-            fetchQuery = Storage.getStorage().prepare("SELECT id,credits FROM users WHERE id IN (" + rawPlayerBind + ")", conn);
+            fetchQuery = Storage.getStorage().prepare("SELECT id,credits FROM users WHERE id IN (" + placeholders + ")", conn);
+
+            for (int i = 0; i < playerIds.size(); i++) {
+                fetchQuery.setInt(i + 1, playerIds.get(i));
+            }
 
             // Execute fetch query
             row = fetchQuery.executeQuery();

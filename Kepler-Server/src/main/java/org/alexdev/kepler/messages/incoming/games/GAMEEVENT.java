@@ -32,7 +32,6 @@ public class GAMEEVENT implements MessageEvent {
         if (game.getGameType() == GameType.SNOWSTORM) {
             SnowStormMessageHandler.getInstance().handleMessage(eventType, reader, (SnowStormGame) game, gamePlayer);
         } else {
-
             // Jump request
             if (eventType == 2) {
                 if (!player.getRoomUser().isWalkingAllowed()) {

@@ -11,7 +11,7 @@ import org.alexdev.kepler.game.room.Room;
 
 public class LightbulbHandle {
     public static void handle(BattleBallGame game, GamePlayer gamePlayer, Room room) {
-        GameTeam gameTeam = gamePlayer.getTeam();
+        GameTeam gameTeam = game.getTeamFor(gamePlayer);
 
         for (Position position : gamePlayer.getPlayer().getRoomUser().getPosition().getCircle(5)) {
             BattleBallTile tile = (BattleBallTile) game.getTile(position.getX(), position.getY());

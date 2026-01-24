@@ -2,36 +2,40 @@ package org.alexdev.kepler.game.games.snowstorm.messages.incoming;
 
 import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.games.snowstorm.SnowStormGame;
+import org.alexdev.kepler.game.games.snowstorm.SnowStormPlayers;
+import org.alexdev.kepler.game.games.snowstorm.objects.SnowStormAvatarObject;
 import org.alexdev.kepler.game.games.snowstorm.events.SnowStormCreateSnowballEvent;
 import org.alexdev.kepler.game.games.snowstorm.util.SnowStormActivityState;
+import org.alexdev.kepler.game.games.snowstorm.util.SnowStormConstants;
 import org.alexdev.kepler.game.games.snowstorm.util.SnowStormMessage;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 
 public class SnowstormCreateSnowballMessage implements SnowStormMessage {
     @Override
     public void handle(NettyRequest request, SnowStormGame snowStormGame, GamePlayer gamePlayer) {
-        if (!gamePlayer.getSnowStormAttributes().isWalkable()) {
-            //System.out.println("Player " + gamePlayer.getPlayer().getDetails().getName() + " state " + gamePlayer.getSnowStormAttributes().getActivityState().name());
+        var attributes = SnowStormPlayers.get(gamePlayer);
+        if (!attributes.isWalkable()) {
             return;
         }
 
-        if (gamePlayer.getSnowStormAttributes().getSnowballs().get() >= 5) {
-            //System.out.println("Player " + gamePlayer.getPlayer().getDetails().getName() + " has " + gamePlayer.getSnowStormAttributes().getSnowballs().get());
+        if (attributes.getSnowballs().get() >= SnowStormConstants.MAX_SNOWBALLS) {
             return;
         }
 
-        if (gamePlayer.getSnowStormAttributes().isWalking()) {
-            gamePlayer.getSnowStormAttributes().setWalking(false);
+        snowStormGame.getUpdateTask().queueEvent(new SnowStormCreateSnowballEvent(gamePlayer.getObjectId()));
+
+        if (!attributes.isWalkable() || attributes.getHealth().get() == 0) {
+            return;
         }
 
-        snowStormGame.getUpdateTask().sendQueue(0, 1, new SnowStormCreateSnowballEvent(gamePlayer.getObjectId()));
-
-        gamePlayer.getSnowStormAttributes().setActivityState(SnowStormActivityState.ACTIVITY_STATE_CREATING, ()-> {
-            if (!gamePlayer.getSnowStormAttributes().isWalkable() || gamePlayer.getSnowStormAttributes().getHealth().get() == 0) {
-                return;
+        if (attributes.isWalking()) {
+            SnowStormAvatarObject avatar = SnowStormAvatarObject.getAvatar(gamePlayer);
+            if (avatar != null) {
+                avatar.stopWalking();
             }
+        }
 
-            gamePlayer.getSnowStormAttributes().getSnowballs().incrementAndGet();
-        });
+        attributes.setActivityState(SnowStormActivityState.ACTIVITY_STATE_CREATING);
+        attributes.setActivityTimer(SnowStormConstants.CREATING_TIMER);
     }
 }

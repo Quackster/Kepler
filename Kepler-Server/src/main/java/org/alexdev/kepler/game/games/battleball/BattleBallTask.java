@@ -4,6 +4,7 @@ import org.alexdev.kepler.game.entity.Entity;
 import org.alexdev.kepler.game.games.Game;
 import org.alexdev.kepler.game.games.GameEvent;
 import org.alexdev.kepler.game.games.GameObject;
+import org.alexdev.kepler.game.games.battleball.BattleBallPlayerStateManager;
 import org.alexdev.kepler.game.games.battleball.enums.BattleBallPlayerState;
 import org.alexdev.kepler.game.games.battleball.events.PlayerMoveEvent;
 import org.alexdev.kepler.game.games.battleball.objects.PlayerUpdateObject;
@@ -60,8 +61,11 @@ public class BattleBallTask implements Runnable {
                     continue;
                 }
 
-                if (gamePlayer.getPlayerState() == BattleBallPlayerState.CLIMBING_INTO_CANNON ||
-                        gamePlayer.getPlayerState() == BattleBallPlayerState.FLYING_THROUGH_AIR) {
+                var stateManager = this.game.getPlayerStateManager();
+                BattleBallPlayerState currentState = stateManager.getState(gamePlayer);
+
+                if (currentState == BattleBallPlayerState.CLIMBING_INTO_CANNON ||
+                        currentState == BattleBallPlayerState.FLYING_THROUGH_AIR) {
                     continue;
                 }
 

@@ -285,7 +285,6 @@ public class PlayerManager {
      *
      * @param password password to hash
      * @return hashed password
-     * @throws Exception
      */
     public String createPassword(String password)  {
         return Kepler.getPasswordEncoder().encode(password);

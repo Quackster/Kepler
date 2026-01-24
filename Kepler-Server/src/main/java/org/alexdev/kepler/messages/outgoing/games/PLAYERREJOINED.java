@@ -17,6 +17,6 @@ public class PLAYERREJOINED extends MessageComposer {
 
     @Override
     public short getHeader() {
-        return 245; // "Cu"
+        return 245;
     }
 }

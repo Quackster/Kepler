@@ -10,14 +10,14 @@ import org.alexdev.kepler.game.games.snowstorm.util.SnowStormEvent;
 import org.alexdev.kepler.game.games.snowstorm.util.SnowStormMessage;
 import org.alexdev.kepler.server.netty.streams.NettyRequest;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 
 public class SnowStormMessageHandler {
     private static SnowStormMessageHandler instance;
-    private final HashMap<SnowStormEvent, SnowStormMessage> events;
+    private final EnumMap<SnowStormEvent, SnowStormMessage> events;
 
     public SnowStormMessageHandler() {
-        this.events = new HashMap<>();
+        this.events = new EnumMap<>(SnowStormEvent.class);
         this.events.put(SnowStormEvent.WALK, new SnowStormWalkMessage());
         this.events.put(SnowStormEvent.CREATE_SNOWBALL, new SnowstormCreateSnowballMessage());
         this.events.put(SnowStormEvent.THROW_SNOWBALL_AT_LOCATION, new SnowStormThrowLocationMessage());
@@ -26,9 +26,13 @@ public class SnowStormMessageHandler {
 
     public void handleMessage(int messageId, NettyRequest request, SnowStormGame snowStormGame, GamePlayer player) throws Exception {
         var event = SnowStormEvent.getEvent(messageId);
-        
-        if (event != null) {
-            this.events.get(event).handle(request, snowStormGame, player);
+        var handler = event != null ? events.get(event) : null;
+
+        if (handler != null) {
+            handler.handle(request, snowStormGame, player);
+        }
+        else {
+            System.out.println("Unknown snowstorm event: " + messageId);
         }
     }
 

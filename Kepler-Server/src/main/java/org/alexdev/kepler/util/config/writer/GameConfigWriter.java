@@ -51,7 +51,7 @@ public class GameConfigWriter implements ConfigWriter {
 
         config.put("snowstorm.create.game.enabled", "true");
         config.put("snowstorm.start.minimum.active.teams", "2");
-        config.put("snowstorm.preparing.game.seconds", "5");
+        config.put("snowstorm.preparing.game.seconds", "10");
         //config.put("snowstorm.game.lifetime.seconds", "180");
         config.put("snowstorm.restart.game.seconds", "30");
         config.put("snowstorm.ticket.charge", "2");

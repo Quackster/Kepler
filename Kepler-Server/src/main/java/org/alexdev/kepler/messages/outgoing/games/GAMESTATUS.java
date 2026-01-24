@@ -6,59 +6,116 @@ import org.alexdev.kepler.game.games.GameObject;
 import org.alexdev.kepler.game.games.battleball.BattleBallTile;
 import org.alexdev.kepler.game.games.enums.GameType;
 import org.alexdev.kepler.game.games.player.GameTeam;
-import org.alexdev.kepler.game.games.snowstorm.SnowStormGame;
 import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Consolidated GAMESTATUS composer
+ * - SnowStorm (default / standard)
+ * - BattleBall
+ */
 public class GAMESTATUS extends MessageComposer {
+
+    private enum Mode {
+        SNOWSTORM,
+        BATTLEBALL
+    }
+
+    private final Mode mode;
+
+    // ===== BattleBall fields =====
     private final Game game;
-
     private final Collection<GameTeam> gameTeams;
-
     private final List<GameObject> objects;
     private final List<GameEvent> events;
+    private final List<BattleBallTile> updateTiles;
+    private final List<BattleBallTile> fillTiles;
 
-    private List<BattleBallTile> updateTiles;
-    private List<BattleBallTile> fillTiles;
+    // ===== SnowStorm fields =====
+    private final List<List<GameObject>> turns;
+    private final int currentTurn;
+    private final int currentCheckSum;
 
-    public GAMESTATUS(Game game, Collection<GameTeam> gameTeams, List<GameObject> objects, List<GameEvent> events, List<BattleBallTile> updateTiles, List<BattleBallTile> fillTiles) {
+    /* ---------------- SnowStorm constructor ---------------- */
+    public GAMESTATUS(List<List<GameObject>> turns, int currentTurn, int currentCheckSum) {
+        this.mode = Mode.SNOWSTORM;
+
+        this.turns = turns;
+        this.currentTurn = currentTurn;
+        this.currentCheckSum = currentCheckSum;
+
+        // BattleBall unused
+        this.game = null;
+        this.gameTeams = null;
+        this.objects = null;
+        this.events = null;
+        this.updateTiles = null;
+        this.fillTiles = null;
+    }
+
+    /* ---------------- BattleBall constructor ---------------- */
+    public GAMESTATUS(
+            Game game,
+            Collection<GameTeam> gameTeams,
+            List<GameObject> objects,
+            List<GameEvent> events,
+            List<BattleBallTile> updateTiles,
+            List<BattleBallTile> fillTiles
+    ) {
+        this.mode = Mode.BATTLEBALL;
+
         this.game = game;
         this.gameTeams = gameTeams;
         this.objects = objects;
         this.events = events;
         this.updateTiles = updateTiles;
         this.fillTiles = fillTiles;
-    }
 
-    public GAMESTATUS(SnowStormGame game, Collection<GameTeam> gameTeams, List<GameObject> objects, List<GameEvent> events) {
-        this.game = game;
-        this.gameTeams = gameTeams;
-        this.objects = objects;
-        this.events = events;
+        // SnowStorm unused
+        this.turns = null;
+        this.currentTurn = 0;
+        this.currentCheckSum = 0;
     }
 
     @Override
     public void compose(NettyResponse response) {
-        response.writeInt(this.objects.size()); // TODO: Handle more than just objects events (power ups, etc)
+        if (this.mode == Mode.SNOWSTORM) {
+            composeSnowStorm(response);
+        } else {
+            composeBattleBall(response);
+        }
+    }
+
+    /* ---------------- SnowStorm ---------------- */
+    private void composeSnowStorm(NettyResponse response) {
+        response.writeInt(this.currentTurn);
+        response.writeInt(this.currentCheckSum);
+        response.writeInt(this.turns == null || this.turns.isEmpty() ? 1 : this.turns.size());
+
+        if (this.turns == null) {
+            return;
+        }
+
+        for (var turn : this.turns) {
+            response.writeInt(turn.size());
+
+            for (GameObject gameObject : turn) {
+                gameObject.serialiseObject(response);
+            }
+        }
+    }
+
+    /* ---------------- BattleBall ---------------- */
+    private void composeBattleBall(NettyResponse response) {
+        response.writeInt(this.objects.size());
 
         for (GameObject gameObject : this.objects) {
             response.writeInt(gameObject.getGameObjectType().getObjectId());
             gameObject.serialiseObject(response);
         }
-
-        /*for (GamePlayer gamePlayer : this.objects) {
-            response.writeInt(0); // type, 0 = player
-            response.writeInt(gamePlayer.getPlayer().getRoomUser().getInstanceId());
-            response.writeInt(gamePlayer.getPlayer().getRoomUser().getPosition().getX());
-            response.writeInt(gamePlayer.getPlayer().getRoomUser().getPosition().getY());
-            response.writeInt((int) gamePlayer.getPlayer().getRoomUser().getPosition().getZ());
-            response.writeInt(gamePlayer.getPlayer().getRoomUser().getPosition().getRotation());
-            response.writeInt(0);
-            response.writeInt(-1);
-        }*/
 
         if (this.game.getGameType() == GameType.BATTLEBALL) {
             response.writeInt(this.updateTiles.size());
@@ -81,30 +138,21 @@ public class GAMESTATUS extends MessageComposer {
         }
 
         response.writeInt(this.gameTeams.size());
-
         for (GameTeam team : this.gameTeams) {
             response.writeInt(team.getPoints());
         }
 
-        response.writeInt(1);
-        response.writeInt(this.events.size());
+        response.writeInt(1); // static value preserved
 
+        response.writeInt(this.events.size());
         for (GameEvent gameEvent : this.events) {
             response.writeInt(gameEvent.getGameEventType().getEventId());
             gameEvent.serialiseEvent(response);
         }
-        /*response.writeInt(this.movingPlayers.size());
-
-        for (var kvp : this.movingPlayers.entrySet()) {
-            response.writeInt(2);
-            response.writeInt(kvp.getKey().getPlayer().getRoomUser().getInstanceId());
-            response.writeInt(kvp.getValue().getX());
-            response.writeInt(kvp.getValue().getY());
-        }*/
     }
 
     @Override
     public short getHeader() {
-        return 244; // "Ct"
+        return 244;
     }
 }

@@ -46,7 +46,7 @@ public class NailBoxHandle {
         BattleBallColourState colour = tile2.getColour();
 
         BattleBallTileState newState = BattleBallTileState.CLICKED;
-        BattleBallColourState newColour = BattleBallColourState.getColourById(gamePlayer.getTeam().getId());
+        BattleBallColourState newColour = BattleBallColourState.getColourById(game.getTeamIdFor(gamePlayer));
 
         tile2.setColour(newColour);
         tile2.setState(newState);
@@ -135,7 +135,7 @@ public class NailBoxHandle {
                 gamePlayer.getGame().getEventsQueue().add(new DespawnObjectEvent(pinObject.getId()));
                 gamePlayer.getGame().getObjects().remove(gameObject);
 
-                PowerUpUtil.stunPlayer(gamePlayer.getGame(), gamePlayer, BattleBallPlayerState.BALL_BROKEN);
+                PowerUpUtil.stunPlayer((BattleBallGame) gamePlayer.getGame(), gamePlayer, BattleBallPlayerState.BALL_BROKEN);
                 return true;
             }
         }

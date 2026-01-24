@@ -7,8 +7,8 @@ import org.alexdev.kepler.server.netty.streams.NettyResponse;
 import java.util.List;
 
 public class GAMERESET extends MessageComposer {
-    private int timeUntilGameStart;
-    private List<GamePlayer> gamePlayerList;
+    private final int timeUntilGameStart;
+    private final List<GamePlayer> gamePlayerList;
 
     public GAMERESET(int timeUntilGameStart, List<GamePlayer> gamePlayerList) {
         this.timeUntilGameStart = timeUntilGameStart;

@@ -4,7 +4,7 @@ import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 
 public class GAMEDELETED extends MessageComposer {
-    private int gameId;
+    private final int gameId;
 
     public GAMEDELETED(int gameId) {
         this.gameId = gameId;
@@ -17,6 +17,6 @@ public class GAMEDELETED extends MessageComposer {
 
     @Override
     public short getHeader() {
-        return 237; // "Cm"
+        return 237;
     }
 }

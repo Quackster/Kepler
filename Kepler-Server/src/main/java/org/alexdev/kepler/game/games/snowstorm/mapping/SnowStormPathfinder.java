@@ -1,23 +1,77 @@
 package org.alexdev.kepler.game.games.snowstorm.mapping;
 
 import org.alexdev.kepler.game.games.player.GamePlayer;
+import org.alexdev.kepler.game.games.snowstorm.SnowStormGame;
+import org.alexdev.kepler.game.games.snowstorm.SnowStormPlayers;
+import org.alexdev.kepler.game.games.snowstorm.util.SnowStormMath;
 import org.alexdev.kepler.game.pathfinder.Pathfinder;
 import org.alexdev.kepler.game.pathfinder.Position;
-import org.alexdev.kepler.game.games.snowstorm.SnowStormGame;
-import org.alexdev.kepler.game.games.snowstorm.objects.SnowballObject;
-import org.alexdev.kepler.game.games.snowstorm.util.SnowStormActivityState;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.LinkedList;
 import java.util.List;
 
 public class SnowStormPathfinder {
+    private static final int MAX_PATHFIND_ITERATIONS = 50;
+
+    /**
+     * Check if the player can walk to the target position by simulating the pathfinding.
+     */
+    public static boolean canWalkTo(SnowStormGame game, GamePlayer player, Position current, Position target) {
+        if (current == null || target == null) {
+            return false;
+        }
+
+        int localX = current.getX();
+        int localY = current.getY();
+        int targetX = target.getX();
+        int targetY = target.getY();
+
+        for (int i = 0; i < MAX_PATHFIND_ITERATIONS; i++) {
+            // Already at target
+            if (localX == targetX && localY == targetY) {
+                return true;
+            }
+
+            // Calculate direction to target (using world coordinates for angle calculation)
+            int worldCurrentX = SnowStormMath.tileToWorld(localX);
+            int worldCurrentY = SnowStormMath.tileToWorld(localY);
+            int worldTargetX = SnowStormMath.tileToWorld(targetX);
+            int worldTargetY = SnowStormMath.tileToWorld(targetY);
+
+            int rot = SnowStormMath.getAngleFromComponents(worldTargetX - worldCurrentX, worldTargetY - worldCurrentY);
+            int direction = SnowStormMath.direction360To8(rot);
+
+            // Try direct direction, then CCW, then CW
+            Integer[] nextTile = getTileNeighborInDirection(game, player, localX, localY, direction);
+
+            if (nextTile == null) {
+                int ccwDir = (direction + 7) % 8;
+                nextTile = getTileNeighborInDirection(game, player, localX, localY, ccwDir);
+
+                if (nextTile == null) {
+                    int cwDir = (direction + 1) % 8;
+                    nextTile = getTileNeighborInDirection(game, player, localX, localY, cwDir);
+
+                    if (nextTile == null) {
+                        return false;
+                    }
+                }
+            }
+
+            localX = nextTile[0];
+            localY = nextTile[1];
+        }
+
+        return true;
+    }
+
     public static Position getNextDirection(SnowStormGame snowStormGame, GamePlayer gamePlayer) {
         List<Position> positions = new ArrayList<>();
+        var attributes = SnowStormPlayers.get(gamePlayer);
 
         for (Position POINT : Pathfinder.DIAGONAL_MOVE_POINTS) {
-            var temp = gamePlayer.getSnowStormAttributes().getCurrentPosition().copy().add(POINT);
+            var temp = attributes.getCurrentPosition().copy().add(POINT);
 
             if (!isValidTile(snowStormGame, gamePlayer, temp)) {
                 continue;
@@ -26,174 +80,101 @@ public class SnowStormPathfinder {
             positions.add(temp);
         }
 
-        positions.sort(Comparator.comparingDouble(pos -> pos.getDistanceSquared(gamePlayer.getSnowStormAttributes().getWalkGoal())));
+        positions.sort(Comparator.comparingDouble(pos -> pos.getDistanceSquared(attributes.getWalkGoal())));
         return (positions.size() > 0 ? positions.get(0) : null);
     }
 
-    private static boolean isValidTile(SnowStormGame snowStormGame, GamePlayer gamePlayer, Position tmp) {
+    public static Integer[] getTileNeighborInDirection(SnowStormGame snowStormGame, GamePlayer gamePlayer, int tX,int tY,int tdir) {
+        Position a  = new Position(0,0);
+        switch(tdir)
+        {
+            case 0:
+                a.setX(tX);
+                a.setY(tY-1);
+                if(isValidTile(snowStormGame,gamePlayer,a)){
+                    return new Integer[]{tX,tY - 1};
+                }
+            break;
+            case 1:
+
+                a.setX(tX + 1);
+                a.setY(tY - 1);
+                if(isValidTile(snowStormGame,gamePlayer,a)){
+                    return new Integer[]{tX + 1,tY - 1};
+                }
+                break;
+            case 2:
+                a.setX(tX + 1);
+                a.setY(tY);
+                if(isValidTile(snowStormGame,gamePlayer,a)){
+                    return new Integer[]{tX + 1,tY};
+                }
+                break;
+            case 3:
+                a.setX(tX + 1);
+                a.setY(tY + 1);
+                if(isValidTile(snowStormGame,gamePlayer,a)){
+                    return new Integer[]{tX + 1,tY + 1};
+                }
+                break;
+            case 4:
+                a.setX(tX);
+                a.setY(tY+1);
+                if(isValidTile(snowStormGame,gamePlayer,a)){
+                    return new Integer[]{tX,tY + 1};
+                }
+                break;
+            case 5:
+                a.setX(tX - 1);
+                a.setY(tY + 1);
+                if(isValidTile(snowStormGame,gamePlayer,a)){
+                    return new Integer[]{tX - 1,tY + 1};
+                }
+                break;
+            case 6:
+                a.setX(tX - 1);
+                a.setY(tY);
+                if(isValidTile(snowStormGame,gamePlayer,a)){
+                    return new Integer[]{tX - 1,tY};
+                }
+                break;
+            case 7:
+                a.setX(tX - 1);
+                a.setY(tY - 1);
+                if(isValidTile(snowStormGame,gamePlayer,a)){
+                    return new Integer[]{tX - 1,tY - 1};
+                }
+                break;
+        }
+        return null;
+    }
+
+
+    public static boolean isValidTile(SnowStormGame snowStormGame, GamePlayer gamePlayer, Position tmp) {
+        var tile = snowStormGame.getMap().getTile(tmp);
+
+        if (tile == null || !tile.isWalkable()) {
+            return false;
+        }
+
         for (GamePlayer player : snowStormGame.getActivePlayers()) {
             if (player.getPlayer().getDetails().getId() == gamePlayer.getPlayer().getDetails().getId()) {
                 continue;
             }
 
-            if (gamePlayer.getSnowStormAttributes().getCurrentPosition().equals(tmp)) {
-                return false;
-            }
+            var playerAttributes = SnowStormPlayers.get(player);
 
-            if (gamePlayer.getSnowStormAttributes().getNextGoal() != null && gamePlayer.getSnowStormAttributes().getNextGoal().equals(tmp)) {
-                return false;
-            }
-        }
-
-        var tile = snowStormGame.getMap().getTile(tmp);
-
-        if (tile == null) {
-            return false;
-        }
-
-        return tile.isWalkable();
-    }
-
-    /**
-     * Check if the point (x0, y0) can see point (x1, y1) by drawing a line
-     * and testing for the "blocking" property at each new tile. Returns the
-     * points on the line if it is, in fact, visible. Otherwise, returns an
-     * empty list (rather than null - Efficient Java, item #43).
-     *
-     * http://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm
-     */
-    public static LinkedList<Position> getMaxVisibility(SnowballObject snowballObject, int x0, int y0, int x1, int y1, SnowballObject.SnowballTrajectory trajectory) {
-        LinkedList<Position> line = new LinkedList<>();
-        line.add(new Position(x0, y0));
-        int dx = Math.abs(x1 - x0);
-        int dy = Math.abs(y1 - y0);
-        int sx = (x0 < x1) ? 1 : -1;
-        int sy = (y0 < y1) ? 1 : -1;
-        int err = dx - dy;
-        int e2;
-
-        while (!(x0 == x1 && y0 == y1)) {
-            if (isBlockedTile(snowballObject, new Position(x0, y0))) {
-                //line.clear();
-                line.add(new Position(x0, y0));
-                return line;
-            }
-
-            e2 = 2 * err;
-
-            if (e2 > -dy) {
-                err -= dy;
-                x0 += sx;
-            }
-
-            if (e2 < dx) {
-                err += dx;
-                y0 += sy;
-            }
-
-            line.add(new Position(x0, y0));
-        }
-
-        return line;
-    }
-
-    public static GamePlayer getOppositionPlayer(SnowStormGame snowStormGame, GamePlayer thrower, Position position) {
-        for (GamePlayer player : snowStormGame.getActivePlayers()) {
-            if ((player.getSnowStormAttributes().getCurrentPosition().equals(position) || (player.getSnowStormAttributes().getNextGoal() != null && player.getSnowStormAttributes().getNextGoal().equals(player)))) {
-                if (player.getSnowStormAttributes().getActivityState() == SnowStormActivityState.ACTIVITY_STATE_STUNNED) {
-                    continue;
+            if (playerAttributes.getNextGoal() != null) {
+                if (playerAttributes.getNextGoal().equals(tmp)) {
+                    return false;
                 }
-
-                if (snowStormGame.isOppositionPlayer(thrower, player)) {
-                    return player;
+            } else {
+                if (playerAttributes.getCurrentPosition().equals(tmp)) {
+                    return false;
                 }
             }
         }
 
-        return null;
-    }
-
-    public static boolean isBlockedTile(SnowballObject snowballObject, Position position) {
-        if (snowballObject.getTrajectory() != SnowballObject.SnowballTrajectory.LONG_TRAJECTORY) {
-            for (GamePlayer player : snowballObject.getGame().getActivePlayers()) {
-                if ((player.getSnowStormAttributes().getCurrentPosition().equals(position) || (player.getSnowStormAttributes().getNextGoal() != null && player.getSnowStormAttributes().getNextGoal().equals(player)))) {
-                    if (player.getSnowStormAttributes().getActivityState() == SnowStormActivityState.ACTIVITY_STATE_STUNNED) {
-                        continue;
-                    }
-
-                    if (snowballObject.getGame().isOppositionPlayer(snowballObject.getThrower(), player)) {
-                        return true;
-                    }
-                }
-            }
-        }
-
-        var tile = snowballObject.getGame().getMap().getTile(position);
-
-        if (tile == null) {
-            return false;
-        }
-
-        return tile.isHeightBlocking(snowballObject.getTrajectory());
+        return true;
     }
 }
-
-        /*
-          tMoveTarget = me.pGameObjectFinalTarget
-  tNextTarget = me.pGameObjectNextTarget
-  if not objectp(tMoveTarget) then
-    return FALSE
-  end if
-  tMoveTargetX = tMoveTarget.x
-  tMoveTargetY = tMoveTarget.y
-  if not objectp(me.pGameObjectLocation) then
-    return FALSE
-  end if
-  tCurrentX = me.pGameObjectLocation.x
-  tCurrentY = me.pGameObjectLocation.y
-  if not objectp(tNextTarget) then
-    return FALSE
-  end if
-  tNextTargetX = tNextTarget.x
-  tNextTargetY = tNextTarget.y
-  if (tCurrentX = tMoveTargetX) and (tCurrentY = tMoveTargetY) then
-    return FALSE
-  end if
-  if tNextTargetX <> tCurrentX or tNextTargetY <> tCurrentY then
-    tOldX = tCurrentX
-    tOldY = tCurrentY
-    tTargetX = tNextTarget.x
-    tDeltaX = (tTargetX - tCurrentX)
-    if tDeltaX < 0 then
-      if tDeltaX > -SUBTURN_MOVEMENT then
-        tCurrentX = tTargetX
-      else
-        tCurrentX = (tCurrentX - SUBTURN_MOVEMENT)
-      end if
-    else
-      if tDeltaX > 0 then
-        if tDeltaX < SUBTURN_MOVEMENT then
-          tCurrentX = tTargetX
-        else
-          tCurrentX = (tCurrentX + SUBTURN_MOVEMENT)
-        end if
-      end if
-    end if
-    tTargetY = tNextTarget.y
-    tDeltaY = (tTargetY - tCurrentY)
-    if tDeltaY < 0 then
-      if tDeltaY > -SUBTURN_MOVEMENT then
-        tCurrentY = tTargetY
-      else
-        tCurrentY = (tCurrentY - SUBTURN_MOVEMENT)
-      end if
-    else
-      if tDeltaY > 0 then
-        if tDeltaY < SUBTURN_MOVEMENT then
-          tCurrentY = tTargetY
-        else
-          tCurrentY = (tCurrentY + SUBTURN_MOVEMENT)
-        end if
-      end if
-    end if
-         */

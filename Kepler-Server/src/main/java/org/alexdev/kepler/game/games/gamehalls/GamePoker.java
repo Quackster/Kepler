@@ -276,7 +276,7 @@ public class GamePoker extends GamehallGame {
 
     /**
      * Send message to all opponents in game (excluding sender)
-     * @param player
+     * @param sender
      * @param messageComposer
      */
     public void sentToPlayingOpponents(Player sender, MessageComposer messageComposer) {

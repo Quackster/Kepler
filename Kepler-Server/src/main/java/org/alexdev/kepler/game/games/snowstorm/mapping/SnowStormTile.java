@@ -1,6 +1,6 @@
 package org.alexdev.kepler.game.games.snowstorm.mapping;
 
-import org.alexdev.kepler.game.games.snowstorm.objects.SnowballObject;
+import org.alexdev.kepler.game.games.snowstorm.util.SnowballTrajectory;
 
 import java.util.Comparator;
 import java.util.List;
@@ -47,20 +47,20 @@ public class SnowStormTile {
         return items;
     }
 
-    public boolean isHeightBlocking(SnowballObject.SnowballTrajectory trajectory) {
+    public boolean isHeightBlocking(SnowballTrajectory trajectory) {
         if (this.highestItem == null) {
             return false;
         }
 
-        if (trajectory == SnowballObject.SnowballTrajectory.LONG_TRAJECTORY) {
+        if (trajectory == SnowballTrajectory.LONG_TRAJECTORY) {
             return false;
         }
 
-        if (trajectory == SnowballObject.SnowballTrajectory.SHORT_TRAJECTORY) {
+        if (trajectory == SnowballTrajectory.SHORT_TRAJECTORY) {
             return this.highestItem.getHeight() > 1;
         }
 
-        if (trajectory == SnowballObject.SnowballTrajectory.QUICK_THROW) {
+        if (trajectory == SnowballTrajectory.QUICK_THROW) {
             return this.highestItem.getHeight() > 0;
         }
 

@@ -1,68 +1,159 @@
 package org.alexdev.kepler.game.games.snowstorm.objects;
 
-import org.alexdev.kepler.game.games.GameObject;
 import org.alexdev.kepler.game.games.enums.GameObjectType;
+import org.alexdev.kepler.game.games.snowstorm.util.SnowStormActivityState;
+import org.alexdev.kepler.game.games.snowstorm.util.SnowStormAttributes;
+import org.alexdev.kepler.game.games.snowstorm.util.SnowStormConstants;
+import org.alexdev.kepler.game.games.snowstorm.util.SnowStormMath;
 import org.alexdev.kepler.game.pathfinder.Position;
-import org.alexdev.kepler.game.games.snowstorm.SnowStormGame;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class SnowStormMachineObject extends GameObject {
-    private final int objectId;
-    private final int X;
-    private final int Y;
+/**
+ * Represents a snowball machine object in the SnowStorm game.
+ */
+public class SnowStormMachineObject extends SnowStormGameObject {
+    private final int x;
+    private final int y;
     private AtomicInteger snowballCount;
-    private long lastRefillTime;
+    private int snowballGeneratorTimer;
 
-    public SnowStormMachineObject(int objectId, int X, int Y, int snowballCount) {
+    public SnowStormMachineObject(int objectId, int x, int y, int snowballCount) {
         super(objectId, GameObjectType.SNOWWAR_SNOWMACHINE_OBJECT);
-        this.objectId = objectId;
-        this.X = X;
-        this.Y = Y;
+        this.x = x;
+        this.y = y;
         this.snowballCount = new AtomicInteger(snowballCount);
-        this.lastRefillTime = 0;
+        this.snowballGeneratorTimer = SnowStormConstants.MACHINE_SNOWBALL_GENERATOR_TIME;
     }
-    
+
+    @Override
+    public void calculateFrameMovement() {
+        // Machines don't move
+    }
+
+    @Override
+    public List<Integer> getChecksumValues() {
+        List<Integer> values = getSyncValuesContainer();
+        values.add(GameObjectType.SNOWWAR_SNOWMACHINE_OBJECT.getObjectId()); // type
+        values.add(getId());
+        values.add(SnowStormMath.tileToWorld(x));
+        values.add(SnowStormMath.tileToWorld(y));
+        values.add(snowballCount.get());
+        return values;
+    }
+
+    @Override
+    public boolean isAlive() {
+        return true; // Machines are always present
+    }
+
     @Override
     public void serialiseObject(NettyResponse response) {
         response.writeInt(GameObjectType.SNOWWAR_SNOWMACHINE_OBJECT.getObjectId());
-        response.writeInt(this.objectId);
-        response.writeInt(SnowStormGame.convertToWorldCoordinate(this.X));
-        response.writeInt(SnowStormGame.convertToWorldCoordinate(this.Y));
+        response.writeInt(getId());
+        response.writeInt(SnowStormMath.convertToWorldCoordinate(x));
+        response.writeInt(SnowStormMath.convertToWorldCoordinate(y));
         response.writeInt(this.snowballCount.get());
     }
 
-    public long getLastRefillTime() {
-        return lastRefillTime;
-    }
-
-    public void setLastRefillTime(long lastRefillTime) {
-        this.lastRefillTime = lastRefillTime;
-    }
-
     public Position getPosition() {
-        return new Position(X, Y);
+        return new Position(x, y);
+    }
+
+    public Position getPickupPosition() {
+        return new Position(x, y + 1);
     }
 
     public AtomicInteger getSnowballs() {
         return snowballCount;
     }
 
-    public boolean isPlayerCollectingSnowballs(SnowStormGame game) {
-        var playerPosition = new Position(this.X, this.Y + 1);
-        var tile = game.getMap().getTile(playerPosition);
+    public boolean canGenerateSnowball() {
+        return snowballCount.get() < SnowStormConstants.MACHINE_MAX_SNOWBALL_CAPACITY;
+    }
 
-        if (tile == null) {
+    public boolean hasSnowballs() {
+        return snowballCount.get() > 0;
+    }
+
+    public boolean addSnowball() {
+        if (!canGenerateSnowball()) {
             return false;
         }
-
-        var player = game.getActivePlayers().stream().filter(p -> p.getSnowStormAttributes().getCurrentPosition().equals(playerPosition)).findFirst().orElse(null);
-
-        if (player == null || !player.getSnowStormAttributes().isWalkable()) {
-            return false;
-        }
-
+        snowballCount.incrementAndGet();
         return true;
+    }
+
+    public boolean removeSnowball() {
+        if (!hasSnowballs()) {
+            return false;
+        }
+        snowballCount.decrementAndGet();
+        return true;
+    }
+
+    /**
+     * Process the generator tick. Returns true if the machine is ready to generate a snowball.
+     * Note: This only checks if the machine should generate - call addSnowball() separately to add it.
+     */
+    public boolean processGeneratorTick() {
+        if (snowballGeneratorTimer > 0) {
+            snowballGeneratorTimer--;
+            return false;
+        }
+
+        snowballGeneratorTimer = SnowStormConstants.MACHINE_SNOWBALL_GENERATOR_TIME;
+        return canGenerateSnowball();
+    }
+
+    public boolean isPlayerAtPickupPosition(SnowStormAttributes attr) {
+        if (attr == null || attr.getCurrentPosition() == null) {
+            return false;
+        }
+        Position pickupPos = getPickupPosition();
+        return attr.getCurrentPosition().getX() == pickupPos.getX()
+                && attr.getCurrentPosition().getY() == pickupPos.getY();
+    }
+
+    /**
+     * Check if the player can pick up from this machine.
+     */
+    public boolean canPickup(SnowStormAttributes attr) {
+        if (attr == null) {
+            return false;
+        }
+
+        // Must be at pickup position
+        if (!isPlayerAtPickupPosition(attr)) {
+            return false;
+        }
+
+        // Can't pickup while walking
+        if (attr.isWalking()) {
+            return false;
+        }
+
+        // Can't pickup if in non-normal state
+        var state = attr.getActivityState();
+        if (state != SnowStormActivityState.ACTIVITY_STATE_NORMAL
+                && state != SnowStormActivityState.ACTIVITY_STATE_INVINCIBLE_AFTER_STUN) {
+            return false;
+        }
+
+        // Machine must have snowballs and player must have room
+        return hasSnowballs() && attr.getSnowballs().get() < SnowStormConstants.MAX_SNOWBALLS;
+    }
+
+    /**
+     * Apply pickup - transfers snowball from machine to player.
+     * Call AFTER checksum calculation.
+     */
+    public void applyPickup(SnowStormAttributes attr) {
+        if (hasSnowballs() && attr.getSnowballs().get() < SnowStormConstants.MAX_SNOWBALLS) {
+            removeSnowball();
+            attr.getSnowballs().incrementAndGet();
+        }
     }
 }

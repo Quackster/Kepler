@@ -3,46 +3,43 @@ package org.alexdev.kepler.game.games.snowstorm;
 import org.alexdev.kepler.dao.mysql.CurrencyDao;
 import org.alexdev.kepler.game.games.Game;
 import org.alexdev.kepler.game.games.GameManager;
-import org.alexdev.kepler.game.games.GameObject;
 import org.alexdev.kepler.game.games.GameTile;
 import org.alexdev.kepler.game.games.enums.GameState;
 import org.alexdev.kepler.game.games.enums.GameType;
 import org.alexdev.kepler.game.games.player.GamePlayer;
 import org.alexdev.kepler.game.games.player.GameTeam;
-import org.alexdev.kepler.game.games.snowstorm.events.SnowStormDeleteObjectEvent;
+import org.alexdev.kepler.game.games.player.score.ScoreCalculator;
 import org.alexdev.kepler.game.games.snowstorm.events.SnowStormHitEvent;
 import org.alexdev.kepler.game.games.snowstorm.events.SnowStormStunEvent;
 import org.alexdev.kepler.game.games.snowstorm.mapping.SnowStormMap;
 import org.alexdev.kepler.game.games.snowstorm.objects.SnowStormAvatarObject;
 import org.alexdev.kepler.game.games.snowstorm.objects.SnowStormMachineObject;
-import org.alexdev.kepler.game.games.snowstorm.objects.SnowballObject;
+import org.alexdev.kepler.game.games.snowstorm.objects.SnowStormSnowballObject;
 import org.alexdev.kepler.game.games.snowstorm.tasks.SnowStormGameTask;
+import org.alexdev.kepler.game.games.snowstorm.SnowStormPlayers;
 import org.alexdev.kepler.game.games.snowstorm.util.SnowStormActivityState;
-import org.alexdev.kepler.game.games.snowstorm.util.SnowStormSpawn;
+import org.alexdev.kepler.game.games.snowstorm.util.SnowStormConstants;
 import org.alexdev.kepler.game.pathfinder.Position;
 import org.alexdev.kepler.game.pathfinder.Rotation;
 import org.alexdev.kepler.game.player.Player;
 import org.alexdev.kepler.game.room.models.RoomModel;
 import org.alexdev.kepler.log.Log;
-import org.alexdev.kepler.util.DateUtil;
 import org.alexdev.kepler.util.config.GameConfiguration;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 public class SnowStormGame extends Game {
     public static final int MAX_QUICK_THROW_DISTANCE = 22;
     private int gameLengthChoice;
-    private List<GameObject> executingEvents;
-    private long gameStarted;
+    private final ScoreCalculator scoreCalculator;
 
     public SnowStormGame(int id, int mapId, String name, int teamAmount, Player gameCreator, int gameLengthChoice, boolean privateGame) {
         super(id, mapId, GameType.SNOWSTORM, name, teamAmount, gameCreator);
         this.gameLengthChoice = gameLengthChoice;
-        this.executingEvents = new CopyOnWriteArrayList<>();
+        this.scoreCalculator = new SnowStormScoreCalculator();
     }
 
     @Override
@@ -67,33 +64,31 @@ public class SnowStormGame extends Game {
         var model = new RoomModel("snowwar_arena_0", "snowwar_arena_0", 0, 0, 0, 0,
                 SnowStormMapsManager.getInstance().getHeightMap(this.getMapId()), null);
 
-        int seconds = 0;
-
-        if (this.gameLengthChoice == 1) {
-            seconds = (int) TimeUnit.MINUTES.toSeconds(2);
-        }
-
-        if (this.gameLengthChoice == 2) {
-            seconds = (int) TimeUnit.MINUTES.toSeconds(3);
-        }
-
-        if (this.gameLengthChoice == 3) {
-            seconds = (int) TimeUnit.MINUTES.toSeconds(5);
-        }
-
-        if (GameManager.getInstance().getLifetimeSeconds(this.getGameType()) > 0) {
-            seconds = GameManager.getInstance().getLifetimeSeconds(this.getGameType());
-        }
-
+        int seconds = calculateGameLengthSeconds();
         super.initialise(seconds, "SnowStorm Arena", model);
-        this.gameStarted = DateUtil.getCurrentTimeSeconds();
 
         for (var snowballItem : this.getMap().getItems()) {
             if (snowballItem.isSnowballMachine()) {
-                this.getObjects().add(new SnowStormMachineObject(this.createObjectId(), snowballItem.getX(), snowballItem.getY(), 0));
+                this.getObjects().add(new SnowStormMachineObject(
+                        this.createObjectId(),
+                        snowballItem.getX(),
+                        snowballItem.getY(),
+                        0));
             }
         }
-        //this.getTotalSecondsLeft().set(seconds); // Override with game length choice
+    }
+
+    private int calculateGameLengthSeconds() {
+        int configuredSeconds = GameManager.getInstance().getLifetimeSeconds(this.getGameType());
+        if (configuredSeconds > 0) {
+            return configuredSeconds;
+        }
+
+        return switch (this.gameLengthChoice) {
+            case 2 -> (int) TimeUnit.MINUTES.toSeconds(3);
+            case 3 -> (int) TimeUnit.MINUTES.toSeconds(5);
+            default -> (int) TimeUnit.MINUTES.toSeconds(2);
+        };
     }
 
     @Override
@@ -112,13 +107,11 @@ public class SnowStormGame extends Game {
     @Override
     public void finishGame() {
         for (GamePlayer p : this.getActivePlayers()) {
-            p.setScore(p.getSnowStormAttributes().getScore().get());
+            var attributes = SnowStormPlayers.get(p);
+            p.setScore(attributes.getScore().get());
+            SnowStormPlayers.remove(p);
         }
 
-        for (GameTeam team : this.getTeams().values()) {
-           //  team.setScore(team.getPlayers().stream().mapToInt(GamePlayer::getScore).sum());
-            team.calculateScore();
-        }
 
         super.finishGame();
     }
@@ -135,21 +128,22 @@ public class SnowStormGame extends Game {
 
         for (GameTeam team : this.getTeams().values()) {
             for (GamePlayer p : team.getPlayers()) {
+                var attributes = SnowStormPlayers.get(p);
                 generateSpawn(p);
-                p.getSnowStormAttributes().setRotation(ThreadLocalRandom.current().nextInt(0, 7));
-                //p.getPlayer().getBadgeManager().tryAddBadge("SS_BETA", null);
-                p.getSnowStormAttributes().setActivityState(SnowStormActivityState.ACTIVITY_STATE_NORMAL);
+                attributes.setRotation(ThreadLocalRandom.current().nextInt(0, 7));
+                attributes.setActivityState(SnowStormActivityState.ACTIVITY_STATE_NORMAL);
 
-                p.getSnowStormAttributes().setWalking(false);
-                p.getSnowStormAttributes().setCurrentPosition(p.getSpawnPosition().copy());
-                p.getSnowStormAttributes().setWalkGoal(null);
-                p.getSnowStormAttributes().setNextGoal(null);
+                attributes.setWalking(false);
+                attributes.setCurrentPosition(p.getSpawnPosition().copy());
+                attributes.setWalkGoal(null);
+                attributes.setNextGoal(null);
 
-                p.getSnowStormAttributes().setImmunityExpiry(0);
-                p.getSnowStormAttributes().getScore().set(0);
-                p.getSnowStormAttributes().getSnowballs().set(5);
-                p.getSnowStormAttributes().getHealth().set(4);
-                p.getSnowStormAttributes().setGoalWorldCoordinates(null);
+                attributes.setImmunityExpiry(0);
+                attributes.getScore().set(0);
+                attributes.getSnowballs().set(SnowStormConstants.MAX_SNOWBALLS);
+                attributes.getHealth().set(SnowStormConstants.INITIAL_HEALTH);
+                attributes.getHealthToImplement().set(SnowStormConstants.INITIAL_HEALTH);
+                attributes.setGoalWorldCoordinates(null);
 
                 p.setObjectId(this.createObjectId());
                 p.setScore(0);
@@ -170,7 +164,7 @@ public class SnowStormGame extends Game {
         }
 
         try {
-            SnowStormSpawn spawn = this.getMap().getSpawnClusters()[ThreadLocalRandom.current().nextInt(this.getMap().getSpawnClusters().length)];
+            SnowStormMap.SpawnCluster spawn = this.getMap().getSpawnClusters()[ThreadLocalRandom.current().nextInt(this.getMap().getSpawnClusters().length)];
 
             List<Position> potentialPositions = spawn.getPosition().getCircle(spawn.getRadius());
             Collections.shuffle(potentialPositions);
@@ -209,37 +203,12 @@ public class SnowStormGame extends Game {
 
     public int getGameLength() {
         if (this.getGameState() == GameState.WAITING || this.getGameState() == GameState.ENDED) {
-            if (this.gameLengthChoice == 1) {
-                return (int) TimeUnit.MINUTES.toSeconds(2);
-            }
-
-            if (this.gameLengthChoice == 2) {
-                return (int) TimeUnit.MINUTES.toSeconds(3);
-            }
-
-            if (this.gameLengthChoice == 3) {
-                return (int) TimeUnit.MINUTES.toSeconds(5);
-            }
+            return calculateGameLengthSeconds();
         }
-
         return this.getTotalSecondsLeft().get();
     }
 
-    public static int convertToGameCoordinate(int num) {
-        int pAccuracyFactor = 100;
-        int pTileSize = 32;
-        int tMultiplier = pTileSize * pAccuracyFactor;
 
-        return num / tMultiplier;
-    }
-
-    public static int convertToWorldCoordinate(int num) {
-        int pAccuracyFactor = 100;
-        int pTileSize = 32;
-        int tMultiplier = pTileSize * pAccuracyFactor;
-
-        return num * tMultiplier;
-    }
 
     public boolean isOppositionPlayer(GamePlayer gamePlayer, GamePlayer player) {
         if (gamePlayer.getPlayer().getDetails().getId() == player.getPlayer().getDetails().getId()) {
@@ -253,56 +222,22 @@ public class SnowStormGame extends Game {
         return gamePlayer.getTeamId() != player.getTeamId();
     }
 
-    public void handleSnowballLanding(SnowballObject snowball, boolean deleteAfterHit) {
-        var lastTilePosition = new Position(snowball.getTargetX(), snowball.getTargetY());
-        var tile = this.getMap().getTile(lastTilePosition);
-
-        if (tile == null) {
-            return;
-        }
-
-        var player = this.getActivePlayers().stream().filter(p ->
-                this.isOppositionPlayer(p, snowball.getThrower()) &&
-                        (p.getSnowStormAttributes().getCurrentPosition().equals(lastTilePosition) ||
-                        (p.getSnowStormAttributes().getNextGoal() != null && p.getSnowStormAttributes().getNextGoal().equals(lastTilePosition))) &&
-                        p.getSnowStormAttributes().isDamageable())
-                .findFirst().orElse(null);
-
-        if (player != null && player.getSnowStormAttributes().getHealth().get() > 0) {
-            snowball.getThrower().getSnowStormAttributes().getScore().incrementAndGet();
-
-            this.getUpdateTask().sendQueue(0, 1, new SnowStormHitEvent(snowball.getThrower().getObjectId(), player.getObjectId(),
-                    Rotation.calculateWalkDirection(snowball.getFromX(), snowball.getFromY(), lastTilePosition.getX(), lastTilePosition.getY())));
-
-            if (deleteAfterHit) {
-                this.getUpdateTask().sendQueue(0, 1, new SnowStormDeleteObjectEvent(snowball.getObjectId()));
-            }
-
-            //System.out.println("Player " + gamePlayer.getPlayer().getDetails().getName() + " hits " + player.getPlayer().getDetails().getName());
-
-            if (player.getSnowStormAttributes().getHealth().decrementAndGet() == 0) {
-                stunPlayerHandler(this, snowball.getThrower(), player, lastTilePosition, snowball);
-            }
-        } else {
-            if (snowball.isBlocked()) {
-                this.getUpdateTask().sendQueue(0, 1, new SnowStormDeleteObjectEvent(snowball.getObjectId()));
-            }
-        }
+    public void removeSnowBall(SnowStormSnowballObject snowball){
+        this.getUpdateTask().removeSnowball(snowball);
     }
 
-    public static void stunPlayerHandler(SnowStormGame game, GamePlayer thrower, GamePlayer player, Position landedPosition, SnowballObject snowball) {
-        game.getUpdateTask().sendQueue(0, 1, new SnowStormStunEvent(player.getObjectId(), thrower.getObjectId(),
+    public void hitPlayer(SnowStormSnowballObject snowball, GamePlayer player){
+        var lastTilePosition = new Position(snowball.getTargetX(), snowball.getTargetY());
+        this.getUpdateTask().queueEvent( new SnowStormHitEvent(snowball.getThrower().getObjectId(), player.getObjectId(),
+                Rotation.calculateWalkDirection(snowball.getFromX(), snowball.getFromY(), lastTilePosition.getX(), lastTilePosition.getY())));
+        removeSnowBall(snowball);
+    }
+
+
+    public void stunPlayerHandler(SnowStormGame game, GamePlayer thrower, GamePlayer player, Position landedPosition, SnowStormSnowballObject snowball) {
+        game.getUpdateTask().queueEvent( new SnowStormStunEvent(player.getObjectId(), thrower.getObjectId(),
                 45 * Rotation.calculateWalkDirection(snowball.getFromX(), snowball.getFromY(), landedPosition.getX(), landedPosition.getY())));
-        //System.out.println("Player " + thrower.getPlayer().getDetails().getName() + " hits " + player.getPlayer().getDetails().getName());
-
-        thrower.getSnowStormAttributes().getScore().addAndGet(5);
-        player.getSnowStormAttributes().getSnowballs().set(0);
-        player.getSnowStormAttributes().getHealth().set(4);
-
-        player.getSnowStormAttributes().setActivityState(SnowStormActivityState.ACTIVITY_STATE_STUNNED, () -> {
-            player.getSnowStormAttributes().setActivityState(SnowStormActivityState.ACTIVITY_STATE_INVINCIBLE_AFTER_STUN);
-            player.getSnowStormAttributes().setImmunityExpiry(System.currentTimeMillis() + SnowStormActivityState.ACTIVITY_STATE_INVINCIBLE_AFTER_STUN.getTimeInMS());
-        });
+        removeSnowBall(snowball);
     }
 
     public SnowStormGameTask getUpdateTask() {
@@ -323,6 +258,11 @@ public class SnowStormGame extends Game {
     @Override
     public void buildMap() { }
 
+    @Override
+    public ScoreCalculator getScoreCalculator() {
+        return scoreCalculator;
+    }
+
     public SnowStormMap getMap() {
         return SnowStormMapsManager.getInstance().getMap(this.getMapId());
     }
@@ -331,3 +271,4 @@ public class SnowStormGame extends Game {
         return gameLengthChoice;
     }
 }
+

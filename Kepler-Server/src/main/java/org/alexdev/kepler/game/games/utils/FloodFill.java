@@ -1,6 +1,7 @@
 package org.alexdev.kepler.game.games.utils;
 
 import org.alexdev.kepler.game.games.Game;
+import org.alexdev.kepler.game.games.battleball.BattleBallGame;
 import org.alexdev.kepler.game.games.battleball.BattleBallTile;
 import org.alexdev.kepler.game.games.battleball.enums.BattleBallColourState;
 import org.alexdev.kepler.game.games.battleball.enums.BattleBallTileState;
@@ -17,6 +18,9 @@ public class FloodFill {
         ArrayDeque<BattleBallTile> stack = new ArrayDeque<>();
         stack.add(startTile);
 
+        BattleBallGame battleBallGame = (BattleBallGame) gamePlayer.getGame();
+        int effectiveTeamId = battleBallGame.getTeamIdFor(gamePlayer);
+
         while (stack.size() > 0) {
             BattleBallTile tile = stack.pollLast();
 
@@ -32,7 +36,7 @@ public class FloodFill {
                         return closed;
                     }
 
-                    if ((loopTile.getColour().getColourId() != gamePlayer.getTeamId() || loopTile.getState() != BattleBallTileState.SEALED) && !closed.contains(loopTile) && !stack.contains(loopTile)) {
+                    if ((loopTile.getColour().getColourId() != effectiveTeamId || loopTile.getState() != BattleBallTileState.SEALED) && !closed.contains(loopTile) && !stack.contains(loopTile)) {
                         stack.addFirst(loopTile);
                     }
                 }
