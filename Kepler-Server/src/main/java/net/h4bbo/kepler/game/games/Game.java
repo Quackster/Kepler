@@ -1,25 +1,26 @@
-package org.alexdev.kepler.game.games;
+package net.h4bbo.kepler.game.games;
 
-import org.alexdev.kepler.game.GameScheduler;
-import org.alexdev.kepler.game.games.battleball.BattleBallGame;
-import org.alexdev.kepler.game.games.battleball.events.PlayerMoveEvent;
-import org.alexdev.kepler.game.games.enums.GameState;
-import org.alexdev.kepler.game.games.enums.GameType;
-import org.alexdev.kepler.game.games.history.GameHistoryData;
-import org.alexdev.kepler.game.games.player.GamePlayer;
-import org.alexdev.kepler.game.games.player.GameTeam;
-import org.alexdev.kepler.game.games.player.score.ScoreCalculator;
-import org.alexdev.kepler.game.games.history.GameHistory;
-import org.alexdev.kepler.game.games.snowstorm.SnowStormGame;
-import org.alexdev.kepler.game.player.Player;
-import org.alexdev.kepler.game.room.Room;
-import org.alexdev.kepler.game.room.RoomManager;
-import org.alexdev.kepler.game.room.models.RoomModel;
-import org.alexdev.kepler.log.Log;
-import org.alexdev.kepler.messages.outgoing.games.*;
-import org.alexdev.kepler.messages.types.MessageComposer;
-import org.alexdev.kepler.util.config.GameConfiguration;
-import org.alexdev.kepler.util.schedule.FutureRunnable;
+import net.h4bbo.kepler.game.GameScheduler;
+import net.h4bbo.kepler.game.games.battleball.BattleBallGame;
+import net.h4bbo.kepler.game.games.battleball.events.PlayerMoveEvent;
+import net.h4bbo.kepler.game.games.enums.GameState;
+import net.h4bbo.kepler.game.games.enums.GameType;
+import net.h4bbo.kepler.game.games.history.GameHistoryData;
+import net.h4bbo.kepler.game.games.player.GamePlayer;
+import net.h4bbo.kepler.game.games.player.GameTeam;
+import net.h4bbo.kepler.game.games.player.score.ScoreCalculator;
+import net.h4bbo.kepler.game.games.history.GameHistory;
+import net.h4bbo.kepler.game.games.snowstorm.SnowStormGame;
+import net.h4bbo.kepler.game.games.tasks.GameFinishTask;
+import net.h4bbo.kepler.game.player.Player;
+import net.h4bbo.kepler.game.room.Room;
+import net.h4bbo.kepler.game.room.RoomManager;
+import net.h4bbo.kepler.game.room.models.RoomModel;
+import net.h4bbo.kepler.log.Log;
+import net.h4bbo.kepler.messages.outgoing.games.*;
+import net.h4bbo.kepler.messages.types.MessageComposer;
+import net.h4bbo.kepler.util.config.GameConfiguration;
+import net.h4bbo.kepler.util.schedule.FutureRunnable;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -292,7 +293,7 @@ public abstract class Game {
         }
 
         if (this.canIncreasePoints()) {
-            CompletableFuture.runAsync(new GameFinishTask(this.gameType, gameHistory, this.getActivePlayers(), this.getTeams()));
+            CompletableFuture.runAsync(new GameFinishTask(this, gameHistory, this.gameType, new ArrayList<>(this.getTeams().values()), this.getActivePlayers()));
         }
 
         // Send scores to everybody
@@ -397,7 +398,7 @@ public abstract class Game {
             gamePlayer.getPlayer().getRoomUser().setPosition(gamePlayer.getSpawnPosition());
         }
 
-        this.send(new GAMERESET(GameManager.getInstance().getPreparingSeconds(this.gameType), players));
+        this.send(new GAMERESET(GameManager.getInstance().getPreparingSeconds(this.gameType), players, this));
         this.send(new FULLGAMESTATUS(this));  // Show users back at spawn positions
         this.sendObservers(new GAMEDELETED(this.id));
 

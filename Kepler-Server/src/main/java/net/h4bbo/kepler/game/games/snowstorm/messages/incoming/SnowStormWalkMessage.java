@@ -1,14 +1,14 @@
-package org.alexdev.kepler.game.games.snowstorm.messages.incoming;
+package net.h4bbo.kepler.game.games.snowstorm.messages.incoming;
 
-import org.alexdev.kepler.game.games.player.GamePlayer;
-import org.alexdev.kepler.game.games.snowstorm.SnowStormGame;
-import org.alexdev.kepler.game.games.snowstorm.SnowStormPlayers;
-import org.alexdev.kepler.game.games.snowstorm.mapping.SnowStormPathfinder;
-import org.alexdev.kepler.game.games.snowstorm.util.SnowStormAttributes;
-import org.alexdev.kepler.game.games.snowstorm.util.SnowStormMessage;
-import org.alexdev.kepler.game.games.snowstorm.util.SnowStormMath;
-import org.alexdev.kepler.game.pathfinder.Position;
-import org.alexdev.kepler.server.netty.streams.NettyRequest;
+import net.h4bbo.kepler.game.games.player.GamePlayer;
+import net.h4bbo.kepler.game.games.snowstorm.SnowStormGame;
+import net.h4bbo.kepler.game.games.snowstorm.SnowStormPlayers;
+import net.h4bbo.kepler.game.games.snowstorm.mapping.SnowStormPathfinder;
+import net.h4bbo.kepler.game.games.snowstorm.util.SnowStormAttributes;
+import net.h4bbo.kepler.game.games.snowstorm.util.SnowStormMessage;
+import net.h4bbo.kepler.game.games.snowstorm.util.SnowStormMath;
+import net.h4bbo.kepler.game.pathfinder.Position;
+import net.h4bbo.kepler.server.netty.streams.NettyRequest;
 
 public class SnowStormWalkMessage implements SnowStormMessage {
     @Override

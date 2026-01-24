@@ -1,9 +1,9 @@
-package org.alexdev.kepler.game.games.snowstorm;
+package net.h4bbo.kepler.game.games.snowstorm;
 
-import org.alexdev.kepler.game.games.snowstorm.mapping.SnowStormItem;
-import org.alexdev.kepler.game.games.snowstorm.mapping.SnowStormMap;
-import org.alexdev.kepler.game.games.snowstorm.util.SnowStormItemProperties;
-import org.alexdev.kepler.log.Log;
+import net.h4bbo.kepler.game.games.snowstorm.mapping.SnowStormItem;
+import net.h4bbo.kepler.game.games.snowstorm.mapping.SnowStormMap;
+import net.h4bbo.kepler.game.games.snowstorm.util.SnowStormItemProperties;
+import net.h4bbo.kepler.log.Log;
 
 import java.io.IOException;
 import java.nio.file.Files;

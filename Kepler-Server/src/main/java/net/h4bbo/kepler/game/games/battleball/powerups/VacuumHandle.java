@@ -1,13 +1,13 @@
-package org.alexdev.kepler.game.games.battleball.powerups;
+package net.h4bbo.kepler.game.games.battleball.powerups;
 
-import org.alexdev.kepler.game.GameScheduler;
-import org.alexdev.kepler.game.games.battleball.BattleBallGame;
-import org.alexdev.kepler.game.games.battleball.BattleBallPlayerStateManager;
-import org.alexdev.kepler.game.games.battleball.enums.BattleBallPlayerState;
-import org.alexdev.kepler.game.games.battleball.objects.PlayerUpdateObject;
-import org.alexdev.kepler.game.games.enums.GameState;
-import org.alexdev.kepler.game.games.player.GamePlayer;
-import org.alexdev.kepler.game.room.Room;
+import net.h4bbo.kepler.game.GameScheduler;
+import net.h4bbo.kepler.game.games.battleball.BattleBallGame;
+import net.h4bbo.kepler.game.games.battleball.BattleBallPlayerStateManager;
+import net.h4bbo.kepler.game.games.battleball.enums.BattleBallPlayerState;
+import net.h4bbo.kepler.game.games.battleball.objects.PlayerUpdateObject;
+import net.h4bbo.kepler.game.games.enums.GameState;
+import net.h4bbo.kepler.game.games.player.GamePlayer;
+import net.h4bbo.kepler.game.room.Room;
 
 import java.util.concurrent.TimeUnit;
 

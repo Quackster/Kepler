@@ -29,7 +29,7 @@ public class GameDao {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                ranks.add(new GameRank(resultSet.getInt("id"), resultSet.getString("type"),
+                ranks.add(new GameRank(resultSet.getString("type"),
                         resultSet.getString("title"), resultSet.getInt("min_points"),
                         resultSet.getInt("max_points")));
             }

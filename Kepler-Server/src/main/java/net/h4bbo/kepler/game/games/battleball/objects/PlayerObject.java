@@ -1,12 +1,12 @@
-package org.alexdev.kepler.game.games.battleball.objects;
+package net.h4bbo.kepler.game.games.battleball.objects;
 
-import org.alexdev.kepler.game.games.GameObject;
-import org.alexdev.kepler.game.games.battleball.BattleBallGame;
-import org.alexdev.kepler.game.games.battleball.BattleBallPlayerStateManager;
-import org.alexdev.kepler.game.games.battleball.enums.BattleBallPlayerState;
-import org.alexdev.kepler.game.games.enums.GameObjectType;
-import org.alexdev.kepler.game.games.player.GamePlayer;
-import org.alexdev.kepler.server.netty.streams.NettyResponse;
+import net.h4bbo.kepler.game.games.GameObject;
+import net.h4bbo.kepler.game.games.battleball.BattleBallGame;
+import net.h4bbo.kepler.game.games.battleball.BattleBallPlayerStateManager;
+import net.h4bbo.kepler.game.games.battleball.enums.BattleBallPlayerState;
+import net.h4bbo.kepler.game.games.enums.GameObjectType;
+import net.h4bbo.kepler.game.games.player.GamePlayer;
+import net.h4bbo.kepler.server.netty.streams.NettyResponse;
 
 public class PlayerObject extends GameObject {
     private final GamePlayer gamePlayer;

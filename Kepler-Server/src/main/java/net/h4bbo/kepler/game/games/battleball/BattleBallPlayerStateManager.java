@@ -1,7 +1,7 @@
-package org.alexdev.kepler.game.games.battleball;
+package net.h4bbo.kepler.game.games.battleball;
 
-import org.alexdev.kepler.game.games.battleball.enums.BattleBallPlayerState;
-import org.alexdev.kepler.game.games.player.GamePlayer;
+import net.h4bbo.kepler.game.games.battleball.enums.BattleBallPlayerState;
+import net.h4bbo.kepler.game.games.player.GamePlayer;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;

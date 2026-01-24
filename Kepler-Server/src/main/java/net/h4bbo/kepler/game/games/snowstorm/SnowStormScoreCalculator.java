@@ -1,8 +1,8 @@
-package org.alexdev.kepler.game.games.snowstorm;
+package net.h4bbo.kepler.game.games.snowstorm;
 
-import org.alexdev.kepler.game.games.player.GamePlayer;
-import org.alexdev.kepler.game.games.player.GameTeam;
-import org.alexdev.kepler.game.games.player.score.ScoreCalculator;
+import net.h4bbo.kepler.game.games.player.GamePlayer;
+import net.h4bbo.kepler.game.games.player.GameTeam;
+import net.h4bbo.kepler.game.games.player.score.ScoreCalculator;
 
 /**
  * Score calculator for SnowStorm games.

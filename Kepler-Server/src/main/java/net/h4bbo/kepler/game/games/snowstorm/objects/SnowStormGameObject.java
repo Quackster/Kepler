@@ -1,7 +1,7 @@
-package org.alexdev.kepler.game.games.snowstorm.objects;
+package net.h4bbo.kepler.game.games.snowstorm.objects;
 
-import org.alexdev.kepler.game.games.GameObject;
-import org.alexdev.kepler.game.games.enums.GameObjectType;
+import net.h4bbo.kepler.game.games.GameObject;
+import net.h4bbo.kepler.game.games.enums.GameObjectType;
 
 import java.util.ArrayList;
 import java.util.List;

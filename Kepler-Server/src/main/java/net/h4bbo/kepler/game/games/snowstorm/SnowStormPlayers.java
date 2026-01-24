@@ -1,7 +1,7 @@
-package org.alexdev.kepler.game.games.snowstorm;
+package net.h4bbo.kepler.game.games.snowstorm;
 
-import org.alexdev.kepler.game.games.player.GamePlayer;
-import org.alexdev.kepler.game.games.snowstorm.util.SnowStormAttributes;
+import net.h4bbo.kepler.game.games.player.GamePlayer;
+import net.h4bbo.kepler.game.games.snowstorm.util.SnowStormAttributes;
 
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;

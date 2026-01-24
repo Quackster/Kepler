@@ -1,9 +1,9 @@
-package org.alexdev.kepler.game.games.battleball;
+package net.h4bbo.kepler.game.games.battleball;
 
-import org.alexdev.kepler.game.games.player.GamePlayer;
-import org.alexdev.kepler.game.games.player.GameTeam;
-import org.alexdev.kepler.game.games.player.score.ScoreCalculator;
-import org.alexdev.kepler.game.games.utils.ScoreReference;
+import net.h4bbo.kepler.game.games.player.GamePlayer;
+import net.h4bbo.kepler.game.games.player.GameTeam;
+import net.h4bbo.kepler.game.games.player.score.ScoreCalculator;
+import net.h4bbo.kepler.game.games.utils.ScoreReference;
 
 /**
  * Score calculator for BattleBall games.

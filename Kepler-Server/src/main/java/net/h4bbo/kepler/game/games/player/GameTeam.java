@@ -1,6 +1,6 @@
-package org.alexdev.kepler.game.games.player;
+package net.h4bbo.kepler.game.games.player;
 
-import org.alexdev.kepler.game.games.Game;
+import net.h4bbo.kepler.game.games.Game;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;

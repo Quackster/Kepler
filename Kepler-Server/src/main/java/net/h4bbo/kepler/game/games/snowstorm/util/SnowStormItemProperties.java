@@ -1,4 +1,4 @@
-package org.alexdev.kepler.game.games.snowstorm.util;
+package net.h4bbo.kepler.game.games.snowstorm.util;
 
 import java.util.HashMap;
 import java.util.Map;

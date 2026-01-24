@@ -1,16 +1,16 @@
-package org.alexdev.kepler.messages.incoming.games;
+package net.h4bbo.kepler.messages.incoming.games;
 
-import org.alexdev.kepler.game.games.Game;
-import org.alexdev.kepler.game.games.GameManager;
-import org.alexdev.kepler.game.games.player.GamePlayer;
-import org.alexdev.kepler.game.games.snowstorm.SnowStormGame;
-import org.alexdev.kepler.game.games.snowstorm.SnowStormPlayers;
-import org.alexdev.kepler.game.games.snowstorm.objects.SnowStormAvatarObject;
-import org.alexdev.kepler.game.games.snowstorm.util.SnowStormAttributes;
-import org.alexdev.kepler.game.player.Player;
-import org.alexdev.kepler.messages.outgoing.games.FULLGAMESTATUS;
-import org.alexdev.kepler.messages.types.MessageEvent;
-import org.alexdev.kepler.server.netty.streams.NettyRequest;
+import net.h4bbo.kepler.game.games.Game;
+import net.h4bbo.kepler.game.games.GameManager;
+import net.h4bbo.kepler.game.games.player.GamePlayer;
+import net.h4bbo.kepler.game.games.snowstorm.SnowStormGame;
+import net.h4bbo.kepler.game.games.snowstorm.SnowStormPlayers;
+import net.h4bbo.kepler.game.games.snowstorm.objects.SnowStormAvatarObject;
+import net.h4bbo.kepler.game.games.snowstorm.util.SnowStormAttributes;
+import net.h4bbo.kepler.game.player.Player;
+import net.h4bbo.kepler.messages.outgoing.games.FULLGAMESTATUS;
+import net.h4bbo.kepler.messages.types.MessageEvent;
+import net.h4bbo.kepler.server.netty.streams.NettyRequest;
 
 public class REQUESTFULLGAMESTATUS implements MessageEvent {
     @Override

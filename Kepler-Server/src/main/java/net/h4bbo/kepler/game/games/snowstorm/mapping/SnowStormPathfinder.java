@@ -1,11 +1,11 @@
-package org.alexdev.kepler.game.games.snowstorm.mapping;
+package net.h4bbo.kepler.game.games.snowstorm.mapping;
 
-import org.alexdev.kepler.game.games.player.GamePlayer;
-import org.alexdev.kepler.game.games.snowstorm.SnowStormGame;
-import org.alexdev.kepler.game.games.snowstorm.SnowStormPlayers;
-import org.alexdev.kepler.game.games.snowstorm.util.SnowStormMath;
-import org.alexdev.kepler.game.pathfinder.Pathfinder;
-import org.alexdev.kepler.game.pathfinder.Position;
+import net.h4bbo.kepler.game.games.player.GamePlayer;
+import net.h4bbo.kepler.game.games.snowstorm.SnowStormGame;
+import net.h4bbo.kepler.game.games.snowstorm.SnowStormPlayers;
+import net.h4bbo.kepler.game.games.snowstorm.util.SnowStormMath;
+import net.h4bbo.kepler.game.pathfinder.Pathfinder;
+import net.h4bbo.kepler.game.pathfinder.Position;
 
 import java.util.ArrayList;
 import java.util.Comparator;

@@ -1,6 +1,6 @@
-package org.alexdev.kepler.game.games.snowstorm.util;
+package net.h4bbo.kepler.game.games.snowstorm.util;
 
-import org.alexdev.kepler.game.pathfinder.Position;
+import net.h4bbo.kepler.game.pathfinder.Position;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;

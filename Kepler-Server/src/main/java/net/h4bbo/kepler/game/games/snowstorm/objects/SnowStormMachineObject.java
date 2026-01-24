@@ -1,12 +1,12 @@
-package org.alexdev.kepler.game.games.snowstorm.objects;
+package net.h4bbo.kepler.game.games.snowstorm.objects;
 
-import org.alexdev.kepler.game.games.enums.GameObjectType;
-import org.alexdev.kepler.game.games.snowstorm.util.SnowStormActivityState;
-import org.alexdev.kepler.game.games.snowstorm.util.SnowStormAttributes;
-import org.alexdev.kepler.game.games.snowstorm.util.SnowStormConstants;
-import org.alexdev.kepler.game.games.snowstorm.util.SnowStormMath;
-import org.alexdev.kepler.game.pathfinder.Position;
-import org.alexdev.kepler.server.netty.streams.NettyResponse;
+import net.h4bbo.kepler.game.games.enums.GameObjectType;
+import net.h4bbo.kepler.game.games.snowstorm.util.SnowStormActivityState;
+import net.h4bbo.kepler.game.games.snowstorm.util.SnowStormAttributes;
+import net.h4bbo.kepler.game.games.snowstorm.util.SnowStormConstants;
+import net.h4bbo.kepler.game.games.snowstorm.util.SnowStormMath;
+import net.h4bbo.kepler.game.pathfinder.Position;
+import net.h4bbo.kepler.server.netty.streams.NettyResponse;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;

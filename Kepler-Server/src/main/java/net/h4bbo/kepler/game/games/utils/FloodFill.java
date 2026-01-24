@@ -1,13 +1,13 @@
-package org.alexdev.kepler.game.games.utils;
+package net.h4bbo.kepler.game.games.utils;
 
-import org.alexdev.kepler.game.games.Game;
-import org.alexdev.kepler.game.games.battleball.BattleBallGame;
-import org.alexdev.kepler.game.games.battleball.BattleBallTile;
-import org.alexdev.kepler.game.games.battleball.enums.BattleBallColourState;
-import org.alexdev.kepler.game.games.battleball.enums.BattleBallTileState;
-import org.alexdev.kepler.game.games.player.GamePlayer;
-import org.alexdev.kepler.game.pathfinder.Pathfinder;
-import org.alexdev.kepler.game.pathfinder.Position;
+import net.h4bbo.kepler.game.games.Game;
+import net.h4bbo.kepler.game.games.battleball.BattleBallGame;
+import net.h4bbo.kepler.game.games.battleball.BattleBallTile;
+import net.h4bbo.kepler.game.games.battleball.enums.BattleBallColourState;
+import net.h4bbo.kepler.game.games.battleball.enums.BattleBallTileState;
+import net.h4bbo.kepler.game.games.player.GamePlayer;
+import net.h4bbo.kepler.game.pathfinder.Pathfinder;
+import net.h4bbo.kepler.game.pathfinder.Position;
 
 import java.util.*;
 

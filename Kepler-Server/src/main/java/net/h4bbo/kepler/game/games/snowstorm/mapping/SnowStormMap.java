@@ -1,6 +1,6 @@
-package org.alexdev.kepler.game.games.snowstorm.mapping;
+package net.h4bbo.kepler.game.games.snowstorm.mapping;
 
-import org.alexdev.kepler.game.pathfinder.Position;
+import net.h4bbo.kepler.game.pathfinder.Position;
 
 import java.util.ArrayList;
 import java.util.regex.Pattern;

@@ -1,10 +1,10 @@
-package org.alexdev.kepler.game.games.player;
+package net.h4bbo.kepler.game.games.player;
 
-import org.alexdev.kepler.game.games.Game;
-import org.alexdev.kepler.game.games.GameManager;
-import org.alexdev.kepler.game.games.GameObject;
-import org.alexdev.kepler.game.pathfinder.Position;
-import org.alexdev.kepler.game.player.Player;
+import net.h4bbo.kepler.game.games.Game;
+import net.h4bbo.kepler.game.games.GameManager;
+import net.h4bbo.kepler.game.games.GameObject;
+import net.h4bbo.kepler.game.pathfinder.Position;
+import net.h4bbo.kepler.game.player.Player;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

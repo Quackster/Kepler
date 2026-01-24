@@ -1,13 +1,13 @@
-package org.alexdev.kepler.messages.outgoing.games;
+package net.h4bbo.kepler.messages.outgoing.games;
 
-import org.alexdev.kepler.game.games.Game;
-import org.alexdev.kepler.game.games.GameEvent;
-import org.alexdev.kepler.game.games.GameObject;
-import org.alexdev.kepler.game.games.battleball.BattleBallTile;
-import org.alexdev.kepler.game.games.enums.GameType;
-import org.alexdev.kepler.game.games.player.GameTeam;
-import org.alexdev.kepler.messages.types.MessageComposer;
-import org.alexdev.kepler.server.netty.streams.NettyResponse;
+import net.h4bbo.kepler.game.games.Game;
+import net.h4bbo.kepler.game.games.GameEvent;
+import net.h4bbo.kepler.game.games.GameObject;
+import net.h4bbo.kepler.game.games.battleball.BattleBallTile;
+import net.h4bbo.kepler.game.games.enums.GameType;
+import net.h4bbo.kepler.game.games.player.GameTeam;
+import net.h4bbo.kepler.messages.types.MessageComposer;
+import net.h4bbo.kepler.server.netty.streams.NettyResponse;
 
 import java.util.Collection;
 import java.util.List;

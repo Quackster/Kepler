@@ -1,12 +1,12 @@
-package org.alexdev.kepler.game.games.snowstorm.objects;
+package net.h4bbo.kepler.game.games.snowstorm.objects;
 
-import org.alexdev.kepler.game.games.enums.GameObjectType;
-import org.alexdev.kepler.game.games.player.GamePlayer;
-import org.alexdev.kepler.game.games.snowstorm.SnowStormGame;
-import org.alexdev.kepler.game.games.snowstorm.util.SnowStormConstants;
-import org.alexdev.kepler.game.games.snowstorm.util.SnowStormItemProperties;
-import org.alexdev.kepler.game.games.snowstorm.util.SnowStormMath;
-import org.alexdev.kepler.server.netty.streams.NettyResponse;
+import net.h4bbo.kepler.game.games.enums.GameObjectType;
+import net.h4bbo.kepler.game.games.player.GamePlayer;
+import net.h4bbo.kepler.game.games.snowstorm.SnowStormGame;
+import net.h4bbo.kepler.game.games.snowstorm.util.SnowStormConstants;
+import net.h4bbo.kepler.game.games.snowstorm.util.SnowStormItemProperties;
+import net.h4bbo.kepler.game.games.snowstorm.util.SnowStormMath;
+import net.h4bbo.kepler.server.netty.streams.NettyResponse;
 
 import java.util.ArrayList;
 import java.util.List;

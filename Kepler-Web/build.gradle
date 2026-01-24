@@ -2,8 +2,7 @@ apply plugin: 'java'
 apply plugin: 'application'
 
 java {
-    sourceCompatibility = JavaVersion.toVersion("1.17")
-    targetCompatibility = JavaVersion.toVersion("1.17")
+    toolchain { languageVersion = JavaLanguageVersion.of(24) }
 }
 
 mainClassName = 'net.h4bbo.http.kepler.KeplerWeb'
@@ -63,7 +62,7 @@ task fatJar(type: Jar) {
     manifest {
         attributes 'Main-Class': mainClassName
     }
-    baseName = project.name + '-all'
+    archiveBaseName = project.name + '-all'
     from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
 }

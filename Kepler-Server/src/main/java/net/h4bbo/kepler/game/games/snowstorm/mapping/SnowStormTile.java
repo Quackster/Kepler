@@ -1,6 +1,6 @@
-package org.alexdev.kepler.game.games.snowstorm.mapping;
+package net.h4bbo.kepler.game.games.snowstorm.mapping;
 
-import org.alexdev.kepler.game.games.snowstorm.util.SnowballTrajectory;
+import net.h4bbo.kepler.game.games.snowstorm.util.SnowballTrajectory;
 
 import java.util.Comparator;
 import java.util.List;

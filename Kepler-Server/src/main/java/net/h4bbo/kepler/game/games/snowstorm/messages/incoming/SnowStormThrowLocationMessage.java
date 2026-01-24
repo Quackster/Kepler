@@ -1,16 +1,16 @@
-package org.alexdev.kepler.game.games.snowstorm.messages.incoming;
+package net.h4bbo.kepler.game.games.snowstorm.messages.incoming;
 
-import org.alexdev.kepler.game.games.player.GamePlayer;
-import org.alexdev.kepler.game.games.snowstorm.SnowStormGame;
-import org.alexdev.kepler.game.games.snowstorm.SnowStormPlayers;
-import org.alexdev.kepler.game.games.snowstorm.objects.SnowStormAvatarObject;
-import org.alexdev.kepler.game.games.snowstorm.events.SnowStormLaunchSnowballEvent;
-import org.alexdev.kepler.game.games.snowstorm.events.SnowStormThrowEvent;
-import org.alexdev.kepler.game.games.snowstorm.objects.SnowStormSnowballObject;
-import org.alexdev.kepler.game.games.snowstorm.util.SnowStormConstants;
-import org.alexdev.kepler.game.games.snowstorm.util.SnowStormMessage;
-import org.alexdev.kepler.game.games.snowstorm.util.SnowStormMath;
-import org.alexdev.kepler.server.netty.streams.NettyRequest;
+import net.h4bbo.kepler.game.games.player.GamePlayer;
+import net.h4bbo.kepler.game.games.snowstorm.SnowStormGame;
+import net.h4bbo.kepler.game.games.snowstorm.SnowStormPlayers;
+import net.h4bbo.kepler.game.games.snowstorm.objects.SnowStormAvatarObject;
+import net.h4bbo.kepler.game.games.snowstorm.events.SnowStormLaunchSnowballEvent;
+import net.h4bbo.kepler.game.games.snowstorm.events.SnowStormThrowEvent;
+import net.h4bbo.kepler.game.games.snowstorm.objects.SnowStormSnowballObject;
+import net.h4bbo.kepler.game.games.snowstorm.util.SnowStormConstants;
+import net.h4bbo.kepler.game.games.snowstorm.util.SnowStormMessage;
+import net.h4bbo.kepler.game.games.snowstorm.util.SnowStormMath;
+import net.h4bbo.kepler.server.netty.streams.NettyRequest;
 
 public class SnowStormThrowLocationMessage implements SnowStormMessage {
     @Override
