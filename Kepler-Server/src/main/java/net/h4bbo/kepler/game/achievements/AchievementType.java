@@ -19,7 +19,7 @@ public enum AchievementType {
     ACHIEVEMENT_LOGIN("ACH_Login", new AchievementLogin(), true),
     // ACHIEVEMENT_ALL_TIME_HOTEL_PRESENCE("ACH_AllTimeHotelPresence", new AchievementAllTimeHotelPresence(), true),
     ACHIEVEMENT_GAME_PLAYED("ACH_GamePlayed", new AchievementGamePlayed(), true),
-    ACHIEVEMENT_GUIDE("GL", new AchievementGuide(), false),
+    // ACHIEVEMENT_GUIDE("GL", new AchievementGuide(), false),
     ACHIEVEMENT_STUDENT("ACH_Student", new AchievementStudent(), true),
     ACHIEVEMENT_EMAIL_VERIFICATION("ACH_EmailVerification", new AchievementEmailVerification(), true);
 

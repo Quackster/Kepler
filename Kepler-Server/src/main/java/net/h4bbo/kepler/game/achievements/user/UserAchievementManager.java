@@ -173,9 +173,8 @@ public class UserAchievementManager {
         // AchievementManager.getInstance().tryProgress(AchievementType.ACHIEVEMENT_MGM, player);
         AchievementManager.getInstance().tryProgress(AchievementType.ACHIEVEMENT_REGISTRATION_DURATION, player);
         AchievementManager.getInstance().tryProgress(AchievementType.ACHIEVEMENT_HC, player);
-        AchievementManager.getInstance().tryProgress(AchievementType.ACHIEVEMENT_GUIDE, player);
+        // AchievementManager.getInstance().tryProgress(AchievementType.ACHIEVEMENT_GUIDE, player);
         // AchievementManager.getInstance().tryProgress(AchievementType.ACHIEVEMENT_ALL_TIME_HOTEL_PRESENCE, player);
-        AchievementManager.getInstance().tryProgress(AchievementType.ACHIEVEMENT_GUIDE, player);
         // AchievementManager.getInstance().tryProgress(AchievementType.ACHIEVEMENT_TRADERPASS, player);
         AchievementManager.getInstance().tryProgress(AchievementType.ACHIEVEMENT_EMAIL_VERIFICATION, player);
 
