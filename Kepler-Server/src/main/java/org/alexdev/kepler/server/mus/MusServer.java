@@ -21,7 +21,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class MusServer {
     final private static int BACK_LOG = 20;
-    final private static int BUFFER_SIZE = 2048;
+    final private static int BUFFER_SIZE = 8192;
     final private static Logger log = LoggerFactory.getLogger(MusServer.class);
 
     private final String ip;
