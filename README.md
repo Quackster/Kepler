@@ -41,7 +41,7 @@ Download the latest development build from the [releases page](https://github.co
 
 To be honest, this server doesn't require much. I'd argue that the MariaDB server is more resource demanding than the emulator itself. 
 
-- JDK >= 17
+- JDK >= 25
 - MariaDB server
 
 # Installation
@@ -50,7 +50,7 @@ Install MariaDB server, connect to the database server and import Kepler.sql (lo
 
 Download the latest development build from the [releases page](https://github.com/Quackster/Kepler/releases) and rename the files to remove the short build hash version, for convenience. 
 
-Install any JDK version that is equal or above >= 17 to run the jar files.
+Install any JDK version that is equal or above >= 25 to run the jar files.
 
 Open run.sh (Linux) or run.bat (Windows) to start Kepler.
 

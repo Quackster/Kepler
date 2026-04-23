@@ -35,10 +35,10 @@ public class GameScheduler implements Runnable {
 
     private GameScheduler() {
         this.schedulerService = createNewScheduler();
-        this.gameScheduler = this.schedulerService.scheduleAtFixedRate(this, 0, 1, TimeUnit.SECONDS);
         this.creditsHandoutQueue = new LinkedBlockingQueue<>();
         this.itemSavingQueue = new LinkedBlockingDeque<>();
         this.itemDeletionQueue = new LinkedBlockingDeque<>();
+        this.gameScheduler = this.schedulerService.scheduleAtFixedRate(this, 0, 1, TimeUnit.SECONDS);
     }
 
     /* (non-Javadoc)

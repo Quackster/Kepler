@@ -8,3 +8,7 @@ LICENSE.txt
 README.md
 .github
 .vscode
+.gradle/
+build/
+Kepler-Server/build/
+Kepler-Server/.gradle/
