@@ -5,6 +5,8 @@ The server is written in Java and using various libraries, such as Netty, an asy
 
 It is quite possibly the most complete v14 Habbo Hotel released to date, and has been in development since January 2018.
 
+### This project is _discontinued_ and is no longer in active development. Pull requests are always welcome however.
+
 # Screenshots
 
 (Hotel view)
