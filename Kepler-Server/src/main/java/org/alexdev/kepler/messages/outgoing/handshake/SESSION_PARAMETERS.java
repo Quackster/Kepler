@@ -5,7 +5,7 @@ import org.alexdev.kepler.messages.types.MessageComposer;
 import org.alexdev.kepler.server.netty.streams.NettyResponse;
 import org.alexdev.kepler.util.config.GameConfiguration;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class SESSION_PARAMETERS extends MessageComposer {
@@ -60,8 +60,9 @@ public class SESSION_PARAMETERS extends MessageComposer {
 
     @Override
     public void compose(NettyResponse response) {
-        Map<SessionParamType, String> parameters = new HashMap<>();
+        Map<SessionParamType, String> parameters = new LinkedHashMap<>();
 
+        parameters.put(SessionParamType.REGISTER_COPPA, "0");
         parameters.put(SessionParamType.VOUCHER_ENABLED, GameConfiguration.getInstance().getBoolean("vouchers.enabled") ? "1" : "0"); // conf_voucher. Determines if vouchers are enabled in the client (in-game)
         parameters.put(SessionParamType.REGISTER_REQUIRE_PARENT_EMAIL, "0"); // conf_parent_email_request. I think this is to switch parent email on/off
         parameters.put(SessionParamType.REGISTER_SEND_PARENT_EMAIL, "0"); // conf_parent_email_request_reregistration. ???
