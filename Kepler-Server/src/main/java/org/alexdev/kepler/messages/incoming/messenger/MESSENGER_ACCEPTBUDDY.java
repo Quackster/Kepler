@@ -18,8 +18,12 @@ import java.util.List;
 public class MESSENGER_ACCEPTBUDDY implements MessageEvent {
     @Override
     public void handle(Player player, NettyRequest reader) {
-        int userId = reader.readInt();
-        acceptBuddy(player, userId);
+        int amount = reader.readInt();
+
+        for (int i = 0; i < amount; i++) {
+            int userId = reader.readInt();
+            acceptBuddy(player, userId);
+        }
     }
 
     private void acceptBuddy(Player player, int userId) {
@@ -28,14 +32,25 @@ public class MESSENGER_ACCEPTBUDDY implements MessageEvent {
 
         if (newBuddy == null) {
             MessengerError error = new MessengerError(MessengerErrorType.FRIEND_REQUEST_NOT_FOUND);
-            error.setCauser(newBuddy);
+            error.setCauser(player.getMessenger().getMessengerUser());
             errors.add(error);
+            player.send(new BUDDY_REQUEST_RESULT(errors));
+            return;
+        }
+
+        if (player.getMessenger().hasFriend(userId)) {
+            player.getMessenger().declineRequest(newBuddy);
+            player.send(new BUDDY_REQUEST_RESULT(errors));
+            return;
         }
 
         Messenger newBuddyData = PlayerManager.getInstance().getMessengerData(userId);
 
         if (newBuddyData == null) {
-            // log warning
+            MessengerError error = new MessengerError(MessengerErrorType.FRIEND_REQUEST_NOT_FOUND);
+            error.setCauser(player.getMessenger().getMessengerUser());
+            errors.add(error);
+            player.send(new BUDDY_REQUEST_RESULT(errors));
             return;
         } else if (player.getMessenger().isFriendsLimitReached()) {
             MessengerError error = new MessengerError(MessengerErrorType.FRIENDLIST_FULL);
@@ -52,6 +67,11 @@ public class MESSENGER_ACCEPTBUDDY implements MessageEvent {
             error.setCauser(newBuddy);
 
             errors.add(error);
+        }
+
+        if (!errors.isEmpty()) {
+            player.send(new BUDDY_REQUEST_RESULT(errors));
+            return;
         }
 
         player.getMessenger().addFriend(newBuddy);
